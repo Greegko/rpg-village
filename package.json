@@ -1,0 +1,25 @@
+{
+  "name": "@greegko/rpg-village",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:watch:integration": "tsc-watch --onSuccess 'node ./integration.test.js'",
+    "build": "npm run build:clear && npm run build:src",
+    "build:src": "tsc",
+    "build:clear": "rm -dR ./dist"
+  },
+  "dependencies": {
+    "@greegko/rpg-model": "0.*",
+    "inversify": "4.11.1",
+    "ramda": "^0.24.1",
+    "shortid": "2.2.8",
+    "reflect-metadata": "0.1.12"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.24.13",
+    "tsc-watch": "^1.0.17",
+    "typescript": "2.8.1"
+  },
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js"
+}
