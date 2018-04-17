@@ -3,20 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test:watch:integration": "tsc-watch --onSuccess 'node ./integration.test.js'",
+    "test:integration": "ts-node ./integration.test.ts",
+    "test:integration:watch": "tsc-watch --onSuccess 'npm run test:integration'",
     "build": "npm run build:clear && npm run build:src",
     "build:src": "tsc",
     "build:clear": "rm -dR ./dist"
   },
   "dependencies": {
-    "@greegko/rpg-model": "0.*",
+    "@greegko/rpg-model": "1.0.0",
     "inversify": "4.11.1",
     "ramda": "^0.24.1",
-    "shortid": "2.2.8",
-    "reflect-metadata": "0.1.12"
+    "reflect-metadata": "0.1.12",
+    "shortid": "2.2.8"
   },
   "devDependencies": {
+    "@types/node": "^9.6.5",
     "@types/ramda": "^0.24.13",
+    "ts-node": "^5.0.1",
     "tsc-watch": "^1.0.17",
     "typescript": "2.8.1"
   },

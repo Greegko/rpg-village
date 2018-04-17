@@ -1,1 +1,1 @@
-import {  } from '@greegko/rpg-model';
+export * from './modules';
