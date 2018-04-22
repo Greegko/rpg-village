@@ -1,8 +1,9 @@
 import { inject, injectable } from 'inversify';
-import { Turn, EventSystem, Location, LocationID, LocationType } from '@greegko/rpg-model';
+import { Turn, EventSystem, LocationID } from '@greegko/rpg-model';
 import { WorldStore } from './world-store';
 import { WorldEvents } from './world-events';
 import { generate } from 'shortid';
+import { MapLocationType, MapLocation } from './interfaces';
 
 @injectable()
 export class WorldMap {
@@ -11,6 +12,12 @@ export class WorldMap {
     @inject('WorldStore') private worldStore: WorldStore,
     @inject('EventSystem') private eventSystem: EventSystem
   ){ }
+
+  createLocation(x: number, y: number, explored: boolean, type: MapLocationType): LocationID {
+    const locationId = generate();
+    this.worldStore.addLocation({ x, y, explored, type, id: locationId });
+    return locationId;
+  }
 
   getDistance(locationAId: LocationID, locationBId: LocationID): Turn {
     const locationA = this.worldStore.getLocation(locationAId);
@@ -35,7 +42,7 @@ export class WorldMap {
     }
   }
 
-  private _getUnexploredLocationsNextToLocation(locations: Location[], location: Location): Location[] {
+  private _getUnexploredLocationsNextToLocation(locations: MapLocation[], location: MapLocation): MapLocation[] {
     const nx = (x) => x - location.x;
     const ny = (y) => y - location.y;
 
@@ -54,11 +61,11 @@ export class WorldMap {
     );
 
     return emptyPositions.map(
-      position => this.locationFactory(LocationType.Field, position[0] + location.x, position[1] + location.y)
+      position => this.locationFactory(MapLocationType.Field, position[0] + location.x, position[1] + location.y)
     );
   }
 
-  private locationFactory(type: LocationType, x: number, y: number): Location {
+  private locationFactory(type: MapLocationType, x: number, y: number): MapLocation {
     return { id: generate(), type, explored: false, x, y };
   }
 

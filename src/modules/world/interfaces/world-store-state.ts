@@ -1,2 +1,2 @@
-import { Location } from '@greegko/rpg-model';
-export type WorldStoreState = { locations: Location[] };
+import { MapLocation } from './map-location';
+export type WorldStoreState = { locations: MapLocation[] };

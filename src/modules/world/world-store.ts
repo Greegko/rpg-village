@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
-import { LocationID, Location, Store } from '@greegko/rpg-model';
+import { LocationID, Store } from '@greegko/rpg-model';
 import { append, findIndex, find, update, propEq, assoc } from 'ramda';
-import { WorldStoreState } from './interfaces';
+import { WorldStoreState, MapLocation } from './interfaces';
 
 const WorldStoreStateInit: WorldStoreState = { locations: [] };
 
@@ -18,19 +18,15 @@ export class WorldStore implements Store<WorldStoreState> {
     return this._state;
   }
 
-  getLocation(locationId: LocationID): Location {
+  getLocation(locationId: LocationID): MapLocation {
     return find(propEq('id', locationId), this._state.locations);
   }
 
-  getCenterLocation(): Location {
-    return this._state.locations[0];
-  }
-
-  getLocations(): Location[] {
+  getLocations(): MapLocation[] {
     return this._state.locations;
   }
 
-  addLocation(location: Location) {
+  addLocation(location: MapLocation) {
     const newLocations = append(location, this._state.locations);
     this._state = assoc('locations', newLocations, this._state);
   }
@@ -39,7 +35,7 @@ export class WorldStore implements Store<WorldStoreState> {
     this._updateLocation({ ...this.getLocation(locationId), explored: true });
   }
 
-  private _updateLocation(location: Location) {
+  private _updateLocation(location: MapLocation) {
     const locationIndex = findIndex(propEq('id', location.id), this._state.locations);
     const newLocations = update(locationIndex, location, this._state.locations);
 
