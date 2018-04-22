@@ -2,6 +2,7 @@ import { inject, injectable } from 'inversify';
 import { Turn, EventSystem, Location, LocationID, LocationType } from '@greegko/rpg-model';
 import { WorldStore } from './world-store';
 import { WorldEvents } from './world-events';
+import { generate } from 'shortid';
 
 @injectable()
 export class WorldMap {
@@ -53,7 +54,12 @@ export class WorldMap {
     );
 
     return emptyPositions.map(
-      position => locationFactory(LocationType.Field, position[0] + location.x, position[1] + location.y)
+      position => this.locationFactory(LocationType.Field, position[0] + location.x, position[1] + location.y)
     );
   }
+
+  private locationFactory(type: LocationType, x: number, y: number): Location {
+    return { id: generate(), type, explored: false, x, y };
+  }
+
 }

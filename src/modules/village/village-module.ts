@@ -2,8 +2,8 @@ import { Module } from "@greegko/rpg-model";
 import { VillageStore } from "./village-store";
 import { VillageEventHandler } from "./village-event-handler";
 import { Village } from "./village";
-import { VillageResource } from "./village-resource";
 import { StashLootActivity, VillageHealActivity } from "./activities";
+import { VillageStash } from "./village-stash";
 
 export const villageModule: Module = {
   eventHandlers: [{ eventHandler: VillageEventHandler }],
@@ -12,5 +12,5 @@ export const villageModule: Module = {
     { type: 'village-heal', activity: VillageHealActivity }
   ],
   stores: [{ scope: 'village', store: VillageStore }],
-  provides: [VillageResource, Village]
+  provides: [Village, VillageStash]
 };

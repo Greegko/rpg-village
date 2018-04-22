@@ -1,17 +1,17 @@
 import { injectable, inject } from 'inversify';
-import { newBuildingCost, newHeroCost, calculateSellItemPrice } from './lib';
-import { HeroService, UnitStore, PartyService, PartyOwner, LocationID, ItemID, Item, Resource } from '@greegko/rpg-model';
+import { newBuildingCost, newHeroCost, calculateSellItemPrice, heroFactory } from './lib';
+import { HeroService, PartyService, PartyOwner, LocationID, ItemID, Item } from '@greegko/rpg-model';
 import { WorldStore } from '../world';
 import { VillageStore } from './village-store';
-import { VillageResource } from './village-resource';
+import { VillageStash } from './village-stash';
+import { Resource } from '../../models';
 
 @injectable()
 export class Village {
 
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
-    @inject('VillageResource') private villageResource: VillageResource,
-    @inject('UnitStore') private unitStore: UnitStore,
+    @inject('VillageStash') private villageStash: VillageStash,
     @inject('PartyService') private partyService: PartyService,
     @inject('HeroService') private heroService: HeroService,
     @inject('WorldStore') private worldStore: WorldStore,
@@ -22,42 +22,41 @@ export class Village {
   }
 
   buildHouse() {
-    const goldCost = newBuildingCost(1 + this.villageStore.Houses);
+    const goldCost = newBuildingCost(1 + this.villageStore.getNumberOfHouses());
 
-    if(this.villageStore.Gold >= goldCost){
+    if(this.villageStash.getResource().gold >= goldCost){
       this.villageStore.addHouse();
-      this.villageResource.removeResource({ gold: goldCost });
+      this.villageStash.removeResource({ gold: goldCost });
     }
   }
 
   generateGold() {
-    this.villageResource.addResource({ gold: 5 });
+    this.villageStash.addResource({ gold: 5 });
   }
 
   hireHero() {
     const herocount = this.heroService.getNumberOfHeroes();
     const goldCost = newHeroCost(1 + herocount);
 
-    if(this.villageStore.Gold >= goldCost && herocount < this.villageStore.Houses){
-      const hero = heroFactory();
+    if(this.villageStash.getResource().gold >= goldCost && herocount < this.villageStore.getNumberOfHouses()){
+      const heroId = this.heroService.createHero(heroFactory());
 
-      this.partyService.createParty({ locationId: this.getVillageLocation(), unitIds: [hero.id], owner: PartyOwner.Player });
-      this.unitStore.addUnit(hero);
-      this.villageResource.removeResource({ gold: goldCost });
+      this.partyService.createParty({ locationId: this.getVillageLocation(), unitIds: [heroId], owner: PartyOwner.Player });
+      this.villageStash.removeResource({ gold: goldCost });
     }
   }
 
   stashResource(resource: Resource) {
-    this.villageResource.addResource(resource);
+    this.villageStash.addResource(resource);
   }
 
   stashItems(items: Item[]) {
-    this.villageStore.addItemsToStash(items);
+    this.villageStash.addItemsToStash(items);
   }
 
   sellItem(itemId: ItemID) {
-    const item = this.villageStore.takeItemFromStash(itemId);
-    this.villageResource.addResource(calculateSellItemPrice(item));
+    const item = this.villageStash.takeItemFromStash(itemId);
+    this.villageStash.addResource(calculateSellItemPrice(item));
   }
 
 }

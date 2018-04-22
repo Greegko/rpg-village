@@ -1,18 +1,15 @@
-import { Hero, UnitType } from '@greegko/rpg-model';
-import { sample } from './sample';
-import { generate } from 'shortid';
+import { HeroProperties } from '@greegko/rpg-model';
+import { sample } from '../../../lib/sample';
 
 const lastname = ['Emperor', 'Monk', 'Lord', 'Prince', 'Chancellor', 'Earl', 'Yeoman', 'Landgrave', 'King', 'Queen', 'Princess', 'Consort', 'Duchess', 'Grand', 'Peasant', 'Maiden', 'Dame', 'Reeve'];
 const male = ['Bernar', 'Bruiant', 'Reginald', 'Wilcock', 'Oggery', 'Louve', 'Jeremimum', 'Helie', 'Tibald', 'Otebon'];
 const female = ['Maalot', 'Tillote', 'Sarey', 'Jossy', 'Susanna', 'Missa', 'Aleneite', 'Iseldis', 'Sapphira', 'Crystina'];
 
-export function heroFactory(): Hero {
+export function heroFactory(): HeroProperties {
   const firstNames = Math.random() > 0.5 ? male : female;
 
   return {
-    id: generate(),
     level: 1,
-    type: UnitType.Hero,
     name: sample(lastname) +" "+ sample(firstNames),
     hp: 100,
     maxhp: 100,

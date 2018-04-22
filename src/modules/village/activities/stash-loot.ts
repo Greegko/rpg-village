@@ -1,7 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, LocationID, IActivityTaskHandler, ActivityTask } from '@greegko/rpg-model';
+import { PartyService, PartyID, LocationID, IActivityTaskHandler, ActivityTask, StashResource, StashItems } from '@greegko/rpg-model';
 import { TravelActivity } from '../../world/activites';
 import { Village } from '../../village';
+import { Resource } from '../../../models';
 
 export type StashLootState = {
   village: LocationID;
@@ -14,6 +15,8 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
   
   constructor(
     @inject('PartyService') private partyService: PartyService,
+    @inject('StashResource') private stashResource: StashResource<Resource>,
+    @inject('StashItems') private stashItems: StashItems,
     @inject('TravelActivity') private travelActivity: TravelActivity,
     @inject('Village') private village: Village,
   ){ }
@@ -49,8 +52,9 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
   }
 
   resolve({ state, partyId }: ActivityTask<StashLootState>) {
-    const resource = this.partyService.takeAllResource(partyId);
-    const items = this.partyService.takeAllItem(partyId);
+    const stashId = this.partyService.getParty(partyId).stash;
+    const items = this.stashItems.takeAllItems(stashId);
+    const resource = this.stashResource.takeAllResource(stashId);
 
     this.village.stashResource(resource);
     this.village.stashItems(items);
