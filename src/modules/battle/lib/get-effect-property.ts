@@ -1,4 +1,4 @@
-import { Effect, heroEffectPropertyMap } from '@greegko/rpg-model';
+import { Effect, heroEffectPropertyMap } from '../../../models';
 import { BattleStats } from '../interfaces';
 
 export function getEffectProperty(effect: Effect): keyof BattleStats {

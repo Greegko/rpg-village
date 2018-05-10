@@ -1,5 +1,4 @@
-import { Item } from '@greegko/rpg-model';
-import { Resource } from '../../../models';
+import { Resource, Item } from '../../../models';
 
 export function calculateSellItemPrice(item: Item): Resource {
   return {

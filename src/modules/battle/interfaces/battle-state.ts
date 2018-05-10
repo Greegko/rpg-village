@@ -1,4 +1,4 @@
-import { Entity } from '@greegko/rpg-model';
+import { Entity } from '../../../models';
 import { BattleParty } from './battle-party';
 
 export interface BattleState {

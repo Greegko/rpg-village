@@ -1,8 +1,10 @@
 import { injectable, inject } from 'inversify';
+import { PartyService, PartyID, UnitStore } from '@greegko/rpg-model';
+import { Entity, Unit } from '../../models';
+import { EffectService } from '../skill';
 import { Battle } from './battle';
 import { BattleID } from './interfaces';
 import { BattleStore } from './battle-store';
-import { Entity, EffectService, PartyService, PartyID, UnitStore } from '@greegko/rpg-model';
 import { forEachObjIndexed } from 'ramda';
 
 @injectable()
@@ -52,8 +54,8 @@ export class BattleService {
     return this._battleCaches[battleId];
   }
 
-  private _getPartyUnits(partyId: PartyID) {
-    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.getUnit(unitId));
+  private _getPartyUnits(partyId: PartyID): Unit[] {
+    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.getUnit(unitId) as Unit);
   }
 
 }

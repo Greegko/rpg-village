@@ -1,6 +1,7 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, LocationID, IActivityTaskHandler, ActivityTask, StashResource, StashItems } from '@greegko/rpg-model';
+import { PartyService, PartyID, LocationID, IActivityTaskHandler, ActivityTask } from '@greegko/rpg-model';
 import { TravelActivity } from '../../world/activites';
+import { StashResource, StashItems } from '../../stash';
 import { Resource } from '../../../models';
 import { VillageStore } from '../village-store';
 

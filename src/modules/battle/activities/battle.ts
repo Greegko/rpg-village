@@ -1,7 +1,8 @@
 import { inject, injectable } from 'inversify';
-import { UnitStore, isAlive, Unit, IActivityTaskHandler, ActivityTask, HeroService, isHero, PartyService, PartyID } from '@greegko/rpg-model';
+import { UnitStore, isAlive, IActivityTaskHandler, ActivityTask, HeroService, isHero, PartyService, PartyID } from '@greegko/rpg-model';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
+import { Unit } from '../../../models';
 import { sum, all, complement, prop, any } from 'ramda';
 
 export type BattleState = { enemyPartyId: PartyID, battleId: BattleID };
@@ -52,7 +53,7 @@ export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, Bat
   }
 
   private _getPartyUnits(partyId: PartyID): Unit[] {
-    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.getUnit(unitId));
+    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.getUnit(unitId) as Unit);
   }
 
   private _anyUnitAliveInParty(partyId: PartyID) {

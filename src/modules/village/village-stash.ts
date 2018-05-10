@@ -1,8 +1,9 @@
 import { injectable, inject } from 'inversify';
 import { VillageStore } from './village-store';
-import { StashResource, StashItems, Item, ItemID } from '@greegko/rpg-model';
+import { ItemID } from '@greegko/rpg-model';
 import { where, map, lt } from 'ramda';
-import { Resource } from '../../models';
+import { StashItems, StashResource } from '../stash';
+import { Resource, Item } from '../../models';
 
 @injectable()
 export class VillageStash {
@@ -42,5 +43,4 @@ export class VillageStash {
   takeItemFromStash(itemId: ItemID): Item {
     return this.stashItems.takeItem(this.villageLocation, itemId);
   }
-
 }

@@ -1,4 +1,4 @@
-import { HeroProperties } from '@greegko/rpg-model';
+import { HeroProperties } from '../../../models';
 import { sample } from '../../../lib/sample';
 
 const lastname = ['Emperor', 'Monk', 'Lord', 'Prince', 'Chancellor', 'Earl', 'Yeoman', 'Landgrave', 'King', 'Queen', 'Princess', 'Consort', 'Duchess', 'Grand', 'Peasant', 'Maiden', 'Dame', 'Reeve'];

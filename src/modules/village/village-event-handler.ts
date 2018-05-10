@@ -1,11 +1,11 @@
 import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, calculateSellItemPrice, heroFactory } from './lib';
-import { HeroService, PartyService, PartyOwner, ItemID, Item, StashService, EventSystem, GameEvents } from '@greegko/rpg-model';
+import { HeroService, PartyService, PartyOwner, ItemID, StashService, EventSystem, GameEvents } from '@greegko/rpg-model';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';
 import { VillageStore } from './village-store';
 import { VillageStash } from './village-stash';
-import { Resource } from '../../models';
+import { Resource, Item } from '../../models';
 import { VillageEvents } from './interfaces';
 
 @injectable()

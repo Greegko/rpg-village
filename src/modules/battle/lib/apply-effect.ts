@@ -1,4 +1,4 @@
-import { Effect } from '@greegko/rpg-model';
+import { Effect } from '../../../models';
 import { BattleStats } from '../interfaces';
 import { getEffectProperty } from './get-effect-property';
 

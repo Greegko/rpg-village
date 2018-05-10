@@ -1,5 +1,7 @@
 import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from 'ramda';
-import { Effect, Entity, isAlive, UnitID, Unit, EffectService, isPartyEffect } from '@greegko/rpg-model';
+import { isAlive, UnitID } from '@greegko/rpg-model';
+import { EffectService, isPartyEffect } from '../skill';
+import { Effect, Entity, Unit } from '../../models';
 import { BattleStats, BattleParty, BattleUnit, BattleState } from './interfaces';
 import { calculateBattleStats } from './lib';
 import { sample } from '../../lib';

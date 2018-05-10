@@ -1,5 +1,5 @@
 import { sortBy, prop, reduce } from 'ramda';
-import { Effect } from '@greegko/rpg-model';
+import { Effect } from '../../../models';
 import { BattleStats } from '../interfaces';
 import { applyEffect } from './apply-effect';
 
