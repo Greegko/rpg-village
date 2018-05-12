@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { PartyService, PartyID, UnitStore } from '@greegko/rpg-model';
-import { Entity, Unit } from '../../models';
+import { Entity, Unit, Party } from '../../models';
 import { EffectService } from '../skill';
 import { Battle } from './battle';
 import { BattleID } from './interfaces';
@@ -14,7 +14,7 @@ export class BattleService {
 
   constructor(
     @inject('BattleStore') private battleStore: BattleStore,
-    @inject('PartyService') private partyService: PartyService,
+    @inject('PartyService') private partyService: PartyService<Party>,
     @inject('UnitStore') private unitStore: UnitStore,
     @inject('EffectService') private effectService: EffectService
   ){ }

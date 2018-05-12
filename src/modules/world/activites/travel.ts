@@ -1,21 +1,25 @@
 import { injectable, inject } from 'inversify';
-import { LocationID, IActivityTaskHandler, ActivityTask, PartyService, PartyID } from '@greegko/rpg-model';
+import { IActivityTaskHandler, ActivityTask, PartyService, PartyID } from '@greegko/rpg-model';
 import { WorldMap } from '../world-map';
+import { Party } from '../../../models';
+import { MapLocationID } from '../interfaces';
+import { PartyLocationService } from '../../party';
 
 export type TravelState = {
-  destination: LocationID;
+  destination: MapLocationID;
   progress: number;
 };
 
 export type TravelStartArgs = {
-  destination: LocationID;
+  destination: MapLocationID;
 };
 
 @injectable()
 export class TravelActivity implements IActivityTaskHandler<TravelStartArgs, TravelState> {
   
   constructor(
-    @inject('PartyService') private partyService: PartyService,
+    @inject('PartyService') private partyService: PartyService<Party>,
+    @inject('PartyLocationService') private partyLocationService: PartyLocationService,
     @inject('WorldMap') private worldMap: WorldMap
   ){}
 
@@ -51,7 +55,7 @@ export class TravelActivity implements IActivityTaskHandler<TravelStartArgs, Tra
   }
 
   resolve(activity: ActivityTask<TravelState>) {
-    this.partyService.updateLocation(activity.partyId, activity.state.destination);
+    this.partyLocationService.updateLocation(activity.partyId, activity.state.destination);
   }
 
 }

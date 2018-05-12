@@ -1,7 +1,10 @@
-import { Location } from "@greegko/rpg-model";
-
+export type MapLocationID = string;
 export enum MapLocationType { Village, Field, Desert, Mountain, Mine };
 
-export interface MapLocation extends Location {
+export type MapLocation = {
+  id: MapLocationID;
   type: MapLocationType;
+  explored: boolean;
+  x: number;
+  y: number;
 } 

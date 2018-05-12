@@ -1,17 +1,18 @@
 import { injectable, inject } from 'inversify';
 import { WorldMap } from '../world-map';
 import { WorldStore } from '../world-store';
-import { LocationID, PartyID, ActivityTask, IActivityTaskHandler } from '@greegko/rpg-model';
+import { PartyID, ActivityTask, IActivityTaskHandler } from '@greegko/rpg-model';
 import { TravelActivity } from './travel';
 import { ExploreBattleActivity } from './explore-battle';
+import { MapLocationID } from '../interfaces';
 
 export type ExploreState = {
   progress: number;
-  locationId: LocationID;
+  locationId: MapLocationID;
 };
 
 export type ExploreStartArgs = {
-  locationId: LocationID;
+  locationId: MapLocationID;
 };
 
 @injectable()

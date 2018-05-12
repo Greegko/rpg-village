@@ -5,7 +5,7 @@ import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';
 import { VillageStore } from './village-store';
 import { VillageStash } from './village-stash';
-import { Resource, Item } from '../../models';
+import { Resource, Item, Party } from '../../models';
 import { VillageEvents } from './interfaces';
 
 @injectable()
@@ -14,7 +14,7 @@ export class VillageEventHandler {
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
     @inject('VillageStash') private villageStash: VillageStash,
-    @inject('PartyService') private partyService: PartyService,
+    @inject('PartyService') private partyService: PartyService<Party>,
     @inject('HeroService') private heroService: HeroService,
     @inject('StashService') private stashService: StashService,
     @inject('WorldMap') private worldMap: WorldMap

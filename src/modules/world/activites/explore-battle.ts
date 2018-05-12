@@ -1,9 +1,11 @@
 import { injectable, inject } from 'inversify';
-import { LocationID, IActivityTaskHandler, ActivityTask, PartyService, PartyID, PartyOwner } from '@greegko/rpg-model';
+import { IActivityTaskHandler, ActivityTask, PartyID, PartyOwner } from '@greegko/rpg-model';
 import { BattleActivity } from '../../battle/activities';
+import { MapLocationID } from '../interfaces';
+import { PartyLocationService } from '../../party';
 
 export type ExploreBattleState = {
-  locationId: LocationID;
+  locationId: MapLocationID;
 };
 
 export type ExploreBattleStartArgs = ExploreBattleState;
@@ -12,7 +14,7 @@ export type ExploreBattleStartArgs = ExploreBattleState;
 export class ExploreBattleActivity implements IActivityTaskHandler<ExploreBattleStartArgs, ExploreBattleState> {
 
   constructor(
-    @inject('PartyService') private partyService: PartyService,
+    @inject('PartyLocationService') private partyLocationService: PartyLocationService,
     @inject('BattleActivity') private battleActivity: BattleActivity
   ){ }
 
@@ -27,13 +29,13 @@ export class ExploreBattleActivity implements IActivityTaskHandler<ExploreBattle
   }
 
   isRunnable(partyId: PartyID, { locationId }: Partial<ExploreBattleStartArgs>): boolean {
-    const parties = this.partyService.getPartiesOnLocation(locationId);
+    const parties = this.partyLocationService.getPartiesOnLocation(locationId);
     const hostileParty = parties.find(party => party.owner !== PartyOwner.Player);
     return hostileParty !== undefined;
   }
 
   getSubTask({ state, partyId }: ActivityTask<ExploreBattleState>): ActivityTask<any> {
-    const parties = this.partyService.getPartiesOnLocation(state.locationId);
+    const parties = this.partyLocationService.getPartiesOnLocation(state.locationId);
     const hostileParty = parties.find(party => party.owner !== PartyOwner.Player);
 
     if (this.battleActivity.isRunnable(partyId, { enemyPartyId: hostileParty.id })) {

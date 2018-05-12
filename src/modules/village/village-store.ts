@@ -1,7 +1,8 @@
 import { injectable } from 'inversify';
 import { evolve, inc, assoc } from 'ramda';
 import { VillageStoreState } from './interfaces';
-import { LocationID, StashID } from '@greegko/rpg-model';
+import { StashID } from '@greegko/rpg-model';
+import { MapLocationID } from '../world/interfaces'; 
 
 const VillageStoreStateInit: VillageStoreState = { houses: 0, stash: undefined, locationId: undefined };
 
@@ -21,7 +22,7 @@ export class VillageStore {
     return this._state;
   }
 
-  assignLocation(locationId: LocationID) { 
+  assignLocation(locationId: MapLocationID) { 
     this._state = assoc('locationId', locationId, this._state);
   }
 

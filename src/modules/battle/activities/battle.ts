@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { UnitStore, isAlive, IActivityTaskHandler, ActivityTask, HeroService, isHero, PartyService, PartyID } from '@greegko/rpg-model';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
-import { Unit } from '../../../models';
+import { Unit, Party } from '../../../models';
 import { sum, all, complement, prop, any } from 'ramda';
 
 export type BattleState = { enemyPartyId: PartyID, battleId: BattleID };
@@ -13,7 +13,7 @@ export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, Bat
 
   constructor(
     @inject('UnitStore') private unitStore: UnitStore,
-    @inject('PartyService') private partyService: PartyService,
+    @inject('PartyService') private partyService: PartyService<Party>,
     @inject('HeroService') private heroService: HeroService,
     @inject('BattleService') private battleService: BattleService
   ){}
