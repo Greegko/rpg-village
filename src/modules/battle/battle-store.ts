@@ -28,7 +28,7 @@ export class BattleStore {
     return battleState.id;
   }
 
-  removeBattle(battleId: BattleID) {
+  removeBattle(battleId: BattleID): void {
     const index = findIndex(propEq('id', battleId), this._state);
     this._state = remove(index, 1, this._state);
   }

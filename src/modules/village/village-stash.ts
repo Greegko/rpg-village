@@ -4,6 +4,7 @@ import { ItemID } from '@greegko/rpg-model';
 import { where, map, lt } from 'ramda';
 import { StashItems, StashResource } from '../stash';
 import { Resource, Item } from '../../models';
+import { MapLocationID } from '../world/interfaces';
 
 @injectable()
 export class VillageStash {
@@ -14,15 +15,15 @@ export class VillageStash {
     @inject('StashItems') private stashItems: StashItems,
   ){ }
 
-  get villageLocation() {
+  get villageLocation(): MapLocationID {
     return this.villageStore.getState().locationId;
   }
 
-  addResource(resource: Resource) {
+  addResource(resource: Resource): void {
     this.stashResource.addResource(this.villageLocation, resource);
   }
 
-  removeResource(resource: Resource) {
+  removeResource(resource: Resource): void {
     this.stashResource.removeResource(this.villageLocation, resource);
   }
 

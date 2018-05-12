@@ -23,7 +23,7 @@ export class StashItems {
     return items;
   }
 
-  addItems(stashId: StashID, items: Item[]) {
+  addItems(stashId: StashID, items: Item[]): void {
     const newStash = evolve({
       items: concat(items)
     }, this.stashStore.getStash(stashId));

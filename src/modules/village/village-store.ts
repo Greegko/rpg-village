@@ -10,27 +10,27 @@ const VillageStoreStateInit: VillageStoreState = { houses: 0, stash: undefined, 
 export class VillageStore {
   private _state: VillageStoreState = VillageStoreStateInit;
 
-  init(state: VillageStoreState){
+  init(state: VillageStoreState): void {
     this._state = state;
   }
 
-  getNumberOfHouses() {
+  getNumberOfHouses(): number {
     return this._state.houses;
   }
 
-  getState() {
+  getState(): VillageStoreState {
     return this._state;
   }
 
-  assignLocation(locationId: MapLocationID) { 
+  assignLocation(locationId: MapLocationID): void { 
     this._state = assoc('locationId', locationId, this._state);
   }
 
-  assignStash(stashId: StashID) { 
+  assignStash(stashId: StashID): void { 
     this._state = assoc('stashId', stashId, this._state);
   }
 
-  addHouse() {
+  addHouse(): void {
     this._state = evolve({ houses: inc }, this._state);
   }
 

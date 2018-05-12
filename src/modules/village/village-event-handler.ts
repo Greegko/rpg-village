@@ -29,14 +29,14 @@ export class VillageEventHandler {
   }
 
 
-  createVillage() {
+  createVillage(): void {
     const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
     const stashId = this.stashService.createStash();
     this.villageStore.assignStash(stashId);
     this.villageStore.assignLocation(locationId);
   }
 
-  buildHouse() {
+  buildHouse(): void {
     const goldCost = newBuildingCost(1 + this.villageStore.getNumberOfHouses());
 
     if(this.villageStash.getResource().gold >= goldCost){
@@ -45,11 +45,11 @@ export class VillageEventHandler {
     }
   }
 
-  generateGold() {
+  generateGold(): void {
     this.villageStash.addResource({ gold: 5 });
   }
 
-  hireHero() {
+  hireHero(): void {
     const herocount = this.heroService.getNumberOfHeroes();
     const goldCost = newHeroCost(1 + herocount);
 
@@ -61,15 +61,15 @@ export class VillageEventHandler {
     }
   }
 
-  stashResource(resource: Resource) {
+  stashResource(resource: Resource): void {
     this.villageStash.addResource(resource);
   }
 
-  stashItems(items: Item[]) {
+  stashItems(items: Item[]): void {
     this.villageStash.addItemsToStash(items);
   }
 
-  sellItem(itemId: ItemID) {
+  sellItem(itemId: ItemID): void {
     const item = this.villageStash.takeItemFromStash(itemId);
     this.villageStash.addResource(calculateSellItemPrice(item));
   }

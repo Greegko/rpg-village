@@ -30,7 +30,7 @@ export class WorldMap {
     return this.worldStore.getLocations().filter(x => !x.explored).map(x => x.id);
   }
 
-  exploreLocation(locationId: MapLocationID){
+  exploreLocation(locationId: MapLocationID): void {
     this.worldStore.exploreLocation(locationId);
 
     const location = this.worldStore.getLocation(locationId);

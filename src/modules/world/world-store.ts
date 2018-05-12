@@ -26,16 +26,16 @@ export class WorldStore implements Store<WorldStoreState> {
     return this._state.locations;
   }
 
-  addLocation(location: MapLocation) {
+  addLocation(location: MapLocation): void {
     const newLocations = append(location, this._state.locations);
     this._state = assoc('locations', newLocations, this._state);
   }
 
-  exploreLocation(locationId: MapLocationID) {
+  exploreLocation(locationId: MapLocationID): void {
     this._updateLocation({ ...this.getLocation(locationId), explored: true });
   }
 
-  private _updateLocation(location: MapLocation) {
+  private _updateLocation(location: MapLocation): void {
     const locationIndex = findIndex(propEq('id', location.id), this._state.locations);
     const newLocations = update(locationIndex, location, this._state.locations);
 

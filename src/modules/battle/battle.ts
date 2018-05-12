@@ -74,11 +74,11 @@ export class Battle {
     return { unitId: unit.id, battleStats: this._getBattleStats(unit, party.effects) };
   }
 
-  private _handleAttack(attacker: BattleUnit, defender: BattleUnit) {
-    return this._dmgUnit(this._battleState.units[defender.unitId], attacker.battleStats.dmg);
+  private _handleAttack(attacker: BattleUnit, defender: BattleUnit): void {
+    this._dmgUnit(this._battleState.units[defender.unitId], attacker.battleStats.dmg);
   }
 
-  private _dmgUnit(unit: Unit, dmg: number) {
+  private _dmgUnit(unit: Unit, dmg: number): void {
     unit.hp = Math.max(0, unit.hp - dmg);
   }
 

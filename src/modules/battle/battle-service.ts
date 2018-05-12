@@ -27,17 +27,17 @@ export class BattleService {
     return this._getBattle(battleId).isDone();
   }
 
-  turnBattle(battleId: BattleID) {
+  turnBattle(battleId: BattleID): void {
     const battleState = this._getBattle(battleId).turn();
     forEachObjIndexed(unit => this._updateUnit(unit), battleState.units);
   }
 
-  removeBattle(battleId: BattleID) {
+  removeBattle(battleId: BattleID): void {
     this.battleStore.removeBattle(battleId);
     delete this._battleCaches[battleId];
   }
 
-  private _updateUnit(unit: Entity) {
+  private _updateUnit(unit: Entity): void {
     this.unitStore.updateUnit(unit.id, { hp: unit.hp });
   }
 

@@ -17,12 +17,12 @@ export class StashResource<Resource> {
     return resource;
   }
 
-  addResource(stashId: StashID, resource: Partial<Resource>) {
+  addResource(stashId: StashID, resource: Partial<Resource>): void {
     const stash = this.stashStore.getStash(stashId);
     this.stashStore.updateStash(stashId, mergeWith(add, resource, stash));
   }
 
-  removeResource(stashId: StashID, resource: Partial<Resource>) {
+  removeResource(stashId: StashID, resource: Partial<Resource>): void {
     const stash = this.stashStore.getStash(stashId);
     this.stashStore.updateStash(stashId, mergeWith(subtract, resource, stash));
   }
