@@ -1,8 +1,8 @@
 import { createGameInstance, GameState } from '@greegko/rpg-model';
-import { playerModule, villageModule, worldModule, battleModule, skillModule, stashModule, partyModule, buildingsModule } from './dist'; 
+import { playerModule, villageModule, worldModule, battleModule, skillModule, stashModule, partyModule, buildingsModule, heroModule } from './dist'; 
 
 const game = createGameInstance<GameState>({
-  modules: [playerModule, worldModule, villageModule, skillModule, battleModule, partyModule, stashModule, buildingsModule]
+  modules: [playerModule, worldModule, villageModule, skillModule, battleModule, partyModule, stashModule, buildingsModule, heroModule]
 });
 
 const newState = game.gameTurn();

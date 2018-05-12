@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
-import { UnitStore, isAlive, IActivityTaskHandler, ActivityTask, HeroService, isHero, PartyService, PartyID } from '@greegko/rpg-model';
+import { UnitStore, isAlive, IActivityTaskHandler, ActivityTask, isHero, PartyService, PartyID } from '@greegko/rpg-model';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
-import { Unit, Party } from '../../../models';
+import { Unit, Party, HeroService } from '../../../models';
 import { sum, all, complement, prop, any } from 'ramda';
 
 export type BattleState = { enemyPartyId: PartyID, battleId: BattleID };
