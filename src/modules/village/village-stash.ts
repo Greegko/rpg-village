@@ -1,9 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { VillageStore } from './village-store';
 import { ItemID } from '@greegko/rpg-model';
-import { where, map, lt } from 'ramda';
-import { StashItems, StashResource } from '../stash';
-import { Resource, Item } from '../../models';
+import { VillageStore } from './village-store';
+import { StashItems } from '../stash';
+import { Item } from '../../models';
 import { MapLocationID } from '../world/interfaces';
 
 @injectable()
@@ -11,30 +10,11 @@ export class VillageStash {
 
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
-    @inject('StashResource') private stashResource: StashResource<Resource>,
     @inject('StashItems') private stashItems: StashItems,
   ){ }
 
   get villageLocation(): MapLocationID {
     return this.villageStore.getState().locationId;
-  }
-
-  addResource(resource: Resource): void {
-    this.stashResource.addResource(this.villageLocation, resource);
-  }
-
-  removeResource(resource: Resource): void {
-    this.stashResource.removeResource(this.villageLocation, resource);
-  }
-
-  getResource(): Resource {
-    return this.stashResource.getResource(this.villageLocation);
-  }
-
-  isEnoughResource(resource: Resource): boolean {
-    const storeResource = this.getResource();
-    const resourceObjCheck = map((x: number) => lt(x), resource);
-    return where(resourceObjCheck, storeResource);
   }
 
   addItemsToStash(items: Item[]) {
