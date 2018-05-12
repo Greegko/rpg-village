@@ -1,3 +1,3 @@
 export * from './item';
-export * from './equipment';
+export * from './hero-equipment';
 export * from './base-item';
