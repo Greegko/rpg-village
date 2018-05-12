@@ -1,11 +1,11 @@
 import { Event } from '@greegko/rpg-model';
 
 export enum VillageEvents {
-  BuildHouse = 'village.buildHouse',
-  GenerateGold = 'village.generateGold',
-  HireHero = 'village.hireHero'
+  BuildHouse = 'village/build-house',
+  GenerateGold = 'village/generate-gold',
+  HireHero = 'village/hire-hero'
 };
 
-export interface GenerateGoldEvent extends Event { event: 'village.generateGold' };
-export interface BuildHouseEvent extends Event { event: 'village.buildHouse' };
-export interface HireHeroEvent extends Event { event: 'village.hireHero' };
+export interface GenerateGoldEvent extends Event { event: VillageEvents.GenerateGold };
+export interface BuildHouseEvent extends Event { event: VillageEvents.BuildHouse };
+export interface HireHeroEvent extends Event { event: VillageEvents.HireHero };
