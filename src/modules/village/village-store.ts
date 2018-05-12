@@ -4,7 +4,7 @@ import { VillageStoreState } from './interfaces';
 import { StashID } from '@greegko/rpg-model';
 import { MapLocationID } from '../world/interfaces'; 
 
-const VillageStoreStateInit: VillageStoreState = { houses: 0, stash: undefined, locationId: undefined };
+const VillageStoreStateInit: VillageStoreState = { houses: 0, stashId: undefined, locationId: undefined };
 
 @injectable()
 export class VillageStore {

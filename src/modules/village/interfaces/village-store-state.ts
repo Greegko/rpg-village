@@ -3,6 +3,6 @@ import { MapLocationID } from "../../world/interfaces";
 
 export interface VillageStoreState {
   houses: number;
-  stash: StashID;
+  stashId: StashID;
   locationId: MapLocationID;
 }

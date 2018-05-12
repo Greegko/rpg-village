@@ -54,7 +54,7 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
   }
 
   resolve({ state, partyId }: ActivityTask<StashLootState>) {
-    const villageStashId = this.villageStore.getState().stash;
+    const villageStashId = this.villageStore.getState().stashId;
     const partyStashId = this.partyService.getParty(partyId).stashId;
     
     const resource = this.stashResource.takeAllResource(partyStashId);
