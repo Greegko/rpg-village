@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { EventSystem, StashID, ItemID } from '@greegko/rpg-model';
-import { BlacksmithEvents, UpgradeItemArgs } from './interfaces';
+import { BlacksmithEvents, UpgradeItemEventArgs } from './blacksmith-events';
 
 @injectable()
 export class BlacksmithEventHandler {
@@ -8,7 +8,7 @@ export class BlacksmithEventHandler {
   constructor() {}
 
   init(eventSystem: EventSystem) {
-    eventSystem.on(BlacksmithEvents.UpgradeItem, (args: UpgradeItemArgs) => this.upgradeItem(args.stashId, args.itemId));
+    eventSystem.on(BlacksmithEvents.UpgradeItem, (args: UpgradeItemEventArgs) => this.upgradeItem(args.stashId, args.itemId));
   }
 
   upgradeItem(stashId: StashID, itemId: ItemID) {

@@ -1,2 +1,2 @@
-export * from './blacksmith-events';
+export * from './blacksmith';
 export * from './buildings-module';
