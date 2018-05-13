@@ -5,6 +5,7 @@ import { MapLocationID } from '../../world/interfaces';
 import { StashResource, StashItems } from '../../stash';
 import { Resource, Party } from '../../../models';
 import { VillageStore } from '../village-store';
+import { PlayerStash } from '../../player';
 
 export type StashLootState = {
   village: MapLocationID;
@@ -18,6 +19,7 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
   constructor(
     @inject('PartyService') private partyService: PartyService<Party>,
     @inject('StashResource') private stashResource: StashResource<Resource>,
+    @inject('PlayerStash') private playerStash: PlayerStash,
     @inject('StashItems') private stashItems: StashItems,
     @inject('TravelActivity') private travelActivity: TravelActivity,
     @inject('VillageStore') private villageStore: VillageStore,
@@ -58,7 +60,7 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
     const partyStashId = this.partyService.getParty(partyId).stashId;
     
     const resource = this.stashResource.takeAllResource(partyStashId);
-    this.stashResource.addResource(villageStashId, resource);
+    this.playerStash.addResource(resource);
     
     const items = this.stashItems.takeAllItems(partyStashId);
     this.stashItems.addItems(villageStashId, items);
