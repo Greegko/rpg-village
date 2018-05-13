@@ -26,7 +26,7 @@ export class PlayerStash {
 
   isEnoughResource(resource: Resource): boolean {
     const storeResource = this.getResource();
-    const resourceObjCheck = map((x: number) => lt(x), resource);
+    const resourceObjCheck = map(lt, resource);
     return where(resourceObjCheck, storeResource);
   }
 }
