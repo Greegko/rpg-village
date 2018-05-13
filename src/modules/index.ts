@@ -7,3 +7,4 @@ export * from './stash';
 export * from './player';
 export * from './hero';
 export * from './buildings';
+export * from './config';
