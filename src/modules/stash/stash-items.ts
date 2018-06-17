@@ -7,6 +7,14 @@ import { concat, evolve, path, reject, propEq, find, pipe } from 'ramda';
 export class StashItems {
   constructor(@inject('StashStore') private stashStore: StashStore<{ items: Item[] }>) {}
 
+  getItem(stashId: StashID, itemId: ItemID): Item {
+    const stash = this.stashStore.getStash(stashId);
+    return pipe(
+      path([stashId, 'items']),
+      find(propEq('id', itemId))
+    )(stash);
+  }
+
   getItems(stashId: StashID): Item[] {
     return path([stashId, 'items'], this.stashStore.getStash(stashId));
   }
@@ -33,10 +41,7 @@ export class StashItems {
 
   takeItem(stashId: StashID, itemId: ItemID): Item {
     const stash = this.stashStore.getStash(stashId);
-    const item = pipe(
-      path([stashId, 'items']),
-      find(propEq('id', itemId))
-    )(stash);
+    const item = this.getItem(stashId, itemId);
 
     const newStash = evolve({
       items: reject(propEq('id', itemId))
