@@ -1,1 +1,1 @@
-export * from './player-store-state';
+export * from './player-state';

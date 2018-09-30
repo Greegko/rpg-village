@@ -1,10 +1,8 @@
-import { UnitBase, UnitBaseProperties } from '@greegko/rpg-model';
+import { UnitBase } from '@greegko/rpg-model';
 import { SkillID } from '../modules';
 
-export type UnitProperties = UnitBaseProperties & {
+export type Unit = {
   skillIds: SkillID[];
   dmg: number;
   armor: number;
-};
-
-export type Unit = UnitProperties & UnitBase;
+} & UnitBase;

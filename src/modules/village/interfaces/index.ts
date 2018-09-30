@@ -1,2 +1,2 @@
-export * from './village-store-state';
+export * from './village-state';
 export * from './village-events';

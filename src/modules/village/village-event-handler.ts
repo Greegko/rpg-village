@@ -33,8 +33,8 @@ export class VillageEventHandler {
   createVillage(): void {
     const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
     const stashId = this.stashService.createStash();
-    this.villageStore.assignStash(stashId);
-    this.villageStore.assignLocation(locationId);
+    this.villageStore.set('stashId', stashId);
+    this.villageStore.set('locationId', locationId);
   }
 
   buildHouse(): void {

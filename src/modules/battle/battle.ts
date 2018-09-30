@@ -1,17 +1,16 @@
 import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from 'ramda';
-import { isAlive, UnitID } from '@greegko/rpg-model';
+import { isAlive, UnitID, sample, WithID } from '@greegko/rpg-model';
 import { EffectService, isPartyEffect } from '../skill';
 import { Effect, Entity, Unit } from '../../models';
 import { BattleStats, BattleParty, BattleUnit, BattleState } from './interfaces';
 import { calculateBattleStats } from './lib';
-import { sample } from '../../lib';
 
 export class Battle {
 
   private _battleState: BattleState;
   private _effectService: EffectService;
 
-  constructor(effectService: EffectService, party: Unit[], enemyParty: Unit[]) {
+  constructor(effectService: EffectService, party: WithID<Unit>[], enemyParty: WithID<Unit>[]) {
     this._battleState = this._createStartBattleState(party, enemyParty);
     this._effectService = effectService;
   }
@@ -29,7 +28,7 @@ export class Battle {
            areAllDead(this._getPartyUnits(this._battleState.enemyParty));
   }
 
-  private _createStartBattleState(partyUnits: Unit[], enemyPartyUnits: Unit[]): BattleState {
+  private _createStartBattleState(partyUnits: WithID<Unit>[], enemyPartyUnits: WithID<Unit>[]): BattleState {
     return {
       party: this._calculateParty(partyUnits),
       enemyParty: this._calculateParty(enemyPartyUnits),

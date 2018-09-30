@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify';
 import { IActivityTaskHandler, ActivityTask, UnitService, UnitID, PartyService, PartyID } from '@greegko/rpg-model';
 import { filter, forEach, map } from 'ramda';
 import { TravelActivity } from '../../world/activites';
-import { Party } from '../../../models';
+import { Party, Unit } from '../../../models';
 import { MapLocationID } from '../../world/interfaces';
 
 export type VillageHealState = {
@@ -16,7 +16,7 @@ export type RecoverableUnit = { id: UnitID, hp: number, maxhp: number };
 export class VillageHealActivity implements IActivityTaskHandler<VillageHealStateArgs, VillageHealState> {
 
   constructor(
-    @inject('UnitService') private unitService: UnitService,
+    @inject('UnitService') private unitService: UnitService<Unit>,
     @inject('PartyService') private partyService: PartyService<Party>,
     @inject('TravelActivity') private travelActivity: TravelActivity,
   ){ }

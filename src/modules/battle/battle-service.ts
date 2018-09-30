@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, UnitStore } from '@greegko/rpg-model';
+import { PartyService, PartyID, UnitStore, WithID } from '@greegko/rpg-model';
 import { Entity, Unit, Party } from '../../models';
 import { EffectService } from '../skill';
 import { Battle } from './battle';
@@ -15,12 +15,12 @@ export class BattleService {
   constructor(
     @inject('BattleStore') private battleStore: BattleStore,
     @inject('PartyService') private partyService: PartyService<Party>,
-    @inject('UnitStore') private unitStore: UnitStore,
+    @inject('UnitStore') private unitStore: UnitStore<Unit>,
     @inject('EffectService') private effectService: EffectService
   ){ }
 
   startBattle(partyId: PartyID, enemyPartyId: PartyID): BattleID {
-    return this.battleStore.addBattle({ partyId, enemyPartyId });
+    return this.battleStore.add({ partyId, enemyPartyId }).id;
   }
 
   isDoneBattle(battleId: BattleID): boolean {
@@ -33,17 +33,17 @@ export class BattleService {
   }
 
   removeBattle(battleId: BattleID): void {
-    this.battleStore.removeBattle(battleId);
+    this.battleStore.remove(battleId);
     delete this._battleCaches[battleId];
   }
 
-  private _updateUnit(unit: Entity): void {
-    this.unitStore.updateUnit(unit.id, { hp: unit.hp });
+  private _updateUnit(unit: WithID<Entity>): void {
+    this.unitStore.update(unit.id, { hp: unit.hp });
   }
 
   private _getBattle(battleId: BattleID): Battle {
     if (!this._battleCaches[battleId]) {
-      const battleState = this.battleStore.getBattle(battleId);
+      const battleState = this.battleStore.get(battleId);
       this._battleCaches[battleId] = new Battle(
         this.effectService,
         this._getPartyUnits(battleState.partyId),
@@ -54,8 +54,8 @@ export class BattleService {
     return this._battleCaches[battleId];
   }
 
-  private _getPartyUnits(partyId: PartyID): Unit[] {
-    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.getUnit(unitId) as Unit);
+  private _getPartyUnits(partyId: PartyID): WithID<Unit>[] {
+    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
 
 }

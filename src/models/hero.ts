@@ -1,9 +1,5 @@
-import { HeroBase, HeroBaseProperties } from '@greegko/rpg-model';
-import { UnitProperties } from './unit';
+import { HeroBase } from '@greegko/rpg-model';
 import { HeroEquipment } from './item';
+import { Unit } from './unit';
 
-export type HeroProperties = HeroBaseProperties & UnitProperties & {
-  equipment: HeroEquipment; 
-};
-
-export type Hero = HeroProperties & HeroBase;
+export type Hero = { equipment: HeroEquipment } & Unit & HeroBase;

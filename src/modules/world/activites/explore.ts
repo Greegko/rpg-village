@@ -37,7 +37,7 @@ export class ExploreActivity implements IActivityTaskHandler<ExploreStartArgs, E
   }
 
   isRunnable(partyId: PartyID, { locationId }: ExploreStartArgs): boolean {
-    const exploreLocation = this.worldStore.getLocation(locationId);
+    const exploreLocation = this.worldStore.get(locationId);
     return !exploreLocation.explored;
   }
 

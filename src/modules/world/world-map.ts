@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify';
 import { Turn, EventSystem } from '@greegko/rpg-model';
 import { WorldStore } from './world-store';
 import { WorldEvents } from './world-events';
-import { generate } from 'shortid';
 import { MapLocationType, MapLocation, MapLocationID } from './interfaces';
+import { values } from 'ramda'; 
 
 @injectable()
 export class WorldMap {
@@ -14,30 +14,28 @@ export class WorldMap {
   ){ }
 
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocationID {
-    const locationId = generate();
-    this.worldStore.addLocation({ x, y, explored, type, id: locationId });
-    return locationId;
+    return this.worldStore.add({ x, y, explored, type }).id;
   }
 
   getDistance(locationAId: MapLocationID, locationBId: MapLocationID): Turn {
-    const locationA = this.worldStore.getLocation(locationAId);
-    const locationB = this.worldStore.getLocation(locationBId);
+    const locationA = this.worldStore.get(locationAId);
+    const locationB = this.worldStore.get(locationBId);
 
     return Math.abs(locationA.x - locationB.x) * 5 + Math.abs(locationA.y - locationB.y) * 5;
   }
 
   getExplorableLocations(): MapLocationID[] {
-    return this.worldStore.getLocations().filter(x => !x.explored).map(x => x.id);
+    return values(this.worldStore.getState()).filter(x => !x.explored).map(x => x.id);
   }
 
   exploreLocation(locationId: MapLocationID): void {
     this.worldStore.exploreLocation(locationId);
 
-    const location = this.worldStore.getLocation(locationId);
+    const location = this.worldStore.get(locationId);
 
-    const newUnexploredLocations = this._getUnexploredLocationsNextToLocation(this.worldStore.getLocations(), location);
+    const newUnexploredLocations = this._getUnexploredLocationsNextToLocation(values(this.worldStore.getState()), location);
     for(const unexploredLocation of newUnexploredLocations){
-      this.worldStore.addLocation(unexploredLocation);
+      this.worldStore.add(unexploredLocation);
       this.eventSystem.fire(WorldEvents.NewLocation, { location: unexploredLocation });
     }
   }
@@ -66,7 +64,7 @@ export class WorldMap {
   }
 
   private locationFactory(type: MapLocationType, x: number, y: number): MapLocation {
-    return { id: generate(), type, explored: false, x, y };
+    return { type, explored: false, x, y };
   }
 
 }

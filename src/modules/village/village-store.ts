@@ -1,37 +1,14 @@
 import { injectable } from 'inversify';
-import { evolve, inc, assoc } from 'ramda';
-import { VillageStoreState } from './interfaces';
-import { StashID } from '@greegko/rpg-model';
-import { MapLocationID } from '../world/interfaces'; 
-
-const VillageStoreStateInit: VillageStoreState = { houses: 0, stashId: undefined, locationId: undefined };
+import { VillageState } from './interfaces';
+import { ObjectStore } from '@greegko/rpg-model';
 
 @injectable()
-export class VillageStore {
-  private _state: VillageStoreState = VillageStoreStateInit;
-
-  init(state: VillageStoreState): void {
-    this._state = state;
+export class VillageStore extends ObjectStore<VillageState> {
+  addHouse() {
+    this.set('houses', this.getNumberOfHouses() + 1);
   }
-
+  
   getNumberOfHouses(): number {
-    return this._state.houses;
+    return this.get('houses') as number;
   }
-
-  getState(): VillageStoreState {
-    return this._state;
-  }
-
-  assignLocation(locationId: MapLocationID): void { 
-    this._state = assoc('locationId', locationId, this._state);
-  }
-
-  assignStash(stashId: StashID): void { 
-    this._state = assoc('stashId', stashId, this._state);
-  }
-
-  addHouse(): void {
-    this._state = evolve({ houses: inc }, this._state);
-  }
-
 }

@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { UnitStore, isAlive, IActivityTaskHandler, ActivityTask, isHero, PartyService, PartyID } from '@greegko/rpg-model';
+import { UnitStore, isAlive, IActivityTaskHandler, ActivityTask, isHero, PartyService, PartyID, WithID } from '@greegko/rpg-model';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
 import { Unit, Party, HeroService } from '../../../models';
@@ -12,7 +12,7 @@ export type BattleStartArgs = { enemyPartyId: PartyID };
 export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, BattleState> {
 
   constructor(
-    @inject('UnitStore') private unitStore: UnitStore,
+    @inject('UnitStore') private unitStore: UnitStore<Unit>,
     @inject('PartyService') private partyService: PartyService<Party>,
     @inject('HeroService') private heroService: HeroService,
     @inject('BattleService') private battleService: BattleService
@@ -52,15 +52,15 @@ export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, Bat
     this._updateParty(activity.state.enemyPartyId, enemyPartyUnits, this._sumDeadUnitsXP(partyUnits));
   }
 
-  private _getPartyUnits(partyId: PartyID): Unit[] {
-    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.getUnit(unitId) as Unit);
+  private _getPartyUnits(partyId: PartyID): WithID<Unit>[] {
+    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
 
   private _anyUnitAliveInParty(partyId: PartyID) {
     return any(isAlive, this._getPartyUnits(partyId));
   }
 
-  private _updateParty(partyId: PartyID, units: Unit[], earnedXP: number) {
+  private _updateParty(partyId: PartyID, units: WithID<Unit>[], earnedXP: number) {
     if (all(complement(isAlive), units)) {
       this.partyService.removeParty(partyId);
       return;

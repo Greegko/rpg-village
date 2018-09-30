@@ -1,4 +1,4 @@
 import { HeroService } from '@greegko/rpg-model';
-import { Hero, HeroProperties } from './hero';
+import { Hero } from './hero';
 
-export type HeroService = HeroService<HeroProperties, Hero>;
+export type HeroService = HeroService<Hero>;

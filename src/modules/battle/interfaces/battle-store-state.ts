@@ -1,10 +1,6 @@
 import { PartyID } from '@greegko/rpg-model';
-import { BattleID } from './battle-id';
 
-export type BattleStoreStateItem = {
-  id: BattleID;
+export type BattleStoreState = {
   partyId: PartyID;
   enemyPartyId: PartyID;
 }
-
-export type BattleStoreState = BattleStoreStateItem[]; 

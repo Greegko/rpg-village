@@ -10,18 +10,17 @@
     "build:clear": "rm -dR ./dist"
   },
   "dependencies": {
-    "@greegko/rpg-model": "1.0.0",
+    "@greegko/rpg-model": "greegko/rpg-model",
     "inversify": "4.11.1",
     "ramda": "^0.24.1",
-    "reflect-metadata": "0.1.12",
-    "shortid": "2.2.8"
+    "reflect-metadata": "0.1.12"
   },
   "devDependencies": {
     "@types/node": "^9.6.5",
     "@types/ramda": "^0.24.13",
-    "ts-node": "^5.0.1",
-    "tsc-watch": "^1.0.17",
-    "typescript": "2.8.1"
+    "ts-node": "7.0.1",
+    "tsc-watch": "^1.0.29",
+    "typescript": "3.1.1"
   },
   "types": "dist/index.d.ts",
   "main": "dist/index.js"
