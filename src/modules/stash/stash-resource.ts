@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
 import { path, mergeWith, add, subtract } from 'ramda';
-import { StashID, StashStore } from "../../../core-src";
+import { StashID, StashStore } from "../stash";
 
 @injectable()
 export class StashResource<Resource extends object> {

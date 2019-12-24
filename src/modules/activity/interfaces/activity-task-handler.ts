@@ -1,5 +1,5 @@
 import { ActivityTask } from './activity-task';
-import { PartyID } from '../../../../core-src';
+import { PartyID } from '../../party';
 
 export interface IActivityTaskHandler<S, T> {
   start(party: PartyID, startArgs: S): ActivityTask<any>;

@@ -1,13 +1,15 @@
 import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, heroFactory } from './lib';
 import { EventSystem } from '../../lib/event-system';
-import { PartyService, PartyOwner, StashService } from "../../../core-src";
+import { PartyService, PartyOwner, Party } from "../party";
+import { StashService } from "../stash";
 import { GameEvents } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';
 import { VillageStore } from './village-store';
 import { VillageStash } from './village-stash';
-import { Resource, Item, Party, HeroService } from '../../models';
+import { Resource, Item } from '../../models';
+import { HeroService } from '../hero';
 import { VillageEvents } from './interfaces';
 import { PlayerStash } from '../player';
 

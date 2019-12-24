@@ -1,4 +1,4 @@
-import { UnitID } from "../../../../core-src";
+import { UnitID } from "../../unit/interfaces";
 import { Effect } from '../../../models';
 
 export interface BattleParty {

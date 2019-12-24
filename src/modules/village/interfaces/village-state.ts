@@ -1,4 +1,4 @@
-import { StashID } from "../../../../core-src";
+import { StashID } from "../../stash/interfaces";
 import { MapLocationID } from "../../world/interfaces";
 
 export interface VillageState {

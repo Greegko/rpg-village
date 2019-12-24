@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"../../core-src../../core-src":
+"partyparty":
   version "1.0.0"
   resolved "https://codeload.github.com/greegko/rpg-model/tar.gz/917203c3fda5227be584e4cfc960ec21b3099916"
   dependencies:

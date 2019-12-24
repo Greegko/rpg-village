@@ -1,5 +1,5 @@
-import { Hero } from '../../../models';
-import { UnitType } from "../../../../core-src";
+import { Hero } from '../../hero';
+import { UnitType } from "../../unit";
 import { sample } from '../../../lib/sample';
 
 

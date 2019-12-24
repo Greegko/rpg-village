@@ -1,5 +1,5 @@
-import { GameState, createGameInstance } from './dist/src';
-import * as modules from './dist/src';
+import { GameState, createGameInstance } from './dist';
+import * as modules from './dist';
 
 const game = createGameInstance<GameState>({
   modules: [

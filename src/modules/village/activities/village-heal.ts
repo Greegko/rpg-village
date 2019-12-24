@@ -1,9 +1,9 @@
 import { injectable, inject } from 'inversify';
-import { UnitService, UnitID, PartyService, PartyID } from "../../../../core-src";
+import { UnitService, UnitID, Unit } from "../../unit";
+import { PartyService, PartyID, Party } from "../../party";
 import { IActivityTaskHandler, ActivityTask } from '../../activity';
 import { filter, forEach, map } from 'ramda';
 import { TravelActivity } from '../../world/activites';
-import { Party, Unit } from '../../../models';
 import { MapLocationID } from '../../world/interfaces';
 
 export type VillageHealState = {

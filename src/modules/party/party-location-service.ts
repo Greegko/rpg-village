@@ -1,6 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { PartyStore, PartyID } from "../../../core-src";
-import { Party, WithID } from '../../models';
+import { PartyID } from "./interfaces";
+import { PartyStore } from "./party-store";
+import { WithID } from '../../models';
+import { Party } from '../party';
 import { filter, propEq, values } from 'ramda';
 import { MapLocationID } from '../world/interfaces';
 

@@ -1,7 +1,8 @@
 import { injectable, inject } from 'inversify';
 import { assocPath, dissocPath, path } from 'ramda';
-import { UnitID, UnitStore } from "../../../core-src";
-import { Item, EquipmentPlace, Hero } from '../../models';
+import { UnitID, UnitStore } from "../unit";
+import { Item, EquipmentPlace } from '../../models';
+import { Hero } from './interfaces';
 
 @injectable()
 export class HeroEquipment {

@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { StashID } from "../../../../core-src";
+import { StashID } from "../../stash";
 import { EventSystem } from "../../../lib/event-system";
 import { BlacksmithEvents, UpgradeItemEventArgs } from './blacksmith-events';
 import { StashItems } from '../../stash';

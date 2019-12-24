@@ -1,9 +1,14 @@
 import { inject, injectable } from 'inversify';
-import { UnitStore, isAlive, isHero, PartyService, PartyID } from "../../../../core-src";
+import { PartyService, PartyID } from "../../party";
+import { isHero } from "../../hero";
+import { UnitStore, isAlive } from "../../unit";
 import { IActivityTaskHandler, ActivityTask } from '../../activity';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
-import { Unit, Party, HeroService, WithID } from '../../../models';
+import { WithID } from '../../../models';
+import { Unit } from '../../unit';
+import { Party } from '../../party';
+import { HeroService } from '../../hero';
 import { sum, all, complement, prop, any } from 'ramda';
 
 export type BattleState = { enemyPartyId: PartyID, battleId: BattleID };

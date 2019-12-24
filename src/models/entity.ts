@@ -1,4 +1,4 @@
-import { Unit } from './unit'; 
-import { Hero } from './hero'; 
+import { Unit } from '../modules/unit/interfaces';
+import { Hero } from '../modules/hero/interfaces';
 
 export type Entity = Unit | Hero;

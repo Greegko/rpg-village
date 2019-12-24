@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { prop, flatten, pathOr, map, chain } from 'ramda';
-import { isHero } from "../../../core-src";
-import { Hero, Entity, Effect } from '../../models';
+import { isHero, Hero } from "../hero";
+import { Entity, Effect } from '../../models';
 import { SkillID, Skill } from './interfaces';
 
 @injectable()

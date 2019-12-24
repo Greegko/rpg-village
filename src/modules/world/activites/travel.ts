@@ -1,10 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID } from '../../../../core-src';
+import { PartyService, PartyID, PartyLocationService, Party } from '../../party';
 import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
 import { WorldMap } from '../world-map';
-import { Party } from '../../../models';
 import { MapLocationID } from '../interfaces';
-import { PartyLocationService } from '../../party';
 
 export type TravelState = {
   destination: MapLocationID;

@@ -1,4 +1,5 @@
-import { UnitID, StashID } from "../../../core-src";
+import { StashID } from "../stash";
+import { UnitID } from "../unit";
 import { EquipmentPlace, ItemID, Event } from '../../models';
 
 export enum HeroEvents {

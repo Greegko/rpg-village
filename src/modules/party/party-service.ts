@@ -9,7 +9,7 @@ export class PartyService<Party extends PartyBase = PartyBase> {
   constructor(
     @inject('PartyStore') private partyStore: PartyStore<Party>,
     @inject('StashService') private stashService: StashService
-  ){ }
+  ) { }
 
   getParty(partyId: PartyID): Party {
     return this.partyStore.get(partyId);

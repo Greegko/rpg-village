@@ -1,4 +1,5 @@
-import { PartyBase, UnitBase } from "../../../../core-src";
+import { PartyBase } from "../../party";
+import { UnitBase } from "../../unit";
 import { AnyActivity } from '../../activity/interfaces';
 import { GeneralGameStoreState } from './general-game-store-state';
 import { WithID } from '../../../models';

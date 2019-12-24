@@ -1,7 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { WorldMap } from '../world-map';
 import { WorldStore } from '../world-store';
-import { PartyID } from '../../../../core-src';
+import { PartyID } from '../../party';
 import { ActivityTask, IActivityTaskHandler } from '../../activity/interfaces';
 import { TravelActivity } from './travel';
 import { ExploreBattleActivity } from './explore-battle';

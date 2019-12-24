@@ -1,10 +1,10 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID } from "../../../../core-src";
+import { PartyService, PartyID, Party } from "../../party";
 import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
 import { TravelActivity } from '../../world/activites';
 import { MapLocationID } from '../../world/interfaces';
 import { StashResource, StashItems } from '../../stash';
-import { Resource, Party } from '../../../models';
+import { Resource } from '../../../models';
 import { VillageStore } from '../village-store';
 import { PlayerStash } from '../../player';
 

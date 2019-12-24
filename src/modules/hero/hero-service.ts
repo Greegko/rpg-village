@@ -3,7 +3,7 @@ import { injectable, inject } from 'inversify';
 import { HeroBase } from './interfaces';
 import { UnitStore, UnitService, UnitID, UnitType } from '../unit';
 import { StashService } from '../stash';
-import { WithID } from '../../../src/models';
+import { WithID } from '../../models';
 
 @injectable()
 export class HeroService<Hero extends HeroBase> {

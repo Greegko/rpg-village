@@ -1,3 +1,5 @@
+import { SkillID } from "../../skill/interfaces";
+
 export type UnitID = string;
 export enum UnitType { Common, Hero };
 export type UnitBase = {
@@ -7,4 +9,10 @@ export type UnitBase = {
   maxhp: number;
   type: UnitType;
 }
+
+export type Unit = {
+  skillIds: SkillID[];
+  dmg: number;
+  armor: number;
+} & UnitBase;
 export type CommonUnit = UnitBase & { type: UnitType.Common };

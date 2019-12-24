@@ -1,4 +1,4 @@
-import { PartyID } from "../../../../core-src";
+import { PartyID } from "../../party";
 
 export type Command = {
   partyId: PartyID;

@@ -1,4 +1,4 @@
-import { StashID } from "../../../../core-src";
+import { StashID } from "../../stash";
 import { ItemID, Event } from '../../../models';
 
 export enum BlacksmithEvents {

@@ -1,3 +1,3 @@
-import { StashID } from "../../../../core-src";
+import { StashID } from "../../stash/interfaces";
 
 export type PlayerState = { stashId: StashID };
