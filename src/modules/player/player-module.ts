@@ -1,4 +1,4 @@
-import { Module } from "@greegko/rpg-model";
+import { Module } from "../../../core-src";
 import { PlayerStore } from "./player-store";
 import { PlayerStash } from "./player-stash";
 

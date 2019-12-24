@@ -1,4 +1,4 @@
-import { Module } from "@greegko/rpg-model";
+import { Module } from "../../../core-src";
 import { HeroEventHandler } from "./hero-eventhandler";
 import { HeroEquipment } from "./hero-equipment";
 

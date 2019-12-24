@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Command } from './interfaces';
-import { WithID } from '@greegko/rpg-model';
+import { WithID } from "../../../core-src";
 import { GetActivityHandlerByTag, ActivityService } from '../activity';
 import { filter, values } from 'ramda';
 import { CommandStore } from './command-store';

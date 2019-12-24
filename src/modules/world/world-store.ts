@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { EntityStore } from '@greegko/rpg-model';
+import { EntityStore } from "../../../core-src";
 import { MapLocation, MapLocationID } from './interfaces';
 
 @injectable()

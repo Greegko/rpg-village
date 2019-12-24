@@ -1,5 +1,5 @@
 import { injectable, inject } from "inversify";
-import { StashStore, StashID } from "@greegko/rpg-model";
+import { StashStore, StashID } from "../../../core-src";
 import { Item, ItemID } from '../../models';
 import { concat, evolve, path, reject, propEq, find, pipe } from 'ramda';
 

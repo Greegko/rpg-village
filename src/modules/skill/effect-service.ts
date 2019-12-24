@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { prop, flatten, pathOr, map, chain } from 'ramda';
-import { isHero } from '@greegko/rpg-model';
+import { isHero } from "../../../core-src";
 import { Hero, Entity, Effect } from '../../models';
 import { SkillID, Skill } from './interfaces';
 
@@ -10,7 +10,7 @@ export class EffectService {
   constructor(@inject('availableSkills') private available_skills: Skill[]) { }
 
   getUnitEffects(unit: Entity): Effect[] {
-    if(isHero(unit)) {
+    if (isHero(unit)) {
       return this.getHeroEffects(unit as Hero);
     }
 
@@ -20,9 +20,9 @@ export class EffectService {
   getHeroEffects(hero: Hero): Effect[] {
     return flatten<any>([
       map(this.getEffectsBySkillId.bind(this), hero.skillIds),
-      pathOr([], ['equipment','rightHand','effects'], hero),
-      pathOr([], ['equipment','leftHand','effects'], hero),
-      pathOr([], ['equipment','torso','effects'], hero)
+      pathOr([], ['equipment', 'rightHand', 'effects'], hero),
+      pathOr([], ['equipment', 'leftHand', 'effects'], hero),
+      pathOr([], ['equipment', 'torso', 'effects'], hero)
     ]);
   }
 

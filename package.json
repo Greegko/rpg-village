@@ -10,7 +10,6 @@
     "build:clear": "rm -dR ./dist"
   },
   "dependencies": {
-    "@greegko/rpg-model": "greegko/rpg-model",
     "inversify": "5.0.1",
     "ramda": "0.24.1",
     "reflect-metadata": "0.1.13"

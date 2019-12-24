@@ -1,4 +1,4 @@
-import { UnitID, Event, StashID } from '@greegko/rpg-model';
+import { UnitID, Event, StashID } from "../../../core-src";
 import { EquipmentPlace, ItemID } from '../../models';
 
 export enum HeroEvents {

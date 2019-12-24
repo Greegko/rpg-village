@@ -1,4 +1,4 @@
-import { Event } from '@greegko/rpg-model';
+import { Event } from "../../../../core-src";
 
 export enum GameEvents {
   TurnEvent = 'game.turn',

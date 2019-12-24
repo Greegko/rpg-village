@@ -1,8 +1,6 @@
-import { PartyBase } from '@greegko/rpg-model';
-import { UnitBase } from '@greegko/rpg-model';
+import { PartyBase, UnitBase, WithID } from "../../../../core-src";
 import { AnyActivity } from '../../activity/interfaces';
 import { GeneralGameStoreState } from './general-game-store-state';
-import { WithID } from '@greegko/rpg-model';
 
 export type GameState = {
   general: GeneralGameStoreState;

@@ -1,4 +1,4 @@
-import { Module } from "@greegko/rpg-model";
+import { Module } from "../../../core-src";
 import { PartyLocationService } from "./party-location-service";
 
 export const partyModule: Module = {

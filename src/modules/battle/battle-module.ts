@@ -1,4 +1,4 @@
-import { Module } from '@greegko/rpg-model';
+import { Module } from '../../../core-src';
 import { BattleService } from "./battle-service";
 import { BattleStore } from "./battle-store";
 import { BattleActivity } from "./activities";

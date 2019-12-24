@@ -1,5 +1,5 @@
 import { Hero } from '../../../models';
-import { UnitType } from '@greegko/rpg-model';
+import { UnitType } from "../../../../core-src";
 import { sample } from '../../../lib/sample';
 
 

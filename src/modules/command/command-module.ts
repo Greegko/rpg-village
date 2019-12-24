@@ -1,4 +1,4 @@
-import { Module } from "@greegko/rpg-model";
+import { Module } from "../../../core-src";
 import { CommandHandler } from "./command-handler";
 import { CommandStore } from "./command-store";
 

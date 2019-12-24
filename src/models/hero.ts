@@ -1,4 +1,4 @@
-import { HeroBase } from '@greegko/rpg-model';
+import { HeroBase } from '../../core-src';
 import { HeroEquipment } from './item';
 import { Unit } from './unit';
 

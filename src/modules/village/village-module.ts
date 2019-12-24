@@ -1,4 +1,4 @@
-import { Module } from "@greegko/rpg-model";
+import { Module } from "../../../core-src";
 import { VillageStore } from "./village-store";
 import { VillageEventHandler } from "./village-event-handler";
 import { StashLootActivity, VillageHealActivity } from "./activities";

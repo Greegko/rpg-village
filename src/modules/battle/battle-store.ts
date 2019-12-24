@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { BattleStoreState, BattleID } from './interfaces';
-import { EntityStore } from '@greegko/rpg-model';
+import { EntityStore } from '../../../core-src';
 
 @injectable()
-export class BattleStore extends EntityStore<BattleStoreState, BattleID> {}
+export class BattleStore extends EntityStore<BattleStoreState, BattleID> { }

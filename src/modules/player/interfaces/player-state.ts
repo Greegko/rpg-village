@@ -1,3 +1,3 @@
-import { StashID } from "@greegko/rpg-model";
+import { StashID } from "../../../../core-src";
 
 export type PlayerState = { stashId: StashID };

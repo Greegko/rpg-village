@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { EventSystem } from '@greegko/rpg-model';
+import { EventSystem } from "../../../core-src";
 import { ActivityHandler } from '../activity';
 import { CommandHandler } from '../command';
 import { GameEvents } from './interfaces';

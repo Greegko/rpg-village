@@ -1,11 +1,11 @@
 import { injectable, inject } from "inversify";
 import { path, mergeWith, add, subtract } from 'ramda';
-import { StashID, StashStore } from "@greegko/rpg-model";
+import { StashID, StashStore } from "../../../core-src";
 
 @injectable()
 export class StashResource<Resource extends object> {
 
-  constructor(@inject('StashStore') private stashStore: StashStore<Resource>) {}
+  constructor(@inject('StashStore') private stashStore: StashStore<Resource>) { }
 
   getResource(stashId: StashID): Resource {
     return path([stashId, 'resource'], this.stashStore.get(stashId));

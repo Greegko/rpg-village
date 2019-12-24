@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { UnitService, UnitID, PartyService, PartyID } from '@greegko/rpg-model';
+import { UnitService, UnitID, PartyService, PartyID } from "../../../../core-src";
 import { IActivityTaskHandler, ActivityTask } from '../../activity';
 import { filter, forEach, map } from 'ramda';
 import { TravelActivity } from '../../world/activites';

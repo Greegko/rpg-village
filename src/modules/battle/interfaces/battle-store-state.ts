@@ -1,4 +1,4 @@
-import { PartyID } from '@greegko/rpg-model';
+import { PartyID } from "../../../../core-src";
 
 export type BattleStoreState = {
   partyId: PartyID;

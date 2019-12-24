@@ -1,4 +1,4 @@
-import { StashID } from "@greegko/rpg-model";
+import { StashID } from "../../../../core-src";
 import { MapLocationID } from "../../world/interfaces";
 
 export interface VillageState {

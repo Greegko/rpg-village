@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { UnitStore, isAlive, isHero, PartyService, PartyID, WithID } from '@greegko/rpg-model';
+import { UnitStore, isAlive, isHero, PartyService, PartyID, WithID } from "../../../../core-src";
 import { IActivityTaskHandler, ActivityTask } from '../../activity';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';

@@ -1,5 +1,5 @@
 import { ActivityTask } from './activity-task';
-import { PartyID } from '@greegko/rpg-model';
+import { PartyID } from '../../../../core-src';
 
 export interface IActivityTaskHandler<S, T> {
   start(party: PartyID, startArgs: S): ActivityTask<any>;

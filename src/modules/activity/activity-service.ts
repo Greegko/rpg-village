@@ -1,7 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { Activity, ActivityTask, IActivityTaskHandler, AnyActivity } from './interfaces';
 import { propEq, values } from 'ramda';
-import { PartyService, PartyID, WithID } from '@greegko/rpg-model';
+import { PartyService, PartyID, WithID } from "../../../core-src";
 import { ActivityStore } from './activity-store';
 
 @injectable()

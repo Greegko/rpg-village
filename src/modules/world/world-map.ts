@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { EventSystem } from '@greegko/rpg-model';
+import { EventSystem } from "../../../core-src";
 import { WorldStore } from './world-store';
 import { WorldEvents } from './world-events';
 import { Turn } from '../game/interfaces';

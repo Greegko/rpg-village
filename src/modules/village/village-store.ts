@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { VillageState } from './interfaces';
-import { ObjectStore } from '@greegko/rpg-model';
+import { ObjectStore } from "../../../core-src";
 
 @injectable()
 export class VillageStore extends ObjectStore<VillageState> {

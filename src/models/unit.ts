@@ -1,4 +1,4 @@
-import { UnitBase } from '@greegko/rpg-model';
+import { UnitBase } from '../../core-src';
 import { SkillID } from '../modules';
 
 export type Unit = {

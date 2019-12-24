@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, UnitStore, WithID } from '@greegko/rpg-model';
+import { PartyService, PartyID, UnitStore, WithID } from '../../../core-src';
 import { Entity, Unit, Party } from '../../models';
 import { EffectService } from '../skill';
 import { Battle } from './battle';
@@ -17,7 +17,7 @@ export class BattleService {
     @inject('PartyService') private partyService: PartyService<Party>,
     @inject('UnitStore') private unitStore: UnitStore<Unit>,
     @inject('EffectService') private effectService: EffectService
-  ){ }
+  ) { }
 
   startBattle(partyId: PartyID, enemyPartyId: PartyID): BattleID {
     return this.battleStore.add({ partyId, enemyPartyId }).id;

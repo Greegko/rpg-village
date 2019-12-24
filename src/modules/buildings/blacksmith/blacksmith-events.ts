@@ -1,4 +1,4 @@
-import { Event, StashID } from '@greegko/rpg-model';
+import { Event, StashID } from "../../../../core-src";
 import { ItemID } from '../../../models';
 
 export enum BlacksmithEvents {

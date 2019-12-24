@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, heroFactory } from './lib';
-import { PartyService, PartyOwner, StashService, EventSystem } from '@greegko/rpg-model';
+import { PartyService, PartyOwner, StashService, EventSystem } from "../../../core-src";
 import { GameEvents } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';

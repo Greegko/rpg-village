@@ -1,8 +1,8 @@
 import { inject, multiInject, injectable } from 'inversify';
 import { GameState } from './interfaces';
 import { GameStore } from './game-store';
-import { Event, EventHandler } from '@greegko/rpg-model';
-import { EventSystem } from '@greegko/rpg-model';
+import { Event, EventHandler } from "../../../core-src";
+import { EventSystem } from "../../../core-src";
 import { CommandStore, Command } from '../command';
 import { GameEvents } from './interfaces';
 

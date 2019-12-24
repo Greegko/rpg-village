@@ -1,4 +1,4 @@
-import { PartyBase } from '@greegko/rpg-model';
+import { PartyBase } from '../../core-src';
 import { MapLocationID } from '../modules/world/interfaces';
 
 export type Party = PartyBase & {

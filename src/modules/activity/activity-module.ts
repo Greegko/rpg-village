@@ -1,4 +1,4 @@
-import { Module } from "@greegko/rpg-model";
+import { Module } from "../../../core-src";
 import { ActivityHandler } from "./activity-handler";
 import { ActivityService } from "./activity-service";
 import { ActivityStore } from './activity-store';
