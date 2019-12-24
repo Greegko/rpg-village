@@ -25,14 +25,15 @@ export class Battle {
   isDone(): boolean {
     const areAllDead = all(complement(isAlive));
     return areAllDead(this._getPartyUnits(this._battleState.party)) ||
-           areAllDead(this._getPartyUnits(this._battleState.enemyParty));
+      areAllDead(this._getPartyUnits(this._battleState.enemyParty));
   }
 
   private _createStartBattleState(partyUnits: WithID<Unit>[], enemyPartyUnits: WithID<Unit>[]): BattleState {
+    const units = concat(partyUnits, enemyPartyUnits);
     return {
       party: this._calculateParty(partyUnits),
       enemyParty: this._calculateParty(enemyPartyUnits),
-      units:  mergeAll(map(unit => ({ [unit.id]: unit }), concat(partyUnits, enemyPartyUnits)))
+      units: mergeAll(map(unit => ({ [unit.id]: unit }), units))
     };
   }
 
