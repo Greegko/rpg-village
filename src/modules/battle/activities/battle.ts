@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { UnitStore, isAlive, IActivityTaskHandler, ActivityTask, isHero, PartyService, PartyID, WithID } from '@greegko/rpg-model';
+import { UnitStore, isAlive, isHero, PartyService, PartyID, WithID } from '@greegko/rpg-model';
+import { IActivityTaskHandler, ActivityTask } from '../../activity';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
 import { Unit, Party, HeroService } from '../../../models';
@@ -16,7 +17,7 @@ export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, Bat
     @inject('PartyService') private partyService: PartyService<Party>,
     @inject('HeroService') private heroService: HeroService,
     @inject('BattleService') private battleService: BattleService
-  ){}
+  ) { }
 
   start(partyId: PartyID, { enemyPartyId }: BattleStartArgs): ActivityTask<BattleState> {
     return {

@@ -1,5 +1,6 @@
 import { injectable, inject } from 'inversify';
-import { IActivityTaskHandler, ActivityTask, PartyID, PartyOwner } from '@greegko/rpg-model';
+import { PartyID, PartyOwner } from '@greegko/rpg-model';
+import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
 import { BattleActivity } from '../../battle/activities';
 import { MapLocationID } from '../interfaces';
 import { PartyLocationService } from '../../party';
@@ -16,7 +17,7 @@ export class ExploreBattleActivity implements IActivityTaskHandler<ExploreBattle
   constructor(
     @inject('PartyLocationService') private partyLocationService: PartyLocationService,
     @inject('BattleActivity') private battleActivity: BattleActivity
-  ){ }
+  ) { }
 
   start(partyId: PartyID, { locationId }: ExploreBattleStartArgs): ActivityTask<ExploreBattleState> {
     return {

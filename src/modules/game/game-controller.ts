@@ -3,7 +3,7 @@ import { GameState } from './interfaces';
 import { GameStore } from './game-store';
 import { Event, EventHandler } from '@greegko/rpg-model';
 import { EventSystem } from '@greegko/rpg-model';
-import { CommandStore, Command } from '@greegko/rpg-model';
+import { CommandStore, Command } from '../command';
 import { GameEvents } from './interfaces';
 
 @injectable()

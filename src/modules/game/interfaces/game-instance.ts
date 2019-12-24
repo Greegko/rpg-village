@@ -1,6 +1,6 @@
 import { GameState } from './game-state';
 import { Event } from '@greegko/rpg-model';
-import { Command } from '@greegko/rpg-model';
+import { Command } from '../../command/interfaces';
 
 export interface GameInstance<S extends GameState> {
   gameTurn(): S;

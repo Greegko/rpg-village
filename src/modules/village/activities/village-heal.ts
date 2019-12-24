@@ -1,5 +1,6 @@
 import { injectable, inject } from 'inversify';
-import { IActivityTaskHandler, ActivityTask, UnitService, UnitID, PartyService, PartyID } from '@greegko/rpg-model';
+import { UnitService, UnitID, PartyService, PartyID } from '@greegko/rpg-model';
+import { IActivityTaskHandler, ActivityTask } from '../../activity';
 import { filter, forEach, map } from 'ramda';
 import { TravelActivity } from '../../world/activites';
 import { Party, Unit } from '../../../models';
@@ -19,7 +20,7 @@ export class VillageHealActivity implements IActivityTaskHandler<VillageHealStat
     @inject('UnitService') private unitService: UnitService<Unit>,
     @inject('PartyService') private partyService: PartyService<Party>,
     @inject('TravelActivity') private travelActivity: TravelActivity,
-  ){ }
+  ) { }
 
   start(partyId: PartyID, { village }: VillageHealStateArgs): ActivityTask<VillageHealState> {
     return {
@@ -57,7 +58,7 @@ export class VillageHealActivity implements IActivityTaskHandler<VillageHealStat
     return this._getRecoverableUnits(partyId).length === 0;
   }
 
-  resolve() {}
+  resolve() { }
 
   private _getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyService.getParty(partyId);

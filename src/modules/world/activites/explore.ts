@@ -1,7 +1,8 @@
 import { injectable, inject } from 'inversify';
 import { WorldMap } from '../world-map';
 import { WorldStore } from '../world-store';
-import { PartyID, ActivityTask, IActivityTaskHandler } from '@greegko/rpg-model';
+import { PartyID } from '@greegko/rpg-model';
+import { ActivityTask, IActivityTaskHandler } from '../../activity/interfaces';
 import { TravelActivity } from './travel';
 import { ExploreBattleActivity } from './explore-battle';
 import { MapLocationID } from '../interfaces';
@@ -23,7 +24,7 @@ export class ExploreActivity implements IActivityTaskHandler<ExploreStartArgs, E
     @inject('WorldStore') private worldStore: WorldStore,
     @inject('TravelActivity') private travelActivity: TravelActivity,
     @inject('ExploreBattleActivity') private exploreBattleActivity: ExploreBattleActivity
-  ){ }
+  ) { }
 
   start(partyId: PartyID, { locationId }: ExploreStartArgs): ActivityTask<ExploreState> {
     return {

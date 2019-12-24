@@ -1,6 +1,6 @@
 import { PartyBase } from '@greegko/rpg-model';
 import { UnitBase } from '@greegko/rpg-model';
-import { AnyActivity } from '@greegko/rpg-model';
+import { AnyActivity } from '../../activity/interfaces';
 import { GeneralGameStoreState } from './general-game-store-state';
 import { WithID } from '@greegko/rpg-model';
 

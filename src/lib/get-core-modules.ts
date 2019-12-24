@@ -1,6 +1,6 @@
 import { Module } from '@greegko/rpg-model';
-import { activityModule } from '@greegko/rpg-model';
-import { commandModule } from '@greegko/rpg-model';
+import { activityModule } from '../modules/activity';
+import { commandModule } from '../modules/command';
 import { unitModule } from '@greegko/rpg-model';
 import { heroModule } from '@greegko/rpg-model';
 import { partyModule } from '@greegko/rpg-model';
