@@ -1,9 +1,10 @@
 import { inject, injectable } from 'inversify';
-import { Turn, EventSystem } from '@greegko/rpg-model';
+import { EventSystem } from '@greegko/rpg-model';
 import { WorldStore } from './world-store';
 import { WorldEvents } from './world-events';
+import { Turn } from '../game/interfaces';
 import { MapLocationType, MapLocation, MapLocationID } from './interfaces';
-import { values } from 'ramda'; 
+import { values } from 'ramda';
 
 @injectable()
 export class WorldMap {
@@ -11,7 +12,7 @@ export class WorldMap {
   constructor(
     @inject('WorldStore') private worldStore: WorldStore,
     @inject('EventSystem') private eventSystem: EventSystem
-  ){ }
+  ) { }
 
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocationID {
     return this.worldStore.add({ x, y, explored, type }).id;
@@ -34,7 +35,7 @@ export class WorldMap {
     const location = this.worldStore.get(locationId);
 
     const newUnexploredLocations = this._getUnexploredLocationsNextToLocation(values(this.worldStore.getState()), location);
-    for(const unexploredLocation of newUnexploredLocations){
+    for (const unexploredLocation of newUnexploredLocations) {
       this.worldStore.add(unexploredLocation);
       this.eventSystem.fire(WorldEvents.NewLocation, { location: unexploredLocation });
     }

@@ -1,6 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, heroFactory } from './lib';
-import { PartyService, PartyOwner, StashService, EventSystem, GameEvents } from '@greegko/rpg-model';
+import { PartyService, PartyOwner, StashService, EventSystem } from '@greegko/rpg-model';
+import { GameEvents } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';
 import { VillageStore } from './village-store';
@@ -20,7 +21,7 @@ export class VillageEventHandler {
     @inject('HeroService') private heroService: HeroService,
     @inject('StashService') private stashService: StashService,
     @inject('WorldMap') private worldMap: WorldMap
-  ) {}
+  ) { }
 
   init(eventSystem: EventSystem) {
     eventSystem.on(VillageEvents.BuildHouse, () => this.buildHouse());
@@ -40,7 +41,7 @@ export class VillageEventHandler {
   buildHouse(): void {
     const goldCost = newBuildingCost(1 + this.villageStore.getNumberOfHouses());
 
-    if(this.playerStash.getResource().gold >= goldCost){
+    if (this.playerStash.getResource().gold >= goldCost) {
       this.villageStore.addHouse();
       this.playerStash.removeResource({ gold: goldCost });
     }
@@ -54,7 +55,7 @@ export class VillageEventHandler {
     const herocount = this.heroService.getNumberOfHeroes();
     const goldCost = newHeroCost(1 + herocount);
 
-    if(this.playerStash.getResource().gold >= goldCost && herocount < this.villageStore.getNumberOfHouses()){
+    if (this.playerStash.getResource().gold >= goldCost && herocount < this.villageStore.getNumberOfHouses()) {
       const heroId = this.heroService.createHero(heroFactory());
 
       this.partyService.createParty({ locationId: this.villageStore.getState().locationId, unitIds: [heroId], owner: PartyOwner.Player });

@@ -1,5 +1,7 @@
 import { Hero } from '../../../models';
-import { sample, UnitType } from '@greegko/rpg-model';
+import { UnitType } from '@greegko/rpg-model';
+import { sample } from '../../../lib/sample';
+
 
 const lastname = ['Emperor', 'Monk', 'Lord', 'Prince', 'Chancellor', 'Earl', 'Yeoman', 'Landgrave', 'King', 'Queen', 'Princess', 'Consort', 'Duchess', 'Grand', 'Peasant', 'Maiden', 'Dame', 'Reeve'];
 const male = ['Bernar', 'Bruiant', 'Reginald', 'Wilcock', 'Oggery', 'Louve', 'Jeremimum', 'Helie', 'Tibald', 'Otebon'];
@@ -10,7 +12,7 @@ export function heroFactory(): Hero {
 
   return {
     level: 1,
-    name: sample(lastname) +" "+ sample(firstNames),
+    name: sample(lastname) + " " + sample(firstNames),
     hp: 100,
     maxhp: 100,
     equipment: {},
