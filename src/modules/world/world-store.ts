@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { EntityStore } from "../../../core-src";
+import { EntityStore } from "../../lib/entity-store";
 import { MapLocation, MapLocationID } from './interfaces';
 
 @injectable()

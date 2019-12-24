@@ -1,4 +1,4 @@
-import { Event } from "../../../../core-src";
+import { Event } from "../../../models";
 
 export enum VillageEvents {
   BuildHouse = 'village/build-house',

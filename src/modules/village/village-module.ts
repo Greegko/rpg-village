@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { VillageStore } from "./village-store";
 import { VillageEventHandler } from "./village-event-handler";
 import { StashLootActivity, VillageHealActivity } from "./activities";

@@ -1,6 +1,5 @@
-import { Entity } from '../../../models';
+import { Entity, WithID } from '../../../models';
 import { BattleParty } from './battle-party';
-import { WithID } from "../../../../core-src";
 
 export interface BattleState {
   party: BattleParty;

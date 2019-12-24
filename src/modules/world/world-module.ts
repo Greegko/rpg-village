@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { WorldStore } from './world-store';
 import { ExploreActivity, ExploreBattleActivity, TravelActivity } from "./activites";
 import { WorldMap } from "./world-map";

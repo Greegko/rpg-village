@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { PlayerStore } from "./player-store";
 import { PlayerStash } from "./player-stash";
 

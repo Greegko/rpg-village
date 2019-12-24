@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { HeroEventHandler } from "./hero-eventhandler";
 import { HeroEquipment } from "./hero-equipment";
 

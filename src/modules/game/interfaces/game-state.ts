@@ -1,6 +1,7 @@
-import { PartyBase, UnitBase, WithID } from "../../../../core-src";
+import { PartyBase, UnitBase } from "../../../../core-src";
 import { AnyActivity } from '../../activity/interfaces';
 import { GeneralGameStoreState } from './general-game-store-state';
+import { WithID } from '../../../models';
 
 export type GameState = {
   general: GeneralGameStoreState;

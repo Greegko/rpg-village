@@ -1,9 +1,9 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { GeneralGameStore } from './general-store';
 import { GameEventHandler } from './game-event-handler';
 import { GameController } from './game-controller';
 import { GameStore } from './game-store';
-import { EventSystem } from "../../../core-src";
+import { EventSystem } from "../../lib/event-system";
 import { GameService } from './game-service';
 
 export const gameModule: Module = {

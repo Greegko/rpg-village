@@ -1,4 +1,4 @@
-import { Module } from "../../models";
+import { Module } from "../../../src/models";
 import { StashStore } from "./stash-store";
 import { StashService } from "./stash-service";
 

@@ -1,5 +1,5 @@
-import { UnitID, Event, StashID } from "../../../core-src";
-import { EquipmentPlace, ItemID } from '../../models';
+import { UnitID, StashID } from "../../../core-src";
+import { EquipmentPlace, ItemID, Event } from '../../models';
 
 export enum HeroEvents {
   EquipItem = 'hero/equip-item',

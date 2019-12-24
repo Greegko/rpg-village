@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { BlacksmithEventHandler } from "./blacksmith";
 
 export const buildingsModule: Module = {

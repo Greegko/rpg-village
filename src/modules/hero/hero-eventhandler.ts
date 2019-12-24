@@ -1,6 +1,6 @@
 
 import { injectable, inject } from 'inversify';
-import { EventSystem } from "../../../core-src";
+import { EventSystem } from "../../lib/event-system";
 import { HeroEquipItemArgs, HeroUnequipItemArgs, HeroEvents } from './hero-events';
 import { StashItems } from '../stash';
 import { HeroEquipment } from './hero-equipment';

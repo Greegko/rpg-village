@@ -1,6 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, heroFactory } from './lib';
-import { PartyService, PartyOwner, StashService, EventSystem } from "../../../core-src";
+import { EventSystem } from '../../lib/event-system';
+import { PartyService, PartyOwner, StashService } from "../../../core-src";
 import { GameEvents } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';

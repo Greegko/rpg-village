@@ -1,11 +1,11 @@
 import { inject, injectable } from 'inversify';
 import { UnitStore } from './unit-store';
 import { UnitBase, UnitType, UnitID } from './interfaces';
-import { WithID } from '../../models';
+import { WithID } from '../../../src/models';
 
 @injectable()
 export class UnitService<Unit extends UnitBase> {
-  constructor(@inject('UnitStore') private unitStore: UnitStore<Unit>){ }
+  constructor(@inject('UnitStore') private unitStore: UnitStore<Unit>) { }
 
   createUnit(unit: Unit, type: UnitType): UnitID {
     const newUnit = this.unitStore.add({ ...unit as any, type });

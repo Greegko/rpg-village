@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { EventSystem } from "../../../core-src";
+import { EventSystem } from "../../lib/event-system";
 import { WorldStore } from './world-store';
 import { WorldEvents } from './world-events';
 import { Turn } from '../game/interfaces';

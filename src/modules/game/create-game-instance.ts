@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { GameInstance, GameState } from "./interfaces";
 import { container } from '../../injection.config';
 import { forEach } from 'ramda';

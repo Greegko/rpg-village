@@ -3,7 +3,7 @@ import { forEach, values } from 'ramda';
 import { ActivityService } from './activity-service';
 import { ActivityTask, GetActivityHandlerByTag, AnyActivity } from './interfaces';
 import { ActivityStore } from './activity-store';
-import { WithID } from "../../../core-src";
+import { WithID } from "../../models";
 
 type ActivityTaskResult = [boolean, ActivityTask<any>];
 

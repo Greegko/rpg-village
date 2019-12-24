@@ -1,7 +1,7 @@
 import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from 'ramda';
-import { isAlive, UnitID, WithID } from '../../../core-src';
+import { isAlive, UnitID } from '../../../core-src';
 import { EffectService, isPartyEffect } from '../skill';
-import { Effect, Entity, Unit } from '../../models';
+import { Effect, Entity, Unit, WithID } from '../../models';
 import { BattleStats, BattleParty, BattleUnit, BattleState } from './interfaces';
 import { calculateBattleStats } from './lib';
 import { sample } from '../../lib/sample';

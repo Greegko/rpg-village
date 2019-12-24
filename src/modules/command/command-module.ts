@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { CommandHandler } from "./command-handler";
 import { CommandStore } from "./command-store";
 

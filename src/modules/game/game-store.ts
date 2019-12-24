@@ -1,6 +1,6 @@
 import { injectable, multiInject } from 'inversify';
 import { GameState } from './interfaces';
-import { IStore } from "../../../core-src";
+import { IStore } from "../../models";
 import { forEach, prop, map, mergeAll } from 'ramda';
 
 export interface ProvidedStore {

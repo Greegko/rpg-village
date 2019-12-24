@@ -1,4 +1,4 @@
-import { Module } from "../../../core-src";
+import { Module } from "../../models";
 import { EffectService } from "./effect-service";
 
 export const skillModule: Module = {

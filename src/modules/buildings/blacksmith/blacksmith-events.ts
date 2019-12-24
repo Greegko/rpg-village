@@ -1,5 +1,5 @@
-import { Event, StashID } from "../../../../core-src";
-import { ItemID } from '../../../models';
+import { StashID } from "../../../../core-src";
+import { ItemID, Event } from '../../../models';
 
 export enum BlacksmithEvents {
   UpgradeItem = 'blacksmith/upgrade-item'

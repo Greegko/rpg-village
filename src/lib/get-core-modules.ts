@@ -1,4 +1,4 @@
-import { Module } from '../../core-src';
+import { Module } from '../models';
 import { activityModule } from '../modules/activity';
 import { commandModule } from '../modules/command';
 import { unitModule } from '../../core-src';

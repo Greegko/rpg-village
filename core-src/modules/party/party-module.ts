@@ -1,4 +1,4 @@
-import { Module } from "../../models";
+import { Module } from "../../../src/models";
 import { PartyService } from "./party-service";
 import { PartyStore } from "./party-store";
 

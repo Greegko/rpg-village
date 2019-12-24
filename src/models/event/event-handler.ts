@@ -1,4 +1,4 @@
-import { EventSystem } from '../../../core-src/lib';
+import { EventSystem } from '../../lib/event-system';
 
 export interface EventHandler {
   init(e: EventSystem);

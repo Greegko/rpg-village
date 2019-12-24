@@ -1,5 +1,5 @@
 import { GameState } from './game-state';
-import { Event } from "../../../../core-src";
+import { Event } from "../../../models";
 import { Command } from '../../command/interfaces';
 
 export interface GameInstance<S extends GameState> {
