@@ -1,5 +1,5 @@
-import { IStore } from "../store";
-import { EventHandler } from '../event';
+import { IStore } from "./store";
+import { EventHandler } from './event';
 
 export interface ProvideClass { new(...args): any; }
 export interface ProvideValue { provide: string; value: any }
