@@ -1,11 +1,11 @@
 import { injectable, inject } from "inversify";
-import { StashStore, StashID, ItemID } from "@greegko/rpg-model";
-import { Item } from '../../models';
+import { StashStore, StashID } from "@greegko/rpg-model";
+import { Item, ItemID } from '../../models';
 import { concat, evolve, path, reject, propEq, find, pipe } from 'ramda';
 
 @injectable()
 export class StashItems {
-  constructor(@inject('StashStore') private stashStore: StashStore<{ items: Item[] }>) {}
+  constructor(@inject('StashStore') private stashStore: StashStore<{ items: Item[] }>) { }
 
   getItem(stashId: StashID, itemId: ItemID): Item {
     const stash = this.stashStore.get(stashId);

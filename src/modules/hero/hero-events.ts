@@ -1,5 +1,5 @@
-import { UnitID, Event, ItemID, StashID } from '@greegko/rpg-model';
-import { EquipmentPlace } from '../../models';
+import { UnitID, Event, StashID } from '@greegko/rpg-model';
+import { EquipmentPlace, ItemID } from '../../models';
 
 export enum HeroEvents {
   EquipItem = 'hero/equip-item',

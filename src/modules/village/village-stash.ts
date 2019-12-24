@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { ItemID } from '@greegko/rpg-model';
+import { ItemID } from '../../models';
 import { VillageStore } from './village-store';
 import { StashItems } from '../stash';
 import { Item } from '../../models';
@@ -11,7 +11,7 @@ export class VillageStash {
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
     @inject('StashItems') private stashItems: StashItems,
-  ){ }
+  ) { }
 
   get villageLocation(): MapLocationID {
     return this.villageStore.getState().locationId;

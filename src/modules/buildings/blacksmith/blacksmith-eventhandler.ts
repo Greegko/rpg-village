@@ -1,8 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { EventSystem, StashID, ItemID } from '@greegko/rpg-model';
+import { EventSystem, StashID } from '@greegko/rpg-model';
 import { BlacksmithEvents, UpgradeItemEventArgs } from './blacksmith-events';
 import { StashItems } from '../../stash';
-import { EffectTarget, AttackEffectType } from '../../../models';
+import { EffectTarget, AttackEffectType, ItemID } from '../../../models';
 import { append, evolve } from 'ramda';
 
 @injectable()
@@ -10,7 +10,7 @@ export class BlacksmithEventHandler {
 
   constructor(
     @inject('StashItems') private stashItems: StashItems
-  ) {}
+  ) { }
 
   init(eventSystem: EventSystem) {
     eventSystem.on(BlacksmithEvents.UpgradeItem, (args: UpgradeItemEventArgs) => this.upgradeItem(args.stashId, args.itemId));

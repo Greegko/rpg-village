@@ -1,4 +1,5 @@
-import { Event, StashID, ItemID } from '@greegko/rpg-model';
+import { Event, StashID } from '@greegko/rpg-model';
+import { ItemID } from '../../../models';
 
 export enum BlacksmithEvents {
   UpgradeItem = 'blacksmith/upgrade-item'
