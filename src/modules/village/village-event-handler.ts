@@ -2,7 +2,6 @@ import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, heroFactory } from './lib';
 import { EventSystem } from '../../lib/event-system';
 import { PartyService, PartyOwner } from "../party";
-import { StashService } from "../stash";
 import { GameEvents } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';
@@ -22,7 +21,6 @@ export class VillageEventHandler {
     @inject('PlayerStash') private playerStash: PlayerStash,
     @inject('PartyService') private partyService: PartyService,
     @inject('UnitService') private unitService: UnitService,
-    @inject('StashService') private stashService: StashService,
     @inject('WorldMap') private worldMap: WorldMap
   ) { }
 
@@ -36,8 +34,7 @@ export class VillageEventHandler {
 
   createVillage(): void {
     const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
-    const stashId = this.stashService.createStash();
-    this.villageStore.set('stashId', stashId);
+    this.villageStore.set('stash', { items: [], resource: {} });
     this.villageStore.set('locationId', locationId);
   }
 

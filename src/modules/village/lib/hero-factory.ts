@@ -21,6 +21,6 @@ export function heroFactory(): Unit {
     dmg: 5,
     xp: 0,
     type: UnitType.Unit,
-    stashId: undefined
+    stash: { resource: {}, items: [] }
   };
 }

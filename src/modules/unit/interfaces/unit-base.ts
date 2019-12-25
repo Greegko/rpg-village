@@ -1,6 +1,6 @@
 import { SkillID } from "../../skill/interfaces";
 import { Equipment } from "../../../models";
-import { StashID } from "../../stash";
+import { ItemStash, ResourceStash } from "../../../models/stash";
 
 export type UnitID = string;
 export enum UnitType { Common, Unit };
@@ -16,5 +16,5 @@ export type Unit = {
   armor: number;
   xp: number;
   equipment: Equipment;
-  stashId: StashID;
+  stash: ItemStash & ResourceStash;
 };

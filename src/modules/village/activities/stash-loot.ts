@@ -3,10 +3,10 @@ import { PartyService, PartyID } from "../../party";
 import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
 import { TravelActivity } from '../../world/activites';
 import { MapLocationID } from '../../world/interfaces';
-import { StashResource, StashItems } from '../../stash';
-import { Resource } from '../../../models';
 import { VillageStore } from '../village-store';
 import { PlayerStash } from '../../player';
+import { getResource, getItems, removeResource, removeItems, ResourceStash, ItemStash } from '../../../models/stash';
+import { prop, evolve, pipe } from 'ramda';
 
 export type StashLootState = {
   village: MapLocationID;
@@ -19,9 +19,7 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
 
   constructor(
     @inject('PartyService') private partyService: PartyService,
-    @inject('StashResource') private stashResource: StashResource<Resource>,
     @inject('PlayerStash') private playerStash: PlayerStash,
-    @inject('StashItems') private stashItems: StashItems,
     @inject('TravelActivity') private travelActivity: TravelActivity,
     @inject('VillageStore') private villageStore: VillageStore,
   ) { }
@@ -57,14 +55,19 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
   }
 
   resolve({ state, partyId }: ActivityTask<StashLootState>) {
-    const villageStashId = this.villageStore.getState().stashId;
-    const partyStashId = this.partyService.getParty(partyId).stashId;
+    const partyStash = this.partyService.getParty(partyId).stash;
+    const partyResource = getResource(partyStash);
+    const partyItems = getItems(partyStash);
 
-    const resource = this.stashResource.takeAllResource(partyStashId);
-    this.playerStash.addResource(resource);
+    const newPartyStash = pipe(
+      (stash: ResourceStash & ItemStash) => removeResource(stash, partyResource),
+      (stash: ResourceStash & ItemStash) => removeItems(stash, partyItems.map(prop('id')))
+    )(partyStash);
 
-    const items = this.stashItems.takeAllItems(partyStashId);
-    this.stashItems.addItems(villageStashId, items);
+    this.partyService.updateParty(partyId, { stash: newPartyStash });
+
+    this.playerStash.addResource(partyResource);
+    this.villageStore.update('stash', stash => evolve({ items: items => [...items, ...partyItems] }, stash));
   }
 
 }

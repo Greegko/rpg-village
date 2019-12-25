@@ -1,16 +1,15 @@
 import { injectable, inject } from 'inversify';
 import { ItemID } from '../../models';
 import { VillageStore } from './village-store';
-import { StashItems } from '../stash';
 import { Item } from '../../models';
 import { MapLocationID } from '../world/interfaces';
+import { addItems, getItem, removeItem } from '../../models/stash';
 
 @injectable()
 export class VillageStash {
 
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
-    @inject('StashItems') private stashItems: StashItems,
   ) { }
 
   get villageLocation(): MapLocationID {
@@ -18,10 +17,13 @@ export class VillageStash {
   }
 
   addItemsToStash(items: Item[]) {
-    this.stashItems.addItems(this.villageLocation, items);
+    this.villageStore.update('stash', (stash) => addItems(stash, items));
   }
 
   takeItemFromStash(itemId: ItemID): Item {
-    return this.stashItems.takeItem(this.villageLocation, itemId);
+    const stash = this.villageStore.get('stash');
+    const item = getItem(stash, itemId);
+    this.villageStore.set('stash', removeItem(stash, itemId));
+    return item;
   }
 }

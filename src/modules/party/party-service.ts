@@ -1,14 +1,12 @@
 import { injectable, inject } from 'inversify';
 import { Party, PartyID } from './interfaces';
 import { merge } from 'ramda';
-import { StashService } from '../stash';
 import { PartyStore } from './party-store';
 
 @injectable()
 export class PartyService {
   constructor(
     @inject('PartyStore') private partyStore: PartyStore,
-    @inject('StashService') private stashService: StashService
   ) { }
 
   getParty(partyId: PartyID): Party {
@@ -16,8 +14,7 @@ export class PartyService {
   }
 
   createParty(party: Partial<Party>) {
-    const stashId = this.stashService.createStash();
-    this.partyStore.add(merge(party as Party, { stashId }));
+    this.partyStore.add(merge(party as Party, { stash: { resource: {}, items: [] } }));
   }
 
   updateParty(partyId: PartyID, party: Partial<Party>) {

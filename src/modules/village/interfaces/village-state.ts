@@ -1,10 +1,10 @@
-import { StashID } from "../../stash/interfaces";
 import { MapLocationID } from "../../world/interfaces";
 import { UnitID } from "../../unit";
+import { ItemStash, ResourceStash } from "../../../models/stash";
 
 export interface VillageState {
   houses: number;
-  stashId: StashID;
+  stash: ItemStash & ResourceStash;
   locationId: MapLocationID;
   heroes: UnitID[];
 }

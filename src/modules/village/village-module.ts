@@ -10,6 +10,6 @@ export const villageModule: Module = {
     { type: 'stash-loot', activity: StashLootActivity },
     { type: 'village-heal', activity: VillageHealActivity }
   ],
-  stores: [{ scope: 'village', store: VillageStore, initialState: { houses: 0, stashId: undefined, locationId: undefined, heroes: [] } }],
+  stores: [{ scope: 'village', store: VillageStore, initialState: { houses: 0, stash: { resource: {}, items: [] }, locationId: undefined, heroes: [] } }],
   provides: [VillageStash]
 };

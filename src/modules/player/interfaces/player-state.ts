@@ -1,3 +1,3 @@
-import { StashID } from "../../stash/interfaces";
+import { ResourceStash } from "../../../models/stash";
 
-export type PlayerState = { stashId: StashID };
+export type PlayerState = { stash: ResourceStash };

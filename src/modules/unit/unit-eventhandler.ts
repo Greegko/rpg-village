@@ -2,14 +2,15 @@
 import { injectable, inject } from 'inversify';
 import { EventSystem } from "../../lib/event-system";
 import { UnitEquipItemEventArgs, UnitUnequipItemEventArgs, UnitEvents } from './unit-events';
-import { StashItems } from '../stash';
-import { UnitEquipmentService } from './unit-equipment-service';
+import { UnitStore } from './unit-store';
+import { assoc, evolve, path, dissoc } from 'ramda';
+import { getItem, removeItem, ItemStash, addItem } from '../../models/stash';
+import { Item } from '../../models';
 
 @injectable()
 export class UnitEventHandler {
   constructor(
-    @inject('UnitEquipmentService') private unitEquipmentService: UnitEquipmentService,
-    @inject('StashItems') private stashItems: StashItems,
+    @inject('UnitStore') private unitStore: UnitStore
   ) { }
 
   init(eventSystem: EventSystem) {
@@ -24,13 +25,28 @@ export class UnitEventHandler {
     );
   }
 
-  private _equipItem({ unitId: unitId, itemId, stashId, place }: UnitEquipItemEventArgs) {
-    const item = this.stashItems.takeItem(stashId, itemId);
-    this.unitEquipmentService.equipItem(unitId, item, place);
+  private _equipItem({ unitId, itemId, place }: UnitEquipItemEventArgs) {
+    const unit = this.unitStore.get(unitId);
+    const item = getItem(unit.stash, itemId);
+
+    const newUnit = evolve({
+      stash: (stash: ItemStash) => removeItem(stash, itemId),
+      equipment: assoc(place, item)
+    })(unit);
+
+    this.unitStore.update(unitId, newUnit);
   }
 
-  private _unequipEquipment({ unitId: unitId, stashId, place }: UnitUnequipItemEventArgs) {
-    const item = this.unitEquipmentService.unEquipItem(unitId, place);
-    this.stashItems.addItems(stashId, [item]);
+  private _unequipEquipment({ unitId, place }: UnitUnequipItemEventArgs) {
+    const unit = this.unitStore.get(unitId);
+    const item = path(['equipment', place], unit) as Item;
+
+    const newUnit = evolve({
+      stash: (stash: ItemStash) => addItem(stash, item),
+      equipment: dissoc(place)
+    })(unit);
+
+    this.unitStore.update(unitId, newUnit);
+    return item;
   }
 }

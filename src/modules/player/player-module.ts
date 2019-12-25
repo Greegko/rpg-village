@@ -3,6 +3,6 @@ import { PlayerStore } from "./player-store";
 import { PlayerStash } from "./player-stash";
 
 export const playerModule: Module = {
-  stores: [{ scope: 'player', store: PlayerStore }],
+  stores: [{ scope: 'player', store: PlayerStore, initialState: { stash: { resource: {} } } }],
   provides: [PlayerStash]
 }
