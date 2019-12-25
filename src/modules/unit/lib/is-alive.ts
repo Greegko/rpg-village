@@ -1,5 +1,5 @@
-import { UnitBase } from '../interfaces';
+import { Unit } from '../interfaces';
 
-export function isAlive(unit: UnitBase): boolean {
+export function isAlive(unit: Unit): boolean {
   return unit.hp > 0;
 }

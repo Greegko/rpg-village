@@ -1,10 +1,11 @@
 import { IStore } from "./store";
 import { EventHandler } from './event';
+import { IActivityTaskHandler } from "../modules/activity/interfaces";
 
 export interface ProvideClass { new(...args): any; }
 export interface ProvideValue { provide: string; value: any }
 export interface StoreClass { new(...args): IStore; }
-export interface ActivityClass { new(...args): any; } // export interface ActivityClass { new(...args): IActivityTaskHandler<any, any>; }
+export interface ActivityClass { new(...args): IActivityTaskHandler<any, any>; }
 export interface EventHandlerClass { new(...args): EventHandler; }
 
 export interface ModulActivity {

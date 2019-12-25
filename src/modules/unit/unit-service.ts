@@ -1,14 +1,14 @@
 import { inject, injectable } from 'inversify';
 import { UnitStore } from './unit-store';
-import { UnitBase, UnitType, UnitID } from './interfaces';
+import { UnitID, Unit } from './interfaces';
 import { WithID } from '../../../src/models';
 
 @injectable()
-export class UnitService<Unit extends UnitBase> {
-  constructor(@inject('UnitStore') private unitStore: UnitStore<Unit>) { }
+export class UnitService {
+  constructor(@inject('UnitStore') private unitStore: UnitStore) { }
 
-  createUnit(unit: Unit, type: UnitType): UnitID {
-    const newUnit = this.unitStore.add({ ...unit as any, type });
+  createUnit(unit: Unit): UnitID {
+    const newUnit = this.unitStore.add({ ...unit });
     return newUnit.id;
   }
 
@@ -21,4 +21,8 @@ export class UnitService<Unit extends UnitBase> {
     this.unitStore.update(unitId, { hp: Math.min(unit.maxhp, unit.hp + hpGain) } as Partial<Unit>);
   }
 
+  gainXp(unitId: UnitID, xp: number): void {
+    const unit = this.getUnit(unitId);
+    this.unitStore.update(unitId, { xp: unit.xp + xp });
+  }
 }

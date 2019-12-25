@@ -1,7 +1,7 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, Party } from '../party';
+import { PartyService, PartyID } from '../party';
 import { UnitStore, Unit } from '../unit';
-import { Entity, WithID } from '../../models';
+import { WithID } from '../../models';
 import { EffectService } from '../skill';
 import { Battle } from './battle';
 import { BattleID } from './interfaces';
@@ -15,8 +15,8 @@ export class BattleService {
 
   constructor(
     @inject('BattleStore') private battleStore: BattleStore,
-    @inject('PartyService') private partyService: PartyService<Party>,
-    @inject('UnitStore') private unitStore: UnitStore<Unit>,
+    @inject('PartyService') private partyService: PartyService,
+    @inject('UnitStore') private unitStore: UnitStore,
     @inject('EffectService') private effectService: EffectService
   ) { }
 
@@ -38,7 +38,7 @@ export class BattleService {
     delete this._battleCaches[battleId];
   }
 
-  private _updateUnit(unit: WithID<Entity>): void {
+  private _updateUnit(unit: WithID<Unit>): void {
     this.unitStore.update(unit.id, { hp: unit.hp });
   }
 

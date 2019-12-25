@@ -1,14 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { PartyService, PartyID } from "../../party";
-import { isHero } from "../../hero";
-import { UnitStore, isAlive } from "../../unit";
+import { UnitStore, isAlive, isHero, Unit, UnitService } from "../../unit";
 import { IActivityTaskHandler, ActivityTask } from '../../activity';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
 import { WithID } from '../../../models';
-import { Unit } from '../../unit';
-import { Party } from '../../party';
-import { HeroService } from '../../hero';
 import { sum, all, complement, prop, any } from 'ramda';
 
 export type BattleState = { enemyPartyId: PartyID, battleId: BattleID };
@@ -18,9 +14,9 @@ export type BattleStartArgs = { enemyPartyId: PartyID };
 export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, BattleState> {
 
   constructor(
-    @inject('UnitStore') private unitStore: UnitStore<Unit>,
-    @inject('PartyService') private partyService: PartyService<Party>,
-    @inject('HeroService') private heroService: HeroService,
+    @inject('UnitStore') private unitStore: UnitStore,
+    @inject('PartyService') private partyService: PartyService,
+    @inject('UnitService') private unitService: UnitService,
     @inject('BattleService') private battleService: BattleService
   ) { }
 
@@ -75,7 +71,7 @@ export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, Bat
     const aliveUnits = units.filter(isAlive);
     this.partyService.updateParty(partyId, { unitIds: aliveUnits.map(prop('id')) });
 
-    aliveUnits.filter(isHero).forEach(hero => this.heroService.gainXp(hero.id, earnedXP));
+    aliveUnits.filter(isHero).forEach(unit => this.unitService.gainXp(unit.id, earnedXP));
   }
 
   private _sumDeadUnitsXP(units: Unit[]): number {

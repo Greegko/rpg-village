@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, Party } from "../../party";
+import { PartyService, PartyID } from "../../party";
 import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
 import { TravelActivity } from '../../world/activites';
 import { MapLocationID } from '../../world/interfaces';
@@ -18,7 +18,7 @@ export type StashLootStartArgs = StashLootState;
 export class StashLootActivity implements IActivityTaskHandler<StashLootStartArgs, StashLootState> {
 
   constructor(
-    @inject('PartyService') private partyService: PartyService<Party>,
+    @inject('PartyService') private partyService: PartyService,
     @inject('StashResource') private stashResource: StashResource<Resource>,
     @inject('PlayerStash') private playerStash: PlayerStash,
     @inject('StashItems') private stashItems: StashItems,

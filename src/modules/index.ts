@@ -5,7 +5,6 @@ export * from './party';
 export * from './skill';
 export * from './stash';
 export * from './player';
-export * from './hero';
 export * from './buildings';
 export * from './config';
 export * from './game';

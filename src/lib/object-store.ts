@@ -14,11 +14,11 @@ export class ObjectStore<T extends object> implements IObjectStore<T> {
     this.state = state;
   }
 
-  get(prop: keyof T) {
+  get<P extends keyof T>(prop: P): T[P] {
     return this.state[prop];
   }
 
-  set(prop: keyof T, value: T[keyof T]) {
+  set<P extends keyof T>(prop: P, value: T[P]) {
     this.state = assoc(prop as any, value, this.state);
   }
 }

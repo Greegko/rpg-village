@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, PartyLocationService, Party } from '../../party';
+import { PartyService, PartyID, PartyLocationService } from '../../party';
 import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
 import { WorldMap } from '../world-map';
 import { MapLocationID } from '../interfaces';
@@ -17,7 +17,7 @@ export type TravelStartArgs = {
 export class TravelActivity implements IActivityTaskHandler<TravelStartArgs, TravelState> {
 
   constructor(
-    @inject('PartyService') private partyService: PartyService<Party>,
+    @inject('PartyService') private partyService: PartyService,
     @inject('PartyLocationService') private partyLocationService: PartyLocationService,
     @inject('WorldMap') private worldMap: WorldMap
   ) { }

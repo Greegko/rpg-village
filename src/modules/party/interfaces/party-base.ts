@@ -4,13 +4,10 @@ import { UnitID } from '../../unit/interfaces';
 import { MapLocationID } from '../../world/interfaces';
 
 export type PartyID = string;
-export interface PartyBase {
+
+export interface Party {
   owner: PartyOwner;
   unitIds: UnitID[];
   stashId: StashID;
-  locationId: MapLocationID;
-}
-
-export interface Party extends PartyBase {
   locationId: MapLocationID;
 }

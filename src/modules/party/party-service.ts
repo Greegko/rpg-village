@@ -1,13 +1,13 @@
 import { injectable, inject } from 'inversify';
-import { PartyBase, PartyID } from './interfaces';
+import { Party, PartyID } from './interfaces';
 import { merge } from 'ramda';
 import { StashService } from '../stash';
 import { PartyStore } from './party-store';
 
 @injectable()
-export class PartyService<Party extends PartyBase = PartyBase> {
+export class PartyService {
   constructor(
-    @inject('PartyStore') private partyStore: PartyStore<Party>,
+    @inject('PartyStore') private partyStore: PartyStore,
     @inject('StashService') private stashService: StashService
   ) { }
 

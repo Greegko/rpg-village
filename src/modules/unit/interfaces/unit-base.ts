@@ -1,18 +1,20 @@
 import { SkillID } from "../../skill/interfaces";
+import { Equipment } from "../../../models";
+import { StashID } from "../../stash";
 
 export type UnitID = string;
-export enum UnitType { Common, Hero };
-export type UnitBase = {
+export enum UnitType { Common, Unit };
+
+export type Unit = {
   name: string;
   level: number;
   hp: number;
   maxhp: number;
   type: UnitType;
-}
-
-export type Unit = {
   skillIds: SkillID[];
   dmg: number;
   armor: number;
-} & UnitBase;
-export type CommonUnit = UnitBase & { type: UnitType.Common };
+  xp: number;
+  equipment: Equipment;
+  stashId: StashID;
+};

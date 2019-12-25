@@ -1,7 +1,7 @@
 import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from 'ramda';
 import { isAlive, UnitID } from '../unit';
 import { EffectService, isPartyEffect } from '../skill';
-import { Effect, Entity, WithID } from '../../models';
+import { Effect, WithID } from '../../models';
 import { Unit } from '../unit';
 import { BattleStats, BattleParty, BattleUnit, BattleState } from './interfaces';
 import { calculateBattleStats } from './lib';
@@ -39,7 +39,7 @@ export class Battle {
     };
   }
 
-  private _calculateParty(units: Entity[]): BattleParty {
+  private _calculateParty(units: Unit[]): BattleParty {
     return {
       unitIds: map(prop('id'), units),
       effects: chain(unit => this._effectService.getUnitEffects(unit).filter(isPartyEffect), units)
@@ -84,7 +84,7 @@ export class Battle {
     unit.hp = Math.max(0, unit.hp - dmg);
   }
 
-  private _getBattleStats(unit: Entity, partyEffects: Effect[]): BattleStats {
+  private _getBattleStats(unit: Unit, partyEffects: Effect[]): BattleStats {
     return calculateBattleStats(unit.dmg, unit.armor, concat(this._effectService.getUnitEffects(unit), partyEffects));
   }
 

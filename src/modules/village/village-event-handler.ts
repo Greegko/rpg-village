@@ -1,7 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, heroFactory } from './lib';
 import { EventSystem } from '../../lib/event-system';
-import { PartyService, PartyOwner, Party } from "../party";
+import { PartyService, PartyOwner } from "../party";
 import { StashService } from "../stash";
 import { GameEvents } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
@@ -9,9 +9,9 @@ import { WorldMap } from '../world';
 import { VillageStore } from './village-store';
 import { VillageStash } from './village-stash';
 import { Resource, Item } from '../../models';
-import { HeroService } from '../hero';
 import { VillageEvents } from './interfaces';
 import { PlayerStash } from '../player';
+import { UnitService } from '../unit';
 
 @injectable()
 export class VillageEventHandler {
@@ -20,8 +20,8 @@ export class VillageEventHandler {
     @inject('VillageStore') private villageStore: VillageStore,
     @inject('VillageStash') private villageStash: VillageStash,
     @inject('PlayerStash') private playerStash: PlayerStash,
-    @inject('PartyService') private partyService: PartyService<Party>,
-    @inject('HeroService') private heroService: HeroService,
+    @inject('PartyService') private partyService: PartyService,
+    @inject('UnitService') private unitService: UnitService,
     @inject('StashService') private stashService: StashService,
     @inject('WorldMap') private worldMap: WorldMap
   ) { }
@@ -55,11 +55,11 @@ export class VillageEventHandler {
   }
 
   hireHero(): void {
-    const herocount = this.heroService.getNumberOfHeroes();
-    const goldCost = newHeroCost(1 + herocount);
+    const heroesCount = this.villageStore.getState().heroes.length;
+    const goldCost = newHeroCost(1 + heroesCount);
 
-    if (this.playerStash.getResource().gold >= goldCost && herocount < this.villageStore.getNumberOfHouses()) {
-      const heroId = this.heroService.createHero(heroFactory());
+    if (this.playerStash.getResource().gold >= goldCost && heroesCount < this.villageStore.getNumberOfHouses()) {
+      const heroId = this.unitService.createUnit(heroFactory());
 
       this.partyService.createParty({ locationId: this.villageStore.getState().locationId, unitIds: [heroId], owner: PartyOwner.Player });
       this.playerStash.removeResource({ gold: goldCost });

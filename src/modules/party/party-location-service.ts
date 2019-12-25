@@ -9,7 +9,7 @@ import { MapLocationID } from '../world/interfaces';
 @injectable()
 export class PartyLocationService {
 
-  constructor(@inject('PartyStore') private partyStore: PartyStore<Party>) { }
+  constructor(@inject('PartyStore') private partyStore: PartyStore) { }
 
   getPartiesOnLocation(locationId: MapLocationID): WithID<Party>[] {
     const parties = this.partyStore.getState();

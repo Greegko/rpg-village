@@ -4,7 +4,7 @@ import * as modules from './dist';
 const game = createGameInstance<GameState>({
   modules: [
     modules.gameModule, modules.configModule, modules.playerModule, modules.worldModule, modules.villageModule, modules.buildingsModule,
-    modules.heroModule, modules.partyModule, modules.stashModule, modules.battleModule, modules.skillModule
+    modules.partyModule, modules.stashModule, modules.battleModule, modules.skillModule
   ]
 });
 

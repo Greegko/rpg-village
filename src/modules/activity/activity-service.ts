@@ -10,7 +10,7 @@ export class ActivityService {
 
   constructor(
     @inject('ActivityStore') private activityStore: ActivityStore,
-    @inject('PartyService') private partyService: PartyService<any>,
+    @inject('PartyService') private partyService: PartyService,
     @inject('getActivityHandler') private getActivityHandler: (tag: string) => IActivityTaskHandler<any, any>
   ) { }
 
