@@ -39,7 +39,7 @@ export class VillageEventHandler {
   buildHouse(): void {
     const goldCost = newBuildingCost(1 + this.villageStore.getNumberOfHouses());
 
-    if (this.villageStash.getResource().gold >= goldCost) {
+    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
       this.villageStore.addHouse();
       this.villageStash.removeResource({ gold: goldCost });
     }
@@ -53,9 +53,10 @@ export class VillageEventHandler {
     const heroesCount = this.villageStore.getState().heroes.length;
     const goldCost = newHeroCost(1 + heroesCount);
 
-    if (this.villageStash.getResource().gold >= goldCost && heroesCount < this.villageStore.getNumberOfHouses()) {
+    if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < this.villageStore.getNumberOfHouses()) {
       const heroId = this.unitService.createUnit(heroFactory());
 
+      this.villageStore.addHero(heroId);
       this.partyService.createParty({ locationId: this.villageStore.getState().locationId, unitIds: [heroId], owner: PartyOwner.Player });
       this.villageStash.removeResource({ gold: goldCost });
     }

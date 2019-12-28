@@ -4,6 +4,6 @@ import { PartyStore } from "./party-store";
 import { PartyLocationService } from "./party-location-service";
 
 export const partyModule: Module = {
-  stores: [{ scope: 'party', store: PartyStore }],
+  stores: [{ scope: 'parties', store: PartyStore }],
   provides: [PartyService, PartyLocationService]
 };

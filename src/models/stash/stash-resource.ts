@@ -9,9 +9,9 @@ export function getResource(stash: ResourceStash): Resource {
 }
 
 export function addResource<T extends ResourceStash>(stash: T, resource: Partial<Resource>): T {
-  return mergeDeepWith(add, { resource }, stash);
+  return mergeDeepWith(add, stash, { resource });
 }
 
 export function removeResource<T extends ResourceStash>(stash: T, resource: Partial<Resource>): T {
-  return mergeDeepWith(subtract, { resource }, stash);
+  return mergeDeepWith(subtract, stash, { resource });
 }

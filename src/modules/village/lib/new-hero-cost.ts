@@ -1,3 +1,3 @@
-export function newHeroCost(unites) {
-  return 10 * (1 + unites);
+export function newHeroCost(units) {
+  return 10 * (1 + units);
 }

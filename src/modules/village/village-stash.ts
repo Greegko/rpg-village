@@ -3,7 +3,7 @@ import { ItemID, Resource } from '../../models';
 import { VillageStore } from './village-store';
 import { Item } from '../../models';
 import { addItems, getItem, removeItem, addResource, removeResource, getResource } from '../../models/stash';
-import { where, map, lt } from 'ramda';
+import { where, map, lte } from 'ramda';
 
 @injectable()
 export class VillageStash {
@@ -38,7 +38,7 @@ export class VillageStash {
 
   hasEnoughResource(resource: Resource): boolean {
     const storeResource = this.getResource();
-    const resourceObjCheck = map(lt, resource);
+    const resourceObjCheck = map(lte, resource);
     return where(resourceObjCheck, storeResource);
   }
 }
