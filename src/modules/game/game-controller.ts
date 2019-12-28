@@ -28,6 +28,10 @@ export class GameController<State extends GameState> {
     return this.gameStore.getState();
   }
 
+  getState(): State {
+    return this.gameStore.getState();
+  }
+
   startNewGame(): State {
     this.gameStore.init({} as any);
     this.eventSystem.fire(GameEvents.NewGame);
