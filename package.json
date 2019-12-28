@@ -12,7 +12,8 @@
   "dependencies": {
     "inversify": "5.0.1",
     "ramda": "0.24.1",
-    "reflect-metadata": "0.1.13"
+    "reflect-metadata": "0.1.13",
+    "shortid": "2.2.15"
   },
   "devDependencies": {
     "@types/node": "13.1.0",
