@@ -1,20 +1,14 @@
-import { GameState, createGameInstance } from '../src';
-import * as modules from '../src';
+import { gameFactory } from './game-factory';
+import * as expect from 'expect';
 
-const game = createGameInstance<GameState>({
-  modules: [
-    modules.gameModule, modules.configModule, modules.playerModule, modules.worldModule, modules.villageModule, modules.buildingsModule,
-    modules.partyModule, modules.battleModule, modules.skillModule
-  ]
+describe('Smoke test', () => {
+  it('should pass the turn', () => {
+    const game = gameFactory();
+
+    game.startNewGame();
+
+    const newState = game.gameTurn();
+
+    expect(newState.general.turn).toBe(1);
+  });
 });
-
-game.startNewGame();
-
-const newState = game.gameTurn();
-
-if (newState.general.turn !== 1) {
-  console.log('Turn does not match!');
-  console.log(newState);
-} else {
-  console.log('Integration is fine!');
-}

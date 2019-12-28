@@ -3,24 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test:integration": "ts-node ./tests/smoke.test.ts",
-    "test:integration:watch": "tsc-watch --onSuccess 'npm run test:integration'",
-    "build": "npm run build:clear && npm run build:src",
-    "build:src": "tsc",
-    "build:clear": "rm -dR ./dist"
+    "test": "mocha --require ts-node/register --watch-extensions ts tests/**/*.test.ts",
+    "test:watch": "mocha --require ts-node/register --watch-extensions ts tests/**/*.test.ts --watch",
+    "test:integration": "mocha --require ts-node/register --watch-extensions ts tests/smoke.test.ts",
+    "build": "tsc"
   },
   "dependencies": {
-    "inversify": "5.0.1",
-    "ramda": "0.24.1",
-    "reflect-metadata": "0.1.13",
-    "shortid": "2.2.15"
-  },
-  "devDependencies": {
+    "@types/expect": "24.3.0",
+    "@types/mocha": "5.2.7",
     "@types/node": "13.1.0",
     "@types/ramda": "0.24.18",
-    "ts-node": "8.5.4",
-    "tsc-watch": "4.0.0",
-    "typescript": "3.7.4"
+    "expect": "24.9.0",
+    "inversify": "5.0.1",
+    "mocha": "6.2.2",
+    "ramda": "0.24.1",
+    "reflect-metadata": "0.1.13",
+    "shortid": "2.2.15",
+    "typescript": "3.7.4",
+    "ts-node": "8.5.4"
   },
   "types": "dist/index.d.ts",
   "main": "dist/index.js"
