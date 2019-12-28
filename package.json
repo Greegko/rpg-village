@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test:integration": "ts-node ./integration.test.ts",
+    "test:integration": "ts-node ./tests/smoke.test.ts",
     "test:integration:watch": "tsc-watch --onSuccess 'npm run test:integration'",
     "build": "npm run build:clear && npm run build:src",
     "build:src": "tsc",
