@@ -29,16 +29,11 @@ export class VillageStash {
   }
 
   addResource(resource: Resource): void {
-    const stash = this.villageStore.getState().stash;
-    const newStashResource = addResource(stash, resource);
-
-    this.villageStore.set('stash', newStashResource);
+    this.villageStore.update('stash', stash => addResource(stash, resource));
   }
 
   removeResource(resource: Resource): void {
-    const stash = this.villageStore.getState().stash;
-    const newStashResource = removeResource(stash, resource);
-    this.villageStore.set('stash', newStashResource);
+    this.villageStore.update('stash', stash => removeResource(stash, resource));
   }
 
   getResource(): Resource {
