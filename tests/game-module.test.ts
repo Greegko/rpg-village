@@ -5,7 +5,7 @@ import { GameState } from '../src';
 describe('Game Module', () => {
   describe('loadGame', () => {
     it('should load the state', () => {
-      const game = gameFactory();
+      const game = gameFactory({ triggerNewGameEvent: false });
 
       game.loadGame({ general: { turn: 1 } } as GameState);
 
@@ -17,9 +17,9 @@ describe('Game Module', () => {
 
   describe('getState', () => {
     it('should return the current state of the game', () => {
-      const game = gameFactory();
+      const game = gameFactory({ state: { general: { turn: 1 } }, triggerNewGameEvent: false });
 
-      const state = game.loadGame({ general: { turn: 1 } } as GameState);
+      const state = game.getState();
 
       expect(state.general.turn).toBe(1);
     });
