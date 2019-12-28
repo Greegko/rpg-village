@@ -3,10 +3,9 @@ import * as modules from '../src';
 
 interface GameFactory {
   state: Partial<GameState>;
-  triggerNewGameEvent: boolean;
 }
 
-export function gameFactory({ state, triggerNewGameEvent = true }: Partial<GameFactory> = {}) {
+export function gameFactory({ state }: Partial<GameFactory> = {}) {
   const game = createGameInstance<GameState>({
     modules: [
       modules.gameModule, modules.configModule, modules.worldModule, modules.villageModule, modules.buildingsModule,
@@ -16,10 +15,6 @@ export function gameFactory({ state, triggerNewGameEvent = true }: Partial<GameF
 
   if (state) {
     game.loadGame(state as GameState);
-  }
-
-  if (triggerNewGameEvent) {
-    game.startNewGame();
   }
 
   return game;

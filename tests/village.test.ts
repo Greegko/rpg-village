@@ -1,19 +1,20 @@
-import { gameFactory } from './game-factory';
-import * as expect from 'expect';
 import { VillageEvents } from '../src';
+import { eventTest } from './event-tests';
 
 describe('Village', () => {
   describe('VillageEvents', () => {
-    describe('GenerateGold', () => {
-      it('should generate 5 gold', () => {
-        const game = gameFactory();
+    eventTest({
+      testName: 'GenerateGold',
+      initState: { village: { stash: { resource: { gold: 20 } } } },
+      events: [VillageEvents.GenerateGold],
+      expectedState: { village: { stash: { resource: { gold: 25 } } } }
+    });
 
-        game.fireEvent({ event: VillageEvents.GenerateGold });
-
-        const state = game.getState();
-
-        expect(state.village.stash.resource.gold).toBe(5);
-      });
+    eventTest({
+      testName: 'BuildHouse',
+      initState: { village: { stash: { resource: { gold: 20 } }, houses: 0 } },
+      events: [VillageEvents.BuildHouse],
+      expectedState: { village: { stash: { resource: { gold: 0 } }, houses: 1 } }
     });
   });
 });

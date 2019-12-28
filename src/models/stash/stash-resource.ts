@@ -13,5 +13,5 @@ export function addResource<T extends ResourceStash>(stash: T, resource: Partial
 }
 
 export function removeResource<T extends ResourceStash>(stash: T, resource: Partial<Resource>): T {
-  return mergeDeepWith(subtract, resource, stash);
+  return mergeDeepWith(subtract, { resource }, stash);
 }
