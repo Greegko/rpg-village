@@ -2,22 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Node Inspector",
       "type": "node",
       "request": "launch",
+      "name": "Mocha Current File",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
       "args": [
-        "${workspaceRoot}/integration.test.ts"
+        "--require",
+        "ts-node/register",
+        "--watch-extensions",
+        "ts",
+        "--timeout",
+        "999999",
+        "--colors",
+        "${file}"
       ],
-      "runtimeArgs": [
-        "-r",
-        "ts-node/register"
-      ],
-      "cwd": "${workspaceRoot}",
-      "protocol": "inspector",
-      "internalConsoleOptions": "openOnSessionStart",
-      "env": {
-        "TS_NODE_IGNORE": "false"
-      }
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
