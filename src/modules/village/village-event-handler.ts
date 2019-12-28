@@ -9,7 +9,6 @@ import { VillageStore } from './village-store';
 import { VillageStash } from './village-stash';
 import { Resource, Item } from '../../models';
 import { VillageEvents } from './interfaces';
-import { PlayerStash } from '../player';
 import { UnitService } from '../unit';
 
 @injectable()
@@ -18,7 +17,6 @@ export class VillageEventHandler {
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
     @inject('VillageStash') private villageStash: VillageStash,
-    @inject('PlayerStash') private playerStash: PlayerStash,
     @inject('PartyService') private partyService: PartyService,
     @inject('UnitService') private unitService: UnitService,
     @inject('WorldMap') private worldMap: WorldMap
@@ -41,33 +39,33 @@ export class VillageEventHandler {
   buildHouse(): void {
     const goldCost = newBuildingCost(1 + this.villageStore.getNumberOfHouses());
 
-    if (this.playerStash.getResource().gold >= goldCost) {
+    if (this.villageStash.getResource().gold >= goldCost) {
       this.villageStore.addHouse();
-      this.playerStash.removeResource({ gold: goldCost });
+      this.villageStash.removeResource({ gold: goldCost });
     }
   }
 
   generateGold(): void {
-    this.playerStash.addResource({ gold: 5 });
+    this.villageStash.addResource({ gold: 5 });
   }
 
   hireHero(): void {
     const heroesCount = this.villageStore.getState().heroes.length;
     const goldCost = newHeroCost(1 + heroesCount);
 
-    if (this.playerStash.getResource().gold >= goldCost && heroesCount < this.villageStore.getNumberOfHouses()) {
+    if (this.villageStash.getResource().gold >= goldCost && heroesCount < this.villageStore.getNumberOfHouses()) {
       const heroId = this.unitService.createUnit(heroFactory());
 
       this.partyService.createParty({ locationId: this.villageStore.getState().locationId, unitIds: [heroId], owner: PartyOwner.Player });
-      this.playerStash.removeResource({ gold: goldCost });
+      this.villageStash.removeResource({ gold: goldCost });
     }
   }
 
   stashResource(resource: Resource): void {
-    this.playerStash.addResource(resource);
+    this.villageStash.addResource(resource);
   }
 
   stashItems(items: Item[]): void {
-    this.villageStash.addItemsToStash(items);
+    this.villageStash.addItems(items);
   }
 }

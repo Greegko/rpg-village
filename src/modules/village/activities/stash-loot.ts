@@ -3,10 +3,9 @@ import { PartyService, PartyID } from "../../party";
 import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
 import { TravelActivity } from '../../world/activites';
 import { MapLocationID } from '../../world/interfaces';
-import { VillageStore } from '../village-store';
-import { PlayerStash } from '../../player';
 import { getResource, getItems, removeResource, removeItems, ResourceStash, ItemStash } from '../../../models/stash';
-import { prop, evolve, pipe } from 'ramda';
+import { prop, pipe } from 'ramda';
+import { VillageStash } from '../village-stash';
 
 export type StashLootState = {
   village: MapLocationID;
@@ -19,9 +18,8 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
 
   constructor(
     @inject('PartyService') private partyService: PartyService,
-    @inject('PlayerStash') private playerStash: PlayerStash,
+    @inject('VillageStash') private villageStash: VillageStash,
     @inject('TravelActivity') private travelActivity: TravelActivity,
-    @inject('VillageStore') private villageStore: VillageStore,
   ) { }
 
   start(partyId: PartyID, { village }: StashLootStartArgs): ActivityTask<StashLootState> {
@@ -66,8 +64,7 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
 
     this.partyService.updateParty(partyId, { stash: newPartyStash });
 
-    this.playerStash.addResource(partyResource);
-    this.villageStore.update('stash', stash => evolve({ items: items => [...items, ...partyItems] }, stash));
+    this.villageStash.addResource(partyResource);
+    this.villageStash.addItems(partyItems);
   }
-
 }

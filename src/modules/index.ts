@@ -3,7 +3,6 @@ export * from './village';
 export * from './world';
 export * from './party';
 export * from './skill';
-export * from './player';
 export * from './buildings';
 export * from './config';
 export * from './game';

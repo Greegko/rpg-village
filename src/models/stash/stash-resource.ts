@@ -1,6 +1,6 @@
 import { Stash } from "./stash";
 import { Resource } from "../resource";
-import { prop, mergeWith, add, subtract } from 'ramda';
+import { prop, mergeDeepWith, add, subtract } from 'ramda';
 
 export interface ResourceStash extends Stash { resource: Resource };
 
@@ -9,9 +9,9 @@ export function getResource(stash: ResourceStash): Resource {
 }
 
 export function addResource<T extends ResourceStash>(stash: T, resource: Partial<Resource>): T {
-  return mergeWith(add, resource, stash);
+  return mergeDeepWith(add, { resource }, stash);
 }
 
 export function removeResource<T extends ResourceStash>(stash: T, resource: Partial<Resource>): T {
-  return mergeWith(subtract, resource, stash);
+  return mergeDeepWith(subtract, resource, stash);
 }
