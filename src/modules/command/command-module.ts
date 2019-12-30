@@ -3,6 +3,6 @@ import { CommandHandler } from "./command-handler";
 import { CommandStore } from "./command-store";
 
 export const commandModule: Module = {
-  stores: [{ scope: 'command', store: CommandStore }],
+  stores: [{ scope: 'commands', store: CommandStore }],
   provides: [CommandHandler]
 };

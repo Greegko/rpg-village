@@ -2,9 +2,7 @@ import { injectable, inject } from 'inversify';
 import { WorldMap } from '../world-map';
 import { WorldStore } from '../world-store';
 import { PartyID } from '../../party';
-import { ActivityTask, IActivityTaskHandler } from '../../activity/interfaces';
-import { TravelActivity } from './travel';
-import { ExploreBattleActivity } from './explore-battle';
+import { Activity, IActivityHandler } from '../../activity/interfaces';
 import { MapLocationID } from '../interfaces';
 
 export type ExploreState = {
@@ -17,16 +15,14 @@ export type ExploreStartArgs = {
 };
 
 @injectable()
-export class ExploreActivity implements IActivityTaskHandler<ExploreStartArgs, ExploreState> {
+export class ExploreActivity implements IActivityHandler<ExploreStartArgs, ExploreState> {
 
   constructor(
     @inject('WorldMap') private worldMap: WorldMap,
-    @inject('WorldStore') private worldStore: WorldStore,
-    @inject('TravelActivity') private travelActivity: TravelActivity,
-    @inject('ExploreBattleActivity') private exploreBattleActivity: ExploreBattleActivity
+    @inject('WorldStore') private worldStore: WorldStore
   ) { }
 
-  start(partyId: PartyID, { locationId }: ExploreStartArgs): ActivityTask<ExploreState> {
+  start(partyId: PartyID, { locationId }: ExploreStartArgs): Activity<ExploreState> {
     return {
       type: 'explore',
       partyId,
@@ -42,27 +38,15 @@ export class ExploreActivity implements IActivityTaskHandler<ExploreStartArgs, E
     return !exploreLocation.explored;
   }
 
-  getSubTask({ state, partyId }: ActivityTask<ExploreState>): ActivityTask<any> {
-    if (this.travelActivity.isRunnable(partyId, { destination: state.locationId })) {
-      return this.travelActivity.start(partyId, { destination: state.locationId });
-    }
-
-    if (this.exploreBattleActivity.isRunnable(partyId, { locationId: state.locationId })) {
-      return this.exploreBattleActivity.start(partyId, { locationId: state.locationId });
-    }
-
-    return undefined;
-  }
-
-  execute({ state }: ActivityTask<ExploreState>): ExploreState {
+  execute({ state }: Activity<ExploreState>): ExploreState {
     return { ...state, progress: state.progress - 1 };
   }
 
-  isDone({ state }: ActivityTask<ExploreState>): boolean {
+  isDone({ state }: Activity<ExploreState>): boolean {
     return state.progress === 0;
   }
 
-  resolve({ state }: ActivityTask<ExploreState>) {
+  resolve({ state }: Activity<ExploreState>) {
     this.worldMap.exploreLocation(state.locationId);
   }
 

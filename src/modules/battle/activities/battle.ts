@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { PartyService, PartyID } from "../../party";
 import { UnitStore, isAlive, isHero, Unit, UnitService } from "../../unit";
-import { IActivityTaskHandler, ActivityTask } from '../../activity';
+import { IActivityHandler, Activity } from '../../activity';
 import { BattleService } from '../battle-service';
 import { BattleID } from '../interfaces';
 import { WithID } from '../../../models';
@@ -11,7 +11,7 @@ export type BattleState = { enemyPartyId: PartyID, battleId: BattleID };
 export type BattleStartArgs = { enemyPartyId: PartyID };
 
 @injectable()
-export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, BattleState> {
+export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
 
   constructor(
     @inject('UnitStore') private unitStore: UnitStore,
@@ -20,7 +20,7 @@ export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, Bat
     @inject('BattleService') private battleService: BattleService
   ) { }
 
-  start(partyId: PartyID, { enemyPartyId }: BattleStartArgs): ActivityTask<BattleState> {
+  start(partyId: PartyID, { enemyPartyId }: BattleStartArgs): Activity<BattleState> {
     return {
       type: 'battle',
       state: { enemyPartyId, battleId: this.battleService.startBattle(partyId, enemyPartyId) },
@@ -32,21 +32,17 @@ export class BattleActivity implements IActivityTaskHandler<BattleStartArgs, Bat
     return this._anyUnitAliveInParty(partyId) && this._anyUnitAliveInParty(enemyPartyId);
   }
 
-  getSubTask(): ActivityTask<any> {
-    return undefined;
-  }
-
-  execute(activity: ActivityTask<BattleState>): BattleState {
+  execute(activity: Activity<BattleState>): BattleState {
     this.battleService.turnBattle(activity.state.battleId);
 
     return activity.state;
   }
 
-  isDone({ state: { battleId } }: ActivityTask<BattleState>): boolean {
+  isDone({ state: { battleId } }: Activity<BattleState>): boolean {
     return this.battleService.isDoneBattle(battleId);
   }
 
-  resolve(activity: ActivityTask<BattleState>) {
+  resolve(activity: Activity<BattleState>) {
     const partyUnits = this._getPartyUnits(activity.partyId);
     const enemyPartyUnits = this._getPartyUnits(activity.state.enemyPartyId);
 

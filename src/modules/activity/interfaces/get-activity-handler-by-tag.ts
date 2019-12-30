@@ -1,3 +1,3 @@
-import { IActivityTaskHandler } from "./activity-task-handler";
+import { IActivityHandler } from "./activity-handler";
 
-export type GetActivityHandlerByTag = (tag: string) => IActivityTaskHandler<any, any>
+export type GetActivityHandlerByTag = (tag: string) => IActivityHandler<any, any>

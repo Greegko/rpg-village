@@ -1,19 +1,15 @@
 import { inject, injectable } from 'inversify';
-import { forEach, values } from 'ramda';
-import { ActivityService } from './activity-service';
-import { ActivityTask, GetActivityHandlerByTag, AnyActivity } from './interfaces';
+import { forEach, values, assoc } from 'ramda';
+import { GetActivityHandlerByTag, AnyActivity } from './interfaces';
 import { ActivityStore } from './activity-store';
-import { WithID } from "../../models";
-
-type ActivityTaskResult = [boolean, ActivityTask<any>];
+import { WithID } from '../../models';
 
 @injectable()
 export class ActivityHandler {
 
   constructor(
     @inject('getActivityHandler') private getActivityHandler: GetActivityHandlerByTag,
-    @inject('ActivityStore') private activityStore: ActivityStore,
-    @inject('ActivityService') private activityService: ActivityService
+    @inject('ActivityStore') private activityStore: ActivityStore
   ) { }
 
   runActivites() {
@@ -21,39 +17,16 @@ export class ActivityHandler {
   }
 
   private _executeActivity(activity: WithID<AnyActivity>) {
-    const isMainActivity = activity.sub === undefined;
-    const activeActivityTask = isMainActivity ? activity.main : activity.sub;
-    const [isDone, updatedActivityTask] = this._executeActivityTask(activeActivityTask);
+    const activityHandler = this.getActivityHandler(activity.type);
+    const activityNewState = activityHandler.execute(activity);
+    const updatedActivity = assoc('state', activityNewState, activity);
+    const isDone = activityHandler.isDone(updatedActivity);
 
     if (isDone) {
-      if (isMainActivity) {
-        this.activityService.finishMainTask(activity);
-      } else {
-        this.activityService.finishSubTask(activity);
-      }
+      activityHandler.resolve(updatedActivity);
+      this.activityStore.remove(activity.id);
     } else {
-      let updatedActivity: Partial<AnyActivity>;
-      if (isMainActivity) {
-        updatedActivity = { main: updatedActivityTask };
-      } else {
-        updatedActivity = { sub: updatedActivityTask };
-      }
-
       this.activityStore.update(activity.id, updatedActivity);
     }
   }
-
-  private _executeActivityTask(activityTask: ActivityTask<any>): ActivityTaskResult {
-    const activityHandler = this.getActivityHandler(activityTask.type);
-    const activityNewState = activityHandler.execute(activityTask);
-    const updatedActivityTask = { ...activityTask, state: activityNewState } as ActivityTask<any>;
-    const isDone = activityHandler.isDone(updatedActivityTask);
-
-    if (isDone) {
-      activityHandler.resolve(updatedActivityTask);
-    }
-
-    return [isDone, updatedActivityTask];
-  }
-
 }

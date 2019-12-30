@@ -1,7 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { PartyService, PartyID } from "../../party";
-import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
-import { TravelActivity } from '../../world/activites';
+import { IActivityHandler, Activity } from '../../activity/interfaces';
 import { MapLocationID } from '../../world/interfaces';
 import { getResource, getItems, removeResource, removeItems, ResourceStash, ItemStash } from '../../../models/stash';
 import { prop, pipe } from 'ramda';
@@ -14,15 +13,14 @@ export type StashLootState = {
 export type StashLootStartArgs = StashLootState;
 
 @injectable()
-export class StashLootActivity implements IActivityTaskHandler<StashLootStartArgs, StashLootState> {
+export class StashLootActivity implements IActivityHandler<StashLootStartArgs, StashLootState> {
 
   constructor(
     @inject('PartyService') private partyService: PartyService,
     @inject('VillageStash') private villageStash: VillageStash,
-    @inject('TravelActivity') private travelActivity: TravelActivity,
   ) { }
 
-  start(partyId: PartyID, { village }: StashLootStartArgs): ActivityTask<StashLootState> {
+  start(partyId: PartyID, { village }: StashLootStartArgs): Activity<StashLootState> {
     return {
       type: 'stash-loot',
       partyId,
@@ -38,21 +36,15 @@ export class StashLootActivity implements IActivityTaskHandler<StashLootStartArg
     return party.locationId === village;
   }
 
-  getSubTask({ state, partyId }: ActivityTask<StashLootState>): ActivityTask<any> {
-    if (this.travelActivity.isRunnable(partyId, { destination: state.village })) {
-      return this.travelActivity.start(partyId, { destination: state.village });
-    }
-  }
-
-  execute({ state }: ActivityTask<StashLootState>): StashLootState {
+  execute({ state }: Activity<StashLootState>): StashLootState {
     return state;
   }
 
-  isDone({ state }: ActivityTask<StashLootState>): boolean {
+  isDone({ state }: Activity<StashLootState>): boolean {
     return true;
   }
 
-  resolve({ state, partyId }: ActivityTask<StashLootState>) {
+  resolve({ state, partyId }: Activity<StashLootState>) {
     const partyStash = this.partyService.getParty(partyId).stash;
     const partyResource = getResource(partyStash);
     const partyItems = getItems(partyStash);

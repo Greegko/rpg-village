@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { PartyService, PartyID, PartyLocationService } from '../../party';
-import { IActivityTaskHandler, ActivityTask } from '../../activity/interfaces';
+import { IActivityHandler, Activity } from '../../activity/interfaces';
 import { WorldMap } from '../world-map';
 import { MapLocationID } from '../interfaces';
 
@@ -14,7 +14,7 @@ export type TravelStartArgs = {
 };
 
 @injectable()
-export class TravelActivity implements IActivityTaskHandler<TravelStartArgs, TravelState> {
+export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelState> {
 
   constructor(
     @inject('PartyService') private partyService: PartyService,
@@ -22,7 +22,7 @@ export class TravelActivity implements IActivityTaskHandler<TravelStartArgs, Tra
     @inject('WorldMap') private worldMap: WorldMap
   ) { }
 
-  start(partyId: PartyID, { destination }: TravelStartArgs): ActivityTask<TravelState> {
+  start(partyId: PartyID, { destination }: TravelStartArgs): Activity<TravelState> {
     const currentLocation = this.partyService.getParty(partyId).locationId;
 
     return {
@@ -41,19 +41,15 @@ export class TravelActivity implements IActivityTaskHandler<TravelStartArgs, Tra
     return destination !== partyLocation;
   }
 
-  getSubTask(): ActivityTask<any> {
-    return undefined;
-  }
-
-  execute({ state }: ActivityTask<TravelState>): TravelState {
+  execute({ state }: Activity<TravelState>): TravelState {
     return { ...state, progress: state.progress - 1 };
   }
 
-  isDone({ state }: ActivityTask<TravelState>): boolean {
+  isDone({ state }: Activity<TravelState>): boolean {
     return state.progress === 0;
   }
 
-  resolve(activity: ActivityTask<TravelState>) {
+  resolve(activity: Activity<TravelState>) {
     this.partyLocationService.updateLocation(activity.partyId, activity.state.destination);
   }
 

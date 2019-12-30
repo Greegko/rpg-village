@@ -1,4 +1,3 @@
 export * from './activity';
-export * from './activity-task-handler';
-export * from './activity-task';
+export * from './activity-handler';
 export * from './get-activity-handler-by-tag';
