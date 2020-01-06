@@ -16,30 +16,36 @@ export class UnitEventHandler {
   init(eventSystem: EventSystem) {
     eventSystem.on(
       UnitEvents.EquipItem,
-      (equipItemArgs: UnitEquipItemEventArgs) => this._equipItem(equipItemArgs)
+      (equipItemArgs: UnitEquipItemEventArgs) => this.equipItem(equipItemArgs)
     );
 
     eventSystem.on(
       UnitEvents.UnequipItem,
-      (unequipItemArgs: UnitUnequipItemEventArgs) => this._unequipEquipment(unequipItemArgs)
+      (unequipItemArgs: UnitUnequipItemEventArgs) => this.unequipEquipment(unequipItemArgs)
     );
   }
 
-  private _equipItem({ unitId, itemId, place }: UnitEquipItemEventArgs) {
+  private equipItem({ unitId, itemId, place }: UnitEquipItemEventArgs) {
     const unit = this.unitStore.get(unitId);
     const item = getItem(unit.stash, itemId);
 
-    const newUnit = evolve({
+    if (!item) return;
+
+    this.unequipEquipment({ unitId, place });
+
+    const evolveUnit = evolve({
       stash: (stash: ItemStash) => removeItem(stash, itemId),
       equipment: assoc(place, item)
-    })(unit);
+    });
 
-    this.unitStore.update(unitId, newUnit);
+    this.unitStore.update(unitId, evolveUnit);
   }
 
-  private _unequipEquipment({ unitId, place }: UnitUnequipItemEventArgs) {
+  private unequipEquipment({ unitId, place }: UnitUnequipItemEventArgs) {
     const unit = this.unitStore.get(unitId);
     const item = path(['equipment', place], unit) as Item;
+
+    if (!item) return;
 
     const newUnit = evolve({
       stash: (stash: ItemStash) => addItem(stash, item),
@@ -47,6 +53,5 @@ export class UnitEventHandler {
     })(unit);
 
     this.unitStore.update(unitId, newUnit);
-    return item;
   }
 }
