@@ -6,3 +6,4 @@ export * from './skill';
 export * from './buildings';
 export * from './config';
 export * from './game';
+export * from './unit';

@@ -1,5 +1,5 @@
-import { UnitID } from ".";
-import { EquipmentPlace, ItemID, Event } from '../../models';
+import { UnitID } from "..";
+import { EquipmentPlace, ItemID, Event } from '../../../models';
 
 export enum UnitEvents {
   EquipItem = 'unit/equip-item',

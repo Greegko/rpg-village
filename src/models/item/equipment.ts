@@ -1,6 +1,6 @@
 import { Armor, Shield, Weapon } from './item-types';
 
-export type EquipmentPlace = 'torso' | 'leftHand' | 'rightHand';
+export enum EquipmentPlace { Torso = 'torso', LeftHand = 'leftHand', RightHand = 'rightHand' };
 
 export interface Equipment {
   torso?: Armor;

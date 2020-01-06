@@ -1,7 +1,7 @@
 
 import { injectable, inject } from 'inversify';
 import { EventSystem } from "../../lib/event-system";
-import { UnitEquipItemEventArgs, UnitUnequipItemEventArgs, UnitEvents } from './unit-events';
+import { UnitEquipItemEventArgs, UnitUnequipItemEventArgs, UnitEvents } from './interfaces/unit-events';
 import { UnitStore } from './unit-store';
 import { assoc, evolve, path, dissoc } from 'ramda';
 import { getItem, removeItem, ItemStash, addItem } from '../../models/stash';
