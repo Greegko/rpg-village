@@ -1,6 +1,6 @@
 import { assoc, merge, dissoc, prop, omit } from 'ramda';
 import { generate } from 'shortid';
-import { IEntityStore, WithID, EntityStoreState } from '../models';
+import { IEntityStore, WithID, EntityStoreState, EntityUpdater } from '../models';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -26,7 +26,17 @@ export class EntityStore<Entity, EntityID extends string = string> implements IE
     return newObject;
   }
 
-  update(entityId: EntityID, entity: Partial<Entity>): void {
+  update(entityId: EntityID, entity: Partial<Entity>): void;
+  update(entityId: EntityID, updater: EntityUpdater<Entity>): void;
+  update(entityId: EntityID, entityOrUpdater: Partial<Entity> | EntityUpdater<Entity>): void {
+    let entity: Partial<Entity> = null;
+
+    if (typeof entityOrUpdater === 'function') {
+      entity = entityOrUpdater(this.get(entityId));
+    } else {
+      entity = entityOrUpdater;
+    }
+
     const oldObject = prop(entityId, this.state);
     const newObject = merge(oldObject, omit(['id'], entity));
     this.state = assoc(entityId, newObject, this.state);
