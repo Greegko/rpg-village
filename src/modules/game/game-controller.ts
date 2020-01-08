@@ -3,15 +3,12 @@ import { GameState } from './interfaces';
 import { GameStore } from './game-store';
 import { Event, EventHandler } from "../../models";
 import { EventSystem } from "../../lib/event-system";
-import { CommandStore, Command } from '../command';
 import { GameEvents } from './interfaces';
 
 @injectable()
 export class GameController<State extends GameState> {
-
   constructor(
     @inject('GameStore') private gameStore: GameStore<State>,
-    @inject('CommandStore') private commandStore: CommandStore,
     @inject('EventSystem') private eventSystem: EventSystem,
     @multiInject('eventHandlers') eventHandlers: EventHandler[]
   ) {
@@ -43,9 +40,4 @@ export class GameController<State extends GameState> {
 
     return this.gameStore.getState();
   }
-
-  commandParty(command: Command) {
-    this.commandStore.add(command);
-  }
-
 }
