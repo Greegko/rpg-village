@@ -20,5 +20,7 @@ export class WorldCommandHandler implements CommandHandler {
     this.activityManager.startActivity(WorldActivity.Travel, travelArgs);
   }
 
-  private exploreCommand(exploreArgs: any) { }
+  private exploreCommand(exploreArgs: any) {
+    this.activityManager.startActivity(WorldActivity.Explore, exploreArgs);
+  }
 }
