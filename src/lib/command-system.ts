@@ -10,22 +10,17 @@ export interface CommandSystem {
 
 @injectable()
 export class CommandSystem {
-
-  private _subscribers: { [key: string]: Function[] } = {};
+  private _subscribers: { [key: string]: Function } = {};
 
   hookCommandHandlers(commandHandlers: CommandHandler[]) {
     forEach(commandHandler => commandHandler.init(this), commandHandlers);
   }
 
   on(commandType: string, callback: Function) {
-    if (!this._subscribers[commandType])
-      this._subscribers[commandType] = [];
-
-    this._subscribers[commandType].push(callback);
+    this._subscribers[commandType] = callback;
   }
 
   execute(commandType: string, args?: any) {
-    forEach(callback => callback(args), this._subscribers[commandType] || []);
+    this._subscribers[commandType](args);
   }
-
 }
