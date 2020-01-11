@@ -1,6 +1,6 @@
-import { gameFactory } from "./game-factory";
-import { GameState } from '../src';
-import { Event } from '../src/models';
+import { gameFactory } from "../game-factory";
+import { GameState } from '../../src';
+import { Command } from '../../src/models';
 import * as expect from 'expect';
 import { Matchers } from 'expect';
 
@@ -11,22 +11,22 @@ type PartialDeep<T> = {
 type ExpectedStateMatcher = (state: GameState) => Matchers<GameState>;
 type ExpectedState = object | ExpectedStateMatcher;
 
-type EventTest = {
+type CommandTest = {
   testName: string;
   initState: PartialDeep<GameState>;
-  events: (Event | string)[];
+  commands: (Command | string)[];
   expectedState: ExpectedState;
 };
 
-export function eventTest({ testName, initState, events, expectedState }: EventTest) {
+export function commandTest({ testName, initState, commands, expectedState }: CommandTest) {
   it(testName, () => {
     const game = gameFactory({ state: initState } as any);
 
-    events.forEach(event => {
-      if (typeof event === 'string') {
-        game.fireEvent({ event });
+    commands.forEach(command => {
+      if (typeof command === 'string') {
+        game.executeCommand({ command });
       } else {
-        game.fireEvent(event);
+        game.executeCommand(command);
       }
     });
 

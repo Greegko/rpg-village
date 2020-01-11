@@ -1,12 +1,12 @@
 import { IStore } from "./store";
-import { EventHandler } from './event';
+import { CommandHandler } from './command-handler';
 import { IActivityHandler } from "../modules/activity/interfaces";
 
 export interface ProvideClass { new(...args): any; }
 export interface ProvideValue { provide: string; value: any }
 export interface StoreClass { new(...args): IStore; }
 export interface ActivityClass { new(...args): IActivityHandler<any, any>; }
-export interface EventHandlerClass { new(...args): EventHandler; }
+export interface CommandHandlerClass { new(...args): CommandHandler; }
 
 export interface ModulActivity {
   activity: ActivityClass;
@@ -19,12 +19,12 @@ export interface ModulStore {
   scope: string;
 }
 
-export interface ModuleEventHandler {
-  eventHandler: EventHandlerClass;
+export interface ModuleCommandHandler {
+  commandHandler: CommandHandlerClass;
 }
 
 export interface Module {
-  eventHandlers?: ModuleEventHandler[];
+  commandHandlers?: ModuleCommandHandler[];
   activities?: ModulActivity[];
   stores?: ModulStore[];
   provides?: (ProvideClass | ProvideValue)[];

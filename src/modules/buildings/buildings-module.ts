@@ -1,6 +1,6 @@
 import { Module } from "../../models";
-import { BlacksmithEventHandler } from "./blacksmith";
+import { BlacksmithCommandHandler } from "./blacksmith";
 
 export const buildingsModule: Module = {
-  eventHandlers: [{ eventHandler: BlacksmithEventHandler }]
+  commandHandlers: [{ commandHandler: BlacksmithCommandHandler }]
 }

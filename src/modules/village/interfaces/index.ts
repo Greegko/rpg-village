@@ -1,2 +1,2 @@
 export * from './village-state';
-export * from './village-events';
+export * from './village-command';

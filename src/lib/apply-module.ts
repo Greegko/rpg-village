@@ -1,13 +1,13 @@
 import { Container, interfaces } from "inversify";
 import { forEach, pipe, propOr, juxt } from 'ramda';
-import { Module, ModulActivity, ModuleEventHandler, ModulStore, ProvideClass, ProvideValue } from "../models";
+import { Module, ModulActivity, ModuleCommandHandler, ModulStore, ProvideClass, ProvideValue } from "../models";
 
 export type ApplyModule = (container: Container) => (module: Module) => void;
 
 export const applyModule: ApplyModule = (container: Container) =>
   juxt([
     applyStores(container),
-    applyEventHandlers(container),
+    applyCommandHandlers(container),
     applyProviders(container),
     applyActivities(container),
   ] as any);
@@ -37,10 +37,10 @@ const applyStores = (container: Container) =>
     })
   );
 
-const applyEventHandlers = (container: Container) =>
+const applyCommandHandlers = (container: Container) =>
   pipe(
-    propOr([], 'eventHandlers'),
-    forEach((eventHandlerModule: ModuleEventHandler) => container.bind('eventHandlers').to(eventHandlerModule.eventHandler))
+    propOr([], 'commandHandlers'),
+    forEach((commandHandlerModule: ModuleCommandHandler) => container.bind('commandHandlers').to(commandHandlerModule.commandHandler))
   );
 
 const applyActivities = (container: Container) =>

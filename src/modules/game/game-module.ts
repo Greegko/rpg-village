@@ -1,13 +1,13 @@
 import { Module } from "../../models";
 import { GeneralGameStore } from './general-store';
-import { GameEventHandler } from './game-event-handler';
+import { GameCommandHandler } from './game-command-handler';
 import { GameController } from './game-controller';
 import { GameStore } from './game-store';
-import { EventSystem } from "../../lib/event-system";
+import { CommandSystem } from "../../lib/command-system";
 import { GameService } from './game-service';
 
 export const gameModule: Module = {
   stores: [{ scope: 'general', store: GeneralGameStore, initialState: { turn: 0 } }],
-  eventHandlers: [{ eventHandler: GameEventHandler }],
-  provides: [GameController, GameStore, GameService, EventSystem]
+  commandHandlers: [{ commandHandler: GameCommandHandler }],
+  provides: [GameController, GameStore, GameService, CommandSystem]
 };

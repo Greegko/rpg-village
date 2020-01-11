@@ -1,2 +1,2 @@
-export * from './blacksmith-events';
-export * from './blacksmith-eventhandler';
+export * from './blacksmith-command';
+export * from './blacksmith-command-handler';

@@ -1,31 +1,31 @@
 
 import { injectable, inject } from 'inversify';
-import { EventSystem } from "../../lib/event-system";
-import { UnitEquipItemEventArgs, UnitUnequipItemEventArgs, UnitEvents } from './interfaces/unit-events';
+import { CommandSystem } from "../../lib/command-system";
+import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand } from './interfaces/unit-command';
 import { UnitStore } from './unit-store';
 import { assoc, evolve, path, dissoc } from 'ramda';
 import { getItem, removeItem, ItemStash, addItem } from '../../models/stash';
 import { Item } from '../../models';
 
 @injectable()
-export class UnitEventHandler {
+export class UnitCommandHandler {
   constructor(
     @inject('UnitStore') private unitStore: UnitStore
   ) { }
 
-  init(eventSystem: EventSystem) {
-    eventSystem.on(
-      UnitEvents.EquipItem,
-      (equipItemArgs: UnitEquipItemEventArgs) => this.equipItem(equipItemArgs)
+  init(commandSystem: CommandSystem) {
+    commandSystem.on(
+      UnitCommand.EquipItem,
+      (equipItemArgs: UnitEquipItemCommandArgs) => this.equipItem(equipItemArgs)
     );
 
-    eventSystem.on(
-      UnitEvents.UnequipItem,
-      (unequipItemArgs: UnitUnequipItemEventArgs) => this.unequipEquipment(unequipItemArgs)
+    commandSystem.on(
+      UnitCommand.UnequipItem,
+      (unequipItemArgs: UnitUnequipItemCommandArgs) => this.unequipEquipment(unequipItemArgs)
     );
   }
 
-  private equipItem({ unitId, itemId, place }: UnitEquipItemEventArgs) {
+  private equipItem({ unitId, itemId, place }: UnitEquipItemCommandArgs) {
     const unit = this.unitStore.get(unitId);
     const item = getItem(unit.stash, itemId);
 
@@ -41,7 +41,7 @@ export class UnitEventHandler {
     this.unitStore.update(unitId, evolveUnit);
   }
 
-  private unequipEquipment({ unitId, place }: UnitUnequipItemEventArgs) {
+  private unequipEquipment({ unitId, place }: UnitUnequipItemCommandArgs) {
     const unit = this.unitStore.get(unitId);
     const item = path(['equipment', place], unit) as Item;
 

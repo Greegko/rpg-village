@@ -1,10 +1,10 @@
 import { Module } from "../../../src/models";
 import { UnitService } from "./unit-service";
 import { UnitStore } from "./unit-store";
-import { UnitEventHandler } from "./unit-eventhandler";
+import { UnitCommandHandler } from "./unit-command-handler";
 
 export const unitModule: Module = {
-  eventHandlers: [{ eventHandler: UnitEventHandler }],
+  commandHandlers: [{ commandHandler: UnitCommandHandler }],
   stores: [{ scope: 'units', store: UnitStore }],
   provides: [UnitService]
 };

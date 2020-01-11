@@ -1,18 +1,18 @@
 import { injectable, inject } from 'inversify';
 import { newBuildingCost, newHeroCost, heroFactory } from './lib';
-import { EventSystem } from '../../lib/event-system';
+import { CommandSystem } from '../../lib/command-system';
 import { PartyService, PartyOwner } from "../party";
-import { GameEvents } from '../game/interfaces';
+import { GameCommand } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';
 import { VillageStore } from './village-store';
 import { VillageStash } from './village-stash';
 import { Resource, Item } from '../../models';
-import { VillageEvents } from './interfaces';
+import { VillageCommand } from './interfaces';
 import { UnitService } from '../unit';
 
 @injectable()
-export class VillageEventHandler {
+export class VillageCommandHandler {
 
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
@@ -22,11 +22,11 @@ export class VillageEventHandler {
     @inject('WorldMap') private worldMap: WorldMap
   ) { }
 
-  init(eventSystem: EventSystem) {
-    eventSystem.on(VillageEvents.BuildHouse, () => this.buildHouse());
-    eventSystem.on(VillageEvents.GenerateGold, () => this.generateGold());
-    eventSystem.on(VillageEvents.HireHero, () => this.hireHero());
-    eventSystem.on(GameEvents.NewGame, () => this.createVillage());
+  init(commandSystem: CommandSystem) {
+    commandSystem.on(VillageCommand.BuildHouse, () => this.buildHouse());
+    commandSystem.on(VillageCommand.GenerateGold, () => this.generateGold());
+    commandSystem.on(VillageCommand.HireHero, () => this.hireHero());
+    commandSystem.on(GameCommand.NewGame, () => this.createVillage());
   }
 
 

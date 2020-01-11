@@ -1,20 +1,20 @@
 import { injectable, inject } from 'inversify';
-import { EventSystem } from "../../../lib/event-system";
-import { BlacksmithEvents, UpgradeItemEventArgs } from './blacksmith-events';
+import { CommandSystem } from "../../../lib/command-system";
+import { BlacksmithCommand, UpgradeItemCommandArgs } from './blacksmith-command';
 import { EffectTarget, AttackEffectType, ItemID } from '../../../models';
 import { append, evolve } from 'ramda';
 import { UnitStore, UnitID } from '../../unit';
 import { getItem, addItem, ItemStash, removeItem } from '../../../models/stash';
 
 @injectable()
-export class BlacksmithEventHandler {
+export class BlacksmithCommandHandler {
 
   constructor(
     @inject('UnitStore') private unitStore: UnitStore
   ) { }
 
-  init(eventSystem: EventSystem) {
-    eventSystem.on(BlacksmithEvents.UpgradeItem, (args: UpgradeItemEventArgs) => this.upgradeItem(args.unitId, args.itemId));
+  init(commandSystem: CommandSystem) {
+    commandSystem.on(BlacksmithCommand.UpgradeItem, (args: UpgradeItemCommandArgs) => this.upgradeItem(args.unitId, args.itemId));
   }
 
   upgradeItem(unitId: UnitID, itemId: ItemID) {

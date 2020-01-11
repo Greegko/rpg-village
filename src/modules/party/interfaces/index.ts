@@ -1,2 +1,2 @@
-export * from './party-base';
+export * from './party';
 export * from './party-owner';

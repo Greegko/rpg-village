@@ -4,4 +4,5 @@ export * from './item';
 export * from './effect';
 export * from './module';
 export * from './store';
-export * from './event';
+export * from './command';
+export * from './command-handler';

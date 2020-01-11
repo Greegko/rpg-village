@@ -1,31 +1,30 @@
-import { VillageEvents } from '../src';
-import { eventTest } from './event-tests';
+import { VillageCommand } from '../../src';
+import { commandTest } from '../utils/command-tests';
 import * as expect from 'expect';
 
-describe('VillageEvents', () => {
+describe('VillageCommand', () => {
   describe('GenerateGold', () => {
-    eventTest({
+    commandTest({
       testName: 'should generate 5 gold pieces',
       initState: { village: { stash: { resource: { gold: 20 } } } },
-      events: [VillageEvents.GenerateGold],
+      commands: [VillageCommand.GenerateGold],
       expectedState: { village: { stash: { resource: { gold: 25 } } } }
     });
   });
 
   describe('Buildhouse', () => {
     const initState = { village: { stash: { resource: { gold: 20 } }, houses: 0 } };
-    eventTest({
+    commandTest({
       testName: 'should build a house',
       initState,
-      events: [VillageEvents.BuildHouse],
+      commands: [VillageCommand.BuildHouse],
       expectedState: { village: { houses: 1 } }
-    }
-    );
+    });
 
-    eventTest({
+    commandTest({
       testName: 'should reduce the village resouce by the house cost',
       initState,
-      events: [VillageEvents.BuildHouse],
+      commands: [VillageCommand.BuildHouse],
       expectedState: { village: { stash: { resource: { gold: 0 } } } }
     });
   })
@@ -33,31 +32,31 @@ describe('VillageEvents', () => {
   describe('HireHero', () => {
     const initState = { village: { stash: { resource: { gold: 25 } }, houses: 1, heroes: [] } };
 
-    eventTest({
+    commandTest({
       testName: 'should reduce village gold capacity by cost amount',
       initState,
-      events: [VillageEvents.HireHero],
+      commands: [VillageCommand.HireHero],
       expectedState: { village: { stash: { resource: { gold: 5 } } } }
     });
 
-    eventTest({
+    commandTest({
       testName: 'should add to village heroes list',
       initState,
-      events: [VillageEvents.HireHero],
+      commands: [VillageCommand.HireHero],
       expectedState: state => expect(state.village.heroes).not.toEqual([])
     });
 
-    eventTest({
+    commandTest({
       testName: 'should store in units list',
       initState,
-      events: [VillageEvents.HireHero],
+      commands: [VillageCommand.HireHero],
       expectedState: state => expect(state.units).not.toEqual({})
     });
 
-    eventTest({
+    commandTest({
       testName: 'should assign to a new party',
       initState,
-      events: [VillageEvents.HireHero],
+      commands: [VillageCommand.HireHero],
       expectedState: state => expect(state.parties).not.toEqual({})
     });
   });
