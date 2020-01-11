@@ -19,12 +19,8 @@ export interface ModulStore {
   scope: string;
 }
 
-export interface ModuleCommandHandler {
-  commandHandler: CommandHandlerClass;
-}
-
 export interface Module {
-  commandHandlers?: ModuleCommandHandler[];
+  commandHandlers?: CommandHandlerClass[];
   activities?: ModulActivity[];
   stores?: ModulStore[];
   provides?: (ProvideClass | ProvideValue)[];

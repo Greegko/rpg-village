@@ -1,6 +1,6 @@
 import { Container, interfaces } from "inversify";
 import { forEach, pipe, propOr, juxt } from 'ramda';
-import { Module, ModulActivity, ModuleCommandHandler, ModulStore, ProvideClass, ProvideValue } from "../models";
+import { Module, ModulActivity, ModulStore, ProvideClass, ProvideValue, CommandHandlerClass } from "../models";
 
 export type ApplyModule = (container: Container) => (module: Module) => void;
 
@@ -40,7 +40,7 @@ const applyStores = (container: Container) =>
 const applyCommandHandlers = (container: Container) =>
   pipe(
     propOr([], 'commandHandlers'),
-    forEach((commandHandlerModule: ModuleCommandHandler) => container.bind('commandHandlers').to(commandHandlerModule.commandHandler))
+    forEach((commandHandler: CommandHandlerClass) => container.bind('commandHandlers').to(commandHandler))
   );
 
 const applyActivities = (container: Container) =>

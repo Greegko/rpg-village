@@ -6,7 +6,7 @@ import { WorldCommandHandler } from "./world-command-handler";
 import { WorldActivity } from "./interfaces";
 
 export const worldModule: Module = {
-  commandHandlers: [{ commandHandler: WorldCommandHandler }],
+  commandHandlers: [WorldCommandHandler],
   activities: [
     { type: WorldActivity.Explore, activity: ExploreActivity },
     { type: WorldActivity.Travel, activity: TravelActivity }
