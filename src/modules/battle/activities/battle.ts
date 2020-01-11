@@ -7,8 +7,8 @@ import { BattleID } from '../interfaces';
 import { WithID } from '../../../models';
 import { sum, all, complement, prop, any } from 'ramda';
 
-export type BattleState = { enemyPartyId: PartyID, battleId: BattleID };
-export type BattleStartArgs = { enemyPartyId: PartyID };
+export type BattleState = { partyId: PartyID, enemyPartyId: PartyID, battleId: BattleID };
+export type BattleStartArgs = { partyId: PartyID, enemyPartyId: PartyID };
 
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
@@ -20,15 +20,15 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     @inject('BattleService') private battleService: BattleService
   ) { }
 
-  start(partyId: PartyID, { enemyPartyId }: BattleStartArgs): Activity<BattleState> {
+  start({ partyId, enemyPartyId }: BattleStartArgs): BattleState {
     return {
-      type: 'battle',
-      state: { enemyPartyId, battleId: this.battleService.startBattle(partyId, enemyPartyId) },
-      partyId
+      partyId,
+      enemyPartyId,
+      battleId: this.battleService.startBattle(partyId, enemyPartyId),
     };
   }
 
-  isRunnable(partyId: PartyID, { enemyPartyId }: BattleStartArgs) {
+  isRunnable({ partyId, enemyPartyId }: BattleStartArgs) {
     return this._anyUnitAliveInParty(partyId) && this._anyUnitAliveInParty(enemyPartyId);
   }
 
@@ -42,12 +42,12 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     return this.battleService.isDoneBattle(battleId);
   }
 
-  resolve(activity: Activity<BattleState>) {
-    const partyUnits = this._getPartyUnits(activity.partyId);
-    const enemyPartyUnits = this._getPartyUnits(activity.state.enemyPartyId);
+  resolve({ state }: Activity<BattleState>) {
+    const partyUnits = this._getPartyUnits(state.partyId);
+    const enemyPartyUnits = this._getPartyUnits(state.enemyPartyId);
 
-    this._updateParty(activity.partyId, partyUnits, this._sumDeadUnitsXP(enemyPartyUnits));
-    this._updateParty(activity.state.enemyPartyId, enemyPartyUnits, this._sumDeadUnitsXP(partyUnits));
+    this._updateParty(state.partyId, partyUnits, this._sumDeadUnitsXP(enemyPartyUnits));
+    this._updateParty(state.enemyPartyId, enemyPartyUnits, this._sumDeadUnitsXP(partyUnits));
   }
 
   private _getPartyUnits(partyId: PartyID): WithID<Unit>[] {

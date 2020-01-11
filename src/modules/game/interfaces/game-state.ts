@@ -4,6 +4,7 @@ import { AnyActivity } from '../../activity/interfaces';
 import { GeneralGameStoreState } from './general-game-store-state';
 import { WithID } from '../../../models';
 import { VillageState } from "../../village";
+import { WorldState } from "../../world";
 
 export type GameState = {
   general: GeneralGameStoreState;
@@ -11,4 +12,5 @@ export type GameState = {
   parties: { [key: string]: WithID<Party> };
   activities: { [key: string]: WithID<AnyActivity> };
   village: VillageState;
+  world: WorldState;
 };

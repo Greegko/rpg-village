@@ -5,12 +5,20 @@ import { ActivityStore } from './activity-store';
 import { WithID } from '../../models';
 
 @injectable()
-export class ActivityHandler {
+export class ActivityManager {
 
   constructor(
     @inject('getActivityHandler') private getActivityHandler: GetActivityHandlerByTag,
     @inject('ActivityStore') private activityStore: ActivityStore
   ) { }
+
+  startActivity(activityType: string, startingArgs: any) {
+    const activityHandler = this.getActivityHandler(activityType);
+    if (activityHandler.isRunnable(startingArgs)) {
+      const activityState = activityHandler.start(startingArgs);
+      this.activityStore.add({ type: activityType, state: activityState });
+    }
+  }
 
   runActivites() {
     forEach(activity => this._executeActivity(activity), values(this.activityStore.getState()));

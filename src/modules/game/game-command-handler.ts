@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { CommandSystem } from "../../lib/command-system";
-import { ActivityHandler } from '../activity';
+import { ActivityManager } from '../activity';
 import { GameCommand } from './interfaces';
 import { GameService } from './game-service';
 
@@ -9,7 +9,7 @@ export class GameCommandHandler {
 
   constructor(
     @inject('GameService') private gameService: GameService,
-    @inject('ActivityHandler') private activityHandler: ActivityHandler,
+    @inject('ActivityManager') private activityManager: ActivityManager,
   ) { }
 
   init(commandSystem: CommandSystem) {
@@ -18,6 +18,6 @@ export class GameCommandHandler {
 
   private _turn() {
     this.gameService.increaseTurn();
-    this.activityHandler.runActivites();
+    this.activityManager.runActivites();
   }
 }

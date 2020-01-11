@@ -1,10 +1,9 @@
 import { Activity } from './activity';
-import { PartyID } from '../../party';
 
-export interface IActivityHandler<S, T> {
-  start(party: PartyID, startArgs: S): Activity<any>;
-  isRunnable(party: PartyID, startArgs: Partial<S>): boolean;
-  isDone(activity: Activity<T>): boolean;
-  execute(activity: Activity<T>): T;
-  resolve(activity: Activity<T>);
+export interface IActivityHandler<StaringArgs, ActivityState> {
+  start(startArgs: StaringArgs): ActivityState;
+  isRunnable(startArgs: StaringArgs): boolean;
+  isDone(activity: Activity<ActivityState>): boolean;
+  execute(activity: Activity<ActivityState>): ActivityState;
+  resolve(activity: Activity<ActivityState>);
 }

@@ -7,7 +7,8 @@ import { prop, pipe } from 'ramda';
 import { VillageStash } from '../village-stash';
 
 export type StashLootState = {
-  village: MapLocationID;
+  villageLocationId: MapLocationID;
+  partyId: PartyID;
 };
 
 export type StashLootStartArgs = StashLootState;
@@ -20,31 +21,28 @@ export class StashLootActivity implements IActivityHandler<StashLootStartArgs, S
     @inject('VillageStash') private villageStash: VillageStash,
   ) { }
 
-  start(partyId: PartyID, { village }: StashLootStartArgs): Activity<StashLootState> {
+  start({ partyId, villageLocationId }: StashLootStartArgs): StashLootState {
     return {
-      type: 'stash-loot',
       partyId,
-      state: {
-        village
-      }
+      villageLocationId
     };
   }
 
-  isRunnable(partyId: PartyID, { village }: Partial<StashLootStartArgs>): boolean {
+  isRunnable({ partyId, villageLocationId }: Partial<StashLootStartArgs>): boolean {
     const party = this.partyService.getParty(partyId);
 
-    return party.locationId === village;
+    return party.locationId === villageLocationId;
   }
 
   execute({ state }: Activity<StashLootState>): StashLootState {
     return state;
   }
 
-  isDone({ state }: Activity<StashLootState>): boolean {
+  isDone(_: Activity<StashLootState>): boolean {
     return true;
   }
 
-  resolve({ state, partyId }: Activity<StashLootState>) {
+  resolve({ state: { partyId } }: Activity<StashLootState>) {
     const partyStash = this.partyService.getParty(partyId).stash;
     const partyResource = getResource(partyStash);
     const partyItems = getItems(partyStash);

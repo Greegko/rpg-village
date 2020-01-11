@@ -7,6 +7,7 @@ import { MapLocationID } from '../../world/interfaces';
 
 export type VillageHealState = {
   village: MapLocationID;
+  partyId: PartyID;
 };
 
 export type VillageHealStateArgs = VillageHealState;
@@ -20,24 +21,22 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
     @inject('PartyService') private partyService: PartyService,
   ) { }
 
-  start(partyId: PartyID, { village }: VillageHealStateArgs): Activity<VillageHealState> {
+  start({ partyId, village }: VillageHealStateArgs): VillageHealState {
     return {
-      type: 'village-heal',
       partyId,
-      state: {
-        village
-      }
+      village
     };
   }
 
-  isRunnable(partyId: PartyID, { village }: Partial<VillageHealStateArgs>): boolean {
+  isRunnable({ partyId, village }: Partial<VillageHealStateArgs>): boolean {
     const party = this.partyService.getParty(partyId);
     const recoverableUnits = this._getRecoverableUnits(partyId);
     return recoverableUnits.length > 0 && party.locationId === village;
   }
 
-  execute({ state, partyId }: Activity<VillageHealState>): VillageHealState {
-    const recoverableUnits = this._getRecoverableUnits(partyId);
+  execute({ state }: Activity<VillageHealState>): VillageHealState {
+    const recoverableUnits = this._getRecoverableUnits(state.partyId);
+
     forEach(
       unit => this.unitService.heal(unit.id, Math.ceil(unit.maxhp / 10)),
       recoverableUnits
@@ -46,7 +45,7 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
     return state;
   }
 
-  isDone({ state, partyId }: Activity<VillageHealState>): boolean {
+  isDone({ state: { partyId } }: Activity<VillageHealState>): boolean {
     return this._getRecoverableUnits(partyId).length === 0;
   }
 

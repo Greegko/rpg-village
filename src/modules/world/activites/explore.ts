@@ -4,13 +4,16 @@ import { WorldStore } from '../world-store';
 import { PartyID } from '../../party';
 import { Activity, IActivityHandler } from '../../activity/interfaces';
 import { MapLocationID } from '../interfaces';
+import { evolve, dec } from 'ramda';
 
 export type ExploreState = {
   progress: number;
+  partyId: PartyID;
   locationId: MapLocationID;
 };
 
 export type ExploreStartArgs = {
+  partyId: PartyID;
   locationId: MapLocationID;
 };
 
@@ -22,24 +25,21 @@ export class ExploreActivity implements IActivityHandler<ExploreStartArgs, Explo
     @inject('WorldStore') private worldStore: WorldStore
   ) { }
 
-  start(partyId: PartyID, { locationId }: ExploreStartArgs): Activity<ExploreState> {
+  start({ partyId, locationId }: ExploreStartArgs): ExploreState {
     return {
-      type: 'explore',
       partyId,
-      state: {
-        locationId,
-        progress: 50
-      }
+      locationId,
+      progress: 50
     }
   }
 
-  isRunnable(partyId: PartyID, { locationId }: ExploreStartArgs): boolean {
+  isRunnable({ partyId, locationId }: ExploreStartArgs): boolean {
     const exploreLocation = this.worldStore.get(locationId);
     return !exploreLocation.explored;
   }
 
   execute({ state }: Activity<ExploreState>): ExploreState {
-    return { ...state, progress: state.progress - 1 };
+    return evolve({ progress: dec }, state);
   }
 
   isDone({ state }: Activity<ExploreState>): boolean {

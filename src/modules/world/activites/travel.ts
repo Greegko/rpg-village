@@ -3,14 +3,17 @@ import { PartyService, PartyID, PartyLocationService } from '../../party';
 import { IActivityHandler, Activity } from '../../activity/interfaces';
 import { WorldMap } from '../world-map';
 import { MapLocationID } from '../interfaces';
+import { evolve, dec } from 'ramda';
 
 export type TravelState = {
-  destination: MapLocationID;
+  partyId: PartyID;
+  targetLocationId: MapLocationID;
   progress: number;
 };
 
 export type TravelStartArgs = {
-  destination: MapLocationID;
+  partyId: PartyID;
+  targetLocationId: MapLocationID;
 };
 
 @injectable()
@@ -22,35 +25,32 @@ export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelS
     @inject('WorldMap') private worldMap: WorldMap
   ) { }
 
-  start(partyId: PartyID, { destination }: TravelStartArgs): Activity<TravelState> {
+  start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
     const currentLocation = this.partyService.getParty(partyId).locationId;
 
     return {
-      type: 'travel',
       partyId,
-      state: {
-        destination,
-        progress: this.worldMap.getDistance(currentLocation, destination)
-      }
+      targetLocationId,
+      progress: this.worldMap.getDistance(currentLocation, targetLocationId)
     };
   }
 
-  isRunnable(partyId: PartyID, { destination }: TravelStartArgs) {
+  isRunnable({ partyId, targetLocationId }: TravelStartArgs) {
     const partyLocation = this.partyService.getParty(partyId).locationId;
 
-    return destination !== partyLocation;
+    return targetLocationId !== partyLocation;
   }
 
   execute({ state }: Activity<TravelState>): TravelState {
-    return { ...state, progress: state.progress - 1 };
+    return evolve({ progress: dec }, state);
   }
 
   isDone({ state }: Activity<TravelState>): boolean {
     return state.progress === 0;
   }
 
-  resolve(activity: Activity<TravelState>) {
-    this.partyLocationService.updateLocation(activity.partyId, activity.state.destination);
+  resolve({ state }: Activity<TravelState>) {
+    this.partyLocationService.updateLocation(state.partyId, state.targetLocationId);
   }
 
 }
