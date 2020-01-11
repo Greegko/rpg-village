@@ -18,6 +18,13 @@ describe('WorldCommand', () => {
       commands: [{ command: WorldCommand.Travel, args: { targetLocationId: 'next-tile', partyId: 'party-one' } }],
       expectedState: state => withRandomID(state.activities, { type: WorldActivity.Travel, state: { partyId: 'party-one' } }),
     });
+
+    commandTest({
+      testName: 'should not start Travel activity to same location',
+      initState: baseInitState,
+      commands: [{ command: WorldCommand.Travel, args: { targetLocationId: 'village-tile', partyId: 'party-one' } }],
+      expectedState: state => expect(state.activities).toEqual({}),
+    });
   });
 });
 
