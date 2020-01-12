@@ -3,10 +3,8 @@ import { UnitService, UnitID } from "../../unit";
 import { PartyService, PartyID } from "../../party";
 import { IActivityHandler, Activity } from '../../activity';
 import { filter, forEach, map } from 'ramda';
-import { MapLocationID } from '../../world/interfaces';
 
 export type VillageHealState = {
-  village: MapLocationID;
   partyId: PartyID;
 };
 
@@ -21,17 +19,15 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
     @inject('PartyService') private partyService: PartyService,
   ) { }
 
-  start({ partyId, village }: VillageHealStateArgs): VillageHealState {
+  start({ partyId }: VillageHealStateArgs): VillageHealState {
     return {
       partyId,
-      village
     };
   }
 
-  isRunnable({ partyId, village }: Partial<VillageHealStateArgs>): boolean {
-    const party = this.partyService.getParty(partyId);
+  isRunnable({ partyId }: Partial<VillageHealStateArgs>): boolean {
     const recoverableUnits = this._getRecoverableUnits(partyId);
-    return recoverableUnits.length > 0 && party.locationId === village;
+    return recoverableUnits.length > 0;
   }
 
   execute({ state }: Activity<VillageHealState>): VillageHealState {

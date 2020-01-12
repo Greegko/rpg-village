@@ -1,4 +1,4 @@
-import { commandTest, TestGameState, mergeGameState } from '../utils/command-tests';
+import { test, TestGameState, mergeGameState } from '../utils';
 import { WorldCommand, WorldActivity } from '../../src/modules/world/interfaces';
 import * as expect from 'expect';
 
@@ -12,14 +12,14 @@ describe('WorldCommand', () => {
       world: { 'village-tile': { x: 0, y: 0, explored: true } }
     };
 
-    commandTest({
+    test({
       testName: 'should start Travel activity',
       initState: mergeGameState(baseInitState, { world: { 'next-tile': { x: 0, y: 1 } } }),
       commands: [{ command: WorldCommand.Travel, args: { targetLocationId: 'next-tile', partyId: 'party-one' } }],
       expectedState: state => withRandomID(state.activities, { type: WorldActivity.Travel, state: { partyId: 'party-one' } }),
     });
 
-    commandTest({
+    test({
       testName: 'should not start Travel activity to same location',
       initState: baseInitState,
       commands: [{ command: WorldCommand.Travel, args: { targetLocationId: 'village-tile', partyId: 'party-one' } }],
@@ -35,14 +35,14 @@ describe('WorldCommand', () => {
       parties: { 'party-one': { unitIds: ['test-unit'], id: 'party-one' } },
     };
 
-    commandTest({
+    test({
       testName: 'should start Explore activity',
       initState: mergeGameState(baseInitState, { world: { 'unexplored-tile': { explored: false } }, parties: { 'party-one': { locationId: 'unexplored-tile' } } }),
       commands: [{ command: WorldCommand.Explore, args: { partyId: 'party-one' } }],
       expectedState: state => withRandomID(state.activities, { type: WorldActivity.Explore, state: { partyId: 'party-one' } }),
     });
 
-    commandTest({
+    test({
       testName: 'should not start Explore activity on explored location',
       initState: mergeGameState(baseInitState, { world: { 'explored-tile': { explored: true } }, parties: { 'party-one': { locationId: 'explored-tile' } } }),
       commands: [{ command: WorldCommand.Explore, args: { partyId: 'party-one' } }],
