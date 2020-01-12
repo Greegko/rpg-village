@@ -1,18 +1,22 @@
 import { inject, multiInject, injectable } from 'inversify';
 import { GameState } from './interfaces';
 import { GameStore } from './game-store';
-import { Command, CommandHandler } from "../../models";
+import { Command, CommandHandler, EventHandler } from "../../models";
 import { CommandSystem } from "../../lib/command-system";
 import { GameCommand } from './interfaces';
+import { EventSystem } from '../../lib/event-system';
 
 @injectable()
 export class GameController<State extends GameState> {
   constructor(
     @inject('GameStore') private gameStore: GameStore<State>,
     @inject('CommandSystem') private commandSystem: CommandSystem,
-    @multiInject('commandHandlers') commandHandlers: CommandHandler[]
+    @inject('EventSystem') eventSystem: EventSystem,
+    @multiInject('commandHandlers') commandHandlers: CommandHandler[],
+    @multiInject('eventHandlers') eventHandlers: EventHandler[],
   ) {
     commandSystem.hookCommandHandlers(commandHandlers);
+    eventSystem.hookEventHandlers(eventHandlers);
   }
 
   gameTurn() {

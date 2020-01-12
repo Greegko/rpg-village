@@ -5,7 +5,10 @@ import * as expect from 'expect';
 describe('Activities', () => {
   describe('Smoke Test', () => {
     test('should resolve activty result', {
-      initState: { activities: { 'test-activity-id': { type: WorldActivity.Travel, state: { partyId: 'test-party', progress: 1, targetLocationId: 'location-2' } as any, } }, parties: { 'test-party': { locationId: 'location-1' } }, world: { 'location-1': {}, 'location-2': {} } },
+      initState: {
+        activities: { 'test-activity-id': { type: WorldActivity.Travel, state: { partyId: 'test-party', progress: 1, targetLocationId: 'location-2' } as any, } },
+        parties: { 'test-party': { locationId: 'location-1' } }
+      },
       turn: true,
       expectedState: { parties: { 'test-party': { locationId: 'location-2' } } }
     });
