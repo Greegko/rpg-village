@@ -9,14 +9,13 @@ type ExpectedStateMatcher = (state: GameState) => any;
 type ExpectedState = TestGameState | ExpectedStateMatcher;
 
 type Test = {
-  testName: string;
   initState: TestGameState;
   commands?: (Command | string)[];
   turn?: boolean;
   expectedState: ExpectedState;
 };
 
-export function test({ testName, initState, commands, expectedState, turn }: Test) {
+export function test(testName: string, { initState, commands, expectedState, turn }: Test) {
   it(testName, () => {
     const game = gameFactory({ state: initState } as any);
 
