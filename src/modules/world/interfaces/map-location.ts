@@ -1,5 +1,5 @@
 export type MapLocationID = string;
-export enum MapLocationType { Village, Field, Desert, Mountain, Mine };
+export enum MapLocationType { Village, Field };
 
 export type MapLocation = {
   type: MapLocationType;
