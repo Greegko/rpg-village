@@ -2,12 +2,20 @@ import { injectable, inject } from 'inversify';
 import { Party, PartyID } from './interfaces';
 import { merge } from 'ramda';
 import { PartyStore } from './party-store';
+import { MapLocationID } from '../world';
+import { WithID } from '../../models';
+import { filter, propEq, values } from 'ramda';
 
 @injectable()
 export class PartyService {
   constructor(
     @inject('PartyStore') private partyStore: PartyStore,
   ) { }
+
+  getPartiesOnLocation(locationId: MapLocationID): WithID<Party>[] {
+    const parties = this.partyStore.getState();
+    return values(filter(propEq('locationId', locationId), parties));
+  }
 
   getParty(partyId: PartyID): Party {
     return this.partyStore.get(partyId);

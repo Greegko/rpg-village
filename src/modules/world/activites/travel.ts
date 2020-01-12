@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, PartyLocationService, PartyEvent } from '../../party';
+import { PartyService, PartyID, PartyEvent } from '../../party';
 import { IActivityHandler, Activity } from '../../activity/interfaces';
 import { WorldMap } from '../world-map';
 import { MapLocationID } from '../interfaces';
@@ -22,7 +22,6 @@ export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelS
 
   constructor(
     @inject('PartyService') private partyService: PartyService,
-    @inject('PartyLocationService') private partyLocationService: PartyLocationService,
     @inject('WorldMap') private worldMap: WorldMap,
     @inject('EventSystem') private eventSystem: EventSystem,
   ) { }
@@ -52,7 +51,7 @@ export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelS
   }
 
   resolve({ state }: Activity<TravelState>) {
-    this.partyLocationService.updateLocation(state.partyId, state.targetLocationId);
+    this.partyService.updateParty(state.partyId, { locationId: state.targetLocationId });
     this.eventSystem.fire(PartyEvent.ArrivedToLocation, { partyId: state.partyId, locationId: state.targetLocationId });
   }
 
