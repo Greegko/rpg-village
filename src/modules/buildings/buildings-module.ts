@@ -2,5 +2,5 @@ import { Module } from "../../models";
 import { BlacksmithCommandHandler } from "./blacksmith";
 
 export const buildingsModule: Module = {
-  commandHandlers: [BlacksmithCommandHandler]
+  commandHandler: BlacksmithCommandHandler
 }

@@ -22,8 +22,8 @@ export interface ModulStore {
 }
 
 export interface Module {
-  eventHandlers?: EventHandlerClass[];
-  commandHandlers?: CommandHandlerClass[];
+  eventHandler?: EventHandlerClass;
+  commandHandler?: CommandHandlerClass;
   activities?: ModulActivity[];
   stores?: ModulStore[];
   provides?: (ProvideClass | ProvideValue)[];

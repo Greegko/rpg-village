@@ -7,8 +7,8 @@ import { VillageEventHandler } from "./village-event-handler";
 import { VillageActivity } from "./interfaces";
 
 export const villageModule: Module = {
-  eventHandlers: [VillageEventHandler],
-  commandHandlers: [VillageCommandHandler],
+  eventHandler: VillageEventHandler,
+  commandHandler: VillageCommandHandler,
   activities: [
     { type: VillageActivity.Heal, activity: VillageHealActivity }
   ],
