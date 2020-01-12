@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify';
 import { Party, PartyID } from './interfaces';
 import { merge } from 'ramda';
 import { PartyStore } from './party-store';
-import { MapLocationID } from '../world';
+import { MapLocationID } from '../world/interfaces';
 import { WithID } from '../../models';
 import { filter, propEq, values } from 'ramda';
 

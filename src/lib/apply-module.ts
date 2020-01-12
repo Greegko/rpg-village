@@ -18,7 +18,7 @@ const applyProviders = (container: Container) =>
     propOr([], 'provides'),
     forEach<ProvideClass | ProvideValue>(provide => {
       if ('value' in provide) {
-        container.bind(provide.provide).to(provide.value);
+        container.bind(provide.provide).toConstantValue(provide.value);
       } else {
         container.bind(provide.name).to(provide);
       }

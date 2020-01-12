@@ -9,7 +9,7 @@ export const worldModule: Module = {
   commandHandler: WorldCommandHandler,
   activities: [
     { type: WorldActivity.Explore, activity: ExploreActivity },
-    { type: WorldActivity.Travel, activity: TravelActivity }
+    { type: WorldActivity.Travel, activity: TravelActivity },
   ],
   stores: [{ scope: 'world', store: WorldStore }],
   provides: [WorldMap]

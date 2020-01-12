@@ -1,4 +1,4 @@
-import { PartyID } from "../../party";
+import { PartyID } from "../../party/interfaces";
 
 export type BattleStoreState = {
   partyId: PartyID;

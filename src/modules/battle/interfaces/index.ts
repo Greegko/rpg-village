@@ -4,3 +4,4 @@ export * from './battle-stats';
 export * from './battle-party';
 export * from './battle-id';
 export * from './battle-store-state';
+export * from './battle-activity';

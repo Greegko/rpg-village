@@ -1,10 +1,11 @@
 import { Module } from '../../models';
 import { BattleService } from "./battle-service";
 import { BattleStore } from "./battle-store";
-import { BattleActivity } from "./activities";
+import { BattleActivity } from './battle-activity';
+import { BattleActivityType } from './interfaces';
 
 export const battleModule: Module = {
-  activities: [{ type: 'battle', activity: BattleActivity }],
+  activities: [{ type: BattleActivityType.Battle, activity: BattleActivity }],
   stores: [{ scope: 'battle', store: BattleStore }],
   provides: [BattleService]
 };

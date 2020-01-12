@@ -109,7 +109,7 @@ function unitFactory({
   id = chance.string(),
   stash = stashFactory(),
   hp = chance.integer(),
-  maxhp = chance.integer({ min: hp }),
+  maxhp = chance.integer(),
   equipment = {},
   armor = chance.integer(),
   dmg = chance.integer(),

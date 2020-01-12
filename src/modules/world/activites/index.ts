@@ -1,2 +1,2 @@
-export * from './travel';
 export * from './explore';
+export * from './travel';

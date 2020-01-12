@@ -6,7 +6,6 @@ import { values } from 'ramda';
 
 @injectable()
 export class WorldMap {
-
   constructor(
     @inject('WorldStore') private worldStore: WorldStore,
   ) { }
@@ -63,5 +62,4 @@ export class WorldMap {
   private locationFactory(type: MapLocationType, x: number, y: number): MapLocation {
     return { type, explored: false, x, y };
   }
-
 }

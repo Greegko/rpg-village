@@ -1,6 +1,7 @@
-import { test, TestGameState, mergeGameState, withRandomID } from '../utils';
+import { test, TestGameState, mergeGameState, withRandomID, createState } from '../utils';
 import { WorldCommand, WorldActivity } from '../../src/modules/world/interfaces';
 import * as expect from 'expect';
+import { PartyOwner, BattleActivityType } from '../../src';
 
 describe('WorldCommand', () => {
   describe('Travel', () => {
@@ -43,6 +44,17 @@ describe('WorldCommand', () => {
       initState: mergeGameState(baseInitState, { world: { 'explored-tile': { explored: true } }, parties: { 'party-one': { locationId: 'explored-tile' } } }),
       commands: [{ command: WorldCommand.Explore, args: { partyId: 'party-one' } }],
       expectedState: state => expect(state.activities).toEqual({}),
+    });
+  });
+
+  describe('Battle', () => {
+    test('should start Battle activity', {
+      initState: createState(({ party, unit, location }) => [
+        party({ id: 'party-x', locationId: location({ id: 'battle-location' }), unitIds: [unit({ hp: 50 })], owner: PartyOwner.Player }),
+        party({ id: 'party-y', locationId: location({ id: 'battle-location' }), unitIds: [unit({ hp: 50 })], owner: PartyOwner.Enemy }),
+      ]),
+      commands: [{ command: WorldCommand.Battle, args: { locationId: 'battle-location' } }],
+      expectedState: state => withRandomID(state.activities, { type: BattleActivityType.Battle, state: { partyXId: 'party-x', partyYId: 'party-y' } }),
     });
   });
 });
