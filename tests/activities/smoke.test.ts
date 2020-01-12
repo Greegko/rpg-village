@@ -1,4 +1,4 @@
-import { test } from '../utils';
+import { test, createState } from '../utils';
 import { WorldActivity } from '../../src';
 import * as expect from 'expect';
 
@@ -20,7 +20,9 @@ describe('Activities', () => {
     });
 
     test('should remove old activity on finish', {
-      initState: { activities: { 'test-activity-id': { id: 'test-activity-id', type: WorldActivity.Travel, state: { progress: 1 } as any, } } },
+      initState: createState(({ activity }) => [
+        activity({ id: 'test-activity-id', type: WorldActivity.Travel, state: { progress: 1 } })
+      ]),
       turn: true,
       expectedState: state => expect(state.activities).not.toHaveProperty('test-activity-id')
     });

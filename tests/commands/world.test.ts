@@ -1,4 +1,4 @@
-import { test, TestGameState, mergeGameState } from '../utils';
+import { test, TestGameState, mergeGameState, withRandomID } from '../utils';
 import { WorldCommand, WorldActivity } from '../../src/modules/world/interfaces';
 import * as expect from 'expect';
 
@@ -46,12 +46,3 @@ describe('WorldCommand', () => {
     });
   });
 });
-
-function withRandomID<T extends object, P extends keyof T>(state: T, subState: Partial<T[P]>): any {
-  const keys = Object.keys(state);
-
-  expect(keys.length).toBe(1);
-
-  const randomID = keys[0] as P;
-  expect(state[randomID]).toMatchObject(subState);
-}
