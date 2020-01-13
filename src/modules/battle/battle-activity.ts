@@ -7,8 +7,8 @@ import { BattleID } from './interfaces';
 import { WithID } from '../../models';
 import { sum, all, complement, prop, any } from 'ramda';
 
-export type BattleState = { partyXId: PartyID, partyYId: PartyID, battleId: BattleID };
-export type BattleStartArgs = { partyXId: PartyID, partyYId: PartyID };
+export type BattleState = { battleId: BattleID };
+export type BattleStartArgs = { attackerPartyId: PartyID, defenderPartyId: PartyID };
 
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
@@ -19,16 +19,14 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     @inject('BattleService') private battleService: BattleService
   ) { }
 
-  start({ partyXId, partyYId }: BattleStartArgs): BattleState {
+  start({ attackerPartyId, defenderPartyId }: BattleStartArgs): BattleState {
     return {
-      partyXId,
-      partyYId,
-      battleId: this.battleService.startBattle(partyXId, partyYId),
+      battleId: this.battleService.startBattle(attackerPartyId, defenderPartyId),
     };
   }
 
-  isRunnable({ partyXId, partyYId }: BattleStartArgs) {
-    return this._anyUnitAliveInParty(partyXId) && this._anyUnitAliveInParty(partyYId);
+  isRunnable({ attackerPartyId, defenderPartyId }: BattleStartArgs) {
+    return this._anyUnitAliveInParty(attackerPartyId) && this._anyUnitAliveInParty(defenderPartyId);
   }
 
   execute(activity: Activity<BattleState>): BattleState {
@@ -42,11 +40,13 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   }
 
   resolve({ state }: Activity<BattleState>) {
-    const partyXIdUnits = this._getPartyUnits(state.partyXId);
-    const partyYIdUnits = this._getPartyUnits(state.partyYId);
+    const battle = this.battleService.getBattle(state.battleId);
 
-    this._updateParty(state.partyXId, partyXIdUnits, this._sumDeadUnitsXP(partyYIdUnits));
-    this._updateParty(state.partyYId, partyYIdUnits, this._sumDeadUnitsXP(partyXIdUnits));
+    const attackerPartyIdUnits = this._getPartyUnits(battle.attackerPartyId);
+    const defenderPartyIdUnits = this._getPartyUnits(battle.defenderPartyId);
+
+    this._updateParty(battle.attackerPartyId, attackerPartyIdUnits, this._sumDeadUnitsXP(defenderPartyIdUnits));
+    this._updateParty(battle.defenderPartyId, defenderPartyIdUnits, this._sumDeadUnitsXP(attackerPartyIdUnits));
 
     this.battleService.removeBattle(state.battleId);
   }

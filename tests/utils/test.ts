@@ -11,7 +11,7 @@ type ExpectedState = TestGameState | ExpectedStateMatcher;
 type Test = {
   initState: TestGameState;
   commands?: (Command | string)[];
-  turn?: boolean;
+  turn?: boolean | number;
   expectedState: ExpectedState;
 };
 
@@ -29,7 +29,7 @@ export function test(testName: string, { initState, commands, expectedState, tur
       });
     }
 
-    if (turn) {
+    for (let i = 0; i < turn; i++) {
       game.gameTurn();
     }
 

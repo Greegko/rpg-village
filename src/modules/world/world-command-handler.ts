@@ -35,7 +35,7 @@ export class WorldCommandHandler implements CommandHandler {
     const enemyParty = parties.find(party => party.owner === PartyOwner.Enemy);
 
     if (playerParty && enemyParty) {
-      this.activityManager.startActivity(BattleActivityType.Battle, { partyXId: playerParty.id, partyYId: enemyParty.id });
+      this.activityManager.startActivity(BattleActivityType.Battle, { attackerPartyId: playerParty.id, defenderPartyId: enemyParty.id });
     }
   }
 }

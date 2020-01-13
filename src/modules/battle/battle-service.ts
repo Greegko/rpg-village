@@ -4,13 +4,12 @@ import { UnitStore, Unit } from '../unit';
 import { WithID } from '../../models';
 import { EffectService } from '../skill';
 import { Battle } from './battle';
-import { BattleID } from './interfaces';
+import { BattleID, BattleStoreState } from './interfaces';
 import { BattleStore } from './battle-store';
 import { forEachObjIndexed } from 'ramda';
 
 @injectable()
 export class BattleService {
-
   private _battleCaches: { [key: string]: Battle } = {};
 
   constructor(
@@ -20,8 +19,12 @@ export class BattleService {
     @inject('EffectService') private effectService: EffectService
   ) { }
 
-  startBattle(partyId: PartyID, enemyPartyId: PartyID): BattleID {
-    return this.battleStore.add({ partyId, enemyPartyId }).id;
+  getBattle(battleId: BattleID): WithID<BattleStoreState> {
+    return this.battleStore.get(battleId);
+  }
+
+  startBattle(attackerPartyId: PartyID, defenderPartyId: PartyID): BattleID {
+    return this.battleStore.add({ attackerPartyId, defenderPartyId }).id;
   }
 
   isDoneBattle(battleId: BattleID): boolean {
@@ -47,8 +50,8 @@ export class BattleService {
       const battleState = this.battleStore.get(battleId);
       this._battleCaches[battleId] = new Battle(
         this.effectService,
-        this._getPartyUnits(battleState.partyId),
-        this._getPartyUnits(battleState.enemyPartyId)
+        this._getPartyUnits(battleState.attackerPartyId),
+        this._getPartyUnits(battleState.defenderPartyId)
       );
     }
 
@@ -58,5 +61,4 @@ export class BattleService {
   private _getPartyUnits(partyId: PartyID): WithID<Unit>[] {
     return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
-
 }

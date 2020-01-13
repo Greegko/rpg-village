@@ -54,7 +54,10 @@ describe('WorldCommand', () => {
         party({ id: 'party-y', locationId: location({ id: 'battle-location' }), unitIds: [unit({ hp: 50 })], owner: PartyOwner.Enemy }),
       ]),
       commands: [{ command: WorldCommand.Battle, args: { locationId: 'battle-location' } }],
-      expectedState: state => withRandomID(state.activities, { type: BattleActivityType.Battle, state: { partyXId: 'party-x', partyYId: 'party-y' } }),
+      expectedState: state => {
+        withRandomID(state.activities, { type: BattleActivityType.Battle });
+        withRandomID(state.battle, { attackerPartyId: 'party-x', defenderPartyId: 'party-y' });
+      },
     });
   });
 });

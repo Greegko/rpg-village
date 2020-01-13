@@ -1,4 +1,4 @@
-import { Party, PartyID, VillageState, MapLocationID, PartyOwner, WithID, GameState, MapLocation, MapLocationType, Unit, UnitType, UnitID } from "../../src";
+import { Party, PartyID, VillageState, MapLocationID, PartyOwner, WithID, GameState, MapLocation, MapLocationType, Unit, UnitType, UnitID, BattleStoreState, BattleID } from "../../src";
 import { AnyActivity, ActivityID } from "../../src/modules/activity";
 import { ItemStash, ResourceStash } from "../../src/models/stash";
 import { Chance } from 'chance';
@@ -6,6 +6,7 @@ import { Chance } from 'chance';
 const chance = Chance();
 
 interface CreateStateCallbackArgs {
+  battle: (battleArgs: Partial<WithID<BattleStoreState>>) => BattleID;
   party: (partyArgs: Partial<WithID<Party>>) => PartyID;
   activity: (activityArgs: Partial<WithID<AnyActivity>>) => ActivityID;
   village: (villageargs?: Partial<VillageState>) => MapLocationID;
@@ -17,6 +18,7 @@ type Callback = (callbackArgs: CreateStateCallbackArgs) => any[];
 
 function createInitState(): GameState {
   return {
+    battle: {},
     parties: {},
     world: {},
     village: villageFactory(),
@@ -27,7 +29,7 @@ function createInitState(): GameState {
 }
 
 function createCallback(createdState: GameState) {
-  function createLocationRefrence(locationArgs?: Partial<WithID<MapLocation>>) {
+  function createLocationReference(locationArgs?: Partial<WithID<MapLocation>>) {
     const location = mapLocationFactory(locationArgs);
 
     createdState.world[location.id] = location;
@@ -43,7 +45,7 @@ function createCallback(createdState: GameState) {
     return unit.id;
   }
 
-  function createPartyRefrence(partyArgs: Partial<WithID<Party>>) {
+  function createPartyReference(partyArgs: Partial<WithID<Party>>) {
     const party = partyFactory(partyArgs);
 
     createdState.parties[party.id] = party;
@@ -56,7 +58,7 @@ function createCallback(createdState: GameState) {
 
     createdState.village = village;
 
-    return createLocationRefrence({ id: village.locationId, type: MapLocationType.Village, x: 0, y: 0 });
+    return createLocationReference({ id: village.locationId, type: MapLocationType.Village, x: 0, y: 0 });
   }
 
   function createActivityReference(activityArgs: Partial<WithID<AnyActivity>>) {
@@ -67,9 +69,18 @@ function createCallback(createdState: GameState) {
     return activity.id;
   }
 
+  function createBattleReference(battleArgs: Partial<WithID<BattleStoreState>>) {
+    const battle = battleFactory(battleArgs);
+
+    createdState.battle[battle.id] = battle;
+
+    return battle.id;
+  }
+
   return {
-    party: createPartyRefrence,
-    location: createLocationRefrence,
+    battle: createBattleReference,
+    party: createPartyReference,
+    location: createLocationReference,
     village: createVillageReference,
     activity: createActivityReference,
     unit: createUnitRefrence
@@ -146,4 +157,12 @@ function activityFactory({
   type = chance.string()
 }: Partial<WithID<AnyActivity>> = {}): WithID<AnyActivity> {
   return { id, state, type };
+}
+
+function battleFactory({
+  id = chance.string(),
+  attackerPartyId = chance.string(),
+  defenderPartyId = chance.string(),
+}: Partial<WithID<BattleStoreState>> = {}) {
+  return { id, attackerPartyId, defenderPartyId };
 }
