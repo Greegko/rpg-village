@@ -6,17 +6,16 @@ import { GameService } from './game-service';
 
 @injectable()
 export class GameCommandHandler {
-
   constructor(
     @inject('GameService') private gameService: GameService,
     @inject('ActivityManager') private activityManager: ActivityManager,
   ) { }
 
   init(commandSystem: CommandSystem) {
-    commandSystem.on(GameCommand.TurnCommand, () => this._turn());
+    commandSystem.on(GameCommand.TurnCommand, () => this.turn());
   }
 
-  private _turn() {
+  private turn() {
     this.gameService.increaseTurn();
     this.activityManager.runActivites();
   }

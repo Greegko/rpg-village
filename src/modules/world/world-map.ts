@@ -30,13 +30,13 @@ export class WorldMap {
 
     const location = this.worldStore.get(locationId);
 
-    const newUnexploredLocations = this._getUnexploredLocationsNextToLocation(values(this.worldStore.getState()), location);
+    const newUnexploredLocations = this.getUnexploredLocationsNextToLocation(values(this.worldStore.getState()), location);
     for (const unexploredLocation of newUnexploredLocations) {
       this.worldStore.add(unexploredLocation);
     }
   }
 
-  private _getUnexploredLocationsNextToLocation(locations: MapLocation[], location: MapLocation): MapLocation[] {
+  private getUnexploredLocationsNextToLocation(locations: MapLocation[], location: MapLocation): MapLocation[] {
     const nx = (x) => x - location.x;
     const ny = (y) => y - location.y;
 

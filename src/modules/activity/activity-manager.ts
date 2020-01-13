@@ -21,10 +21,10 @@ export class ActivityManager {
   }
 
   runActivites() {
-    forEach(activity => this._executeActivity(activity), values(this.activityStore.getState()));
+    forEach(activity => this.executeActivity(activity), values(this.activityStore.getState()));
   }
 
-  private _executeActivity(activity: WithID<AnyActivity>) {
+  private executeActivity(activity: WithID<AnyActivity>) {
     const activityHandler = this.getActivityHandler(activity.type);
     const activityNewState = activityHandler.execute(activity);
     const updatedActivity = assoc('state', activityNewState, activity);

@@ -8,84 +8,82 @@ import { calculateBattleStats } from './lib';
 import { sample } from '../../lib/sample';
 
 export class Battle {
-
-  private _battleState: BattleState;
-  private _effectService: EffectService;
+  private battleState: BattleState;
+  private effectService: EffectService;
 
   constructor(effectService: EffectService, party: WithID<Unit>[], defenderParty: WithID<Unit>[]) {
-    this._effectService = effectService;
-    this._battleState = this._createStartBattleState(party, defenderParty);
+    this.effectService = effectService;
+    this.battleState = this.createStartBattleState(party, defenderParty);
   }
 
   turn(): BattleState {
-    const unitAttackOrder = concat(this._battleState.attackerParty.unitIds, this._battleState.defenderParty.unitIds);
-    forEach(this._attackWithUnit, unitAttackOrder);
+    const unitAttackOrder = concat(this.battleState.attackerParty.unitIds, this.battleState.defenderParty.unitIds);
+    forEach(this.attackWithUnit, unitAttackOrder);
 
-    return this._battleState;
+    return this.battleState;
   }
 
   isDone(): boolean {
     const areAllDead = all(complement(isAlive));
-    return areAllDead(this._getPartyUnits(this._battleState.attackerParty)) ||
-      areAllDead(this._getPartyUnits(this._battleState.defenderParty));
+    return areAllDead(this.getPartyUnits(this.battleState.attackerParty)) ||
+      areAllDead(this.getPartyUnits(this.battleState.defenderParty));
   }
 
-  private _createStartBattleState(partyUnits: WithID<Unit>[], defenderPartyUnits: WithID<Unit>[]): BattleState {
+  private createStartBattleState(partyUnits: WithID<Unit>[], defenderPartyUnits: WithID<Unit>[]): BattleState {
     const units = concat(partyUnits, defenderPartyUnits);
     return {
-      attackerParty: this._calculateParty(partyUnits),
-      defenderParty: this._calculateParty(defenderPartyUnits),
+      attackerParty: this.calculateParty(partyUnits),
+      defenderParty: this.calculateParty(defenderPartyUnits),
       units: mergeAll(map(unit => ({ [unit.id]: unit }), units))
     };
   }
 
-  private _calculateParty(units: Unit[]): BattleParty {
+  private calculateParty(units: Unit[]): BattleParty {
     return {
       unitIds: map(prop('id'), units),
-      effects: chain(unit => this._effectService.getUnitEffects(unit).filter(isPartyEffect), units)
+      effects: chain(unit => this.effectService.getUnitEffects(unit).filter(isPartyEffect), units)
     };
   }
 
-  private _getPartyUnits(party: BattleParty): Unit[] {
-    return map(unitId => this._battleState.units[unitId], party.unitIds);
+  private getPartyUnits(party: BattleParty): Unit[] {
+    return map(unitId => this.battleState.units[unitId], party.unitIds);
   }
 
-  private get _attackWithUnit() {
+  private get attackWithUnit() {
     return pipe(
-      (attackerId: UnitID) => [attackerId, this._getUnitFromdefenderParty(attackerId)],
-      map(x => this._battleUnitTransformer(x)),
-      ([attacker, defender]) => this._handleAttack(attacker, defender)
+      (attackerId: UnitID) => [attackerId, this.getUnitFromdefenderParty(attackerId)],
+      map(unitId => this.battleUnitTransformer(unitId)),
+      ([attacker, defender]) => this.handleAttack(attacker, defender)
     );
   }
 
-  private _getUnitFromdefenderParty(unitId: UnitID): UnitID {
-    const isInNondefenderParty = contains(unitId, this._battleState.attackerParty.unitIds);
-    const targetParty = isInNondefenderParty ? this._battleState.defenderParty : this._battleState.attackerParty;
+  private getUnitFromdefenderParty(unitId: UnitID): UnitID {
+    const isInNondefenderParty = contains(unitId, this.battleState.attackerParty.unitIds);
+    const targetParty = isInNondefenderParty ? this.battleState.defenderParty : this.battleState.attackerParty;
 
     return sample(targetParty.unitIds);
   }
 
-  private _getUnitParty(unitId: UnitID): BattleParty {
-    const isEnemy = contains(unitId, this._battleState.defenderParty.unitIds);
-    return isEnemy ? this._battleState.attackerParty : this._battleState.defenderParty;
+  private getUnitParty(unitId: UnitID): BattleParty {
+    const isEnemy = contains(unitId, this.battleState.defenderParty.unitIds);
+    return isEnemy ? this.battleState.attackerParty : this.battleState.defenderParty;
   }
 
-  private _battleUnitTransformer(unitId: UnitID): BattleUnit {
-    const unit = this._battleState.units[unitId];
-    const party = this._getUnitParty(unitId);
-    return { unitId: unit.id, battleStats: this._getBattleStats(unit, party.effects) };
+  private battleUnitTransformer(unitId: UnitID): BattleUnit {
+    const unit = this.battleState.units[unitId];
+    const party = this.getUnitParty(unitId);
+    return { unitId: unit.id, battleStats: this.getBattleStats(unit, party.effects) };
   }
 
-  private _handleAttack(attacker: BattleUnit, defender: BattleUnit): void {
-    this._dmgUnit(this._battleState.units[defender.unitId], attacker.battleStats.dmg);
+  private handleAttack(attacker: BattleUnit, defender: BattleUnit): void {
+    this.dmgUnit(this.battleState.units[defender.unitId], attacker.battleStats.dmg);
   }
 
-  private _dmgUnit(unit: Unit, dmg: number): void {
+  private dmgUnit(unit: Unit, dmg: number): void {
     unit.hp = Math.max(0, unit.hp - dmg);
   }
 
-  private _getBattleStats(unit: Unit, partyEffects: Effect[]): BattleStats {
-    return calculateBattleStats(unit.dmg, unit.armor, concat(this._effectService.getUnitEffects(unit), partyEffects));
+  private getBattleStats(unit: Unit, partyEffects: Effect[]): BattleStats {
+    return calculateBattleStats(unit.dmg, unit.armor, concat(this.effectService.getUnitEffects(unit), partyEffects));
   }
-
 }

@@ -26,7 +26,7 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   }
 
   isRunnable({ attackerPartyId, defenderPartyId }: BattleStartArgs) {
-    return this._anyUnitAliveInParty(attackerPartyId) && this._anyUnitAliveInParty(defenderPartyId);
+    return this.anyUnitAliveInParty(attackerPartyId) && this.anyUnitAliveInParty(defenderPartyId);
   }
 
   execute(activity: Activity<BattleState>): BattleState {
@@ -42,24 +42,24 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   resolve({ state }: Activity<BattleState>) {
     const battle = this.battleService.getBattle(state.battleId);
 
-    const attackerPartyIdUnits = this._getPartyUnits(battle.attackerPartyId);
-    const defenderPartyIdUnits = this._getPartyUnits(battle.defenderPartyId);
+    const attackerPartyIdUnits = this.getPartyUnits(battle.attackerPartyId);
+    const defenderPartyIdUnits = this.getPartyUnits(battle.defenderPartyId);
 
-    this._updateParty(battle.attackerPartyId, attackerPartyIdUnits, this._sumDeadUnitsXP(defenderPartyIdUnits));
-    this._updateParty(battle.defenderPartyId, defenderPartyIdUnits, this._sumDeadUnitsXP(attackerPartyIdUnits));
+    this.updateParty(battle.attackerPartyId, attackerPartyIdUnits, this.sumDeadUnitsXP(defenderPartyIdUnits));
+    this.updateParty(battle.defenderPartyId, defenderPartyIdUnits, this.sumDeadUnitsXP(attackerPartyIdUnits));
 
     this.battleService.removeBattle(state.battleId);
   }
 
-  private _getPartyUnits(partyId: PartyID): WithID<Unit>[] {
+  private getPartyUnits(partyId: PartyID): WithID<Unit>[] {
     return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
 
-  private _anyUnitAliveInParty(partyId: PartyID) {
-    return any(isAlive, this._getPartyUnits(partyId));
+  private anyUnitAliveInParty(partyId: PartyID) {
+    return any(isAlive, this.getPartyUnits(partyId));
   }
 
-  private _updateParty(partyId: PartyID, units: WithID<Unit>[], earnedXP: number) {
+  private updateParty(partyId: PartyID, units: WithID<Unit>[], earnedXP: number) {
     if (all(complement(isAlive), units)) {
       this.partyService.removeParty(partyId);
       return;
@@ -71,7 +71,7 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     aliveUnits.filter(isHero).forEach(unit => this.unitService.gainXp(unit.id, earnedXP));
   }
 
-  private _sumDeadUnitsXP(units: Unit[]): number {
+  private sumDeadUnitsXP(units: Unit[]): number {
     return sum(units.filter(complement(isAlive)).map(unit => unit.level * 25))
   }
 }

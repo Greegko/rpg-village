@@ -13,7 +13,6 @@ export type RecoverableUnit = { id: UnitID, hp: number, maxhp: number };
 
 @injectable()
 export class VillageHealActivity implements IActivityHandler<VillageHealStateArgs, VillageHealState> {
-
   constructor(
     @inject('UnitService') private unitService: UnitService,
     @inject('PartyService') private partyService: PartyService,
@@ -26,12 +25,12 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
   }
 
   isRunnable({ partyId }: Partial<VillageHealStateArgs>): boolean {
-    const recoverableUnits = this._getRecoverableUnits(partyId);
+    const recoverableUnits = this.getRecoverableUnits(partyId);
     return recoverableUnits.length > 0;
   }
 
   execute({ state }: Activity<VillageHealState>): VillageHealState {
-    const recoverableUnits = this._getRecoverableUnits(state.partyId);
+    const recoverableUnits = this.getRecoverableUnits(state.partyId);
 
     forEach(
       unit => this.unitService.heal(unit.id, Math.ceil(unit.maxhp / 10)),
@@ -42,15 +41,14 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
   }
 
   isDone({ state: { partyId } }: Activity<VillageHealState>): boolean {
-    return this._getRecoverableUnits(partyId).length === 0;
+    return this.getRecoverableUnits(partyId).length === 0;
   }
 
   resolve() { }
 
-  private _getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
+  private getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyService.getParty(partyId);
     const units = map(unitId => this.unitService.getUnit(unitId), party.unitIds);
     return filter(unit => unit.hp !== unit.maxhp, units);
   }
-
 }

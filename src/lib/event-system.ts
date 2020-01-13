@@ -10,20 +10,20 @@ export interface EventSystem {
 
 @injectable()
 export class EventSystem {
-  private _subscribers: { [key: string]: Function[] } = {};
+  private subscribers: { [key: string]: Function[] } = {};
 
   hookEventHandlers(eventHandlers: EventHandler[]) {
     forEach(eventHandler => eventHandler.init(this), eventHandlers);
   }
 
   on(eventType: string, eventHandlerFunction: Function): void {
-    if (!this._subscribers[eventType])
-      this._subscribers[eventType] = [];
+    if (!this.subscribers[eventType])
+      this.subscribers[eventType] = [];
 
-    this._subscribers[eventType].push(eventHandlerFunction);
+    this.subscribers[eventType].push(eventHandlerFunction);
   }
 
   fire(eventType: string, args?: any): void {
-    forEach(callback => callback(args), this._subscribers[eventType] || []);
+    forEach(callback => callback(args), this.subscribers[eventType] || []);
   }
 }
