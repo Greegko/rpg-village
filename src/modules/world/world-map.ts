@@ -26,7 +26,7 @@ export class WorldMap {
   }
 
   exploreLocation(locationId: MapLocationID): void {
-    this.worldStore.exploreLocation(locationId);
+    this.worldStore.update(locationId, { explored: true });
 
     const location = this.worldStore.get(locationId);
 

@@ -10,6 +10,7 @@ import { VillageStashService } from './village-stash-service';
 import { Resource, Item } from '../../models';
 import { VillageCommand } from './interfaces';
 import { UnitService } from '../unit';
+import { append, inc } from 'ramda';
 
 @injectable()
 export class VillageCommandHandler {
@@ -37,10 +38,10 @@ export class VillageCommandHandler {
   }
 
   buildHouse(): void {
-    const goldCost = newBuildingCost(1 + this.villageStore.getNumberOfHouses());
+    const goldCost = newBuildingCost(1 + this.villageStore.getState().houses);
 
     if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.addHouse();
+      this.villageStore.update('houses', inc);
       this.villageStash.removeResource({ gold: goldCost });
     }
   }
@@ -50,13 +51,14 @@ export class VillageCommandHandler {
   }
 
   hireHero(): void {
-    const heroesCount = this.villageStore.getState().heroes.length;
+    const villageState = this.villageStore.getState();
+    const heroesCount = villageState.heroes.length;
     const goldCost = newHeroCost(1 + heroesCount);
 
-    if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < this.villageStore.getNumberOfHouses()) {
+    if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < villageState.houses) {
       const heroId = this.unitService.addUnit(heroFactory());
 
-      this.villageStore.addHero(heroId);
+      this.villageStore.update('heroes', append(heroId));
       this.partyService.createParty({ locationId: this.villageStore.getState().locationId, unitIds: [heroId], owner: PartyOwner.Player });
       this.villageStash.removeResource({ gold: goldCost });
     }
