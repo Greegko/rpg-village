@@ -7,3 +7,4 @@ export * from './store';
 export * from './command';
 export * from './command-handler';
 export * from './event-handler';
+export * from './loot';

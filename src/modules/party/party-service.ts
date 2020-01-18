@@ -3,13 +3,17 @@ import { Party, PartyID } from './interfaces';
 import { merge } from 'ramda';
 import { PartyStore } from './party-store';
 import { MapLocationID } from '../world/interfaces';
-import { WithID } from '../../models';
+import { WithID, Loot } from '../../models';
 import { filter, propEq, values } from 'ramda';
+import { Unit, UnitService, isAlive } from '../unit';
+import { any } from 'ramda';
+import { addResource } from '../../models/stash';
 
 @injectable()
 export class PartyService {
   constructor(
     @inject('PartyStore') private partyStore: PartyStore,
+    @inject('UnitService') private unitService: UnitService,
   ) { }
 
   getPartiesOnLocation(locationId: MapLocationID): WithID<Party>[] {
@@ -19,6 +23,18 @@ export class PartyService {
 
   getParty(partyId: PartyID): Party {
     return this.partyStore.get(partyId);
+  }
+
+  isPartyAlive(partyId: PartyID): boolean {
+    return any(isAlive, this.getPartyUnits(partyId));
+  }
+
+  collectLoot(partyId: PartyID, loot: Loot) {
+    const partyAliveUnits = this.getPartyUnits(partyId).filter(isAlive);
+
+    partyAliveUnits.forEach(unit => this.unitService.gainXp(unit.id, Math.floor(loot.xp / partyAliveUnits.length)));
+
+    this.partyStore.update(partyId, party => ({ stash: addResource(party.stash, loot.resource) }));
   }
 
   createParty(party: Partial<Party>) {
@@ -31,5 +47,9 @@ export class PartyService {
 
   removeParty(partyId: PartyID) {
     this.partyStore.remove(partyId);
+  }
+
+  getPartyUnits(partyId: PartyID): WithID<Unit>[] {
+    return this.getParty(partyId).unitIds.map(unitId => this.unitService.getUnit(unitId));
   }
 }

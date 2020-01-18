@@ -2,16 +2,17 @@ import { Party, PartyID, VillageState, MapLocationID, PartyOwner, WithID, GameSt
 import { AnyActivity, ActivityID } from "../../src/modules/activity";
 import { ItemStash, ResourceStash } from "../../src/models/stash";
 import { Chance } from 'chance';
+import { PartialDeep } from "./deep-partial";
 
 const chance = Chance();
 
 interface CreateStateCallbackArgs {
-  battle: (battleArgs: Partial<WithID<BattleStoreState>>) => BattleID;
-  party: (partyArgs: Partial<WithID<Party>>) => PartyID;
-  activity: (activityArgs: Partial<WithID<AnyActivity>>) => ActivityID;
-  village: (villageargs?: Partial<VillageState>) => MapLocationID;
-  location: (locationArgs?: Partial<WithID<MapLocation>>) => MapLocationID;
-  unit: (unitArgs?: Partial<WithID<Unit>>) => UnitID;
+  battle: (battleArgs: PartialDeep<WithID<BattleStoreState>>) => BattleID;
+  party: (partyArgs: PartialDeep<WithID<Party>>) => PartyID;
+  activity: (activityArgs: PartialDeep<WithID<AnyActivity>>) => ActivityID;
+  village: (villageargs?: PartialDeep<VillageState>) => MapLocationID;
+  location: (locationArgs?: PartialDeep<WithID<MapLocation>>) => MapLocationID;
+  unit: (unitArgs?: PartialDeep<WithID<Unit>>) => UnitID;
 }
 
 type Callback = (callbackArgs: CreateStateCallbackArgs) => any[];

@@ -36,5 +36,37 @@ describe('Battle Activity', () => {
       turn: true,
       expectedState: { units: { 'winner-unit': { xp: 25 } } }
     });
+
+    test('should party gain gold', {
+      initState: createState(({ activity, party, unit, battle }) => [
+        activity({
+          type: BattleActivityType.Battle,
+          state: {
+            battleId: battle({
+              attackerPartyId: party({ id: 'winner-party', unitIds: [unit({ dmg: 10, hp: 10 })], stash: { resource: { gold: 0 } } }),
+              defenderPartyId: party({ unitIds: [unit({ dmg: 1, hp: 1, level: 1 })], stash: { resource: { gold: 0 } } }),
+            }),
+          }
+        })
+      ]),
+      turn: true,
+      expectedState: { parties: { 'winner-party': { stash: { resource: { gold: 25 } } } } }
+    });
+
+    test('should party gain the looser stash', {
+      initState: createState(({ activity, party, unit, battle }) => [
+        activity({
+          type: BattleActivityType.Battle,
+          state: {
+            battleId: battle({
+              attackerPartyId: party({ id: 'winner-party', unitIds: [unit({ dmg: 10, hp: 10 })], stash: { resource: { gold: 0 } } }),
+              defenderPartyId: party({ unitIds: [unit({ dmg: 1, hp: 1, level: 1 })], stash: { resource: { gold: 25 } } }),
+            }),
+          }
+        })
+      ]),
+      turn: true,
+      expectedState: { parties: { 'winner-party': { stash: { resource: { gold: 50 } } } } }
+    });
   });
 });

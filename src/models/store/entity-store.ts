@@ -1,6 +1,6 @@
 export type WithID<Entity, ID = string> = Entity & { id: ID };
 
-export type EntityUpdater<T> = (entity: T) => T;
+export type EntityUpdater<T> = (entity: T) => Partial<T>;
 
 export type EntityStoreState<Entity, EntityID extends string = string> = { [key: string]: WithID<Entity, EntityID> };
 export interface IEntityStore<Entity, EntityID extends string = string> {

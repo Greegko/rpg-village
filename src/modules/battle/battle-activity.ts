@@ -1,11 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { PartyService, PartyID } from "../party";
-import { UnitStore, isAlive, isHero, Unit, UnitService } from "../unit";
 import { IActivityHandler, Activity } from '../activity';
 import { BattleService } from './battle-service';
 import { BattleID } from './interfaces';
-import { WithID } from '../../models';
-import { sum, all, complement, prop, any } from 'ramda';
+import { calculateLoot } from './lib';
+import { mergeDeepWith, add } from 'ramda';
 
 export type BattleState = { battleId: BattleID };
 export type BattleStartArgs = { attackerPartyId: PartyID, defenderPartyId: PartyID };
@@ -13,9 +12,7 @@ export type BattleStartArgs = { attackerPartyId: PartyID, defenderPartyId: Party
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
   constructor(
-    @inject('UnitStore') private unitStore: UnitStore,
     @inject('PartyService') private partyService: PartyService,
-    @inject('UnitService') private unitService: UnitService,
     @inject('BattleService') private battleService: BattleService
   ) { }
 
@@ -26,7 +23,7 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   }
 
   isRunnable({ attackerPartyId, defenderPartyId }: BattleStartArgs) {
-    return this.anyUnitAliveInParty(attackerPartyId) && this.anyUnitAliveInParty(defenderPartyId);
+    return this.partyService.isPartyAlive(attackerPartyId) && this.partyService.isPartyAlive(defenderPartyId);
   }
 
   execute(activity: Activity<BattleState>): BattleState {
@@ -42,36 +39,16 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   resolve({ state }: Activity<BattleState>) {
     const battle = this.battleService.getBattle(state.battleId);
 
-    const attackerPartyIdUnits = this.getPartyUnits(battle.attackerPartyId);
-    const defenderPartyIdUnits = this.getPartyUnits(battle.defenderPartyId);
+    const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.attackerPartyId) ?
+      [battle.attackerPartyId, battle.defenderPartyId] :
+      [battle.defenderPartyId, battle.attackerPartyId];
 
-    this.updateParty(battle.attackerPartyId, attackerPartyIdUnits, this.sumDeadUnitsXP(defenderPartyIdUnits));
-    this.updateParty(battle.defenderPartyId, defenderPartyIdUnits, this.sumDeadUnitsXP(attackerPartyIdUnits));
+    const partyStash = this.partyService.getParty(looserPartyId).stash;
+    const loot = calculateLoot(this.partyService.getPartyUnits(looserPartyId));
+    const mergedLoot = mergeDeepWith(add, loot, partyStash);
 
+    this.partyService.collectLoot(winnerPartyId, mergedLoot);
+    this.partyService.removeParty(looserPartyId);
     this.battleService.removeBattle(state.battleId);
-  }
-
-  private getPartyUnits(partyId: PartyID): WithID<Unit>[] {
-    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
-  }
-
-  private anyUnitAliveInParty(partyId: PartyID) {
-    return any(isAlive, this.getPartyUnits(partyId));
-  }
-
-  private updateParty(partyId: PartyID, units: WithID<Unit>[], earnedXP: number) {
-    if (all(complement(isAlive), units)) {
-      this.partyService.removeParty(partyId);
-      return;
-    }
-
-    const aliveUnits = units.filter(isAlive);
-    this.partyService.updateParty(partyId, { unitIds: aliveUnits.map(prop('id')) });
-
-    aliveUnits.filter(isHero).forEach(unit => this.unitService.gainXp(unit.id, earnedXP));
-  }
-
-  private sumDeadUnitsXP(units: Unit[]): number {
-    return sum(units.filter(complement(isAlive)).map(unit => unit.level * 25))
   }
 }
