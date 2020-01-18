@@ -128,7 +128,7 @@ function unitFactory({
   level = chance.integer(),
   name = chance.string(),
   skillIds = [],
-  type = chance.pickone[UnitType.Common, UnitType.Unit]
+  type = chance.pickone[UnitType.Common, UnitType.Hero]
 }: Partial<WithID<Unit>> = {}): WithID<Unit> {
   return { xp, id, stash, maxhp, hp, equipment, armor, level, name, type, dmg, skillIds };
 }

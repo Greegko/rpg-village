@@ -20,7 +20,7 @@ export function heroFactory(): Unit {
     skillIds: [],
     dmg: 5,
     xp: 0,
-    type: UnitType.Unit,
+    type: UnitType.Hero,
     stash: { resource: {}, items: [] }
   };
 }

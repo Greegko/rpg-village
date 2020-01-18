@@ -27,7 +27,7 @@ describe('Battle Activity', () => {
           type: BattleActivityType.Battle,
           state: {
             battleId: battle({
-              attackerPartyId: party({ unitIds: [unit({ id: 'winner-unit', xp: 0, dmg: 100, hp: 100, type: UnitType.Unit })] }),
+              attackerPartyId: party({ unitIds: [unit({ id: 'winner-unit', xp: 0, dmg: 100, hp: 100, type: UnitType.Hero })] }),
               defenderPartyId: party({ unitIds: [unit({ dmg: 1, hp: 1, level: 1 })] }),
             }),
           }

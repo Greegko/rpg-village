@@ -3,7 +3,7 @@ import { Equipment } from "../../../models";
 import { ItemStash, ResourceStash } from "../../../models/stash";
 
 export type UnitID = string;
-export enum UnitType { Common, Unit };
+export enum UnitType { Common, Hero };
 
 export type Unit = {
   name: string;
