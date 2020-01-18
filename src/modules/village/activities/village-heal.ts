@@ -33,7 +33,7 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
     const recoverableUnits = this.getRecoverableUnits(state.partyId);
 
     forEach(
-      unit => this.unitService.heal(unit.id, Math.ceil(unit.maxhp / 10)),
+      unit => this.unitService.healUnit(unit.id, Math.ceil(unit.maxhp / 10)),
       recoverableUnits
     );
 

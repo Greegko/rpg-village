@@ -54,7 +54,7 @@ export class VillageCommandHandler {
     const goldCost = newHeroCost(1 + heroesCount);
 
     if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < this.villageStore.getNumberOfHouses()) {
-      const heroId = this.unitService.createUnit(heroFactory());
+      const heroId = this.unitService.addUnit(heroFactory());
 
       this.villageStore.addHero(heroId);
       this.partyService.createParty({ locationId: this.villageStore.getState().locationId, unitIds: [heroId], owner: PartyOwner.Player });
