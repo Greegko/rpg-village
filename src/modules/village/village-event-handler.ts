@@ -3,9 +3,8 @@ import { injectable, inject } from "inversify";
 import { EventHandler } from "../../models";
 import { PartyEvent, ArrivedToLocationEventArgs, PartyService, PartyID } from "../party";
 import { VillageStore } from "./village-store";
-import { VillageStash } from "./village-stash";
-import { getResource, getItems, removeResource, removeItems, ResourceStash, ItemStash } from '../../models/stash';
-import { prop, pipe } from 'ramda';
+import { VillageStashService } from "./village-stash-service";
+import { getResource, getItems } from '../../models/stash';
 import { ActivityManager } from "../activity";
 import { VillageActivity } from "./interfaces";
 
@@ -13,7 +12,7 @@ import { VillageActivity } from "./interfaces";
 export class VillageEventHandler implements EventHandler {
   constructor(
     @inject('PartyService') private partyService: PartyService,
-    @inject('VillageStash') private villageStash: VillageStash,
+    @inject('VillageStashService') private villageStash: VillageStashService,
     @inject('VillageStore') private villageStore: VillageStore,
     @inject('ActivityManager') private activityManager: ActivityManager,
   ) { }
@@ -36,18 +35,9 @@ export class VillageEventHandler implements EventHandler {
   }
 
   private storePartyLoot(partyId: PartyID) {
-    const partyStash = this.partyService.getParty(partyId).stash;
-    const partyResource = getResource(partyStash);
-    const partyItems = getItems(partyStash);
+    const partyStash = this.partyService.clearPartyStash(partyId);
 
-    const newPartyStash = pipe(
-      (stash: ResourceStash & ItemStash) => removeResource(stash, partyResource),
-      (stash: ResourceStash & ItemStash) => removeItems(stash, partyItems.map(prop('id')))
-    )(partyStash);
-
-    this.partyService.updateParty(partyId, { stash: newPartyStash });
-
-    this.villageStash.addResource(partyResource);
-    this.villageStash.addItems(partyItems);
+    this.villageStash.addResource(getResource(partyStash));
+    this.villageStash.addItems(getItems(partyStash));
   }
 }

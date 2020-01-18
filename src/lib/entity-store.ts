@@ -1,4 +1,4 @@
-import { assoc, merge, dissoc, prop, omit } from 'ramda';
+import { assoc, merge, dissoc, prop, omit, assocPath } from 'ramda';
 import { generate } from 'shortid';
 import { IEntityStore, WithID, EntityStoreState, EntityUpdater } from '../models';
 import { injectable } from 'inversify';
@@ -24,6 +24,16 @@ export class EntityStore<Entity, EntityID extends string = string> implements IE
     const newObject = assoc('id', id, entity);
     this.state = assoc(id, newObject, this.state);
     return newObject;
+  }
+
+  set(entityId: EntityID, entity: Entity) {
+    this.state = assoc(entityId, entity, this.state);
+  }
+
+  setPath<P1 extends keyof NonNullable<Entity>, V extends NonNullable<Entity>[P1]>(entityId: EntityID, path: [P1], value: V): void;
+  setPath<P1 extends keyof NonNullable<Entity>, P2 extends keyof NonNullable<NonNullable<Entity>[P1]>, V extends NonNullable<NonNullable<Entity>[P1]>[P2]>(entityId: EntityID, path: [P1, P2], value: V): void;
+  setPath(entityId: EntityID, propertyPath: string[], entityPathValue: any) {
+    this.state = assocPath([entityId, ...propertyPath], entityPathValue, this.state);
   }
 
   update(entityId: EntityID, entity: Partial<Entity>): void;

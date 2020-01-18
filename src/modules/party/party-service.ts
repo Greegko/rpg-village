@@ -1,5 +1,5 @@
 import { injectable, inject } from 'inversify';
-import { Party, PartyID } from './interfaces';
+import { Party, PartyID, PartyStash } from './interfaces';
 import { merge } from 'ramda';
 import { PartyStore } from './party-store';
 import { MapLocationID } from '../world/interfaces';
@@ -41,8 +41,15 @@ export class PartyService {
     this.partyStore.add(merge(party as Party, { stash: { resource: {}, items: [] } }));
   }
 
-  updateParty(partyId: PartyID, party: Partial<Party>) {
-    this.partyStore.update(partyId, party);
+  setPartyLocation(partyId: PartyID, locationId: MapLocationID) {
+    this.partyStore.setPath(partyId, ['locationId'], locationId);
+  }
+
+  clearPartyStash(partyId: PartyID): PartyStash {
+    const stash = this.getParty(partyId).stash;
+    this.partyStore.setPath(partyId, ['stash'], { resource: { gold: 0 }, items: [] });
+
+    return stash;
   }
 
   removeParty(partyId: PartyID) {

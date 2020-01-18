@@ -43,7 +43,7 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
       [battle.attackerPartyId, battle.defenderPartyId] :
       [battle.defenderPartyId, battle.attackerPartyId];
 
-    const partyStash = this.partyService.getParty(looserPartyId).stash;
+    const partyStash = this.partyService.clearPartyStash(looserPartyId);
     const loot = calculateLoot(this.partyService.getPartyUnits(looserPartyId));
     const mergedLoot = mergeDeepWith(add, loot, partyStash);
 

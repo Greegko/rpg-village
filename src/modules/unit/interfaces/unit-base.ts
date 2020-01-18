@@ -4,6 +4,7 @@ import { ItemStash, ResourceStash } from "../../../models/stash";
 
 export type UnitID = string;
 export enum UnitType { Common, Hero };
+export type UnitStash = ItemStash & ResourceStash;
 
 export type Unit = {
   name: string;
@@ -16,5 +17,5 @@ export type Unit = {
   armor: number;
   xp: number;
   equipment: Equipment;
-  stash: ItemStash & ResourceStash;
+  stash: UnitStash;
 };

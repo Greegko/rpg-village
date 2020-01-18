@@ -51,7 +51,7 @@ export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelS
   }
 
   resolve({ state }: Activity<TravelState>) {
-    this.partyService.updateParty(state.partyId, { locationId: state.targetLocationId });
+    this.partyService.setPartyLocation(state.partyId, state.targetLocationId);
     this.eventSystem.fire(PartyEvent.ArrivedToLocation, { partyId: state.partyId, locationId: state.targetLocationId });
   }
 

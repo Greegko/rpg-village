@@ -6,7 +6,7 @@ import { GameCommand } from '../game/interfaces';
 import { MapLocationType } from '../world/interfaces';
 import { WorldMap } from '../world';
 import { VillageStore } from './village-store';
-import { VillageStash } from './village-stash';
+import { VillageStashService } from './village-stash-service';
 import { Resource, Item } from '../../models';
 import { VillageCommand } from './interfaces';
 import { UnitService } from '../unit';
@@ -16,7 +16,7 @@ export class VillageCommandHandler {
 
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
-    @inject('VillageStash') private villageStash: VillageStash,
+    @inject('VillageStashService') private villageStash: VillageStashService,
     @inject('PartyService') private partyService: PartyService,
     @inject('UnitService') private unitService: UnitService,
     @inject('WorldMap') private worldMap: WorldMap

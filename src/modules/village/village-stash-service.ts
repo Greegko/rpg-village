@@ -6,7 +6,7 @@ import { addItems, getItem, removeItem, addResource, removeResource, getResource
 import { where, map, lte } from 'ramda';
 
 @injectable()
-export class VillageStash {
+export class VillageStashService {
 
   constructor(
     @inject('VillageStore') private villageStore: VillageStore,
