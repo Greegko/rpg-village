@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "mocha --require ts-node/register --watch-extensions ts tests/**/*.test.ts",
-    "test:watch": "mocha --require ts-node/register --watch-extensions ts tests/**/*.test.ts --watch",
-    "test:integration": "mocha --require ts-node/register --watch-extensions ts tests/smoke.test.ts",
+    "test": "mocha --require ts-node/register --watch-extensions ts 'tests/**/*.test.ts'",
+    "test:watch": "mocha --require ts-node/register --watch-extensions ts 'tests/**/*.test.ts' --watch",
     "build": "tsc"
   },
   "dependencies": {
