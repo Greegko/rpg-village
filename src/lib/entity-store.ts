@@ -26,7 +26,17 @@ export class EntityStore<Entity extends { id: EntityID }, EntityID extends strin
     return newObject;
   }
 
-  set(entityId: EntityID, entity: Entity) {
+  set(entityId: EntityID, entity: Partial<Entity>): void;
+  set(entityId: EntityID, updater: EntityUpdater<Entity>): void;
+  set(entityId: EntityID, entityOrUpdater: Partial<Entity> | EntityUpdater<Entity>): void {
+    let entity: Partial<Entity> = null;
+
+    if (typeof entityOrUpdater === 'function') {
+      entity = entityOrUpdater(this.get(entityId));
+    } else {
+      entity = entityOrUpdater;
+    }
+
     this.state = assoc(entityId, entity, this.state);
   }
 
