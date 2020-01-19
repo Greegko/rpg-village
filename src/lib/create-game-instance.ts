@@ -6,13 +6,13 @@ import { forEach, forEachObjIndexed } from 'ramda';
 import { applyModule } from "./apply-module";
 import { Skill } from "../modules";
 
-interface Provides {
+export interface GameConfigProvides {
   available_skills: Skill[];
 }
 
 export interface GameConfig {
   modules: Module[];
-  provides: Provides;
+  provides: GameConfigProvides;
 }
 
 export type CreateGameInstance = <S extends GameState>(config?: Partial<GameConfig>) => GameInstance<S>;
