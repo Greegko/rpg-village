@@ -3,7 +3,7 @@ import { Party, PartyID, PartyStash } from './interfaces';
 import { merge } from 'ramda';
 import { PartyStore } from './party-store';
 import { MapLocationID } from '../world/interfaces';
-import { WithID, Loot } from '../../models';
+import { Loot } from '../../models';
 import { filter, propEq, values } from 'ramda';
 import { Unit, UnitService, isAlive } from '../unit';
 import { any } from 'ramda';
@@ -16,7 +16,7 @@ export class PartyService {
     @inject('UnitService') private unitService: UnitService,
   ) { }
 
-  getPartiesOnLocation(locationId: MapLocationID): WithID<Party>[] {
+  getPartiesOnLocation(locationId: MapLocationID): Party[] {
     const parties = this.partyStore.getState();
     return values(filter(propEq('locationId', locationId), parties));
   }
@@ -56,7 +56,7 @@ export class PartyService {
     this.partyStore.remove(partyId);
   }
 
-  getPartyUnits(partyId: PartyID): WithID<Unit>[] {
+  getPartyUnits(partyId: PartyID): Unit[] {
     return this.getParty(partyId).unitIds.map(unitId => this.unitService.getUnit(unitId));
   }
 }

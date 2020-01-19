@@ -1,7 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { PartyService, PartyID } from '../party';
 import { UnitStore, Unit } from '../unit';
-import { WithID } from '../../models';
 import { EffectService } from '../skill';
 import { Battle } from './battle';
 import { BattleID, BattleStoreState } from './interfaces';
@@ -19,7 +18,7 @@ export class BattleService {
     @inject('EffectService') private effectService: EffectService
   ) { }
 
-  getBattle(battleId: BattleID): WithID<BattleStoreState> {
+  getBattle(battleId: BattleID): BattleStoreState {
     return this.battleStore.get(battleId);
   }
 
@@ -41,7 +40,7 @@ export class BattleService {
     delete this.battleInstances[battleId];
   }
 
-  private updateUnit(unit: WithID<Unit>): void {
+  private updateUnit(unit: Unit): void {
     this.unitStore.update(unit.id, { hp: unit.hp });
   }
 
@@ -58,7 +57,7 @@ export class BattleService {
     return this.battleInstances[battleId];
   }
 
-  private getPartyUnits(partyId: PartyID): WithID<Unit>[] {
+  private getPartyUnits(partyId: PartyID): Unit[] {
     return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
 }

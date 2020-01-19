@@ -7,6 +7,7 @@ export enum UnitType { Common, Hero };
 export type UnitStash = ItemStash & ResourceStash;
 
 export type Unit = {
+  id: UnitID;
   name: string;
   level: number;
   hp: number;

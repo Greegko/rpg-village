@@ -36,7 +36,7 @@ export class WorldMap {
     }
   }
 
-  private getUnexploredLocationsNextToLocation(locations: MapLocation[], location: MapLocation): MapLocation[] {
+  private getUnexploredLocationsNextToLocation(locations: MapLocation[], location: MapLocation): Omit<MapLocation, 'id'>[] {
     const nx = (x) => x - location.x;
     const ny = (y) => y - location.y;
 
@@ -59,7 +59,7 @@ export class WorldMap {
     );
   }
 
-  private locationFactory(type: MapLocationType, x: number, y: number): MapLocation {
+  private locationFactory(type: MapLocationType, x: number, y: number): Omit<MapLocation, 'id'> {
     return { type, explored: false, x, y };
   }
 }

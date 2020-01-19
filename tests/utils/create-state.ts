@@ -1,4 +1,4 @@
-import { Party, PartyID, VillageState, MapLocationID, PartyOwner, WithID, GameState, MapLocation, MapLocationType, Unit, UnitType, UnitID, BattleStoreState, BattleID } from "../../src";
+import { Party, PartyID, VillageState, MapLocationID, PartyOwner, GameState, MapLocation, MapLocationType, Unit, UnitType, UnitID, BattleStoreState, BattleID } from "../../src";
 import { AnyActivity, ActivityID } from "../../src/modules/activity";
 import { ItemStash, ResourceStash } from "../../src/models/stash";
 import { Chance } from 'chance';
@@ -7,12 +7,12 @@ import { PartialDeep } from "./deep-partial";
 const chance = Chance();
 
 interface CreateStateCallbackArgs {
-  battle: (battleArgs: PartialDeep<WithID<BattleStoreState>>) => BattleID;
-  party: (partyArgs: PartialDeep<WithID<Party>>) => PartyID;
-  activity: (activityArgs: PartialDeep<WithID<AnyActivity>>) => ActivityID;
+  battle: (battleArgs: PartialDeep<BattleStoreState>) => BattleID;
+  party: (partyArgs: PartialDeep<Party>) => PartyID;
+  activity: (activityArgs: PartialDeep<AnyActivity>) => ActivityID;
   village: (villageargs?: PartialDeep<VillageState>) => MapLocationID;
-  location: (locationArgs?: PartialDeep<WithID<MapLocation>>) => MapLocationID;
-  unit: (unitArgs?: PartialDeep<WithID<Unit>>) => UnitID;
+  location: (locationArgs?: PartialDeep<MapLocation>) => MapLocationID;
+  unit: (unitArgs?: PartialDeep<Unit>) => UnitID;
 }
 
 type Callback = (callbackArgs: CreateStateCallbackArgs) => any[];
@@ -30,7 +30,7 @@ function createInitState(): GameState {
 }
 
 function createCallback(createdState: GameState) {
-  function createLocationReference(locationArgs?: Partial<WithID<MapLocation>>) {
+  function createLocationReference(locationArgs?: Partial<MapLocation>) {
     const location = mapLocationFactory(locationArgs);
 
     createdState.world[location.id] = location;
@@ -38,7 +38,7 @@ function createCallback(createdState: GameState) {
     return location.id;
   }
 
-  function createUnitRefrence(unitArgs?: Partial<WithID<Unit>>) {
+  function createUnitRefrence(unitArgs?: Partial<Unit>) {
     const unit = unitFactory(unitArgs);
 
     createdState.units[unit.id] = unit;
@@ -46,7 +46,7 @@ function createCallback(createdState: GameState) {
     return unit.id;
   }
 
-  function createPartyReference(partyArgs: Partial<WithID<Party>>) {
+  function createPartyReference(partyArgs: Partial<Party>) {
     const party = partyFactory(partyArgs);
 
     createdState.parties[party.id] = party;
@@ -62,7 +62,7 @@ function createCallback(createdState: GameState) {
     return createLocationReference({ id: village.locationId, type: MapLocationType.Village, x: 0, y: 0 });
   }
 
-  function createActivityReference(activityArgs: Partial<WithID<AnyActivity>>) {
+  function createActivityReference(activityArgs: Partial<AnyActivity>) {
     const activity = activityFactory(activityArgs);
 
     createdState.activities[activity.id] = activity;
@@ -70,7 +70,7 @@ function createCallback(createdState: GameState) {
     return activity.id;
   }
 
-  function createBattleReference(battleArgs: Partial<WithID<BattleStoreState>>) {
+  function createBattleReference(battleArgs: Partial<BattleStoreState>) {
     const battle = battleFactory(battleArgs);
 
     createdState.battle[battle.id] = battle;
@@ -102,7 +102,7 @@ function mapLocationFactory({
   y = chance.integer(),
   id = chance.string(),
   type = MapLocationType.Field
-}: Partial<WithID<MapLocation>> = {}): WithID<MapLocation> {
+}: Partial<MapLocation> = {}): MapLocation {
   return { explored, x, y, id, type };
 }
 
@@ -129,7 +129,7 @@ function unitFactory({
   name = chance.string(),
   skillIds = [],
   type = chance.pickone[UnitType.Common, UnitType.Hero]
-}: Partial<WithID<Unit>> = {}): WithID<Unit> {
+}: Partial<Unit> = {}): Unit {
   return { xp, id, stash, maxhp, hp, equipment, armor, level, name, type, dmg, skillIds };
 }
 
@@ -148,7 +148,7 @@ function partyFactory({
   unitIds = [],
   locationId = chance.string(),
   stash = stashFactory()
-}: Partial<WithID<Party>> = {}): WithID<Party> {
+}: Partial<Party> = {}): Party {
   return { id, owner, unitIds, locationId, stash }
 }
 
@@ -156,7 +156,7 @@ function activityFactory({
   id = chance.string(),
   state = {},
   type = chance.string()
-}: Partial<WithID<AnyActivity>> = {}): WithID<AnyActivity> {
+}: Partial<AnyActivity> = {}): AnyActivity {
   return { id, state, type };
 }
 
@@ -164,6 +164,6 @@ function battleFactory({
   id = chance.string(),
   attackerPartyId = chance.string(),
   defenderPartyId = chance.string(),
-}: Partial<WithID<BattleStoreState>> = {}) {
+}: Partial<BattleStoreState> = {}) {
   return { id, attackerPartyId, defenderPartyId };
 }

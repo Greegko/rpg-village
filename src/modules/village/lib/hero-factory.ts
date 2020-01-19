@@ -7,7 +7,7 @@ const lastname = ['Emperor', 'Monk', 'Lord', 'Prince', 'Chancellor', 'Earl', 'Ye
 const male = ['Bernar', 'Bruiant', 'Reginald', 'Wilcock', 'Oggery', 'Louve', 'Jeremimum', 'Helie', 'Tibald', 'Otebon'];
 const female = ['Maalot', 'Tillote', 'Sarey', 'Jossy', 'Susanna', 'Missa', 'Aleneite', 'Iseldis', 'Sapphira', 'Crystina'];
 
-export function heroFactory(): Unit {
+export function heroFactory(): Omit<Unit, 'id'> {
   const firstNames = Math.random() > 0.5 ? male : female;
 
   return {

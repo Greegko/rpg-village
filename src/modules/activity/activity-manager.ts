@@ -2,7 +2,6 @@ import { inject, injectable } from 'inversify';
 import { forEach, values, assoc } from 'ramda';
 import { GetActivityHandlerByTag, AnyActivity } from './interfaces';
 import { ActivityStore } from './activity-store';
-import { WithID } from '../../models';
 
 @injectable()
 export class ActivityManager {
@@ -24,7 +23,7 @@ export class ActivityManager {
     forEach(activity => this.executeActivity(activity), values(this.activityStore.getState()));
   }
 
-  private executeActivity(activity: WithID<AnyActivity>) {
+  private executeActivity(activity: AnyActivity) {
     const activityHandler = this.getActivityHandler(activity.type);
     const activityNewState = activityHandler.execute(activity);
     const updatedActivity = assoc('state', activityNewState, activity);

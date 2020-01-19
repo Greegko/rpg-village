@@ -1,10 +1,10 @@
 import { assoc, merge, dissoc, prop, omit, assocPath } from 'ramda';
 import { generate } from 'shortid';
-import { IEntityStore, WithID, EntityStoreState, EntityUpdater } from '../models';
+import { IEntityStore, EntityStoreState, EntityUpdater } from '../models';
 import { injectable } from 'inversify';
 
 @injectable()
-export class EntityStore<Entity, EntityID extends string = string> implements IEntityStore<Entity, EntityID> {
+export class EntityStore<Entity extends { id: EntityID }, EntityID extends string = string> implements IEntityStore<Entity, EntityID> {
   private state: EntityStoreState<Entity, EntityID>;
 
   getState(): EntityStoreState<Entity, EntityID> {
@@ -15,13 +15,13 @@ export class EntityStore<Entity, EntityID extends string = string> implements IE
     this.state = state;
   }
 
-  get(id: EntityID): WithID<Entity, EntityID> {
+  get(id: EntityID): Entity {
     return prop(id, this.state);
   }
 
-  add(entity: Entity): WithID<Entity> {
+  add(entity: Omit<Entity, 'id'>): Entity {
     const id = generate();
-    const newObject = assoc('id', id, entity);
+    const newObject = assoc('id', id, entity) as Entity;
     this.state = assoc(id, newObject, this.state);
     return newObject;
   }

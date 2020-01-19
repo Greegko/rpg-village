@@ -1,7 +1,7 @@
 import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from 'ramda';
 import { isAlive, UnitID } from '../unit';
 import { EffectService, isPartyEffect } from '../skill';
-import { Effect, WithID } from '../../models';
+import { Effect } from '../../models';
 import { Unit } from '../unit';
 import { BattleStats, BattleParty, BattleUnit, BattleState } from './interfaces';
 import { calculateBattleStats } from './lib';
@@ -11,7 +11,7 @@ export class Battle {
   private battleState: BattleState;
   private effectService: EffectService;
 
-  constructor(effectService: EffectService, party: WithID<Unit>[], defenderParty: WithID<Unit>[]) {
+  constructor(effectService: EffectService, party: Unit[], defenderParty: Unit[]) {
     this.effectService = effectService;
     this.battleState = this.createStartBattleState(party, defenderParty);
   }
@@ -29,7 +29,7 @@ export class Battle {
       areAllDead(this.getPartyUnits(this.battleState.defenderParty));
   }
 
-  private createStartBattleState(partyUnits: WithID<Unit>[], defenderPartyUnits: WithID<Unit>[]): BattleState {
+  private createStartBattleState(partyUnits: Unit[], defenderPartyUnits: Unit[]): BattleState {
     const units = concat(partyUnits, defenderPartyUnits);
     return {
       attackerParty: this.calculateParty(partyUnits),
