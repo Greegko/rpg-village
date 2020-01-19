@@ -49,6 +49,6 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
   private getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyService.getParty(partyId);
     const units = map(unitId => this.unitService.getUnit(unitId), party.unitIds);
-    return filter(unit => unit.hp !== unit.maxhp, units);
+    return filter(unit => unit.hp !== unit.maxhp && unit.hp > 0, units);
   }
 }
