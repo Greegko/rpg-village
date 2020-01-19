@@ -6,7 +6,7 @@ import { MapLocationID } from '../world/interfaces';
 import { Loot } from '../../models';
 import { filter, propEq, values } from 'ramda';
 import { Unit, UnitService, isAlive } from '../unit';
-import { any } from 'ramda';
+import { any, assoc } from 'ramda';
 import { addResource } from '../../models/stash';
 
 @injectable()
@@ -42,12 +42,12 @@ export class PartyService {
   }
 
   setPartyLocation(partyId: PartyID, locationId: MapLocationID) {
-    this.partyStore.setPath(partyId, ['locationId'], locationId);
+    this.partyStore.update(partyId, assoc('locationId', locationId));
   }
 
   clearPartyStash(partyId: PartyID): PartyStash {
     const stash = this.getParty(partyId).stash;
-    this.partyStore.setPath(partyId, ['stash'], { resource: { gold: 0 }, items: [] });
+    this.partyStore.update(partyId, () => ({ stash: { resource: { gold: 0 }, items: [] } }));
 
     return stash;
   }
