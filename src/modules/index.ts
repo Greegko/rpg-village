@@ -7,3 +7,4 @@ export * from './buildings';
 export * from './config';
 export * from './game';
 export * from './unit';
+export * from './activity';
