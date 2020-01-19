@@ -16,12 +16,10 @@ export class UnitService {
   }
 
   healUnit(unitId: UnitID, hpGain: number): void {
-    const unit = this.unitStore.get(unitId);
-    this.unitStore.update(unitId, { hp: Math.min(unit.maxhp, unit.hp + hpGain) } as Partial<Unit>);
+    this.unitStore.update(unitId, unit => ({ hp: Math.min(unit.maxhp, unit.hp + hpGain) }));
   }
 
   gainXpUnit(unitId: UnitID, xp: number): void {
-    const unit = this.getUnit(unitId);
-    this.unitStore.update(unitId, { xp: unit.xp + xp });
+    this.unitStore.update(unitId, unit => ({ xp: unit.xp + xp }));
   }
 }
