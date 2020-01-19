@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { PartyService, PartyID } from '../party';
-import { UnitStore, Unit } from '../unit';
+import { UnitService } from '../unit';
 import { EffectService } from '../skill';
 import { Battle } from './battle';
 import { BattleID, BattleStoreState } from './interfaces';
@@ -14,7 +14,7 @@ export class BattleService {
   constructor(
     @inject('BattleStore') private battleStore: BattleStore,
     @inject('PartyService') private partyService: PartyService,
-    @inject('UnitStore') private unitStore: UnitStore,
+    @inject('UnitService') private unitService: UnitService,
     @inject('EffectService') private effectService: EffectService
   ) { }
 
@@ -31,8 +31,17 @@ export class BattleService {
   }
 
   turnBattle(battleId: BattleID): void {
-    const battleState = this.getBattleInstance(battleId).turn();
-    forEachObjIndexed(unit => this.updateUnit(unit), battleState.units);
+    const battle = this.getBattleInstance(battleId);
+    const preTurnState = battle.getState();
+    const battleState = battle.turn();
+
+    forEachObjIndexed(unit => {
+      const dmg = preTurnState[unit.id] - unit.hp;
+
+      if (dmg > 0) {
+        this.unitService.dmgUnit(unit.id, dmg);
+      }
+    }, battleState.units);
   }
 
   removeBattle(battleId: BattleID): void {
@@ -40,24 +49,16 @@ export class BattleService {
     delete this.battleInstances[battleId];
   }
 
-  private updateUnit(unit: Unit): void {
-    this.unitStore.update(unit.id, { hp: unit.hp });
-  }
-
   private getBattleInstance(battleId: BattleID): Battle {
     if (!this.battleInstances[battleId]) {
       const battleState = this.battleStore.get(battleId);
       this.battleInstances[battleId] = new Battle(
         this.effectService,
-        this.getPartyUnits(battleState.attackerPartyId),
-        this.getPartyUnits(battleState.defenderPartyId)
+        this.partyService.getPartyUnits(battleState.attackerPartyId),
+        this.partyService.getPartyUnits(battleState.defenderPartyId)
       );
     }
 
     return this.battleInstances[battleId];
-  }
-
-  private getPartyUnits(partyId: PartyID): Unit[] {
-    return this.partyService.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
 }

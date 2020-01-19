@@ -21,6 +21,10 @@ export class UnitService {
     this.unitStore.update(unitId, unit => ({ hp: Math.min(unit.maxhp, unit.hp + hpGain) }));
   }
 
+  dmgUnit(unitId: UnitID, hpLoss: number): void {
+    this.unitStore.update(unitId, unit => ({ hp: Math.max(0, unit.hp - hpLoss) }));
+  }
+
   gainXpUnit(unitId: UnitID, xp: number): void {
     this.unitStore.update(unitId, unit => ({ xp: unit.xp + xp }));
   }

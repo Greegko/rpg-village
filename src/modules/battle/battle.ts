@@ -23,6 +23,10 @@ export class Battle {
     return this.battleState;
   }
 
+  getState(): BattleState {
+    return this.battleState;
+  }
+
   isDone(): boolean {
     const areAllDead = all(complement(isAlive));
     return areAllDead(this.getPartyUnits(this.battleState.attackerParty)) ||
