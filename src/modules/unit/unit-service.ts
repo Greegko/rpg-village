@@ -1,6 +1,8 @@
 import { inject, injectable } from 'inversify';
 import { UnitStore } from './unit-store';
 import { UnitID, Unit } from './interfaces';
+import { ItemID, Item } from '../../models';
+import { propEq, evolve, map, when, always } from 'ramda';
 
 @injectable()
 export class UnitService {
@@ -21,5 +23,15 @@ export class UnitService {
 
   gainXpUnit(unitId: UnitID, xp: number): void {
     this.unitStore.update(unitId, unit => ({ xp: unit.xp + xp }));
+  }
+
+  updateStashItem(unitId: UnitID, itemId: ItemID, item: Item) {
+    const evolver = evolve({
+      stash: {
+        items: map(when(propEq('id', itemId), always(item)))
+      }
+    });
+
+    this.unitStore.update(unitId, evolver);
   }
 }

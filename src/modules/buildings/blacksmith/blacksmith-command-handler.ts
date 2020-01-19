@@ -3,14 +3,15 @@ import { CommandSystem } from "../../../lib/command-system";
 import { BlacksmithCommand, UpgradeItemCommandArgs } from './blacksmith-command';
 import { EffectTarget, AttackEffectType, ItemID } from '../../../models';
 import { append, evolve } from 'ramda';
-import { UnitStore, UnitID } from '../../unit';
-import { getItem, addItem, ItemStash, removeItem } from '../../../models/stash';
+import { UnitID, UnitService } from '../../unit';
+import { getItem } from '../../../models/stash';
+import { VillageStashService } from '../../village';
 
 @injectable()
 export class BlacksmithCommandHandler {
-
   constructor(
-    @inject('UnitStore') private unitStore: UnitStore
+    @inject('UnitService') private unitService: UnitService,
+    @inject('VillageStashService') private villageStashService: VillageStashService
   ) { }
 
   init(commandSystem: CommandSystem) {
@@ -18,16 +19,14 @@ export class BlacksmithCommandHandler {
   }
 
   upgradeItem(unitId: UnitID, itemId: ItemID) {
-    const unit = this.unitStore.get(unitId);
+    const item = getItem(this.unitService.getUnit(unitId).stash, itemId);
+    const price = (item.effects.length + 1) * 50;
 
-    const item = getItem(unit.stash, itemId);
-    const newItem = evolve({ effects: append(this.createDmgEffect()) }, item);
-
-    const newUnit = evolve({
-      stash: (stash: ItemStash) => addItem(removeItem(stash, itemId), newItem)
-    })(unit);
-
-    this.unitStore.update(unitId, newUnit);
+    if (this.villageStashService.hasEnoughResource({ gold: price })) {
+      const newItem = evolve({ effects: append(this.createDmgEffect()) }, item);
+      this.unitService.updateStashItem(unitId, itemId, newItem);
+      this.villageStashService.removeResource({ gold: price });
+    }
   }
 
   private createDmgEffect() {
