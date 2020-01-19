@@ -1,5 +1,6 @@
 import { test, withRandomID, createState, stashFactory } from '../utils';
 import { WorldActivity, VillageActivity } from '../../src';
+import * as expect from 'expect';
 
 describe('World Activites', () => {
   describe('Travel', () => {
@@ -49,5 +50,49 @@ describe('World Activites', () => {
         expectedState: { village: { stash: { resource: { gold: 15 } } }, parties: { 'test-party-id': { stash: { resource: { gold: 0 } } } } },
       });
     })
+  });
+
+  describe('Explore', () => {
+    test('should change explore status on tile', {
+      initState: createState(({ location, party, activity }) => [
+        activity({
+          type: WorldActivity.Explore,
+          state: {
+            partyId: party({ id: 'party', locationId: location({ id: 'tile', explored: false }) }),
+            progress: 1,
+          }
+        }),
+      ]),
+      turn: true,
+      expectedState: { world: { 'tile': { explored: true } } },
+    });
+
+    test('should add new locations around explored tile', {
+      initState: createState(({ location, party, activity }) => [
+        activity({
+          type: WorldActivity.Explore,
+          state: {
+            partyId: party({ id: 'party', locationId: location({ id: 'tile', explored: false }) }),
+            progress: 1,
+          }
+        }),
+      ]),
+      turn: true,
+      expectedState: state => expect(Object.keys(state.world).length).toEqual(7),
+    });
+
+    test('should add enemy units on new map tile', {
+      initState: createState(({ location, party, activity }) => [
+        activity({
+          type: WorldActivity.Explore,
+          state: {
+            partyId: party({ id: 'party', locationId: location({ id: 'tile', explored: false }) }),
+            progress: 1,
+          }
+        }),
+      ]),
+      turn: true,
+      expectedState: state => expect(Object.keys(state.units).length).toEqual(6)
+    });
   });
 });

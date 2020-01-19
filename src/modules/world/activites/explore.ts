@@ -16,7 +16,6 @@ export type ExploreStartArgs = {
 
 @injectable()
 export class ExploreActivity implements IActivityHandler<ExploreStartArgs, ExploreState> {
-
   constructor(
     @inject('WorldMap') private worldMap: WorldMap,
     @inject('WorldStore') private worldStore: WorldStore,

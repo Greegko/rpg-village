@@ -58,9 +58,14 @@ export class VillageCommandHandler {
     if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < villageState.houses) {
       const heroId = this.unitService.addUnit(heroFactory());
 
-      this.villageStore.update('heroes', append(heroId));
-      this.partyService.createParty({ locationId: this.villageStore.getState().locationId, unitIds: [heroId], owner: PartyOwner.Player });
       this.villageStash.removeResource({ gold: goldCost });
+      this.villageStore.update('heroes', append(heroId));
+      this.partyService.createParty({
+        locationId: this.villageStore.getState().locationId,
+        unitIds: [heroId],
+        owner: PartyOwner.Player,
+        stash: { resource: { gold: 0 }, items: [] }
+      });
     }
   }
 
