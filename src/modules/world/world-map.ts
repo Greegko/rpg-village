@@ -29,7 +29,10 @@ export class WorldMap {
 
   exploreLocation(locationId: MapLocationID): void {
     this.worldStore.update(locationId, { explored: true });
+    this.revealNewLocations(locationId);
+  }
 
+  revealNewLocations(locationId: MapLocationID) {
     const location = this.worldStore.get(locationId);
 
     const newUnexploredLocations = this.getUnexploredLocationsNextToLocation(values(this.worldStore.getState()), location);

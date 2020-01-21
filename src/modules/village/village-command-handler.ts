@@ -20,7 +20,7 @@ export class VillageCommandHandler {
     @inject('VillageStashService') private villageStash: VillageStashService,
     @inject('PartyService') private partyService: PartyService,
     @inject('UnitService') private unitService: UnitService,
-    @inject('WorldMap') private worldMap: WorldMap
+    @inject('WorldMap') private worldMap: WorldMap,
   ) { }
 
   init(commandSystem: CommandSystem) {
@@ -33,6 +33,7 @@ export class VillageCommandHandler {
 
   createVillage(): void {
     const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
+    this.worldMap.revealNewLocations(locationId);
     this.villageStore.set('stash', { items: [], resource: {} });
     this.villageStore.set('locationId', locationId);
   }
