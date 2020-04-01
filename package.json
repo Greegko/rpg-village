@@ -2,6 +2,6 @@
   "private": true,
   "name": "rpg-village",
   "workspaces": [
-    "src/*"
+    "packages/*"
   ]
 }

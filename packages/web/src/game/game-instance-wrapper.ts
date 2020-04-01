@@ -1,5 +1,4 @@
-import { createGameInstance, GameInstance, GameState, Command } from '@rpg-village/core';
-import { GameConfigProvides } from '@rpg-village/core/dist/lib/create-game-instance';
+import { createGameInstance, GameInstance, GameState, Command, GameConfigProvides } from '@rpg-village/core';
 
 type AICommandGenerator = (state: GameState) => Command[];
 type StateUpdateCallback = (game: GameState) => void;
