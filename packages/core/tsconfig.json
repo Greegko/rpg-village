@@ -16,8 +16,7 @@
     ],
   },
   "include": [
-    "src/**/*",
-    "core-src/**/*",
+    "public-api.ts",
   ],
   "exclude": [
     "node_modules",

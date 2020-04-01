@@ -1,30 +1,7 @@
 {
-  "name": "@greegko/rpg-village",
-  "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "test": "mocha --require ts-node/register --watch-extensions ts 'tests/**/*.test.ts'",
-    "test:watch": "mocha --require ts-node/register --watch-extensions ts 'tests/**/*.test.ts' --watch",
-    "build": "tsc"
-  },
-  "dependencies": {
-    "@types/node": "13.1.0",
-    "@types/ramda": "0.24.18",
-    "inversify": "5.0.1",
-    "ramda": "0.24.1",
-    "reflect-metadata": "0.1.13",
-    "shortid": "2.2.15",
-    "typescript": "3.7.4"
-  },
-  "devDependencies": {
-    "@types/chance": "1.0.8",
-    "@types/expect": "24.3.0",
-    "@types/mocha": "5.2.7",
-    "chance": "1.1.4",
-    "expect": "24.9.0",
-    "mocha": "6.2.2",
-    "ts-node": "8.5.4"
-  },
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js"
+  "name": "rpg-village",
+  "workspaces": [
+    "src/*"
+  ]
 }
