@@ -19,6 +19,10 @@ module.exports = {
     }, {
       test: /\.tsx?$/,
       use: ["ts-loader"]
-    }]
+    },
+    {
+      test: /\.svg$/,
+      use: ['svg-url-loader'],
+    },]
   }
 };
