@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Tile } from './tile';
+import { connect } from 'react-redux';
 import { MapLocation, MapLocationID, Party } from '@rpg-village/core';
 import { GameStoreState, worldLocationsSelector, partiesGroupedOnLocationsSelector } from '../../../game';
-import { connect } from 'react-redux';
+import { Tile } from './tile';
 
 const propertyMapper = (state: GameStoreState) => {
   return {
@@ -13,15 +13,18 @@ const propertyMapper = (state: GameStoreState) => {
 
 interface MapProperties {
   locations: MapLocation[];
-  partiesOnLocations: Record<MapLocationID, Party[]>
+  partiesOnLocations: Record<MapLocationID, Party[]>;
+  onTileClick: (locationId: string) => void;
 }
 
 export const Map = connect(propertyMapper)
   (
-    ({ locations, partiesOnLocations }: MapProperties) => (
+    ({ locations, partiesOnLocations, onTileClick }: MapProperties) => (
       locations.map(
         location =>
-          <Tile key={location.id}
+          <Tile
+            key={location.id}
+            onClick={() => onTileClick(location.id)}
             parties={partiesOnLocations[location.id]}
             x={61 * location.x}
             y={35 * location.y} />

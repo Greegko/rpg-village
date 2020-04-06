@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Unit, MapLocationID } from '@rpg-village/core';
 import { HeroList } from './hero-list';
 import { DeveloperToolbar } from '../dev/developer-toolbar';
-import { Unit } from '@rpg-village/core';
 import { GameStoreState, heroUnitsSelector } from '../../game';
 import { MapStage } from './map/map-stage';
+import { ActionMenu } from './action-menu/action-menu';
 
-import './world-map.scss';
 
 const propertyMapper = (state: GameStoreState): WorldMapProperties => ({
   heroes: heroUnitsSelector(state)
@@ -16,26 +16,45 @@ interface WorldMapProperties {
   heroes: Unit[];
 }
 
+import './world-map.scss';
 export const WorldMap = connect(propertyMapper)
   (
     ({ heroes }: WorldMapProperties) => {
-      const mapRef = React.useRef<HTMLDivElement>(null);
+      const [actionMenuVisible, setActionMenuVisible] = React.useState(false);
       const [mapSize, setMapSize] = React.useState(null);
 
-      React.useEffect(() => {
+      const mapRef = React.useCallback<(element: HTMLDivElement) => void>(node => {
+        if (!node) return;
+
         const handleResize = () => setMapSize([
-          mapRef.current.offsetWidth,
-          mapRef.current.offsetHeight
+          node.offsetWidth,
+          node.offsetHeight
         ]);
+
         window.addEventListener('resize', handleResize);
         handleResize();
         return () => window.removeEventListener('resize', handleResize);
       }, []);
 
+      const onTileClick = (locationId: MapLocationID) => {
+        setActionMenuVisible(true);
+      }
+
+      const onOutsideClick = () => {
+        setActionMenuVisible(false);
+      }
+
       return (
         <div>
           <div className='worldmap' ref={mapRef}>
-            {mapSize && <MapStage width={mapSize[0]} height={mapSize[1]} />}
+            {actionMenuVisible && <ActionMenu
+              actions={[
+                { title: "Attack", onClick: () => console.log('Attack'), icon: 'attack' as const, tooltip: 'Attack!' },
+                { title: "Travel", onClick: () => console.log('Travel'), icon: 'travel' as const, tooltip: 'Attack!' },
+                { title: "Explore", onClick: () => console.log('Explore'), icon: 'explore' as const, tooltip: 'Attack!' },
+              ]}
+            />}
+            {mapSize && <MapStage width={mapSize[0]} height={mapSize[1]} onTileClick={onTileClick} onOutsideClick={onOutsideClick} />}
           </div>
 
           <HeroList heroes={heroes} />
