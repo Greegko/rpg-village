@@ -8,6 +8,7 @@ interface ProgressBarProperties {
   color: string;
 }
 
+import "./progress-bar.scss";
 export const ProgressBar = ({ icon, maxValue, value, color }: ProgressBarProperties) => (
   <div className="progressbar">
     <span className="progressbar__icon"><Icon icon={icon} size={Size.Tiny} /></span>

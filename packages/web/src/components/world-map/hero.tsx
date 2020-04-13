@@ -1,30 +1,43 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { Unit } from '@rpg-village/core';
 import { ProgressBar } from '../utils';
 import { Icons } from '../shared';
+import { heroUnitsSelector, GameStoreState } from '../../game';
+
+const propertyMapper = (state: GameStoreState, props: HeroProperties): HeroState => ({
+  hero: heroUnitsSelector(state).find(({ id }) => id === props.heroId),
+  locationId: 'string',
+  activity: 'string'
+});
 
 interface HeroProperties {
-  location: string;
-  attack: string;
-  hp: number;
-  maxhp: number;
-  name: string;
-  activityProgress: string;
+  heroId: string;
 }
 
-export const Hero = ({ name, hp, maxhp, attack, activityProgress, location }: HeroProperties) => (
-  <div className="herolist__item">
-    <div className="herolist__item-name">
-      {name}
+interface HeroState {
+  hero: Unit;
+  locationId: string;
+  activity: string;
+}
+
+import './hero.scss';
+export const Hero = connect(propertyMapper)(
+  ({ hero, activity, locationId }: HeroState) => (
+    <div className="hero">
+      <div className="hero__name">
+        {hero.name}
+      </div>
+      <ProgressBar icon={Icons.Heart} color="crimson" value={hero.hp} maxValue={hero.maxhp} />
+      <div className="hero__activity">
+        {activity}
+      </div>
+      <div className="hero__location">
+        {locationId}
+      </div>
+      <div className="hero__attack">
+        Attack: {hero.dmg}
+      </div>
     </div>
-    <ProgressBar icon={Icons.Heart} color='crimson' value={hp} maxValue={maxhp} />
-    <div className="herolist__item-activity">
-      {activityProgress}
-    </div>
-    <div className="herolist__item-location">
-      {location}
-    </div>
-    <div className="herolist__item-attack">
-      Attack: {attack}
-    </div>
-  </div>
+  )
 );

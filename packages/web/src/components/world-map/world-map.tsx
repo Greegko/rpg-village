@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Unit, MapLocationID } from '@rpg-village/core';
-import { HeroList } from './hero-list';
+import { Sidebar } from './sidebar';
 import { DeveloperToolbar } from '../dev/developer-toolbar';
 import { GameStoreState, heroUnitsSelector } from '../../game';
 import { MapStage } from './map/map-stage';
@@ -50,7 +50,7 @@ export const WorldMap = connect(propertyMapper)
             {mapSize && <MapStage width={mapSize[0]} height={mapSize[1]} onTileClick={onTileClick} onOutsideClick={onOutsideClick} />}
           </div>
 
-          <HeroList heroes={heroes} />
+          <Sidebar heroes={heroes.map(x => x.id)} />
           <DeveloperToolbar />
         </div>
       );
