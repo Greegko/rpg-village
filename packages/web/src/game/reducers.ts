@@ -4,7 +4,7 @@ import { GameInstanceWrapper } from "./game-instance-wrapper";
 
 // GAME MISC REDUCER
 
-enum GameInstanceAction { FastForward = 'game-misc/fast-forward', PlayerCommand = 'game-misc/command', Save = 'game-misc/save', Reset = 'game-misc/reset' }
+enum GameInstanceAction { FastForward = 'game-misc/fast-forward', PlayerCommand = 'game-misc/command', Save = 'game-misc/save', Reset = 'game-misc/reset', LogState = 'game-misc/log-state' }
 
 export function fastForward(turns: number) {
   return {
@@ -16,6 +16,12 @@ export function fastForward(turns: number) {
 export function save() {
   return {
     type: GameInstanceAction.Save
+  }
+}
+
+export function logState() {
+  return {
+    type: GameInstanceAction.LogState
   }
 }
 
@@ -43,6 +49,9 @@ export function gameMiscActionReducerFactory(gameWrapper: GameInstanceWrapper) {
         return;
       case GameInstanceAction.Save:
         setTimeout(() => gameWrapper.localSave());
+        return;
+      case GameInstanceAction.LogState:
+        console.log(gameWrapper.getState());
         return;
       case GameInstanceAction.Reset:
         setTimeout(() => {

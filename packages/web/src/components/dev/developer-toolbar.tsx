@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { fastForward, save, reset, pause, resume, GameStoreState } from '../../game';
+import { fastForward, save, reset, pause, resume, logState, GameStoreState } from '../../game';
 
-import './developer-toolbar.scss';
 
-const storeDispatchers = { fastForward, save, reset, pause, resume };
+const storeDispatchers = { fastForward, save, reset, pause, resume, logState };
 
 const mapProperty = (state: GameStoreState) => {
   return {
@@ -18,12 +17,14 @@ interface DeveloperToolbarProperties {
   reset: typeof reset;
   pause: typeof pause;
   resume: typeof resume;
+  logState: typeof logState;
   isPaused: boolean;
 }
 
+import './developer-toolbar.scss';
 export const DeveloperToolbar = connect(mapProperty, storeDispatchers)
   (
-    ({ fastForward, save, reset, pause, isPaused, resume }: DeveloperToolbarProperties) => {
+    ({ fastForward, save, reset, pause, isPaused, resume, logState }: DeveloperToolbarProperties) => {
       return (
         <div className='developer-toolbar'>
           <div>
@@ -31,6 +32,7 @@ export const DeveloperToolbar = connect(mapProperty, storeDispatchers)
             {!isPaused && <button onClick={pause}>Pause</button>}
             <button onClick={save}>Save</button>
             <button onClick={reset}>Reset</button>
+            <button onClick={logState}>Log State</button>
           </div>
           <div>
             Turn:
