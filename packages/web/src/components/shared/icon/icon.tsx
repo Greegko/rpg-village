@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-export type AVAILABLE_ICONS = 'attack' | 'explore' | 'travel';
+export enum Icons { Attack = 'attack', Explore = 'explore', Travel = 'travel' };
 
 interface IconProperties {
-  name: AVAILABLE_ICONS;
+  name: Icons;
 }
 
 import './icon.scss';

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Icon, AVAILABLE_ICONS } from '../../shared/icon';
+import { Icon, Icons } from '../../shared/icon';
 
 interface Action {
   title: string;
   tooltip: string;
-  icon: AVAILABLE_ICONS;
+  icon: Icons;
   onClick: () => void;
 }
 

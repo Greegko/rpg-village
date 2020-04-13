@@ -6,7 +6,7 @@ import { DeveloperToolbar } from '../dev/developer-toolbar';
 import { GameStoreState, heroUnitsSelector } from '../../game';
 import { MapStage } from './map/map-stage';
 import { ActionMenu } from './action-menu/action-menu';
-
+import { Icons } from '../shared';
 
 const propertyMapper = (state: GameStoreState): WorldMapProperties => ({
   heroes: heroUnitsSelector(state)
@@ -49,9 +49,9 @@ export const WorldMap = connect(propertyMapper)
           <div className='worldmap' ref={mapRef}>
             {actionMenuVisible && <ActionMenu
               actions={[
-                { title: "Attack", onClick: () => console.log('Attack'), icon: 'attack' as const, tooltip: 'Attack!' },
-                { title: "Travel", onClick: () => console.log('Travel'), icon: 'travel' as const, tooltip: 'Attack!' },
-                { title: "Explore", onClick: () => console.log('Explore'), icon: 'explore' as const, tooltip: 'Attack!' },
+                { title: "Attack", onClick: () => console.log('Attack'), icon: Icons.Attack, tooltip: 'Attack!' },
+                { title: "Travel", onClick: () => console.log('Travel'), icon: Icons.Travel, tooltip: 'Attack!' },
+                { title: "Explore", onClick: () => console.log('Explore'), icon: Icons.Explore, tooltip: 'Attack!' },
               ]}
             />}
             {mapSize && <MapStage width={mapSize[0]} height={mapSize[1]} onTileClick={onTileClick} onOutsideClick={onOutsideClick} />}
