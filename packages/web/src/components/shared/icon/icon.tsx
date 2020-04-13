@@ -1,21 +1,23 @@
 import * as React from 'react';
 
-export enum Icons { Attack = 'attack', Explore = 'explore', Travel = 'travel' };
+export enum Icons { Attack = 'attack', Explore = 'explore', Travel = 'travel', Heart = 'heart' };
+export enum Size { Tiny = 'tiny' }
 
 interface IconProperties {
-  name: Icons;
+  icon: Icons;
+  size?: Size;
 }
 
 import './icon.scss';
-export const Icon = ({ name }: IconProperties) => {
+export const Icon = ({ icon, size }: IconProperties) => {
   const [src, setSrc] = React.useState();
 
   React.useEffect(() => {
-    const file = import('../../../assets/icons/' + name + ".svg");
+    const file = import('../../../assets/icons/' + icon + ".svg");
     file.then(data => setSrc(data));
   }, []);
 
   return (
-    <img className="icon" src={src} />
+    <img className={"icon" + (size === Size.Tiny ? " icon--tiny" : "")} src={src} />
   );
 };

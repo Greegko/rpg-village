@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ProgressBar } from '../utils';
+import { Icons } from '../shared';
 
 interface HeroProperties {
   location: string;
@@ -15,7 +16,7 @@ export const Hero = ({ name, hp, maxhp, attack, activityProgress, location }: He
     <div className="herolist__item-name">
       {name}
     </div>
-    <ProgressBar iconUrl={this.hpIcon()} color='crimson' value={hp} maxValue={maxhp} />
+    <ProgressBar icon={Icons.Heart} color='crimson' value={hp} maxValue={maxhp} />
     <div className="herolist__item-activity">
       {activityProgress}
     </div>

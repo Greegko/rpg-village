@@ -40,7 +40,7 @@ export const ActionMenu = connect(propertyMapper)(
 const ActionMenuItem = ({ action }: { action: Action }) => (
   <div className="action-menu-item">
     <i onClick={action.onClick}>
-      <Icon name={action.icon}></Icon>
+      <Icon icon={action.icon}></Icon>
     </i>
   </div>
 );
