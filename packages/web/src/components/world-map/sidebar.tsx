@@ -9,7 +9,7 @@ interface SidebarProperties {
 import './sidebar.scss';
 export const Sidebar = ({ heroes }: SidebarProperties) => (
   <div className='sidebar'>
-    Heroes in Village:
+    Heroes:
 
     {heroes.map(heroId => <Hero key={heroId} heroId={heroId} />)}
   </div>
