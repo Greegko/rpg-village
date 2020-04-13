@@ -36,7 +36,8 @@ export const VillageStats = connect(propertyMapper, dispatchers)
         </ul>
         <div className='villagestats__buttons'>
           <button className="villagestats__buttons-btn" onClick={() => executeCommand({ command: VillageCommand.GenerateGold })}>Generate Gold</button>
-          <button className="villagestats__buttons-btn" onClick={() => executeCommand({ command: VillageCommand.HireHero })}>HireHero</button>
+          <button className="villagestats__buttons-btn" onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Build House</button>
+          <button className="villagestats__buttons-btn" onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Hire Hero</button>
         </div>
       </div>
     )
