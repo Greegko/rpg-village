@@ -1,22 +1,40 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { Party } from '@rpg-village/core';
 import { Icon, Icons } from '../../shared/icon';
+import { GameStoreState, partiesGroupedOnLocationsSelector, partiesSelector } from '../../../game';
+
+const propertyMapper = (state: GameStoreState, props: ActionMenuProperties): ActionMenuState => ({
+  parties: partiesGroupedOnLocationsSelector(state)[props.locationId],
+  selectedParty: partiesSelector(state)[props.selectedPartyId]
+});
 
 interface Action {
-  title: string;
-  tooltip: string;
   icon: Icons;
   onClick: () => void;
 }
 
 interface ActionMenuProperties {
-  actions: Action[];
+  locationId: string;
+  selectedPartyId?: string;
+}
+
+interface ActionMenuState {
+  parties: Party[];
+  selectedParty?: Party;
 }
 
 import './action-menu.scss';
-export const ActionMenu = ({ actions }: ActionMenuProperties) => (
-  <div className="action-menu">
-    {actions.map(action => <ActionMenuItem key={action.icon} action={action} />)}
-  </div>
+export const ActionMenu = connect(propertyMapper)(
+  () => {
+    const actions = [];
+
+    return (
+      <div className="action-menu">
+        {actions.map(action => <ActionMenuItem key={action.icon} action={action} />)}
+      </div>
+    );
+  }
 );
 
 const ActionMenuItem = ({ action }: { action: Action }) => (
