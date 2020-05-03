@@ -4,7 +4,8 @@
   "scripts": {
     "test": "mocha --require ts-node/register --watch-extensions ts 'tests/**/*.test.ts'",
     "test:watch": "mocha --require ts-node/register --watch-extensions ts 'tests/**/*.test.ts' --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "build:watch": "tsc --watch"
   },
   "dependencies": {
     "inversify": "5.0.1",
