@@ -5,7 +5,7 @@ export function createInvesifyContainer() {
 
   container
     .bind("getActivityHandler")
-    .toFactory((context: interfaces.Context) => (tag: string) => context.container.getTagged('ActivityHandlers', 'type', tag));
+    .toFactory((context: interfaces.Context) => (name: string) => context.container.getTagged('ActivityHandlers', 'name', name));
 
   return container;
 }

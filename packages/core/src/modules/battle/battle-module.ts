@@ -5,7 +5,7 @@ import { BattleActivity } from './battle-activity';
 import { BattleActivityType } from './interfaces';
 
 export const battleModule: Module = {
-  activities: [{ type: BattleActivityType.Battle, activity: BattleActivity }],
+  activities: [{ name: BattleActivityType.Battle, activity: BattleActivity }],
   stores: [{ scope: 'battle', store: BattleStore }],
   provides: [BattleService]
 };

@@ -10,7 +10,7 @@ export const villageModule: Module = {
   eventHandler: VillageEventHandler,
   commandHandler: VillageCommandHandler,
   activities: [
-    { type: VillageActivity.Heal, activity: VillageHealActivity }
+    { name: VillageActivity.Heal, activity: VillageHealActivity }
   ],
   stores: [{ scope: 'village', store: VillageStore, initialState: { houses: 0, stash: { resource: {}, items: [] }, locationId: undefined, heroes: [] } }],
   provides: [VillageStashService]

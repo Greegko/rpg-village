@@ -1,13 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { forEach, values, assoc } from 'ramda';
-import { GetActivityHandlerByTag, AnyActivity, ActivityType } from './interfaces';
+import { GetActivityHandlerByName, AnyActivity, ActivityType } from './interfaces';
 import { ActivityStore } from './activity-store';
 
 @injectable()
 export class ActivityManager {
 
   constructor(
-    @inject('getActivityHandler') private getActivityHandler: GetActivityHandlerByTag,
+    @inject('getActivityHandler') private getActivityHandler: GetActivityHandlerByName,
     @inject('ActivityStore') private activityStore: ActivityStore
   ) { }
 

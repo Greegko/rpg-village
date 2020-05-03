@@ -55,6 +55,6 @@ const applyActivities = (container: Container) =>
     propOr([], 'activities'),
     forEach((activityModule: ModulActivity) => {
       container.bind(activityModule.activity.name).to(activityModule.activity);
-      container.bind('ActivityHandlers').to(activityModule.activity).whenTargetTagged('type', activityModule.type);
+      container.bind('ActivityHandlers').to(activityModule.activity).whenTargetTagged('name', activityModule.name);
     })
   );

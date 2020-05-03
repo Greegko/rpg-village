@@ -12,7 +12,7 @@ export interface EventHandlerClass { new(...args): EventHandler; }
 
 export interface ModulActivity {
   activity: ActivityClass;
-  type: string;
+  name: string;
 }
 
 export interface ModulStore {

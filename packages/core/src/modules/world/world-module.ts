@@ -10,8 +10,8 @@ export const worldModule: Module = {
   commandHandler: WorldCommandHandler,
   eventHandler: WorldEventHandler,
   activities: [
-    { type: WorldActivity.Explore, activity: ExploreActivity },
-    { type: WorldActivity.Travel, activity: TravelActivity },
+    { name: WorldActivity.Explore, activity: ExploreActivity },
+    { name: WorldActivity.Travel, activity: TravelActivity },
   ],
   stores: [{ scope: 'world', store: WorldStore }],
   provides: [WorldMap]
