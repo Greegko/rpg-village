@@ -6,7 +6,7 @@ import { Icons } from '../shared';
 import { heroUnitsSelector, GameStoreState } from '../../game';
 
 const propertyMapper = (state: GameStoreState, props: HeroProperties): HeroState => ({
-  hero: heroUnitsSelector(state).find(({ id }) => id === props.heroId),
+  hero: heroUnitsSelector(state.game).find(({ id }) => id === props.heroId),
   locationId: 'string',
   activity: 'string'
 });

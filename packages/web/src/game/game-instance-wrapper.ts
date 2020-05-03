@@ -1,7 +1,5 @@
 import { createGameInstance, GameInstance, GameState, Command, GameConfigProvides } from '@rpg-village/core';
-
-type AICommandGenerator = (state: GameState) => Command[];
-type StateUpdateCallback = (game: GameState) => void;
+import { AICommandGenerator, StateUpdateCallback } from './interface';
 
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;

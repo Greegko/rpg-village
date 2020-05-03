@@ -8,12 +8,16 @@ import { gameReducer, gameUIReducer, updateGameState, gameMiscActionReducerFacto
 import { createStore } from 'redux';
 import { GameScreen, GameStoreState } from './game';
 import { availableSkills } from './game/config/skills';
+import { PlayerAI } from './ai/player-ai';
 
 const game = new GameInstanceWrapper({
   available_skills: availableSkills
 });
 
+const playerAI = new PlayerAI();
+
 game.restoreOrNewGame();
+game.setAI(playerAI.execute);
 
 const gameMiscActionReducer = gameMiscActionReducerFactory(game);
 const reducers = (state: GameStoreState, action) => {

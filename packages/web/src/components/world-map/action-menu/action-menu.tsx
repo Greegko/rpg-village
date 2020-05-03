@@ -5,8 +5,8 @@ import { Icon, Icons } from '../../shared/icon';
 import { GameStoreState, partiesGroupedOnLocationsSelector, partiesSelector } from '../../../game';
 
 const propertyMapper = (state: GameStoreState, props: ActionMenuProperties): ActionMenuState => ({
-  parties: partiesGroupedOnLocationsSelector(state)[props.locationId],
-  selectedParty: partiesSelector(state)[props.selectedPartyId]
+  parties: partiesGroupedOnLocationsSelector(state.game)[props.locationId],
+  selectedParty: partiesSelector(state.game)[props.selectedPartyId]
 });
 
 interface Action {

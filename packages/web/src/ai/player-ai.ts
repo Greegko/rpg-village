@@ -1,22 +1,17 @@
 import { Command, PartyOwner, WorldCommand, Party, GameState } from '@rpg-village/core';
 import { sample } from '../lib';
-import { values } from 'ramda';
+import { values, filter, map } from 'ramda';
+import { idlePartiesSelector } from '../game';
 
 export class PlayerAI {
   private gameState: GameState;
 
-  execute(gameState: GameState): Command[] {
+  execute = (gameState: GameState): Command[] => {
     this.gameState = gameState;
 
-    const parties = this.getIdlePlayerParties();
-    return parties.map(party => this.executeParty(party));
-  }
-
-  private getIdlePlayerParties() {
-    const playerParties = values(this.gameState.parties).filter(party => party.owner === PartyOwner.Player);
-    const activities = values(this.gameState.activities);
-
-    return playerParties.filter(party => !activities.some(activity => activity.state.partyId === party.id));
+    const parties = idlePartiesSelector(gameState);
+    const playerParties = filter(party => party.owner === PartyOwner.Player, parties);
+    return map(party => this.executeParty(party), values(playerParties));
   }
 
   private executeParty(party: Party): Command {

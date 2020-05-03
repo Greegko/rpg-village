@@ -6,8 +6,8 @@ import { Tile } from './tile';
 
 const propertyMapper = (state: GameStoreState) => {
   return {
-    partiesOnLocations: partiesGroupedOnLocationsSelector(state),
-    locations: worldLocationsSelector(state)
+    partiesOnLocations: partiesGroupedOnLocationsSelector(state.game),
+    locations: worldLocationsSelector(state.game)
   }
 }
 

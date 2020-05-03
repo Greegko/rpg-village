@@ -8,7 +8,7 @@ import { MapStage } from './map/map-stage';
 import { ActionMenu } from './action-menu/action-menu';
 
 const propertyMapper = (state: GameStoreState): WorldMapProperties => ({
-  heroes: heroUnitsSelector(state)
+  heroes: heroUnitsSelector(state.game)
 });
 
 interface WorldMapProperties {

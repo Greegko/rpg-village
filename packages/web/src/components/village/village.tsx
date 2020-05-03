@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { VillageCommand, VillageState } from '@rpg-village/core';
 import { GameStoreState, executeCommand, villageSelector } from '../../game';
 
-const propertyMapper = (state: GameStoreState) => ({ village: villageSelector(state) });
+const propertyMapper = (state: GameStoreState) => ({ village: villageSelector(state.game) });
 const dispatchers = { executeCommand };
 
 interface VillageProperties {
