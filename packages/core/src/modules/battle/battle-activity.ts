@@ -7,7 +7,7 @@ import { calculateLoot } from './lib';
 import { mergeDeepWith, add } from 'ramda';
 
 export type BattleState = { battleId: BattleID };
-export type BattleStartArgs = { partyId: PartyID, defenderPartyId: PartyID };
+export type BattleStartArgs = { partyId: PartyID, involvedPartyId: PartyID };
 
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
@@ -16,14 +16,14 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     @inject('BattleService') private battleService: BattleService
   ) { }
 
-  start({ partyId, defenderPartyId }: BattleStartArgs): BattleState {
+  start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {
     return {
-      battleId: this.battleService.startBattle(partyId, defenderPartyId),
+      battleId: this.battleService.startBattle(partyId, involvedPartyId),
     };
   }
 
-  isRunnable({ partyId, defenderPartyId }: BattleStartArgs) {
-    return this.partyService.isPartyAlive(partyId) && this.partyService.isPartyAlive(defenderPartyId);
+  isRunnable({ partyId, involvedPartyId }: BattleStartArgs) {
+    return this.partyService.isPartyAlive(partyId) && this.partyService.isPartyAlive(involvedPartyId);
   }
 
   execute(activity: Activity<BattleState>): BattleState {

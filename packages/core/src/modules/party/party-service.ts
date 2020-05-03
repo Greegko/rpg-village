@@ -7,6 +7,7 @@ import { filter, propEq, values } from 'ramda';
 import { Unit, UnitService, isAlive } from '../unit';
 import { any, assoc } from 'ramda';
 import { addResource } from '../../models/stash';
+import { ActivityID } from '../activity';
 
 @injectable()
 export class PartyService {
@@ -42,6 +43,10 @@ export class PartyService {
 
   setPartyLocation(partyId: PartyID, locationId: MapLocationID) {
     this.partyStore.update(partyId, assoc('locationId', locationId));
+  }
+
+  setPartyActivity(partyId: PartyID, activityId: ActivityID) {
+    this.partyStore.update(partyId, assoc('activityId', activityId));
   }
 
   clearPartyStash(partyId: PartyID): PartyStash {

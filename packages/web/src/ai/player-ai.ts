@@ -1,7 +1,7 @@
 import { Command, PartyOwner, WorldCommand, Party, GameState } from '@rpg-village/core';
 import { sample } from '../lib';
 import { values, filter, map } from 'ramda';
-import { idlePartiesSelector } from '../game';
+import { idlePartiesSelector, worldSelector, partiesSelector } from '../game';
 
 export class PlayerAI {
   private gameState: GameState;
@@ -15,8 +15,22 @@ export class PlayerAI {
   }
 
   private executeParty(party: Party): Command {
-    const newLocation = sample(this.getUnexploredLocation());
-    return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: newLocation.id } };
+    const world = worldSelector(this.gameState);
+    const parties = partiesSelector(this.gameState);
+    const partyLocation = world[party.locationId];
+    if (!partyLocation.explored) {
+      return { command: WorldCommand.Explore, args: { partyId: party.id } };
+    }
+
+    const enemyParty = values(parties).find(x => x.locationId === partyLocation.id && x.id !== party.id && x.owner === PartyOwner.Enemy);
+    if (enemyParty) {
+      return { command: WorldCommand.Battle, args: { locationId: partyLocation.id } }
+    }
+
+    if (partyLocation.explored) {
+      const newLocation = sample(this.getUnexploredLocation());
+      return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: newLocation.id } };
+    }
   }
 
   private getUnexploredLocation() {

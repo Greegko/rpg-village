@@ -1,14 +1,16 @@
 export type ActivityID = string;
-export type AnyActivity = Activity<unknown>;
 export enum ActivityType { Party = 'party' };
-export type Activity<T = unknown> = {
+export type Activity<T = unknown, S = unknown> = {
   id: ActivityID;
   state: T;
   name: string;
+  startArgs: S;
   type: ActivityType;
 }
 
+export type PartyActivityStartArgs = { partyId: string, involvedPartyId?: string };
 export type PartyActivity<T = unknown> = Activity<T> & {
-  state: T & { partyId: string };
+  state: T;
+  startArgs: PartyActivityStartArgs;
   type: ActivityType.Party;
 }
