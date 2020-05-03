@@ -16,7 +16,7 @@ export class PlayerAI {
 
   private executeParty(party: Party): Command {
     const newLocation = sample(this.getUnexploredLocation());
-    return { command: WorldCommand.Explore, args: { partyId: party.id, locationId: newLocation.id } };
+    return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: newLocation.id } };
   }
 
   private getUnexploredLocation() {

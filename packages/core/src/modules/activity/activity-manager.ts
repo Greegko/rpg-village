@@ -24,7 +24,7 @@ export class ActivityManager {
   }
 
   private executeActivity(activity: AnyActivity) {
-    const activityHandler = this.getActivityHandler(activity.type);
+    const activityHandler = this.getActivityHandler(activity.name);
     const activityNewState = activityHandler.execute(activity);
     const updatedActivity = assoc('state', activityNewState, activity);
     const isDone = activityHandler.isDone(updatedActivity);
