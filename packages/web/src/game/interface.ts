@@ -4,6 +4,7 @@ export enum GameScreen { Village, WorldMap };
 export interface GameUI {
   activeScreen: GameScreen;
   paused: boolean;
+  ai: boolean;
 }
 
 export interface GameStoreState {

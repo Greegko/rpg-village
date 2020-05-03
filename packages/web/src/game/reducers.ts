@@ -4,7 +4,13 @@ import { GameInstanceWrapper } from "./game-instance-wrapper";
 
 // GAME MISC REDUCER
 
-enum GameInstanceAction { FastForward = 'game-misc/fast-forward', PlayerCommand = 'game-misc/command', Save = 'game-misc/save', Reset = 'game-misc/reset', LogState = 'game-misc/log-state' }
+enum GameInstanceAction {
+  FastForward = 'game-misc/fast-forward',
+  PlayerCommand = 'game-misc/command',
+  Save = 'game-misc/save',
+  Reset = 'game-misc/reset',
+  LogState = 'game-misc/log-state'
+}
 
 export function fastForward(turns: number) {
   return {
@@ -59,6 +65,12 @@ export function gameMiscActionReducerFactory(gameWrapper: GameInstanceWrapper) {
           window.location.reload();
         });
         return;
+      case GameUIAction.EnableAI:
+        setTimeout(() => gameWrapper.enableAI(true));
+        return;
+      case GameUIAction.DisableAI:
+        setTimeout(() => gameWrapper.enableAI(false));
+        return;
       case GameUIAction.Pause:
         setTimeout(() => gameWrapper.pause());
         return;
@@ -93,12 +105,30 @@ export function gameReducer(state: GameState = {} as any, action) {
 
 // GAME UI REDUCER
 
-enum GameUIAction { ChangeScreen = 'ui/change-screen', Pause = 'ui/pause', Resume = 'ui/resume' };
+enum GameUIAction {
+  ChangeScreen = 'ui/change-screen',
+  Pause = 'ui/pause',
+  Resume = 'ui/resume',
+  EnableAI = 'ui/ai-enable',
+  DisableAI = 'ui/ai-disable'
+};
 
 export const setScreen = (screen: GameScreen) => {
   return {
     type: GameUIAction.ChangeScreen,
     state: screen
+  }
+}
+
+export const enableAI = () => {
+  return {
+    type: GameUIAction.EnableAI
+  }
+}
+
+export const disableAI = () => {
+  return {
+    type: GameUIAction.DisableAI
   }
 }
 
@@ -122,6 +152,10 @@ export function gameUIReducer(state: GameUI = {} as any, action) {
       return { ...state, paused: true };
     case GameUIAction.Resume:
       return { ...state, paused: false };
+    case GameUIAction.EnableAI:
+      return { ...state, ai: true };
+    case GameUIAction.DisableAI:
+      return { ...state, ai: false };
     default:
       return state;
   }
