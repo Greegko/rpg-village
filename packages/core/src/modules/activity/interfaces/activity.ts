@@ -1,7 +1,9 @@
 export type ActivityID = string;
 export type AnyActivity = Activity<any>;
+export enum ActivityType { Party = 'party' };
 export type Activity<T> = {
   id: ActivityID;
   state: T;
-  type: string;
+  name: string;
+  type: ActivityType;
 }

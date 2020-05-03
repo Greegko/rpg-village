@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { forEach, values, assoc } from 'ramda';
-import { GetActivityHandlerByTag, AnyActivity } from './interfaces';
+import { GetActivityHandlerByTag, AnyActivity, ActivityType } from './interfaces';
 import { ActivityStore } from './activity-store';
 
 @injectable()
@@ -11,11 +11,11 @@ export class ActivityManager {
     @inject('ActivityStore') private activityStore: ActivityStore
   ) { }
 
-  startActivity(activityType: string, startingArgs: any) {
-    const activityHandler = this.getActivityHandler(activityType);
+  startPartyActivity<T extends { partyId: string }>(activtyName: string, startingArgs: T) {
+    const activityHandler = this.getActivityHandler(activtyName);
     if (activityHandler.isRunnable(startingArgs)) {
       const activityState = activityHandler.start(startingArgs);
-      this.activityStore.add({ type: activityType, state: activityState });
+      this.activityStore.add({ type: ActivityType.Party, name: activtyName, state: activityState });
     }
   }
 

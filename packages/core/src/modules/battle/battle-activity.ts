@@ -7,7 +7,7 @@ import { calculateLoot } from './lib';
 import { mergeDeepWith, add } from 'ramda';
 
 export type BattleState = { battleId: BattleID };
-export type BattleStartArgs = { attackerPartyId: PartyID, defenderPartyId: PartyID };
+export type BattleStartArgs = { partyId: PartyID, defenderPartyId: PartyID };
 
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
@@ -16,14 +16,14 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     @inject('BattleService') private battleService: BattleService
   ) { }
 
-  start({ attackerPartyId, defenderPartyId }: BattleStartArgs): BattleState {
+  start({ partyId, defenderPartyId }: BattleStartArgs): BattleState {
     return {
-      battleId: this.battleService.startBattle(attackerPartyId, defenderPartyId),
+      battleId: this.battleService.startBattle(partyId, defenderPartyId),
     };
   }
 
-  isRunnable({ attackerPartyId, defenderPartyId }: BattleStartArgs) {
-    return this.partyService.isPartyAlive(attackerPartyId) && this.partyService.isPartyAlive(defenderPartyId);
+  isRunnable({ partyId, defenderPartyId }: BattleStartArgs) {
+    return this.partyService.isPartyAlive(partyId) && this.partyService.isPartyAlive(defenderPartyId);
   }
 
   execute(activity: Activity<BattleState>): BattleState {
@@ -39,9 +39,9 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   resolve({ state }: Activity<BattleState>) {
     const battle = this.battleService.getBattle(state.battleId);
 
-    const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.attackerPartyId) ?
-      [battle.attackerPartyId, battle.defenderPartyId] :
-      [battle.defenderPartyId, battle.attackerPartyId];
+    const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.partyId) ?
+      [battle.partyId, battle.defenderPartyId] :
+      [battle.defenderPartyId, battle.partyId];
 
     const partyStash = this.partyService.clearPartyStash(looserPartyId);
     const loot = calculateLoot(this.partyService.getPartyUnits(looserPartyId));

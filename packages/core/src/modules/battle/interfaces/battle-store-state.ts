@@ -3,6 +3,6 @@ import { BattleID } from "./battle-id";
 
 export type BattleStoreState = {
   id: BattleID;
-  attackerPartyId: PartyID;
+  partyId: PartyID;
   defenderPartyId: PartyID;
 }

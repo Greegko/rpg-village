@@ -30,7 +30,7 @@ export class VillageEventHandler implements EventHandler {
   }
 
   private partyArrived(args: ArrivedToLocationEventArgs) {
-    this.activityManager.startActivity(VillageActivity.Heal, { partyId: args.partyId });
+    this.activityManager.startPartyActivity(VillageActivity.Heal, { partyId: args.partyId });
     this.storePartyLoot(args.partyId);
   }
 

@@ -21,11 +21,11 @@ export class WorldCommandHandler implements CommandHandler {
   }
 
   private travelCommand(travelArgs: any) {
-    this.activityManager.startActivity(WorldActivity.Travel, travelArgs);
+    this.activityManager.startPartyActivity(WorldActivity.Travel, travelArgs);
   }
 
   private exploreCommand(exploreArgs: any) {
-    this.activityManager.startActivity(WorldActivity.Explore, exploreArgs);
+    this.activityManager.startPartyActivity(WorldActivity.Explore, exploreArgs);
   }
 
   private battleCommand(battleArgs: BattleCommandArgs) {
@@ -35,7 +35,7 @@ export class WorldCommandHandler implements CommandHandler {
     const enemyParty = parties.find(party => party.owner === PartyOwner.Enemy);
 
     if (playerParty && enemyParty) {
-      this.activityManager.startActivity(BattleActivityType.Battle, { attackerPartyId: playerParty.id, defenderPartyId: enemyParty.id });
+      this.activityManager.startPartyActivity(BattleActivityType.Battle, { partyId: playerParty.id, defenderPartyId: enemyParty.id });
     }
   }
 }

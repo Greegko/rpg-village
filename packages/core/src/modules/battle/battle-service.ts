@@ -22,8 +22,8 @@ export class BattleService {
     return this.battleStore.get(battleId);
   }
 
-  startBattle(attackerPartyId: PartyID, defenderPartyId: PartyID): BattleID {
-    return this.battleStore.add({ attackerPartyId, defenderPartyId }).id;
+  startBattle(partyId: PartyID, defenderPartyId: PartyID): BattleID {
+    return this.battleStore.add({ partyId, defenderPartyId }).id;
   }
 
   isDoneBattle(battleId: BattleID): boolean {
@@ -54,7 +54,7 @@ export class BattleService {
       const battleState = this.battleStore.get(battleId);
       this.battleInstances[battleId] = new Battle(
         this.effectService,
-        this.partyService.getPartyUnits(battleState.attackerPartyId),
+        this.partyService.getPartyUnits(battleState.partyId),
         this.partyService.getPartyUnits(battleState.defenderPartyId)
       );
     }
