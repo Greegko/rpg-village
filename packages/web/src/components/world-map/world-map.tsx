@@ -1,24 +1,25 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Unit, MapLocationID } from '@rpg-village/core';
+import { MapLocationID, Party } from '@rpg-village/core';
+import { keys } from 'ramda';
 import { Sidebar } from './sidebar';
 import { DeveloperToolbar } from '../dev/developer-toolbar';
-import { GameStoreState, heroUnitsSelector } from '../../game';
+import { GameStoreState, playerPartiesSelector } from '../../game';
 import { MapStage } from './map/map-stage';
 import { ActionMenu } from './action-menu/action-menu';
 
 const propertyMapper = (state: GameStoreState): WorldMapProperties => ({
-  heroes: heroUnitsSelector(state.game)
+  parties: playerPartiesSelector(state.game)
 });
 
 interface WorldMapProperties {
-  heroes: Unit[];
+  parties: Record<string, Party>;
 }
 
 import './world-map.scss';
 export const WorldMap = connect(propertyMapper)
   (
-    ({ heroes }: WorldMapProperties) => {
+    ({ parties }: WorldMapProperties) => {
       const [actionMenuLocationId, setActionMenuLocationId] = React.useState(null);
       const [mapSize, setMapSize] = React.useState(null);
 
@@ -50,7 +51,7 @@ export const WorldMap = connect(propertyMapper)
             {mapSize && <MapStage width={mapSize[0]} height={mapSize[1]} onTileClick={onTileClick} onOutsideClick={onOutsideClick} />}
           </div>
 
-          <Sidebar heroes={heroes.map(x => x.id)} />
+          <Sidebar parties={keys(parties)} />
           <DeveloperToolbar />
         </div>
       );
