@@ -11,6 +11,7 @@ import { Resource, Item } from '../../models';
 import { VillageCommand } from './interfaces';
 import { UnitService } from '../unit';
 import { append, inc } from 'ramda';
+import { ActivityManager } from '../activity';
 
 @injectable()
 export class VillageCommandHandler {
@@ -20,6 +21,7 @@ export class VillageCommandHandler {
     @inject('VillageStashService') private villageStash: VillageStashService,
     @inject('PartyService') private partyService: PartyService,
     @inject('UnitService') private unitService: UnitService,
+    @inject('ActivityManager') private activityManager: ActivityManager,
     @inject('WorldMap') private worldMap: WorldMap,
   ) { }
 
@@ -27,6 +29,7 @@ export class VillageCommandHandler {
     commandSystem.on(VillageCommand.BuildHouse, () => this.buildHouse());
     commandSystem.on(VillageCommand.GenerateGold, () => this.generateGold());
     commandSystem.on(VillageCommand.HireHero, () => this.hireHero());
+    commandSystem.on(VillageCommand.HealParty, args => this.healParty(args));
     commandSystem.on(GameCommand.NewGame, () => this.createVillage());
   }
 
@@ -68,6 +71,10 @@ export class VillageCommandHandler {
         stash: { resource: { gold: 0 }, items: [] }
       });
     }
+  }
+
+  healParty(healPartyArgs: any): void {
+    this.activityManager.startPartyActivity(VillageCommand.HealParty, healPartyArgs);
   }
 
   stashResource(resource: Resource): void {

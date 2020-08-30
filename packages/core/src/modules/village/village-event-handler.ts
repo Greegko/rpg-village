@@ -5,8 +5,6 @@ import { PartyEvent, ArrivedToLocationEventArgs, PartyService, PartyID } from ".
 import { VillageStore } from "./village-store";
 import { VillageStashService } from "./village-stash-service";
 import { getResource, getItems } from '../../models/stash';
-import { ActivityManager } from "../activity";
-import { VillageActivity } from "./interfaces";
 
 @injectable()
 export class VillageEventHandler implements EventHandler {
@@ -14,7 +12,6 @@ export class VillageEventHandler implements EventHandler {
     @inject('PartyService') private partyService: PartyService,
     @inject('VillageStashService') private villageStash: VillageStashService,
     @inject('VillageStore') private villageStore: VillageStore,
-    @inject('ActivityManager') private activityManager: ActivityManager,
   ) { }
 
   init(eventSystem: EventSystem) {
@@ -30,7 +27,6 @@ export class VillageEventHandler implements EventHandler {
   }
 
   private partyArrived(args: ArrivedToLocationEventArgs) {
-    this.activityManager.startPartyActivity(VillageActivity.Heal, { partyId: args.partyId });
     this.storePartyLoot(args.partyId);
   }
 

@@ -25,8 +25,7 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
   }
 
   isRunnable({ partyId }: Partial<VillageHealStateArgs>): boolean {
-    const recoverableUnits = this.getRecoverableUnits(partyId);
-    return recoverableUnits.length > 0;
+    return this.getRecoverableUnits(partyId).length > 0;
   }
 
   execute({ state }: Activity<VillageHealState>): VillageHealState {
@@ -49,6 +48,6 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
   private getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyService.getParty(partyId);
     const units = map(unitId => this.unitService.getUnit(unitId), party.unitIds);
-    return filter(unit => unit.hp !== unit.maxhp && unit.hp > 0, units);
+    return filter(unit => unit.hp < unit.maxhp && unit.hp > 0, units);
   }
 }
