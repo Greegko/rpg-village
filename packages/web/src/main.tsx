@@ -37,6 +37,8 @@ const store = createStore(reducers,
 game.onStateUpdate(state => store.dispatch(updateGameState(state)));
 game.resume();
 
+import './style.scss';
+
 ReactDOM.render(
   <Provider store={store}>
     <GameField />

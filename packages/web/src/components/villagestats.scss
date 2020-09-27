@@ -6,7 +6,7 @@
   color: #fff;
   font: 900 0.8rem 'Montserrat', sans-serif;
   box-shadow: 0 4px rgba(#000, 0.2);
-  z-index: 10000;
+  z-index: 1;
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -26,20 +26,6 @@
         display: inline-block;
         vertical-align: middle;
       }
-    }
-  }
-
-  .villagestats__buttons {
-    display: flex;
-
-    &-btn {
-      color: #fff;
-      border-radius: 0.5rem;
-      padding: 0.5rem;
-      border: none;
-      background-color: rgba(#000, 0.2);
-      float: right;
-      margin: 0.5rem;
     }
   }
 }

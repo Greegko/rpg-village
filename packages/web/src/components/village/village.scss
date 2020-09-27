@@ -1,8 +1,13 @@
-.house {
-  position: absolute;
-  border: 1px solid black;
-  top: 250px;
-  left: 150px;
-  height: 150px;
-  width: 150px;
+.village {
+  display: flex;
+
+  > div {
+    margin: 25px;
+    flex: 1;
+    padding: 15px;
+    border: 1px solid black;
+    background-color: rgba(#000000, 0.2);
+    cursor: pointer;
+    user-select: none;
+  }
 }

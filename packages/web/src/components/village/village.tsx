@@ -15,8 +15,10 @@ import './village.scss';
 export const Village = connect(propertyMapper, dispatchers)
   (
     ({ village, executeCommand }: VillageProperties) => (
-      <div>
-        <div className='house' onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Houses lvl {village.houses}</div>
+      <div className="village">
+        <div onClick={() => executeCommand({ command: VillageCommand.GenerateGold })}>Generate Gold - {village.stash.resource.gold}</div>
+        <div onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Houses {village.houses}</div>
+        <div onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Heroes {village.heroes.length}</div>
       </div>
     )
   );

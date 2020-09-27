@@ -1,0 +1,14 @@
+button {
+  display:block;
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  background-color: rgba(#000, 0.2);
+  margin: 0.5rem;
+  width: 100%;
+
+  &.active {
+    background-color: rgba(#fff, 0.3); 
+  }
+}
