@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { fastForward, save, reset, pause, resume, logState, GameStoreState, disableAI, enableAI } from '../../game';
 
-
 const storeDispatchers = { fastForward, save, reset, pause, resume, logState, disableAI, enableAI };
 
 const mapProperty = (state: GameStoreState) => {
@@ -12,7 +11,7 @@ const mapProperty = (state: GameStoreState) => {
   }
 }
 
-interface DeveloperToolbarProperties {
+interface DeveloperToolbarActions {
   fastForward: typeof fastForward;
   save: typeof save;
   reset: typeof reset;
@@ -21,6 +20,9 @@ interface DeveloperToolbarProperties {
   logState: typeof logState;
   disableAI: typeof disableAI;
   enableAI: typeof enableAI;
+}
+
+interface DeveloperToolbarProperties {
   isPaused: boolean;
   isAIEnabled: boolean;
 }
@@ -28,7 +30,7 @@ interface DeveloperToolbarProperties {
 import './developer-toolbar.scss';
 export const DeveloperToolbar = connect(mapProperty, storeDispatchers)
   (
-    ({ fastForward, save, reset, pause, isPaused, resume, logState, isAIEnabled, disableAI, enableAI }: DeveloperToolbarProperties) => {
+    ({ fastForward, save, reset, pause, isPaused, resume, logState, isAIEnabled, disableAI, enableAI }: DeveloperToolbarProperties & DeveloperToolbarActions) => {
       return (
         <div className='developer-toolbar'>
           <div>

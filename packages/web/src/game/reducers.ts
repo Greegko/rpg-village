@@ -1,5 +1,5 @@
 import { GameState, Command } from "@rpg-village/core";
-import { GameUI, GameScreen } from "./interface";
+import { GameUI, GameScreen, GameOverlay } from "./interface";
 import { GameInstanceWrapper } from "./game-instance-wrapper";
 
 // GAME MISC REDUCER
@@ -110,13 +110,21 @@ enum GameUIAction {
   Pause = 'ui/pause',
   Resume = 'ui/resume',
   EnableAI = 'ui/ai-enable',
-  DisableAI = 'ui/ai-disable'
+  DisableAI = 'ui/ai-disable',
+  OpenOverlay = 'ui/open-overlay'
 };
 
 export const setScreen = (screen: GameScreen) => {
   return {
     type: GameUIAction.ChangeScreen,
     state: screen
+  }
+}
+
+export const openOverlay = (overlay: GameOverlay) => {
+  return {
+    type: GameUIAction.OpenOverlay,
+    overlay
   }
 }
 
@@ -148,6 +156,8 @@ export function gameUIReducer(state: GameUI = {} as any, action) {
   switch (action.type) {
     case GameUIAction.ChangeScreen:
       return { ...state, activeScreen: action.screen };
+    case GameUIAction.OpenOverlay:
+      return { ...state, overlay: action.overlay };
     case GameUIAction.Pause:
       return { ...state, paused: true };
     case GameUIAction.Resume:
