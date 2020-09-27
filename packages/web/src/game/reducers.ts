@@ -111,7 +111,8 @@ enum GameUIAction {
   Resume = 'ui/resume',
   EnableAI = 'ui/ai-enable',
   DisableAI = 'ui/ai-disable',
-  OpenOverlay = 'ui/open-overlay'
+  OpenOverlay = 'ui/open-overlay',
+  CloseOverlay = 'ui/close-overlay'
 };
 
 export const setScreen = (screen: GameScreen) => {
@@ -125,6 +126,12 @@ export const openOverlay = (overlay: GameOverlay) => {
   return {
     type: GameUIAction.OpenOverlay,
     overlay
+  }
+}
+
+export const closeOverlay = () => {
+  return {
+    type: GameUIAction.CloseOverlay
   }
 }
 
@@ -158,6 +165,8 @@ export function gameUIReducer(state: GameUI = {} as any, action) {
       return { ...state, activeScreen: action.screen };
     case GameUIAction.OpenOverlay:
       return { ...state, overlay: action.overlay };
+    case GameUIAction.CloseOverlay:
+      return { ...state, overlay: undefined };
     case GameUIAction.Pause:
       return { ...state, paused: true };
     case GameUIAction.Resume:
