@@ -9,4 +9,5 @@ export interface VillageState {
   stash: VillageStash;
   locationId: MapLocationID;
   heroes: UnitID[];
+  blacksmith: number;
 }

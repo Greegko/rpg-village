@@ -50,6 +50,15 @@ export class VillageCommandHandler {
     }
   }
 
+  buildBlacksmith(): void {
+    const goldCost = 100;
+
+    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
+      this.villageStore.update('blacksmith', inc);
+      this.villageStash.removeResource({ gold: goldCost });
+    }
+  }
+
   generateGold(): void {
     this.villageStash.addResource({ gold: 5 });
   }

@@ -12,6 +12,6 @@ export const villageModule: Module = {
   activities: [
     { name: VillageActivity.Heal, activity: VillageHealActivity }
   ],
-  stores: [{ scope: 'village', store: VillageStore, initialState: { houses: 0, stash: { resource: {}, items: [] }, locationId: undefined, heroes: [] } }],
+  stores: [{ scope: 'village', store: VillageStore, initialState: { houses: 0, blacksmith: 0, stash: { resource: {}, items: [] }, locationId: undefined, heroes: [] } }],
   provides: [VillageStashService]
 };
