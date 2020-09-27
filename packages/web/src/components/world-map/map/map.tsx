@@ -26,6 +26,7 @@ export const Map = connect(propertyMapper)
             key={location.id}
             onClick={() => onTileClick(location.id)}
             parties={partiesOnLocations[location.id]}
+            locationType={location.type}
             x={61 * location.x}
             y={35 * location.y} />
       ) as any

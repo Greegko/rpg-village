@@ -1,27 +1,36 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { MapLocationID, Party } from '@rpg-village/core';
-import { keys } from 'ramda';
+import { MapLocation, MapLocationID, MapLocationType, Party, PartyOwner } from '@rpg-village/core';
+import { Dictionary, filter, find, keys, pipe, values } from 'ramda';
 import { Sidebar } from './sidebar';
 import { DeveloperToolbar } from '../dev/developer-toolbar';
-import { GameStoreState, playerPartiesSelector } from '../../game';
+import { GameOverlay, GameStoreState, openOverlay, playerPartiesSelector } from '../../game';
 import { MapStage } from './map/map-stage';
 import { ActionMenu } from './action-menu/action-menu';
 
+const storeDispatchers = { openOverlay };
+
 const propertyMapper = (state: GameStoreState): WorldMapProperties => ({
+  locations: state.game.world,
   parties: playerPartiesSelector(state.game)
 });
 
+interface WorldMapActions {
+  openOverlay: typeof openOverlay;
+}
+
 interface WorldMapProperties {
   parties: Record<string, Party>;
+  locations: Record<string, MapLocation>;
 }
 
 import './world-map.scss';
-export const WorldMap = connect(propertyMapper)
+export const WorldMap = connect(propertyMapper, storeDispatchers)
   (
-    ({ parties }: WorldMapProperties) => {
-      const [actionMenuLocationId, setActionMenuLocationId] = React.useState(null);
-      const [mapSize, setMapSize] = React.useState(null);
+    ({ parties, locations, openOverlay }: WorldMapProperties & WorldMapActions) => {
+      const [activeUnit, setActiveUnit] = React.useState<null | string>(null);
+      const [actionMenuLocationId, setActionMenuLocationId] = React.useState<string>(null);
+      const [mapSize, setMapSize] = React.useState<[number, number]>(null);
 
       const mapRef = React.useCallback<(element: HTMLDivElement) => void>(node => {
         if (!node) return;
@@ -36,11 +45,30 @@ export const WorldMap = connect(propertyMapper)
         return () => window.removeEventListener('resize', handleResize);
       }, []);
 
-      const onTileClick = (locationId: MapLocationID) => {
-        setActionMenuLocationId(locationId);
-      }
+      const onTileClick = React.useCallback((locationId: MapLocationID) => {
+        const targetLocation = locations[locationId];
+
+        if (targetLocation.type === MapLocationType.Village && !activeUnit) {
+          return openOverlay(GameOverlay.Village);
+        }
+
+        if (activeUnit) {
+          return setActionMenuLocationId(locationId);
+        }
+
+        const userParty = pipe(
+          (parties: Dictionary<Party>) => values(parties),
+          filter<Party>((x: Party) => x.locationId === locationId),
+          find(x => x.owner === PartyOwner.Player)
+        )(parties);
+
+        if (userParty) {
+          setActiveUnit(userParty.id);
+        }
+      }, [])
 
       const onOutsideClick = () => {
+        setActiveUnit(null);
         setActionMenuLocationId(null);
       }
 
