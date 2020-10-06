@@ -1,9 +1,10 @@
 .village {
   display: flex;
+  flex-wrap: wrap;
 
   > div {
     margin: 25px;
-    flex: 1;
+    flex: 0 0 15%;
     padding: 15px;
     border: 1px solid black;
     background-color: rgba(#000000, 0.2);

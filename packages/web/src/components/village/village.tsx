@@ -17,6 +17,7 @@ export const Village = connect(propertyMapper, dispatchers)
     ({ village, executeCommand }: VillageProperties) => (
       <div className="village">
         <div onClick={() => executeCommand({ command: VillageCommand.GenerateGold })}>Generate Gold - {village.stash.resource.gold}</div>
+        <div onClick={() => executeCommand({ command: VillageCommand.BuildBlacksmith })}>Blacksmith - {village.blacksmith}</div>
         <div onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Houses {village.houses}</div>
         <div onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Heroes {village.heroes.length}</div>
       </div>

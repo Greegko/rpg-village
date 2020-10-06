@@ -26,6 +26,7 @@ export class VillageCommandHandler {
   ) { }
 
   init(commandSystem: CommandSystem) {
+    commandSystem.on(VillageCommand.BuildBlacksmith, () => this.buildBlacksmith());
     commandSystem.on(VillageCommand.BuildHouse, () => this.buildHouse());
     commandSystem.on(VillageCommand.GenerateGold, () => this.generateGold());
     commandSystem.on(VillageCommand.HireHero, () => this.hireHero());
