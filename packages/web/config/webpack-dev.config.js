@@ -1,7 +1,8 @@
 const webpackConfig = require('./webpack.config.js');
 
 module.exports = Object.assign(webpackConfig, {
-  devtool: "cheap-module-eval-source-map",
+  mode: 'development',
+  devtool: "cheap-module-source-map",
 
   devServer: {
     historyApiFallback: true,

@@ -57,9 +57,9 @@ export const WorldMap = connect(propertyMapper, storeDispatchers)
         }
 
         const userParty = pipe(
-          (parties: Dictionary<Party>) => values(parties),
-          filter<Party>((x: Party) => x.locationId === locationId),
-          find(x => x.owner === PartyOwner.Player)
+          (parties: Dictionary<Party>) => values(parties) as any,
+          filter<Party>((x: Party) => x.locationId === locationId) as any,
+          find<Party>(x => x.owner === PartyOwner.Player)
         )(parties);
 
         if (userParty) {

@@ -1,7 +1,15 @@
 {
+  "scripts": {
+    "start": "concurrently \"npm:start:*\"",
+    "start:core": "npm run build:watch --prefix packages/core",
+    "start:web": "npm run start --prefix packages/web"
+  },
   "private": true,
   "name": "rpg-village",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "concurrently": "5.3.0"
+  }
 }
