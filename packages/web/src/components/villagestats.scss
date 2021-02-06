@@ -1,31 +1,19 @@
-.villagestats {
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #333d47;
-  color: #fff;
-  font: 900 0.8rem 'Montserrat', sans-serif;
-  box-shadow: 0 4px rgba(#000, 0.2);
-  z-index: 1;
-  position: absolute;
+.villagestats__list {
+  margin: 0 0.5rem;
+  padding-left: 0;
+  list-style-type: none;
+  align-self: center;
   display: flex;
-  justify-content: space-between;
-  
-  &__list {
-    margin: 0 0.5rem;
-    padding-left: 0;
-    list-style-type: none;
-    align-self: center;
-    display: flex;
-    &-item {
+
+  &-item {
+    display: inline-block;
+    padding: 0.5rem;
+    text-shadow: 1px 1px #000;
+    color: #fff;
+
+    &-icon {
       display: inline-block;
-      padding: 0.5rem;
-      text-shadow: 1px 1px #000;
-      color: #fff;
-      &-icon {
-        display: inline-block;
-        vertical-align: middle;
-      }
+      vertical-align: middle;
     }
   }
 }

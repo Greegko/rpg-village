@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { VillageState, GeneralGameStoreState } from '@rpg-village/core';
-import { GameStoreState, executeCommand } from '../game';
+import { GameStoreState } from '../game';
 
 const propertyMapper = (state: GameStoreState) => {
   return {
@@ -10,16 +10,13 @@ const propertyMapper = (state: GameStoreState) => {
   }
 }
 
-const dispatchers = { executeCommand }
-
-
 interface VillageStatsProperties {
   village: VillageState;
   general: GeneralGameStoreState;
 }
 
 import './villagestats.scss';
-export const VillageStats = connect(propertyMapper, dispatchers)
+export const VillageStats = connect(propertyMapper)
   (
     ({ village, general }: VillageStatsProperties) => (
       <div className="villagestats">
