@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PartyDisplay } from './party';
+import { Header } from './header';
 
 interface DashboardProperties {
   parties: string[];
@@ -8,8 +9,12 @@ interface DashboardProperties {
 import './dashboard.scss';
 export const Dashboard = ({ parties }: DashboardProperties) => (
   <div className='dashboard'>
-    Parties:<br />
+    <Header />
 
-    {parties.map(partyId => <PartyDisplay key={partyId} partyId={partyId} />)}
+    <div>
+      Parties:<br />
+
+      {parties.map(partyId => <PartyDisplay key={partyId} partyId={partyId} />)}
+    </div>
   </div>
 );

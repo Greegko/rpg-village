@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DeveloperToolbar } from './dev/developer-toolbar';
+import { DeveloperToolbox } from './developer-toolbox';
 import { VillageStats } from "./villagestats";
 
 import './header.scss';
@@ -11,7 +11,7 @@ export const Header = () => {
       <VillageStats />
       <button className={"dev-toolbox-button" + (devToolboxVisible ? " active" : '')} onClick={() => setDevToolboxVisibile(val => !val)}>Dev Toolbox</button>
 
-      {devToolboxVisible && <DeveloperToolbar />}
+      {devToolboxVisible && <DeveloperToolbox />}
     </div>
   )
 };

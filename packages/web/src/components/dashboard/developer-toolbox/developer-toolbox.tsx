@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { fastForward, save, reset, pause, resume, logState, GameStoreState, disableAI, enableAI } from '../../game';
+import { fastForward, save, reset, pause, resume, logState, GameStoreState, disableAI, enableAI } from '../../../game';
 
 const storeDispatchers = { fastForward, save, reset, pause, resume, logState, disableAI, enableAI };
 
@@ -11,7 +11,7 @@ const mapProperty = (state: GameStoreState) => {
   }
 }
 
-interface DeveloperToolbarActions {
+interface DeveloperToolboxActions {
   fastForward: typeof fastForward;
   save: typeof save;
   reset: typeof reset;
@@ -22,17 +22,17 @@ interface DeveloperToolbarActions {
   enableAI: typeof enableAI;
 }
 
-interface DeveloperToolbarProperties {
+interface DeveloperToolboxProperties {
   isPaused: boolean;
   isAIEnabled: boolean;
 }
 
-import './developer-toolbar.scss';
-export const DeveloperToolbar = connect(mapProperty, storeDispatchers)
+import './developer-toolbox.scss';
+export const DeveloperToolbox = connect(mapProperty, storeDispatchers)
   (
-    ({ fastForward, save, reset, pause, isPaused, resume, logState, isAIEnabled, disableAI, enableAI }: DeveloperToolbarProperties & DeveloperToolbarActions) => {
+    ({ fastForward, save, reset, pause, isPaused, resume, logState, isAIEnabled, disableAI, enableAI }: DeveloperToolboxProperties & DeveloperToolboxActions) => {
       return (
-        <div className='developer-toolbar'>
+        <div className='developer-toolbox'>
           <div>
             {isAIEnabled && <button onClick={disableAI}>AI on</button>}
             {!isAIEnabled && <button onClick={enableAI}>AI off</button>}

@@ -2,7 +2,7 @@ import '../polyfill';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { GameField } from './components';
+import { GameField } from './components/game-field';
 import { GameInstanceWrapper } from './game/game-instance-wrapper';
 import { gameReducer, gameUIReducer, updateGameState, gameMiscActionReducerFactory, } from './game/reducers';
 import { createStore } from 'redux';
@@ -36,8 +36,6 @@ const store = createStore(reducers,
 
 game.onStateUpdate(state => store.dispatch(updateGameState(state)));
 game.resume();
-
-import './style.scss';
 
 ReactDOM.render(
   <Provider store={store}>

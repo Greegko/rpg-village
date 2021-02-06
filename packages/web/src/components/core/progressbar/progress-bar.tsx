@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Icon, Icons, Size } from '../shared';
+import { Icon, Icons, Size } from '../icon';
 
 interface ProgressBarProperties {
   icon: Icons;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { VillageState, GeneralGameStoreState } from '@rpg-village/core';
-import { GameStoreState } from '../game';
+import { GameStoreState } from '../../game';
 
 const propertyMapper = (state: GameStoreState) => {
   return {

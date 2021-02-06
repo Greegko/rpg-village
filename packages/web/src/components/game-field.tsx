@@ -5,7 +5,6 @@ import { GameStoreState, playerPartiesSelector } from '../game';
 import { Dashboard } from './dashboard';
 import { keys } from 'ramda';
 import { Party } from '@rpg-village/core';
-import { Header } from './header';
 
 function propertyMapper(state: GameStoreState) {
   return {
@@ -18,14 +17,13 @@ interface GameFieldState {
   parties: Record<string, Party>;
 }
 
+import './game-field.scss';
 export const GameField = connect(propertyMapper)
   (
     ({ parties }: GameFieldState) => (
       <>
-        <Header />
-        <WorldMap />
-
         <Dashboard parties={keys(parties)} />
+        <WorldMap />
       </>
     )
   );

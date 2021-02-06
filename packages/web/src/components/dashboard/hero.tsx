@@ -2,8 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { values } from 'ramda';
 import { Unit } from '@rpg-village/core';
-import { ProgressBar } from '../utils';
-import { Icons } from '../shared';
+import { ProgressBar, Icons } from '../core';
 import { heroUnitsSelector, GameStoreState } from '../../game';
 
 const propertyMapper = (state: GameStoreState, props: HeroProperties): HeroState => ({
