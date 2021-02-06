@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export enum Icons { Attack = 'attack', Explore = 'explore', Travel = 'travel', Heart = 'heart' };
+export enum Icons { Heart = 'heart' };
 export enum Size { Tiny = 'tiny' }
 
 interface IconProperties {

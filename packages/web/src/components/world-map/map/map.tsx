@@ -14,17 +14,15 @@ const propertyMapper = (state: GameStoreState) => {
 interface MapProperties {
   locations: MapLocation[];
   partiesOnLocations: Record<MapLocationID, Party[]>;
-  onTileClick: (locationId: string) => void;
 }
 
 export const Map = connect(propertyMapper)
   (
-    ({ locations, partiesOnLocations, onTileClick }: MapProperties) => (
+    ({ locations, partiesOnLocations }: MapProperties) => (
       locations.map(
         location =>
           <Tile
             key={location.id}
-            onClick={() => onTileClick(location.id)}
             parties={partiesOnLocations[location.id]}
             locationType={location.type}
             x={61 * location.x}
