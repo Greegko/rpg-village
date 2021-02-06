@@ -1,8 +1,9 @@
+@import '../../style/var.scss';
+
 .header {
-  background-color: #333d47;
-  color: #fff;
+  background-color: $color-light-gray;
+  color: $color-white;
   box-shadow: 0 4px rgba(#000, 0.2);
-  font: 900 0.8rem 'Montserrat', sans-serif;
   
   display: flex;
   justify-content: space-between;
