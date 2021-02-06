@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GameStoreState, partiesSelector, activitiesSelector } from '../../../game';
+import { GameStoreState, partiesSelector, activitiesSelector } from '../../game';
 import { connect } from 'react-redux';
 import { Hero } from './hero';
 import { PartyID, Party, Activity } from '@rpg-village/core';

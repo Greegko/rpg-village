@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { values } from 'ramda';
 import { Unit } from '@rpg-village/core';
-import { ProgressBar } from '../../utils';
-import { Icons } from '../../shared';
-import { heroUnitsSelector, GameStoreState } from '../../../game';
+import { ProgressBar } from '../utils';
+import { Icons } from '../shared';
+import { heroUnitsSelector, GameStoreState } from '../../game';
 
 const propertyMapper = (state: GameStoreState, props: HeroProperties): HeroState => ({
   hero: values(heroUnitsSelector(state.game)).find(({ id }) => id === props.heroId)

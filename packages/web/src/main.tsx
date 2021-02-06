@@ -6,7 +6,7 @@ import { GameField } from './components';
 import { GameInstanceWrapper } from './game/game-instance-wrapper';
 import { gameReducer, gameUIReducer, updateGameState, gameMiscActionReducerFactory, } from './game/reducers';
 import { createStore } from 'redux';
-import { GameScreen, GameStoreState } from './game';
+import { GameStoreState } from './game';
 import { availableSkills } from './game/config/skills';
 import { PlayerAI } from './ai/player-ai';
 
@@ -30,7 +30,7 @@ const reducers = (state: GameStoreState, action) => {
 }
 
 const store = createStore(reducers,
-  { game: game.getState(), ui: { activeScreen: GameScreen.WorldMap, paused: false, ai: true } },
+  { game: game.getState(), ui: { activeScreen: null, paused: false, ai: true } },
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

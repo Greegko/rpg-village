@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { PartyDisplay } from './party';
 
-interface SidebarProperties {
+interface DashboardProperties {
   parties: string[];
 }
 
-import './sidebar.scss';
-export const Sidebar = ({ parties }: SidebarProperties) => (
-  <div className='sidebar'>
+import './dashboard.scss';
+export const Dashboard = ({ parties }: DashboardProperties) => (
+  <div className='dashboard'>
     Parties:<br />
 
     {parties.map(partyId => <PartyDisplay key={partyId} partyId={partyId} />)}

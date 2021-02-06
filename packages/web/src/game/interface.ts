@@ -1,6 +1,6 @@
 import { GameState, Command } from "@rpg-village/core";
 
-export enum GameScreen { WorldMap };
+export enum GameScreen { };
 export interface GameUI {
   activeScreen: GameScreen;
   paused: boolean;
