@@ -3,9 +3,9 @@ import { forEach } from 'ramda';
 import { CommandHandler } from '../models';
 
 export interface CommandSystem {
-  on(commandType: string, callback: Function);
-  execute(commandType: string, args?: any);
-  hookCommandHandlers(commandHandlers: CommandHandler[]);
+  on(commandType: string, callback: Function): void;
+  execute(commandType: string, args?: any): void;
+  hookCommandHandlers(commandHandlers: CommandHandler[]): void;
 }
 
 @injectable()

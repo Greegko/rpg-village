@@ -7,7 +7,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noUnusedLocals": true,
-    "noImplicitAny": false,
     "jsx": "react-jsx",
     "strict": true,
   }

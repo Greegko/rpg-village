@@ -15,7 +15,7 @@ export class VillageEventHandler implements EventHandler {
   ) { }
 
   init(eventSystem: EventSystem) {
-    eventSystem.on(PartyEvent.ArrivedToLocation, args => {
+    eventSystem.on(PartyEvent.ArrivedToLocation, (args: any) => {
       if (this.isPartyArrivedToVillage(args)) {
         this.partyArrived(args);
       }

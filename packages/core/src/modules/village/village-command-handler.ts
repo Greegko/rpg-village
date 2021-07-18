@@ -30,7 +30,7 @@ export class VillageCommandHandler {
     commandSystem.on(VillageCommand.BuildHouse, () => this.buildHouse());
     commandSystem.on(VillageCommand.GenerateGold, () => this.generateGold());
     commandSystem.on(VillageCommand.HireHero, () => this.hireHero());
-    commandSystem.on(VillageCommand.HealParty, args => this.healParty(args));
+    commandSystem.on(VillageCommand.HealParty, (args: any) => this.healParty(args));
     commandSystem.on(GameCommand.NewGame, () => this.createVillage());
   }
 

@@ -19,7 +19,7 @@ game.restoreOrNewGame();
 game.setAI(playerAI.execute);
 
 const gameMiscActionReducer = gameMiscActionReducerFactory(game);
-const reducers = (state: GameStoreState = {} as any, action) => {
+const reducers = (state: GameStoreState = {} as any, action: any) => {
   gameMiscActionReducer(action);
 
   return {

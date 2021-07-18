@@ -5,7 +5,7 @@ import { EventHandler } from '../models';
 export interface EventSystem {
   on(eventType: string, callback: Function): void;
   fire(eventType: string, args?: any): void;
-  hookEventHandlers(eventHandlers: EventHandler[]);
+  hookEventHandlers(eventHandlers: EventHandler[]): void;
 }
 
 @injectable()

@@ -43,8 +43,8 @@ export class WorldMap {
   }
 
   private getUnexploredLocationsNextToLocation(locations: MapLocation[], location: MapLocation): Omit<MapLocation, 'id'>[] {
-    const nx = (x) => x - location.x;
-    const ny = (y) => y - location.y;
+    const nx = (x: number) => x - location.x;
+    const ny = (y: number) => y - location.y;
 
     const positions = [[0, -2], [0, 2], [1, 1], [1, -1], [-1, 1], [-1, -1]];
 

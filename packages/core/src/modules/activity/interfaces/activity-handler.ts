@@ -5,5 +5,5 @@ export interface IActivityHandler<StaringArgs extends PartyActivityStartArgs, Ac
   isRunnable(startArgs: StaringArgs): boolean;
   isDone(activity: Activity<ActivityState>): boolean;
   execute(activity: Activity<ActivityState>): ActivityState;
-  resolve(activity: Activity<ActivityState>);
+  resolve(activity: Activity<ActivityState>): void;
 }

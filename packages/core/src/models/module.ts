@@ -3,12 +3,12 @@ import { CommandHandler } from './command-handler';
 import { EventHandler } from './event-handler';
 import { IActivityHandler } from "../modules/activity/interfaces";
 
-export interface ProvideClass { new(...args): any; }
+export interface ProvideClass { new(...args: any[]): any; }
 export interface ProvideValue { provide: string; value: any }
-export interface StoreClass { new(...args): IStore; }
-export interface ActivityClass { new(...args): IActivityHandler<any, any>; }
-export interface CommandHandlerClass { new(...args): CommandHandler; }
-export interface EventHandlerClass { new(...args): EventHandler; }
+export interface StoreClass { new(...args: any[]): IStore; }
+export interface ActivityClass { new(...args: any[]): IActivityHandler<any, any>; }
+export interface CommandHandlerClass { new(...args: any[]): CommandHandler; }
+export interface EventHandlerClass { new(...args: any[]): EventHandler; }
 
 export interface ModulActivity {
   activity: ActivityClass;

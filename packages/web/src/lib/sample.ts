@@ -3,6 +3,6 @@ export function sample<T>(array: T[]): T {
   return array[baseRandom(0, length - 1)];
 }
 
-export function baseRandom(lower, upper) {
+export function baseRandom(lower: number, upper: number) {
   return lower + ~~(Math.random() * (upper - lower + 1));
 }

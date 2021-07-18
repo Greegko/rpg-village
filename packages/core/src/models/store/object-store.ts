@@ -1,7 +1,7 @@
 export interface IObjectStore<T extends object> {
   getState(): T;
-  init(state: T);
-  
+  init(state: T): void;
+
   get(prop: keyof T): T[keyof T];
-  set(prop: keyof T, value: T[keyof T]);
+  set(prop: keyof T, value: T[keyof T]): void;
 }

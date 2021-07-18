@@ -45,7 +45,7 @@ export const executeCommand = (command: Command) => {
 }
 
 export function gameMiscActionReducerFactory(gameWrapper: GameInstanceWrapper) {
-  return (action) => {
+  return (action: any) => {
     switch (action.type) {
       case GameInstanceAction.FastForward:
         setTimeout(() => gameWrapper.fastForward(action.turns));
@@ -94,7 +94,7 @@ export const updateGameState = (state: GameState) => {
   }
 }
 
-export function gameReducer(state: GameState = {} as any, action): GameState {
+export function gameReducer(state: GameState = {} as any, action: any): GameState {
   switch (action.type) {
     case GameAction.SetState:
       return action.state;
@@ -136,7 +136,7 @@ export const resume = () => {
   }
 }
 
-export function gameUIReducer(state: GameUI = {} as any, action): GameUI {
+export function gameUIReducer(state: GameUI = {} as any, action: any): GameUI {
   switch (action.type) {
     case GameUIAction.Pause:
       return { ...state, paused: true };
