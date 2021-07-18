@@ -18,14 +18,14 @@ interface PartyDisplayProperties {
 
 interface PartyDisplayState {
   party: Party;
-  activity: Activity;
+  activity: Activity | null;
 }
 
 export const PartyDisplay = connect(propertyMapper)(
   ({ party, activity }: PartyDisplayState) => (
     <>
-      Location: { party.locationId}<br />
-      Activity: { activity ? activity.name : 'Idle'}<br />
+      Location: {party.locationId}<br />
+      Activity: {activity ? activity.name : 'Idle'}<br />
       {party.unitIds.map(heroId => <Hero key={heroId} heroId={heroId} />)}
     </>
   )

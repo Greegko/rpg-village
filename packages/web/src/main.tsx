@@ -20,7 +20,7 @@ game.restoreOrNewGame();
 game.setAI(playerAI.execute);
 
 const gameMiscActionReducer = gameMiscActionReducerFactory(game);
-const reducers = (state: GameStoreState, action) => {
+const reducers = (state: GameStoreState = {} as any, action) => {
   gameMiscActionReducer(action);
 
   return {
@@ -30,7 +30,7 @@ const reducers = (state: GameStoreState, action) => {
 }
 
 const store = createStore(reducers,
-  { game: game.getState(), ui: { activeScreen: null, paused: false, ai: true } },
+  { game: game.getState(), ui: { paused: false, ai: true } },
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

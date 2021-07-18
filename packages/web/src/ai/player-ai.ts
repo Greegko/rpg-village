@@ -15,7 +15,7 @@ export class PlayerAI {
     return (
       this.handleNewLocation(gameState, party) ||
       this.handleNextLocationSearch(gameState, party)
-    );
+    )!;
   }
 
   private handleNewLocation(gameState: GameState, party: Party): Command | undefined {

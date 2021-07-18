@@ -1,5 +1,5 @@
 import { GameState, Command } from "@rpg-village/core";
-import { GameUI, GameScreen } from "./interface";
+import { GameUI } from "./interface";
 import { GameInstanceWrapper } from "./game-instance-wrapper";
 
 // GAME MISC REDUCER
@@ -94,7 +94,7 @@ export const updateGameState = (state: GameState) => {
   }
 }
 
-export function gameReducer(state: GameState = {} as any, action) {
+export function gameReducer(state: GameState = {} as any, action): GameState {
   switch (action.type) {
     case GameAction.SetState:
       return action.state;
@@ -106,19 +106,11 @@ export function gameReducer(state: GameState = {} as any, action) {
 // GAME UI REDUCER
 
 enum GameUIAction {
-  ChangeScreen = 'ui/change-screen',
   Pause = 'ui/pause',
   Resume = 'ui/resume',
   EnableAI = 'ui/ai-enable',
   DisableAI = 'ui/ai-disable'
 };
-
-export const setScreen = (screen: GameScreen) => {
-  return {
-    type: GameUIAction.ChangeScreen,
-    state: screen
-  }
-}
 
 export const enableAI = () => {
   return {
@@ -144,10 +136,8 @@ export const resume = () => {
   }
 }
 
-export function gameUIReducer(state: GameUI = {} as any, action) {
+export function gameUIReducer(state: GameUI = {} as any, action): GameUI {
   switch (action.type) {
-    case GameUIAction.ChangeScreen:
-      return { ...state, activeScreen: action.screen };
     case GameUIAction.Pause:
       return { ...state, paused: true };
     case GameUIAction.Resume:

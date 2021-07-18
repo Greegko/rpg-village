@@ -4,7 +4,7 @@ import { injectable } from 'inversify';
 
 @injectable()
 export class ObjectStore<T extends object> implements IObjectStore<T> {
-  private state: T;
+  private state: T = {} as T;
 
   getState(): T {
     return this.state;

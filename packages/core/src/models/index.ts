@@ -1,4 +1,3 @@
-export * from './essences';
 export * from './resource';
 export * from './item';
 export * from './effect';

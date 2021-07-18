@@ -5,7 +5,7 @@ import { injectable } from 'inversify';
 
 @injectable()
 export class EntityStore<Entity extends { id: EntityID }, EntityID extends string = string> implements IEntityStore<Entity, EntityID> {
-  private state: EntityStoreState<Entity, EntityID>;
+  private state: EntityStoreState<Entity, EntityID> = {};
 
   getState(): EntityStoreState<Entity, EntityID> {
     return this.state;
@@ -29,7 +29,7 @@ export class EntityStore<Entity extends { id: EntityID }, EntityID extends strin
   update(entityId: EntityID, entity: Partial<Entity>): void;
   update(entityId: EntityID, updater: EntityUpdater<Entity>): void;
   update(entityId: EntityID, entityOrUpdater: Partial<Entity> | EntityUpdater<Entity>): void {
-    let entity: Partial<Entity> = null;
+    let entity: Partial<Entity> | null = null;
 
     if (typeof entityOrUpdater === 'function') {
       entity = entityOrUpdater(this.get(entityId));

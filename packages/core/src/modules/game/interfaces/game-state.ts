@@ -7,7 +7,7 @@ import { WorldState } from "../../world";
 import { BattleStoreState, BattleID } from "../../battle";
 
 export type GameState = {
-  activities: Record<ActivityID, PartyActivity>;
+  activities: Record<ActivityID, PartyActivity<any>>;
   battle: Record<BattleID, BattleStoreState>,
   units: Record<UnitID, Unit>;
   parties: Record<PartyID, Party>;

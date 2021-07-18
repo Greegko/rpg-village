@@ -3,9 +3,9 @@ import { AICommandGenerator, StateUpdateCallback } from './interface';
 
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;
-  private gameInstance: GameInstance<GameState> = null;
+  private gameInstance: GameInstance<GameState>;
   private timer: any = null;
-  private AI: AICommandGenerator = null;
+  private AI?: AICommandGenerator;
   private updateStateCallbacks: StateUpdateCallback[] = [];
   private enabledAI: boolean = true;
 
@@ -59,9 +59,10 @@ export class GameInstanceWrapper {
   }
 
   restoreOrNewGame() {
-    const initGameState = JSON.parse(localStorage.getItem('gameState'));
+    const state = localStorage.getItem('gameState');
+    const initGameState = state ? JSON.parse(state) as GameState : null;
 
-    if (initGameState) {
+    if (initGameState !== null) {
       this.load(initGameState);
     } else {
       this.startNewGame();

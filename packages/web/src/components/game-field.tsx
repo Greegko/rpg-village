@@ -8,8 +8,7 @@ import { Party } from '@rpg-village/core';
 
 function propertyMapper(state: GameStoreState) {
   return {
-    parties: playerPartiesSelector(state.game),
-    activeScreen: state.ui.activeScreen
+    parties: playerPartiesSelector(state.game)
   }
 }
 

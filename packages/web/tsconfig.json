@@ -9,5 +9,6 @@
     "noUnusedLocals": true,
     "noImplicitAny": false,
     "jsx": "react",
+    "strict": true,
   }
 }

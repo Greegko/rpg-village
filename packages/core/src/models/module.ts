@@ -16,9 +16,9 @@ export interface ModulActivity {
 }
 
 export interface ModulStore {
-  store?: StoreClass;
-  initialState?: object;
   scope: string;
+  store: StoreClass;
+  initialState?: object;
 }
 
 export interface Module {

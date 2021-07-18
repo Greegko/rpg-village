@@ -1,5 +1,5 @@
-import { Party, PartyID, VillageState, MapLocationID, PartyOwner, GameState, MapLocation, MapLocationType, Unit, UnitType, UnitID, BattleStoreState, BattleID } from "../../src";
-import { PartyActivity, ActivityID } from "../../src/modules/activity";
+import { Party, PartyID, VillageState, MapLocationID, PartyOwner, GameState, MapLocation, MapLocationType, Unit, UnitType, UnitID, BattleStoreState, BattleID, BattleStore } from "../../src/modules";
+import { PartyActivity, ActivityID, ActivityType } from "../../src/modules/activity";
 import { ItemStash, ResourceStash } from "../../src/models/stash";
 import { Chance } from 'chance';
 import { PartialDeep } from "./deep-partial";
@@ -71,7 +71,7 @@ function createCallback(createdState: GameState) {
   }
 
   function createBattleReference(battleArgs: Partial<BattleStoreState>) {
-    const battle = battleFactory(battleArgs);
+    const battle = battleStoreStateFactory(battleArgs);
 
     createdState.battle[battle.id] = battle;
 
@@ -137,9 +137,10 @@ function villageFactory({
   heroes = [],
   houses = chance.integer(),
   stash = stashFactory(),
-  locationId = chance.string()
+  locationId = chance.string(),
+  blacksmith = chance.integer()
 }: Partial<VillageState> = {}): VillageState {
-  return { locationId, stash, houses, heroes };
+  return { locationId, stash, houses, heroes, blacksmith };
 }
 
 function partyFactory({
@@ -155,15 +156,15 @@ function partyFactory({
 function activityFactory({
   id = chance.string(),
   state = {},
-  type = chance.string()
+  type = ActivityType.Party
 }: Partial<PartyActivity> = {}): PartyActivity {
-  return { id, state, type };
+  return { id, state, type } as PartyActivity<unknown>;
 }
 
-function battleFactory({
+function battleStoreStateFactory({
   id = chance.string(),
-  attackerPartyId = chance.string(),
+  partyId = chance.string(),
   defenderPartyId = chance.string(),
-}: Partial<BattleStoreState> = {}) {
-  return { id, attackerPartyId, defenderPartyId };
+}: Partial<BattleStoreState> = {}): BattleStoreState {
+  return { id, partyId, defenderPartyId };
 }

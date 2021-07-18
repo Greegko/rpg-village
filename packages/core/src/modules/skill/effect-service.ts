@@ -19,7 +19,7 @@ export class EffectService {
   }
 
   getEffectsBySkillId(skillId: SkillID): Effect[] {
-    return this.available_skills.find(prop('id', skillId)).effects;
+    return this.available_skills.find(prop('id', skillId))!.effects;
   }
 
 };

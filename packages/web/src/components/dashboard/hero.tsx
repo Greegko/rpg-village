@@ -6,7 +6,7 @@ import { ProgressBar, Icons } from '../core';
 import { heroUnitsSelector, GameStoreState } from '../../game';
 
 const propertyMapper = (state: GameStoreState, props: HeroProperties): HeroState => ({
-  hero: values(heroUnitsSelector(state.game)).find(({ id }) => id === props.heroId)
+  hero: values(heroUnitsSelector(state.game)).find(({ id }) => id === props.heroId)!
 });
 
 interface HeroProperties {

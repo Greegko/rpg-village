@@ -24,7 +24,7 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
     };
   }
 
-  isRunnable({ partyId }: Partial<VillageHealStateArgs>): boolean {
+  isRunnable({ partyId }: VillageHealStateArgs): boolean {
     return this.getRecoverableUnits(partyId).length > 0;
   }
 

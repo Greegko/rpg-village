@@ -38,7 +38,7 @@ export class UnitCommandHandler {
       equipment: assoc(place, item)
     });
 
-    this.unitStore.update(unitId, evolveUnit);
+    this.unitStore.update(unitId, evolveUnit as any);
   }
 
   private unequipEquipment({ unitId, place }: UnitUnequipItemCommandArgs) {

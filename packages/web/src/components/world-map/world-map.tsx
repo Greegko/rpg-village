@@ -3,7 +3,7 @@ import { MapStage } from './map/map-stage';
 
 import './world-map.scss';
 export const WorldMap = () => {
-  const [mapSize, setMapSize] = React.useState<[number, number]>(null);
+  const [mapSize, setMapSize] = React.useState<[number, number] | null>(null);
 
   const mapRef = React.useCallback<(element: HTMLDivElement) => void>(node => {
     if (!node) return;

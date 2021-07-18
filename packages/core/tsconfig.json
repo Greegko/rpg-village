@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "noUnusedLocals": true,
     "noImplicitAny": false,
+    "strict": true,
     "declaration": true,
     "outDir": "dist/",
   },

@@ -1,16 +1,14 @@
 import { Stash } from "./stash";
 import { Item, ItemID } from "../item";
-import { pipe, prop, find, propEq, evolve, concat, reject, filter, append } from 'ramda';
+import { prop, find, propEq, evolve, concat, reject, filter, append } from 'ramda';
 
 export interface ItemStash extends Stash {
   items: Item[];
 }
 
 export function getItem<T extends ItemStash>(stash: T, itemId: ItemID): Item {
-  return pipe(
-    prop('items'),
-    find(propEq('id', itemId))
-  )(stash);
+  const items = stash.items;
+  return find(propEq('id', itemId), items)!;
 }
 
 export function getItems(stash: ItemStash): Item[] {

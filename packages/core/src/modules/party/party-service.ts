@@ -45,7 +45,7 @@ export class PartyService {
     this.partyStore.update(partyId, assoc('locationId', locationId));
   }
 
-  setPartyActivity(partyId: PartyID, activityId: ActivityID) {
+  setPartyActivity(partyId: PartyID, activityId: ActivityID | undefined) {
     this.partyStore.update(partyId, assoc('activityId', activityId));
   }
 
