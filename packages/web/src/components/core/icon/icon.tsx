@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 export enum Icons { Heart = 'heart' };
 export enum Size { Tiny = 'tiny' }
@@ -10,12 +10,7 @@ interface IconProperties {
 
 import './icon.scss';
 export const Icon = ({ icon, size }: IconProperties) => {
-  const [src, setSrc] = React.useState();
-
-  React.useEffect(() => {
-    const file = import('../../../assets/icons/' + icon + ".svg");
-    file.then(data => setSrc(data));
-  }, []);
+  const [src] = useState();
 
   return (
     <img className={"icon" + (size === Size.Tiny ? " icon--tiny" : "")} src={src} />

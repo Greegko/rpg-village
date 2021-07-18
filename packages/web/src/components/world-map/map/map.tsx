@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { connect } from 'react-redux';
 import { MapLocation, MapLocationID, Party } from '@rpg-village/core';
 import { GameStoreState, worldLocationsSelector, partiesGroupedOnLocationsSelector } from '../../../game';

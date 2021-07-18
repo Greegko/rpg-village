@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { connect } from 'react-redux';
 import { values } from 'ramda';
 import { Unit } from '@rpg-village/core';

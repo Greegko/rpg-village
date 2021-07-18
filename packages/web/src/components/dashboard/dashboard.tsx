@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PartyDisplay } from './party';
 import { Header } from './header';
 

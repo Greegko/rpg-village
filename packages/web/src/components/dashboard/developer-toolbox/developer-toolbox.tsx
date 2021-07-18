@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { connect } from 'react-redux';
 import { fastForward, save, reset, pause, resume, logState, GameStoreState, disableAI, enableAI } from '../../../game';
 

@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { useCallback, useState } from 'react';
 import { MapStage } from './map/map-stage';
 
 import './world-map.scss';
 export const WorldMap = () => {
-  const [mapSize, setMapSize] = React.useState<[number, number] | null>(null);
+  const [mapSize, setMapSize] = useState<[number, number] | null>(null);
 
-  const mapRef = React.useCallback<(element: HTMLDivElement) => void>(node => {
+  const mapRef = useCallback<(element: HTMLDivElement) => void>(node => {
     if (!node) return;
 
     const handleResize = () => setMapSize([

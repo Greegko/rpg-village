@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { connect } from 'react-redux';
 import { WorldMap } from './world-map/world-map';
 import { GameStoreState, playerPartiesSelector } from '../game';

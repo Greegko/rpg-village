@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Icon, Icons, Size } from '../icon';
 
 interface ProgressBarProperties {

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Layer, Stage } from 'react-konva';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { Map } from './map';
