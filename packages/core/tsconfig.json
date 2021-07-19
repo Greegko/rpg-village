@@ -12,6 +12,20 @@
     "strict": true,
     "declaration": true,
     "outDir": "dist/",
+    "paths": {
+      "@models/*": [
+        "./src/models/*"
+      ],
+      "@moduls/*": [
+        "./src/modules/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@core/*": [
+        "./src/core/*"
+      ]
+    }
   },
   "include": [
     "public-api.ts",
@@ -19,5 +33,5 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
 }
