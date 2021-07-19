@@ -16,7 +16,7 @@
       "@models/*": [
         "./src/models/*"
       ],
-      "@moduls/*": [
+      "@modules/*": [
         "./src/modules/*"
       ],
       "@lib/*": [

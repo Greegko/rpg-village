@@ -1,11 +1,11 @@
 import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from 'ramda';
-import { isAlive, UnitID } from '../unit';
-import { EffectService, isPartyEffect } from '../skill';
-import { Effect } from '../../models';
-import { Unit } from '../unit';
+
+import { EffectService, isPartyEffect } from '@modules/skill';
+import { Effect } from '@models/effect';
+import { Unit, isAlive, UnitID } from '@modules/unit';
+import { sample } from '@lib/sample';
 import { BattleStats, BattleParty, BattleUnit, BattleState } from './interfaces';
 import { calculateBattleStats } from './lib';
-import { sample } from '../../lib/sample';
 
 export class Battle {
   private battleState: BattleState;

@@ -1,4 +1,4 @@
-import { Unit, UnitID } from '../../unit/interfaces';
+import { Unit, UnitID } from '@modules/unit';
 import { BattleParty } from './battle-party';
 
 export interface BattleState {

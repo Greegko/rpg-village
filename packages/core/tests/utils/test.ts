@@ -1,8 +1,8 @@
+import * as expect from 'expect';
+import { Command } from '@core/command';
 import { gameFactory } from "../game-factory";
 import { GameState } from '../../src';
-import { Command } from '../../src/models';
 import { PartialDeep } from "./deep-partial";
-import * as expect from 'expect';
 
 export type TestGameState = PartialDeep<GameState>;
 type ExpectedStateMatcher = (state: GameState) => any;

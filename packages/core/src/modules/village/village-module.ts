@@ -1,4 +1,4 @@
-import { Module } from "../../models";
+import { Module } from "@core/module";
 import { VillageStore } from "./village-store";
 import { VillageCommandHandler } from "./village-command-handler";
 import { VillageHealActivity } from "./activities";

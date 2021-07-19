@@ -1,4 +1,4 @@
-import { Effect } from '../../../models';
+import { Effect } from '@models/effect';
 
 export type SkillID = string;
 

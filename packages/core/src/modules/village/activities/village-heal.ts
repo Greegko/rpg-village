@@ -1,8 +1,8 @@
-import { injectable, inject } from 'inversify';
-import { UnitService, UnitID } from "../../unit";
-import { PartyService, PartyID } from "../../party";
-import { IActivityHandler, Activity } from '../../activity';
 import { filter, forEach, map } from 'ramda';
+import { injectable, inject } from 'inversify';
+import { UnitService, UnitID } from "@modules/unit";
+import { PartyService, PartyID } from "@modules/party";
+import { IActivityHandler, Activity } from '@modules/activity';
 
 export type VillageHealState = {
   partyId: PartyID;

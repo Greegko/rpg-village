@@ -1,18 +1,14 @@
-import { Module } from "../models";
-import * as modules from '../modules';
-import { GameInstance, GameState } from "../modules/game/interfaces";
-import { createInvesifyContainer } from './create-inversify-container';
+import { GameInstance, GameState } from "@modules/game";
 import { forEach, forEachObjIndexed } from 'ramda';
-import { applyModule } from "./apply-module";
-import { Skill } from "../modules";
+import { applyModule } from "@core/module";
+
+import { createInvesifyContainer } from './create-inversify-container';
+import * as modules from './modules/public-api';
+import { Skill } from "./modules/skill";
+import { GameConfig } from './game-config';
 
 export interface GameConfigProvides {
   available_skills: Skill[];
-}
-
-export interface GameConfig {
-  modules: Module[];
-  provides: GameConfigProvides;
 }
 
 export type CreateGameInstance = <S extends GameState>(config?: Partial<GameConfig>) => GameInstance<S>;

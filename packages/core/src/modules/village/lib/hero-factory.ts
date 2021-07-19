@@ -1,6 +1,6 @@
-import { Unit } from '../../unit';
-import { UnitType } from "../../unit";
-import { sample } from '../../../lib/sample';
+import { Unit } from '@modules/unit';
+import { UnitType } from "@modules/unit";
+import { sample } from '@lib/sample';
 
 
 const lastname = ['Emperor', 'Monk', 'Lord', 'Prince', 'Chancellor', 'Earl', 'Yeoman', 'Landgrave', 'King', 'Queen', 'Princess', 'Consort', 'Duchess', 'Grand', 'Peasant', 'Maiden', 'Dame', 'Reeve'];

@@ -1,7 +1,19 @@
 import { assoc, merge, dissoc, prop, omit } from 'ramda';
 import { generate } from 'shortid';
-import { IEntityStore, EntityStoreState, EntityUpdater } from '../models';
 import { injectable } from 'inversify';
+
+export type EntityUpdater<T> = (entity: T) => Partial<T>;
+
+export type EntityStoreState<Entity extends { id: EntityID }, EntityID extends string = string> = { [key: string]: Entity };
+export interface IEntityStore<Entity extends { id: EntityID }, EntityID extends string = string> {
+  getState(): EntityStoreState<Entity, EntityID>;
+  init(state: EntityStoreState<Entity, EntityID>): void;
+  get(id: EntityID): Entity;
+  add(entity: Entity): Entity;
+  update(entityId: EntityID, entity: Partial<Entity>): void;
+  update(entityId: EntityID, updater: EntityUpdater<Entity>): void;
+  remove(entityId: EntityID): void;
+}
 
 @injectable()
 export class EntityStore<Entity extends { id: EntityID }, EntityID extends string = string> implements IEntityStore<Entity, EntityID> {

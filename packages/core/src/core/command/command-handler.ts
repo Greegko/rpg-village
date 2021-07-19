@@ -1,4 +1,4 @@
-import { CommandSystem } from "../lib/command-system";
+import { CommandSystem } from "@core/command";
 
 export interface CommandHandler {
   init(e: CommandSystem): void;

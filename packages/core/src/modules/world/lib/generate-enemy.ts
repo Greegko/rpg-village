@@ -1,4 +1,4 @@
-import { Unit, UnitType } from "../../unit";
+import { Unit, UnitType } from "@modules/unit";
 
 export function generateEnemy(): Omit<Unit, 'id'> {
   return {

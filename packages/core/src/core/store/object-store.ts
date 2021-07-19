@@ -1,6 +1,13 @@
 import { assoc, prop } from 'ramda';
-import { IObjectStore } from "../models";
 import { injectable } from 'inversify';
+
+export interface IObjectStore<T extends object> {
+  getState(): T;
+  init(state: T): void;
+
+  get(prop: keyof T): T[keyof T];
+  set(prop: keyof T, value: T[keyof T]): void;
+}
 
 @injectable()
 export class ObjectStore<T extends object> implements IObjectStore<T> {

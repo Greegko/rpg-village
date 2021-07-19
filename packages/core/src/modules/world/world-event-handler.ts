@@ -1,9 +1,8 @@
-import { EventHandler } from "../../models";
-import { EventSystem } from "../../lib/event-system";
 import { injectable, inject } from "inversify";
+import { EventSystem, EventHandler } from "@core/event";
+import { PartyService, PartyOwner } from "@modules/party";
+import { UnitService } from "@modules/unit";
 import { WorldEvent, MapLocationID, NewLocationEventArgs } from "./interfaces";
-import { PartyService, PartyOwner } from "../party";
-import { UnitService } from "../unit";
 import { generateEnemy } from "./lib";
 
 @injectable()

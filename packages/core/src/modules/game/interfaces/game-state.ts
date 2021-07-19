@@ -1,10 +1,10 @@
-import { Party, PartyID } from "../../party";
-import { Unit, UnitID } from "../../unit/interfaces";
-import { PartyActivity, ActivityID } from '../../activity/interfaces';
+import { Party, PartyID } from "@modules/party";
+import { Unit, UnitID } from "@modules/unit";
+import { PartyActivity, ActivityID } from '@modules/activity';
+import { VillageState } from "@modules/village";
+import { WorldState } from "@modules/world";
+import { BattleStoreState, BattleID } from "@modules/battle";
 import { GeneralGameStoreState } from './general-game-store-state';
-import { VillageState } from "../../village";
-import { WorldState } from "../../world";
-import { BattleStoreState, BattleID } from "../../battle";
 
 export type GameState = {
   activities: Record<ActivityID, PartyActivity<any>>;

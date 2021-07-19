@@ -1,10 +1,9 @@
 import { injectable, inject } from "inversify";
-import { CommandHandler } from "../../models";
-import { CommandSystem } from "../../lib/command-system";
+import { CommandHandler, CommandSystem } from "@core/command";
+import { ActivityManager } from "@modules/activity";
+import { PartyService, PartyOwner } from "@modules/party";
+import { BattleActivityType } from "@modules/battle";
 import { WorldCommand, WorldActivity, BattleCommandArgs } from "./interfaces";
-import { ActivityManager } from "../activity";
-import { PartyService, PartyOwner } from "../party";
-import { BattleActivityType } from "../battle/interfaces";
 
 
 @injectable()

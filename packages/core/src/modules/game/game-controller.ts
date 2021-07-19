@@ -1,10 +1,9 @@
 import { inject, multiInject, injectable } from 'inversify';
-import { GameState } from './interfaces';
+import { EventHandler, EventSystem } from "@core/event";
+import { Command, CommandHandler, CommandSystem } from "@core/command";
+
+import { GameState, GameCommand } from './interfaces';
 import { GameStore } from './game-store';
-import { Command, CommandHandler, EventHandler } from "../../models";
-import { CommandSystem } from "../../lib/command-system";
-import { GameCommand } from './interfaces';
-import { EventSystem } from '../../lib/event-system';
 
 @injectable()
 export class GameController<State extends GameState> {

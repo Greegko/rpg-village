@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { forEach } from 'ramda';
-import { EventHandler } from '../models';
+import { EventHandler } from './event-handler';
 
 export interface EventSystem {
   on(eventType: string, callback: Function): void;

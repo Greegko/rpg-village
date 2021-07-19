@@ -1,8 +1,8 @@
+import { UnitID } from '@modules/unit/interfaces';
+import { MapLocationID } from '@modules/world/interfaces';
+import { ItemStash, ResourceStash } from '@models/stash';
+import { ActivityID } from '@modules/activity';
 import { PartyOwner } from './party-owner';
-import { UnitID } from '../../unit/interfaces';
-import { MapLocationID } from '../../world/interfaces';
-import { ItemStash, ResourceStash } from '../../../models/stash';
-import { ActivityID } from '../../activity';
 
 export type PartyID = string;
 export type PartyStash = ItemStash & ResourceStash;

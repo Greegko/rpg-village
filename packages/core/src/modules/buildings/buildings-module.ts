@@ -1,4 +1,4 @@
-import { Module } from "../../models";
+import { Module } from "@core/module";
 import { BlacksmithCommandHandler } from "./blacksmith";
 
 export const buildingsModule: Module = {

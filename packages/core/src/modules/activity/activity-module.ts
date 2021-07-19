@@ -1,4 +1,4 @@
-import { Module } from "../../models";
+import { Module } from "@core/module";
 import { ActivityManager } from "./activity-manager";
 import { ActivityStore } from './activity-store';
 

@@ -1,5 +1,6 @@
-import { ItemID, Command } from '../../../models';
-import { UnitID } from "../../unit";
+import { Command } from '@core/command';
+import { ItemID } from '@models/item';
+import { UnitID } from "@modules/unit";
 
 export enum BlacksmithCommand {
   UpgradeItem = 'blacksmith/upgrade-item'

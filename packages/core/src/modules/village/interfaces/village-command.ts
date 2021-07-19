@@ -1,5 +1,5 @@
-import { Command } from "../../../models";
-import { PartyID } from "../../party";
+import { Command } from "@core/command";
+import { PartyID } from "@modules/party";
 
 export enum VillageCommand {
   BuildHouse = 'village/build-house',

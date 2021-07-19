@@ -1,7 +1,7 @@
-import { inject, injectable } from 'inversify';
 import { prop, flatten, pathOr, map } from 'ramda';
-import { Unit } from "../unit";
-import { Effect } from '../../models';
+import { inject, injectable } from 'inversify';
+import { Unit } from "@modules/unit";
+import { Effect } from '@models/effect';
 import { SkillID, Skill } from './interfaces';
 
 @injectable()

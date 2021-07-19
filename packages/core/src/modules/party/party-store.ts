@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
+import { EntityStore } from '@core/store';
 import { Party } from './interfaces';
-import { EntityStore } from '../../lib/entity-store';
 
 @injectable()
 export class PartyStore extends EntityStore<Party> { };

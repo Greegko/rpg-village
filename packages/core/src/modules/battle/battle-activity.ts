@@ -1,10 +1,10 @@
+import { mergeDeepWith, add } from 'ramda';
 import { inject, injectable } from 'inversify';
-import { PartyService, PartyID } from "../party";
-import { IActivityHandler, Activity } from '../activity';
+import { PartyService, PartyID } from "@modules/party";
+import { IActivityHandler, Activity } from '@modules/activity';
 import { BattleService } from './battle-service';
 import { BattleID } from './interfaces';
 import { calculateLoot } from './lib';
-import { mergeDeepWith, add } from 'ramda';
 
 export type BattleState = { battleId: BattleID };
 export type BattleStartArgs = { partyId: PartyID, involvedPartyId: PartyID };

@@ -1,10 +1,11 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID, PartyEvent } from '../../party';
-import { IActivityHandler, Activity } from '../../activity/interfaces';
-import { WorldMap } from '../world-map';
-import { MapLocationID } from '../interfaces';
 import { evolve, dec } from 'ramda';
-import { EventSystem } from '../../../lib/event-system';
+import { PartyService, PartyID, PartyEvent } from '@modules/party';
+import { IActivityHandler, Activity } from '@modules/activity';
+import { EventSystem } from '@core/event';
+
+import { MapLocationID } from '../interfaces';
+import { WorldMap } from '../world-map';
 
 export type TravelState = {
   partyId: PartyID;

@@ -1,6 +1,6 @@
-import { SkillID } from "../../skill/interfaces";
-import { Equipment } from "../../../models";
-import { ItemStash, ResourceStash } from "../../../models/stash";
+import { SkillID } from "@modules/skill";
+import { Equipment } from "@models/item";
+import { ItemStash, ResourceStash } from "@models//stash";
 
 export type UnitID = string;
 export enum UnitType { Common, Hero };

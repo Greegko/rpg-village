@@ -1,5 +1,6 @@
-import { UnitID } from "..";
-import { EquipmentPlace, ItemID, Command } from '../../../models';
+import { Command } from '@core/command';
+import { EquipmentPlace, ItemID } from '@models/item';
+import { UnitID } from "../interfaces";
 
 export enum UnitCommand {
   EquipItem = 'unit/equip-item',

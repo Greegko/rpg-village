@@ -1,6 +1,6 @@
-import { MapLocationID } from "../../world/interfaces";
-import { UnitID } from "../../unit";
-import { ItemStash, ResourceStash } from "../../../models/stash";
+import { MapLocationID } from "@modules/world";
+import { UnitID } from "@modules/unit";
+import { ItemStash, ResourceStash } from "@models/stash";
 
 export type VillageStash = ItemStash & ResourceStash;
 

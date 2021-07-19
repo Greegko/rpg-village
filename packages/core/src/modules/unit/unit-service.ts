@@ -1,8 +1,8 @@
+import { propEq, evolve, map, when, always } from 'ramda';
 import { inject, injectable } from 'inversify';
+import { ItemID, Item } from '@models/item';
 import { UnitStore } from './unit-store';
 import { UnitID, Unit } from './interfaces';
-import { ItemID, Item } from '../../models';
-import { propEq, evolve, map, when, always } from 'ramda';
 
 @injectable()
 export class UnitService {

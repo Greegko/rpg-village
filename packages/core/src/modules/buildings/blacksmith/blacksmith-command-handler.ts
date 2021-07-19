@@ -1,11 +1,13 @@
 import { injectable, inject } from 'inversify';
-import { CommandSystem } from "../../../lib/command-system";
-import { BlacksmithCommand, UpgradeItemCommandArgs } from './blacksmith-command';
-import { EffectTarget, AttackEffectType, ItemID } from '../../../models';
 import { append, evolve } from 'ramda';
-import { UnitID, UnitService } from '../../unit';
-import { getItem } from '../../../models/stash';
-import { VillageStashService } from '../../village';
+
+import { CommandSystem } from "@core/command";
+import { EffectTarget, AttackEffectType } from '@models/effect';
+import { ItemID } from '@models/item';
+import { UnitID, UnitService } from '@modules/unit';
+import { getItem } from '@models/stash';
+import { VillageStashService } from '@modules/village';
+import { BlacksmithCommand, UpgradeItemCommandArgs } from './blacksmith-command';
 
 @injectable()
 export class BlacksmithCommandHandler {

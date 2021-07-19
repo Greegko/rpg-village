@@ -1,4 +1,4 @@
-import { Module } from "../../../src/models";
+import { Module } from "@core/module";
 import { UnitService } from "./unit-service";
 import { UnitStore } from "./unit-store";
 import { UnitCommandHandler } from "./unit-command-handler";

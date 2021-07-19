@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
-import { PartyService, PartyID } from '../party';
-import { EffectService } from '../skill';
+import { PartyService, PartyID } from '@modules/party';
+import { EffectService } from '@modules/skill';
 import { Battle } from './battle';
 import { BattleID, BattleStoreState } from './interfaces';
 import { BattleStore } from './battle-store';

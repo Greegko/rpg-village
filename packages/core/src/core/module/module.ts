@@ -1,7 +1,7 @@
-import { IStore } from "./store";
-import { CommandHandler } from './command-handler';
-import { EventHandler } from './event-handler';
-import { IActivityHandler } from "../modules/activity/interfaces";
+import { IStore } from "@core/store";
+import { CommandHandler } from '@core/command';
+import { EventHandler } from '@core/event';
+import { IActivityHandler } from "@modules/activity";
 
 export interface ProvideClass { new(...args: any[]): any; }
 export interface ProvideValue { provide: string; value: any }

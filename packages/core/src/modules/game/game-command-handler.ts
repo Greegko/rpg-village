@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { CommandSystem } from "../../lib/command-system";
-import { ActivityManager } from '../activity';
+import { CommandSystem } from "@core/command";
+import { ActivityManager } from '@modules/activity';
 import { GameCommand } from './interfaces';
 import { GameService } from './game-service';
 

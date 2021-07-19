@@ -1,9 +1,9 @@
+import { values } from 'ramda';
+import { EventSystem } from '@core/event';
 import { inject, injectable } from 'inversify';
 import { WorldStore } from './world-store';
-import { Turn } from '../game/interfaces';
+import { Turn } from '../game';
 import { MapLocationType, MapLocation, MapLocationID, WorldEvent } from './interfaces';
-import { values } from 'ramda';
-import { EventSystem } from '../../lib/event-system';
 
 @injectable()
 export class WorldMap {

@@ -1,11 +1,10 @@
-
-import { injectable, inject } from 'inversify';
-import { CommandSystem } from "../../lib/command-system";
-import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand } from './interfaces/unit-command';
-import { UnitStore } from './unit-store';
 import { assoc, evolve, path, dissoc } from 'ramda';
-import { getItem, removeItem, ItemStash, addItem } from '../../models/stash';
-import { Item } from '../../models';
+import { injectable, inject } from 'inversify';
+import { CommandSystem } from "@core/command";
+import { getItem, removeItem, ItemStash, addItem } from '@models/stash';
+import { Item } from '@models/item';
+import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand } from './interfaces';
+import { UnitStore } from './unit-store';
 
 @injectable()
 export class UnitCommandHandler {
