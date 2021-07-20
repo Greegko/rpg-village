@@ -10,6 +10,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "prettier": "2.3.2",
     "concurrently": "6.2.0"
   }
 }
