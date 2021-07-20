@@ -1,4 +1,4 @@
-import { Icon, Icons, Size } from '../icon';
+import { Icon, Icons, Size } from "../icon";
 
 interface ProgressBarProperties {
   icon: Icons;
@@ -10,10 +10,17 @@ interface ProgressBarProperties {
 import "./progress-bar.scss";
 export const ProgressBar = ({ icon, maxValue, value, color }: ProgressBarProperties) => (
   <div className="progressbar">
-    <span className="progressbar__icon"><Icon icon={icon} size={Size.Tiny} /></span>
-    <div className="progressbar__placeholder" style={{ backgroundColor: '#333', height: 12 }}>
-      <div className="progressbar__liquid" style={{ backgroundColor: color, width: Math.max(0, (value / maxValue) * 100) + '%', height: 12 }} />
-      <div className="progressbar__value">{Math.ceil(Math.max(0, value))} / {maxValue}</div>
+    <span className="progressbar__icon">
+      <Icon icon={icon} size={Size.Tiny} />
+    </span>
+    <div className="progressbar__placeholder" style={{ backgroundColor: "#333", height: 12 }}>
+      <div
+        className="progressbar__liquid"
+        style={{ backgroundColor: color, width: Math.max(0, (value / maxValue) * 100) + "%", height: 12 }}
+      />
+      <div className="progressbar__value">
+        {Math.ceil(Math.max(0, value))} / {maxValue}
+      </div>
     </div>
   </div>
 );

@@ -1,4 +1,4 @@
-@import './var.scss';
+@import "./var.scss";
 
 button {
   display: block;
@@ -11,6 +11,6 @@ button {
   width: 100%;
 
   &.active {
-    background-color: $color-active; 
+    background-color: $color-active;
   }
 }

@@ -1,21 +1,17 @@
-import { Command, PartyOwner, WorldCommand, Party, GameState, VillageActivity } from '@rpg-village/core';
-import { sample } from '../lib';
-import { values, filter, map } from 'ramda';
-import { idlePartiesSelector, worldSelector, partiesSelector, villageSelector, heroUnitsSelector } from '../game';
+import { values, filter, map } from "ramda";
+import { Command, PartyOwner, WorldCommand, Party, GameState, VillageActivity } from "@rpg-village/core";
+import { sample } from "../lib";
+import { idlePartiesSelector, worldSelector, partiesSelector, villageSelector, heroUnitsSelector } from "../game";
 
 export class PlayerAI {
-
   execute = (gameState: GameState): Command[] => {
     const parties = idlePartiesSelector(gameState);
     const playerParties = filter(party => party.owner === PartyOwner.Player, parties);
     return map(party => this.executeParty(gameState, party), values(playerParties));
-  }
+  };
 
   private executeParty(gameState: GameState, party: Party): Command {
-    return (
-      this.handleNewLocation(gameState, party) ||
-      this.handleNextLocationSearch(gameState, party)
-    )!;
+    return (this.handleNewLocation(gameState, party) || this.handleNextLocationSearch(gameState, party))!;
   }
 
   private handleNewLocation(gameState: GameState, party: Party): Command | undefined {
@@ -27,9 +23,11 @@ export class PlayerAI {
       return { command: WorldCommand.Explore, args: { partyId: party.id } };
     }
 
-    const enemyParty = values(parties).find(x => x.locationId === partyLocation.id && x.id !== party.id && x.owner === PartyOwner.Enemy);
+    const enemyParty = values(parties).find(
+      x => x.locationId === partyLocation.id && x.id !== party.id && x.owner === PartyOwner.Enemy,
+    );
     if (enemyParty) {
-      return { command: WorldCommand.Battle, args: { locationId: partyLocation.id } }
+      return { command: WorldCommand.Battle, args: { locationId: partyLocation.id } };
     }
   }
 
@@ -50,5 +48,4 @@ export class PlayerAI {
     const newLocation = sample(unexploredLocations);
     return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: newLocation.id } };
   }
-
-};
+}

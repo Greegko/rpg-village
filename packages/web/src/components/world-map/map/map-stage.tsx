@@ -1,6 +1,6 @@
-import { Layer, Stage } from 'react-konva';
-import { Provider, ReactReduxContext } from 'react-redux';
-import { Map } from './map';
+import { Layer, Stage } from "react-konva";
+import { Provider, ReactReduxContext } from "react-redux";
+import { Map } from "./map";
 
 interface MapStageProperties {
   width: number;

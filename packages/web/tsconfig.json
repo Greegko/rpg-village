@@ -8,6 +8,6 @@
     "emitDecoratorMetadata": true,
     "noUnusedLocals": true,
     "jsx": "react-jsx",
-    "strict": true,
+    "strict": true
   }
 }

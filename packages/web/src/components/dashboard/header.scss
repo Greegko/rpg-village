@@ -1,10 +1,10 @@
-@import '../../style/var.scss';
+@import "../../style/var.scss";
 
 .header {
   background-color: $color-light-gray;
   color: $color-white;
   box-shadow: 0 4px rgba(#000, 0.2);
-  
+
   display: flex;
   justify-content: space-between;
 

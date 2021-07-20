@@ -1,5 +1,5 @@
-import { createGameInstance, GameInstance, GameState, Command, GameConfigProvides } from '@rpg-village/core';
-import { AICommandGenerator, StateUpdateCallback } from './interface';
+import { createGameInstance, GameInstance, GameState, Command, GameConfigProvides } from "@rpg-village/core";
+import { AICommandGenerator, StateUpdateCallback } from "./interface";
 
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;
@@ -51,16 +51,16 @@ export class GameInstanceWrapper {
   }
 
   localSave() {
-    localStorage.setItem('gameState', JSON.stringify(this.gameInstance.getState()));
+    localStorage.setItem("gameState", JSON.stringify(this.gameInstance.getState()));
   }
 
   localReset() {
-    localStorage.removeItem('gameState');
+    localStorage.removeItem("gameState");
   }
 
   restoreOrNewGame() {
-    const state = localStorage.getItem('gameState');
-    const initGameState = state ? JSON.parse(state) as GameState : null;
+    const state = localStorage.getItem("gameState");
+    const initGameState = state ? (JSON.parse(state) as GameState) : null;
 
     if (initGameState !== null) {
       this.load(initGameState);

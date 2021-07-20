@@ -1,19 +1,21 @@
-import { PartyDisplay } from './party';
-import { Header } from './header';
+import { PartyDisplay } from "./party";
+import { Header } from "./header";
 
 interface DashboardProperties {
   parties: string[];
 }
 
-import './dashboard.scss';
+import "./dashboard.scss";
 export const Dashboard = ({ parties }: DashboardProperties) => (
-  <div className='dashboard'>
+  <div className="dashboard">
     <Header />
 
     <div>
-      Parties:<br />
-
-      {parties.map(partyId => <PartyDisplay key={partyId} partyId={partyId} />)}
+      Parties:
+      <br />
+      {parties.map(partyId => (
+        <PartyDisplay key={partyId} partyId={partyId} />
+      ))}
     </div>
   </div>
 );

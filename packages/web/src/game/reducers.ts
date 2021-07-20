@@ -5,44 +5,44 @@ import { GameInstanceWrapper } from "./game-instance-wrapper";
 // GAME MISC REDUCER
 
 enum GameInstanceAction {
-  FastForward = 'game-misc/fast-forward',
-  PlayerCommand = 'game-misc/command',
-  Save = 'game-misc/save',
-  Reset = 'game-misc/reset',
-  LogState = 'game-misc/log-state'
+  FastForward = "game-misc/fast-forward",
+  PlayerCommand = "game-misc/command",
+  Save = "game-misc/save",
+  Reset = "game-misc/reset",
+  LogState = "game-misc/log-state",
 }
 
 export function fastForward(turns: number) {
   return {
     type: GameInstanceAction.FastForward,
-    turns
-  }
+    turns,
+  };
 }
 
 export function save() {
   return {
-    type: GameInstanceAction.Save
-  }
+    type: GameInstanceAction.Save,
+  };
 }
 
 export function logState() {
   return {
-    type: GameInstanceAction.LogState
-  }
+    type: GameInstanceAction.LogState,
+  };
 }
 
 export function reset() {
   return {
-    type: GameInstanceAction.Reset
-  }
+    type: GameInstanceAction.Reset,
+  };
 }
 
 export const executeCommand = (command: Command) => {
   return {
     type: GameInstanceAction.PlayerCommand,
-    command
-  }
-}
+    command,
+  };
+};
 
 export function gameMiscActionReducerFactory(gameWrapper: GameInstanceWrapper) {
   return (action: any) => {
@@ -78,21 +78,21 @@ export function gameMiscActionReducerFactory(gameWrapper: GameInstanceWrapper) {
         setTimeout(() => gameWrapper.resume());
         return;
     }
-  }
+  };
 }
-
-
 
 // GAME REDUCER
 
-enum GameAction { SetState = 'game/set-state' };
+enum GameAction {
+  SetState = "game/set-state",
+}
 
 export const updateGameState = (state: GameState) => {
   return {
     type: GameAction.SetState,
-    state
-  }
-}
+    state,
+  };
+};
 
 export function gameReducer(state: GameState = {} as any, action: any): GameState {
   switch (action.type) {
@@ -106,35 +106,35 @@ export function gameReducer(state: GameState = {} as any, action: any): GameStat
 // GAME UI REDUCER
 
 enum GameUIAction {
-  Pause = 'ui/pause',
-  Resume = 'ui/resume',
-  EnableAI = 'ui/ai-enable',
-  DisableAI = 'ui/ai-disable'
-};
+  Pause = "ui/pause",
+  Resume = "ui/resume",
+  EnableAI = "ui/ai-enable",
+  DisableAI = "ui/ai-disable",
+}
 
 export const enableAI = () => {
   return {
-    type: GameUIAction.EnableAI
-  }
-}
+    type: GameUIAction.EnableAI,
+  };
+};
 
 export const disableAI = () => {
   return {
-    type: GameUIAction.DisableAI
-  }
-}
+    type: GameUIAction.DisableAI,
+  };
+};
 
 export const pause = () => {
   return {
-    type: GameUIAction.Pause
-  }
-}
+    type: GameUIAction.Pause,
+  };
+};
 
 export const resume = () => {
   return {
-    type: GameUIAction.Resume
-  }
-}
+    type: GameUIAction.Resume,
+  };
+};
 
 export function gameUIReducer(state: GameUI = {} as any, action: any): GameUI {
   switch (action.type) {
