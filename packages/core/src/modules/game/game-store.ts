@@ -1,7 +1,7 @@
-import { forEach, prop, map, mergeAll } from 'ramda';
-import { injectable, multiInject } from 'inversify';
+import { forEach, prop, map, mergeAll } from "ramda";
+import { injectable, multiInject } from "inversify";
 import { IStore } from "@core/store";
-import { GameState } from './interfaces';
+import { GameState } from "./interfaces";
 
 export interface ProvidedStore {
   store: IStore;
@@ -11,10 +11,7 @@ export interface ProvidedStore {
 
 @injectable()
 export class GameStore<S extends GameState> {
-
-  constructor(
-    @multiInject('Stores') private stores: ProvidedStore[]
-  ) { }
+  constructor(@multiInject("Stores") private stores: ProvidedStore[]) {}
 
   init(state: S) {
     forEach(store => {
@@ -25,5 +22,4 @@ export class GameStore<S extends GameState> {
   getState(): S {
     return mergeAll(map(({ store, scope }) => ({ [scope]: store.getState() }), this.stores));
   }
-
 }

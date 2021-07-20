@@ -1,6 +1,6 @@
-import { Effect } from '@models/effect';
-import { BattleStats } from '../interfaces';
-import { getEffectProperty } from './get-effect-property';
+import { Effect } from "@models/effect";
+import { BattleStats } from "../interfaces";
+import { getEffectProperty } from "./get-effect-property";
 
 export function applyEffect(acc: BattleStats, effect: Effect): BattleStats {
   let prop = getEffectProperty(effect);

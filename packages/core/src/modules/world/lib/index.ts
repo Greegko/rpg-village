@@ -1,1 +1,1 @@
-export * from './generate-enemy';
+export * from "./generate-enemy";

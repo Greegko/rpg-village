@@ -1,7 +1,21 @@
-import { Party, PartyID, VillageState, MapLocationID, PartyOwner, GameState, MapLocation, MapLocationType, Unit, UnitType, UnitID, BattleStoreState, BattleID, BattleStore } from "../../src/modules";
-import { PartyActivity, ActivityID, ActivityType } from "../../src/modules/activity";
-import { ItemStash, ResourceStash } from "../../src/models/stash";
-import { Chance } from 'chance';
+import {
+  Party,
+  PartyID,
+  VillageState,
+  MapLocationID,
+  PartyOwner,
+  GameState,
+  MapLocation,
+  MapLocationType,
+  Unit,
+  UnitType,
+  UnitID,
+  BattleStoreState,
+  BattleID,
+} from "@modules";
+import { PartyActivity, ActivityID, ActivityType } from "@moduless/activity";
+import { ItemStash, ResourceStash } from "@modules/stash";
+import { Chance } from "chance";
 import { PartialDeep } from "./deep-partial";
 
 const chance = Chance();
@@ -59,7 +73,12 @@ function createCallback(createdState: GameState) {
 
     createdState.village = village;
 
-    return createLocationReference({ id: village.locationId, type: MapLocationType.Village, x: 0, y: 0 });
+    return createLocationReference({
+      id: village.locationId,
+      type: MapLocationType.Village,
+      x: 0,
+      y: 0,
+    });
   }
 
   function createActivityReference(activityArgs: Partial<PartyActivity>) {
@@ -84,8 +103,8 @@ function createCallback(createdState: GameState) {
     location: createLocationReference,
     village: createVillageReference,
     activity: createActivityReference,
-    unit: createUnitRefrence
-  }
+    unit: createUnitRefrence,
+  };
 }
 
 export function createState(callback: Callback): GameState {
@@ -101,19 +120,16 @@ function mapLocationFactory({
   x = chance.integer(),
   y = chance.integer(),
   id = chance.string(),
-  type = MapLocationType.Field
+  type = MapLocationType.Field,
 }: Partial<MapLocation> = {}): MapLocation {
   return { explored, x, y, id, type };
 }
 
-export function stashFactory({
-  resource = { gold: chance.integer() },
-  items = []
-} = {}): ItemStash & ResourceStash {
+export function stashFactory({ resource = { gold: chance.integer() }, items = [] } = {}): ItemStash & ResourceStash {
   return {
     items,
-    resource
-  }
+    resource,
+  };
 }
 
 function unitFactory({
@@ -128,9 +144,22 @@ function unitFactory({
   level = chance.integer(),
   name = chance.string(),
   skillIds = [],
-  type = chance.pickone[UnitType.Common, UnitType.Hero]
+  type = chance.pickone[(UnitType.Common, UnitType.Hero)],
 }: Partial<Unit> = {}): Unit {
-  return { xp, id, stash, maxhp, hp, equipment, armor, level, name, type, dmg, skillIds };
+  return {
+    xp,
+    id,
+    stash,
+    maxhp,
+    hp,
+    equipment,
+    armor,
+    level,
+    name,
+    type,
+    dmg,
+    skillIds,
+  };
 }
 
 function villageFactory({
@@ -138,7 +167,7 @@ function villageFactory({
   houses = chance.integer(),
   stash = stashFactory(),
   locationId = chance.string(),
-  blacksmith = chance.integer()
+  blacksmith = chance.integer(),
 }: Partial<VillageState> = {}): VillageState {
   return { locationId, stash, houses, heroes, blacksmith };
 }
@@ -148,15 +177,15 @@ function partyFactory({
   owner = chance.pickone([PartyOwner.Enemy, PartyOwner.Player]),
   unitIds = [],
   locationId = chance.string(),
-  stash = stashFactory()
+  stash = stashFactory(),
 }: Partial<Party> = {}): Party {
-  return { id, owner, unitIds, locationId, stash }
+  return { id, owner, unitIds, locationId, stash };
 }
 
 function activityFactory({
   id = chance.string(),
   state = {},
-  type = ActivityType.Party
+  type = ActivityType.Party,
 }: Partial<PartyActivity> = {}): PartyActivity {
   return { id, state, type } as PartyActivity<unknown>;
 }

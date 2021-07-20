@@ -1,4 +1,4 @@
 export enum WorldActivity {
-  Explore = 'world/explore',
-  Travel = 'world/travel',
-};
+  Explore = "world/explore",
+  Travel = "world/travel",
+}

@@ -1,9 +1,9 @@
-import { evolve, dec } from 'ramda';
-import { injectable, inject } from 'inversify';
-import { PartyID, PartyService } from '@modules/party';
-import { Activity, IActivityHandler } from '@modules/activity';
-import { WorldMap } from '../world-map';
-import { WorldStore } from '../world-store';
+import { evolve, dec } from "ramda";
+import { injectable, inject } from "inversify";
+import { PartyID, PartyService } from "@modules/party";
+import { Activity, IActivityHandler } from "@modules/activity";
+import { WorldMap } from "../world-map";
+import { WorldStore } from "../world-store";
 
 export type ExploreState = {
   progress: number;
@@ -17,16 +17,16 @@ export type ExploreStartArgs = {
 @injectable()
 export class ExploreActivity implements IActivityHandler<ExploreStartArgs, ExploreState> {
   constructor(
-    @inject('WorldMap') private worldMap: WorldMap,
-    @inject('WorldStore') private worldStore: WorldStore,
-    @inject('PartyService') private partyService: PartyService,
-  ) { }
+    @inject("WorldMap") private worldMap: WorldMap,
+    @inject("WorldStore") private worldStore: WorldStore,
+    @inject("PartyService") private partyService: PartyService,
+  ) {}
 
   start({ partyId }: ExploreStartArgs): ExploreState {
     return {
       partyId,
-      progress: 50
-    }
+      progress: 50,
+    };
   }
 
   isRunnable({ partyId }: ExploreStartArgs): boolean {
@@ -46,5 +46,4 @@ export class ExploreActivity implements IActivityHandler<ExploreStartArgs, Explo
   resolve({ state }: Activity<ExploreState>) {
     this.worldMap.exploreLocation(this.partyService.getParty(state.partyId).locationId);
   }
-
 }

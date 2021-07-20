@@ -1,6 +1,6 @@
-import { injectable } from 'inversify';
-import { forEach } from 'ramda';
-import { CommandHandler } from './command-handler';
+import { injectable } from "inversify";
+import { forEach } from "ramda";
+import { CommandHandler } from "./command-handler";
 
 export interface CommandSystem {
   on(commandType: string, callback: Function): void;

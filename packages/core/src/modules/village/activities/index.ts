@@ -1,1 +1,1 @@
-export * from './village-heal';
+export * from "./village-heal";

@@ -1,5 +1,5 @@
 import { UnitID } from "@modules/unit";
-import { Effect } from '@models/effect';
+import { Effect } from "@models/effect";
 
 export interface BattleParty {
   unitIds: UnitID[];

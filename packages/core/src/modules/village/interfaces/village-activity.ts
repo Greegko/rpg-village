@@ -1,1 +1,3 @@
-export enum VillageActivity { Heal = 'village/heal' };
+export enum VillageActivity {
+  Heal = "village/heal",
+}

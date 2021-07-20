@@ -1,1 +1,1 @@
-export interface Stash { }; 
+export interface Stash {}

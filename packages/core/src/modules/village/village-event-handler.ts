@@ -1,17 +1,17 @@
 import { injectable, inject } from "inversify";
 import { EventHandler, EventSystem } from "@core/event";
 import { PartyEvent, ArrivedToLocationEventArgs, PartyService, PartyID } from "@modules/party";
-import { getResource, getItems } from '@models/stash';
+import { getResource, getItems } from "@models/stash";
 import { VillageStore } from "./village-store";
 import { VillageStashService } from "./village-stash-service";
 
 @injectable()
 export class VillageEventHandler implements EventHandler {
   constructor(
-    @inject('PartyService') private partyService: PartyService,
-    @inject('VillageStashService') private villageStash: VillageStashService,
-    @inject('VillageStore') private villageStore: VillageStore,
-  ) { }
+    @inject("PartyService") private partyService: PartyService,
+    @inject("VillageStashService") private villageStash: VillageStashService,
+    @inject("VillageStore") private villageStore: VillageStore,
+  ) {}
 
   init(eventSystem: EventSystem) {
     eventSystem.on(PartyEvent.ArrivedToLocation, (args: any) => {

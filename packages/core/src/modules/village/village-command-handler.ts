@@ -1,30 +1,28 @@
-import { append, inc } from 'ramda';
-import { injectable, inject } from 'inversify';
-import { CommandSystem } from '@core/command';
+import { append, inc } from "ramda";
+import { injectable, inject } from "inversify";
+import { CommandSystem } from "@core/command";
 import { PartyService, PartyOwner } from "@modules/party";
-import { GameCommand } from '@modules/game';
-import { MapLocationType } from '@modules/world';
-import { WorldMap } from '@modules/world';
-import { Item } from '@models/item';
-import { Resource } from '@models/resource';
-import { UnitService } from '@modules/unit';
-import { ActivityManager } from '@modules/activity';
-import { newBuildingCost, newHeroCost, heroFactory } from './lib';
-import { VillageCommand } from './interfaces';
-import { VillageStore } from './village-store';
-import { VillageStashService } from './village-stash-service';
+import { GameCommand } from "@modules/game";
+import { MapLocationType, WorldMap } from "@modules/world";
+import { Item } from "@models/item";
+import { Resource } from "@models/resource";
+import { UnitService } from "@modules/unit";
+import { ActivityManager } from "@modules/activity";
+import { newBuildingCost, newHeroCost, heroFactory } from "./lib";
+import { VillageCommand } from "./interfaces";
+import { VillageStore } from "./village-store";
+import { VillageStashService } from "./village-stash-service";
 
 @injectable()
 export class VillageCommandHandler {
-
   constructor(
-    @inject('VillageStore') private villageStore: VillageStore,
-    @inject('VillageStashService') private villageStash: VillageStashService,
-    @inject('PartyService') private partyService: PartyService,
-    @inject('UnitService') private unitService: UnitService,
-    @inject('ActivityManager') private activityManager: ActivityManager,
-    @inject('WorldMap') private worldMap: WorldMap,
-  ) { }
+    @inject("VillageStore") private villageStore: VillageStore,
+    @inject("VillageStashService") private villageStash: VillageStashService,
+    @inject("PartyService") private partyService: PartyService,
+    @inject("UnitService") private unitService: UnitService,
+    @inject("ActivityManager") private activityManager: ActivityManager,
+    @inject("WorldMap") private worldMap: WorldMap,
+  ) {}
 
   init(commandSystem: CommandSystem) {
     commandSystem.on(VillageCommand.BuildBlacksmith, () => this.buildBlacksmith());
@@ -35,19 +33,18 @@ export class VillageCommandHandler {
     commandSystem.on(GameCommand.NewGame, () => this.createVillage());
   }
 
-
   createVillage(): void {
     const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
     this.worldMap.revealNewLocations(locationId);
-    this.villageStore.set('stash', { items: [], resource: {} });
-    this.villageStore.set('locationId', locationId);
+    this.villageStore.set("stash", { items: [], resource: {} });
+    this.villageStore.set("locationId", locationId);
   }
 
   buildHouse(): void {
     const goldCost = newBuildingCost(1 + this.villageStore.getState().houses);
 
     if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.update('houses', inc);
+      this.villageStore.update("houses", inc);
       this.villageStash.removeResource({ gold: goldCost });
     }
   }
@@ -56,7 +53,7 @@ export class VillageCommandHandler {
     const goldCost = 100;
 
     if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.update('blacksmith', inc);
+      this.villageStore.update("blacksmith", inc);
       this.villageStash.removeResource({ gold: goldCost });
     }
   }
@@ -74,12 +71,12 @@ export class VillageCommandHandler {
       const heroId = this.unitService.addUnit(heroFactory());
 
       this.villageStash.removeResource({ gold: goldCost });
-      this.villageStore.update('heroes', append(heroId));
+      this.villageStore.update("heroes", append(heroId));
       this.partyService.createParty({
         locationId: this.villageStore.getState().locationId,
         unitIds: [heroId],
         owner: PartyOwner.Player,
-        stash: { resource: { gold: 0 }, items: [] }
+        stash: { resource: { gold: 0 }, items: [] },
       });
     }
   }

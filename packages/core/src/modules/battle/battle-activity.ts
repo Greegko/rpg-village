@@ -1,20 +1,20 @@
-import { mergeDeepWith, add } from 'ramda';
-import { inject, injectable } from 'inversify';
+import { mergeDeepWith, add } from "ramda";
+import { inject, injectable } from "inversify";
 import { PartyService, PartyID } from "@modules/party";
-import { IActivityHandler, Activity } from '@modules/activity';
-import { BattleService } from './battle-service';
-import { BattleID } from './interfaces';
-import { calculateLoot } from './lib';
+import { IActivityHandler, Activity } from "@modules/activity";
+import { BattleService } from "./battle-service";
+import { BattleID } from "./interfaces";
+import { calculateLoot } from "./lib";
 
 export type BattleState = { battleId: BattleID };
-export type BattleStartArgs = { partyId: PartyID, involvedPartyId: PartyID };
+export type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
 
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
   constructor(
-    @inject('PartyService') private partyService: PartyService,
-    @inject('BattleService') private battleService: BattleService
-  ) { }
+    @inject("PartyService") private partyService: PartyService,
+    @inject("BattleService") private battleService: BattleService,
+  ) {}
 
   start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {
     return {
@@ -39,9 +39,9 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   resolve({ state }: Activity<BattleState>) {
     const battle = this.battleService.getBattle(state.battleId);
 
-    const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.partyId) ?
-      [battle.partyId, battle.defenderPartyId] :
-      [battle.defenderPartyId, battle.partyId];
+    const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.partyId)
+      ? [battle.partyId, battle.defenderPartyId]
+      : [battle.defenderPartyId, battle.partyId];
 
     const partyStash = this.partyService.clearPartyStash(looserPartyId);
     const loot = calculateLoot(this.partyService.getPartyUnits(looserPartyId));

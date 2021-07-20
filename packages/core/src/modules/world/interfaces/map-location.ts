@@ -1,5 +1,8 @@
 export type MapLocationID = string;
-export enum MapLocationType { Village, Field };
+export enum MapLocationType {
+  Village,
+  Field,
+}
 
 export type MapLocation = {
   id: MapLocationID;
@@ -7,4 +10,4 @@ export type MapLocation = {
   explored: boolean;
   x: number;
   y: number;
-} 
+};

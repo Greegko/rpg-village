@@ -1,1 +1,4 @@
-export enum EffectTarget { Unit, Party };
+export enum EffectTarget {
+  Unit,
+  Party,
+}

@@ -1,5 +1,5 @@
-import { Effect } from '../effect';
-import { ItemType } from './item-types';
+import { Effect } from "../effect";
+import { ItemType } from "./item-types";
 
 export type ItemID = string;
 
@@ -8,4 +8,4 @@ export type BaseItem = {
   name: string;
   itemType: ItemType;
   effects: Effect[];
-}
+};

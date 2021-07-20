@@ -1,4 +1,4 @@
-import { GameState, createGameInstance } from '../src';
+import { GameState, createGameInstance } from "../src";
 
 interface GameFactory {
   state: Partial<GameState>;

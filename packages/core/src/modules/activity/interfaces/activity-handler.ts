@@ -1,4 +1,4 @@
-import { Activity, PartyActivityStartArgs } from './activity';
+import { Activity, PartyActivityStartArgs } from "./activity";
 
 export interface IActivityHandler<StaringArgs extends PartyActivityStartArgs, ActivityState> {
   start(startArgs: StaringArgs): ActivityState;

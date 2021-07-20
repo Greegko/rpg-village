@@ -1,1 +1,1 @@
-export * from './is-party-effect';
+export * from "./is-party-effect";

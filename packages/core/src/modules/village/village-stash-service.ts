@@ -1,33 +1,30 @@
-import { injectable, inject } from 'inversify';
-import { ItemID, Item } from '@models/item';
-import { Resource } from '@models/resource';
-import { addItems, getItem, removeItem, addResource, removeResource, getResource } from '@models/stash';
-import { VillageStore } from './village-store';
+import { injectable, inject } from "inversify";
+import { ItemID, Item } from "@models/item";
+import { Resource } from "@models/resource";
+import { addItems, getItem, removeItem, addResource, removeResource, getResource } from "@models/stash";
+import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageStashService {
-
-  constructor(
-    @inject('VillageStore') private villageStore: VillageStore,
-  ) { }
+  constructor(@inject("VillageStore") private villageStore: VillageStore) {}
 
   addItems(items: Item[]) {
-    this.villageStore.update('stash', (stash) => addItems(stash, items));
+    this.villageStore.update("stash", stash => addItems(stash, items));
   }
 
   takeItem(itemId: ItemID): Item {
-    const stash = this.villageStore.get('stash');
+    const stash = this.villageStore.get("stash");
     const item = getItem(stash, itemId);
-    this.villageStore.set('stash', removeItem(stash, itemId));
+    this.villageStore.set("stash", removeItem(stash, itemId));
     return item;
   }
 
   addResource(resource: Resource): void {
-    this.villageStore.update('stash', stash => addResource(stash, resource));
+    this.villageStore.update("stash", stash => addResource(stash, resource));
   }
 
   removeResource(resource: Resource): void {
-    this.villageStore.update('stash', stash => removeResource(stash, resource));
+    this.villageStore.update("stash", stash => removeResource(stash, resource));
   }
 
   getResource(): Resource {

@@ -1,13 +1,42 @@
-import { Unit } from '@modules/unit';
+import { Unit } from "@modules/unit";
 import { UnitType } from "@modules/unit";
-import { sample } from '@lib/sample';
+import { sample } from "@lib/sample";
 
+const lastname = [
+  "Emperor",
+  "Monk",
+  "Lord",
+  "Prince",
+  "Chancellor",
+  "Earl",
+  "Yeoman",
+  "Landgrave",
+  "King",
+  "Queen",
+  "Princess",
+  "Consort",
+  "Duchess",
+  "Grand",
+  "Peasant",
+  "Maiden",
+  "Dame",
+  "Reeve",
+];
+const male = ["Bernar", "Bruiant", "Reginald", "Wilcock", "Oggery", "Louve", "Jeremimum", "Helie", "Tibald", "Otebon"];
+const female = [
+  "Maalot",
+  "Tillote",
+  "Sarey",
+  "Jossy",
+  "Susanna",
+  "Missa",
+  "Aleneite",
+  "Iseldis",
+  "Sapphira",
+  "Crystina",
+];
 
-const lastname = ['Emperor', 'Monk', 'Lord', 'Prince', 'Chancellor', 'Earl', 'Yeoman', 'Landgrave', 'King', 'Queen', 'Princess', 'Consort', 'Duchess', 'Grand', 'Peasant', 'Maiden', 'Dame', 'Reeve'];
-const male = ['Bernar', 'Bruiant', 'Reginald', 'Wilcock', 'Oggery', 'Louve', 'Jeremimum', 'Helie', 'Tibald', 'Otebon'];
-const female = ['Maalot', 'Tillote', 'Sarey', 'Jossy', 'Susanna', 'Missa', 'Aleneite', 'Iseldis', 'Sapphira', 'Crystina'];
-
-export function heroFactory(): Omit<Unit, 'id'> {
+export function heroFactory(): Omit<Unit, "id"> {
   const firstNames = Math.random() > 0.5 ? male : female;
 
   return {
@@ -21,6 +50,6 @@ export function heroFactory(): Omit<Unit, 'id'> {
     dmg: 5,
     xp: 0,
     type: UnitType.Hero,
-    stash: { resource: {}, items: [] }
+    stash: { resource: {}, items: [] },
   };
 }

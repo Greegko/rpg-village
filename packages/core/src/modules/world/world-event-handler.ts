@@ -8,9 +8,9 @@ import { generateEnemy } from "./lib";
 @injectable()
 export class WorldEventHandler implements EventHandler {
   constructor(
-    @inject('PartyService') private partyService: PartyService,
-    @inject('UnitService') private unitService: UnitService,
-  ) { }
+    @inject("PartyService") private partyService: PartyService,
+    @inject("UnitService") private unitService: UnitService,
+  ) {}
 
   init(eventSystem: EventSystem) {
     eventSystem.on(WorldEvent.NewLocation, (args: NewLocationEventArgs) => this.addEnemyUnitToMap(args.locationId));
@@ -23,7 +23,7 @@ export class WorldEventHandler implements EventHandler {
       locationId,
       owner: PartyOwner.Enemy,
       unitIds: [unitId],
-      stash: { resource: { gold: 0 }, items: [] }
+      stash: { resource: { gold: 0 }, items: [] },
     });
   }
 }

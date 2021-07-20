@@ -1,4 +1,4 @@
 export enum GameCommand {
-  TurnCommand = 'game/turn',
-  NewGame = 'game/newGame',
+  TurnCommand = "game/turn",
+  NewGame = "game/newGame",
 }

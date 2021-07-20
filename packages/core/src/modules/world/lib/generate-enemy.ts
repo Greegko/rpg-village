@@ -1,8 +1,8 @@
 import { Unit, UnitType } from "@modules/unit";
 
-export function generateEnemy(): Omit<Unit, 'id'> {
+export function generateEnemy(): Omit<Unit, "id"> {
   return {
-    name: 'Skeleton',
+    name: "Skeleton",
     armor: 1,
     dmg: 1,
     equipment: {},
@@ -13,5 +13,5 @@ export function generateEnemy(): Omit<Unit, 'id'> {
     stash: { resource: { gold: 0 }, items: [] },
     xp: 0,
     type: UnitType.Common,
-  }
+  };
 }

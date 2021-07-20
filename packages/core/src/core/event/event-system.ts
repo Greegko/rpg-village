@@ -1,6 +1,6 @@
-import { injectable } from 'inversify';
-import { forEach } from 'ramda';
-import { EventHandler } from './event-handler';
+import { injectable } from "inversify";
+import { forEach } from "ramda";
+import { EventHandler } from "./event-handler";
 
 export interface EventSystem {
   on(eventType: string, callback: Function): void;
@@ -17,8 +17,7 @@ export class EventSystem {
   }
 
   on(eventType: string, eventHandlerFunction: Function): void {
-    if (!this.subscribers[eventType])
-      this.subscribers[eventType] = [];
+    if (!this.subscribers[eventType]) this.subscribers[eventType] = [];
 
     this.subscribers[eventType].push(eventHandlerFunction);
   }

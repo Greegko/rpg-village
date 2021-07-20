@@ -13,25 +13,12 @@
     "declaration": true,
     "outDir": "dist/",
     "paths": {
-      "@models/*": [
-        "./src/models/*"
-      ],
-      "@modules/*": [
-        "./src/modules/*"
-      ],
-      "@lib/*": [
-        "./src/lib/*"
-      ],
-      "@core/*": [
-        "./src/core/*"
-      ]
+      "@models/*": ["./src/models/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@core/*": ["./src/core/*"]
     }
   },
-  "include": [
-    "public-api.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["public-api.ts"],
+  "exclude": ["node_modules", "dist"]
 }

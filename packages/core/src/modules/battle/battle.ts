@@ -1,11 +1,11 @@
-import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from 'ramda';
+import { all, complement, prop, map, chain, concat, pipe, contains, forEach, mergeAll } from "ramda";
 
-import { EffectService, isPartyEffect } from '@modules/skill';
-import { Effect } from '@models/effect';
-import { Unit, isAlive, UnitID } from '@modules/unit';
-import { sample } from '@lib/sample';
-import { BattleStats, BattleParty, BattleUnit, BattleState } from './interfaces';
-import { calculateBattleStats } from './lib';
+import { EffectService, isPartyEffect } from "@modules/skill";
+import { Effect } from "@models/effect";
+import { Unit, isAlive, UnitID } from "@modules/unit";
+import { sample } from "@lib/sample";
+import { BattleStats, BattleParty, BattleUnit, BattleState } from "./interfaces";
+import { calculateBattleStats } from "./lib";
 
 export class Battle {
   private battleState: BattleState;
@@ -29,8 +29,10 @@ export class Battle {
 
   isDone(): boolean {
     const areAllDead = all(complement(isAlive));
-    return areAllDead(this.getPartyUnits(this.battleState.attackerParty)) ||
-      areAllDead(this.getPartyUnits(this.battleState.defenderParty));
+    return (
+      areAllDead(this.getPartyUnits(this.battleState.attackerParty)) ||
+      areAllDead(this.getPartyUnits(this.battleState.defenderParty))
+    );
   }
 
   private createStartBattleState(partyUnits: Unit[], defenderPartyUnits: Unit[]): BattleState {
@@ -38,14 +40,14 @@ export class Battle {
     return {
       attackerParty: this.calculateParty(partyUnits),
       defenderParty: this.calculateParty(defenderPartyUnits),
-      units: mergeAll(map(unit => ({ [unit.id]: unit }), units))
+      units: mergeAll(map(unit => ({ [unit.id]: unit }), units)),
     };
   }
 
   private calculateParty(units: Unit[]): BattleParty {
     return {
-      unitIds: map(prop('id'), units),
-      effects: chain(unit => this.effectService.getUnitEffects(unit).filter(isPartyEffect), units)
+      unitIds: map(prop("id"), units),
+      effects: chain(unit => this.effectService.getUnitEffects(unit).filter(isPartyEffect), units),
     };
   }
 
@@ -57,7 +59,7 @@ export class Battle {
     return pipe(
       (attackerId: UnitID) => [attackerId, this.getUnitFromdefenderParty(attackerId)],
       map(unitId => this.battleUnitTransformer(unitId)),
-      ([attacker, defender]) => this.handleAttack(attacker, defender)
+      ([attacker, defender]) => this.handleAttack(attacker, defender),
     );
   }
 
@@ -76,7 +78,10 @@ export class Battle {
   private battleUnitTransformer(unitId: UnitID): BattleUnit {
     const unit = this.battleState.units[unitId];
     const party = this.getUnitParty(unitId);
-    return { unitId: unit.id, battleStats: this.getBattleStats(unit, party.effects) };
+    return {
+      unitId: unit.id,
+      battleStats: this.getBattleStats(unit, party.effects),
+    };
   }
 
   private handleAttack(attacker: BattleUnit, defender: BattleUnit): void {

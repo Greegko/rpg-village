@@ -3,4 +3,4 @@ export interface BattleStats {
   armor: number;
   evasion: number;
   criticalChance: number;
-};
+}

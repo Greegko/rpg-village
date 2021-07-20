@@ -5,4 +5,4 @@ export type BattleStoreState = {
   id: BattleID;
   partyId: PartyID;
   defenderPartyId: PartyID;
-}
+};

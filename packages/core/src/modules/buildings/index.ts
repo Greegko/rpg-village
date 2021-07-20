@@ -1,2 +1,2 @@
-export * from './blacksmith';
-export * from './buildings-module';
+export * from "./blacksmith";
+export * from "./buildings-module";

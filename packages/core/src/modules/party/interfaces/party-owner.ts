@@ -1,1 +1,4 @@
-export enum PartyOwner { Player, Enemy };
+export enum PartyOwner {
+  Player,
+  Enemy,
+}

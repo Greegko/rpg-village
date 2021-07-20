@@ -1,4 +1,4 @@
-import * as expect from 'expect';
+import * as expect from "expect";
 
 export function withRandomID<T extends object, P extends keyof T>(state: T, subState: Partial<T[P]>): any {
   const keys = Object.keys(state);

@@ -1,19 +1,19 @@
-import { injectable, inject } from 'inversify';
-import { PartyService, PartyID } from '@modules/party';
-import { EffectService } from '@modules/skill';
-import { Battle } from './battle';
-import { BattleID, BattleStoreState } from './interfaces';
-import { BattleStore } from './battle-store';
+import { injectable, inject } from "inversify";
+import { PartyService, PartyID } from "@modules/party";
+import { EffectService } from "@modules/skill";
+import { Battle } from "./battle";
+import { BattleID, BattleStoreState } from "./interfaces";
+import { BattleStore } from "./battle-store";
 
 @injectable()
 export class BattleService {
   private battleInstances: Record<BattleID, Battle> = {};
 
   constructor(
-    @inject('BattleStore') private battleStore: BattleStore,
-    @inject('PartyService') private partyService: PartyService,
-    @inject('EffectService') private effectService: EffectService
-  ) { }
+    @inject("BattleStore") private battleStore: BattleStore,
+    @inject("PartyService") private partyService: PartyService,
+    @inject("EffectService") private effectService: EffectService,
+  ) {}
 
   getBattle(battleId: BattleID): BattleStoreState {
     return this.battleStore.get(battleId);
@@ -43,7 +43,7 @@ export class BattleService {
       this.battleInstances[battleId] = new Battle(
         this.effectService,
         this.partyService.getPartyUnits(battleState.partyId),
-        this.partyService.getPartyUnits(battleState.defenderPartyId)
+        this.partyService.getPartyUnits(battleState.defenderPartyId),
       );
     }
 

@@ -1,6 +1,6 @@
-import { injectable } from 'inversify';
+import { injectable } from "inversify";
 import { ObjectStore } from "@core/store";
-import { VillageState } from './interfaces';
+import { VillageState } from "./interfaces";
 
 @injectable()
-export class VillageStore extends ObjectStore<VillageState> { }
+export class VillageStore extends ObjectStore<VillageState> {}

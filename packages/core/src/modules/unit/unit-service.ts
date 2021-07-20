@@ -1,14 +1,14 @@
-import { propEq, evolve, map, when, always } from 'ramda';
-import { inject, injectable } from 'inversify';
-import { ItemID, Item } from '@models/item';
-import { UnitStore } from './unit-store';
-import { UnitID, Unit } from './interfaces';
+import { propEq, evolve, map, when, always } from "ramda";
+import { inject, injectable } from "inversify";
+import { ItemID, Item } from "@models/item";
+import { UnitStore } from "./unit-store";
+import { UnitID, Unit } from "./interfaces";
 
 @injectable()
 export class UnitService {
-  constructor(@inject('UnitStore') private unitStore: UnitStore) { }
+  constructor(@inject("UnitStore") private unitStore: UnitStore) {}
 
-  addUnit(unit: Omit<Unit, 'id'>): UnitID {
+  addUnit(unit: Omit<Unit, "id">): UnitID {
     const newUnit = this.unitStore.add(unit);
     return newUnit.id;
   }
@@ -18,11 +18,15 @@ export class UnitService {
   }
 
   healUnit(unitId: UnitID, hpGain: number): void {
-    this.unitStore.update(unitId, unit => ({ hp: Math.min(unit.maxhp, unit.hp + hpGain) }));
+    this.unitStore.update(unitId, unit => ({
+      hp: Math.min(unit.maxhp, unit.hp + hpGain),
+    }));
   }
 
   dmgUnit(unitId: UnitID, hpLoss: number): void {
-    this.unitStore.update(unitId, unit => ({ hp: Math.max(0, unit.hp - hpLoss) }));
+    this.unitStore.update(unitId, unit => ({
+      hp: Math.max(0, unit.hp - hpLoss),
+    }));
   }
 
   gainXpUnit(unitId: UnitID, xp: number): void {
@@ -32,8 +36,8 @@ export class UnitService {
   updateStashItem(unitId: UnitID, itemId: ItemID, item: Item) {
     const evolver = evolve({
       stash: {
-        items: map(when(propEq('id', itemId), always(item)))
-      }
+        items: map(when(propEq("id", itemId), always(item))),
+      },
     });
 
     this.unitStore.update(unitId, evolver);

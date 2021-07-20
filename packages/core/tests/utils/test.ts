@@ -1,7 +1,7 @@
-import * as expect from 'expect';
-import { Command } from '@core/command';
+import * as expect from "expect";
+import { Command } from "@core/command";
 import { gameFactory } from "../game-factory";
-import { GameState } from '../../src';
+import { GameState } from "../../src";
 import { PartialDeep } from "./deep-partial";
 
 export type TestGameState = PartialDeep<GameState>;
@@ -21,7 +21,7 @@ export function test(testName: string, { initState, commands, expectedState, tur
 
     if (commands) {
       commands.forEach(command => {
-        if (typeof command === 'string') {
+        if (typeof command === "string") {
           game.executeCommand({ command });
         } else {
           game.executeCommand(command);
@@ -35,7 +35,7 @@ export function test(testName: string, { initState, commands, expectedState, tur
 
     const gameState = game.getState();
 
-    if (typeof expectedState === 'object') {
+    if (typeof expectedState === "object") {
       expect(gameState).toMatchObject(expectedState as any);
     } else {
       expectedState(gameState);

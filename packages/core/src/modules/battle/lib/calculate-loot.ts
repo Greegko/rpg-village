@@ -1,6 +1,6 @@
+import { sum } from "ramda";
 import { Loot } from "@models/loot";
 import { Unit } from "@modules/unit";
-import { sum } from 'ramda';
 
 export function calculateLoot(units: Unit[]): Loot {
   const gold = sum(units.map(unit => unit.level * 25));
@@ -9,5 +9,5 @@ export function calculateLoot(units: Unit[]): Loot {
   return {
     resource: { gold },
     xp,
-  }
+  };
 }

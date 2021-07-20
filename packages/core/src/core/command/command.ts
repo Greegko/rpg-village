@@ -1,1 +1,4 @@
-export interface Command { command: string; args?: any; };
+export interface Command {
+  command: string;
+  args?: any;
+}
