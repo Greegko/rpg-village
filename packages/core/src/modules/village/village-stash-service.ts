@@ -36,6 +36,6 @@ export class VillageStashService {
     const stashResource = this.getResource();
     if (resource.gold === undefined || stashResource.gold === undefined) return false;
 
-    return resource.gold > stashResource;
+    return stashResource.gold > resource.gold;
   }
 }
