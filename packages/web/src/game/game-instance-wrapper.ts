@@ -1,6 +1,11 @@
 import { createGameInstance, GameInstance, GameState, Command, GameConfigProvides } from "@rpg-village/core";
 import { AICommandGenerator, StateUpdateCallback } from "./interface";
 
+interface CommandHistory {
+  turn: number;
+  command: Command;
+}
+
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;
   private gameInstance: GameInstance<GameState>;
@@ -8,6 +13,7 @@ export class GameInstanceWrapper {
   private AI?: AICommandGenerator;
   private updateStateCallbacks: StateUpdateCallback[] = [];
   private enabledAI: boolean = true;
+  private commandHistory: CommandHistory[] = [];
 
   constructor(gameConfig: GameConfigProvides) {
     this.gameInstance = createGameInstance({ provides: gameConfig });
@@ -52,10 +58,12 @@ export class GameInstanceWrapper {
 
   localSave() {
     localStorage.setItem("gameState", JSON.stringify(this.gameInstance.getState()));
+    localStorage.setItem("commandHistory", JSON.stringify(this.commandHistory));
   }
 
   localReset() {
     localStorage.removeItem("gameState");
+    localStorage.removeItem("commandHistory");
   }
 
   restoreOrNewGame() {
@@ -64,6 +72,7 @@ export class GameInstanceWrapper {
 
     if (initGameState !== null) {
       this.load(initGameState);
+      this.commandHistory = JSON.parse(localStorage.getItem("commandHistory") as string);
     } else {
       this.startNewGame();
     }
@@ -84,6 +93,7 @@ export class GameInstanceWrapper {
   }
 
   executeCommand(command: Command) {
+    this.commandHistory.push({ turn: this.gameInstance.getState().general.turn, command });
     this.gameInstance.executeCommand(command);
     this.emitStateUpdates();
   }
