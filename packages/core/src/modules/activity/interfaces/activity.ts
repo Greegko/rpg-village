@@ -1,3 +1,5 @@
+import { PartyID } from "@modules/party";
+
 export type ActivityID = string;
 export enum ActivityType {
   Party = "party",
@@ -11,11 +13,10 @@ export type Activity<T = unknown, S = unknown> = {
 };
 
 export type PartyActivityStartArgs = {
-  partyId: string;
-  involvedPartyId?: string;
+  partyId: PartyID;
+  involvedPartyId?: PartyID;
 };
-export type PartyActivity<T = unknown> = Activity<T> & {
+export type PartyActivity<T = unknown> = Activity<T, PartyActivityStartArgs> & {
   state: T;
-  startArgs: PartyActivityStartArgs;
   type: ActivityType.Party;
 };

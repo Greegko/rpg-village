@@ -1,6 +1,6 @@
 import { gameFactory } from "./game-factory";
 import * as expect from "expect";
-import { GameState } from "../src";
+import { GameState } from "../public-api";
 
 describe("Game Module", () => {
   describe("loadGame", () => {

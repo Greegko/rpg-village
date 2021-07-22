@@ -1,19 +1,22 @@
 import { test, createState } from "../utils";
-import { WorldActivity } from "../../src";
+import { WorldActivity } from "../../public-api";
 import * as expect from "expect";
 
 describe("Activities", () => {
   describe("Smoke Test", () => {
-    test("should resolve activty result", {
+    test("should resolve activity result", {
       initState: {
         activities: {
           "test-activity-id": {
-            type: WorldActivity.Travel,
+            name: WorldActivity.Travel,
+            startArgs: {
+              partyId: "test-party",
+            },
             state: {
               partyId: "test-party",
               progress: 1,
               targetLocationId: "location-2",
-            } as any,
+            },
           },
         },
         parties: { "test-party": { locationId: "location-1" } },
@@ -29,8 +32,8 @@ describe("Activities", () => {
         activities: {
           "test-activity-id": {
             id: "test-activity-id",
-            type: WorldActivity.Travel,
-            state: { progress: 2 } as any,
+            name: WorldActivity.Travel,
+            state: { progress: 2 },
           },
         },
       },
@@ -38,8 +41,8 @@ describe("Activities", () => {
       expectedState: {
         activities: {
           "test-activity-id": {
-            type: WorldActivity.Travel,
-            state: { progress: 1 } as any,
+            name: WorldActivity.Travel,
+            state: { progress: 1 },
           },
         },
       },
@@ -49,7 +52,7 @@ describe("Activities", () => {
       initState: createState(({ activity }) => [
         activity({
           id: "test-activity-id",
-          type: WorldActivity.Travel,
+          name: WorldActivity.Travel,
           state: { progress: 1 },
         }),
       ]),

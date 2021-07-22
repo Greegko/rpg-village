@@ -2,7 +2,8 @@
   "scripts": {
     "start": "concurrently \"npm:start:*\"",
     "start:core": "npm run build:watch --prefix packages/core",
-    "start:web": "npm run start --prefix packages/web"
+    "start:web": "npm run start --prefix packages/web",
+    "test:core": "npm run test:watch --prefix packages/core"
   },
   "private": true,
   "name": "rpg-village",

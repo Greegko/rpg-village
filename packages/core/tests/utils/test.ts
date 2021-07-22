@@ -1,7 +1,6 @@
 import * as expect from "expect";
-import { Command } from "@core/command";
 import { gameFactory } from "../game-factory";
-import { GameState } from "../../src";
+import { GameState, Command } from "../../public-api";
 import { PartialDeep } from "./deep-partial";
 
 export type TestGameState = PartialDeep<GameState>;
@@ -15,7 +14,7 @@ type Test = {
   expectedState: ExpectedState;
 };
 
-export function test(testName: string, { initState, commands, expectedState, turn }: Test) {
+export function test(testName: string, { initState, commands, expectedState, turn = 0 }: Test) {
   it(testName, () => {
     const game = gameFactory({ state: initState } as any);
 

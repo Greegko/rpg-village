@@ -1,4 +1,4 @@
-import { VillageCommand } from "../../src";
+import { VillageCommand } from "../../public-api";
 import { test } from "../utils";
 import * as expect from "expect";
 
@@ -15,6 +15,7 @@ describe("VillageCommand", () => {
     const initState = {
       village: { stash: { resource: { gold: 20 } }, houses: 0 },
     };
+
     test("should build a house", {
       initState,
       commands: [VillageCommand.BuildHouse],

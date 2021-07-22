@@ -1,5 +1,5 @@
 import { test, createState } from "../../utils";
-import { BlacksmithCommand, AttackEffectType } from "../../../src";
+import { BlacksmithCommand, AttackEffectType } from "../../../public-api";
 
 describe("Buildings - Blacksmith", () => {
   describe("Upgrade item", () => {

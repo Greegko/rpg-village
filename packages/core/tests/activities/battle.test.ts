@@ -1,5 +1,6 @@
 import { createState, test } from "../utils";
-import { BattleActivityType, UnitType } from "../../src";
+import { BattleActivityType, UnitType } from "../../public-api";
+
 import * as expect from "expect";
 
 describe("Battle Activity", () => {
@@ -8,10 +9,14 @@ describe("Battle Activity", () => {
       initState: createState(({ activity, party, unit, battle }) => [
         activity({
           id: "battle-activity",
-          type: BattleActivityType.Battle,
+          name: BattleActivityType.Battle,
+          startArgs: {
+            partyId: party({ id: "random-id" }),
+          },
           state: {
             battleId: battle({
-              attackerPartyId: party({
+              partyId: party({
+                id: "random-id",
                 unitIds: [unit({ dmg: 100, hp: 100 })],
               }),
               defenderPartyId: party({ unitIds: [unit({ dmg: 1, hp: 1 })] }),
@@ -26,10 +31,11 @@ describe("Battle Activity", () => {
     test("should gain xp then winner heroes", {
       initState: createState(({ activity, party, unit, battle }) => [
         activity({
-          type: BattleActivityType.Battle,
+          name: BattleActivityType.Battle,
           state: {
             battleId: battle({
-              attackerPartyId: party({
+              partyId: party({
+                id: "party-id",
                 unitIds: [
                   unit({
                     id: "winner-unit",
@@ -54,10 +60,10 @@ describe("Battle Activity", () => {
     test("should party gain gold", {
       initState: createState(({ activity, party, unit, battle }) => [
         activity({
-          type: BattleActivityType.Battle,
+          name: BattleActivityType.Battle,
           state: {
             battleId: battle({
-              attackerPartyId: party({
+              partyId: party({
                 id: "winner-party",
                 unitIds: [unit({ dmg: 10, hp: 10 })],
                 stash: { resource: { gold: 0 } },
@@ -79,10 +85,10 @@ describe("Battle Activity", () => {
     test("should party gain the looser stash", {
       initState: createState(({ activity, party, unit, battle }) => [
         activity({
-          type: BattleActivityType.Battle,
+          name: BattleActivityType.Battle,
           state: {
             battleId: battle({
-              attackerPartyId: party({
+              partyId: party({
                 id: "winner-party",
                 unitIds: [unit({ dmg: 10, hp: 10 })],
                 stash: { resource: { gold: 0 } },

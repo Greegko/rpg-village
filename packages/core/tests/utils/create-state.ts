@@ -1,20 +1,6 @@
-import {
-  Party,
-  PartyID,
-  VillageState,
-  MapLocationID,
-  PartyOwner,
-  GameState,
-  MapLocation,
-  MapLocationType,
-  Unit,
-  UnitType,
-  UnitID,
-  BattleStoreState,
-  BattleID,
-} from "@modules";
-import { PartyActivity, ActivityID, ActivityType } from "@moduless/activity";
-import { ItemStash, ResourceStash } from "@modules/stash";
+import { Party, PartyID, VillageState, MapLocationID, PartyOwner, GameState, MapLocation } from "../../public-api";
+import { UnitID, BattleStoreState, BattleID, ItemStash, ResourceStash, PartyActivity } from "../../public-api";
+import { MapLocationType, Unit, UnitType, ActivityType, ActivityID } from "../../public-api";
 import { Chance } from "chance";
 import { PartialDeep } from "./deep-partial";
 
@@ -110,7 +96,7 @@ function createCallback(createdState: GameState) {
 export function createState(callback: Callback): GameState {
   const createdState: GameState = createInitState();
 
-  callback(createCallback(createdState));
+  callback(createCallback(createdState) as CreateStateCallbackArgs);
 
   return createdState;
 }
@@ -144,7 +130,7 @@ function unitFactory({
   level = chance.integer(),
   name = chance.string(),
   skillIds = [],
-  type = chance.pickone[(UnitType.Common, UnitType.Hero)],
+  type = chance.pickone([UnitType.Common, UnitType.Hero]),
 }: Partial<Unit> = {}): Unit {
   return {
     xp,
@@ -185,9 +171,11 @@ function partyFactory({
 function activityFactory({
   id = chance.string(),
   state = {},
+  name = chance.string(),
   type = ActivityType.Party,
+  startArgs = {} as any,
 }: Partial<PartyActivity> = {}): PartyActivity {
-  return { id, state, type } as PartyActivity<unknown>;
+  return { id, state, type, name, startArgs } as PartyActivity<unknown>;
 }
 
 function battleStoreStateFactory({

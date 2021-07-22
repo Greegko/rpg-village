@@ -1,5 +1,5 @@
-import { test, withRandomID, createState, stashFactory } from "../utils";
-import { WorldActivity, VillageActivity } from "../../src";
+import { test, createState, stashFactory } from "../utils";
+import { WorldActivity } from "../../public-api";
 import * as expect from "expect";
 
 describe("World Activites", () => {
@@ -7,7 +7,7 @@ describe("World Activites", () => {
     test("should move party to the new location on finish", {
       initState: createState(({ party, activity, location }) => [
         activity({
-          type: WorldActivity.Travel,
+          name: WorldActivity.Travel,
           state: {
             partyId: party({ id: "test-party-id", locationId: location() }),
             progress: 1,
@@ -22,29 +22,10 @@ describe("World Activites", () => {
     });
 
     describe("Village target location", () => {
-      test("should start heal activity when arriving on village with wounded hero", {
-        initState: createState(({ party, activity, location, village, unit }) => [
-          activity({
-            type: WorldActivity.Travel,
-            state: {
-              partyId: party({
-                id: "test-party-id",
-                locationId: location(),
-                unitIds: [unit({ hp: 50, maxhp: 100 })],
-              }),
-              progress: 1,
-              targetLocationId: village(),
-            },
-          }),
-        ]),
-        turn: true,
-        expectedState: state => withRandomID(state.activities, { type: VillageActivity.Heal }),
-      });
-
       test("should store looted resource into village stash", {
         initState: createState(({ party, activity, location, village }) => [
           activity({
-            type: WorldActivity.Travel,
+            name: WorldActivity.Travel,
             state: {
               partyId: party({
                 id: "test-party-id",
@@ -71,7 +52,7 @@ describe("World Activites", () => {
     test("should change explore status on tile", {
       initState: createState(({ location, party, activity }) => [
         activity({
-          type: WorldActivity.Explore,
+          name: WorldActivity.Explore,
           state: {
             partyId: party({
               id: "party",
@@ -88,7 +69,7 @@ describe("World Activites", () => {
     test("should add new locations around explored tile", {
       initState: createState(({ location, party, activity }) => [
         activity({
-          type: WorldActivity.Explore,
+          name: WorldActivity.Explore,
           state: {
             partyId: party({
               id: "party",
@@ -105,7 +86,7 @@ describe("World Activites", () => {
     test("should add enemy units on new map tile", {
       initState: createState(({ location, party, activity }) => [
         activity({
-          type: WorldActivity.Explore,
+          name: WorldActivity.Explore,
           state: {
             partyId: party({
               id: "party",

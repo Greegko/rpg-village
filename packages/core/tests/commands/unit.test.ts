@@ -1,4 +1,4 @@
-import { UnitCommand, EquipmentPlace } from "../../src";
+import { UnitCommand, EquipmentPlace } from "../../public-api";
 import { test } from "../utils";
 
 describe("UnitCommand", () => {

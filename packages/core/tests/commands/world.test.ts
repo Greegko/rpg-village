@@ -1,7 +1,6 @@
 import { test, withRandomID, createState } from "../utils";
-import { WorldCommand, WorldActivity } from "../../src/modules/world/interfaces";
 import * as expect from "expect";
-import { PartyOwner, BattleActivityType } from "../../src";
+import { PartyOwner, BattleActivityType, WorldCommand, WorldActivity } from "../../public-api";
 
 describe("WorldCommand", () => {
   describe("Travel", () => {
@@ -18,7 +17,7 @@ describe("WorldCommand", () => {
       ],
       expectedState: state =>
         withRandomID(state.activities, {
-          type: WorldActivity.Travel,
+          name: WorldActivity.Travel,
           state: { partyId: "party" },
         }),
     });
@@ -48,7 +47,7 @@ describe("WorldCommand", () => {
       commands: [{ command: WorldCommand.Explore, args: { partyId: "party" } }],
       expectedState: state =>
         withRandomID(state.activities, {
-          type: WorldActivity.Explore,
+          name: WorldActivity.Explore,
           state: { partyId: "party" },
         }),
     });
@@ -88,9 +87,9 @@ describe("WorldCommand", () => {
         },
       ],
       expectedState: state => {
-        withRandomID(state.activities, { type: BattleActivityType.Battle });
+        withRandomID(state.activities, { name: BattleActivityType.Battle });
         withRandomID(state.battle, {
-          attackerPartyId: "party-x",
+          partyId: "party-x",
           defenderPartyId: "party-y",
         });
       },
