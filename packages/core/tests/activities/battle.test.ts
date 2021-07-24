@@ -1,5 +1,6 @@
 import { createState, test } from "../utils";
-import { BattleActivityType, UnitType } from "../../public-api";
+import { BattleActivityType, UnitType, ItemType, AttackEffectType } from "../../public-api";
+import { itemFactory } from "../utils/factories";
 
 test("should finish correctly", {
   initState: createState(({ activity, party, unit, battle }) => [
@@ -101,4 +102,35 @@ test("should party gain the looser stash", {
   expectedState: {
     parties: { "winner-party": { stash: { resource: { gold: 50 } } } },
   },
+});
+
+test("should apply item dmg effect", {
+  initState: createState(({ activity, party, unit, battle }) => [
+    activity({
+      name: BattleActivityType.Battle,
+      state: {
+        battleId: battle({
+          partyId: party({
+            unitIds: [
+              unit({
+                dmg: 10,
+                hp: 100,
+                equipment: {
+                  rightHand: itemFactory({
+                    itemType: ItemType.Weapon,
+                    effects: [{ value: 10, type: AttackEffectType.Dmg }],
+                  }),
+                },
+              }),
+            ],
+          }),
+          defenderPartyId: party({
+            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25 })],
+          }),
+        }),
+      },
+    }),
+  ]),
+  turn: true,
+  expectedState: { units: { "defender-unit": { hp: 5 } } },
 });
