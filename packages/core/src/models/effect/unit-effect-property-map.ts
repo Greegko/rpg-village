@@ -1,6 +1,6 @@
 import { AttackEffectType, DefenseEffectType } from "./battle-effect";
 
-export const unitEffectPropertyMap: { [key: number]: string } = {
+export const unitEffectPropertyMap: Record<AttackEffectType | DefenseEffectType, string> = {
   [AttackEffectType.Dmg]: "dmg",
   [AttackEffectType.CriticalChance]: "criticalChance",
   [DefenseEffectType.Evasion]: "evasion",

@@ -57,15 +57,15 @@ export class Battle {
 
   private get attackWithUnit() {
     return pipe(
-      (attackerId: UnitID) => [attackerId, this.getUnitFromdefenderParty(attackerId)],
+      (attackerId: UnitID) => [attackerId, this.getUnitFromDefenderParty(attackerId)],
       map(unitId => this.battleUnitTransformer(unitId)),
       ([attacker, defender]) => this.handleAttack(attacker, defender),
     );
   }
 
-  private getUnitFromdefenderParty(unitId: UnitID): UnitID {
-    const isInNondefenderParty = contains(unitId, this.battleState.attackerParty.unitIds);
-    const targetParty = isInNondefenderParty ? this.battleState.defenderParty : this.battleState.attackerParty;
+  private getUnitFromDefenderParty(unitId: UnitID): UnitID {
+    const isInNonDefenderParty = contains(unitId, this.battleState.attackerParty.unitIds);
+    const targetParty = isInNonDefenderParty ? this.battleState.defenderParty : this.battleState.attackerParty;
 
     return sample(targetParty.unitIds);
   }
