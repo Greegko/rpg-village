@@ -1,8 +1,11 @@
 import ava from "ava";
+import * as util from "util";
 import { gameFactory } from "./game-factory";
 import { GameState, Command } from "../../public-api";
 import { PartialDeep } from "./deep-partial";
 import { ExecutionTestContext, withRandomIDAssertionFactory } from "./custom-assertions";
+
+util.inspect.defaultOptions.depth = 5;
 
 export type TestGameState = PartialDeep<GameState>;
 type ExpectedStateMatcher = (state: GameState, t: ExecutionTestContext<unknown>) => void;
