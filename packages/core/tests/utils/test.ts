@@ -1,10 +1,11 @@
-import * as expect from "expect";
+import ava from "ava";
 import { gameFactory } from "../game-factory";
 import { GameState, Command } from "../../public-api";
 import { PartialDeep } from "./deep-partial";
+import { ExecutionTestContext, withRandomIDAssertionFactory } from "./custom-assertions";
 
 export type TestGameState = PartialDeep<GameState>;
-type ExpectedStateMatcher = (state: GameState) => any;
+type ExpectedStateMatcher = (state: GameState, t: ExecutionTestContext<unknown>) => void;
 type ExpectedState = TestGameState | ExpectedStateMatcher;
 
 type Test = {
@@ -15,7 +16,7 @@ type Test = {
 };
 
 export function test(testName: string, { initState, commands, expectedState, turn = 0 }: Test) {
-  it(testName, () => {
+  ava(testName, t => {
     const game = gameFactory({ state: initState } as any);
 
     if (commands) {
@@ -35,9 +36,9 @@ export function test(testName: string, { initState, commands, expectedState, tur
     const gameState = game.getState();
 
     if (typeof expectedState === "object") {
-      expect(gameState).toMatchObject(expectedState as any);
+      t.like(gameState, expectedState);
     } else {
-      expectedState(gameState);
+      expectedState(gameState, { ...t, withRandomId: withRandomIDAssertionFactory(t) });
     }
   });
 }

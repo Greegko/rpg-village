@@ -1,14 +1,12 @@
 import { gameFactory } from "./game-factory";
-import * as expect from "expect";
+import test from "ava";
 
-describe("Smoke test", () => {
-  it("should pass the turn", () => {
-    const game = gameFactory();
+test("should pass the turn", t => {
+  const game = gameFactory();
 
-    game.startNewGame();
+  game.startNewGame();
 
-    const newState = game.gameTurn();
+  const newState = game.gameTurn();
 
-    expect(newState.general.turn).toBe(1);
-  });
+  t.is(newState.general.turn, 1);
 });

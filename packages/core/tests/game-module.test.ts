@@ -1,27 +1,21 @@
 import { gameFactory } from "./game-factory";
-import * as expect from "expect";
 import { GameState } from "../public-api";
+import test from "ava";
 
-describe("Game Module", () => {
-  describe("loadGame", () => {
-    it("should load the state", () => {
-      const game = gameFactory();
+test("loadGame should load the state", t => {
+  const game = gameFactory();
 
-      game.loadGame({ general: { turn: 1 } } as GameState);
+  game.loadGame({ general: { turn: 1 } } as GameState);
 
-      const newState = game.gameTurn();
+  const newState = game.gameTurn();
 
-      expect(newState.general.turn).toBe(2);
-    });
-  });
+  t.is(newState.general.turn, 2);
+});
 
-  describe("getState", () => {
-    it("should return the current state of the game", () => {
-      const game = gameFactory({ state: { general: { turn: 1 } } });
+test("gameState should return the current state of the game", t => {
+  const game = gameFactory({ state: { general: { turn: 1 } } });
 
-      const state = game.getState();
+  const state = game.getState();
 
-      expect(state.general.turn).toBe(1);
-    });
-  });
+  t.is(state.general.turn, 1);
 });
