@@ -2,7 +2,7 @@ import { injectable, inject } from "inversify";
 import { append, evolve } from "ramda";
 
 import { CommandSystem } from "@core/command";
-import { EffectTarget, AttackEffectType } from "@models/effect";
+import { AttackEffectType, Effect } from "@models/effect";
 import { ItemID } from "@models/item";
 import { UnitID, UnitService } from "@modules/unit";
 import { getItem } from "@models/stash";
@@ -34,10 +34,8 @@ export class BlacksmithCommandHandler {
     }
   }
 
-  private createDmgEffect() {
+  private createDmgEffect(): Effect {
     return {
-      target: EffectTarget.Unit,
-      isPercentage: false,
       value: 2,
       type: AttackEffectType.Dmg,
     };

@@ -1,4 +1,4 @@
-import { gameFactory } from "./game-factory";
+import { gameFactory } from "./utils/game-factory";
 import { GameState } from "../public-api";
 import test from "ava";
 

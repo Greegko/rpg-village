@@ -1,5 +1,5 @@
 import ava from "ava";
-import { gameFactory } from "../game-factory";
+import { gameFactory } from "./game-factory";
 import { GameState, Command } from "../../public-api";
 import { PartialDeep } from "./deep-partial";
 import { ExecutionTestContext, withRandomIDAssertionFactory } from "./custom-assertions";

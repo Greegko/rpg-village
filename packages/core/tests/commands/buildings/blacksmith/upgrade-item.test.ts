@@ -22,7 +22,9 @@ test("should give new dmg effect", {
   expectedState: {
     units: {
       "target-unit": {
-        stash: { items: [{ effects: [{ type: AttackEffectType.Dmg }] }] },
+        stash: {
+          items: [{ id: "test-item", effects: [{ type: AttackEffectType.Dmg, value: 2 }] }],
+        },
       },
     },
   },
