@@ -44,6 +44,12 @@ export const executeCommand = (command: Command) => {
   };
 };
 
+export interface ExecuteCommand {
+  executeCommand(c: Command): void;
+}
+
+export const ExecuteCommand: ExecuteCommand = { executeCommand };
+
 export function gameMiscActionReducerFactory(gameWrapper: GameInstanceWrapper) {
   return (action: any) => {
     switch (action.type) {

@@ -1,8 +1,6 @@
 import { connect } from "react-redux";
 import { VillageState, GeneralGameStoreState, VillageCommand } from "@rpg-village/core";
-import { GameStoreState, executeCommand } from "../../game";
-
-const storeDispatchers = { executeCommand };
+import { GameStoreState, ExecuteCommand } from "../../game";
 
 const propertyMapper = (state: GameStoreState) => {
   return {
@@ -14,14 +12,13 @@ const propertyMapper = (state: GameStoreState) => {
 interface VillageStatsProperties {
   village: VillageState;
   general: GeneralGameStoreState;
-  executeCommand: typeof executeCommand;
 }
 
 import "./villagestats.scss";
 export const VillageStats = connect(
   propertyMapper,
-  storeDispatchers,
-)(({ village, general, executeCommand }: VillageStatsProperties) => (
+  ExecuteCommand,
+)(({ village, general, executeCommand }: VillageStatsProperties & ExecuteCommand) => (
   <div className="villagestats">
     <ul className="villagestats__list">
       <li className="villagestats__list-item">Turn: {general.turn}</li>
