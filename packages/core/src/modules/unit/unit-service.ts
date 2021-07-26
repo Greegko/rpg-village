@@ -1,6 +1,6 @@
-import { propEq, evolve, map, when, always } from "ramda";
+import { propEq, evolve, map, when, always, assoc } from "ramda";
 import { inject, injectable } from "inversify";
-import { ItemID, Item } from "@models/item";
+import { ItemID, Item, EquipmentSlot } from "@models/item";
 import { UnitStore } from "./unit-store";
 import { UnitID, Unit } from "./interfaces";
 
@@ -41,5 +41,13 @@ export class UnitService {
     });
 
     this.unitStore.update(unitId, evolver);
+  }
+
+  getEquipment(unitId: UnitID, equipmentSlot: EquipmentSlot): Item | undefined {
+    return this.unitStore.get(unitId).equipment[equipmentSlot];
+  }
+
+  setEquipment(unitId: UnitID, equipmentSlot: EquipmentSlot, item: Item) {
+    this.unitStore.update(unitId, unit => evolve({ equipment: assoc(equipmentSlot, item) }, unit));
   }
 }

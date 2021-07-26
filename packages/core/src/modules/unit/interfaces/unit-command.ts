@@ -1,5 +1,5 @@
 import { Command } from "@core/command";
-import { EquipmentPlace, ItemID } from "@models/item";
+import { EquipmentSlot, ItemID } from "@models/item";
 import { UnitID } from "../interfaces";
 
 export enum UnitCommand {
@@ -10,7 +10,7 @@ export enum UnitCommand {
 export interface UnitEquipItemCommandArgs {
   unitId: UnitID;
   itemId: ItemID;
-  place: EquipmentPlace;
+  slot: EquipmentSlot;
 }
 
 export interface UnitEquipItemCommand extends Command {
@@ -20,7 +20,7 @@ export interface UnitEquipItemCommand extends Command {
 
 export interface UnitUnequipItemCommandArgs {
   unitId: UnitID;
-  place: EquipmentPlace;
+  slot: EquipmentSlot;
 }
 
 export interface UnitUnequipItemCommand extends Command {

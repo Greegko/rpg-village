@@ -1,5 +1,5 @@
 import { Command } from "@core/command";
-import { ItemID } from "@models/item";
+import { EquipmentSlot, ItemID } from "@models/item";
 import { UnitID } from "@modules/unit";
 
 export enum BlacksmithCommand {
@@ -8,8 +8,10 @@ export enum BlacksmithCommand {
 
 export interface UpgradeItemCommandArgs {
   unitId: UnitID;
-  itemId: ItemID;
+  itemId?: ItemID;
+  equipmentSlot?: EquipmentSlot;
 }
+
 export interface UpgradeItemCommand extends Command {
   command: BlacksmithCommand.UpgradeItem;
   args: UpgradeItemCommandArgs;

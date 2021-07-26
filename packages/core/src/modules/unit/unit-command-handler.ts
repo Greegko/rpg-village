@@ -3,7 +3,7 @@ import { injectable, inject } from "inversify";
 import { CommandSystem } from "@core/command";
 import { getItem, removeItem, ItemStash, addItem } from "@models/stash";
 import { Item } from "@models/item";
-import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand } from "./interfaces";
+import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand, Unit } from "./interfaces";
 import { UnitStore } from "./unit-store";
 
 @injectable()
@@ -18,31 +18,31 @@ export class UnitCommandHandler {
     );
   }
 
-  private equipItem({ unitId, itemId, place }: UnitEquipItemCommandArgs) {
+  private equipItem({ unitId, itemId, slot }: UnitEquipItemCommandArgs) {
     const unit = this.unitStore.get(unitId);
     const item = getItem(unit.stash, itemId);
 
     if (!item) return;
 
-    this.unequipEquipment({ unitId, place });
+    this.unequipEquipment({ unitId, slot });
 
     const evolveUnit = evolve({
       stash: (stash: ItemStash) => removeItem(stash, itemId),
-      equipment: assoc(place, item),
-    });
+      equipment: assoc(slot, item),
+    })(unit as any) as Unit;
 
-    this.unitStore.update(unitId, evolveUnit as any);
+    this.unitStore.update(unitId, evolveUnit);
   }
 
-  private unequipEquipment({ unitId, place }: UnitUnequipItemCommandArgs) {
+  private unequipEquipment({ unitId, slot }: UnitUnequipItemCommandArgs) {
     const unit = this.unitStore.get(unitId);
-    const item = path(["equipment", place], unit) as Item;
+    const item = path(["equipment", slot], unit) as Item;
 
     if (!item) return;
 
     const newUnit = evolve({
       stash: (stash: ItemStash) => addItem(stash, item),
-      equipment: dissoc(place),
+      equipment: dissoc(slot),
     })(unit);
 
     this.unitStore.update(unitId, newUnit);
