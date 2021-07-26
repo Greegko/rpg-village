@@ -1,5 +1,5 @@
 import { GameState, Command } from "@rpg-village/core";
-import { GameUI } from "./interface";
+import { GamePage, GameUI } from "./interface";
 import { GameInstanceWrapper } from "./game-instance-wrapper";
 
 // GAME MISC REDUCER
@@ -116,6 +116,7 @@ enum GameUIAction {
   Resume = "ui/resume",
   EnableAI = "ui/ai-enable",
   DisableAI = "ui/ai-disable",
+  ChangePage = "ui/change-page",
 }
 
 export const enableAI = () => {
@@ -142,6 +143,13 @@ export const resume = () => {
   };
 };
 
+export const changePage = (page: GamePage) => {
+  return {
+    type: GameUIAction.ChangePage,
+    page,
+  };
+};
+
 export function gameUIReducer(state: GameUI = {} as any, action: any): GameUI {
   switch (action.type) {
     case GameUIAction.Pause:
@@ -152,6 +160,8 @@ export function gameUIReducer(state: GameUI = {} as any, action: any): GameUI {
       return { ...state, ai: true };
     case GameUIAction.DisableAI:
       return { ...state, ai: false };
+    case GameUIAction.ChangePage:
+      return { ...state, page: action.page };
     default:
       return state;
   }

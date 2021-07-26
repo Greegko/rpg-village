@@ -1,6 +1,16 @@
 import { GameState, Command } from "@rpg-village/core";
 
+export enum GamePageType {
+  CharacterSheet,
+}
+
+export interface GamePage {
+  page: GamePageType;
+  args?: any;
+}
+
 export interface GameUI {
+  page?: GamePage;
   paused: boolean;
   ai: boolean;
 }
