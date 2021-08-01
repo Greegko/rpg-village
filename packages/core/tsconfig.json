@@ -20,6 +20,6 @@
       "@core/*": ["./src/core/*"]
     }
   },
-  "include": ["public-api.ts"],
+  "include": ["public-api.ts", "tests/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

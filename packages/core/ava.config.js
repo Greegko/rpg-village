@@ -1,5 +1,5 @@
 export default {
-  extensions: ["ts"],
-  files: ["tests/**/*.test.ts"],
-  require: ["ts-node/register", "tsconfig-paths/register"],
+  ignoredByWatcher: ["src", "tests"],
+  files: ["dist/tests/**/*.test.js"],
+  require: ["./ava.tsconfig-path-require.js"],
 };
