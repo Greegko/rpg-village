@@ -1,11 +1,11 @@
-import { UnitCommand, EquipmentPlace } from "../../../public-api";
+import { UnitCommand, EquipmentSlot } from "../../../public-api";
 import { test } from "../../utils";
 
 test("should be able to un-equip item", {
   initState: {
     units: {
       "test-hero-id": {
-        equipment: { [EquipmentPlace.Torso]: { id: "test-item-id" } },
+        equipment: { [EquipmentSlot.Torso]: { id: "test-item-id" } },
         stash: { items: [] },
       },
     },
@@ -13,7 +13,7 @@ test("should be able to un-equip item", {
   commands: [
     {
       command: UnitCommand.UnequipItem,
-      args: { unitId: "test-hero-id", place: EquipmentPlace.Torso },
+      args: { unitId: "test-hero-id", slot: EquipmentSlot.Torso },
     },
   ],
   expectedState: { units: { "test-hero-id": { equipment: {} } } },
@@ -23,7 +23,7 @@ test("should add un-equiped item to the stash", {
   initState: {
     units: {
       "test-hero-id": {
-        equipment: { [EquipmentPlace.Torso]: { id: "test-item-id" } },
+        equipment: { [EquipmentSlot.Torso]: { id: "test-item-id" } },
         stash: { items: [] },
       },
     },
@@ -31,7 +31,7 @@ test("should add un-equiped item to the stash", {
   commands: [
     {
       command: UnitCommand.UnequipItem,
-      args: { unitId: "test-hero-id", place: EquipmentPlace.Torso },
+      args: { unitId: "test-hero-id", slot: EquipmentSlot.Torso },
     },
   ],
   expectedState: {

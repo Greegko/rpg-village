@@ -3,7 +3,7 @@ import { injectable, inject } from "inversify";
 import { CommandSystem } from "@core/command";
 import { getItem, removeItem, ItemStash, addItem } from "@models/stash";
 import { Item } from "@models/item";
-import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand, Unit } from "./interfaces";
+import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand } from "./interfaces";
 import { UnitStore } from "./unit-store";
 
 @injectable()
@@ -28,8 +28,8 @@ export class UnitCommandHandler {
 
     const evolveUnit = evolve({
       stash: (stash: ItemStash) => removeItem(stash, itemId),
-      equipment: assoc(slot, item),
-    })(unit as any) as Unit;
+      equipment: assoc(slot, item) as any,
+    });
 
     this.unitStore.update(unitId, evolveUnit);
   }
@@ -40,11 +40,11 @@ export class UnitCommandHandler {
 
     if (!item) return;
 
-    const newUnit = evolve({
+    const evolveUnit = evolve({
       stash: (stash: ItemStash) => addItem(stash, item),
       equipment: dissoc(slot),
-    })(unit);
+    });
 
-    this.unitStore.update(unitId, newUnit);
+    this.unitStore.update(unitId, evolveUnit);
   }
 }
