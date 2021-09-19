@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Debug AVA test file",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ava",
-      "runtimeArgs": ["${relativeFile}", "--config", "./ava.config-debug.js"],
+      "runtimeArgs": ["${relativeFile}", "--config", "./ava.config-debug.mjs"],
       "outputCapture": "std",
       "skipFiles": ["<node_internals>/**/*.js"],
       "console": "integratedTerminal",

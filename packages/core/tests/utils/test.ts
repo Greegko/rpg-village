@@ -1,4 +1,4 @@
-import ava from "ava";
+import * as ava from "ava";
 import * as util from "util";
 import { gameFactory } from "./game-factory";
 import { GameState, Command } from "../../public-api";
@@ -19,7 +19,7 @@ type Test = {
 };
 
 export function test(testName: string, { initState, commands, expectedState, turn = 0 }: Test) {
-  ava(testName, t => {
+  ava.default(testName, t => {
     const game = gameFactory({ state: initState } as any);
 
     if (commands) {
