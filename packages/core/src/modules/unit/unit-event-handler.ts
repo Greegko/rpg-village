@@ -1,4 +1,4 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { EventHandler, EventSystem } from "@core/event";
 import { Unit, UnitEvent } from "@modules/unit";
 import { GameEvent } from "@modules/game";
