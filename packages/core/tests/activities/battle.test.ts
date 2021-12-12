@@ -16,7 +16,7 @@ test("should finish correctly", {
             id: "random-id",
             unitIds: [unit({ dmg: 100, hp: 100 })],
           }),
-          defenderPartyId: party({ unitIds: [unit({ dmg: 1, hp: 1 })] }),
+          defenderPartyId: party({ unitIds: [unit({ dmg: 1, hp: 1, armor: 0 })] }),
         }),
       },
     }),
@@ -44,7 +44,7 @@ test("should gain xp then winner heroes", {
             ],
           }),
           defenderPartyId: party({
-            unitIds: [unit({ dmg: 1, hp: 1, level: 1 })],
+            unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
           }),
         }),
       },
@@ -66,7 +66,7 @@ test("should party gain gold", {
             stash: { resource: { gold: 0 } },
           }),
           defenderPartyId: party({
-            unitIds: [unit({ dmg: 1, hp: 1, level: 1 })],
+            unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
             stash: { resource: { gold: 0 } },
           }),
         }),
@@ -91,7 +91,7 @@ test("should party gain the looser stash", {
             stash: { resource: { gold: 0 } },
           }),
           defenderPartyId: party({
-            unitIds: [unit({ dmg: 1, hp: 1, level: 1 })],
+            unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
             stash: { resource: { gold: 25 } },
           }),
         }),
@@ -125,7 +125,7 @@ test("should apply item dmg effect", {
             ],
           }),
           defenderPartyId: party({
-            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25 })],
+            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0 })],
           }),
         }),
       },

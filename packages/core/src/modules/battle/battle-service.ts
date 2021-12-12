@@ -1,6 +1,8 @@
+import { forEach } from "ramda";
 import { injectable, inject } from "inversify";
 import { PartyService, PartyID } from "@modules/party";
 import { EffectService } from "@modules/skill";
+import { UnitStore } from "@modules/unit";
 import { Battle } from "./battle";
 import { BattleID, BattleStoreState } from "./interfaces";
 import { BattleStore } from "./battle-store";
@@ -13,6 +15,7 @@ export class BattleService {
     @inject("BattleStore") private battleStore: BattleStore,
     @inject("PartyService") private partyService: PartyService,
     @inject("EffectService") private effectService: EffectService,
+    @inject("UnitStore") private unitStore: UnitStore
   ) {}
 
   getBattle(battleId: BattleID): BattleStoreState {
@@ -29,7 +32,10 @@ export class BattleService {
 
   turnBattle(battleId: BattleID): void {
     const battle = this.getBattleInstance(battleId);
-    battle.turn();
+    const battleState = battle.turn();
+    
+    forEach((unit) => this.unitStore.update(unit.id, { hp: unit.hp }), battleState.attackerParty.units);
+    forEach((unit) => this.unitStore.update(unit.id, { hp: unit.hp }), battleState.defenderParty.units);
   }
 
   removeBattle(battleId: BattleID): void {
