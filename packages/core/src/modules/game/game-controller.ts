@@ -1,4 +1,4 @@
-import { inject, multiInject, injectable } from "inversify";
+import { multiInject, injectable } from "inversify";
 import { EventHandler, EventSystem } from "@core/event";
 import { Command, CommandHandler, CommandSystem } from "@core/command";
 
@@ -8,9 +8,9 @@ import { GameStore } from "./game-store";
 @injectable()
 export class GameController<State extends GameState> {
   constructor(
-    @inject("GameStore") private gameStore: GameStore<State>,
-    @inject("CommandSystem") private commandSystem: CommandSystem,
-    @inject("EventSystem") eventSystem: EventSystem,
+    private gameStore: GameStore<State>,
+    private commandSystem: CommandSystem,
+    eventSystem: EventSystem,
     @multiInject("commandHandlers") commandHandlers: CommandHandler[],
     @multiInject("eventHandlers") eventHandlers: EventHandler[],
   ) {

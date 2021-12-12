@@ -7,9 +7,7 @@ import { UnitEventDieArgs } from "public-api";
 
 @injectable()
 export class UnitEventHandler implements EventHandler {
-  constructor(
-    @inject("EventSystem") private eventSystem: EventSystem
-  ) {}
+  constructor(private eventSystem: EventSystem) {}
 
   init(eventSystem: EventSystem) {
     eventSystem.on(UnitStoreEvent.Update, (args: UnitStoreEventUpdateArgs) => this.updateUnit(args.unit));

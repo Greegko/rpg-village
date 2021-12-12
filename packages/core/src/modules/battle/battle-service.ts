@@ -1,5 +1,5 @@
 import { forEach } from "ramda";
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { PartyService, PartyID } from "@modules/party";
 import { EffectService } from "@modules/skill";
 import { UnitStore } from "@modules/unit";
@@ -12,10 +12,10 @@ export class BattleService {
   private battleInstances: Record<BattleID, Battle> = {};
 
   constructor(
-    @inject("BattleStore") private battleStore: BattleStore,
-    @inject("PartyService") private partyService: PartyService,
-    @inject("EffectService") private effectService: EffectService,
-    @inject("UnitStore") private unitStore: UnitStore
+    private battleStore: BattleStore,
+    private partyService: PartyService,
+    private effectService: EffectService,
+    private unitStore: UnitStore
   ) {}
 
   getBattle(battleId: BattleID): BattleStoreState {

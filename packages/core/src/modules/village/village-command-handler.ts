@@ -1,5 +1,5 @@
 import { append, inc } from "ramda";
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { CommandSystem } from "@core/command";
 import { PartyService, PartyOwner } from "@modules/party";
 import { GameCommand } from "@modules/game";
@@ -16,12 +16,12 @@ import { VillageStashService } from "./village-stash-service";
 @injectable()
 export class VillageCommandHandler {
   constructor(
-    @inject("VillageStore") private villageStore: VillageStore,
-    @inject("VillageStashService") private villageStash: VillageStashService,
-    @inject("PartyService") private partyService: PartyService,
-    @inject("UnitService") private unitService: UnitService,
-    @inject("ActivityManager") private activityManager: ActivityManager,
-    @inject("WorldMap") private worldMap: WorldMap,
+    private villageStore: VillageStore,
+    private villageStash: VillageStashService,
+    private partyService: PartyService,
+    private unitService: UnitService,
+    private activityManager: ActivityManager,
+    private worldMap: WorldMap,
   ) {}
 
   init(commandSystem: CommandSystem) {

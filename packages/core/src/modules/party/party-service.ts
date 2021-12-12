@@ -1,5 +1,5 @@
 import { filter, propEq, values, any, assoc } from "ramda";
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { MapLocationID } from "@modules/world/interfaces";
 import { Loot } from "@models/loot";
 import { Unit, UnitService, isAlive } from "@modules/unit";
@@ -11,8 +11,8 @@ import { PartyStore } from "./party-store";
 @injectable()
 export class PartyService {
   constructor(
-    @inject("PartyStore") private partyStore: PartyStore,
-    @inject("UnitService") private unitService: UnitService,
+    private partyStore: PartyStore,
+    private unitService: UnitService,
   ) {}
 
   getPartiesOnLocation(locationId: MapLocationID): Party[] {

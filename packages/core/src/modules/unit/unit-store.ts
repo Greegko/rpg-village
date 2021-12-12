@@ -1,4 +1,4 @@
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import { EventSystem } from "@core/event";
 import { EntityStore, EntityUpdater } from "@core/store";
 import { Unit, UnitID } from "./interfaces";
@@ -9,7 +9,7 @@ export interface UnitStoreEventUpdateArgs { unit: Unit };
 
 @injectable()
 export class UnitStore extends EntityStore<Unit, UnitID> {
-  constructor(@inject("EventSystem") private eventSystem: EventSystem) {
+  constructor(private eventSystem: EventSystem) {
     super();
   }
 

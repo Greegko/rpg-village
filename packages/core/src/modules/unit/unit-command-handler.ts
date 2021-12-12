@@ -1,5 +1,5 @@
 import { assoc, evolve, path, dissoc } from "ramda";
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { CommandSystem } from "@core/command";
 import { getItem, removeItem, ItemStash, addItem } from "@models/stash";
 import { Item } from "@models/item";
@@ -8,7 +8,7 @@ import { UnitStore } from "./unit-store";
 
 @injectable()
 export class UnitCommandHandler {
-  constructor(@inject("UnitStore") private unitStore: UnitStore) {}
+  constructor(private unitStore: UnitStore) {}
 
   init(commandSystem: CommandSystem) {
     commandSystem.on(UnitCommand.EquipItem, (equipItemArgs: UnitEquipItemCommandArgs) => this.equipItem(equipItemArgs));

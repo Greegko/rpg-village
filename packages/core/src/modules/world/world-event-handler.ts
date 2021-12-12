@@ -1,4 +1,4 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { EventSystem, EventHandler } from "@core/event";
 import { PartyService, PartyOwner } from "@modules/party";
 import { UnitService } from "@modules/unit";
@@ -9,9 +9,9 @@ import { generateEnemyParty } from "./lib";
 @injectable()
 export class WorldEventHandler implements EventHandler {
   constructor(
-    @inject("PartyService") private partyService: PartyService,
-    @inject("UnitService") private unitService: UnitService,
-    @inject("GeneralGameStore") private generalGameStore: GeneralGameStore
+    private partyService: PartyService,
+    private unitService: UnitService,
+    private generalGameStore: GeneralGameStore
   ) {}
 
   init(eventSystem: EventSystem) {

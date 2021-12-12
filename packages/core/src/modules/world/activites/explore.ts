@@ -1,5 +1,5 @@
 import { evolve, dec } from "ramda";
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { PartyID, PartyService } from "@modules/party";
 import { Activity, IActivityHandler } from "@modules/activity";
 import { WorldMap } from "../world-map";
@@ -17,9 +17,9 @@ export type ExploreStartArgs = {
 @injectable()
 export class ExploreActivity implements IActivityHandler<ExploreStartArgs, ExploreState> {
   constructor(
-    @inject("WorldMap") private worldMap: WorldMap,
-    @inject("WorldStore") private worldStore: WorldStore,
-    @inject("PartyService") private partyService: PartyService,
+    private worldMap: WorldMap,
+    private worldStore: WorldStore,
+    private partyService: PartyService,
   ) {}
 
   start({ partyId }: ExploreStartArgs): ExploreState {

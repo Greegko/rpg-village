@@ -1,12 +1,12 @@
 import { propEq, evolve, map, when, always, assoc } from "ramda";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import { ItemID, Item, EquipmentSlot } from "@models/item";
 import { UnitStore } from "./unit-store";
 import { UnitID, Unit } from "./interfaces";
 
 @injectable()
 export class UnitService {
-  constructor(@inject("UnitStore") private unitStore: UnitStore) {}
+  constructor(private unitStore: UnitStore) {}
 
   addUnit(unit: Omit<Unit, "id">): UnitID {
     const newUnit = this.unitStore.add(unit);

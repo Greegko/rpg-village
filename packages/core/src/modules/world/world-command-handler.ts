@@ -1,4 +1,4 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { CommandHandler, CommandSystem } from "@core/command";
 import { ActivityManager } from "@modules/activity";
 import { PartyService, PartyOwner } from "@modules/party";
@@ -8,8 +8,8 @@ import { WorldCommand, WorldActivity, BattleCommandArgs } from "./interfaces";
 @injectable()
 export class WorldCommandHandler implements CommandHandler {
   constructor(
-    @inject("ActivityManager") private activityManager: ActivityManager,
-    @inject("PartyService") private partyService: PartyService,
+    private activityManager: ActivityManager,
+    private partyService: PartyService,
   ) {}
 
   init(commandSystem: CommandSystem) {

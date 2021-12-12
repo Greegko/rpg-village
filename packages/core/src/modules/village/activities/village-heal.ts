@@ -1,5 +1,5 @@
 import { filter, forEach, map } from "ramda";
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { UnitService, UnitID } from "@modules/unit";
 import { PartyService, PartyID } from "@modules/party";
 import { IActivityHandler, Activity } from "@modules/activity";
@@ -14,8 +14,8 @@ export type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 @injectable()
 export class VillageHealActivity implements IActivityHandler<VillageHealStateArgs, VillageHealState> {
   constructor(
-    @inject("UnitService") private unitService: UnitService,
-    @inject("PartyService") private partyService: PartyService,
+    private unitService: UnitService,
+    private partyService: PartyService,
   ) {}
 
   start({ partyId }: VillageHealStateArgs): VillageHealState {

@@ -1,4 +1,4 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { append, evolve } from "ramda";
 
 import { CommandSystem } from "@core/command";
@@ -12,8 +12,7 @@ import { BlacksmithCommand, UpgradeItemCommandArgs } from "./blacksmith-command"
 @injectable()
 export class BlacksmithCommandHandler {
   constructor(
-    @inject("UnitService") private unitService: UnitService,
-    @inject("VillageStashService")
+    private unitService: UnitService,
     private villageStashService: VillageStashService,
   ) {}
 

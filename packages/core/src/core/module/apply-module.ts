@@ -11,7 +11,7 @@ export const applyModule: ApplyModule = (container: Container) =>
     applyEventHandlers(container),
     applyProviders(container),
     applyActivities(container),
-  ] as any);
+  ]);
 
 const applyProviders = (container: Container) =>
   pipe(
@@ -20,7 +20,7 @@ const applyProviders = (container: Container) =>
       if ("value" in provide) {
         container.bind(provide.provide).toConstantValue(provide.value);
       } else {
-        container.bind(provide.name).to(provide);
+        container.bind(provide).toSelf();
       }
     }),
   );
@@ -29,10 +29,10 @@ const applyStores = (container: Container) =>
   pipe(
     propOr([], "stores"),
     forEach((storeModule: ModulStore) => {
-      container.bind(storeModule.store.name).to(storeModule.store);
+      container.bind(storeModule.store).toSelf();
       container.bind("Stores").toDynamicValue((context: interfaces.Context) => ({
         scope: storeModule.scope,
-        store: context.container.get(storeModule.store.name),
+        store: context.container.get(storeModule.store),
         initialState: storeModule.initialState,
       }));
     }),

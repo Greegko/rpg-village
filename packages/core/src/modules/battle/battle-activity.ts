@@ -1,5 +1,5 @@
 import { mergeDeepWith, add } from "ramda";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import { PartyService, PartyID } from "@modules/party";
 import { IActivityHandler, Activity } from "@modules/activity";
 import { BattleService } from "./battle-service";
@@ -12,8 +12,8 @@ export type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
   constructor(
-    @inject("PartyService") private partyService: PartyService,
-    @inject("BattleService") private battleService: BattleService,
+    private partyService: PartyService,
+    private battleService: BattleService,
   ) {}
 
   start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {

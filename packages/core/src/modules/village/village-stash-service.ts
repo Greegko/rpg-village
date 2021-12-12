@@ -1,4 +1,4 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { ItemID, Item } from "@models/item";
 import { Resource } from "@models/resource";
 import { addItems, getItem, removeItem, addResource, removeResource, getResource } from "@models/stash";
@@ -6,7 +6,7 @@ import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageStashService {
-  constructor(@inject("VillageStore") private villageStore: VillageStore) {}
+  constructor(private villageStore: VillageStore) {}
 
   addItems(items: Item[]) {
     this.villageStore.update("stash", stash => addItems(stash, items));

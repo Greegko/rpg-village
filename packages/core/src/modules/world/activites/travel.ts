@@ -1,4 +1,4 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import { evolve, dec } from "ramda";
 import { PartyService, PartyID, PartyEvent } from "@modules/party";
 import { IActivityHandler, Activity } from "@modules/activity";
@@ -21,9 +21,9 @@ export type TravelStartArgs = {
 @injectable()
 export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelState> {
   constructor(
-    @inject("PartyService") private partyService: PartyService,
-    @inject("WorldMap") private worldMap: WorldMap,
-    @inject("EventSystem") private eventSystem: EventSystem,
+    private partyService: PartyService,
+    private worldMap: WorldMap,
+    private eventSystem: EventSystem,
   ) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {

@@ -1,6 +1,6 @@
 import { values } from "ramda";
 import { EventSystem } from "@core/event";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import { WorldStore } from "./world-store";
 import { Turn } from "../game";
 import { MapLocationType, MapLocation, MapLocationID, WorldEvent } from "./interfaces";
@@ -8,8 +8,8 @@ import { MapLocationType, MapLocation, MapLocationID, WorldEvent } from "./inter
 @injectable()
 export class WorldMap {
   constructor(
-    @inject("WorldStore") private worldStore: WorldStore,
-    @inject("EventSystem") private eventSystem: EventSystem,
+    private worldStore: WorldStore,
+    private eventSystem: EventSystem,
   ) {}
 
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocationID {
