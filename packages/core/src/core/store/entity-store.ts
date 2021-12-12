@@ -12,7 +12,7 @@ export interface IEntityStore<Entity extends { id: EntityID }, EntityID extends 
   getState(): EntityStoreState<Entity, EntityID>;
   init(state: EntityStoreState<Entity, EntityID>): void;
   get(id: EntityID): Entity;
-  add(entity: Entity): Entity;
+  add(entity: Omit<Entity, "id">): Entity;
   update(entityId: EntityID, entity: Partial<Entity>): void;
   update(entityId: EntityID, updater: EntityUpdater<Entity>): void;
   remove(entityId: EntityID): void;
