@@ -5,7 +5,7 @@ import test from "ava";
 test("loadGame should load the state", t => {
   const game = gameFactory();
 
-  game.loadGame({ general: { turn: 1 } } as GameState);
+  game.loadGame({ general: { turn: 1, difficulty: 0 } } as GameState);
 
   const newState = game.gameTurn();
 
@@ -13,7 +13,7 @@ test("loadGame should load the state", t => {
 });
 
 test("gameState should return the current state of the game", t => {
-  const game = gameFactory({ state: { general: { turn: 1 } } });
+  const game = gameFactory({ state: { general: { turn: 1, difficulty: 0 } } });
 
   const state = game.getState();
 

@@ -29,7 +29,7 @@ function createInitState(): GameState {
     world: {},
     village: villageFactory(),
     units: {},
-    general: { turn: 0 },
+    general: { turn: 0, difficulty: 0 },
     activities: {},
   };
 }

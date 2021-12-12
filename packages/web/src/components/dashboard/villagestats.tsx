@@ -22,6 +22,7 @@ export const VillageStats = connect(
   <div className="villagestats">
     <ul className="villagestats__list">
       <li className="villagestats__list-item">Turn: {general.turn}</li>
+      <li className="villagestats__list-item">Difficulty: {general.difficulty}</li>
       <li className="villagestats__list-item">Gold: {village.stash.resource.gold}</li>
       <li className="villagestats__list-item">
         <button style={{ margin: 0 }} onClick={() => executeCommand({ command: VillageCommand.GenerateGold })}>
