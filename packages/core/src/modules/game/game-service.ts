@@ -1,5 +1,5 @@
 import { injectable, inject } from "inversify";
-import { inc } from "ramda";
+import { inc, add } from "ramda";
 import { GeneralGameStore } from "./general-store";
 
 @injectable()
@@ -11,6 +11,6 @@ export class GameService {
   }
 
   increaseDifficulty(difficulty: number) {
-    this.generalGameStore.update("difficulty", level => difficulty + level);
+    this.generalGameStore.update("difficulty", add(difficulty));
   }
 }

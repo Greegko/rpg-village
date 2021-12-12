@@ -23,6 +23,6 @@ export class UnitEventHandler implements EventHandler {
   }
 
   private unitDie(unit: Unit) {
-    this.eventSystem.fire(GameEvent.IncreaseDifficulty, { args: { difficulty: unit.level } });
+    this.eventSystem.fire(GameEvent.IncreaseDifficulty, { difficulty: unit.level });
   }
 }
