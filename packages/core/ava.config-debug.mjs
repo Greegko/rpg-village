@@ -2,6 +2,7 @@ import * as fs from 'fs';
 
 const defaultSettings = {
   extensions: ["ts"],
+  timeout: '100m',
   require: ["ts-node/register", "tsconfig-paths/register"],
 };
 
