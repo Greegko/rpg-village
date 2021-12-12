@@ -4,7 +4,7 @@ import { PartyService, PartyOwner } from "@modules/party";
 import { UnitService } from "@modules/unit";
 import { GeneralGameStore } from "@modules/game";
 import { WorldEvent, MapLocationID, NewLocationEventArgs } from "./interfaces";
-import { generateEnemy } from "./lib";
+import { generateEnemyParty } from "./lib";
 
 @injectable()
 export class WorldEventHandler implements EventHandler {
@@ -19,13 +19,14 @@ export class WorldEventHandler implements EventHandler {
   }
 
   private addEnemyUnitToMap(locationId: MapLocationID) {
-    const unitId = this.unitService.addUnit(generateEnemy(this.generalGameStore.get('difficulty')));
+    const party = generateEnemyParty(this.generalGameStore.get('difficulty')); 
+    const unitIds = party.units.map(unit => this.unitService.addUnit(unit));
 
     this.partyService.createParty({
       locationId,
       owner: PartyOwner.Enemy,
-      unitIds: [unitId],
-      stash: { resource: { gold: 0 }, items: [] },
+      unitIds: unitIds,
+      stash: party.stash,
     });
   }
 }

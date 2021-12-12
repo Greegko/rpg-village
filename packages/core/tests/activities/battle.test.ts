@@ -54,31 +54,6 @@ test("should gain xp then winner heroes", {
   expectedState: { units: { "winner-unit": { xp: 25 } } },
 });
 
-test("should party gain gold", {
-  initState: createState(({ activity, party, unit, battle }) => [
-    activity({
-      name: BattleActivityType.Battle,
-      state: {
-        battleId: battle({
-          partyId: party({
-            id: "winner-party",
-            unitIds: [unit({ dmg: 10, hp: 10 })],
-            stash: { resource: { gold: 0 } },
-          }),
-          defenderPartyId: party({
-            unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
-            stash: { resource: { gold: 0 } },
-          }),
-        }),
-      },
-    }),
-  ]),
-  turn: true,
-  expectedState: {
-    parties: { "winner-party": { stash: { resource: { gold: 25 } } } },
-  },
-});
-
 test("should party gain the looser stash", {
   initState: createState(({ activity, party, unit, battle }) => [
     activity({
@@ -100,7 +75,7 @@ test("should party gain the looser stash", {
   ]),
   turn: true,
   expectedState: {
-    parties: { "winner-party": { stash: { resource: { gold: 50 } } } },
+    parties: { "winner-party": { stash: { resource: { gold: 25 } } } },
   },
 });
 
