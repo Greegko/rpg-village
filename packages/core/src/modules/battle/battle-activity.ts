@@ -1,7 +1,8 @@
-import { mergeDeepWith, add } from "ramda";
+import { mergeDeepWith, add, complement, prop } from "ramda";
 import { injectable } from "inversify";
 import { PartyService, PartyID } from "@modules/party";
 import { IActivityHandler, Activity } from "@modules/activity";
+import { isAlive } from "@modules/unit";
 import { BattleService } from "./battle-service";
 import { BattleID } from "./interfaces";
 import { calculateLoot } from "./lib";
@@ -44,10 +45,16 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
       : [battle.defenderPartyId, battle.partyId];
 
     const partyStash = this.partyService.clearPartyStash(looserPartyId);
-    const loot = calculateLoot(this.partyService.getPartyUnits(looserPartyId));
+    const winnerUnits = this.partyService.getPartyUnits(winnerPartyId);
+    const looserUnits = this.partyService.getPartyUnits(looserPartyId);
+    const loot = calculateLoot(looserUnits);
     const mergedLoot = mergeDeepWith(add, loot, partyStash);
 
     this.partyService.collectLoot(winnerPartyId, mergedLoot);
+    
+    this.partyService.removeUnitFromParty(winnerPartyId, winnerUnits.filter(complement(isAlive)).map(prop('id')));
+    this.partyService.removeUnitFromParty(looserPartyId, looserUnits.map(prop('id')));
+
     this.partyService.removeParty(looserPartyId);
     this.battleService.removeBattle(state.battleId);
   }

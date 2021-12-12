@@ -109,3 +109,29 @@ test("should apply item dmg effect", {
   turn: true,
   expectedState: { units: { "defender-unit": { hp: 5 } } },
 });
+
+test("should increase the difficulty on unit death", {
+  initState: createState(({ activity, party, unit, battle, general }) => [
+    general({ difficulty: 10 }),
+    activity({
+      name: BattleActivityType.Battle,
+      state: {
+        battleId: battle({
+          partyId: party({
+            unitIds: [
+              unit({
+                dmg: 10,
+                hp: 100,
+              }),
+            ],
+          }),
+          defenderPartyId: party({
+            unitIds: [unit({ dmg: 1, hp: 1, armor: 0, level: 2 })],
+          }),
+        }),
+      },
+    }),
+  ]),
+  turn: true,
+  expectedState: { general: { difficulty: 12 } },
+});

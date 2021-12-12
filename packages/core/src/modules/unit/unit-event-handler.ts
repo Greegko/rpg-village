@@ -1,9 +1,8 @@
 import { injectable } from "inversify";
 import { EventHandler, EventSystem } from "@core/event";
-import { Unit, UnitEvent } from "@modules/unit";
 import { GameEvent } from "@modules/game";
 import { UnitStoreEvent, UnitStoreEventUpdateArgs } from './unit-store';
-import { UnitEventDieArgs } from "public-api";
+import { UnitEventDieArgs, Unit, UnitEvent } from "./interfaces";
 
 @injectable()
 export class UnitEventHandler implements EventHandler {

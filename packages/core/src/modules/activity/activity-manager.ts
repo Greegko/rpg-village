@@ -7,14 +7,13 @@ import { ActivityStore } from "./activity-store";
 @injectable()
 export class ActivityManager {
   constructor(
-    @inject("getActivityHandler")
-    private getActivityHandler: GetActivityHandlerByName,
+    @inject("getActivityHandler") private getActivityHandler: GetActivityHandlerByName,
     private activityStore: ActivityStore,
-    private partyService: PartyService,
+    private partyService: PartyService
   ) {}
 
   startPartyActivity(activtyName: string, startingArgs: PartyActivityStartArgs) {
-    if (this.getPartyActivity(startingArgs.partyId)) return;
+    if (this.partyService.getParty(startingArgs.partyId).activityId) return;
 
     const activityHandler = this.getActivityHandler(activtyName);
     if (activityHandler.isRunnable(startingArgs)) {
@@ -30,10 +29,6 @@ export class ActivityManager {
         this.partyService.setPartyActivity(startingArgs.involvedPartyId, activity.id);
       }
     }
-  }
-
-  getPartyActivity(partyId: string) {
-    return this.partyService.getParty(partyId).activityId;
   }
 
   runActivites() {

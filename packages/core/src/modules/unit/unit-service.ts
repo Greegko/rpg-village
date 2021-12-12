@@ -23,12 +23,6 @@ export class UnitService {
     }));
   }
 
-  dmgUnit(unitId: UnitID, hpLoss: number): void {
-    this.unitStore.update(unitId, unit => ({
-      hp: Math.max(0, unit.hp - hpLoss),
-    }));
-  }
-
   gainXpUnit(unitId: UnitID, xp: number): void {
     this.unitStore.update(unitId, unit => ({ xp: unit.xp + xp }));
   }
@@ -49,5 +43,9 @@ export class UnitService {
 
   setEquipment(unitId: UnitID, equipmentSlot: EquipmentSlot, item: Item) {
     this.unitStore.update(unitId, unit => evolve({ equipment: assoc(equipmentSlot, item) }, unit));
+  }
+
+  removeUnit(unitId: UnitID) {
+    this.unitStore.remove(unitId);
   }
 }

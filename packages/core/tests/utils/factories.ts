@@ -1,4 +1,4 @@
-import { Party, VillageState, PartyOwner, MapLocation } from "../../public-api";
+import { Party, VillageState, PartyOwner, MapLocation, GeneralGameStoreState } from "../../public-api";
 import { BattleStoreState, ItemStash, ResourceStash, PartyActivity } from "../../public-api";
 import { MapLocationType, Unit, UnitType, ActivityType, Item, ItemType } from "../../public-api";
 import { Chance } from "chance";
@@ -97,4 +97,11 @@ export function itemFactory({
   itemType = chance.pickone([ItemType.Armor, ItemType.Shield, ItemType.Weapon]),
 }: Partial<Item>): Item {
   return { effects, id, name, itemType };
+}
+
+export function generalStateFactory({
+  turn = 0,
+  difficulty = 0
+}: Partial<GeneralGameStoreState> = {}): GeneralGameStoreState {
+  return { turn, difficulty };
 }

@@ -1,10 +1,10 @@
-import { filter, propEq, values, any, assoc } from "ramda";
+import { filter, propEq, values, any, assoc, without } from "ramda";
 import { injectable } from "inversify";
-import { MapLocationID } from "@modules/world/interfaces";
+import { MapLocationID } from "@modules/world";
 import { Loot } from "@models/loot";
-import { Unit, UnitService, isAlive } from "@modules/unit";
+import { Unit, isAlive, UnitID, UnitService } from "@modules/unit";
 import { addResource } from "@models/stash";
-import { ActivityID } from "@modules/activity";
+import { ActivityID, ActivityStore } from "@modules/activity";
 import { Party, PartyID, PartyStash } from "./interfaces";
 import { PartyStore } from "./party-store";
 
@@ -13,6 +13,7 @@ export class PartyService {
   constructor(
     private partyStore: PartyStore,
     private unitService: UnitService,
+    private activityStore: ActivityStore
   ) {}
 
   getPartiesOnLocation(locationId: MapLocationID): Party[] {
@@ -29,9 +30,9 @@ export class PartyService {
   }
 
   collectLoot(partyId: PartyID, loot: Loot) {
-    const partyAliveUnits = this.getPartyUnits(partyId).filter(isAlive);
+    const partyUnits = this.getPartyUnits(partyId);
 
-    partyAliveUnits.forEach(unit => this.unitService.gainXpUnit(unit.id, Math.floor(loot.xp / partyAliveUnits.length)));
+    partyUnits.forEach(unit => this.unitService.gainXpUnit(unit.id, Math.floor(loot.xp / partyUnits.length)));
 
     this.partyStore.update(partyId, party => ({
       stash: addResource(party.stash, loot.resource),
@@ -60,10 +61,23 @@ export class PartyService {
   }
 
   removeParty(partyId: PartyID) {
+    this.removePartyActivity(partyId);
     this.partyStore.remove(partyId);
   }
-
+  
   getPartyUnits(partyId: PartyID): Unit[] {
     return this.getParty(partyId).unitIds.map(unitId => this.unitService.getUnit(unitId));
+  }
+
+  removeUnitFromParty(partyId: PartyID, unitIds: UnitID[]) {
+    this.partyStore.update(partyId, party => ({ unitIds: without(unitIds, party.unitIds) }));
+  }
+
+  private removePartyActivity(partyId: PartyID) {
+    const activityId = this.getParty(partyId).activityId;
+    
+    if(activityId) {
+      this.activityStore.remove(activityId);
+    }
   }
 }
