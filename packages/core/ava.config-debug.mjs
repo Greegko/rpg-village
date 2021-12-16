@@ -12,7 +12,7 @@ const file = process.argv[2]; // ${file}
 const fileLine = process.argv[6]; // --file-line = ${lineNumber}
 
 const fileLineText = fs.readFileSync(file, 'utf-8').split('\n')[fileLine - 1];
-const testNameFinderRegexp = RegExp("^test\\(\"(.+)\", \\{$");
+const testNameFinderRegexp = RegExp("^test\\(\"(.+)\",( t =>)? \\{$");
 const match = fileLineText.match(testNameFinderRegexp);
 
 console.log();
