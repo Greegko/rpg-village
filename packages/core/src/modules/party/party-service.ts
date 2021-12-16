@@ -2,7 +2,7 @@ import { filter, propEq, values, any, assoc, without } from "ramda";
 import { injectable } from "inversify";
 import { MapLocationID } from "@modules/world";
 import { Loot } from "@models/loot";
-import { Unit, isAlive, UnitID, UnitService } from "@modules/unit";
+import { Unit, isAlive, UnitID, UnitStore } from "@modules/unit";
 import { addResource } from "@models/stash";
 import { ActivityID, ActivityStore } from "@modules/activity";
 import { Party, PartyID, PartyStash } from "./interfaces";
@@ -12,7 +12,7 @@ import { PartyStore } from "./party-store";
 export class PartyService {
   constructor(
     private partyStore: PartyStore,
-    private unitService: UnitService,
+    private unitStore: UnitStore,
     private activityStore: ActivityStore
   ) {}
 
@@ -32,7 +32,7 @@ export class PartyService {
   collectLoot(partyId: PartyID, loot: Loot) {
     const partyUnits = this.getPartyUnits(partyId);
 
-    partyUnits.forEach(unit => this.unitService.gainXpUnit(unit.id, Math.floor(loot.xp / partyUnits.length)));
+    partyUnits.forEach(unit => this.unitStore.gainXpUnit(unit.id, Math.floor(loot.xp / partyUnits.length)));
 
     this.partyStore.update(partyId, party => ({
       stash: addResource(party.stash, loot.resource),
@@ -66,7 +66,7 @@ export class PartyService {
   }
   
   getPartyUnits(partyId: PartyID): Unit[] {
-    return this.getParty(partyId).unitIds.map(unitId => this.unitService.getUnit(unitId));
+    return this.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
 
   removeUnitFromParty(partyId: PartyID, unitIds: UnitID[]) {

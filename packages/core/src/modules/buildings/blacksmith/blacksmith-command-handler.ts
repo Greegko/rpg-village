@@ -4,7 +4,7 @@ import { append, evolve } from "ramda";
 import { CommandSystem } from "@core/command";
 import { AttackEffectType, Effect } from "@models/effect";
 import { EquipmentSlot, Item, ItemID } from "@models/item";
-import { UnitID, UnitService } from "@modules/unit";
+import { UnitID, UnitStore } from "@modules/unit";
 import { getItem } from "@models/stash";
 import { VillageStashService } from "@modules/village";
 import { BlacksmithCommand, UpgradeItemCommandArgs } from "./blacksmith-command";
@@ -12,7 +12,7 @@ import { BlacksmithCommand, UpgradeItemCommandArgs } from "./blacksmith-command"
 @injectable()
 export class BlacksmithCommandHandler {
   constructor(
-    private unitService: UnitService,
+    private unitStore: UnitStore,
     private villageStashService: VillageStashService,
   ) {}
 
@@ -27,21 +27,21 @@ export class BlacksmithCommandHandler {
   }
 
   upgradeStashItem(unitId: UnitID, itemId: ItemID) {
-    const unit = this.unitService.getUnit(unitId);
+    const unit = this.unitStore.get(unitId);
 
     const stashItem = getItem(unit.stash, itemId);
     if (stashItem) {
       const newItem = this.adjustItemWithEffect(stashItem);
-      this.unitService.updateStashItem(unitId, itemId, newItem);
+      this.unitStore.updateStashItem(unitId, itemId, newItem);
     }
   }
 
   upgradeEquipmentItem(unitId: UnitID, equipmentSlot: EquipmentSlot) {
-    const item = this.unitService.getEquipment(unitId, equipmentSlot);
+    const item = this.unitStore.getEquipment(unitId, equipmentSlot);
 
     if (item) {
       const newItem = this.adjustItemWithEffect(item);
-      this.unitService.setEquipment(unitId, equipmentSlot, newItem);
+      this.unitStore.setEquipment(unitId, equipmentSlot, newItem);
     }
   }
 

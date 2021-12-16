@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { EventSystem, EventHandler } from "@core/event";
 import { PartyService, PartyOwner } from "@modules/party";
-import { UnitService } from "@modules/unit";
+import { UnitStore } from "@modules/unit";
 import { GeneralGameStore } from "@modules/game";
 import { WorldEvent, MapLocationID, NewLocationEventArgs } from "./interfaces";
 import { generateEnemyParty } from "./lib";
@@ -10,7 +10,7 @@ import { generateEnemyParty } from "./lib";
 export class WorldEventHandler implements EventHandler {
   constructor(
     private partyService: PartyService,
-    private unitService: UnitService,
+    private unitStore: UnitStore,
     private generalGameStore: GeneralGameStore
   ) {}
 
@@ -20,7 +20,7 @@ export class WorldEventHandler implements EventHandler {
 
   private addEnemyUnitToMap(locationId: MapLocationID) {
     const party = generateEnemyParty(this.generalGameStore.get('difficulty')); 
-    const unitIds = party.units.map(unit => this.unitService.addUnit(unit));
+    const unitIds = party.units.map(unit => this.unitStore.add(unit)).map(x => x.id);
 
     this.partyService.createParty({
       locationId,

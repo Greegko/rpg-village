@@ -6,7 +6,7 @@ import { GameCommand } from "@modules/game";
 import { MapLocationType, WorldMap } from "@modules/world";
 import { Item } from "@models/item";
 import { Resource } from "@models/resource";
-import { UnitService } from "@modules/unit";
+import { UnitStore } from "@modules/unit";
 import { ActivityManager } from "@modules/activity";
 import { newBuildingCost, newHeroCost, heroFactory } from "./lib";
 import { VillageCommand } from "./interfaces";
@@ -19,7 +19,7 @@ export class VillageCommandHandler {
     private villageStore: VillageStore,
     private villageStash: VillageStashService,
     private partyService: PartyService,
-    private unitService: UnitService,
+    private unitStore: UnitStore,
     private activityManager: ActivityManager,
     private worldMap: WorldMap,
   ) {}
@@ -68,7 +68,7 @@ export class VillageCommandHandler {
     const goldCost = newHeroCost(1 + heroesCount);
 
     if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < villageState.houses) {
-      const heroId = this.unitService.addUnit(heroFactory());
+      const heroId = this.unitStore.add(heroFactory()).id;
 
       this.villageStash.removeResource({ gold: goldCost });
       this.villageStore.update("heroes", append(heroId));
