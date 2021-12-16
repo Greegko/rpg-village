@@ -1,10 +1,10 @@
-import { filter, propEq, values, any, assoc, without } from "ramda";
+import { filter, propEq, values, any, without } from "ramda";
 import { injectable } from "inversify";
 import { MapLocationID } from "@modules/world";
 import { Loot } from "@models/loot";
-import { Unit, isAlive, UnitID, UnitStore } from "@modules/unit";
+import { Unit, isAlive, UnitStore, UnitID } from "@modules/unit";
 import { addResource } from "@models/stash";
-import { ActivityID, ActivityStore } from "@modules/activity";
+import { ActivityStore } from "@modules/activity";
 import { Party, PartyID, PartyStash } from "./interfaces";
 import { PartyStore } from "./party-store";
 
@@ -19,10 +19,6 @@ export class PartyService {
   getPartiesOnLocation(locationId: MapLocationID): Party[] {
     const parties = this.partyStore.getState();
     return values(filter(propEq("locationId", locationId), parties));
-  }
-
-  getParty(partyId: PartyID): Party {
-    return this.partyStore.get(partyId);
   }
 
   isPartyAlive(partyId: PartyID): boolean {
@@ -43,16 +39,8 @@ export class PartyService {
     this.partyStore.add(party);
   }
 
-  setPartyLocation(partyId: PartyID, locationId: MapLocationID) {
-    this.partyStore.update(partyId, assoc("locationId", locationId));
-  }
-
-  setPartyActivity(partyId: PartyID, activityId: ActivityID | undefined) {
-    this.partyStore.update(partyId, assoc("activityId", activityId));
-  }
-
   clearPartyStash(partyId: PartyID): PartyStash {
-    const stash = this.getParty(partyId).stash;
+    const stash = this.partyStore.get(partyId).stash;
     this.partyStore.update(partyId, () => ({
       stash: { resource: { gold: 0 }, items: [] },
     }));
@@ -66,7 +54,7 @@ export class PartyService {
   }
   
   getPartyUnits(partyId: PartyID): Unit[] {
-    return this.getParty(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
+    return this.partyStore.get(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
 
   removeUnitFromParty(partyId: PartyID, unitIds: UnitID[]) {
@@ -74,7 +62,7 @@ export class PartyService {
   }
 
   private removePartyActivity(partyId: PartyID) {
-    const activityId = this.getParty(partyId).activityId;
+    const activityId = this.partyStore.get(partyId).activityId;
     
     if(activityId) {
       this.activityStore.remove(activityId);

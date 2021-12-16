@@ -1,6 +1,6 @@
 import { evolve, dec } from "ramda";
 import { injectable } from "inversify";
-import { PartyID, PartyService } from "@modules/party";
+import { PartyID, PartyStore } from "@modules/party";
 import { Activity, IActivityHandler } from "@modules/activity";
 import { WorldMap } from "../world-map";
 import { WorldStore } from "../world-store";
@@ -19,7 +19,7 @@ export class ExploreActivity implements IActivityHandler<ExploreStartArgs, Explo
   constructor(
     private worldMap: WorldMap,
     private worldStore: WorldStore,
-    private partyService: PartyService,
+    private partyStore: PartyStore,
   ) {}
 
   start({ partyId }: ExploreStartArgs): ExploreState {
@@ -30,7 +30,7 @@ export class ExploreActivity implements IActivityHandler<ExploreStartArgs, Explo
   }
 
   isRunnable({ partyId }: ExploreStartArgs): boolean {
-    const partyLocation = this.partyService.getParty(partyId).locationId;
+    const partyLocation = this.partyStore.get(partyId).locationId;
     const exploreLocation = this.worldStore.get(partyLocation);
     return !exploreLocation.explored;
   }
@@ -44,6 +44,6 @@ export class ExploreActivity implements IActivityHandler<ExploreStartArgs, Explo
   }
 
   resolve({ state }: Activity<ExploreState>) {
-    this.worldMap.exploreLocation(this.partyService.getParty(state.partyId).locationId);
+    this.worldMap.exploreLocation(this.partyStore.get(state.partyId).locationId);
   }
 }

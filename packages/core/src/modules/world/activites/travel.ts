@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { evolve, dec } from "ramda";
-import { PartyService, PartyID, PartyEvent } from "@modules/party";
+import { PartyStore, PartyID, PartyEvent } from "@modules/party";
 import { IActivityHandler, Activity } from "@modules/activity";
 import { EventSystem } from "@core/event";
 
@@ -21,13 +21,13 @@ export type TravelStartArgs = {
 @injectable()
 export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelState> {
   constructor(
-    private partyService: PartyService,
+    private partyStore: PartyStore,
     private worldMap: WorldMap,
     private eventSystem: EventSystem,
   ) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
-    const currentLocation = this.partyService.getParty(partyId).locationId;
+    const currentLocation = this.partyStore.get(partyId).locationId;
 
     return {
       partyId,
@@ -37,7 +37,7 @@ export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelS
   }
 
   isRunnable({ partyId, targetLocationId }: TravelStartArgs) {
-    const partyLocation = this.partyService.getParty(partyId).locationId;
+    const partyLocation = this.partyStore.get(partyId).locationId;
 
     return targetLocationId !== partyLocation;
   }
@@ -51,7 +51,7 @@ export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelS
   }
 
   resolve({ state }: Activity<TravelState>) {
-    this.partyService.setPartyLocation(state.partyId, state.targetLocationId);
+    this.partyStore.setLocation(state.partyId, state.targetLocationId);
     this.eventSystem.fire(PartyEvent.ArrivedToLocation, {
       partyId: state.partyId,
       locationId: state.targetLocationId,

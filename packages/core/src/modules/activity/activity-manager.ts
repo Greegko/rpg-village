@@ -1,6 +1,6 @@
 import { forEach, values, assoc } from "ramda";
 import { inject, injectable } from "inversify";
-import { PartyService } from "@modules/party";
+import { PartyStore } from "@modules/party";
 import { GetActivityHandlerByName, PartyActivity, ActivityType, PartyActivityStartArgs } from "./interfaces";
 import { ActivityStore } from "./activity-store";
 
@@ -9,11 +9,11 @@ export class ActivityManager {
   constructor(
     @inject("getActivityHandler") private getActivityHandler: GetActivityHandlerByName,
     private activityStore: ActivityStore,
-    private partyService: PartyService
+    private partyStore: PartyStore
   ) {}
 
   startPartyActivity(activtyName: string, startingArgs: PartyActivityStartArgs) {
-    if (this.partyService.getParty(startingArgs.partyId).activityId) return;
+    if (this.partyStore.get(startingArgs.partyId).activityId) return;
 
     const activityHandler = this.getActivityHandler(activtyName);
     if (activityHandler.isRunnable(startingArgs)) {
@@ -24,9 +24,9 @@ export class ActivityManager {
         type: ActivityType.Party,
         startArgs: startingArgs,
       });
-      this.partyService.setPartyActivity(startingArgs.partyId, activity.id);
+      this.partyStore.setActivity(startingArgs.partyId, activity.id);
       if (startingArgs.involvedPartyId) {
-        this.partyService.setPartyActivity(startingArgs.involvedPartyId, activity.id);
+        this.partyStore.setActivity(startingArgs.involvedPartyId, activity.id);
       }
     }
   }
@@ -44,9 +44,9 @@ export class ActivityManager {
     if (isDone) {
       activityHandler.resolve(updatedActivity);
       this.activityStore.remove(activity.id);
-      this.partyService.setPartyActivity(activity.startArgs.partyId, undefined);
+      this.partyStore.setActivity(activity.startArgs.partyId, undefined);
       if (activity.startArgs.involvedPartyId) {
-        this.partyService.setPartyActivity(activity.startArgs.involvedPartyId, undefined);
+        this.partyStore.setActivity(activity.startArgs.involvedPartyId, undefined);
       }
     } else {
       this.activityStore.update(activity.id, updatedActivity);
