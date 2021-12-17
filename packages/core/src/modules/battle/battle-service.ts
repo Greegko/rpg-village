@@ -15,7 +15,7 @@ export class BattleService {
     private battleStore: BattleStore,
     private partyService: PartyService,
     private effectService: EffectService,
-    private unitStore: UnitStore
+    private unitStore: UnitStore,
   ) {}
 
   getBattle(battleId: BattleID): BattleStoreState {
@@ -34,8 +34,8 @@ export class BattleService {
     const battle = this.getBattleInstance(battleId);
     const battleState = battle.turn();
 
-    forEach((unit) => this.unitStore.update(unit.id, { hp: unit.hp }), battleState.attackerParty.units);
-    forEach((unit) => this.unitStore.update(unit.id, { hp: unit.hp }), battleState.defenderParty.units);
+    forEach(unit => this.unitStore.update(unit.id, { hp: unit.hp }), battleState.attackerParty.units);
+    forEach(unit => this.unitStore.update(unit.id, { hp: unit.hp }), battleState.defenderParty.units);
   }
 
   removeBattle(battleId: BattleID): void {

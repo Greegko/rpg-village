@@ -20,11 +20,7 @@ export type TravelStartArgs = {
 
 @injectable()
 export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelState> {
-  constructor(
-    private partyStore: PartyStore,
-    private worldMap: WorldMap,
-    private eventSystem: EventSystem,
-  ) {}
+  constructor(private partyStore: PartyStore, private worldMap: WorldMap, private eventSystem: EventSystem) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
     const currentLocation = this.partyStore.get(partyId).locationId;

@@ -9,7 +9,7 @@ export class ActivityManager {
   constructor(
     @inject("getActivityHandler") private getActivityHandler: GetActivityHandlerByName,
     private activityStore: ActivityStore,
-    private partyStore: PartyStore
+    private partyStore: PartyStore,
   ) {}
 
   startPartyActivity(activtyName: string, startingArgs: PartyActivityStartArgs) {

@@ -6,7 +6,7 @@ export function calculateLoot(units: Unit[]): Loot {
   const xp = sum(units.map(unit => unit.level * 25));
 
   return {
-    resource: {  },
+    resource: {},
     xp,
   };
 }

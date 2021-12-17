@@ -6,7 +6,6 @@ import { Unit, UnitID } from "./interfaces";
 
 @injectable()
 export class UnitStore extends EntityStore<Unit, UnitID> {
-
   healUnit(unitId: UnitID, hpGain: number): void {
     this.update(unitId, unit => ({
       hp: Math.min(unit.maxhp, unit.hp + hpGain),
@@ -34,5 +33,4 @@ export class UnitStore extends EntityStore<Unit, UnitID> {
   setEquipment(unitId: UnitID, equipmentSlot: EquipmentSlot, item: Item) {
     this.update(unitId, unit => evolve({ equipment: assoc(equipmentSlot, item) }, unit));
   }
-
 }

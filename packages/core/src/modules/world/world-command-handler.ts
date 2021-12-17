@@ -7,10 +7,7 @@ import { WorldCommand, WorldActivity, BattleCommandArgs } from "./interfaces";
 
 @injectable()
 export class WorldCommandHandler implements CommandHandler {
-  constructor(
-    private activityManager: ActivityManager,
-    private partyService: PartyService,
-  ) {}
+  constructor(private activityManager: ActivityManager, private partyService: PartyService) {}
 
   init(commandSystem: CommandSystem) {
     commandSystem.on(WorldCommand.Travel, (args: any) => this.travelCommand(args));

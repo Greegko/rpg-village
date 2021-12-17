@@ -29,16 +29,13 @@ export class Battle {
 
   isDone(): boolean {
     const areAllDead = all(complement(isAlive));
-    return (
-      areAllDead(this.battleState.attackerParty.units) ||
-      areAllDead(this.battleState.defenderParty.units)
-    );
+    return areAllDead(this.battleState.attackerParty.units) || areAllDead(this.battleState.defenderParty.units);
   }
 
   private createStartBattleState(attackerPartyUnits: Unit[], defenderPartyUnits: Unit[]): BattleState {
     return {
       attackerParty: this.calculateBattleParty(attackerPartyUnits),
-      defenderParty: this.calculateBattleParty(defenderPartyUnits)
+      defenderParty: this.calculateBattleParty(defenderPartyUnits),
     };
   }
 
@@ -50,16 +47,23 @@ export class Battle {
   }
 
   private handlePartyAttack(attackerParty: BattleParty, defenderParty: BattleParty) {
-    forEach((attackerUnit) => {
+    forEach(attackerUnit => {
       const defenderUnit = sample(defenderParty.units.filter(isAlive));
 
-      const [ attackerUnitStats, defenderUnitStats ] = [this.getBattleStats(attackerUnit, attackerParty), this.getBattleStats(defenderUnit, defenderParty)];
+      const [attackerUnitStats, defenderUnitStats] = [
+        this.getBattleStats(attackerUnit, attackerParty),
+        this.getBattleStats(defenderUnit, defenderParty),
+      ];
 
       defenderUnit.hp = Math.max(0, defenderUnit.hp - Math.max(attackerUnitStats.dmg - defenderUnitStats.armor, 0));
     }, attackerParty.units.filter(isAlive));
   }
 
   private getBattleStats(unit: Unit, battleParty: BattleParty): BattleStats {
-    return calculateBattleStats(unit.dmg, unit.armor, concat(this.effectService.getUnitEffects(unit), battleParty.effects));
+    return calculateBattleStats(
+      unit.dmg,
+      unit.armor,
+      concat(this.effectService.getUnitEffects(unit), battleParty.effects),
+    );
   }
 }

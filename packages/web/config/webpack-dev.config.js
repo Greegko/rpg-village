@@ -7,6 +7,6 @@ module.exports = Object.assign(webpackConfig, {
   stats: "minimal",
 
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 });

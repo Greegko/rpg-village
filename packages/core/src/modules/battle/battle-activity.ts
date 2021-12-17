@@ -16,7 +16,7 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,
-    private gameService: GameService
+    private gameService: GameService,
   ) {}
 
   start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {
@@ -53,13 +53,13 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     const mergedLoot = mergeDeepWith(add, loot, partyStash);
 
     this.partyService.collectLoot(winnerPartyId, mergedLoot);
-    
+
     const diedWinnerUnits = winnerUnits.filter(complement(isAlive));
 
     this.gameService.increaseDifficulty(sum(looserUnits.map(x => x.level)));
-    
-    this.partyService.removeUnitFromParty(winnerPartyId, diedWinnerUnits.map(prop('id')));
-    this.partyService.removeUnitFromParty(looserPartyId, looserUnits.map(prop('id')));
+
+    this.partyService.removeUnitFromParty(winnerPartyId, diedWinnerUnits.map(prop("id")));
+    this.partyService.removeUnitFromParty(looserPartyId, looserUnits.map(prop("id")));
 
     this.partyService.removeParty(looserPartyId);
     this.battleService.removeBattle(state.battleId);

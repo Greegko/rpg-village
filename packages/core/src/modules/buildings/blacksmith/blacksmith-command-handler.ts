@@ -11,10 +11,7 @@ import { BlacksmithCommand, UpgradeItemCommandArgs } from "./blacksmith-command"
 
 @injectable()
 export class BlacksmithCommandHandler {
-  constructor(
-    private unitStore: UnitStore,
-    private villageStashService: VillageStashService,
-  ) {}
+  constructor(private unitStore: UnitStore, private villageStashService: VillageStashService) {}
 
   init(commandSystem: CommandSystem) {
     commandSystem.on(BlacksmithCommand.UpgradeItem, (args: UpgradeItemCommandArgs) => {

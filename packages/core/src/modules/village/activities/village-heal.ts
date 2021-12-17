@@ -13,10 +13,7 @@ export type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
 export class VillageHealActivity implements IActivityHandler<VillageHealStateArgs, VillageHealState> {
-  constructor(
-    private unitStore: UnitStore,
-    private partyService: PartyService,
-  ) {}
+  constructor(private unitStore: UnitStore, private partyService: PartyService) {}
 
   start({ partyId }: VillageHealStateArgs): VillageHealState {
     return {

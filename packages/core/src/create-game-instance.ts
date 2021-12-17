@@ -6,7 +6,7 @@ import { createInvesifyContainer } from "./create-inversify-container";
 import * as modules from "./modules/public-api";
 import { Skill } from "./modules/skill";
 import { GameConfig } from "./game-config";
-import { GameController } from './modules/game/game-controller';
+import { GameController } from "./modules/game/game-controller";
 
 export interface GameConfigProvides {
   available_skills: Skill[];

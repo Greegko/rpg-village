@@ -16,11 +16,7 @@ export type ExploreStartArgs = {
 
 @injectable()
 export class ExploreActivity implements IActivityHandler<ExploreStartArgs, ExploreState> {
-  constructor(
-    private worldMap: WorldMap,
-    private worldStore: WorldStore,
-    private partyStore: PartyStore,
-  ) {}
+  constructor(private worldMap: WorldMap, private worldStore: WorldStore, private partyStore: PartyStore) {}
 
   start({ partyId }: ExploreStartArgs): ExploreState {
     return {

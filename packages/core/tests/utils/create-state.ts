@@ -1,4 +1,12 @@
-import { Party, PartyID, VillageState, MapLocationID, GameState, MapLocation, GeneralGameStoreState } from "../../public-api";
+import {
+  Party,
+  PartyID,
+  VillageState,
+  MapLocationID,
+  GameState,
+  MapLocation,
+  GeneralGameStoreState,
+} from "../../public-api";
 import { UnitID, BattleStoreState, BattleID, PartyActivity } from "../../public-api";
 import { MapLocationType, Unit, ActivityID } from "../../public-api";
 import { PartialDeep } from "./deep-partial";
@@ -9,7 +17,7 @@ import {
   partyFactory,
   activityFactory,
   battleStoreStateFactory,
-  generalStateFactory
+  generalStateFactory,
 } from "./factories";
 
 interface CreateStateCallbackArgs {
@@ -103,7 +111,7 @@ function createCallback(createdState: GameState) {
     village: createVillageReference,
     activity: createActivityReference,
     unit: createUnitReference,
-    general: createGeneralCallback
+    general: createGeneralCallback,
   };
 }
 

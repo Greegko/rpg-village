@@ -101,7 +101,7 @@ export function itemFactory({
 
 export function generalStateFactory({
   turn = 0,
-  difficulty = 0
+  difficulty = 0,
 }: Partial<GeneralGameStoreState> = {}): GeneralGameStoreState {
   return { turn, difficulty };
 }

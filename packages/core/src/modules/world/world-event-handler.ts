@@ -11,7 +11,7 @@ export class WorldEventHandler implements EventHandler {
   constructor(
     private partyService: PartyService,
     private unitStore: UnitStore,
-    private generalGameStore: GeneralGameStore
+    private generalGameStore: GeneralGameStore,
   ) {}
 
   init(eventSystem: EventSystem) {
@@ -19,7 +19,7 @@ export class WorldEventHandler implements EventHandler {
   }
 
   private addEnemyUnitToMap(locationId: MapLocationID) {
-    const party = generateEnemyParty(this.generalGameStore.get('difficulty')); 
+    const party = generateEnemyParty(this.generalGameStore.get("difficulty"));
     const unitIds = party.units.map(unit => this.unitStore.add(unit)).map(x => x.id);
 
     this.partyService.createParty({

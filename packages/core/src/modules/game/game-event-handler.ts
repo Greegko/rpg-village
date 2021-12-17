@@ -8,7 +8,9 @@ export class GameEventHandler implements EventHandler {
   constructor(private gameService: GameService) {}
 
   init(eventSystem: EventSystem) {
-    eventSystem.on(GameEvent.IncreaseDifficulty, (args: IncreaseDifficultyEventArgs) => this.increaseDifficulty(args.difficulty));
+    eventSystem.on(GameEvent.IncreaseDifficulty, (args: IncreaseDifficultyEventArgs) =>
+      this.increaseDifficulty(args.difficulty),
+    );
   }
 
   private increaseDifficulty(difficulty: Difficulty) {

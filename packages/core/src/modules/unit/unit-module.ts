@@ -4,5 +4,5 @@ import { UnitCommandHandler } from "./unit-command-handler";
 
 export const unitModule: Module = {
   commandHandler: UnitCommandHandler,
-  stores: [{ scope: "units", store: UnitStore }]
+  stores: [{ scope: "units", store: UnitStore }],
 };

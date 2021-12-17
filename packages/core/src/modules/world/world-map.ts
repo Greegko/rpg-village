@@ -7,10 +7,7 @@ import { MapLocationType, MapLocation, MapLocationID, WorldEvent } from "./inter
 
 @injectable()
 export class WorldMap {
-  constructor(
-    private worldStore: WorldStore,
-    private eventSystem: EventSystem,
-  ) {}
+  constructor(private worldStore: WorldStore, private eventSystem: EventSystem) {}
 
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocationID {
     return this.worldStore.add({ x, y, explored, type }).id;

@@ -10,11 +10,7 @@ import { PartyStore } from "./party-store";
 
 @injectable()
 export class PartyService {
-  constructor(
-    private partyStore: PartyStore,
-    private unitStore: UnitStore,
-    private activityStore: ActivityStore
-  ) {}
+  constructor(private partyStore: PartyStore, private unitStore: UnitStore, private activityStore: ActivityStore) {}
 
   getPartiesOnLocation(locationId: MapLocationID): Party[] {
     const parties = this.partyStore.getState();
@@ -52,7 +48,7 @@ export class PartyService {
     this.removePartyActivity(partyId);
     this.partyStore.remove(partyId);
   }
-  
+
   getPartyUnits(partyId: PartyID): Unit[] {
     return this.partyStore.get(partyId).unitIds.map(unitId => this.unitStore.get(unitId));
   }
@@ -63,8 +59,8 @@ export class PartyService {
 
   private removePartyActivity(partyId: PartyID) {
     const activityId = this.partyStore.get(partyId).activityId;
-    
-    if(activityId) {
+
+    if (activityId) {
       this.activityStore.remove(activityId);
     }
   }
