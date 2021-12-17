@@ -1,19 +1,26 @@
-import { injectable } from "inversify";
 import { forEach } from "ramda";
-import { EventHandler } from "./event-handler";
+import { inject, injectable } from "inversify";
 
-export interface EventSystem {
-  on(eventType: string, callback: Function): void;
-  fire(eventType: string, args?: any): void;
-  hookEventHandlers(eventHandlers: EventHandler[]): void;
+interface EventHandlerDecoratorSubscription {
+  event: any;
+  targetClass: any;
+  handlerFunctionName: string;
 }
 
 @injectable()
 export class EventSystem {
+  static eventHandlerDecorators: EventHandlerDecoratorSubscription[] | null = [];
+
   private subscribers: { [key: string]: Function[] } = {};
 
-  hookEventHandlers(eventHandlers: EventHandler[]) {
-    forEach(eventHandler => eventHandler.init(this), eventHandlers);
+  constructor(@inject("getInjection") private getInjector: (functor: any) => any) {}
+
+  hookEventHandlers() {
+    EventSystem.eventHandlerDecorators!.forEach(handler => {
+      const instance = this.getInjector(handler.targetClass.constructor) as any;
+
+      this.on(handler.event, (args: any) => instance[handler.handlerFunctionName](args));
+    });
   }
 
   on(eventType: string, eventHandlerFunction: Function): void {

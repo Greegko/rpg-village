@@ -1,24 +1,23 @@
 import { injectable } from "inversify";
-import { EventHandler, EventSystem } from "@core/event";
+import { eventHandler } from "@core/event";
 import { PartyEvent, ArrivedToLocationEventArgs, PartyService, PartyID } from "@modules/party";
 import { getResource, getItems } from "@models/stash";
 import { VillageStore } from "./village-store";
 import { VillageStashService } from "./village-stash-service";
 
 @injectable()
-export class VillageEventHandler implements EventHandler {
+export class VillageEventHandler {
   constructor(
     private partyService: PartyService,
     private villageStash: VillageStashService,
     private villageStore: VillageStore,
   ) {}
 
-  init(eventSystem: EventSystem) {
-    eventSystem.on(PartyEvent.ArrivedToLocation, (args: any) => {
-      if (this.isPartyArrivedToVillage(args)) {
-        this.partyArrived(args);
-      }
-    });
+  @eventHandler(PartyEvent.ArrivedToLocation)
+  partyArrivedToLocation(args: ArrivedToLocationEventArgs) {
+    if (this.isPartyArrivedToVillage(args)) {
+      this.partyArrived(args);
+    }
   }
 
   private isPartyArrivedToVillage(args: ArrivedToLocationEventArgs): boolean {

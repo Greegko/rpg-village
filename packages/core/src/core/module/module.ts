@@ -1,6 +1,5 @@
 import { IStore } from "@core/store";
 import { CommandHandler } from "@core/command";
-import { EventHandler } from "@core/event";
 import { IActivityHandler } from "@modules/activity";
 
 export interface ProvideClass {
@@ -19,9 +18,6 @@ export interface ActivityClass {
 export interface CommandHandlerClass {
   new (...args: any[]): CommandHandler;
 }
-export interface EventHandlerClass {
-  new (...args: any[]): EventHandler;
-}
 
 export interface ModulActivity {
   activity: ActivityClass;
@@ -35,7 +31,6 @@ export interface ModulStore {
 }
 
 export interface Module {
-  eventHandler?: EventHandlerClass;
   commandHandler?: CommandHandlerClass;
   activities?: ModulActivity[];
   stores?: ModulStore[];

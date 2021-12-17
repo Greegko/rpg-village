@@ -1,5 +1,5 @@
 import { multiInject, injectable } from "inversify";
-import { EventHandler, EventSystem } from "@core/event";
+import { EventSystem } from "@core/event";
 import { Command, CommandHandler, CommandSystem } from "@core/command";
 
 import { GameState, GameCommand } from "./interfaces";
@@ -12,10 +12,9 @@ export class GameController<State extends GameState> {
     private commandSystem: CommandSystem,
     eventSystem: EventSystem,
     @multiInject("commandHandlers") commandHandlers: CommandHandler[],
-    @multiInject("eventHandlers") eventHandlers: EventHandler[],
   ) {
     commandSystem.hookCommandHandlers(commandHandlers);
-    eventSystem.hookEventHandlers(eventHandlers);
+    eventSystem.hookEventHandlers();
   }
 
   gameTurn() {

@@ -1,8 +1,9 @@
-import { GameInstance, GameState } from "@modules/game";
 import { forEach, forEachObjIndexed } from "ramda";
+import { Container, interfaces } from "inversify";
+
+import { GameInstance, GameState } from "@modules/game";
 import { applyModule } from "@core/module";
 
-import { createInvesifyContainer } from "./create-inversify-container";
 import * as modules from "./modules/public-api";
 import { Skill } from "./modules/skill";
 import { GameConfig } from "./game-config";
@@ -36,5 +37,22 @@ export const createGameInstance: CreateGameInstance = (config = {}) => {
   }
 
   forEach(applyModule(container), modules);
+
   return container.get(GameController);
 };
+
+function createInvesifyContainer() {
+  const container = new Container({ defaultScope: "Singleton" });
+
+  container
+    .bind("getInjection")
+    .toFactory((context: interfaces.Context) => (classDeclaration: any) => context.container.get(classDeclaration));
+
+  container
+    .bind("getActivityHandler")
+    .toFactory(
+      (context: interfaces.Context) => (name: string) => context.container.getTagged("ActivityHandlers", "name", name),
+    );
+
+  return container;
+}

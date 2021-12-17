@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { EventSystem, EventHandler } from "@core/event";
+import { eventHandler } from "@core/event";
 import { PartyService, PartyOwner } from "@modules/party";
 import { UnitStore } from "@modules/unit";
 import { GeneralGameStore } from "@modules/game";
@@ -7,15 +7,16 @@ import { WorldEvent, MapLocationID, NewLocationEventArgs } from "./interfaces";
 import { generateEnemyParty } from "./lib";
 
 @injectable()
-export class WorldEventHandler implements EventHandler {
+export class WorldEventHandler {
   constructor(
     private partyService: PartyService,
     private unitStore: UnitStore,
     private generalGameStore: GeneralGameStore,
   ) {}
 
-  init(eventSystem: EventSystem) {
-    eventSystem.on(WorldEvent.NewLocation, (args: NewLocationEventArgs) => this.addEnemyUnitToMap(args.locationId));
+  @eventHandler(WorldEvent.NewLocation)
+  newLocation(args: NewLocationEventArgs) {
+    this.addEnemyUnitToMap(args.locationId);
   }
 
   private addEnemyUnitToMap(locationId: MapLocationID) {

@@ -8,7 +8,6 @@ export const applyModule: ApplyModule = (container: Container) =>
   juxt([
     applyStores(container),
     applyCommandHandlers(container),
-    applyEventHandlers(container),
     applyProviders(container),
     applyActivities(container),
   ]);
@@ -41,12 +40,6 @@ const applyStores = (container: Container) =>
 const applyCommandHandlers = (container: Container) => (modul: Module) => {
   if (modul.commandHandler) {
     container.bind("commandHandlers").to(modul.commandHandler);
-  }
-};
-
-const applyEventHandlers = (container: Container) => (modul: Module) => {
-  if (modul.eventHandler) {
-    container.bind("eventHandlers").to(modul.eventHandler);
   }
 };
 
