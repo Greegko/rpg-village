@@ -1,6 +1,8 @@
 import { forEach } from "ramda";
 import { inject, injectable } from "inversify";
 
+import { EventType } from "./event-type";
+
 interface EventHandlerDecoratorSubscription {
   event: any;
   targetClass: any;
@@ -11,7 +13,7 @@ interface EventHandlerDecoratorSubscription {
 export class EventSystem {
   static eventHandlerDecorators: EventHandlerDecoratorSubscription[] | null = [];
 
-  private subscribers: { [key: string]: Function[] } = {};
+  private subscribers: { [key: keyof EventType]: Function[] } = {};
 
   constructor(@inject("getInjection") private getInjector: (functor: any) => any) {}
 
@@ -23,13 +25,13 @@ export class EventSystem {
     });
   }
 
-  on(eventType: string, eventHandlerFunction: Function): void {
+  on<T extends keyof EventType>(eventType: T, eventHandlerFunction: (args?: EventType[T]) => void): void {
     if (!this.subscribers[eventType]) this.subscribers[eventType] = [];
 
     this.subscribers[eventType].push(eventHandlerFunction);
   }
 
-  fire(eventType: string, args?: any): void {
+  fire<T extends keyof EventType>(eventType: T, args?: EventType[T]): void {
     forEach(callback => callback(args), this.subscribers[eventType] || []);
   }
 }

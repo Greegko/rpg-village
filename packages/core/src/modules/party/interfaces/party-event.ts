@@ -5,10 +5,13 @@ export enum PartyEvent {
   ArrivedToLocation = "party/arrived-to-location",
 }
 
-export type PartyEventArgs = {
+export type PartyEventArrivedToLocationArgs = {
   partyId: PartyID;
-};
-
-export type ArrivedToLocationEventArgs = PartyEventArgs & {
   locationId: MapLocationID;
 };
+
+declare module "@core/event/event-type" {
+  export interface EventType {
+    [PartyEvent.ArrivedToLocation]: PartyEventArrivedToLocationArgs;
+  }
+}

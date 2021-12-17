@@ -3,7 +3,7 @@ import { eventHandler } from "@core/event";
 import { PartyService, PartyOwner } from "@modules/party";
 import { UnitStore } from "@modules/unit";
 import { GeneralGameStore } from "@modules/game";
-import { WorldEvent, MapLocationID, NewLocationEventArgs } from "./interfaces";
+import { WorldEvent, MapLocationID, WorldEventNewLocationArgs } from "./interfaces";
 import { generateEnemyParty } from "./lib";
 
 @injectable()
@@ -15,7 +15,7 @@ export class WorldEventHandler {
   ) {}
 
   @eventHandler(WorldEvent.NewLocation)
-  newLocation(args: NewLocationEventArgs) {
+  newLocation(args: WorldEventNewLocationArgs) {
     this.addEnemyUnitToMap(args.locationId);
   }
 

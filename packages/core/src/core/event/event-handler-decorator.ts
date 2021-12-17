@@ -1,9 +1,10 @@
 import { EventSystem } from "./event-system";
+import { EventType } from "./event-type";
 
-export function eventHandler(event: any) {
+export function eventHandler(eventType: keyof EventType) {
   return (targetClass: any, handlerFunctionName: string) => {
     EventSystem.eventHandlerDecorators!.push({
-      event,
+      event: eventType,
       targetClass,
       handlerFunctionName,
     });
