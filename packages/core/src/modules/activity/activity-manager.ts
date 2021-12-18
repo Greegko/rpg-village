@@ -44,9 +44,9 @@ export class ActivityManager {
     if (isDone) {
       activityHandler.resolve(updatedActivity);
       this.activityStore.remove(activity.id);
-      this.partyStore.setActivity(activity.startArgs.partyId, undefined);
+      this.partyStore.clearActivity(activity.startArgs.partyId);
       if (activity.startArgs.involvedPartyId) {
-        this.partyStore.setActivity(activity.startArgs.involvedPartyId, undefined);
+        this.partyStore.clearActivity(activity.startArgs.involvedPartyId);
       }
     } else {
       this.activityStore.update(activity.id, updatedActivity);

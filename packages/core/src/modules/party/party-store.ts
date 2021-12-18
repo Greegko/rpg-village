@@ -1,4 +1,4 @@
-import { assoc } from "ramda";
+import { assoc, dissoc } from "ramda";
 import { injectable } from "inversify";
 import { EntityStore } from "@core/store";
 import { ActivityID } from "@modules/activity";
@@ -11,7 +11,11 @@ export class PartyStore extends EntityStore<Party> {
     this.update(partyId, assoc("locationId", locationId));
   }
 
-  setActivity(partyId: PartyID, activityId: ActivityID | undefined) {
+  clearActivity(partyId: PartyID) {
+    this.update(partyId, dissoc("activityId"));
+  }
+
+  setActivity(partyId: PartyID, activityId: ActivityID) {
     this.update(partyId, assoc("activityId", activityId));
   }
 }
