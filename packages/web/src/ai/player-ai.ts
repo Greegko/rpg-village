@@ -1,7 +1,22 @@
-import { values, filter, map } from "ramda";
-import { Command, PartyOwner, WorldCommand, Party, GameState, VillageCommand } from "@rpg-village/core";
+import { values, filter, map, partition, sum } from "ramda";
+import {
+  Command,
+  PartyOwner,
+  WorldCommand,
+  Party,
+  GameState,
+  VillageCommand,
+  calculateUnitStrength,
+} from "@rpg-village/core";
 import { sample } from "../lib";
-import { idlePartiesSelector, worldSelector, partiesSelector, villageSelector, heroUnitsSelector } from "../game";
+import {
+  idlePartiesSelector,
+  worldSelector,
+  partiesSelector,
+  villageSelector,
+  heroUnitsSelector,
+  unitsSelector,
+} from "../game";
 
 export class PlayerAI {
   execute = (gameState: GameState): Command[] => {
@@ -17,16 +32,28 @@ export class PlayerAI {
   private handleNewLocation(gameState: GameState, party: Party): Command | undefined {
     const world = worldSelector(gameState);
     const parties = partiesSelector(gameState);
+    const units = unitsSelector(gameState);
     const partyLocation = world[party.locationId];
 
     if (!partyLocation.explored) {
       return { command: WorldCommand.Explore, args: { partyId: party.id } };
     }
 
-    const enemyParty = values(parties).find(
-      x => x.locationId === partyLocation.id && x.id !== party.id && x.owner === PartyOwner.Enemy,
-    );
-    if (enemyParty) {
+    const partiesOnLocation = values(parties).filter(x => x.locationId === partyLocation.id);
+
+    if (partiesOnLocation.length !== 2) return;
+
+    const [[userParty], [enemyParty]] = partition(
+      party => party.owner === PartyOwner.Player,
+      values(parties).filter(x => x.locationId === partyLocation.id),
+    ) as [[Party], [Party]];
+
+    const userPartyUnits = userParty.unitIds.map(unitId => units[unitId]);
+    const enempyPartyUnits = enemyParty.unitIds.map(unitId => units[unitId]);
+
+    console.log(sum(userPartyUnits.map(calculateUnitStrength)), sum(enempyPartyUnits.map(calculateUnitStrength)));
+
+    if (sum(userPartyUnits.map(calculateUnitStrength)) > sum(enempyPartyUnits.map(calculateUnitStrength))) {
       return { command: WorldCommand.Battle, args: { locationId: partyLocation.id } };
     }
   }
@@ -45,7 +72,12 @@ export class PlayerAI {
     }
 
     const unexploredLocations = values(world).filter(location => !location.explored);
-    const newLocation = sample(unexploredLocations);
-    return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: newLocation.id } };
+    const newUnexploredLocation = sample(unexploredLocations);
+
+    if (newUnexploredLocation) {
+      return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: newUnexploredLocation.id } };
+    } else {
+      return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
+    }
   }
 }
