@@ -27,7 +27,9 @@ export class PlayerAI {
   };
 
   private executeParty(gameState: GameState, party: Party): Command {
-    return (this.handleNewLocation(gameState, party) || this.handleNextLocationSearch(gameState, party))!;
+    return (this.handleVillageLocation(gameState, party) ||
+      this.handleNewLocation(gameState, party) ||
+      this.handleNextLocationSearch(gameState, party))!;
   }
 
   private handleNewLocation(gameState: GameState, party: Party): Command | undefined {
@@ -44,6 +46,17 @@ export class PlayerAI {
 
     if (this.getPartyStrength(gameState, userParties[0]!.id) > this.getPartyStrength(gameState, enemyParties[0]!.id)) {
       return { command: WorldCommand.Battle, args: { locationId: partyLocation.id } };
+    }
+  }
+
+  private handleVillageLocation(gameState: GameState, party: Party) {
+    const village = villageSelector(gameState);
+
+    if (party.locationId !== village.locationId) return;
+
+    const heroes = heroUnitsSelector(gameState);
+    if (party.unitIds.some(x => heroes[x].hp < heroes[x].maxhp)) {
+      return { command: VillageCommand.HealParty, args: { partyId: party.id } };
     }
   }
 
@@ -86,7 +99,10 @@ export class PlayerAI {
     }
   }
 
-  private getPartiesOnLocation(gameState: GameState, locationId: string): [Party[], Party[]] {
+  private getPartiesOnLocation(
+    gameState: GameState,
+    locationId: string,
+  ): [UserParties: Party[], EnemyParties: Party[]] {
     const parties = partiesSelector(gameState);
 
     return partition(
