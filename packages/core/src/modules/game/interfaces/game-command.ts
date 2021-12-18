@@ -3,7 +3,7 @@ export enum GameCommand {
   NewGame = "game/newGame",
 }
 
-declare module "@core/command/command-type" {
+declare module "../../../core/command/command-type" {
   interface CommandType {
     [GameCommand.NewGame]: undefined;
     [GameCommand.TurnCommand]: undefined;

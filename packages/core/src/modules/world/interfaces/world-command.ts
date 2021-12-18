@@ -20,7 +20,7 @@ export interface WorldCommandTravelArgs {
   targetLocationId: MapLocationID;
 }
 
-declare module "@core/command/command-type" {
+declare module "../../../core/command/command-type" {
   interface CommandType {
     [WorldCommand.Explore]: WorldCommandExploreArgs;
     [WorldCommand.Travel]: WorldCommandTravelArgs;
