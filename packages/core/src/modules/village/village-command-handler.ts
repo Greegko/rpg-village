@@ -9,7 +9,7 @@ import { UnitStore } from "@modules/unit";
 import { ActivityManager } from "@modules/activity";
 
 import { newBuildingCost, newHeroCost, heroFactory } from "./lib";
-import { VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
+import { VillageCommand, VillageCommandHealPartyArgs, VillageActivity } from "./interfaces";
 import { VillageStore } from "./village-store";
 import { VillageStashService } from "./village-stash-service";
 
@@ -71,7 +71,7 @@ export class VillageCommandHandler {
 
   @commandHandler(VillageCommand.HealParty)
   healParty(healPartyArgs: VillageCommandHealPartyArgs): void {
-    this.activityManager.startPartyActivity(VillageCommand.HealParty, healPartyArgs);
+    this.activityManager.startPartyActivity(VillageActivity.Heal, healPartyArgs);
   }
 
   @commandHandler(GameCommand.NewGame)
