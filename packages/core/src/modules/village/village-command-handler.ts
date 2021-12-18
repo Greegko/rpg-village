@@ -34,7 +34,7 @@ export class VillageCommandHandler {
     }
   }
 
-  @commandHandler(VillageCommand.GenerateGold)
+  @commandHandler(VillageCommand.BuildBlacksmith)
   buildBlacksmith(): void {
     const goldCost = 100;
 
