@@ -24,7 +24,6 @@ function generateEnemy(point: number): Omit<Unit, "id"> {
     hp: 10 + point * 2,
     level,
     maxhp: 10 + point * 2,
-    skillIds: [],
     stash: { resource: { gold: 0 }, items: [] },
     xp: 0,
     type: UnitType.Common,

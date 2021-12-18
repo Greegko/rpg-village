@@ -6,12 +6,9 @@ import { GameInstanceWrapper } from "./game/game-instance-wrapper";
 import { gameReducer, gameUIReducer, updateGameState, gameMiscActionReducerFactory } from "./game/reducers";
 import { createStore } from "redux";
 import { GameStoreState } from "./game";
-import { availableSkills } from "./game/config/skills";
 import { PlayerAI } from "./ai/player-ai";
 
-const game = new GameInstanceWrapper({
-  available_skills: availableSkills,
-});
+const game = new GameInstanceWrapper();
 
 const playerAI = new PlayerAI();
 

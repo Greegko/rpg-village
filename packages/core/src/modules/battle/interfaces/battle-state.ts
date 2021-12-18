@@ -1,15 +1,11 @@
 import { Unit } from "@modules/unit";
-import { Effect } from "@models/effect";
 
 export interface BattleState {
   attackerParty: BattleParty;
   defenderParty: BattleParty;
 }
 
-export interface BattleParty {
-  units: Unit[];
-  effects: Effect[];
-}
+export type BattleParty = Unit[];
 
 export interface BattleStats {
   dmg: number;

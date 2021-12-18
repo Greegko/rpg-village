@@ -1,4 +1,3 @@
-import { SkillID } from "@modules/skill";
 import { Equipment } from "@models/item";
 import { ItemStash, ResourceStash } from "@models//stash";
 
@@ -16,7 +15,6 @@ export type Unit = {
   hp: number;
   maxhp: number;
   type: UnitType;
-  skillIds: SkillID[];
   dmg: number;
   armor: number;
   xp: number;

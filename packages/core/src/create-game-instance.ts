@@ -1,19 +1,14 @@
-import { forEach, forEachObjIndexed } from "ramda";
+import { forEach } from "ramda";
 import { Container, interfaces } from "inversify";
 
 import { GameInstance, GameState } from "@modules/game";
 import { applyModule } from "@core/module";
 
 import * as modules from "./modules/public-api";
-import { Skill } from "./modules/skill";
 import { GameConfig } from "./game-config";
 import { GameController } from "./modules/game/game-controller";
 
-export interface GameConfigProvides {
-  available_skills: Skill[];
-}
-
-export type CreateGameInstance<S extends GameState> = (config?: Partial<GameConfig>) => GameInstance<S>;
+export type CreateGameInstance<S extends GameState> = (config?: GameConfig) => GameInstance<S>;
 
 const coreModules = [
   modules.unitModule,
@@ -25,18 +20,12 @@ const coreModules = [
   modules.buildingsModule,
   modules.partyModule,
   modules.battleModule,
-  modules.skillModule,
 ];
 
-export const createGameInstance: CreateGameInstance<GameState> = (config = {}) => {
+export const createGameInstance: CreateGameInstance<GameState> = () => {
   const container = createInvesifyContainer();
-  const modules = coreModules.concat(config.modules || []);
 
-  if (config.provides) {
-    forEachObjIndexed((val, key) => container.bind(key).toConstantValue(val), config.provides);
-  }
-
-  forEach(applyModule(container), modules);
+  forEach(applyModule(container), coreModules);
 
   return container.get(GameController);
 };

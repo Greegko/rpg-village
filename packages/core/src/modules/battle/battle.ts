@@ -1,7 +1,6 @@
-import { all, complement, chain, concat, forEach, clone } from "ramda";
+import { all, complement, forEach, clone } from "ramda";
 
-import { EffectService, isPartyEffect } from "@modules/skill";
-import { Unit, isAlive } from "@modules/unit";
+import { Unit, isAlive, getUnitEffects } from "@modules/unit";
 import { sample } from "@lib/sample";
 
 import { BattleStats, BattleParty, BattleState } from "./interfaces";
@@ -9,10 +8,8 @@ import { calculateBattleStats } from "./lib";
 
 export class Battle {
   private battleState: BattleState;
-  private effectService: EffectService;
 
-  constructor(effectService: EffectService, attackerParty: Unit[], defenderParty: Unit[]) {
-    this.effectService = effectService;
+  constructor(attackerParty: Unit[], defenderParty: Unit[]) {
     this.battleState = this.createStartBattleState(clone(attackerParty), clone(defenderParty));
   }
 
@@ -29,41 +26,30 @@ export class Battle {
 
   isDone(): boolean {
     const areAllDead = all(complement(isAlive));
-    return areAllDead(this.battleState.attackerParty.units) || areAllDead(this.battleState.defenderParty.units);
+    return areAllDead(this.battleState.attackerParty) || areAllDead(this.battleState.defenderParty);
   }
 
   private createStartBattleState(attackerPartyUnits: Unit[], defenderPartyUnits: Unit[]): BattleState {
     return {
-      attackerParty: this.calculateBattleParty(attackerPartyUnits),
-      defenderParty: this.calculateBattleParty(defenderPartyUnits),
-    };
-  }
-
-  private calculateBattleParty(units: Unit[]): BattleParty {
-    return {
-      units,
-      effects: chain(unit => this.effectService.getUnitEffects(unit).filter(isPartyEffect), units),
+      attackerParty: attackerPartyUnits,
+      defenderParty: defenderPartyUnits,
     };
   }
 
   private handlePartyAttack(attackerParty: BattleParty, defenderParty: BattleParty) {
     forEach(attackerUnit => {
-      const defenderUnit = sample(defenderParty.units.filter(isAlive));
+      const defenderUnit = sample(defenderParty.filter(isAlive));
 
       const [attackerUnitStats, defenderUnitStats] = [
-        this.getBattleStats(attackerUnit, attackerParty),
-        this.getBattleStats(defenderUnit, defenderParty),
+        this.getBattleStats(attackerUnit),
+        this.getBattleStats(defenderUnit),
       ];
 
       defenderUnit.hp = Math.max(0, defenderUnit.hp - Math.max(attackerUnitStats.dmg - defenderUnitStats.armor, 0));
-    }, attackerParty.units.filter(isAlive));
+    }, attackerParty.filter(isAlive));
   }
 
-  private getBattleStats(unit: Unit, battleParty: BattleParty): BattleStats {
-    return calculateBattleStats(
-      unit.dmg,
-      unit.armor,
-      concat(this.effectService.getUnitEffects(unit), battleParty.effects),
-    );
+  private getBattleStats(unit: Unit): BattleStats {
+    return calculateBattleStats(unit.dmg, unit.armor, getUnitEffects(unit));
   }
 }

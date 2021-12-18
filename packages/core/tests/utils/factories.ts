@@ -33,7 +33,6 @@ export function unitFactory({
   dmg = chance.integer(),
   level = chance.integer(),
   name = chance.string(),
-  skillIds = [],
   type = chance.pickone([UnitType.Common, UnitType.Hero]),
 }: Partial<Unit> = {}): Unit {
   return {
@@ -48,7 +47,6 @@ export function unitFactory({
     name,
     type,
     dmg,
-    skillIds,
   };
 }
 

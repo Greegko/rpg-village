@@ -94,7 +94,6 @@ export function heroFactory(): Omit<Unit, "id"> {
       torso: armorFactory(),
     },
     armor: 0,
-    skillIds: [],
     dmg: 5,
     xp: 0,
     type: UnitType.Hero,

@@ -1,4 +1,4 @@
-import { createGameInstance, GameInstance, GameState, Command, GameConfigProvides } from "@rpg-village/core";
+import { createGameInstance, GameInstance, GameState, Command } from "@rpg-village/core";
 import { AICommandGenerator, StateUpdateCallback } from "./interface";
 
 interface CommandHistory {
@@ -15,8 +15,8 @@ export class GameInstanceWrapper {
   private enabledAI: boolean = true;
   private commandHistory: CommandHistory[] = [];
 
-  constructor(gameConfig: GameConfigProvides) {
-    this.gameInstance = createGameInstance({ provides: gameConfig });
+  constructor() {
+    this.gameInstance = createGameInstance();
   }
 
   setAI(AI: AICommandGenerator) {

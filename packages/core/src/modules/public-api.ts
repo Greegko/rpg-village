@@ -3,7 +3,6 @@ export * from "./config";
 export * from "./activity";
 export * from "./battle";
 export * from "./unit";
-export * from "./skill";
 export * from "./party";
 export * from "./buildings";
 export * from "./village";
