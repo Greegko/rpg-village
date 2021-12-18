@@ -46,10 +46,10 @@ export const DeveloperToolbox = connect(
     return (
       <div className="developer-toolbox">
         <div>
-          {isAIEnabled && <button onClick={disableAI}>AI on</button>}
-          {!isAIEnabled && <button onClick={enableAI}>AI off</button>}
-          {isPaused && <button onClick={resume}>Pause</button>}
-          {!isPaused && <button onClick={pause}>Resume</button>}
+          {isAIEnabled && <button onClick={disableAI}>Turn AI off</button>}
+          {!isAIEnabled && <button onClick={enableAI}>Turn AI on</button>}
+          {!isPaused && <button onClick={pause}>Pause</button>}
+          {isPaused && <button onClick={resume}>Resume</button>}
           <button onClick={save}>Save</button>
           <button onClick={reset}>Reset</button>
           <button onClick={logState}>Log State</button>
