@@ -5,7 +5,7 @@ interface GameFactory {
 }
 
 export function gameFactory({ state }: Partial<GameFactory> = {}) {
-  const game = createGameInstance<GameState>();
+  const game = createGameInstance();
 
   if (state) {
     game.loadGame(state as GameState);

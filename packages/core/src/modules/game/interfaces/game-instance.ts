@@ -1,4 +1,5 @@
 import { Command } from "@core/command";
+
 import { GameState } from "./game-state";
 
 export interface GameInstance<S extends GameState> {

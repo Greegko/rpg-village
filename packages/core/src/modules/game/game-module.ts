@@ -9,6 +9,5 @@ import { GameService } from "./game-service";
 
 export const gameModule: Module = {
   stores: [{ scope: "general", store: GeneralGameStore, initialState: { turn: 0, difficulty: 0 } }],
-  commandHandler: GameCommandHandler,
-  provides: [GameController, GameStore, GameService, CommandSystem, EventSystem],
+  provides: [GameController, GameStore, GameService, CommandSystem, EventSystem, GameCommandHandler],
 };

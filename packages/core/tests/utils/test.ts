@@ -25,7 +25,7 @@ export function test(testName: string, { initState, commands, expectedState, tur
     if (commands) {
       commands.forEach(command => {
         if (typeof command === "string") {
-          game.executeCommand({ command });
+          game.executeCommand({ command } as Command);
         } else {
           game.executeCommand(command);
         }

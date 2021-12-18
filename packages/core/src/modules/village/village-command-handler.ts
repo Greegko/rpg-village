@@ -1,15 +1,15 @@
 import { append, inc } from "ramda";
 import { injectable } from "inversify";
-import { CommandSystem } from "@core/command";
+
+import { commandHandler } from "@core/command";
 import { PartyService, PartyOwner } from "@modules/party";
 import { GameCommand } from "@modules/game";
 import { MapLocationType, WorldMap } from "@modules/world";
-import { Item } from "@models/item";
-import { Resource } from "@models/resource";
 import { UnitStore } from "@modules/unit";
 import { ActivityManager } from "@modules/activity";
+
 import { newBuildingCost, newHeroCost, heroFactory } from "./lib";
-import { VillageCommand } from "./interfaces";
+import { VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
 import { VillageStore } from "./village-store";
 import { VillageStashService } from "./village-stash-service";
 
@@ -24,22 +24,7 @@ export class VillageCommandHandler {
     private worldMap: WorldMap,
   ) {}
 
-  init(commandSystem: CommandSystem) {
-    commandSystem.on(VillageCommand.BuildBlacksmith, () => this.buildBlacksmith());
-    commandSystem.on(VillageCommand.BuildHouse, () => this.buildHouse());
-    commandSystem.on(VillageCommand.GenerateGold, () => this.generateGold());
-    commandSystem.on(VillageCommand.HireHero, () => this.hireHero());
-    commandSystem.on(VillageCommand.HealParty, (args: any) => this.healParty(args));
-    commandSystem.on(GameCommand.NewGame, () => this.createVillage());
-  }
-
-  createVillage(): void {
-    const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
-    this.worldMap.revealNewLocations(locationId);
-    this.villageStore.set("stash", { items: [], resource: { gold: 0 } });
-    this.villageStore.set("locationId", locationId);
-  }
-
+  @commandHandler(VillageCommand.BuildHouse)
   buildHouse(): void {
     const goldCost = newBuildingCost(1 + this.villageStore.getState().houses);
 
@@ -49,6 +34,7 @@ export class VillageCommandHandler {
     }
   }
 
+  @commandHandler(VillageCommand.GenerateGold)
   buildBlacksmith(): void {
     const goldCost = 100;
 
@@ -58,10 +44,12 @@ export class VillageCommandHandler {
     }
   }
 
+  @commandHandler(VillageCommand.GenerateGold)
   generateGold(): void {
     this.villageStash.addResource({ gold: 5 });
   }
 
+  @commandHandler(VillageCommand.HireHero)
   hireHero(): void {
     const villageState = this.villageStore.getState();
     const heroesCount = villageState.heroes.length;
@@ -81,15 +69,16 @@ export class VillageCommandHandler {
     }
   }
 
-  healParty(healPartyArgs: any): void {
+  @commandHandler(VillageCommand.HealParty)
+  healParty(healPartyArgs: VillageCommandHealPartyArgs): void {
     this.activityManager.startPartyActivity(VillageCommand.HealParty, healPartyArgs);
   }
 
-  stashResource(resource: Resource): void {
-    this.villageStash.addResource(resource);
-  }
-
-  stashItems(items: Item[]): void {
-    this.villageStash.addItems(items);
+  @commandHandler(GameCommand.NewGame)
+  createVillage(): void {
+    const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
+    this.worldMap.revealNewLocations(locationId);
+    this.villageStore.set("stash", { items: [], resource: { gold: 0 } });
+    this.villageStore.set("locationId", locationId);
   }
 }

@@ -1,5 +1,5 @@
 import { values, filter, map } from "ramda";
-import { Command, PartyOwner, WorldCommand, Party, GameState, VillageActivity } from "@rpg-village/core";
+import { Command, PartyOwner, WorldCommand, Party, GameState, VillageCommand } from "@rpg-village/core";
 import { sample } from "../lib";
 import { idlePartiesSelector, worldSelector, partiesSelector, villageSelector, heroUnitsSelector } from "../game";
 
@@ -38,7 +38,7 @@ export class PlayerAI {
 
     if (party.unitIds.some(x => heroes[x].hp < heroes[x].maxhp * 0.1)) {
       if (village.locationId === party.locationId) {
-        return { command: VillageActivity.Heal, args: { partyId: party.id } };
+        return { command: VillageCommand.HealParty, args: { partyId: party.id } };
       } else {
         return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }

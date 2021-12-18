@@ -1,4 +1,3 @@
-import { Command } from "@core/command";
 import { PartyID } from "@modules/party";
 
 export enum VillageCommand {
@@ -9,19 +8,16 @@ export enum VillageCommand {
   HealParty = "village/heal",
 }
 
-export interface GenerateGoldCommand extends Command {
-  command: VillageCommand.GenerateGold;
+export interface VillageCommandHealPartyArgs {
+  partyId: PartyID;
 }
-export interface BuildHouseCommand extends Command {
-  command: VillageCommand.BuildHouse;
-}
-export interface BuildBlacksmithCommand extends Command {
-  command: VillageCommand.BuildBlacksmith;
-}
-export interface HireUnitCommand extends Command {
-  command: VillageCommand.HireHero;
-}
-export interface HealPartyCommand extends Command {
-  command: VillageCommand.HealParty;
-  args: { partyId: PartyID };
+
+declare module "@core/command/command-type" {
+  interface CommandType {
+    [VillageCommand.BuildHouse]: undefined;
+    [VillageCommand.BuildBlacksmith]: undefined;
+    [VillageCommand.GenerateGold]: undefined;
+    [VillageCommand.HireHero]: undefined;
+    [VillageCommand.HealParty]: VillageCommandHealPartyArgs;
+  }
 }

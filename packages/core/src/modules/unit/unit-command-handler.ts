@@ -1,24 +1,17 @@
 import { assoc, evolve, path, dissoc } from "ramda";
 import { injectable } from "inversify";
-import { CommandSystem } from "@core/command";
+import { commandHandler } from "@core/command";
 import { getItem, removeItem, ItemStash, addItem } from "@models/stash";
 import { Item } from "@models/item";
-import { UnitEquipItemCommandArgs, UnitUnequipItemCommandArgs, UnitCommand } from "./interfaces";
+import { UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs, UnitCommand } from "./interfaces";
 import { UnitStore } from "./unit-store";
 
 @injectable()
 export class UnitCommandHandler {
   constructor(private unitStore: UnitStore) {}
 
-  init(commandSystem: CommandSystem) {
-    commandSystem.on(UnitCommand.EquipItem, (equipItemArgs: UnitEquipItemCommandArgs) => this.equipItem(equipItemArgs));
-
-    commandSystem.on(UnitCommand.UnequipItem, (unequipItemArgs: UnitUnequipItemCommandArgs) =>
-      this.unequipEquipment(unequipItemArgs),
-    );
-  }
-
-  private equipItem({ unitId, itemId, slot }: UnitEquipItemCommandArgs) {
+  @commandHandler(UnitCommand.EquipItem)
+  equipItem({ unitId, itemId, slot }: UnitCommandEquipItemArgs) {
     const unit = this.unitStore.get(unitId);
     const item = getItem(unit.stash, itemId);
 
@@ -34,7 +27,8 @@ export class UnitCommandHandler {
     this.unitStore.update(unitId, evolveUnit);
   }
 
-  private unequipEquipment({ unitId, slot }: UnitUnequipItemCommandArgs) {
+  @commandHandler(UnitCommand.UnequipItem)
+  unequipEquipment({ unitId, slot }: UnitCommandUnequipItemArgs) {
     const unit = this.unitStore.get(unitId);
     const item = path(["equipment", slot], unit) as Item;
 

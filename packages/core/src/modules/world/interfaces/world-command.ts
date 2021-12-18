@@ -1,3 +1,4 @@
+import { PartyID } from "@modules/party";
 import { MapLocationID } from "./map-location";
 
 export enum WorldCommand {
@@ -6,6 +7,23 @@ export enum WorldCommand {
   Battle = "world/battle",
 }
 
-export interface BattleCommandArgs {
+export interface WorldCommandBattleArgs {
   locationId: MapLocationID;
+}
+
+export interface WorldCommandExploreArgs {
+  partyId: PartyID;
+}
+
+export interface WorldCommandTravelArgs {
+  partyId: PartyID;
+  targetLocationId: MapLocationID;
+}
+
+declare module "@core/command/command-type" {
+  interface CommandType {
+    [WorldCommand.Explore]: WorldCommandExploreArgs;
+    [WorldCommand.Travel]: WorldCommandTravelArgs;
+    [WorldCommand.Battle]: WorldCommandBattleArgs;
+  }
 }

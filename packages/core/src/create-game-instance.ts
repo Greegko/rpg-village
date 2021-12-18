@@ -13,7 +13,7 @@ export interface GameConfigProvides {
   available_skills: Skill[];
 }
 
-export type CreateGameInstance = <S extends GameState>(config?: Partial<GameConfig>) => GameInstance<S>;
+export type CreateGameInstance<S extends GameState> = (config?: Partial<GameConfig>) => GameInstance<S>;
 
 const coreModules = [
   modules.unitModule,
@@ -28,7 +28,7 @@ const coreModules = [
   modules.skillModule,
 ];
 
-export const createGameInstance: CreateGameInstance = (config = {}) => {
+export const createGameInstance: CreateGameInstance<GameState> = (config = {}) => {
   const container = createInvesifyContainer();
   const modules = coreModules.concat(config.modules || []);
 

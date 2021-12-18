@@ -5,12 +5,7 @@ import { Module, ModulActivity, ModulStore, ProvideClass, ProvideValue } from "@
 export type ApplyModule = (container: Container) => (module: Module) => void;
 
 export const applyModule: ApplyModule = (container: Container) =>
-  juxt([
-    applyStores(container),
-    applyCommandHandlers(container),
-    applyProviders(container),
-    applyActivities(container),
-  ]);
+  juxt([applyStores(container), applyProviders(container), applyActivities(container)] as any);
 
 const applyProviders = (container: Container) =>
   pipe(
@@ -36,12 +31,6 @@ const applyStores = (container: Container) =>
       }));
     }),
   );
-
-const applyCommandHandlers = (container: Container) => (modul: Module) => {
-  if (modul.commandHandler) {
-    container.bind("commandHandlers").to(modul.commandHandler);
-  }
-};
 
 const applyActivities = (container: Container) =>
   pipe(

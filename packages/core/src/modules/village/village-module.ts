@@ -7,7 +7,6 @@ import { VillageEventHandler } from "./village-event-handler";
 import { VillageActivity } from "./interfaces";
 
 export const villageModule: Module = {
-  commandHandler: VillageCommandHandler,
   activities: [{ name: VillageActivity.Heal, activity: VillageHealActivity }],
   stores: [
     {
@@ -22,5 +21,5 @@ export const villageModule: Module = {
       },
     },
   ],
-  provides: [VillageStashService, VillageEventHandler],
+  provides: [VillageStashService, VillageEventHandler, VillageCommandHandler],
 };
