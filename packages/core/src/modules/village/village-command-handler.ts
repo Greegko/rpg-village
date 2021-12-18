@@ -5,7 +5,7 @@ import { commandHandler } from "@core/command";
 import { PartyService, PartyOwner } from "@modules/party";
 import { GameCommand } from "@modules/game";
 import { MapLocationType, WorldMap } from "@modules/world";
-import { UnitStore } from "@modules/unit";
+import { isAlive, UnitStore } from "@modules/unit";
 import { ActivityManager } from "@modules/activity";
 
 import { newBuildingCost, newHeroCost, heroFactory } from "./lib";
@@ -52,7 +52,7 @@ export class VillageCommandHandler {
   @commandHandler(VillageCommand.HireHero)
   hireHero(): void {
     const villageState = this.villageStore.getState();
-    const heroesCount = villageState.heroes.length;
+    const heroesCount = villageState.heroes.map(unitId => this.unitStore.get(unitId)).filter(isAlive).length;
     const goldCost = newHeroCost(1 + heroesCount);
 
     if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < villageState.houses) {
