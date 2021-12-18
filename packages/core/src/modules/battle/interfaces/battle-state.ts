@@ -7,7 +7,7 @@ export interface BattleState {
 
 export type BattleParty = Unit[];
 
-export interface BattleStats {
+export interface UnitBattleStats {
   dmg: number;
   armor: number;
   evasion: number;

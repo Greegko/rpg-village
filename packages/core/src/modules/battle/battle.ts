@@ -1,10 +1,10 @@
 import { all, complement, forEach, clone } from "ramda";
 
-import { Unit, isAlive, getUnitEffects } from "@modules/unit";
+import { Unit, isAlive } from "@modules/unit";
 import { sample } from "@lib/sample";
 
-import { BattleStats, BattleParty, BattleState } from "./interfaces";
-import { calculateBattleStats } from "./lib";
+import { BattleParty, BattleState } from "./interfaces";
+import { calculateUnitBattleStats } from "./lib";
 
 export class Battle {
   private battleState: BattleState;
@@ -41,15 +41,11 @@ export class Battle {
       const defenderUnit = sample(defenderParty.filter(isAlive));
 
       const [attackerUnitStats, defenderUnitStats] = [
-        this.getBattleStats(attackerUnit),
-        this.getBattleStats(defenderUnit),
+        calculateUnitBattleStats(attackerUnit),
+        calculateUnitBattleStats(defenderUnit),
       ];
 
       defenderUnit.hp = Math.max(0, defenderUnit.hp - Math.max(attackerUnitStats.dmg - defenderUnitStats.armor, 0));
     }, attackerParty.filter(isAlive));
-  }
-
-  private getBattleStats(unit: Unit): BattleStats {
-    return calculateBattleStats(unit.dmg, unit.armor, getUnitEffects(unit));
   }
 }
