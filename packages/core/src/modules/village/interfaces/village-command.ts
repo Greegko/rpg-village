@@ -6,6 +6,7 @@ export enum VillageCommand {
   GenerateGold = "village/generate-gold",
   HireHero = "village/hire-unit",
   HealParty = "village/heal",
+  BuildTrainingField = "village/build-training-field",
 }
 
 export interface VillageCommandHealPartyArgs {
@@ -19,5 +20,6 @@ declare module "../../../core/command/command-type" {
     [VillageCommand.GenerateGold]: undefined;
     [VillageCommand.HireHero]: undefined;
     [VillageCommand.HealParty]: VillageCommandHealPartyArgs;
+    [VillageCommand.BuildTrainingField]: undefined;
   }
 }

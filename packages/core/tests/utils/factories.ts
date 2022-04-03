@@ -56,8 +56,9 @@ export function villageFactory({
   stash = stashFactory(),
   locationId = chance.string(),
   blacksmith = chance.integer(),
+  trainingField = chance.integer(),
 }: Partial<VillageState> = {}): VillageState {
-  return { locationId, stash, houses, heroes, blacksmith };
+  return { locationId, stash, houses, heroes, blacksmith, trainingField };
 }
 
 export function partyFactory({

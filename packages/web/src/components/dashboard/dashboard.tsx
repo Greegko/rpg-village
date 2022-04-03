@@ -39,8 +39,12 @@ export const Dashboard = connect(
       <div>Village:</div>
       <div>House Level: {village.houses}</div>
       <div>Blacksmith Level: {village.blacksmith}</div>
+      <div>Training Field Level: {village.trainingField}</div>
       <button onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Upgrade House</button>
       <button onClick={() => executeCommand({ command: VillageCommand.BuildBlacksmith })}>Upgrade Blashmith</button>
+      <button onClick={() => executeCommand({ command: VillageCommand.BuildTrainingField })}>
+        Upgrade Training Field
+      </button>
     </div>
 
     {page && <CharacterSheet unitId={page.args.unitId} />}

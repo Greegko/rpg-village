@@ -10,4 +10,5 @@ export interface VillageState {
   locationId: MapLocationID;
   heroes: UnitID[];
   blacksmith: number;
+  trainingField: number;
 }
