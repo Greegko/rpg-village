@@ -3,12 +3,18 @@ import { append, evolve } from "ramda";
 
 import { commandHandler } from "@core/command";
 import { AttackEffectType, Effect } from "@models/effect";
-import { EquipmentSlot, Item, ItemID } from "@models/item";
+import { EquipmentSlot, Item, ItemID, ItemType } from "@models/item";
 import { UnitID, UnitStore } from "@modules/unit";
 import { getItem } from "@models/stash";
 import { VillageStashService } from "@modules/village";
 
-import { BlacksmithCommand, BlacksmithCommandUpgradeItemArgs } from "./blacksmith-command";
+import { armorFactory, shieldFactory, weaponFactory } from "@modules/village/lib/equipment-factory";
+
+import {
+  BlacksmithCommanCreateItemArgs,
+  BlacksmithCommand,
+  BlacksmithCommandUpgradeItemArgs,
+} from "./blacksmith-command";
 
 @injectable()
 export class BlacksmithCommandHandler {
@@ -20,6 +26,27 @@ export class BlacksmithCommandHandler {
       this.upgradeEquipmentItem(args.unitId, args.equipmentSlot);
     } else if (args.itemId) {
       this.upgradeStashItem(args.unitId, args.itemId);
+    }
+  }
+
+  @commandHandler(BlacksmithCommand.CreateItem)
+  createItem(args: BlacksmithCommanCreateItemArgs) {
+    const price = 50;
+    if (this.villageStashService.hasEnoughResource({ gold: price })) {
+      this.villageStashService.removeResource({ gold: price });
+
+      const item = (() => {
+        switch (args.itemType) {
+          case ItemType.Armor:
+            return armorFactory();
+          case ItemType.Shield:
+            return shieldFactory();
+          case ItemType.Weapon:
+            return weaponFactory();
+        }
+      })();
+
+      this.villageStashService.addItems([item]);
     }
   }
 
