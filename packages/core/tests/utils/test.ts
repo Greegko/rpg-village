@@ -2,7 +2,7 @@ import * as ava from "ava";
 import * as util from "util";
 import { gameFactory } from "./game-factory";
 import { GameState, Command } from "../../public-api";
-import { PartialDeep } from "./deep-partial";
+import { PartialDeep } from "./partial-deep";
 import { ExecutionTestContext, withRandomIDAssertionFactory } from "./custom-assertions";
 
 util.inspect.defaultOptions.depth = 5;

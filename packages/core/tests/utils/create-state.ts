@@ -9,7 +9,7 @@ import {
 } from "../../public-api";
 import { UnitID, BattleStoreState, BattleID, PartyActivity } from "../../public-api";
 import { MapLocationType, Unit, ActivityID } from "../../public-api";
-import { PartialDeep } from "./deep-partial";
+import { PartialDeep } from "./partial-deep";
 import {
   mapLocationFactory,
   unitFactory,
