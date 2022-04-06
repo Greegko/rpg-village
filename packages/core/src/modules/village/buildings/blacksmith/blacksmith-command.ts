@@ -11,7 +11,7 @@ export interface BlacksmithCommandUpgradeItemArgs {
   equipmentSlot?: EquipmentSlot;
 }
 
-declare module "../../../core/command/command-type" {
+declare module "../../../../core/command/command-type" {
   interface CommandType {
     [BlacksmithCommand.UpgradeItem]: BlacksmithCommandUpgradeItemArgs;
   }

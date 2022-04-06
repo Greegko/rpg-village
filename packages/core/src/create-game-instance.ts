@@ -17,7 +17,7 @@ const coreModules = [
   modules.configModule,
   modules.worldModule,
   modules.villageModule,
-  modules.buildingsModule,
+  modules.villageBuildingsModule,
   modules.partyModule,
   modules.battleModule,
 ];

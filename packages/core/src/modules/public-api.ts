@@ -4,6 +4,5 @@ export * from "./activity";
 export * from "./battle";
 export * from "./unit";
 export * from "./party";
-export * from "./buildings";
 export * from "./village";
 export * from "./world";
