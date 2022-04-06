@@ -11,7 +11,7 @@ import { VillageStashService } from "@modules/village";
 import { armorFactory, shieldFactory, weaponFactory } from "@modules/village/lib/equipment-factory";
 
 import {
-  BlacksmithCommanCreateItemArgs,
+  BlacksmithCommandCreateItemArgs,
   BlacksmithCommand,
   BlacksmithCommandUpgradeItemArgs,
 } from "./blacksmith-command";
@@ -30,7 +30,7 @@ export class BlacksmithCommandHandler {
   }
 
   @commandHandler(BlacksmithCommand.CreateItem)
-  createItem(args: BlacksmithCommanCreateItemArgs) {
+  createItem(args: BlacksmithCommandCreateItemArgs) {
     const price = 50;
     if (this.villageStashService.hasEnoughResource({ gold: price })) {
       this.villageStashService.removeResource({ gold: price });

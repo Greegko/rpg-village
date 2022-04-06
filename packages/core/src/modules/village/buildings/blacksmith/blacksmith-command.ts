@@ -3,7 +3,7 @@ import { UnitID } from "@modules/unit";
 
 export enum BlacksmithCommand {
   UpgradeItem = "blacksmith/upgrade-item",
-  CreateItem = "blamsmith/create-item",
+  CreateItem = "blacksmith/create-item",
 }
 
 export interface BlacksmithCommandUpgradeItemArgs {
@@ -12,13 +12,13 @@ export interface BlacksmithCommandUpgradeItemArgs {
   equipmentSlot?: EquipmentSlot;
 }
 
-export interface BlacksmithCommanCreateItemArgs {
+export interface BlacksmithCommandCreateItemArgs {
   itemType: ItemType;
 }
 
 declare module "../../../../core/command/command-type" {
   interface CommandType {
     [BlacksmithCommand.UpgradeItem]: BlacksmithCommandUpgradeItemArgs;
-    [BlacksmithCommand.CreateItem]: BlacksmithCommanCreateItemArgs;
+    [BlacksmithCommand.CreateItem]: BlacksmithCommandCreateItemArgs;
   }
 }
