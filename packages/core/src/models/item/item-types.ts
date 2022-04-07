@@ -4,6 +4,16 @@ export enum ItemType {
   Weapon,
   Armor,
   Shield,
+  Rune,
+  DungeonKey,
+}
+
+export interface Rune extends BaseItem {
+  itemType: ItemType.Rune;
+}
+
+export interface DungeonKey extends BaseItem {
+  itemType: ItemType.DungeonKey;
 }
 
 export interface Armor extends BaseItem {

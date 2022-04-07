@@ -44,7 +44,7 @@ export class BlacksmithCommandHandler {
           case ItemType.Weapon:
             return weaponFactory();
         }
-      })();
+      })()!;
 
       this.villageStashService.addItems([item]);
     }

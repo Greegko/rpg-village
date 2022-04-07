@@ -1,7 +1,7 @@
 import { PartyID } from "@modules/party";
 
 export enum TrainingFieldCommand {
-  Train = "trainingField/train",
+  Train = "training-field/train",
 }
 
 export interface TrainingFieldCommandArgs {
