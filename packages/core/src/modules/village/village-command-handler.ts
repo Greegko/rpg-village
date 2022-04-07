@@ -44,6 +44,16 @@ export class VillageCommandHandler {
     }
   }
 
+  @commandHandler(VillageCommand.BuildRuneWorkshop)
+  buildRuneWorkshop(): void {
+    const goldCost = 100;
+
+    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
+      this.villageStore.update("runeWorkshop", inc);
+      this.villageStash.removeResource({ gold: goldCost });
+    }
+  }
+
   @commandHandler(VillageCommand.BuildTrainingField)
   buildTrainingField(): void {
     const goldCost = 100;

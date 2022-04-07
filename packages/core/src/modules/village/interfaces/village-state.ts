@@ -11,4 +11,5 @@ export interface VillageState {
   heroes: UnitID[];
   blacksmith: number;
   trainingField: number;
+  runeWorkshop: number;
 }
