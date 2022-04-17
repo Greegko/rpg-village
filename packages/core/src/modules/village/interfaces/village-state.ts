@@ -1,4 +1,4 @@
-import { MapLocationID } from "@modules/world";
+import { MapLocationID } from "@modules/map";
 import { UnitID } from "@modules/unit";
 import { ItemStash, ResourceStash } from "@models/stash";
 

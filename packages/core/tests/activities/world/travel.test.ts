@@ -1,11 +1,11 @@
 import { test, createState } from "../../utils";
 import { stashFactory } from "../../utils/factories";
-import { WorldActivity } from "../../../public-api";
+import { MapActivity } from "../../../public-api";
 
 test("should move party to the new location on finish", {
   initState: createState(({ party, activity, location }) => [
     activity({
-      name: WorldActivity.Travel,
+      name: MapActivity.Travel,
       state: {
         partyId: party({ id: "test-party-id", locationId: location() }),
         progress: 1,
@@ -22,7 +22,7 @@ test("should move party to the new location on finish", {
 test("should store looted resource into village stash", {
   initState: createState(({ party, activity, location, village }) => [
     activity({
-      name: WorldActivity.Travel,
+      name: MapActivity.Travel,
       state: {
         partyId: party({
           id: "test-party-id",

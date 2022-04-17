@@ -2,7 +2,7 @@ import { values, filter, map, partition, sum } from "ramda";
 import {
   Command,
   PartyOwner,
-  WorldCommand,
+  MapCommand,
   Party,
   GameState,
   VillageCommand,
@@ -12,7 +12,7 @@ import {
 import { sample } from "../lib";
 import {
   idlePartiesSelector,
-  worldSelector,
+  mapSelector,
   partiesSelector,
   villageSelector,
   heroUnitsSelector,
@@ -33,11 +33,11 @@ export class PlayerAI {
   }
 
   private handleNewLocation(gameState: GameState, party: Party): Command | undefined {
-    const world = worldSelector(gameState);
-    const partyLocation = world[party.locationId];
+    const map = mapSelector(gameState);
+    const partyLocation = map[party.locationId];
 
     if (!partyLocation.explored) {
-      return { command: WorldCommand.Explore, args: { partyId: party.id } };
+      return { command: MapCommand.Explore, args: { partyId: party.id } };
     }
 
     const [userParties, enemyParties] = this.getPartiesOnLocation(gameState, partyLocation.id);
@@ -45,7 +45,7 @@ export class PlayerAI {
     if (userParties.length !== 1 || enemyParties.length !== 1) return;
 
     if (this.getPartyStrength(gameState, userParties[0]!.id) > this.getPartyStrength(gameState, enemyParties[0]!.id)) {
-      return { command: WorldCommand.Battle, args: { locationId: partyLocation.id } };
+      return { command: MapCommand.Battle, args: { locationId: partyLocation.id } };
     }
   }
 
@@ -61,7 +61,7 @@ export class PlayerAI {
   }
 
   private handleNextLocationSearch(gameState: GameState, party: Party): Command | undefined {
-    const world = worldSelector(gameState);
+    const map = mapSelector(gameState);
     const village = villageSelector(gameState);
     const heroes = heroUnitsSelector(gameState);
 
@@ -69,14 +69,14 @@ export class PlayerAI {
       if (village.locationId === party.locationId) {
         return { command: VillageCommand.HealParty, args: { partyId: party.id } };
       } else {
-        return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
+        return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
     }
 
     const partyStrength = this.getPartyStrength(gameState, party.id);
 
-    const unexploredLocations = values(world).filter(location => !location.explored) as MapLocation[];
-    const weakerUnitLocations = values(world).filter(location => {
+    const unexploredLocations = values(map).filter(location => !location.explored) as MapLocation[];
+    const weakerUnitLocations = values(map).filter(location => {
       const [, [enemyParty]] = this.getPartiesOnLocation(gameState, location.id);
 
       if (!enemyParty) return false;
@@ -93,9 +93,9 @@ export class PlayerAI {
     const newUnexploredLocation = sample(possibleLocations);
 
     if (newUnexploredLocation) {
-      return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: newUnexploredLocation.id } };
+      return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: newUnexploredLocation.id } };
     } else {
-      return { command: WorldCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
+      return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
     }
   }
 
@@ -121,7 +121,7 @@ export class PlayerAI {
   }
 
   private isLocationAccessible(gameState: GameState, locationId: string): boolean {
-    const locations = worldSelector(gameState);
+    const locations = mapSelector(gameState);
     const targetLocation = locations[locationId] as MapLocation;
 
     const neighboursTiles = (values(locations) as MapLocation[]).filter(

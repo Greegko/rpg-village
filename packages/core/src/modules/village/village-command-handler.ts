@@ -4,7 +4,7 @@ import { injectable } from "inversify";
 import { commandHandler } from "@core/command";
 import { PartyService, PartyOwner } from "@modules/party";
 import { GameCommand } from "@modules/game";
-import { MapLocationType, WorldMap } from "@modules/world";
+import { MapLocationType, Map } from "@modules/map";
 import { isAlive, UnitStore } from "@modules/unit";
 import { ActivityManager } from "@modules/activity";
 
@@ -21,7 +21,7 @@ export class VillageCommandHandler {
     private partyService: PartyService,
     private unitStore: UnitStore,
     private activityManager: ActivityManager,
-    private worldMap: WorldMap,
+    private map: Map,
   ) {}
 
   @commandHandler(VillageCommand.BuildHouse)
@@ -96,8 +96,8 @@ export class VillageCommandHandler {
 
   @commandHandler(GameCommand.NewGame)
   createVillage(): void {
-    const locationId = this.worldMap.createLocation(0, 0, true, MapLocationType.Village);
-    this.worldMap.revealNewLocations(locationId);
+    const locationId = this.map.createLocation(0, 0, true, MapLocationType.Village);
+    this.map.revealNewLocations(locationId);
     this.villageStore.set("stash", { items: [], resource: { gold: 0 } });
     this.villageStore.set("locationId", locationId);
   }

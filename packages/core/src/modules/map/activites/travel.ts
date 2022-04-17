@@ -5,7 +5,7 @@ import { IActivityHandler, Activity } from "@modules/activity";
 import { EventSystem } from "@core/event";
 
 import { MapLocationID } from "../interfaces";
-import { WorldMap } from "../world-map";
+import { Map } from "../map";
 
 export type TravelState = {
   partyId: PartyID;
@@ -19,8 +19,8 @@ export type TravelStartArgs = {
 };
 
 @injectable()
-export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelState> {
-  constructor(private partyStore: PartyStore, private worldMap: WorldMap, private eventSystem: EventSystem) {}
+export class MapTravelActivity implements IActivityHandler<TravelStartArgs, TravelState> {
+  constructor(private partyStore: PartyStore, private map: Map, private eventSystem: EventSystem) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
     const currentLocation = this.partyStore.get(partyId).locationId;
@@ -28,7 +28,7 @@ export class TravelActivity implements IActivityHandler<TravelStartArgs, TravelS
     return {
       partyId,
       targetLocationId,
-      progress: this.worldMap.getDistance(currentLocation, targetLocationId),
+      progress: this.map.getDistance(currentLocation, targetLocationId),
     };
   }
 

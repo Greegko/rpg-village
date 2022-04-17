@@ -1,7 +1,7 @@
 import { keys } from "ramda";
 import { connect } from "react-redux";
 import { Party, VillageState } from "@rpg-village/core";
-import { WorldMap } from "./world-map/world-map";
+import { WorldMap } from "./map-map/map-map";
 import { GameStoreState, playerPartiesSelector, villageSelector } from "../game";
 import { Dashboard } from "./dashboard";
 

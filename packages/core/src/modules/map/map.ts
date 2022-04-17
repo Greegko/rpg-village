@@ -1,46 +1,46 @@
 import { values } from "ramda";
 import { EventSystem } from "@core/event";
 import { injectable } from "inversify";
-import { WorldStore } from "./world-store";
+import { MapStore } from "./map-store";
 import { Turn } from "../game";
-import { MapLocationType, MapLocation, MapLocationID, WorldEvent } from "./interfaces";
+import { MapLocationType, MapLocation, MapLocationID, MapEvent } from "./interfaces";
 
 @injectable()
-export class WorldMap {
-  constructor(private worldStore: WorldStore, private eventSystem: EventSystem) {}
+export class Map {
+  constructor(private mapStore: MapStore, private eventSystem: EventSystem) {}
 
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocationID {
-    return this.worldStore.add({ x, y, explored, type }).id;
+    return this.mapStore.add({ x, y, explored, type }).id;
   }
 
   getDistance(locationAId: MapLocationID, locationBId: MapLocationID): Turn {
-    const locationA = this.worldStore.get(locationAId);
-    const locationB = this.worldStore.get(locationBId);
+    const locationA = this.mapStore.get(locationAId);
+    const locationB = this.mapStore.get(locationBId);
 
     return Math.abs(locationA.x - locationB.x) * 5 + Math.abs(locationA.y - locationB.y) * 5;
   }
 
   getExplorableLocations(): MapLocationID[] {
-    return values(this.worldStore.getState())
+    return values(this.mapStore.getState())
       .filter(x => !x.explored)
       .map(x => x.id);
   }
 
   exploreLocation(locationId: MapLocationID): void {
-    this.worldStore.update(locationId, { explored: true });
+    this.mapStore.update(locationId, { explored: true });
     this.revealNewLocations(locationId);
   }
 
   revealNewLocations(locationId: MapLocationID) {
-    const location = this.worldStore.get(locationId);
+    const location = this.mapStore.get(locationId);
 
     const newUnexploredLocations = this.getUnexploredLocationsNextToLocation(
-      values(this.worldStore.getState()),
+      values(this.mapStore.getState()),
       location,
     );
     for (const unexploredLocation of newUnexploredLocations) {
-      const newLocationId = this.worldStore.add(unexploredLocation).id;
-      this.eventSystem.fire(WorldEvent.NewLocation, {
+      const newLocationId = this.mapStore.add(unexploredLocation).id;
+      this.eventSystem.fire(MapEvent.NewLocation, {
         locationId: newLocationId,
       });
     }

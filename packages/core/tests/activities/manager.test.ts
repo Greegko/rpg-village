@@ -1,11 +1,11 @@
 import { test, createState } from "../utils";
-import { WorldActivity } from "../../public-api";
+import { MapActivity } from "../../public-api";
 
 test("should resolve activity result", {
   initState: {
     activities: {
       "test-activity-id": {
-        name: WorldActivity.Travel,
+        name: MapActivity.Travel,
         startArgs: {
           partyId: "test-party",
         },
@@ -29,7 +29,7 @@ test("should decrease progress counter when not finished", {
     activities: {
       "test-activity-id": {
         id: "test-activity-id",
-        name: WorldActivity.Travel,
+        name: MapActivity.Travel,
         state: { progress: 2 },
       },
     },
@@ -38,7 +38,7 @@ test("should decrease progress counter when not finished", {
   expectedState: {
     activities: {
       "test-activity-id": {
-        name: WorldActivity.Travel,
+        name: MapActivity.Travel,
         state: { progress: 1 },
       },
     },
@@ -49,7 +49,7 @@ test("should remove old activity on finish", {
   initState: createState(({ activity }) => [
     activity({
       id: "testActivityId",
-      name: WorldActivity.Travel,
+      name: MapActivity.Travel,
       state: { progress: 1 },
     }),
   ]),

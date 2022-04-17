@@ -1,6 +1,6 @@
 import { filter, propEq, values, any, without } from "ramda";
 import { injectable } from "inversify";
-import { MapLocationID } from "@modules/world";
+import { MapLocationID } from "@modules/map";
 import { Loot } from "@models/loot";
 import { Unit, isAlive, UnitStore, UnitID } from "@modules/unit";
 import { addResource } from "@models/stash";

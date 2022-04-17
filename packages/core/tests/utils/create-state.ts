@@ -36,7 +36,7 @@ function createInitState(): GameState {
   return {
     battle: {},
     parties: {},
-    world: {},
+    map: {},
     village: villageFactory(),
     units: {},
     general: generalStateFactory(),
@@ -48,7 +48,7 @@ function createCallback(createdState: GameState) {
   function createLocationReference(locationArgs?: Partial<MapLocation>) {
     const location = mapLocationFactory(locationArgs);
 
-    createdState.world[location.id] = location;
+    createdState.map[location.id] = location;
 
     return location.id;
   }

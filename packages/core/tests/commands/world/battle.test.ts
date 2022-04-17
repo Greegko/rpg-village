@@ -1,5 +1,5 @@
 import { test, createState } from "../../utils";
-import { PartyOwner, BattleActivityType, WorldCommand } from "../../../public-api";
+import { PartyOwner, BattleActivityType, MapCommand } from "../../../public-api";
 
 test("should start Battle activity", {
   initState: createState(({ party, unit, location }) => [
@@ -18,7 +18,7 @@ test("should start Battle activity", {
   ]),
   commands: [
     {
-      command: WorldCommand.Battle,
+      command: MapCommand.Battle,
       args: { locationId: "battle-location" },
     },
   ],

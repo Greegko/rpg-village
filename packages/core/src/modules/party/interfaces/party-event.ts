@@ -1,4 +1,4 @@
-import { MapLocationID } from "@modules/world";
+import { MapLocationID } from "@modules/map";
 import { PartyID } from "./party";
 
 export enum PartyEvent {

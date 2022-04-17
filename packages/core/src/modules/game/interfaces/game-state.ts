@@ -2,7 +2,7 @@ import { Party, PartyID } from "@modules/party";
 import { Unit, UnitID } from "@modules/unit";
 import { PartyActivity, ActivityID } from "@modules/activity";
 import { VillageState } from "@modules/village";
-import { WorldState } from "@modules/world";
+import { MapState } from "@modules/map";
 import { BattleStoreState, BattleID } from "@modules/battle";
 import { GeneralGameStoreState } from "./general-game-store-state";
 
@@ -13,5 +13,5 @@ export type GameState = {
   parties: Record<PartyID, Party>;
   general: GeneralGameStoreState;
   village: VillageState;
-  world: WorldState;
+  map: MapState;
 };

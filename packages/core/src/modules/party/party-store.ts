@@ -2,7 +2,7 @@ import { assoc } from "ramda";
 import { injectable } from "inversify";
 import { EntityStore } from "@core/store";
 import { ActivityID } from "@modules/activity";
-import { MapLocationID } from "@modules/world";
+import { MapLocationID } from "@modules/map";
 import { Party, PartyID } from "./interfaces";
 
 @injectable()

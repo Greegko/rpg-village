@@ -5,24 +5,24 @@ import { ActivityManager } from "@modules/activity";
 import { PartyService, PartyOwner } from "@modules/party";
 import { BattleActivityType } from "@modules/battle";
 
-import { WorldCommand, WorldActivity, WorldCommandBattleArgs } from "./interfaces";
+import { MapCommand, MapActivity, MapCommandBattleArgs } from "./interfaces";
 
 @injectable()
-export class WorldCommandHandler {
+export class MapCommandHandler {
   constructor(private activityManager: ActivityManager, private partyService: PartyService) {}
 
-  @commandHandler(WorldCommand.Travel)
+  @commandHandler(MapCommand.Travel)
   travelCommand(travelArgs: any) {
-    this.activityManager.startPartyActivity(WorldActivity.Travel, travelArgs);
+    this.activityManager.startPartyActivity(MapActivity.Travel, travelArgs);
   }
 
-  @commandHandler(WorldCommand.Explore)
+  @commandHandler(MapCommand.Explore)
   exploreCommand(exploreArgs: any) {
-    this.activityManager.startPartyActivity(WorldActivity.Explore, exploreArgs);
+    this.activityManager.startPartyActivity(MapActivity.Explore, exploreArgs);
   }
 
-  @commandHandler(WorldCommand.Battle)
-  battleCommand(battleArgs: WorldCommandBattleArgs) {
+  @commandHandler(MapCommand.Battle)
+  battleCommand(battleArgs: MapCommandBattleArgs) {
     const parties = this.partyService.getPartiesOnLocation(battleArgs.locationId);
 
     const playerParty = parties.find(party => party.owner === PartyOwner.Player);

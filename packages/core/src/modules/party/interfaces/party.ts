@@ -1,5 +1,5 @@
 import { UnitID } from "@modules/unit/interfaces";
-import { MapLocationID } from "@modules/world/interfaces";
+import { MapLocationID } from "@modules/map/interfaces";
 import { ItemStash, ResourceStash } from "@models/stash";
 import { ActivityID } from "@modules/activity";
 import { PartyOwner } from "./party-owner";

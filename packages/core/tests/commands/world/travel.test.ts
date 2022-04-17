@@ -1,5 +1,5 @@
 import { test, createState } from "../../utils";
-import { WorldCommand, WorldActivity } from "../../../public-api";
+import { MapCommand, MapActivity } from "../../../public-api";
 
 test("should start Travel activity", {
   initState: createState(({ location, party }) => [
@@ -8,13 +8,13 @@ test("should start Travel activity", {
   ]),
   commands: [
     {
-      command: WorldCommand.Travel,
+      command: MapCommand.Travel,
       args: { targetLocationId: "next-tile", partyId: "party" },
     },
   ],
   expectedState: (state, t) =>
     t.withRandomId(state.activities, {
-      name: WorldActivity.Travel,
+      name: MapActivity.Travel,
       state: { partyId: "party" },
     }),
 });
@@ -25,7 +25,7 @@ test("should not start Travel activity to same location", {
   ]),
   commands: [
     {
-      command: WorldCommand.Travel,
+      command: MapCommand.Travel,
       args: { targetLocationId: "random-location", partyId: "party" },
     },
   ],
