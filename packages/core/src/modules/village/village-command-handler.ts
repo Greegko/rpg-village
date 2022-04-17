@@ -64,6 +64,16 @@ export class VillageCommandHandler {
     }
   }
 
+  @commandHandler(VillageCommand.BuildPortals)
+  buildPortals(): void {
+    const goldCost = 100;
+
+    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
+      this.villageStore.update("portals", inc);
+      this.villageStash.removeResource({ gold: goldCost });
+    }
+  }
+
   @commandHandler(VillageCommand.GenerateGold)
   generateGold(): void {
     this.villageStash.addResource({ gold: 5 });

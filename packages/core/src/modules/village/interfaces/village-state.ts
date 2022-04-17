@@ -12,4 +12,5 @@ export interface VillageState {
   blacksmith: number;
   trainingField: number;
   runeWorkshop: number;
+  portals: number;
 }
