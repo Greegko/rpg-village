@@ -1,9 +1,11 @@
 import { createSelector } from "reselect";
-import { values, filter, groupBy } from "ramda";
+import { values, filter, groupBy, propEq } from "ramda";
 import { isHero, ActivityType, GameState, PartyOwner, Activity, Party } from "@rpg-village/core";
 
 export const mapSelector = (game: GameState) => game.map;
 export const mapLocationsSelector = createSelector(mapSelector, values);
+
+export const worldMapSelector = createSelector(mapLocationsSelector, filter(propEq("mapId", "world")));
 
 export const unitsSelector = (game: GameState) => game.units;
 export const heroUnitsSelector = createSelector(unitsSelector, filter(isHero));

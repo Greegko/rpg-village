@@ -1,16 +1,16 @@
-import { values } from "ramda";
+import { propEq, values } from "ramda";
 import { EventSystem } from "@core/event";
 import { injectable } from "inversify";
 import { MapStore } from "./map-store";
 import { Turn } from "../game";
-import { MapLocationType, MapLocation, MapLocationID, MapEvent } from "./interfaces";
+import { MapLocationType, MapLocation, MapLocationID, MapEvent, MapID } from "./interfaces";
 
 @injectable()
 export class Map {
   constructor(private mapStore: MapStore, private eventSystem: EventSystem) {}
 
-  createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocationID {
-    return this.mapStore.add({ x, y, explored, type }).id;
+  createLocation(x: number, y: number, explored: boolean, type: MapLocationType, mapId: MapID): MapLocationID {
+    return this.mapStore.add({ x, y, explored, type, mapId }).id;
   }
 
   getDistance(locationAId: MapLocationID, locationBId: MapLocationID): Turn {
@@ -20,22 +20,18 @@ export class Map {
     return Math.abs(locationA.x - locationB.x) * 5 + Math.abs(locationA.y - locationB.y) * 5;
   }
 
-  getExplorableLocations(): MapLocationID[] {
-    return values(this.mapStore.getState())
-      .filter(x => !x.explored)
-      .map(x => x.id);
-  }
-
   exploreLocation(locationId: MapLocationID): void {
     this.mapStore.update(locationId, { explored: true });
-    this.revealNewLocations(locationId);
+    this.revealLocation(locationId);
   }
 
-  revealNewLocations(locationId: MapLocationID) {
+  revealLocation(locationId: MapLocationID) {
     const location = this.mapStore.get(locationId);
 
+    const mapId = location.mapId;
+
     const newUnexploredLocations = this.getUnexploredLocationsNextToLocation(
-      values(this.mapStore.getState()),
+      values(this.mapStore.getState()).filter(propEq("mapId", mapId)),
       location,
     );
     for (const unexploredLocation of newUnexploredLocations) {
@@ -69,11 +65,11 @@ export class Map {
     );
 
     return emptyPositions.map(position =>
-      this.locationFactory(MapLocationType.Field, position[0] + location.x, position[1] + location.y),
+      this.locationFactory(location.mapId, MapLocationType.Field, position[0] + location.x, position[1] + location.y),
     );
   }
 
-  private locationFactory(type: MapLocationType, x: number, y: number): Omit<MapLocation, "id"> {
-    return { type, explored: false, x, y };
+  private locationFactory(mapId: MapID, type: MapLocationType, x: number, y: number): Omit<MapLocation, "id"> {
+    return { type, explored: false, x, y, mapId };
   }
 }

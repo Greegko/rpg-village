@@ -12,7 +12,7 @@ import {
 import { sample } from "../lib";
 import {
   idlePartiesSelector,
-  mapSelector,
+  worldMapSelector,
   partiesSelector,
   villageSelector,
   heroUnitsSelector,
@@ -33,7 +33,7 @@ export class PlayerAI {
   }
 
   private handleNewLocation(gameState: GameState, party: Party): Command | undefined {
-    const map = mapSelector(gameState);
+    const map = worldMapSelector(gameState);
     const partyLocation = map[party.locationId];
 
     if (!partyLocation.explored) {
@@ -61,7 +61,7 @@ export class PlayerAI {
   }
 
   private handleNextLocationSearch(gameState: GameState, party: Party): Command | undefined {
-    const map = mapSelector(gameState);
+    const map = worldMapSelector(gameState);
     const village = villageSelector(gameState);
     const heroes = heroUnitsSelector(gameState);
 
@@ -121,7 +121,7 @@ export class PlayerAI {
   }
 
   private isLocationAccessible(gameState: GameState, locationId: string): boolean {
-    const locations = mapSelector(gameState);
+    const locations = worldMapSelector(gameState);
     const targetLocation = locations[locationId] as MapLocation;
 
     const neighboursTiles = (values(locations) as MapLocation[]).filter(

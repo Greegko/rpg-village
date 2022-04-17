@@ -11,8 +11,9 @@ export function mapLocationFactory({
   y = chance.integer(),
   id = chance.string(),
   type = MapLocationType.Field,
+  mapId = chance.string(),
 }: Partial<MapLocation> = {}): MapLocation {
-  return { explored, x, y, id, type };
+  return { explored, x, y, id, type, mapId };
 }
 
 export function stashFactory({ resource = { gold: chance.integer() }, items = [] } = {}): ItemStash & ResourceStash {
