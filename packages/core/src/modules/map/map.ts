@@ -1,3 +1,4 @@
+import { generate } from "shortid";
 import { propEq, values } from "ramda";
 import { EventSystem } from "@core/event";
 import { injectable } from "inversify";
@@ -8,6 +9,15 @@ import { MapLocationType, MapLocation, MapLocationID, MapEvent, MapID } from "./
 @injectable()
 export class Map {
   constructor(private mapStore: MapStore, private eventSystem: EventSystem) {}
+
+  createMap(): MapID {
+    const mapId = generate();
+
+    const mapLocationId = this.createLocation(0, 0, true, MapLocationType.Portal, mapId);
+    this.revealLocation(mapLocationId);
+
+    return mapId;
+  }
 
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType, mapId: MapID): MapLocationID {
     return this.mapStore.add({ x, y, explored, type, mapId }).id;
@@ -34,6 +44,7 @@ export class Map {
       values(this.mapStore.getState()).filter(propEq("mapId", mapId)),
       location,
     );
+
     for (const unexploredLocation of newUnexploredLocations) {
       const newLocationId = this.mapStore.add(unexploredLocation).id;
       this.eventSystem.fire(MapEvent.NewLocation, {

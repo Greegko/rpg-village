@@ -3,6 +3,7 @@ export type MapLocationID = string;
 export enum MapLocationType {
   Village,
   Field,
+  Portal,
 }
 
 export type MapLocation = {

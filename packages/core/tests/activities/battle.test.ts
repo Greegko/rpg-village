@@ -1,6 +1,6 @@
 import { createState, test } from "../utils";
 import { BattleActivityType, UnitType, ItemType, AttackEffectType } from "../../public-api";
-import { itemFactory } from "../utils/factories";
+import { equipmentFactory } from "../utils/factories";
 
 test("should finish correctly", {
   initState: createState(({ activity, party, unit, battle }) => [
@@ -91,7 +91,7 @@ test("should apply item dmg effect", {
                 dmg: 10,
                 hp: 100,
                 equipment: {
-                  rightHand: itemFactory({
+                  rightHand: equipmentFactory({
                     itemType: ItemType.Weapon,
                     effects: [{ value: 10, type: AttackEffectType.Dmg }],
                   }),
