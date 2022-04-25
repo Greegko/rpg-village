@@ -15,6 +15,8 @@ export const villageModule: Module = {
       initialState: {
         houses: 0,
         blacksmith: 0,
+        portals: 0,
+        runeWorkshop: 0,
         stash: { resource: {}, items: [] },
         locationId: undefined,
         heroes: [],
