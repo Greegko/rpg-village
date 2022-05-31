@@ -1,4 +1,3 @@
-import { values } from "ramda";
 import { test, createState } from "../../../utils";
 import { ItemType, PortalsCommand } from "../../../../public-api";
 
@@ -16,7 +15,7 @@ test("should create portal", {
       args: { dungeonKeyId: "dungeon-key" },
     },
   ],
-  expectedState: (state, t) => t.is(values(state.maps).length, 2),
+  expectedState: (state, t) => t.length(state.maps, 2),
 });
 
 test("should consume dungeon key", {

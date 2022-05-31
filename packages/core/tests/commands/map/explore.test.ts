@@ -1,6 +1,5 @@
 import { test, createState } from "../../utils";
 import { MapCommand, MapActivity } from "../../../public-api";
-import { values } from "ramda";
 
 test("should start Explore activity", {
   initState: createState(({ location, party }) => [
@@ -61,7 +60,7 @@ test("should explore neighbour tiles", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.is(values(state.mapLocations).length, 7),
+  expectedState: (state, t) => t.length(state.mapLocations, 7),
 });
 
 test("should only explore tiles in the same map", {
@@ -87,7 +86,7 @@ test("should only explore tiles in the same map", {
   ]),
   turn: true,
   expectedState: (state, t) => {
-    t.is(state.maps["map-world"].mapLocationIds.length, 7);
-    t.is(state.maps["map-not-world"].mapLocationIds.length, 1);
+    t.length(state.maps["map-world"].mapLocationIds, 7);
+    t.length(state.maps["map-not-world"].mapLocationIds, 1);
   },
 });

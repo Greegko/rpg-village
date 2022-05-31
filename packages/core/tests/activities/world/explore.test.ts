@@ -34,7 +34,7 @@ test("should add new locations around explored tile", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.is(Object.keys(state.mapLocations).length, 7),
+  expectedState: (state, t) => t.length(state.mapLocations, 7),
 });
 
 test("should add enemy units on new map tile", {
@@ -52,5 +52,5 @@ test("should add enemy units on new map tile", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.is(Object.keys(state.units).length, 6),
+  expectedState: (state, t) => t.length(state.units, 6),
 });

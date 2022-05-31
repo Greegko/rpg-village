@@ -3,7 +3,7 @@ import * as util from "util";
 import { gameFactory } from "./game-factory";
 import { GameState, Command } from "../../public-api";
 import { PartialDeep } from "./partial-deep";
-import { ExecutionTestContext, withRandomIDAssertionFactory } from "./custom-assertions";
+import { ExecutionTestContext, lengthAssertionFactory, withRandomIDAssertionFactory } from "./custom-assertions";
 
 util.inspect.defaultOptions.depth = 5;
 
@@ -41,7 +41,11 @@ export function test(testName: string, { initState, commands, expectedState, tur
     if (typeof expectedState === "object") {
       t.like(gameState, expectedState);
     } else {
-      expectedState(gameState, { ...t, withRandomId: withRandomIDAssertionFactory(t) });
+      expectedState(gameState, {
+        ...t,
+        withRandomId: withRandomIDAssertionFactory(t),
+        length: lengthAssertionFactory(t),
+      });
     }
   });
 }
