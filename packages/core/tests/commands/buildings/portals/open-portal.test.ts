@@ -1,4 +1,5 @@
-import { test, createState } from "../../../utils";
+import { createState, test } from "../../../utils";
+
 import { ItemType, PortalsCommand } from "../../../../public-api";
 
 test("should create portal", {

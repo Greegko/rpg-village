@@ -1,4 +1,5 @@
 import { inject, injectable } from "inversify";
+
 import { CommandType } from "./command-type";
 
 interface CommandHandlerDecoratorSubscription {

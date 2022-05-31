@@ -1,8 +1,10 @@
-import { find, values } from "ramda";
-import { EventSystem } from "@core/event";
 import { injectable } from "inversify";
+import { find, values } from "ramda";
+
+import { EventSystem } from "@core/event";
+
 import { Turn } from "../game";
-import { MapLocationType, MapLocation, MapLocationID, MapEvent, Map, MapID } from "./interfaces";
+import { Map, MapEvent, MapID, MapLocation, MapLocationID, MapLocationType } from "./interfaces";
 import { MapLocationStore } from "./map-location-store";
 import { MapStore } from "./map-store";
 

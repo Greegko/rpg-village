@@ -1,9 +1,11 @@
-import { evolve, dec } from "ramda";
 import { injectable } from "inversify";
-import { PartyID, PartyStore } from "@modules/party";
+import { dec, evolve } from "ramda";
+
 import { Activity, IActivityHandler } from "@modules/activity";
-import { MapService } from "../map-service";
+import { PartyID, PartyStore } from "@modules/party";
+
 import { MapLocationStore } from "../map-location-store";
+import { MapService } from "../map-service";
 
 export type ExploreState = {
   progress: number;

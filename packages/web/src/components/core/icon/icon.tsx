@@ -1,3 +1,5 @@
+import "./icon.scss";
+
 export enum Icons {
   Heart = "heart",
 }
@@ -15,7 +17,6 @@ interface IconProperties {
   size?: Size;
 }
 
-import "./icon.scss";
 export const Icon = ({ icon, size }: IconProperties) => {
   return (
     <img

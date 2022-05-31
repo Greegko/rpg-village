@@ -1,4 +1,5 @@
-import { prop, find, propEq, evolve, concat, reject, filter, append } from "ramda";
+import { append, concat, evolve, filter, find, prop, propEq, reject } from "ramda";
+
 import { Item, ItemID } from "../item";
 import { Stash } from "./stash";
 

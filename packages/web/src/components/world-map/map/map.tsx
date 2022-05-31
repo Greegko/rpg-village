@@ -1,5 +1,7 @@
 import { connect } from "react-redux";
+
 import { MapLocation, MapLocationID, Party } from "@rpg-village/core";
+
 import { GameStoreState, mapLocationsSelector, partiesGroupedOnLocationsSelector } from "../../../game";
 import { Tile } from "./tile";
 

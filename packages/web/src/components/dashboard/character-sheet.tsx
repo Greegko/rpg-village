@@ -1,5 +1,6 @@
 import { values } from "ramda";
 import { connect } from "react-redux";
+
 import {
   AttackEffectType,
   BlacksmithCommand,
@@ -9,7 +10,10 @@ import {
   Unit,
   UnitID,
 } from "@rpg-village/core";
+
 import { ExecuteCommand, GameStoreState, heroUnitsSelector, translate } from "../../game";
+
+import "./character-sheet.scss";
 
 interface CharacterSheetProperties {
   unitId: UnitID;
@@ -23,7 +27,6 @@ interface CharacterSheetState {
   unit: Unit;
 }
 
-import "./character-sheet.scss";
 export const CharacterSheet = connect(
   propertyMapper,
   ExecuteCommand,

@@ -1,6 +1,7 @@
-import { GameState, Command } from "@rpg-village/core";
-import { GamePage, GameUI } from "./interface";
+import { Command, GameState } from "@rpg-village/core";
+
 import { GameInstanceWrapper } from "./game-instance-wrapper";
+import { GamePage, GameUI } from "./interface";
 
 // GAME MISC REDUCER
 

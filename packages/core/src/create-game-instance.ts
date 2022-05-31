@@ -1,10 +1,12 @@
-import { forEach } from "ramda";
 import { Container, interfaces } from "inversify";
+import { forEach } from "ramda";
 
-import { GameInstance, GameState } from "@modules/game";
 import { applyModule } from "@core/module";
 
+import { GameInstance, GameState } from "@modules/game";
+
 import * as modules from "./modules/public-api";
+
 import { GameConfig } from "./game-config";
 import { GameController } from "./modules/game/game-controller";
 

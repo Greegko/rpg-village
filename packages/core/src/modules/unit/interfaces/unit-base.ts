@@ -1,5 +1,5 @@
-import { Equipment } from "@models/item";
 import { ItemStash, ResourceStash } from "@models//stash";
+import { Equipment } from "@models/item";
 
 export type UnitID = string;
 export enum UnitType {

@@ -1,9 +1,13 @@
 import { connect } from "react-redux";
+
 import { VillageCommand, VillageState } from "@rpg-village/core";
+
 import { ExecuteCommand, GamePage, GameStoreState } from "../../game";
-import { PartyDisplay } from "./party";
-import { Header } from "./header";
 import { CharacterSheet } from "./character-sheet";
+import { Header } from "./header";
+import { PartyDisplay } from "./party";
+
+import "./dashboard.scss";
 
 interface DashboardProperties {
   parties: string[];
@@ -18,7 +22,6 @@ const propertyMapper = (state: GameStoreState): DashboardState => ({
   page: state.ui.page,
 });
 
-import "./dashboard.scss";
 export const Dashboard = connect(
   propertyMapper,
   ExecuteCommand,

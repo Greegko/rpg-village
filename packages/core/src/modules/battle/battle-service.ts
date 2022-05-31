@@ -1,11 +1,13 @@
-import { forEach } from "ramda";
 import { injectable } from "inversify";
-import { PartyService, PartyID, PartyStore } from "@modules/party";
-import { UnitStore } from "@modules/unit";
-import { Battle } from "./battle";
-import { BattleID, BattleStoreState } from "./interfaces";
-import { BattleStore } from "./battle-store";
+import { forEach } from "ramda";
+
 import { MapLocationID } from "@modules/map";
+import { PartyID, PartyService, PartyStore } from "@modules/party";
+import { UnitStore } from "@modules/unit";
+
+import { Battle } from "./battle";
+import { BattleStore } from "./battle-store";
+import { BattleID, BattleStoreState } from "./interfaces";
 
 @injectable()
 export class BattleService {

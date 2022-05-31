@@ -1,4 +1,5 @@
-import { createGameInstance, GameInstance, GameState, Command } from "@rpg-village/core";
+import { Command, GameInstance, GameState, createGameInstance } from "@rpg-village/core";
+
 import { AICommandGenerator, StateUpdateCallback } from "./interface";
 
 interface CommandHistory {

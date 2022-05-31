@@ -1,4 +1,5 @@
 import { PartyID } from "@modules/party";
+
 import { BattleID } from "./battle-id";
 
 export type BattleStoreState = {

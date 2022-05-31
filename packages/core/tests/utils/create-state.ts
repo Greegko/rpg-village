@@ -1,27 +1,28 @@
 import {
-  Party,
-  PartyID,
-  VillageState,
-  MapLocationID,
   GameState,
-  MapLocation,
   GeneralGameStoreState,
   Map,
   MapID,
+  MapLocation,
+  MapLocationID,
+  Party,
+  PartyID,
+  VillageState,
 } from "../../public-api";
-import { UnitID, BattleStoreState, BattleID, PartyActivity } from "../../public-api";
-import { MapLocationType, Unit, ActivityID } from "../../public-api";
-import { PartialDeep } from "./partial-deep";
+import { BattleID, BattleStoreState, PartyActivity, UnitID } from "../../public-api";
+import { ActivityID, MapLocationType, Unit } from "../../public-api";
+
 import {
-  mapLocationFactory,
-  unitFactory,
-  villageFactory,
-  partyFactory,
   activityFactory,
   battleStoreStateFactory,
   generalStateFactory,
   mapFactory,
+  mapLocationFactory,
+  partyFactory,
+  unitFactory,
+  villageFactory,
 } from "./factories";
+import { PartialDeep } from "./partial-deep";
 
 interface CreateStateCallbackArgs {
   battle: (battleArgs: PartialDeep<BattleStoreState>) => BattleID;

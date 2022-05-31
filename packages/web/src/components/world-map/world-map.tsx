@@ -1,7 +1,9 @@
 import { useCallback, useState } from "react";
+
 import { MapStage } from "./map/map-stage";
 
 import "./world-map.scss";
+
 export const WorldMap = () => {
   const [mapSize, setMapSize] = useState<[number, number] | null>(null);
 

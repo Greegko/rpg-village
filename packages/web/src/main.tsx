@@ -1,12 +1,13 @@
-import "../polyfill";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { GameField } from "./components/game-field";
-import { GameInstanceWrapper } from "./game/game-instance-wrapper";
-import { gameReducer, gameUIReducer, updateGameState, gameMiscActionReducerFactory } from "./game/reducers";
 import { createStore } from "redux";
-import { GameStoreState } from "./game";
+
+import "../polyfill";
 import { PlayerAI } from "./ai/player-ai";
+import { GameField } from "./components/game-field";
+import { GameStoreState } from "./game";
+import { GameInstanceWrapper } from "./game/game-instance-wrapper";
+import { gameMiscActionReducerFactory, gameReducer, gameUIReducer, updateGameState } from "./game/reducers";
 
 const game = new GameInstanceWrapper();
 

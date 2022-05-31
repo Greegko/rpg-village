@@ -1,5 +1,6 @@
-import { sum } from "ramda";
 import { Loot } from "@models/loot";
+import { sum } from "ramda";
+
 import { Unit } from "@modules/unit";
 
 export function calculateLoot(units: Unit[]): Loot {

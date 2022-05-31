@@ -3,8 +3,9 @@ import { injectable } from "inversify";
 import { commandHandler } from "@core/command";
 
 import { MapService } from "@modules/map";
-import { VillageStashService, VillageStore } from "@modules/village";
 import { PartyStore } from "@modules/party";
+import { VillageStashService, VillageStore } from "@modules/village";
+
 import {
   PortalsCommand,
   PortalsCommandEnterPortalArgs,

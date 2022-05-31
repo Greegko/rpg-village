@@ -1,5 +1,5 @@
-import { forEach } from "ramda";
 import { inject, injectable } from "inversify";
+import { forEach } from "ramda";
 
 import { EventType } from "./event-type";
 

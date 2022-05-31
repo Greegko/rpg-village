@@ -1,6 +1,7 @@
 import { createState, test } from "../utils";
-import { BattleActivityType, UnitType, ItemType, AttackEffectType } from "../../public-api";
 import { equipmentFactory } from "../utils/factories";
+
+import { AttackEffectType, BattleActivityType, ItemType, UnitType } from "../../public-api";
 
 test("should finish correctly", {
   initState: createState(({ activity, party, unit, battle, map }) => [

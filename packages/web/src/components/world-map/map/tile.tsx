@@ -1,4 +1,5 @@
-import { RegularPolygon, Circle, Group } from "react-konva";
+import { Circle, Group, RegularPolygon } from "react-konva";
+
 import { MapLocationType, Party, PartyOwner } from "@rpg-village/core";
 
 interface TileProperties {

@@ -1,8 +1,12 @@
 import { values } from "ramda";
 import { connect } from "react-redux";
+
 import { Unit } from "@rpg-village/core";
-import { ProgressBar, Icons } from "../core";
-import { heroUnitsSelector, GameStoreState, openCharacterSheet } from "../../game";
+
+import { GameStoreState, heroUnitsSelector, openCharacterSheet } from "../../game";
+import { Icons, ProgressBar } from "../core";
+
+import "./hero.scss";
 
 const propertyMapper = (state: GameStoreState, props: HeroProperties): HeroState => ({
   hero: values(heroUnitsSelector(state.game)).find(({ id }) => id === props.heroId)!,
@@ -20,7 +24,6 @@ interface HeroActions {
   openCharacterSheet: typeof openCharacterSheet;
 }
 
-import "./hero.scss";
 export const Hero = connect(propertyMapper, { openCharacterSheet })(
   ({ hero, openCharacterSheet }: HeroState & HeroActions) => (
     <div className="hero" onClick={() => openCharacterSheet(hero.id)}>

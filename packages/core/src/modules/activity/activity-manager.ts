@@ -1,8 +1,10 @@
-import { forEach, values, assoc } from "ramda";
 import { inject, injectable } from "inversify";
+import { assoc, forEach, values } from "ramda";
+
 import { PartyStore } from "@modules/party";
-import { GetActivityHandlerByName, PartyActivity, ActivityType, PartyActivityStartArgs } from "./interfaces";
+
 import { ActivityStore } from "./activity-store";
+import { ActivityType, GetActivityHandlerByName, PartyActivity, PartyActivityStartArgs } from "./interfaces";
 
 @injectable()
 export class ActivityManager {

@@ -1,17 +1,18 @@
-import { append, inc } from "ramda";
 import { injectable } from "inversify";
+import { append, inc } from "ramda";
 
 import { commandHandler } from "@core/command";
-import { PartyService, PartyOwner } from "@modules/party";
+
+import { ActivityManager } from "@modules/activity";
 import { GameCommand } from "@modules/game";
 import { MapLocationType, MapService } from "@modules/map";
-import { isAlive, UnitStore } from "@modules/unit";
-import { ActivityManager } from "@modules/activity";
+import { PartyOwner, PartyService } from "@modules/party";
+import { UnitStore, isAlive } from "@modules/unit";
 
-import { newBuildingCost, newHeroCost, heroFactory } from "./lib";
-import { VillageCommand, VillageCommandHealPartyArgs, VillageActivity } from "./interfaces";
-import { VillageStore } from "./village-store";
+import { VillageActivity, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
+import { heroFactory, newBuildingCost, newHeroCost } from "./lib";
 import { VillageStashService } from "./village-stash-service";
+import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageCommandHandler {

@@ -1,7 +1,7 @@
-import { sortBy, prop, reduce } from "ramda";
-
-import { getUnitEffects, Unit } from "@modules/unit";
 import { Effect, unitEffectPropertyMap } from "@models/effect";
+import { prop, reduce, sortBy } from "ramda";
+
+import { Unit, getUnitEffects } from "@modules/unit";
 
 import { UnitBattleStats } from "../interfaces";
 

@@ -1,4 +1,5 @@
-import { test, createState } from "../../../utils";
+import { createState, test } from "../../../utils";
+
 import { BlacksmithCommand, ItemType } from "../../../../public-api";
 
 test("should create shield item", {

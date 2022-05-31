@@ -1,5 +1,7 @@
-import { split, path, useWith } from "ramda";
+import { path, split, useWith } from "ramda";
+
 import { AttackEffectType, DefenseEffectType } from "@rpg-village/core";
+
 import { Path, PathValue } from "./dot-notation";
 
 const dotPath = useWith(path, [split(".")]);

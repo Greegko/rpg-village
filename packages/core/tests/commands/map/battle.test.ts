@@ -1,5 +1,6 @@
-import { test, createState } from "../../utils";
-import { PartyOwner, BattleActivityType, MapCommand } from "../../../public-api";
+import { createState, test } from "../../utils";
+
+import { BattleActivityType, MapCommand, PartyOwner } from "../../../public-api";
 
 test("should start Battle activity", {
   initState: createState(({ party, unit, location }) => [

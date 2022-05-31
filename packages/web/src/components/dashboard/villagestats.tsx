@@ -1,6 +1,10 @@
 import { connect } from "react-redux";
-import { VillageState, GeneralGameStoreState, VillageCommand } from "@rpg-village/core";
-import { GameStoreState, ExecuteCommand } from "../../game";
+
+import { GeneralGameStoreState, VillageCommand, VillageState } from "@rpg-village/core";
+
+import { ExecuteCommand, GameStoreState } from "../../game";
+
+import "./villagestats.scss";
 
 const propertyMapper = (state: GameStoreState) => {
   return {
@@ -14,7 +18,6 @@ interface VillageStatsProperties {
   general: GeneralGameStoreState;
 }
 
-import "./villagestats.scss";
 export const VillageStats = connect(
   propertyMapper,
   ExecuteCommand,

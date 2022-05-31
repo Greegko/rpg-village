@@ -1,6 +1,7 @@
-import { prop, mergeDeepWith, add, subtract } from "ramda";
-import { Stash } from "./stash";
+import { add, mergeDeepWith, prop, subtract } from "ramda";
+
 import { Resource } from "../resource";
+import { Stash } from "./stash";
 
 export interface ResourceStash extends Stash {
   resource: Resource;

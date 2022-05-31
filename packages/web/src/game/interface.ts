@@ -1,4 +1,4 @@
-import { GameState, Command } from "@rpg-village/core";
+import { Command, GameState } from "@rpg-village/core";
 
 export enum GamePageType {
   CharacterSheet,

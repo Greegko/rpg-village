@@ -1,6 +1,7 @@
+import { ItemStash, ResourceStash } from "@models/stash";
+
 import { MapLocationID } from "@modules/map";
 import { UnitID } from "@modules/unit";
-import { ItemStash, ResourceStash } from "@models/stash";
 
 export type VillageStash = ItemStash & ResourceStash;
 

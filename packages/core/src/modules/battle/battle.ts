@@ -1,7 +1,8 @@
-import { all, complement, forEach, clone } from "ramda";
+import { all, clone, complement, forEach } from "ramda";
+
+import { sample } from "@lib/sample";
 
 import { Unit, isAlive } from "@modules/unit";
-import { sample } from "@lib/sample";
 
 import { BattleParty, BattleState } from "./interfaces";
 import { calculateUnitBattleStats } from "./lib";

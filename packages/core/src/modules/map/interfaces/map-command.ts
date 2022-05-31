@@ -1,4 +1,5 @@
 import { PartyID } from "@modules/party";
+
 import { MapLocationID } from "./map-location";
 
 export enum MapCommand {

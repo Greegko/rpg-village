@@ -1,9 +1,11 @@
-import { assoc, evolve, path, dissoc } from "ramda";
-import { injectable } from "inversify";
-import { commandHandler } from "@core/command";
-import { getItem, removeItem, ItemStash, addItem } from "@models/stash";
 import { Item } from "@models/item";
-import { UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs, UnitCommand } from "./interfaces";
+import { ItemStash, addItem, getItem, removeItem } from "@models/stash";
+import { injectable } from "inversify";
+import { assoc, dissoc, evolve, path } from "ramda";
+
+import { commandHandler } from "@core/command";
+
+import { UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "./interfaces";
 import { UnitStore } from "./unit-store";
 
 @injectable()

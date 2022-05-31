@@ -1,5 +1,6 @@
-import { test, createState } from "../../../utils";
-import { BlacksmithCommand, AttackEffectType } from "../../../../public-api";
+import { createState, test } from "../../../utils";
+
+import { AttackEffectType, BlacksmithCommand } from "../../../../public-api";
 
 test("should give new dmg effect", {
   initState: createState(({ unit, village, party }) => [

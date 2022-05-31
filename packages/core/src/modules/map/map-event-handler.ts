@@ -1,8 +1,11 @@
 import { injectable } from "inversify";
+
 import { eventHandler } from "@core/event";
-import { PartyService, PartyOwner } from "@modules/party";
+
+import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore } from "@modules/unit";
-import { MapEvent, MapLocationID, MapEventNewLocationArgs, MapEventIncreaseDifficultyArgs, MapID } from "./interfaces";
+
+import { MapEvent, MapEventIncreaseDifficultyArgs, MapEventNewLocationArgs, MapID, MapLocationID } from "./interfaces";
 import { generateEnemyParty } from "./lib";
 import { MapStore } from "./map-store";
 

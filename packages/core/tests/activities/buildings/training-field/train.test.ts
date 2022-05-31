@@ -1,4 +1,5 @@
-import { test, createState } from "../../../utils";
+import { createState, test } from "../../../utils";
+
 import { TrainingFieldActivity } from "../../../../public-api";
 
 test("should get 25 xp for each turn", {

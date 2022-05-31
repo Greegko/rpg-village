@@ -1,5 +1,8 @@
 import { connect } from "react-redux";
-import { fastForward, save, reset, pause, resume, logState, GameStoreState, disableAI, enableAI } from "../../../game";
+
+import { GameStoreState, disableAI, enableAI, fastForward, logState, pause, reset, resume, save } from "../../../game";
+
+import "./developer-toolbox.scss";
 
 const storeDispatchers = { fastForward, save, reset, pause, resume, logState, disableAI, enableAI };
 
@@ -26,7 +29,6 @@ interface DeveloperToolboxProperties {
   isAIEnabled: boolean;
 }
 
-import "./developer-toolbox.scss";
 export const DeveloperToolbox = connect(
   mapProperty,
   storeDispatchers,

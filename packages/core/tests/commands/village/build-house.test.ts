@@ -1,5 +1,6 @@
-import { VillageCommand } from "../../../public-api";
 import { test } from "../../utils";
+
+import { VillageCommand } from "../../../public-api";
 
 const initState = {
   village: { stash: { resource: { gold: 20 } }, houses: 0 },

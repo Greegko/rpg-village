@@ -1,9 +1,12 @@
+import { getItems, getResource } from "@models/stash";
 import { injectable } from "inversify";
+
 import { eventHandler } from "@core/event";
-import { PartyEvent, PartyEventArrivedToLocationArgs, PartyService, PartyID } from "@modules/party";
-import { getResource, getItems } from "@models/stash";
-import { VillageStore } from "./village-store";
+
+import { PartyEvent, PartyEventArrivedToLocationArgs, PartyID, PartyService } from "@modules/party";
+
 import { VillageStashService } from "./village-stash-service";
+import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageEventHandler {

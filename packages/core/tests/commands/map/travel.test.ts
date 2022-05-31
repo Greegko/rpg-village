@@ -1,5 +1,6 @@
-import { test, createState } from "../../utils";
-import { MapCommand, MapActivity } from "../../../public-api";
+import { createState, test } from "../../utils";
+
+import { MapActivity, MapCommand } from "../../../public-api";
 
 test("should start Travel activity", {
   initState: createState(({ location, party }) => [

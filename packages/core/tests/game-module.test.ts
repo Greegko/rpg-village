@@ -1,6 +1,8 @@
-import { gameFactory } from "./utils/game-factory";
-import { GameState } from "../public-api";
 import test from "ava";
+
+import { gameFactory } from "./utils/game-factory";
+
+import { GameState } from "../public-api";
 
 test("loadGame should load the state", t => {
   const game = gameFactory();

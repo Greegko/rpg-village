@@ -3,8 +3,9 @@ import { injectable } from "inversify";
 import { commandHandler } from "@core/command";
 
 import { ActivityManager } from "@modules/activity";
-import { TrainingFieldCommand, TrainingFieldCommandArgs } from "./training-field-command";
+
 import { TrainingFieldActivity } from "./interface";
+import { TrainingFieldCommand, TrainingFieldCommandArgs } from "./training-field-command";
 
 @injectable()
 export class TrainingFieldCommandHandler {

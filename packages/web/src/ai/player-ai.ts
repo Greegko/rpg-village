@@ -1,23 +1,25 @@
-import { values, filter, map, partition, sum } from "ramda";
+import { filter, map, partition, sum, values } from "ramda";
+
 import {
   Command,
-  PartyOwner,
-  MapCommand,
-  Party,
   GameState,
+  MapCommand,
+  MapLocation,
+  Party,
+  PartyOwner,
   VillageCommand,
   calculateUnitStrength,
-  MapLocation,
 } from "@rpg-village/core";
-import { sample } from "../lib";
+
 import {
-  idlePartiesSelector,
-  worldMapSelector,
-  partiesSelector,
-  villageSelector,
   heroUnitsSelector,
+  idlePartiesSelector,
+  partiesSelector,
   unitsSelector,
+  villageSelector,
+  worldMapSelector,
 } from "../game";
+import { sample } from "../lib";
 
 export class PlayerAI {
   execute = (gameState: GameState): Command[] => {

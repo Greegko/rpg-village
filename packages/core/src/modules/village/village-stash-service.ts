@@ -1,7 +1,8 @@
-import { injectable } from "inversify";
-import { ItemID, Item } from "@models/item";
+import { Item, ItemID } from "@models/item";
 import { Resource } from "@models/resource";
-import { addItems, getItem, removeItem, addResource, removeResource, getResource } from "@models/stash";
+import { addItems, addResource, getItem, getResource, removeItem, removeResource } from "@models/stash";
+import { injectable } from "inversify";
+
 import { VillageStore } from "./village-store";
 
 @injectable()

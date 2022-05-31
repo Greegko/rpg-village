@@ -1,11 +1,12 @@
 import { Module } from "@core/module";
-import { MapCommandHandler } from "./map-command-handler";
-import { MapActivity } from "./interfaces";
-import { MapStore } from "./map-store";
+
 import { MapExploreActivity, MapTravelActivity } from "./activites";
-import { MapService } from "./map-service";
+import { MapActivity } from "./interfaces";
+import { MapCommandHandler } from "./map-command-handler";
 import { MapEventHandler } from "./map-event-handler";
 import { MapLocationStore } from "./map-location-store";
+import { MapService } from "./map-service";
+import { MapStore } from "./map-store";
 
 export const mapModule: Module = {
   activities: [

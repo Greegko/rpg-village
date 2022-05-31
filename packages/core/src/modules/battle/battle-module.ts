@@ -1,7 +1,8 @@
 import { Module } from "@core/module";
+
+import { BattleActivity } from "./battle-activity";
 import { BattleService } from "./battle-service";
 import { BattleStore } from "./battle-store";
-import { BattleActivity } from "./battle-activity";
 import { BattleActivityType } from "./interfaces";
 
 export const battleModule: Module = {

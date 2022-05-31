@@ -1,5 +1,7 @@
-import { Unit, UnitType } from "@modules/unit";
 import { sample } from "@lib/sample";
+
+import { Unit, UnitType } from "@modules/unit";
+
 import { armorFactory, shieldFactory, weaponFactory } from "./equipment-factory";
 
 const lastname = [

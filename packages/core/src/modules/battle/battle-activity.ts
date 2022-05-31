@@ -1,10 +1,13 @@
-import { mergeDeepWith, add, complement, prop, sum } from "ramda";
 import { injectable } from "inversify";
+import { add, complement, mergeDeepWith, prop, sum } from "ramda";
+
 import { EventSystem } from "@core/event";
+
+import { Activity, IActivityHandler } from "@modules/activity";
 import { MapEvent, MapService } from "@modules/map";
-import { PartyService, PartyID } from "@modules/party";
-import { IActivityHandler, Activity } from "@modules/activity";
+import { PartyID, PartyService } from "@modules/party";
 import { isAlive } from "@modules/unit";
+
 import { BattleService } from "./battle-service";
 import { BattleID } from "./interfaces";
 import { calculateLoot } from "./lib";

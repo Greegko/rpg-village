@@ -1,6 +1,7 @@
 import { Container, interfaces } from "inversify";
-import { forEach, pipe, propOr, juxt } from "ramda";
-import { Module, ModulActivity, ModulStore, ProvideClass, ProvideValue } from "@core/module";
+import { forEach, juxt, pipe, propOr } from "ramda";
+
+import { ModulActivity, ModulStore, Module, ProvideClass, ProvideValue } from "@core/module";
 
 export type ApplyModule = (container: Container) => (module: Module) => void;
 

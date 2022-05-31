@@ -1,4 +1,5 @@
 import { IStore } from "@core/store";
+
 import { IActivityHandler } from "@modules/activity";
 
 export interface ProvideClass {

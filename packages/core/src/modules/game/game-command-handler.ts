@@ -1,8 +1,11 @@
 import { injectable } from "inversify";
+
 import { commandHandler } from "@core/command";
+
 import { ActivityManager } from "@modules/activity";
-import { GameCommand } from "./interfaces";
+
 import { GameService } from "./game-service";
+import { GameCommand } from "./interfaces";
 
 @injectable()
 export class GameCommandHandler {

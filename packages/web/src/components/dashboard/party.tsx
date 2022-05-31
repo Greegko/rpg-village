@@ -1,7 +1,9 @@
-import { GameStoreState, partiesSelector, activitiesSelector } from "../../game";
 import { connect } from "react-redux";
+
+import { Activity, Party, PartyID } from "@rpg-village/core";
+
+import { GameStoreState, activitiesSelector, partiesSelector } from "../../game";
 import { Hero } from "./hero";
-import { PartyID, Party, Activity } from "@rpg-village/core";
 
 const propertyMapper = (state: GameStoreState, props: PartyDisplayProperties): PartyDisplayState => {
   const party = partiesSelector(state.game)[props.partyId];

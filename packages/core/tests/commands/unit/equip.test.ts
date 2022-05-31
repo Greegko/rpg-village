@@ -1,5 +1,6 @@
-import { UnitCommand, EquipmentSlot } from "../../../public-api";
 import { test } from "../../utils";
+
+import { EquipmentSlot, UnitCommand } from "../../../public-api";
 
 test("should be able to equip item", {
   initState: {

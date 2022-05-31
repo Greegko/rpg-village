@@ -1,5 +1,6 @@
-import { test, createState } from "../../utils";
+import { createState, test } from "../../utils";
 import { stashFactory } from "../../utils/factories";
+
 import { MapActivity } from "../../../public-api";
 
 test("should move party to the new location on finish", {

@@ -1,11 +1,12 @@
 import { injectable } from "inversify";
 
 import { commandHandler } from "@core/command";
-import { ActivityManager } from "@modules/activity";
-import { PartyService, PartyOwner } from "@modules/party";
-import { BattleActivityType } from "@modules/battle";
 
-import { MapCommand, MapActivity, MapCommandBattleArgs } from "./interfaces";
+import { ActivityManager } from "@modules/activity";
+import { BattleActivityType } from "@modules/battle";
+import { PartyOwner, PartyService } from "@modules/party";
+
+import { MapActivity, MapCommand, MapCommandBattleArgs } from "./interfaces";
 
 @injectable()
 export class MapCommandHandler {

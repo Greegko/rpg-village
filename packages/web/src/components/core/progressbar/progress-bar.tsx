@@ -1,5 +1,7 @@
 import { Icon, Icons, Size } from "../icon";
 
+import "./progress-bar.scss";
+
 interface ProgressBarProperties {
   icon: Icons;
   maxValue: number;
@@ -7,7 +9,6 @@ interface ProgressBarProperties {
   color: string;
 }
 
-import "./progress-bar.scss";
 export const ProgressBar = ({ icon, maxValue, value, color }: ProgressBarProperties) => (
   <div className="progressbar">
     <span className="progressbar__icon">

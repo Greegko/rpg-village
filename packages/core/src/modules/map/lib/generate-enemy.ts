@@ -1,5 +1,5 @@
-import { Unit, UnitType } from "@modules/unit";
 import { PartyStash } from "@modules/party";
+import { Unit, UnitType } from "@modules/unit";
 
 export interface EnemyPartyGeneration {
   units: Omit<Unit, "id">[];

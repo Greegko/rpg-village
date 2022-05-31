@@ -1,5 +1,5 @@
-import { assoc, prop } from "ramda";
 import { injectable } from "inversify";
+import { assoc, prop } from "ramda";
 
 export interface IObjectStore<T extends object> {
   getState(): T;

@@ -1,8 +1,10 @@
 import { injectable } from "inversify";
-import { evolve, dec } from "ramda";
-import { PartyStore, PartyID, PartyEvent } from "@modules/party";
-import { IActivityHandler, Activity } from "@modules/activity";
+import { dec, evolve } from "ramda";
+
 import { EventSystem } from "@core/event";
+
+import { Activity, IActivityHandler } from "@modules/activity";
+import { PartyEvent, PartyID, PartyStore } from "@modules/party";
 
 import { MapLocationID } from "../interfaces";
 import { MapService } from "../map-service";

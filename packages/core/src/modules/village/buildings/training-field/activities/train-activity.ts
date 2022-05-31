@@ -1,8 +1,9 @@
-import { forEach } from "ramda";
 import { injectable } from "inversify";
-import { UnitStore, UnitID } from "@modules/unit";
-import { PartyStore, PartyID } from "@modules/party";
-import { IActivityHandler, Activity } from "@modules/activity";
+import { forEach } from "ramda";
+
+import { Activity, IActivityHandler } from "@modules/activity";
+import { PartyID, PartyStore } from "@modules/party";
+import { UnitID, UnitStore } from "@modules/unit";
 
 export type TrainingFieldState = {
   partyId: PartyID;
