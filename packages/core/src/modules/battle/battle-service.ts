@@ -1,19 +1,31 @@
 import { forEach } from "ramda";
 import { injectable } from "inversify";
-import { PartyService, PartyID } from "@modules/party";
+import { PartyService, PartyID, PartyStore } from "@modules/party";
 import { UnitStore } from "@modules/unit";
 import { Battle } from "./battle";
 import { BattleID, BattleStoreState } from "./interfaces";
 import { BattleStore } from "./battle-store";
+import { MapLocationID } from "@modules/map";
 
 @injectable()
 export class BattleService {
   private battleInstances: Record<BattleID, Battle> = {};
 
-  constructor(private battleStore: BattleStore, private partyService: PartyService, private unitStore: UnitStore) {}
+  constructor(
+    private battleStore: BattleStore,
+    private partyService: PartyService,
+    private unitStore: UnitStore,
+    private partyStore: PartyStore,
+  ) {}
 
   getBattle(battleId: BattleID): BattleStoreState {
     return this.battleStore.get(battleId);
+  }
+
+  getBattleLocation(battleId: BattleID): MapLocationID {
+    const partyId = this.battleStore.get(battleId).partyId;
+    const party = this.partyStore.get(partyId);
+    return party.locationId;
   }
 
   startBattle(partyId: PartyID, defenderPartyId: PartyID): BattleID {

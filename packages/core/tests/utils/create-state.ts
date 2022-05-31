@@ -6,6 +6,8 @@ import {
   GameState,
   MapLocation,
   GeneralGameStoreState,
+  Map,
+  MapID,
 } from "../../public-api";
 import { UnitID, BattleStoreState, BattleID, PartyActivity } from "../../public-api";
 import { MapLocationType, Unit, ActivityID } from "../../public-api";
@@ -18,16 +20,18 @@ import {
   activityFactory,
   battleStoreStateFactory,
   generalStateFactory,
+  mapFactory,
 } from "./factories";
 
 interface CreateStateCallbackArgs {
   battle: (battleArgs: PartialDeep<BattleStoreState>) => BattleID;
   party: (partyArgs: PartialDeep<Party>) => PartyID;
   activity: (activityArgs: PartialDeep<PartyActivity>) => ActivityID;
-  village: (villageargs?: PartialDeep<VillageState>) => MapLocationID;
+  village: (villageArgs?: PartialDeep<VillageState>) => MapLocationID;
+  map: (mapArgs?: PartialDeep<Map>) => MapID;
   location: (locationArgs?: PartialDeep<MapLocation>) => MapLocationID;
   unit: (unitArgs?: PartialDeep<Unit>) => UnitID;
-  general: (generalArgs?: PartialDeep<GeneralGameStoreState>) => void;
+  general: (generalArgs?: PartialDeep<GeneralGameStoreState>) => undefined;
 }
 
 type Callback = (callbackArgs: CreateStateCallbackArgs) => any[];
@@ -36,11 +40,12 @@ function createInitState(): GameState {
   return {
     battle: {},
     parties: {},
-    map: {},
     village: villageFactory(),
     units: {},
     general: generalStateFactory(),
     activities: {},
+    maps: {},
+    mapLocations: {},
   };
 }
 
@@ -48,9 +53,17 @@ function createCallback(createdState: GameState) {
   function createLocationReference(locationArgs?: Partial<MapLocation>) {
     const location = mapLocationFactory(locationArgs);
 
-    createdState.map[location.id] = location;
+    createdState.mapLocations[location.id] = location;
 
     return location.id;
+  }
+
+  function createMapReference(mapArgs?: Partial<Map>) {
+    const map = mapFactory(mapArgs);
+
+    createdState.maps[map.id] = map;
+
+    return map.id;
   }
 
   function createUnitReference(unitArgs?: Partial<Unit>) {
@@ -107,6 +120,7 @@ function createCallback(createdState: GameState) {
   return {
     battle: createBattleReference,
     party: createPartyReference,
+    map: createMapReference,
     location: createLocationReference,
     village: createVillageReference,
     activity: createActivityReference,

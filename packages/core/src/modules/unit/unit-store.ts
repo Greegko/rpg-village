@@ -5,7 +5,7 @@ import { EquipmentSlot, Item, ItemID } from "@models/item";
 import { Unit, UnitID } from "./interfaces";
 
 @injectable()
-export class UnitStore extends EntityStore<Unit, UnitID> {
+export class UnitStore extends EntityStore<UnitID, Unit> {
   healUnit(unitId: UnitID, hpGain: number): void {
     this.update(unitId, unit => ({
       hp: Math.min(unit.maxhp, unit.hp + hpGain),

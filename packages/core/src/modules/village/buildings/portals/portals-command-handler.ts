@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core/command";
 
-import { Map } from "@modules/map";
+import { MapService } from "@modules/map";
 import { VillageStashService, VillageStore } from "@modules/village";
 import { PartyStore } from "@modules/party";
 import {
@@ -15,7 +15,7 @@ import {
 @injectable()
 export class PortalsCommandHandler {
   constructor(
-    private map: Map,
+    private mapService: MapService,
     private villageStashService: VillageStashService,
     private partyStore: PartyStore,
     private villageStore: VillageStore,
@@ -46,7 +46,7 @@ export class PortalsCommandHandler {
     const item = this.villageStashService.takeItem(args.dungeonKeyId);
 
     if (item) {
-      this.map.createMap();
+      this.mapService.createMap();
     }
   }
 }

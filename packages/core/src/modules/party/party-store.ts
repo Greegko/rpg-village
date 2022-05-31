@@ -6,7 +6,7 @@ import { MapLocationID } from "@modules/map";
 import { Party, PartyID } from "./interfaces";
 
 @injectable()
-export class PartyStore extends EntityStore<Party> {
+export class PartyStore extends EntityStore<PartyID, Party> {
   setLocation(partyId: PartyID, locationId: MapLocationID) {
     this.update(partyId, assoc("locationId", locationId));
   }

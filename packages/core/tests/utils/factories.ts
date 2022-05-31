@@ -1,9 +1,17 @@
-import { Party, VillageState, PartyOwner, MapLocation, GeneralGameStoreState } from "../../public-api";
+import { Party, VillageState, PartyOwner, MapLocation, GeneralGameStoreState, Map } from "../../public-api";
 import { BattleStoreState, ItemStash, ResourceStash, PartyActivity } from "../../public-api";
 import { MapLocationType, Unit, UnitType, ActivityType, ItemType, Weapon, Shield, Armor } from "../../public-api";
 import { Chance } from "chance";
 
 const chance = Chance();
+
+export function mapFactory({
+  id = chance.string(),
+  difficulty = chance.integer(),
+  mapLocationIds = [],
+}: Partial<Map> = {}): Map {
+  return { difficulty, id, mapLocationIds };
+}
 
 export function mapLocationFactory({
   explored = chance.bool(),
@@ -11,9 +19,8 @@ export function mapLocationFactory({
   y = chance.integer(),
   id = chance.string(),
   type = MapLocationType.Field,
-  mapId = chance.string(),
 }: Partial<MapLocation> = {}): MapLocation {
-  return { explored, x, y, id, type, mapId };
+  return { explored, x, y, id, type };
 }
 
 export function stashFactory({ resource = { gold: chance.integer() }, items = [] } = {}): ItemStash & ResourceStash {
@@ -101,9 +108,6 @@ export function equipmentFactory({
   return { effects, id, name, itemType };
 }
 
-export function generalStateFactory({
-  turn = 0,
-  difficulty = 0,
-}: Partial<GeneralGameStoreState> = {}): GeneralGameStoreState {
-  return { turn, difficulty };
+export function generalStateFactory({ turn = 0 }: Partial<GeneralGameStoreState> = {}): GeneralGameStoreState {
+  return { turn };
 }

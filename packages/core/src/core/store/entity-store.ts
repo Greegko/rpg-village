@@ -4,13 +4,13 @@ import { injectable } from "inversify";
 
 export type EntityUpdater<T> = (entity: T) => Partial<T>;
 
-export type EntityStoreState<Entity extends { id: EntityID }, EntityID extends string = string> = {
+export type EntityStoreState<EntityID extends string, Entity extends { id: EntityID }> = {
   [key: string]: Entity;
 };
 
-export interface IEntityStore<Entity extends { id: EntityID }, EntityID extends string = string> {
-  getState(): EntityStoreState<Entity, EntityID>;
-  init(state: EntityStoreState<Entity, EntityID>): void;
+export interface IEntityStore<EntityID extends string, Entity extends { id: EntityID }> {
+  getState(): EntityStoreState<EntityID, Entity>;
+  init(state: EntityStoreState<EntityID, Entity>): void;
   get(id: EntityID): Entity;
   add(entity: Omit<Entity, "id">): Entity;
   update(entityId: EntityID, entity: Partial<Entity>): void;
@@ -19,16 +19,16 @@ export interface IEntityStore<Entity extends { id: EntityID }, EntityID extends 
 }
 
 @injectable()
-export class EntityStore<Entity extends { id: EntityID }, EntityID extends string = string>
-  implements IEntityStore<Entity, EntityID>
+export class EntityStore<EntityID extends string, Entity extends { id: EntityID }>
+  implements IEntityStore<EntityID, Entity>
 {
-  private state: EntityStoreState<Entity, EntityID> = {};
+  private state: EntityStoreState<EntityID, Entity> = {};
 
-  getState(): EntityStoreState<Entity, EntityID> {
+  getState(): EntityStoreState<EntityID, Entity> {
     return this.state;
   }
 
-  init(state: EntityStoreState<Entity, EntityID>) {
+  init(state: EntityStoreState<EntityID, Entity>) {
     this.state = state;
   }
 

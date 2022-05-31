@@ -2,25 +2,26 @@ import { injectable } from "inversify";
 import { eventHandler } from "@core/event";
 import { PartyService, PartyOwner } from "@modules/party";
 import { UnitStore } from "@modules/unit";
-import { GeneralGameStore } from "@modules/game";
-import { MapEvent, MapLocationID, MapEventNewLocationArgs } from "./interfaces";
+import { MapEvent, MapLocationID, MapEventNewLocationArgs, MapEventIncreaseDifficultyArgs, MapID } from "./interfaces";
 import { generateEnemyParty } from "./lib";
+import { MapStore } from "./map-store";
 
 @injectable()
 export class MapEventHandler {
-  constructor(
-    private partyService: PartyService,
-    private unitStore: UnitStore,
-    private generalGameStore: GeneralGameStore,
-  ) {}
+  constructor(private partyService: PartyService, private unitStore: UnitStore, private mapStore: MapStore) {}
 
   @eventHandler(MapEvent.NewLocation)
   newLocation(args: MapEventNewLocationArgs) {
-    this.addEnemyUnitToMap(args.locationId);
+    this.addEnemyUnitToMap(args.mapId, args.locationId);
   }
 
-  private addEnemyUnitToMap(locationId: MapLocationID) {
-    const party = generateEnemyParty(this.generalGameStore.get("difficulty"));
+  @eventHandler(MapEvent.IncreaseDifficulty)
+  increaseDifficulty(args: MapEventIncreaseDifficultyArgs) {
+    this.mapStore.update(args.mapId, map => ({ difficulty: map.difficulty + args.difficultyIncrease }));
+  }
+
+  private addEnemyUnitToMap(mapId: MapID, locationId: MapLocationID) {
+    const party = generateEnemyParty(this.mapStore.get(mapId).difficulty);
     const unitIds = party.units.map(unit => this.unitStore.add(unit)).map(x => x.id);
 
     this.partyService.createParty({

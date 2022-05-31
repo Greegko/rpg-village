@@ -3,7 +3,8 @@ import { BattleActivityType, UnitType, ItemType, AttackEffectType } from "../../
 import { equipmentFactory } from "../utils/factories";
 
 test("should finish correctly", {
-  initState: createState(({ activity, party, unit, battle }) => [
+  initState: createState(({ activity, party, unit, battle, map }) => [
+    map({ mapLocationIds: ["locationId"] }),
     activity({
       id: "battleActivity",
       name: BattleActivityType.Battle,
@@ -14,9 +15,13 @@ test("should finish correctly", {
         battleId: battle({
           partyId: party({
             id: "random-id",
+            locationId: "locationId",
             unitIds: [unit({ dmg: 100, hp: 100 })],
           }),
-          defenderPartyId: party({ unitIds: [unit({ dmg: 1, hp: 1, armor: 0 })] }),
+          defenderPartyId: party({
+            locationId: "locationId",
+            unitIds: [unit({ dmg: 1, hp: 1, armor: 0 })],
+          }),
         }),
       },
     }),
@@ -26,13 +31,15 @@ test("should finish correctly", {
 });
 
 test("should gain xp then winner heroes", {
-  initState: createState(({ activity, party, unit, battle }) => [
+  initState: createState(({ activity, party, unit, battle, map }) => [
+    map({ mapLocationIds: ["locationId"] }),
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
             id: "party-id",
+            locationId: "locationId",
             unitIds: [
               unit({
                 id: "winner-unit",
@@ -44,6 +51,7 @@ test("should gain xp then winner heroes", {
             ],
           }),
           defenderPartyId: party({
+            locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
           }),
         }),
@@ -55,17 +63,20 @@ test("should gain xp then winner heroes", {
 });
 
 test("should party gain the looser stash", {
-  initState: createState(({ activity, party, unit, battle }) => [
+  initState: createState(({ activity, party, unit, battle, map, location }) => [
+    map({ mapLocationIds: ["locationId"] }),
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
+            locationId: "locationId",
             id: "winner-party",
             unitIds: [unit({ dmg: 10, hp: 10 })],
             stash: { resource: { gold: 0 } },
           }),
           defenderPartyId: party({
+            locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
             stash: { resource: { gold: 25 } },
           }),
@@ -80,12 +91,14 @@ test("should party gain the looser stash", {
 });
 
 test("should apply item dmg effect", {
-  initState: createState(({ activity, party, unit, battle }) => [
+  initState: createState(({ activity, party, unit, battle, map }) => [
+    map({ mapLocationIds: ["locationId"] }),
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
+            locationId: "locationId",
             unitIds: [
               unit({
                 dmg: 10,
@@ -100,6 +113,7 @@ test("should apply item dmg effect", {
             ],
           }),
           defenderPartyId: party({
+            locationId: "locationId",
             unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0 })],
           }),
         }),
@@ -111,13 +125,14 @@ test("should apply item dmg effect", {
 });
 
 test("should increase the difficulty on unit death", {
-  initState: createState(({ activity, party, unit, battle, general }) => [
-    general({ difficulty: 10 }),
+  initState: createState(({ activity, party, unit, battle, map, location }) => [
+    map({ id: "mapId", mapLocationIds: [location({ id: "location" })], difficulty: 10 }),
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
+            locationId: "location",
             unitIds: [
               unit({
                 dmg: 10,
@@ -126,6 +141,7 @@ test("should increase the difficulty on unit death", {
             ],
           }),
           defenderPartyId: party({
+            locationId: "location",
             unitIds: [unit({ dmg: 1, hp: 1, armor: 0, level: 2 })],
           }),
         }),
@@ -133,5 +149,5 @@ test("should increase the difficulty on unit death", {
     }),
   ]),
   turn: true,
-  expectedState: { general: { difficulty: 12 } },
+  expectedState: { maps: { mapId: { difficulty: 12 } } },
 });

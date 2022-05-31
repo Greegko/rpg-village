@@ -1,7 +1,8 @@
 import { mergeDeepWith, add, complement, prop, sum } from "ramda";
 import { injectable } from "inversify";
+import { EventSystem } from "@core/event";
+import { MapEvent, MapService } from "@modules/map";
 import { PartyService, PartyID } from "@modules/party";
-import { GameService } from "@modules/game";
 import { IActivityHandler, Activity } from "@modules/activity";
 import { isAlive } from "@modules/unit";
 import { BattleService } from "./battle-service";
@@ -16,7 +17,8 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,
-    private gameService: GameService,
+    private mapService: MapService,
+    private eventSystem: EventSystem,
   ) {}
 
   start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {
@@ -56,7 +58,13 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
 
     const diedWinnerUnits = winnerUnits.filter(complement(isAlive));
 
-    this.gameService.increaseDifficulty(sum(looserUnits.map(x => x.level)));
+    const battleLocation = this.battleService.getBattleLocation(state.battleId);
+    const map = this.mapService.getMapByLocation(battleLocation);
+
+    this.eventSystem.fire(MapEvent.IncreaseDifficulty, {
+      mapId: map.id,
+      difficultyIncrease: sum(looserUnits.map(x => x.level)),
+    });
 
     this.partyService.removeUnitFromParty(winnerPartyId, diedWinnerUnits.map(prop("id")));
     this.partyService.removeUnitFromParty(looserPartyId, looserUnits.map(prop("id")));

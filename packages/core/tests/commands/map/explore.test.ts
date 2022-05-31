@@ -1,6 +1,6 @@
 import { test, createState } from "../../utils";
 import { MapCommand, MapActivity } from "../../../public-api";
-import { filter, propEq, values } from "ramda";
+import { values } from "ramda";
 
 test("should start Explore activity", {
   initState: createState(({ location, party }) => [
@@ -29,7 +29,8 @@ test("should not start Explore activity on explored location", {
 });
 
 test("should explore the target tile", {
-  initState: createState(({ location, party, activity }) => [
+  initState: createState(({ location, party, activity, map }) => [
+    map({ mapLocationIds: ["tile"] }),
     activity({
       startArgs: {
         partyId: party({
@@ -42,11 +43,12 @@ test("should explore the target tile", {
     }),
   ]),
   turn: true,
-  expectedState: { map: { tile: { explored: true } } },
+  expectedState: { mapLocations: { tile: { explored: true } } },
 });
 
 test("should explore neighbour tiles", {
-  initState: createState(({ location, party, activity }) => [
+  initState: createState(({ location, party, activity, map }) => [
+    map({ mapLocationIds: ["tile"] }),
     activity({
       startArgs: {
         partyId: party({
@@ -59,23 +61,33 @@ test("should explore neighbour tiles", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.is(values(state.map).length, 7),
+  expectedState: (state, t) => t.is(values(state.mapLocations).length, 7),
 });
 
 test("should only explore tiles in the same map", {
-  initState: createState(({ location, party, activity }) => [
+  initState: createState(({ location, party, activity, map }) => [
+    map({
+      id: "map-world",
+      mapLocationIds: [location({ id: "map-world-location", explored: false })],
+    }),
+    map({
+      id: "map-not-world",
+      mapLocationIds: [location({ id: "map-non-world-location", explored: false })],
+    }),
     activity({
       startArgs: {
         partyId: party({
           id: "party-id",
-          locationId: location({ explored: false, mapId: "map-world" }),
+          locationId: "map-world-location",
         }),
       },
       name: MapActivity.Explore,
       state: { progress: 1, partyId: "party-id" },
     }),
-    location({ explored: false, mapId: "map-1" }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.is(filter(propEq("mapId", "map-1"), values(state.map)).length, 1),
+  expectedState: (state, t) => {
+    t.is(state.maps["map-world"].mapLocationIds.length, 7);
+    t.is(state.maps["map-not-world"].mapLocationIds.length, 1);
+  },
 });

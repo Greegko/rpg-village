@@ -2,7 +2,8 @@ import { test, createState } from "../../utils";
 import { MapActivity } from "../../../public-api";
 
 test("should change explore status on tile", {
-  initState: createState(({ location, party, activity }) => [
+  initState: createState(({ location, party, activity, map }) => [
+    map({ mapLocationIds: ["tile"] }),
     activity({
       name: MapActivity.Explore,
       state: {
@@ -15,11 +16,12 @@ test("should change explore status on tile", {
     }),
   ]),
   turn: true,
-  expectedState: { map: { tile: { explored: true } } },
+  expectedState: { mapLocations: { tile: { explored: true } } },
 });
 
 test("should add new locations around explored tile", {
-  initState: createState(({ location, party, activity }) => [
+  initState: createState(({ location, party, activity, map }) => [
+    map({ mapLocationIds: ["tile"] }),
     activity({
       name: MapActivity.Explore,
       state: {
@@ -32,11 +34,12 @@ test("should add new locations around explored tile", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.is(Object.keys(state.map).length, 7),
+  expectedState: (state, t) => t.is(Object.keys(state.mapLocations).length, 7),
 });
 
 test("should add enemy units on new map tile", {
-  initState: createState(({ location, party, activity }) => [
+  initState: createState(({ location, party, activity, map }) => [
+    map({ mapLocationIds: ["tile"] }),
     activity({
       name: MapActivity.Explore,
       state: {

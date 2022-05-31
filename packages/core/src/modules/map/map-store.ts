@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { EntityStore } from "@core/store";
-import { MapLocation, MapLocationID } from "./interfaces";
+import { MapID, Map } from "./interfaces";
 
 @injectable()
-export class MapStore extends EntityStore<MapLocation, MapLocationID> {}
+export class MapStore extends EntityStore<MapID, Map> {}
