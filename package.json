@@ -11,7 +11,10 @@
     "packages/*"
   ],
   "dependencies": {
-    "prettier": "2.3.2",
-    "concurrently": "6.2.0"
+    "concurrently": "6.2.0",
+    "prettier": "2.3.2"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0"
   }
 }
