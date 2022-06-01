@@ -1,8 +1,8 @@
-import { Loot } from "@models/loot";
-import { addResource } from "@models/stash";
 import { injectable } from "inversify";
 import { any, filter, propEq, values, without } from "ramda";
 
+import { Loot } from "@models/loot";
+import { addResource } from "@models/stash";
 import { ActivityStore } from "@modules/activity";
 import { MapLocationID } from "@modules/map";
 import { Unit, UnitID, UnitStore, isAlive } from "@modules/unit";

@@ -1,6 +1,6 @@
-import { Effect, unitEffectPropertyMap } from "@models/effect";
 import { prop, reduce, sortBy } from "ramda";
 
+import { Effect, unitEffectPropertyMap } from "@models/effect";
 import { Unit, getUnitEffects } from "@modules/unit";
 
 import { UnitBattleStats } from "../interfaces";

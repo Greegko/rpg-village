@@ -1,11 +1,11 @@
-import { AttackEffectType, Effect } from "@models/effect";
-import { EquipmentSlot, Item, ItemID, ItemType } from "@models/item";
-import { getItem } from "@models/stash";
 import { injectable } from "inversify";
 import { append, evolve } from "ramda";
 
 import { commandHandler } from "@core/command";
 
+import { AttackEffectType, Effect } from "@models/effect";
+import { EquipmentSlot, Item, ItemID, ItemType } from "@models/item";
+import { getItem } from "@models/stash";
 import { UnitID, UnitStore } from "@modules/unit";
 import { VillageStashService } from "@modules/village";
 import { armorFactory, shieldFactory, weaponFactory } from "@modules/village/lib/equipment-factory";

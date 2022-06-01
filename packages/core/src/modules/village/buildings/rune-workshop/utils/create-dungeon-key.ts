@@ -1,5 +1,6 @@
-import { DungeonKey, ItemType } from "@models/item";
 import { generate } from "shortid";
+
+import { DungeonKey, ItemType } from "@models/item";
 
 export function createDungeonKey(): DungeonKey {
   return {

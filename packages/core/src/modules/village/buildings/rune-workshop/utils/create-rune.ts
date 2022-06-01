@@ -1,5 +1,6 @@
-import { ItemType, Rune } from "@models/item";
 import { generate } from "shortid";
+
+import { ItemType, Rune } from "@models/item";
 
 export function createRune(): Rune {
   return {

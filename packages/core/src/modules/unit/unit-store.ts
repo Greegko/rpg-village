@@ -1,8 +1,9 @@
-import { EquipmentSlot, Item, ItemID } from "@models/item";
 import { injectable } from "inversify";
 import { always, assoc, evolve, map, propEq, when } from "ramda";
 
 import { EntityStore } from "@core/store";
+
+import { EquipmentSlot, Item, ItemID } from "@models/item";
 
 import { Unit, UnitID } from "./interfaces";
 

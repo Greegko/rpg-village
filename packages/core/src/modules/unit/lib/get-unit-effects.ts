@@ -1,5 +1,6 @@
-import { Effect } from "@models/effect";
 import { flatten, pathOr } from "ramda";
+
+import { Effect } from "@models/effect";
 
 import { Unit } from "../interfaces";
 

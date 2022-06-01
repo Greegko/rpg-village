@@ -1,5 +1,4 @@
 import { EquipmentSlot, ItemID, ItemType } from "@models/item";
-
 import { UnitID } from "@modules/unit";
 
 export enum BlacksmithCommand {
