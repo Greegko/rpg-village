@@ -5,7 +5,7 @@ import { eventHandler } from "@core/event";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore } from "@modules/unit";
 
-import { MapEvent, MapEventIncreaseDifficultyArgs, MapEventNewLocationArgs, MapID, MapLocationID } from "./interfaces";
+import { MapEvent, MapEventNewLocationArgs, MapID, MapLocationID } from "./interfaces";
 import { generateEnemyParty } from "./lib";
 import { MapStore } from "./map-store";
 
@@ -16,11 +16,6 @@ export class MapEventHandler {
   @eventHandler(MapEvent.NewLocation)
   newLocation(args: MapEventNewLocationArgs) {
     this.addEnemyUnitToMap(args.mapId, args.locationId);
-  }
-
-  @eventHandler(MapEvent.IncreaseDifficulty)
-  increaseDifficulty(args: MapEventIncreaseDifficultyArgs) {
-    this.mapStore.update(args.mapId, map => ({ difficulty: map.difficulty + args.difficultyIncrease }));
   }
 
   private addEnemyUnitToMap(mapId: MapID, locationId: MapLocationID) {
