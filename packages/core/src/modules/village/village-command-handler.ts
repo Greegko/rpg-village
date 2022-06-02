@@ -1,10 +1,10 @@
 import { injectable } from "inversify";
-import { append, inc } from "ramda";
+import { append, head, inc } from "ramda";
 
 import { commandHandler } from "@core/command";
 
 import { ActivityManager } from "@modules/activity";
-import { GameCommand } from "@modules/game";
+import { GameCommand, GeneralGameStore } from "@modules/game";
 import { MapLocationType, MapService } from "@modules/map";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore, isAlive } from "@modules/unit";
@@ -23,6 +23,7 @@ export class VillageCommandHandler {
     private unitStore: UnitStore,
     private activityManager: ActivityManager,
     private mapService: MapService,
+    private generalGameStore: GeneralGameStore,
   ) {}
 
   @commandHandler(VillageCommand.BuildHouse)
@@ -107,8 +108,10 @@ export class VillageCommandHandler {
 
   @commandHandler(GameCommand.NewGame)
   createVillage(): void {
-    const [villageLocationId] = this.mapService.createMap(MapLocationType.Village).mapLocationIds;
+    const map = this.mapService.createMap(MapLocationType.Village);
+    this.generalGameStore.set("worldMapId", map.id);
+
     this.villageStore.set("stash", { items: [], resource: { gold: 0 } });
-    this.villageStore.set("locationId", villageLocationId);
+    this.villageStore.set("locationId", head(map.mapLocationIds)!);
   }
 }

@@ -109,6 +109,9 @@ export function equipmentFactory({
   return { effects, id, name, itemType };
 }
 
-export function generalStateFactory({ turn = 0 }: Partial<GeneralGameStoreState> = {}): GeneralGameStoreState {
-  return { turn };
+export function generalStateFactory({
+  turn = 0,
+  worldMapId = chance.string(),
+}: Partial<GeneralGameStoreState> = {}): GeneralGameStoreState {
+  return { turn, worldMapId };
 }
