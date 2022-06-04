@@ -14,10 +14,13 @@ import {
 import {
   heroUnitsSelector,
   idlePartiesSelector,
+  mapByPartyIdSelector,
+  mapLocationByIdSelector,
+  mapLocationsByMapIdSelector,
+  mapLocationsByMapLocationIdSelector,
   partiesSelector,
   unitsSelector,
   villageSelector,
-  worldMapSelector,
 } from "../game";
 import { sample } from "../lib";
 
@@ -35,8 +38,7 @@ export class PlayerAI {
   }
 
   private handleNewLocation(gameState: GameState, party: Party): Command | undefined {
-    const map = worldMapSelector(gameState);
-    const partyLocation = map[party.locationId];
+    const partyLocation = mapLocationByIdSelector(gameState, party.locationId);
 
     if (!partyLocation.explored) {
       return { command: MapCommand.Explore, args: { partyId: party.id } };
@@ -63,7 +65,8 @@ export class PlayerAI {
   }
 
   private handleNextLocationSearch(gameState: GameState, party: Party): Command | undefined {
-    const map = worldMapSelector(gameState);
+    const map = mapByPartyIdSelector(gameState, party.id);
+    const mapLocations = mapLocationsByMapIdSelector(gameState, map.id);
     const village = villageSelector(gameState);
     const heroes = heroUnitsSelector(gameState);
 
@@ -77,8 +80,8 @@ export class PlayerAI {
 
     const partyStrength = this.getPartyStrength(gameState, party.id);
 
-    const unexploredLocations = values(map).filter(location => !location.explored) as MapLocation[];
-    const weakerUnitLocations = values(map).filter(location => {
+    const unexploredLocations = values(mapLocations).filter(location => !location.explored);
+    const weakerUnitLocations = values(mapLocations).filter(location => {
       const [, [enemyParty]] = this.getPartiesOnLocation(gameState, location.id);
 
       if (!enemyParty) return false;
@@ -122,11 +125,11 @@ export class PlayerAI {
     return sum(partyUnits.map(calculateUnitStrength));
   }
 
-  private isLocationAccessible(gameState: GameState, locationId: string): boolean {
-    const locations = worldMapSelector(gameState);
-    const targetLocation = locations[locationId] as MapLocation;
+  private isLocationAccessible(gameState: GameState, mapLocationId: string): boolean {
+    const mapLocations = mapLocationsByMapLocationIdSelector(gameState, mapLocationId);
+    const targetLocation = mapLocationByIdSelector(gameState, mapLocationId);
 
-    const neighboursTiles = (values(locations) as MapLocation[]).filter(
+    const neighboursTiles = (values(mapLocations) as MapLocation[]).filter(
       location =>
         Math.abs(location.x - targetLocation.x) <= 1 &&
         location.x !== targetLocation.x &&

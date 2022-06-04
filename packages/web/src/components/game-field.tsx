@@ -5,7 +5,7 @@ import { Party, VillageState } from "@rpg-village/core";
 
 import { GameStoreState, playerPartiesSelector, villageSelector } from "../game";
 import { Dashboard } from "./dashboard";
-import { WorldMap } from "./map-map/map-map";
+import { WorldMap } from "./world-map/world-map";
 
 import "./game-field.scss";
 

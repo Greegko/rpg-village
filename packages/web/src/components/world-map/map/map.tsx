@@ -1,31 +1,42 @@
+import { map } from "ramda";
 import { connect } from "react-redux";
 
-import { MapLocation, MapLocationID, Party } from "@rpg-village/core";
+import { MapID, MapLocation, MapLocationID, Party } from "@rpg-village/core";
 
-import { GameStoreState, mapLocationsSelector, partiesGroupedOnLocationsSelector } from "../../../game";
+import { GameStoreState, mapLocationsByMapIdSelector, partiesGroupedOnLocationsSelector } from "../../../game";
 import { Tile } from "./tile";
 
-const propertyMapper = (state: GameStoreState) => {
+const propertyMapper = (state: GameStoreState, props: MapOwnProperties) => {
   return {
     partiesOnLocations: partiesGroupedOnLocationsSelector(state.game),
-    locations: mapLocationsSelector(state.game),
+    locations: mapLocationsByMapIdSelector(state.game, props.mapId),
   };
 };
 
-interface MapProperties {
+interface MapOwnProperties {
+  mapId: MapID;
+}
+
+interface MapStateProperties {
   locations: MapLocation[];
   partiesOnLocations: Record<MapLocationID, Party[]>;
 }
 
-export const Map = connect(propertyMapper)(
-  ({ locations, partiesOnLocations }: MapProperties) =>
-    locations.map(location => (
-      <Tile
-        key={location.id}
-        parties={partiesOnLocations[location.id]}
-        locationType={location.type}
-        x={61 * location.x}
-        y={35 * location.y}
-      />
-    )) as any,
-);
+type MapProperties = MapOwnProperties & MapStateProperties;
+
+export const Map = connect(propertyMapper)(({ locations, partiesOnLocations }: MapProperties) => (
+  <>
+    {map(
+      location => (
+        <Tile
+          key={location.id}
+          parties={partiesOnLocations[location.id]}
+          locationType={location.type}
+          x={61 * location.x}
+          y={35 * location.y}
+        />
+      ),
+      locations,
+    )}
+  </>
+));

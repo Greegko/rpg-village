@@ -1,10 +1,24 @@
 import { useCallback, useState } from "react";
+import { connect } from "react-redux";
 
+import { MapID } from "@rpg-village/core";
+
+import { GameStoreState, worldMapIdSelector } from "../../game";
 import { MapStage } from "./map/map-stage";
 
 import "./world-map.scss";
 
-export const WorldMap = () => {
+const propertyMapper = (state: GameStoreState) => {
+  return {
+    worldMapId: worldMapIdSelector(state.game),
+  };
+};
+
+interface WorldMapPropteries {
+  worldMapId: MapID;
+}
+
+export const WorldMap = connect(propertyMapper)(({ worldMapId }: WorldMapPropteries) => {
   const [mapSize, setMapSize] = useState<[number, number] | null>(null);
 
   const mapRef = useCallback<(element: HTMLDivElement) => void>(node => {
@@ -19,7 +33,7 @@ export const WorldMap = () => {
 
   return (
     <div className="worldmap" ref={mapRef}>
-      {mapSize && <MapStage width={mapSize[0]} height={mapSize[1]} />}
+      {mapSize && <MapStage worldMapId={worldMapId} width={mapSize[0]} height={mapSize[1]} />}
     </div>
   );
-};
+});
