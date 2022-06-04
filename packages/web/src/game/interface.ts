@@ -9,16 +9,5 @@ export interface GamePage {
   args?: any;
 }
 
-export interface GameUI {
-  page?: GamePage;
-  paused: boolean;
-  ai: boolean;
-}
-
-export interface GameStoreState {
-  game: GameState;
-  ui: GameUI;
-}
-
 export type AICommandGenerator = (state: GameState) => Command[];
 export type StateUpdateCallback = (game: GameState) => void;

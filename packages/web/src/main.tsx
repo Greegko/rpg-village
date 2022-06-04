@@ -1,43 +1,31 @@
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
 
 import "../polyfill";
 import { PlayerAI } from "./ai/player-ai";
 import { GameField } from "./components/game-field";
-import { GameStoreState } from "./game";
 import { GameInstanceWrapper } from "./game/game-instance-wrapper";
-import { gameMiscActionReducerFactory, gameReducer, gameUIReducer, updateGameState } from "./game/reducers";
+import { setGameState } from "./game/reducers";
+import { createGameStore } from "./game/store";
 
-const game = new GameInstanceWrapper();
-
+const gameInstanceWrapper = new GameInstanceWrapper();
 const playerAI = new PlayerAI();
+const gameStore = createGameStore({ gameInstance: gameInstanceWrapper });
+gameInstanceWrapper.restoreOrNewGame();
 
-game.restoreOrNewGame();
-game.setAI(playerAI.execute);
+gameStore.dispatch(setGameState(gameInstanceWrapper.getState()));
 
-const gameMiscActionReducer = gameMiscActionReducerFactory(game);
-const reducers = (state: GameStoreState = {} as any, action: any) => {
-  gameMiscActionReducer(action);
+gameInstanceWrapper.setAI(playerAI.execute);
 
-  return {
-    game: gameReducer(state.game, action),
-    ui: gameUIReducer(state.ui, action),
-  };
-};
+gameInstanceWrapper.onStateUpdate(state => gameStore.dispatch(setGameState(state)));
 
-const store = createStore(
-  reducers,
-  { game: game.getState(), ui: { paused: false, ai: true } },
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-);
+gameInstanceWrapper.resume();
 
-game.onStateUpdate(state => store.dispatch(updateGameState(state)));
-game.resume();
+const container = document.getElementById("game");
+const root = createRoot(container!);
 
-render(
-  <Provider store={store}>
+root.render(
+  <Provider store={gameStore}>
     <GameField />
   </Provider>,
-  document.getElementById("game"),
 );

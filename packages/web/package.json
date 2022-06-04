@@ -6,6 +6,7 @@
     "start": "./node_modules/.bin/webpack serve --config ./config/webpack-dev.config.js"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "@rpg-village/core": "1.0.0",
     "jsdom": "19.0.0",
     "konva": "8.3.9",
@@ -15,9 +16,7 @@
     "react-dom": "18.1.0",
     "react-konva": "18.1.1",
     "react-redux": "8.0.2",
-    "redux": "4.2.0",
     "reflect-metadata": "0.1.13",
-    "reselect": "4.1.5",
     "svg-url-loader": "7.1.1",
     "ts-loader": "9.3.0",
     "typescript": "4.7.2",

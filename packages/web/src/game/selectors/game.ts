@@ -1,5 +1,5 @@
+import { createSelector } from "@reduxjs/toolkit";
 import { filter, find, groupBy, values } from "ramda";
-import { createSelector } from "reselect";
 
 import {
   Activity,
