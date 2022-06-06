@@ -2,7 +2,7 @@ import { keys } from "ramda";
 
 import { VillageCommand } from "@rpg-village/core";
 
-import { partiesSelector, useGameStateSelector, villageSelector } from "../../game/store/game";
+import { playerPartiesSelector, useGameStateSelector, villageSelector } from "../../game/store/game";
 import { useExecuteCommandDispatch } from "../../game/store/game-command";
 import { pageSelector, useGameUISelector } from "../../game/store/game-ui";
 import { CharacterSheet } from "./character-sheet";
@@ -13,7 +13,7 @@ import "./dashboard.scss";
 
 export const Dashboard = () => {
   const executeCommand = useExecuteCommandDispatch();
-  const parties = useGameStateSelector(partiesSelector);
+  const parties = useGameStateSelector(playerPartiesSelector);
   const village = useGameStateSelector(villageSelector);
   const page = useGameUISelector(pageSelector);
 
