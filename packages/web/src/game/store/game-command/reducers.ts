@@ -19,4 +19,7 @@ const gameCommandSlice = createSlice({
 
 export const { fastForward, logState, reset, save, executeCommand } = gameCommandSlice.actions;
 
-export const useExecuteCommandDispatch = () => (command: Command) => useDispatch()(executeCommand(command as any));
+export const useExecuteCommandDispatch = () => {
+  const dispatcher = useDispatch();
+  return (command: Command) => dispatcher(executeCommand(command as any));
+};
