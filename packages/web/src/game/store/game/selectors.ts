@@ -29,11 +29,7 @@ const selectorProperty =
 export const worldMapIdSelector = (game: GameState) => game.general.worldMapId;
 
 export const mapsSelector = (game: GameState) => game.maps;
-export const mapByMapIdSelector = createSelector(
-  mapsSelector,
-  (state: GameState, mapId: MapID) => mapId,
-  (maps, mapId) => maps[mapId],
-);
+export const mapByMapIdSelector = createSelector(mapsSelector, selectorProperty<MapID>(), (maps, mapId) => maps[mapId]);
 export const mapLocationsSelector = (game: GameState) => game.mapLocations;
 export const mapLocationByIdSelector = createSelector(
   mapLocationsSelector,
@@ -41,10 +37,9 @@ export const mapLocationByIdSelector = createSelector(
   (mapLocations, mapLocationId) => mapLocations[mapLocationId],
 );
 export const mapLocationsByMapLocationIdSelector = createSelector(
-  mapLocationsSelector,
   gameStateSelf,
   selectorProperty<MapLocationID>(),
-  (mapLocations, gameState, mapLocationId) => {
+  (gameState, mapLocationId) => {
     const map = mapByMapLocationIdSelector(gameState, mapLocationId);
     return mapLocationsByMapIdSelector(gameState, map.id);
   },

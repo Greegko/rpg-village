@@ -14,5 +14,5 @@ export const mapSelector = createSelector(gameUISelf, ui => ui.map);
 export const isAIEnabledSelector = createSelector(gameUISelf, ui => ui.ai);
 export const pausedSelector = createSelector(gameUISelf, ui => ui.paused);
 
-export const useGameUISelector = <R, T extends (gameState: GameUIState) => R>(selector: T) =>
+export const useGameUISelector = <R, T extends (gameState: GameUIState) => R>(selector: T): R =>
   useSelector(createSelector(gameStoreUISelector, selector));
