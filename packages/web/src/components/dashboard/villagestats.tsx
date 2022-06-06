@@ -2,7 +2,8 @@ import { connect } from "react-redux";
 
 import { GeneralGameStoreState, VillageCommand, VillageState } from "@rpg-village/core";
 
-import { ExecuteCommand, GameStoreState } from "../../game";
+import { GameStoreState } from "../../game";
+import { ExecuteCommand } from "../../game/reducers/game-command";
 
 import "./villagestats.scss";
 

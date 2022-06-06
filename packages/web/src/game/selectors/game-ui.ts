@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
-import { GameUIState } from "../reducers";
+import { GameUIState } from "../reducers/game-ui";
 import { GameStoreState } from "../store";
 
 export const gameStoreUISelector = (game: GameStoreState) => game.ui;

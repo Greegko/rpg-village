@@ -5,7 +5,7 @@ import "../polyfill";
 import { PlayerAI } from "./ai/player-ai";
 import { GameField } from "./components/game-field";
 import { GameInstanceWrapper } from "./game/game-instance-wrapper";
-import { setGameState } from "./game/reducers";
+import { setGameState } from "./game/reducers/game";
 import { createGameStore } from "./game/store";
 
 const gameInstanceWrapper = new GameInstanceWrapper();

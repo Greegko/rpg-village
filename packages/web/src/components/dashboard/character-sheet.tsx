@@ -11,7 +11,9 @@ import {
   UnitID,
 } from "@rpg-village/core";
 
-import { ExecuteCommand, GameStoreState, heroUnitsSelector, translate } from "../../game";
+import { GameStoreState, translate } from "../../game";
+import { ExecuteCommand } from "../../game/reducers/game-command";
+import { heroUnitsSelector } from "../../game/selectors/game";
 
 import "./character-sheet.scss";
 

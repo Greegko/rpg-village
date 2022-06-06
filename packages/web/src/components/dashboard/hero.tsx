@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 
 import { Unit } from "@rpg-village/core";
 
-import { GameStoreState, heroUnitsSelector, openCharacterSheet } from "../../game";
+import { GameStoreState } from "../../game";
+import { openCharacterSheet } from "../../game/pages";
+import { heroUnitsSelector } from "../../game/selectors/game";
 import { Icons, ProgressBar } from "../core";
 
 import "./hero.scss";
