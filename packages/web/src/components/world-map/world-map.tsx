@@ -1,14 +1,12 @@
 import { useCallback, useState } from "react";
 
-import { MapID } from "@rpg-village/core";
-
 import { mapSelector, useGameUISelector } from "../../game/store/game-ui";
 import { MapStage } from "./map/map-stage";
 
 import "./world-map.scss";
 
 export const WorldMap = () => {
-  const worldMapId = useGameUISelector<MapID, any>(mapSelector);
+  const activeMapId = useGameUISelector(mapSelector);
   const [mapSize, setMapSize] = useState<[number, number] | null>(null);
 
   const mapRef = useCallback<(element: HTMLDivElement) => void>(node => {
@@ -21,11 +19,11 @@ export const WorldMap = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!worldMapId) return null;
+  if (!activeMapId) return null;
 
   return (
     <div className="worldmap" ref={mapRef}>
-      {mapSize && <MapStage worldMapId={worldMapId} width={mapSize[0]} height={mapSize[1]} />}
+      {mapSize && <MapStage worldMapId={activeMapId} width={mapSize[0]} height={mapSize[1]} />}
     </div>
   );
 };

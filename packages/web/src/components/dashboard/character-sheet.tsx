@@ -19,40 +19,55 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
       <div>Character Sheet</div>
       <div>{unit.name}</div>
       <div>Equipment</div>
-      <ItemStats item={unit.equipment.rightHand} />
 
-      <button
-        onClick={() =>
-          executeCommand({
-            command: BlacksmithCommand.UpgradeItem,
-            args: { unitId: unit.id, equipmentSlot: EquipmentSlot.RightHand },
-          })
-        }
-      >
-        Upgrade {unit.equipment.rightHand.name}
-      </button>
-      <ItemStats item={unit.equipment.leftHand} />
-      <button
-        onClick={() =>
-          executeCommand({
-            command: BlacksmithCommand.UpgradeItem,
-            args: { unitId: unit.id, equipmentSlot: EquipmentSlot.LeftHand },
-          })
-        }
-      >
-        Upgrade {unit.equipment.leftHand.name}
-      </button>
-      <ItemStats item={unit.equipment.torso} />
-      <button
-        onClick={() =>
-          executeCommand({
-            command: BlacksmithCommand.UpgradeItem,
-            args: { unitId: unit.id, equipmentSlot: EquipmentSlot.Torso },
-          })
-        }
-      >
-        Upgrade {unit.equipment.torso.name}
-      </button>
+      {unit.equipment.rightHand && (
+        <>
+          <ItemStats item={unit.equipment.rightHand} />
+
+          <button
+            onClick={() =>
+              executeCommand({
+                command: BlacksmithCommand.UpgradeItem,
+                args: { unitId: unit.id, equipmentSlot: EquipmentSlot.RightHand },
+              })
+            }
+          >
+            Upgrade {unit.equipment.rightHand?.name}
+          </button>
+        </>
+      )}
+
+      {unit.equipment.leftHand && (
+        <>
+          <ItemStats item={unit.equipment.leftHand} />
+          <button
+            onClick={() =>
+              executeCommand({
+                command: BlacksmithCommand.UpgradeItem,
+                args: { unitId: unit.id, equipmentSlot: EquipmentSlot.LeftHand },
+              })
+            }
+          >
+            Upgrade {unit.equipment.leftHand?.name}
+          </button>
+        </>
+      )}
+
+      {unit.equipment.torso && (
+        <>
+          <ItemStats item={unit.equipment.torso} />
+          <button
+            onClick={() =>
+              executeCommand({
+                command: BlacksmithCommand.UpgradeItem,
+                args: { unitId: unit.id, equipmentSlot: EquipmentSlot.Torso },
+              })
+            }
+          >
+            Upgrade {unit.equipment.torso.name}
+          </button>
+        </>
+      )}
     </div>
   );
 };

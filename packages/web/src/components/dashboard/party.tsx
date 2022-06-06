@@ -9,7 +9,7 @@ interface PartyDisplayProperties {
 
 export const PartyDisplay = (props: PartyDisplayProperties) => {
   const party = useGameStateSelector(state => partyByIdSelector(state, props.partyId));
-  const activity = useGameStateSelector(state => activityByIdSelector(state, party.activityId));
+  const activity = useGameStateSelector(state => activityByIdSelector(state, party.activityId!));
 
   return (
     <>

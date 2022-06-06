@@ -66,7 +66,7 @@ export class PlayerAI {
 
   private handleNextLocationSearch(gameState: GameState, party: Party): Command | undefined {
     const map = mapByPartyIdSelector(gameState, party.id);
-    const mapLocations = mapLocationsByMapIdSelector(gameState, map.id);
+    const mapLocations = mapLocationsByMapIdSelector(gameState, map!.id);
     const village = villageSelector(gameState);
     const heroes = heroUnitsSelector(gameState);
 
@@ -80,8 +80,8 @@ export class PlayerAI {
 
     const partyStrength = this.getPartyStrength(gameState, party.id);
 
-    const unexploredLocations = values(mapLocations).filter(location => !location.explored);
-    const weakerUnitLocations = values(mapLocations).filter(location => {
+    const unexploredLocations = filter(location => !location.explored, mapLocations);
+    const weakerUnitLocations = filter(location => {
       const [, [enemyParty]] = this.getPartiesOnLocation(gameState, location.id);
 
       if (!enemyParty) return false;
@@ -89,7 +89,7 @@ export class PlayerAI {
       const enemyPartyStrength = this.getPartyStrength(gameState, enemyParty.id);
 
       return partyStrength > enemyPartyStrength;
-    }) as MapLocation[];
+    }, mapLocations);
 
     const possibleLocations = [...unexploredLocations, ...weakerUnitLocations].filter(location =>
       this.isLocationAccessible(gameState, location.id),

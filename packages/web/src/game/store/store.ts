@@ -23,7 +23,3 @@ export const createGameStore = <Context extends { gameInstance: GameInstanceWrap
       ];
     },
   });
-
-type Store = ReturnType<typeof createGameStore>;
-
-export type GameStoreState = ReturnType<Store["getState"]>;

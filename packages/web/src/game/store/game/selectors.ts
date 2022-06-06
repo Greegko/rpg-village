@@ -16,7 +16,7 @@ import {
   isHero,
 } from "@rpg-village/core";
 
-import { GameStoreState } from "../store";
+import { GameStoreState } from "../game-store-state";
 
 const gameStoreStateSelector = (storeState: GameStoreState) => storeState.game;
 const gameStateSelf = (game: GameState) => game;
@@ -41,7 +41,7 @@ export const mapLocationsByMapLocationIdSelector = createSelector(
   selectorProperty<MapLocationID>(),
   (gameState, mapLocationId) => {
     const map = mapByMapLocationIdSelector(gameState, mapLocationId);
-    return mapLocationsByMapIdSelector(gameState, map.id);
+    return mapLocationsByMapIdSelector(gameState, map!.id);
   },
 );
 

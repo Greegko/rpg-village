@@ -2,14 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { MapID } from "@rpg-village/core";
 
-import { GamePage } from "../../pages";
-
-export interface GameUIState {
-  paused: boolean;
-  ai: boolean;
-  page?: GamePage;
-  map?: MapID;
-}
+import { GamePage, GamePageType, GameUIState } from "./interface";
 
 const initialState = {
   paused: false,
@@ -44,3 +37,7 @@ const gameUISlice = createSlice({
 export const { pause, resume, enableAI, disableAI, changePage, selectMap } = gameUISlice.actions;
 
 export const gameUIReducer = gameUISlice.reducer;
+
+export const openCharacterSheet = (unitId: string) => {
+  return changePage({ page: GamePageType.CharacterSheet, args: { unitId } });
+};

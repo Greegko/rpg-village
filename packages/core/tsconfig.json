@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -18,7 +18,11 @@
       "@modules/*": ["./src/modules/*"],
       "@lib/*": ["./src/lib/*"],
       "@core/*": ["./src/core/*"]
-    }
+    },
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   },
   "include": ["src/**/*.ts"]
 }

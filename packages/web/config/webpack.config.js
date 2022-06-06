@@ -1,8 +1,8 @@
-const path = require("path");
-const rpgVillageCore = "../../core/";
-const tsconfig = require(path.resolve(__dirname, rpgVillageCore, "tsconfig.json"));
+// const path = require("path");
+// const rpgVillageCore = "../../core/";
+// const tsconfig = require(path.resolve(__dirname, rpgVillageCore, "tsconfig.json"));
 
-const rpgVillageDist = path.resolve(__dirname, rpgVillageCore, "dist");
+// const rpgVillageDist = path.resolve(__dirname, rpgVillageCore, "dist");
 
 module.exports = {
   entry: ["./src/main.tsx"],
@@ -18,12 +18,12 @@ module.exports = {
 
   resolve: {
     extensions: [".webpack.js", ".web.js", ".js", ".ts", ".tsx"],
-    alias: Object.keys(tsconfig.compilerOptions.paths).reduce((aliases, aliasName) => {
-      const aliasBase = aliasName.slice(0, -2);
-      const pathBase = tsconfig.compilerOptions.paths[aliasName][0].slice(0, -2);
+    // alias: Object.keys(tsconfig.compilerOptions.paths).reduce((aliases, aliasName) => {
+    //   const aliasBase = aliasName.slice(0, -2);
+    //   const pathBase = tsconfig.compilerOptions.paths[aliasName][0].slice(0, -2);
 
-      return { ...aliases, [aliasBase]: `${rpgVillageDist}/${pathBase}` };
-    }, {}),
+    //   return { ...aliases, [aliasBase]: `${rpgVillageDist}/${pathBase}` };
+    // }, {}),
   },
 
   module: {
