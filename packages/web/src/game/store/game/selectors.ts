@@ -79,9 +79,8 @@ export const mapByPartyIdSelector = createSelector(gameStateSelf, partyByIdSelec
   mapByMapLocationIdSelector(gameState, party.locationId),
 );
 
-export const partiesGroupedOnLocationsSelector = createSelector(
-  partiesSelector,
-  parties => groupBy(party => party.locationId, values(parties)) as Record<MapLocationID, Party[]>,
+export const partiesGroupedOnLocationsSelector = createSelector(partiesSelector, parties =>
+  groupBy(party => party.locationId, values(parties)),
 );
 
 export const activitiesSelector = (game: GameState) => game.activities;
