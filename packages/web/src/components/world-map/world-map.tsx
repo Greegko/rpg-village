@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
-import { mapSelector, useGameUISelector } from "../../game/store/game-ui";
+import { mapSelector, useGameUISelector } from "@web/store/game-ui";
+
 import { MapStage } from "./map/map-stage";
 
 import "./world-map.scss";

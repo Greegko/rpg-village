@@ -2,11 +2,8 @@ import { map } from "ramda";
 
 import { MapID } from "@rpg-village/core";
 
-import {
-  mapLocationsByMapIdSelector,
-  partiesGroupedOnLocationsSelector,
-  useGameStateSelector,
-} from "../../../game/store/game";
+import { mapLocationsByMapIdSelector, partiesGroupedOnLocationsSelector, useGameStateSelector } from "@web/store/game";
+
 import { Tile } from "./tile";
 
 interface MapProperties {

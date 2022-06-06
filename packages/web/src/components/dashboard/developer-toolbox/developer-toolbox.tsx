@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import { fastForward, logState, reset, save } from "../../../game/store/game-command";
+import { fastForward, logState, reset, save } from "@web/store/game-command";
 import {
   disableAI,
   enableAI,
@@ -9,7 +9,7 @@ import {
   pausedSelector,
   resume,
   useGameUISelector,
-} from "../../../game/store/game-ui";
+} from "@web/store/game-ui";
 
 import "./developer-toolbox.scss";
 

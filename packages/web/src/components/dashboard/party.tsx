@@ -1,6 +1,7 @@
 import { PartyID } from "@rpg-village/core";
 
-import { activityByIdSelector, partyByIdSelector, useGameStateSelector } from "../../game/store/game";
+import { activityByIdSelector, partyByIdSelector, useGameStateSelector } from "@web/store/game";
+
 import { Hero } from "./hero";
 
 interface PartyDisplayProperties {

@@ -2,9 +2,10 @@ import { keys } from "ramda";
 
 import { VillageCommand } from "@rpg-village/core";
 
-import { playerPartiesSelector, useGameStateSelector, villageSelector } from "../../game/store/game";
-import { useExecuteCommandDispatch } from "../../game/store/game-command";
-import { pageSelector, useGameUISelector } from "../../game/store/game-ui";
+import { playerPartiesSelector, useGameStateSelector, villageSelector } from "@web/store/game";
+import { useExecuteCommandDispatch } from "@web/store/game-command";
+import { pageSelector, useGameUISelector } from "@web/store/game-ui";
+
 import { CharacterSheet } from "./character-sheet";
 import { Header } from "./header";
 import { PartyDisplay } from "./party";

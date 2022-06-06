@@ -1,7 +1,7 @@
 import { VillageCommand } from "@rpg-village/core";
 
-import { generalSelector, useGameStateSelector, villageSelector } from "../../game/store/game";
-import { useExecuteCommandDispatch } from "../../game/store/game-command";
+import { generalSelector, useGameStateSelector, villageSelector } from "@web/store/game";
+import { useExecuteCommandDispatch } from "@web/store/game-command";
 
 import "./villagestats.scss";
 

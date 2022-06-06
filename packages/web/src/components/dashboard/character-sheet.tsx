@@ -1,8 +1,9 @@
 import { AttackEffectType, BlacksmithCommand, DefenseEffectType, EquipmentSlot, Item, UnitID } from "@rpg-village/core";
 
+import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
+import { useExecuteCommandDispatch } from "@web/store/game-command";
+
 import { translate } from "../../game";
-import { unitByIdSelector, useGameStateSelector } from "../../game/store/game";
-import { useExecuteCommandDispatch } from "../../game/store/game-command";
 
 import "./character-sheet.scss";
 

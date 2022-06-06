@@ -1,12 +1,13 @@
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
+import { createGameStore } from "@web/store/create-store";
+import { setGameState } from "@web/store/game";
+
 import "../polyfill";
 import { PlayerAI } from "./ai/player-ai";
 import { GameField } from "./components/game-field";
 import { GameInstanceWrapper } from "./game/game-instance-wrapper";
-import { setGameState } from "./game/store/game";
-import { createGameStore } from "./game/store/store";
 
 const gameInstanceWrapper = new GameInstanceWrapper();
 const playerAI = new PlayerAI();

@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 
-import { unitByIdSelector, useGameStateSelector } from "../../game/store/game";
-import { openCharacterSheet } from "../../game/store/game-ui";
+import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
+import { openCharacterSheet } from "@web/store/game-ui";
+
 import { Icons, ProgressBar } from "../core";
 
 import "./hero.scss";
