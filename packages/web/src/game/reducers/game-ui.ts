@@ -1,5 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+import { MapID } from "@rpg-village/core";
+
 import { createMiddlewareAction } from "../action-middleware-factory";
 import { GamePage } from "../interface";
 
@@ -7,6 +9,7 @@ export interface GameUIState {
   paused: boolean;
   ai: boolean;
   page?: GamePage;
+  map?: MapID;
 }
 
 const initialState = {
@@ -33,10 +36,13 @@ const gameUISlice = createSlice({
     changePage(state, action: PayloadAction<GamePage>) {
       state.page = action.payload;
     },
+    selectMap(state, action: PayloadAction<MapID>) {
+      state.map = action.payload;
+    },
   },
 });
 
-export const { pause, resume, enableAI, disableAI, changePage } = gameUISlice.actions;
+export const { pause, resume, enableAI, disableAI, changePage, selectMap } = gameUISlice.actions;
 
 export const gameUIactions = [
   createMiddlewareAction(pause, (action, context) => {

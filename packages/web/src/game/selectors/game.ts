@@ -1,5 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { filter, find, groupBy, values } from "ramda";
+import { useSelector } from "react-redux";
 
 import {
   Activity,
@@ -13,7 +14,15 @@ import {
   isHero,
 } from "@rpg-village/core";
 
+import { GameStoreState } from "../store";
+
+export const gameStoreStateSelector = (storeState: GameStoreState) => storeState.game;
 export const gameStateSelector = (game: GameState) => game;
+
+const selectorProperty =
+  <P>() =>
+  (...args: [GameState, P]): P =>
+    args[1];
 
 export const worldMapIdSelector = (game: GameState) => game.general.worldMapId;
 
@@ -26,13 +35,13 @@ export const mapByMapIdSelector = createSelector(
 export const mapLocationsSelector = (game: GameState) => game.mapLocations;
 export const mapLocationByIdSelector = createSelector(
   mapLocationsSelector,
-  (gameState: GameState, mapLocationId: MapLocationID) => mapLocationId,
+  selectorProperty<MapLocationID>(),
   (mapLocations, mapLocationId) => mapLocations[mapLocationId],
 );
 export const mapLocationsByMapLocationIdSelector = createSelector(
   mapLocationsSelector,
   gameStateSelector,
-  (gameState: GameState, mapLocationId: MapLocationID) => mapLocationId,
+  selectorProperty<MapLocationID>(),
   (mapLocations, gameState, mapLocationId) => {
     const map = mapByMapLocationIdSelector(gameState, mapLocationId);
     return mapLocationsByMapIdSelector(gameState, map.id);
@@ -45,7 +54,7 @@ export const mapLocationsByMapIdSelector = createSelector(mapLocationsSelector, 
 
 export const mapByMapLocationIdSelector = createSelector(
   mapsSelector,
-  (game: GameState, mapLocationId: MapLocationID) => mapLocationId,
+  selectorProperty<MapLocationID>(),
   (maps, mapLocationId) => find(x => x.mapLocationIds.includes(mapLocationId), values(maps)),
 );
 
@@ -57,7 +66,7 @@ export const villageSelector = (game: GameState) => game.village;
 export const partiesSelector = (game: GameState) => game.parties;
 export const partyByIdSelector = createSelector(
   partiesSelector,
-  (game: GameState, partyId: PartyID) => partyId,
+  selectorProperty<PartyID>(),
   (parties, partyId) => parties[partyId],
 );
 
@@ -83,3 +92,6 @@ export const idlePartiesSelector = createSelector(
   partiesSelector,
   filter((party: Party) => party.activityId === undefined),
 );
+
+export const useGameStateSelector = <T extends (gameState: GameState) => any>(selector: T): ReturnType<T> =>
+  useSelector(createSelector(gameStoreStateSelector, selector));
