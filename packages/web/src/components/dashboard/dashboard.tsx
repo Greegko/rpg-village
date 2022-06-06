@@ -1,3 +1,5 @@
+import { keys } from "ramda";
+
 import { VillageCommand } from "@rpg-village/core";
 
 import { partiesSelector, useGameStateSelector, villageSelector } from "../../game/store/game";
@@ -22,7 +24,7 @@ export const Dashboard = () => {
       <div className="parties">
         Parties:
         <br />
-        {parties.map(partyId => (
+        {keys(parties).map(partyId => (
           <PartyDisplay key={partyId} partyId={partyId} />
         ))}
         <button onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Hire Hero</button>

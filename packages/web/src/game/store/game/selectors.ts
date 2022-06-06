@@ -18,8 +18,8 @@ import {
 
 import { GameStoreState } from "../store";
 
-export const gameStoreStateSelector = (storeState: GameStoreState) => storeState.game;
-export const gameStateSelector = (game: GameState) => game;
+const gameStoreStateSelector = (storeState: GameStoreState) => storeState.game;
+const gameStateSelf = (game: GameState) => game;
 
 const selectorProperty =
   <P>() =>
@@ -42,7 +42,7 @@ export const mapLocationByIdSelector = createSelector(
 );
 export const mapLocationsByMapLocationIdSelector = createSelector(
   mapLocationsSelector,
-  gameStateSelector,
+  gameStateSelf,
   selectorProperty<MapLocationID>(),
   (mapLocations, gameState, mapLocationId) => {
     const map = mapByMapLocationIdSelector(gameState, mapLocationId);
@@ -80,7 +80,7 @@ export const partyByIdSelector = createSelector(
 export const playerPartiesSelector = createSelector(partiesSelector, parties =>
   filter(party => party.owner === PartyOwner.Player, parties),
 );
-export const mapByPartyIdSelector = createSelector(gameStateSelector, partyByIdSelector, (gameState, party) =>
+export const mapByPartyIdSelector = createSelector(gameStateSelf, partyByIdSelector, (gameState, party) =>
   mapByMapLocationIdSelector(gameState, party.locationId),
 );
 
