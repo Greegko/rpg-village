@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 
 import { Command } from "@rpg-village/core";
 
@@ -16,10 +17,6 @@ const gameCommandSlice = createSlice({
   },
 });
 
-export const { fastForward, logState, executeCommand, reset, save } = gameCommandSlice.actions;
+export const { fastForward, logState, reset, save, executeCommand } = gameCommandSlice.actions;
 
-export interface ExecuteCommand {
-  executeCommand(c: Command): void;
-}
-
-export const ExecuteCommand: ExecuteCommand = { executeCommand };
+export const useExecuteCommandDispatch = () => (command: Command) => useDispatch()(executeCommand(command as any));

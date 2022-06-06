@@ -1,19 +1,8 @@
-import { values } from "ramda";
-import { connect } from "react-redux";
+import { AttackEffectType, BlacksmithCommand, DefenseEffectType, EquipmentSlot, Item, UnitID } from "@rpg-village/core";
 
-import {
-  AttackEffectType,
-  BlacksmithCommand,
-  DefenseEffectType,
-  EquipmentSlot,
-  Item,
-  Unit,
-  UnitID,
-} from "@rpg-village/core";
-
-import { GameStoreState, translate } from "../../game";
-import { heroUnitsSelector } from "../../game/store/game";
-import { ExecuteCommand } from "../../game/store/game-command";
+import { translate } from "../../game";
+import { unitByIdSelector, useGameStateSelector } from "../../game/store/game";
+import { useExecuteCommandDispatch } from "../../game/store/game-command";
 
 import "./character-sheet.scss";
 
@@ -21,58 +10,52 @@ interface CharacterSheetProperties {
   unitId: UnitID;
 }
 
-const propertyMapper = (state: GameStoreState, props: CharacterSheetProperties): CharacterSheetState => ({
-  unit: values(heroUnitsSelector(state.game)).find(({ id }) => id === props.unitId)!,
-});
+export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
+  const unit = useGameStateSelector(state => unitByIdSelector(state, unitId));
+  const executeCommand = useExecuteCommandDispatch();
 
-interface CharacterSheetState {
-  unit: Unit;
-}
+  return (
+    <div className="character-sheet">
+      <div>Character Sheet</div>
+      <div>{unit.name}</div>
+      <div>Equipment</div>
+      <ItemStats item={unit.equipment.rightHand} />
 
-export const CharacterSheet = connect(
-  propertyMapper,
-  ExecuteCommand,
-)(({ unit, executeCommand }: CharacterSheetState & ExecuteCommand) => (
-  <div className="character-sheet">
-    <div>Character Sheet</div>
-    <div>{unit.name}</div>
-    <div>Equipment</div>
-    <ItemStats item={unit.equipment.rightHand} />
-
-    <button
-      onClick={() =>
-        executeCommand({
-          command: BlacksmithCommand.UpgradeItem,
-          args: { unitId: unit.id, equipmentSlot: EquipmentSlot.RightHand },
-        })
-      }
-    >
-      Upgrade {unit.equipment.rightHand.name}
-    </button>
-    <ItemStats item={unit.equipment.leftHand} />
-    <button
-      onClick={() =>
-        executeCommand({
-          command: BlacksmithCommand.UpgradeItem,
-          args: { unitId: unit.id, equipmentSlot: EquipmentSlot.LeftHand },
-        })
-      }
-    >
-      Upgrade {unit.equipment.leftHand.name}
-    </button>
-    <ItemStats item={unit.equipment.torso} />
-    <button
-      onClick={() =>
-        executeCommand({
-          command: BlacksmithCommand.UpgradeItem,
-          args: { unitId: unit.id, equipmentSlot: EquipmentSlot.Torso },
-        })
-      }
-    >
-      Upgrade {unit.equipment.torso.name}
-    </button>
-  </div>
-));
+      <button
+        onClick={() =>
+          executeCommand({
+            command: BlacksmithCommand.UpgradeItem,
+            args: { unitId: unit.id, equipmentSlot: EquipmentSlot.RightHand },
+          })
+        }
+      >
+        Upgrade {unit.equipment.rightHand.name}
+      </button>
+      <ItemStats item={unit.equipment.leftHand} />
+      <button
+        onClick={() =>
+          executeCommand({
+            command: BlacksmithCommand.UpgradeItem,
+            args: { unitId: unit.id, equipmentSlot: EquipmentSlot.LeftHand },
+          })
+        }
+      >
+        Upgrade {unit.equipment.leftHand.name}
+      </button>
+      <ItemStats item={unit.equipment.torso} />
+      <button
+        onClick={() =>
+          executeCommand({
+            command: BlacksmithCommand.UpgradeItem,
+            args: { unitId: unit.id, equipmentSlot: EquipmentSlot.Torso },
+          })
+        }
+      >
+        Upgrade {unit.equipment.torso.name}
+      </button>
+    </div>
+  );
+};
 
 const ItemStats = ({ item }: { item: Item }) => (
   <div>

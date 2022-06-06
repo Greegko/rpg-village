@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import {
   Activity,
+  ActivityID,
   ActivityType,
   GameState,
   MapID,
@@ -11,6 +12,7 @@ import {
   Party,
   PartyID,
   PartyOwner,
+  UnitID,
   isHero,
 } from "@rpg-village/core";
 
@@ -59,6 +61,11 @@ export const mapByMapLocationIdSelector = createSelector(
 );
 
 export const unitsSelector = (game: GameState) => game.units;
+export const unitByIdSelector = createSelector(
+  unitsSelector,
+  selectorProperty<UnitID>(),
+  (units, unitId) => units[unitId],
+);
 export const heroUnitsSelector = createSelector(unitsSelector, filter(isHero));
 
 export const villageSelector = (game: GameState) => game.village;
@@ -83,6 +90,11 @@ export const partiesGroupedOnLocationsSelector = createSelector(
 );
 
 export const activitiesSelector = (game: GameState) => game.activities;
+export const activityByIdSelector = createSelector(
+  activitiesSelector,
+  selectorProperty<ActivityID>(),
+  (activities, activityID) => activities[activityID],
+);
 export const partyActivitiesSelector = createSelector(
   activitiesSelector,
   filter((activity: Activity) => activity.type === ActivityType.Party),
@@ -92,6 +104,10 @@ export const idlePartiesSelector = createSelector(
   partiesSelector,
   filter((party: Party) => party.activityId === undefined),
 );
+
+export const generalSelector = (game: GameState) => game.general;
+
+/** React Hook Adaptation */
 
 export const useGameStateSelector = <T extends (gameState: GameState) => any>(selector: T): ReturnType<T> =>
   useSelector(createSelector(gameStoreStateSelector, selector));

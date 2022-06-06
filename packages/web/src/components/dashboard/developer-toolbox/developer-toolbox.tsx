@@ -1,70 +1,40 @@
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { GameStoreState } from "../../../game";
 import { fastForward, logState, reset, save } from "../../../game/store/game-command";
-import { disableAI, enableAI, pause, resume } from "../../../game/store/game-ui";
+import {
+  disableAI,
+  enableAI,
+  isAIEnabledSelector,
+  pause,
+  pausedSelector,
+  resume,
+  useGameUISelector,
+} from "../../../game/store/game-ui";
 
 import "./developer-toolbox.scss";
 
-const storeDispatchers = { fastForward, save, reset, pause, resume, logState, disableAI, enableAI };
+export const DeveloperToolbox = () => {
+  const isAIEnabled = useGameUISelector(isAIEnabledSelector);
+  const isPaused = useGameUISelector(pausedSelector);
+  const dispatch = useDispatch();
 
-const mapProperty = (state: GameStoreState) => {
-  return {
-    isPaused: state.ui.paused,
-    isAIEnabled: state.ui.ai,
-  };
-};
-
-interface DeveloperToolboxActions {
-  fastForward: typeof fastForward;
-  save: typeof save;
-  reset: typeof reset;
-  pause: typeof pause;
-  resume: typeof resume;
-  logState: typeof logState;
-  disableAI: typeof disableAI;
-  enableAI: typeof enableAI;
-}
-
-interface DeveloperToolboxProperties {
-  isPaused: boolean;
-  isAIEnabled: boolean;
-}
-
-export const DeveloperToolbox = connect(
-  mapProperty,
-  storeDispatchers,
-)(
-  ({
-    fastForward,
-    save,
-    reset,
-    pause,
-    isPaused,
-    resume,
-    logState,
-    isAIEnabled,
-    disableAI,
-    enableAI,
-  }: DeveloperToolboxProperties & DeveloperToolboxActions) => {
-    return (
-      <div className="developer-toolbox">
-        <div>
-          {isAIEnabled && <button onClick={() => disableAI()}>Turn AI off</button>}
-          {!isAIEnabled && <button onClick={() => enableAI()}>Turn AI on</button>}
-          {!isPaused && <button onClick={() => pause()}>Pause</button>}
-          {isPaused && <button onClick={() => resume()}>Resume</button>}
-          <button onClick={() => save()}>Save</button>
-          <button onClick={() => reset()}>Reset</button>
-          <button onClick={() => logState()}>Log State</button>
-        </div>
-        <div>
-          Turn:
-          <button onClick={() => fastForward(10)}>+10</button>
-          <button onClick={() => fastForward(100)}>+100</button>
-          <button onClick={() => fastForward(500)}>+500</button>
-        </div>
+  return (
+    <div className="developer-toolbox">
+      <div>
+        {isAIEnabled && <button onClick={() => dispatch(disableAI())}>Turn AI off</button>}
+        {!isAIEnabled && <button onClick={() => dispatch(enableAI())}>Turn AI on</button>}
+        {!isPaused && <button onClick={() => dispatch(pause())}>Pause</button>}
+        {isPaused && <button onClick={() => dispatch(resume())}>Resume</button>}
+        <button onClick={() => dispatch(save())}>Save</button>
+        <button onClick={() => dispatch(reset())}>Reset</button>
+        <button onClick={() => dispatch(logState())}>Log State</button>
       </div>
-    );
-  },
-);
+      <div>
+        Turn:
+        <button onClick={() => dispatch(fastForward(10))}>+10</button>
+        <button onClick={() => dispatch(fastForward(100))}>+100</button>
+        <button onClick={() => dispatch(fastForward(500))}>+500</button>
+      </div>
+    </div>
+  );
+};
