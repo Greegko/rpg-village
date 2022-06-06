@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Party, VillageState } from "@rpg-village/core";
 
 import { GameStoreState } from "../game";
-import { playerPartiesSelector, villageSelector } from "../game/selectors/game";
+import { playerPartiesSelector, villageSelector } from "../game/store/game";
 import { Dashboard } from "./dashboard";
 import { WorldMap } from "./world-map/world-map";
 

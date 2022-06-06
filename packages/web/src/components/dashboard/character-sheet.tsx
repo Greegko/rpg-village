@@ -12,8 +12,8 @@ import {
 } from "@rpg-village/core";
 
 import { GameStoreState, translate } from "../../game";
-import { ExecuteCommand } from "../../game/reducers/game-command";
-import { heroUnitsSelector } from "../../game/selectors/game";
+import { heroUnitsSelector } from "../../game/store/game";
+import { ExecuteCommand } from "../../game/store/game-command";
 
 import "./character-sheet.scss";
 

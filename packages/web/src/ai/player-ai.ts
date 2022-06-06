@@ -21,7 +21,7 @@ import {
   partiesSelector,
   unitsSelector,
   villageSelector,
-} from "../game/selectors/game";
+} from "../game/store/game";
 import { sample } from "../lib";
 
 export class PlayerAI {

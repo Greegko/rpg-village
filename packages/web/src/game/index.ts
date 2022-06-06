@@ -1,3 +1,3 @@
 export * from "./interface";
 export * from "./translate";
-export * from "./store";
+export * from "./store/store";

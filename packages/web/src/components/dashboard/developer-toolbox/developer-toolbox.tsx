@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 
 import { GameStoreState } from "../../../game";
-import { fastForward, logState, reset, save } from "../../../game/reducers/game-command";
-import { disableAI, enableAI, pause, resume } from "../../../game/reducers/game-ui";
+import { fastForward, logState, reset, save } from "../../../game/store/game-command";
+import { disableAI, enableAI, pause, resume } from "../../../game/store/game-ui";
 
 import "./developer-toolbox.scss";
 

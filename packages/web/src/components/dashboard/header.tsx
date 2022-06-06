@@ -2,9 +2,8 @@ import { keys } from "ramda";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { selectMap } from "../../game/reducers/game-ui";
-import { mapsSelector, useGameStateSelector, worldMapIdSelector } from "../../game/selectors/game";
-import { mapSelector, useGameUISelector } from "../../game/selectors/game-ui";
+import { mapsSelector, useGameStateSelector, worldMapIdSelector } from "../../game/store/game";
+import { mapSelector, selectMap, useGameUISelector } from "../../game/store/game-ui";
 import { DeveloperToolbox } from "./developer-toolbox";
 import { VillageStats } from "./villagestats";
 

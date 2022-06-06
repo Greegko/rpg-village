@@ -2,8 +2,9 @@ import { connect } from "react-redux";
 
 import { VillageCommand, VillageState } from "@rpg-village/core";
 
-import { GamePage, GameStoreState } from "../../game";
-import { ExecuteCommand } from "../../game/reducers/game-command";
+import { GameStoreState } from "../../game";
+import { GamePage } from "../../game/pages";
+import { ExecuteCommand } from "../../game/store/game-command";
 import { CharacterSheet } from "./character-sheet";
 import { Header } from "./header";
 import { PartyDisplay } from "./party";

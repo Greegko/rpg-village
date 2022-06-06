@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 import { MapID, MapLocation, MapLocationID, Party } from "@rpg-village/core";
 
-import { GameStoreState } from "../../../game";
-import { mapLocationsByMapIdSelector, partiesGroupedOnLocationsSelector } from "../../../game/selectors/game";
+import { mapLocationsByMapIdSelector, partiesGroupedOnLocationsSelector } from "../../../game/store/game";
+import { GameStoreState } from "../../../game/store/store";
 import { Tile } from "./tile";
 
 const propertyMapper = (state: GameStoreState, props: MapOwnProperties) => {

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { createActionMiddlwareFactory } from "./action-middleware-factory";
-import { GameInstanceWrapper } from "./game-instance-wrapper";
-import { gameReducer } from "./reducers/game";
-import { gameCommandsActions } from "./reducers/game-command";
-import { gameUIReducer, gameUIactions } from "./reducers/game-ui";
+import { createActionMiddlwareFactory } from "../action-middleware-factory";
+import { GameInstanceWrapper } from "../game-instance-wrapper";
+import { gameReducer } from "./game";
+import { gameCommandsActions } from "./game-command";
+import { gameUIReducer, gameUIactions } from "./game-ui";
 
 export const createGameStore = <Context extends { gameInstance: GameInstanceWrapper }>(context: Context) =>
   configureStore({

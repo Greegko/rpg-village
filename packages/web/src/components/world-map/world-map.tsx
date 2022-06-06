@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 import { MapID } from "@rpg-village/core";
 
-import { mapSelector, useGameUISelector } from "../../game/selectors/game-ui";
+import { mapSelector, useGameUISelector } from "../../game/store/game-ui";
 import { MapStage } from "./map/map-stage";
 
 import "./world-map.scss";

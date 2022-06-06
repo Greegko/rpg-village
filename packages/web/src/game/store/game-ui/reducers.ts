@@ -2,8 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { MapID } from "@rpg-village/core";
 
-import { createMiddlewareAction } from "../action-middleware-factory";
-import { GamePage } from "../interface";
+import { GamePage } from "../../pages";
 
 export interface GameUIState {
   paused: boolean;
@@ -43,20 +42,5 @@ const gameUISlice = createSlice({
 });
 
 export const { pause, resume, enableAI, disableAI, changePage, selectMap } = gameUISlice.actions;
-
-export const gameUIactions = [
-  createMiddlewareAction(pause, (action, context) => {
-    context.gameInstance.pause();
-  }),
-  createMiddlewareAction(resume, (action, context) => {
-    context.gameInstance.resume();
-  }),
-  createMiddlewareAction(enableAI, (action, context) => {
-    context.gameInstance.enableAI(true);
-  }),
-  createMiddlewareAction(disableAI, (action, context) => {
-    context.gameInstance.enableAI(false);
-  }),
-];
 
 export const gameUIReducer = gameUISlice.reducer;

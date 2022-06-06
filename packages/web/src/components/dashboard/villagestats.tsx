@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { GeneralGameStoreState, VillageCommand, VillageState } from "@rpg-village/core";
 
 import { GameStoreState } from "../../game";
-import { ExecuteCommand } from "../../game/reducers/game-command";
+import { ExecuteCommand } from "../../game/store/game-command";
 
 import "./villagestats.scss";
 

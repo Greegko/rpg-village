@@ -5,7 +5,7 @@ import { Unit } from "@rpg-village/core";
 
 import { GameStoreState } from "../../game";
 import { openCharacterSheet } from "../../game/pages";
-import { heroUnitsSelector } from "../../game/selectors/game";
+import { heroUnitsSelector } from "../../game/store/game";
 import { Icons, ProgressBar } from "../core";
 
 import "./hero.scss";
