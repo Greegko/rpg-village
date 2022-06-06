@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -8,6 +9,10 @@
     "emitDecoratorMetadata": true,
     "noUnusedLocals": true,
     "jsx": "react-jsx",
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@lib/*": ["./src/lib/*"],
+      "@web/*": ["./src/game/*"]
+    }
   }
 }
