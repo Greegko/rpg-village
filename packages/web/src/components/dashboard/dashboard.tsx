@@ -5,10 +5,12 @@ import { VillageCommand } from "@rpg-village/core";
 import { playerPartiesSelector, useGameStateSelector, villageSelector } from "@web/store/game";
 import { useExecuteCommandDispatch } from "@web/store/game-command";
 import { pageSelector, useGameUISelector } from "@web/store/game-ui";
+import { GamePageType } from "@web/store/game-ui/interface";
 
 import { CharacterSheet } from "./character-sheet";
 import { Header } from "./header";
 import { PartyDisplay } from "./party";
+import { Stash } from "./stash";
 
 import "./dashboard.scss";
 
@@ -47,7 +49,8 @@ export const Dashboard = () => {
         </button>
       </div>
 
-      {page && <CharacterSheet unitId={page.args.unitId} />}
+      {page?.page === GamePageType.CharacterSheet && <CharacterSheet unitId={page.args.unitId} />}
+      {page?.page === GamePageType.Stash && <Stash items={[{} as any]} onItemSelect={() => {}} />}
     </div>
   );
 };

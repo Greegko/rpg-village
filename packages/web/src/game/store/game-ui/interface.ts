@@ -2,6 +2,7 @@ import { MapID } from "@rpg-village/core";
 
 export enum GamePageType {
   CharacterSheet,
+  Stash,
 }
 
 export interface GamePage {
