@@ -11,6 +11,6 @@
     "packages/*"
   ],
   "dependencies": {
-    "concurrently": "6.2.0"
+    "concurrently": "7.2.2"
   }
 }
