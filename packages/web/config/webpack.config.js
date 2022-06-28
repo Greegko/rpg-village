@@ -1,5 +1,7 @@
 const path = require("path");
 
+const CopyPlugin = require("copy-webpack-plugin");
+
 const basePath = path.resolve(__dirname, "../");
 const tsconfig = require(path.resolve(basePath, "tsconfig.json"));
 
@@ -10,7 +12,7 @@ module.exports = {
 
   output: {
     filename: "bundle.js",
-    path: __dirname + "/public",
+    path: path.resolve(basePath, "public"),
   },
 
   devtool: "source-map",
@@ -35,10 +37,12 @@ module.exports = {
         test: /\.tsx?$/,
         use: ["ts-loader"],
       },
-      {
-        test: /\.svg$/,
-        use: ["svg-url-loader"],
-      },
     ],
   },
+
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: "src/assets", to: "assets" }],
+    }),
+  ],
 };

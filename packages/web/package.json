@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/webpack serve --config ./config/webpack-dev.config.js",
+    "build": "webpack --config ./config/webpack.config.js",
+    "start": "webpack serve --config ./config/webpack-dev.config.js",
     "prepare": "true"
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.8.2",
     "@rpg-village/core": "1.0.0",
+    "copy-webpack-plugin": "11.0.0",
     "jsdom": "20.0.0",
     "konva": "8.3.10",
     "node-sass": "7.0.1",
