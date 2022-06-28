@@ -9,8 +9,8 @@ import { GamePageType } from "@web/store/game-ui/interface";
 
 import { CharacterSheet } from "./character-sheet";
 import { Header } from "./header";
+import { ItemList } from "./item-list";
 import { PartyDisplay } from "./party";
-import { Stash } from "./stash";
 
 import "./dashboard.scss";
 
@@ -50,7 +50,9 @@ export const Dashboard = () => {
       </div>
 
       {page?.page === GamePageType.CharacterSheet && <CharacterSheet unitId={page.args.unitId} />}
-      {page?.page === GamePageType.Stash && <Stash items={[{} as any]} onItemSelect={() => {}} />}
+      {page?.page === GamePageType.Stash && (
+        <ItemList listSize={128} items={village.stash.items} onItemSelect={() => {}} />
+      )}
     </div>
   );
 };

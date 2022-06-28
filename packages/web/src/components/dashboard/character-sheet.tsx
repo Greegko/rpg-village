@@ -1,9 +1,13 @@
+import { identity } from "ramda";
+import { useState } from "react";
+
 import { AttackEffectType, BlacksmithCommand, DefenseEffectType, EquipmentSlot, Item, UnitID } from "@rpg-village/core";
 
 import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
 import { useExecuteCommandDispatch } from "@web/store/game-command";
 
 import { translate } from "../../game";
+import { ItemList } from "./item-list";
 
 import "./character-sheet.scss";
 
@@ -15,59 +19,33 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
   const unit = useGameStateSelector(state => unitByIdSelector(state, unitId));
   const executeCommand = useExecuteCommandDispatch();
 
+  const [selectedItem, setSelectedItem] = useState<Item>();
+
   return (
     <div className="character-sheet">
       <div>Character Sheet</div>
       <div>{unit.name}</div>
-      <div>Equipment</div>
 
-      {unit.equipment.rightHand && (
-        <>
-          <ItemStats item={unit.equipment.rightHand} />
+      {selectedItem && <ItemStats item={selectedItem} />}
 
-          <button
-            onClick={() =>
-              executeCommand({
-                command: BlacksmithCommand.UpgradeItem,
-                args: { unitId: unit.id, equipmentSlot: EquipmentSlot.RightHand },
-              })
-            }
-          >
-            Upgrade {unit.equipment.rightHand?.name}
-          </button>
-        </>
-      )}
+      <ItemList
+        items={[unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[]}
+        onItemSelect={setSelectedItem}
+        listSize={6}
+        smallDisplay={true}
+      ></ItemList>
 
-      {unit.equipment.leftHand && (
-        <>
-          <ItemStats item={unit.equipment.leftHand} />
-          <button
-            onClick={() =>
-              executeCommand({
-                command: BlacksmithCommand.UpgradeItem,
-                args: { unitId: unit.id, equipmentSlot: EquipmentSlot.LeftHand },
-              })
-            }
-          >
-            Upgrade {unit.equipment.leftHand?.name}
-          </button>
-        </>
-      )}
-
-      {unit.equipment.torso && (
-        <>
-          <ItemStats item={unit.equipment.torso} />
-          <button
-            onClick={() =>
-              executeCommand({
-                command: BlacksmithCommand.UpgradeItem,
-                args: { unitId: unit.id, equipmentSlot: EquipmentSlot.Torso },
-              })
-            }
-          >
-            Upgrade {unit.equipment.torso.name}
-          </button>
-        </>
+      {selectedItem && (
+        <button
+          onClick={() =>
+            executeCommand({
+              command: BlacksmithCommand.UpgradeItem,
+              args: { unitId: unit.id, equipmentSlot: EquipmentSlot.Torso },
+            })
+          }
+        >
+          Upgrade
+        </button>
       )}
     </div>
   );

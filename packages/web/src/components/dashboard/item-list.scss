@@ -1,4 +1,4 @@
-.stash {
+.item-list {
   .items {
     width: 800px;
   }
@@ -9,10 +9,17 @@
     height: 40px;
     margin: 4px;
     border: 1px solid black;
-    box-sizing: border-box;
+    box-sizing: content-box;
 
     &-selected {
       border: 1px solid red;
+    }
+  }
+
+  &--small {
+    .item-slot {
+      width: 32px;
+      height: 32px;
     }
   }
 }
