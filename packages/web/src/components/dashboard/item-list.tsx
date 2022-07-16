@@ -15,7 +15,7 @@ export interface ItemListProperties {
   listSize: number;
   smallDisplay?: boolean;
   selectable?: boolean;
-  onItemSelect?: (item: Item) => void;
+  onItemSelect?: (item: Item | null) => void;
 }
 
 export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, selectable }: ItemListProperties) => {
@@ -24,12 +24,16 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, selectab
   const itemClick = useCallback(
     (event: MouseEvent, index: number) => {
       if (!selectable) return;
+
+      event.stopPropagation();
+
       if (index === selectedItemIndex) return;
 
       if (items[index]) {
-        event.stopPropagation();
         setSelectedItemIndex(index);
         onItemSelect?.(items[index]);
+      } else {
+        onItemSelect?.(null);
       }
     },
     [selectable, selectedItemIndex, items, onItemSelect],

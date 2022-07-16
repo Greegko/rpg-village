@@ -21,21 +21,22 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
 
   const executeCommand = useExecuteCommandDispatch();
 
-  const [selectedItem, setSelectedItem] = useState<Item>();
+  const [characterSelectedItem, setCharacterSelectedItem] = useState<Item | null>();
+  const [stashSelectedItem, setStashSelectedItem] = useState<Item | null>();
 
   return (
     <div className="character-sheet">
       <div>Character Sheet</div>
       <div>{unit.name}</div>
-      {selectedItem && <ItemStats item={selectedItem} />}
+      {characterSelectedItem && <ItemStats item={characterSelectedItem} />}
       <ItemList
         items={[unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[]}
-        onItemSelect={setSelectedItem}
+        onItemSelect={setCharacterSelectedItem}
         listSize={6}
         selectable={true}
         smallDisplay={true}
       ></ItemList>
-      {selectedItem && (
+      {characterSelectedItem && (
         <button
           onClick={() =>
             executeCommand({
@@ -47,8 +48,13 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
           Upgrade
         </button>
       )}
-      Village Stash:
-      <ItemList listSize={128} items={village.stash.items} onItemSelect={() => {}} />
+      <div>
+        <div>
+          Village Stash:
+          <ItemList listSize={128} items={village.stash.items} onItemSelect={setStashSelectedItem} />
+        </div>
+        <div>{stashSelectedItem && <ItemStats item={stashSelectedItem} />}</div>
+      </div>
     </div>
   );
 };
