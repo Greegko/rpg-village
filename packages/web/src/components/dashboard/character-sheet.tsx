@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { BlacksmithCommand, EquipmentSlot, Item, UnitID } from "@rpg-village/core";
 
-import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
+import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
 import { useExecuteCommandDispatch } from "@web/store/game-command";
 
 import { ItemList } from "./item-list";
@@ -17,6 +17,8 @@ interface CharacterSheetProperties {
 
 export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
   const unit = useGameStateSelector(state => unitByIdSelector(state, unitId));
+  const village = useGameStateSelector(villageSelector);
+
   const executeCommand = useExecuteCommandDispatch();
 
   const [selectedItem, setSelectedItem] = useState<Item>();
@@ -25,9 +27,7 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
     <div className="character-sheet">
       <div>Character Sheet</div>
       <div>{unit.name}</div>
-
       {selectedItem && <ItemStats item={selectedItem} />}
-
       <ItemList
         items={[unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[]}
         onItemSelect={setSelectedItem}
@@ -35,7 +35,6 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
         selectable={true}
         smallDisplay={true}
       ></ItemList>
-
       {selectedItem && (
         <button
           onClick={() =>
@@ -48,6 +47,8 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
           Upgrade
         </button>
       )}
+      Village Stash:
+      <ItemList listSize={128} items={village.stash.items} onItemSelect={() => {}} />
     </div>
   );
 };

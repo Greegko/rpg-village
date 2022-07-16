@@ -1,13 +1,16 @@
 .dashboard {
+  display: flex;
   height: 100%;
   background-color: rgba(#333d47, 0.8);
   color: #fff;
 }
 
-.parties {
-  width: 250px;
+.dashboard-sidebar {
+  padding: 8px;
+  flex: 0 0 250px;
 }
 
-.village {
-  width: 250px;
+.dashboard-page {
+  flex: 0;
+  padding: 8px;
 }
