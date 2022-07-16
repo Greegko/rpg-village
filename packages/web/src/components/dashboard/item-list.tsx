@@ -50,6 +50,10 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, selectab
           return "weapon_1";
         case ItemType.Shield:
           return "shield_1";
+        case ItemType.DungeonKey:
+          return "dungeon_key";
+        case ItemType.Rune:
+          return "rune";
         default:
           return "placeholder";
       }
