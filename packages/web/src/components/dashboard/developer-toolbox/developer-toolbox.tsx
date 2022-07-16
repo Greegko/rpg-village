@@ -1,7 +1,9 @@
 import { useDispatch } from "react-redux";
+import { generate } from "shortid";
 
-import { DebugCommand } from "@rpg-village/core";
+import { Armor, DebugCommand, DungeonKey, ItemType, Rune, Shield, Weapon } from "@rpg-village/core";
 
+import { sample } from "@lib/sample";
 import { fastForward, logState, reset, save, useExecuteCommandDispatch } from "@web/store/game-command";
 import {
   disableAI,
@@ -20,6 +22,38 @@ export const DeveloperToolbox = () => {
   const isPaused = useGameUISelector(pausedSelector);
   const dispatch = useDispatch();
   const executeCommand = useExecuteCommandDispatch();
+
+  const generateItem = (): Weapon | Armor | Shield => {
+    const itemType = sample([ItemType.Armor, ItemType.Shield, ItemType.Weapon]) as
+      | ItemType.Weapon
+      | ItemType.Armor
+      | ItemType.Shield;
+
+    return {
+      effects: [],
+      id: generate(),
+      name: generate(),
+      itemType,
+    };
+  };
+
+  const generateDungeonKey = (): DungeonKey => {
+    return {
+      effects: [],
+      id: generate(),
+      name: generate(),
+      itemType: ItemType.DungeonKey,
+    };
+  };
+
+  const generateRune = (): Rune => {
+    return {
+      effects: [],
+      id: generate(),
+      name: generate(),
+      itemType: ItemType.Rune,
+    };
+  };
 
   return (
     <div className="developer-toolbox">
@@ -46,6 +80,18 @@ export const DeveloperToolbox = () => {
         </button>
         <button onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 1000 } })}>
           +1000
+        </button>
+      </div>
+      <div>
+        Items:
+        <button onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateRune() } })}>
+          Add Rune
+        </button>
+        <button onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateDungeonKey() } })}>
+          Add Dungeon Key
+        </button>
+        <button onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateItem() } })}>
+          Add Item
         </button>
       </div>
     </div>
