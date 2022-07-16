@@ -6,7 +6,6 @@ export enum VillageCommand {
   BuildTrainingField = "village/build-training-field",
   BuildRuneWorkshop = "village/build-rune-workshop",
   BuildPortals = "village/build-portals",
-  GenerateGold = "village/generate-gold",
   HireHero = "village/hire-unit",
   HealParty = "village/heal",
 }
@@ -22,7 +21,6 @@ declare module "../../../core/command/command-type" {
     [VillageCommand.BuildTrainingField]: undefined;
     [VillageCommand.BuildRuneWorkshop]: undefined;
     [VillageCommand.BuildPortals]: undefined;
-    [VillageCommand.GenerateGold]: undefined;
     [VillageCommand.HireHero]: undefined;
     [VillageCommand.HealParty]: VillageCommandHealPartyArgs;
   }

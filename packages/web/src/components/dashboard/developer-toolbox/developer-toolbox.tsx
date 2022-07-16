@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 
-import { fastForward, logState, reset, save } from "@web/store/game-command";
+import { DebugCommand } from "@rpg-village/core";
+
+import { fastForward, logState, reset, save, useExecuteCommandDispatch } from "@web/store/game-command";
 import {
   disableAI,
   enableAI,
@@ -17,6 +19,7 @@ export const DeveloperToolbox = () => {
   const isAIEnabled = useGameUISelector(isAIEnabledSelector);
   const isPaused = useGameUISelector(pausedSelector);
   const dispatch = useDispatch();
+  const executeCommand = useExecuteCommandDispatch();
 
   return (
     <div className="developer-toolbox">
@@ -34,6 +37,16 @@ export const DeveloperToolbox = () => {
         <button onClick={() => dispatch(fastForward(10))}>+10</button>
         <button onClick={() => dispatch(fastForward(100))}>+100</button>
         <button onClick={() => dispatch(fastForward(500))}>+500</button>
+      </div>
+      <div>
+        Gold:
+        <button onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 10 } })}>+10</button>
+        <button onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 100 } })}>
+          +100
+        </button>
+        <button onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 1000 } })}>
+          +1000
+        </button>
       </div>
     </div>
   );

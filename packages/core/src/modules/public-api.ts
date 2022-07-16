@@ -6,3 +6,4 @@ export * from "./unit";
 export * from "./party";
 export * from "./village";
 export * from "./map";
+export * from "./debug";

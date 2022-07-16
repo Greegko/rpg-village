@@ -22,6 +22,7 @@ const coreModules = [
   modules.villageBuildingsModule,
   modules.partyModule,
   modules.battleModule,
+  modules.debugModule,
 ];
 
 export const createGameInstance: CreateGameInstance<GameState> = () => {

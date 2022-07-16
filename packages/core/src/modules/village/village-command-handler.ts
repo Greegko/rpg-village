@@ -76,11 +76,6 @@ export class VillageCommandHandler {
     }
   }
 
-  @commandHandler(VillageCommand.GenerateGold)
-  generateGold(): void {
-    this.villageStash.addResource({ gold: 5 });
-  }
-
   @commandHandler(VillageCommand.HireHero)
   hireHero(): void {
     const villageState = this.villageStore.getState();
