@@ -14,16 +14,15 @@ export interface ItemListProperties {
   items: Item[];
   listSize: number;
   smallDisplay?: boolean;
-  selectable?: boolean;
   onItemSelect?: (item: Item | null) => void;
 }
 
-export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, selectable }: ItemListProperties) => {
+export const ItemList = ({ items, onItemSelect, listSize, smallDisplay }: ItemListProperties) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState<number>();
 
   const itemClick = useCallback(
     (event: MouseEvent, index: number) => {
-      if (!selectable) return;
+      if (!onItemSelect) return;
 
       event.stopPropagation();
 
@@ -36,7 +35,7 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, selectab
         onItemSelect?.(null);
       }
     },
-    [selectable, selectedItemIndex, items, onItemSelect],
+    [selectedItemIndex, items, onItemSelect],
   );
 
   const getAssetId = useCallback(
@@ -65,14 +64,20 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, selectab
     <div className={"item-list" + (smallDisplay ? " item-list--small" : "")}>
       <div className="items" onClick={() => setSelectedItemIndex(undefined)}>
         {range(0, listSize).map(index => (
-          <Popup key={index} content={() => items[index] && <ItemStats item={items[index]} />}>
-            <div
-              className={"item-slot" + (selectedItemIndex === index ? " item-slot-selected" : "")}
-              onClick={event => itemClick(event, index)}
-            >
-              <Asset id={getAssetId(index)} size="icon" />
-            </div>
-          </Popup>
+          <>
+            {!items[index] && <div className="item-slot"></div>}
+
+            {items[index] && (
+              <Popup key={index} content={() => <ItemStats item={items[index]} />}>
+                <span
+                  className={"item-slot" + (selectedItemIndex === index ? " item-slot-selected" : "")}
+                  onClick={event => itemClick(event, index)}
+                >
+                  <Asset id={getAssetId(index)} size="icon" />
+                </span>
+              </Popup>
+            )}
+          </>
         ))}
       </div>
     </div>
