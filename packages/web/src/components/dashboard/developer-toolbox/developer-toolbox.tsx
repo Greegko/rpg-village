@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { generate } from "shortid";
 
-import { Armor, DebugCommand, DungeonKey, ItemType, Rune, Shield, Weapon } from "@rpg-village/core";
+import { Armor, AttackEffectType, DebugCommand, DungeonKey, ItemType, Rune, Shield, Weapon } from "@rpg-village/core";
 
 import { sample } from "@lib/sample";
 import { fastForward, logState, reset, save, useExecuteCommandDispatch } from "@web/store/game-command";
@@ -30,7 +30,7 @@ export const DeveloperToolbox = () => {
       | ItemType.Shield;
 
     return {
-      effects: [],
+      effects: [{ type: AttackEffectType.Dmg, value: 10, isPercentage: false }],
       id: generate(),
       name: generate(),
       itemType,
