@@ -31,7 +31,7 @@ export const Hero = ({ heroId }: HeroProperties) => {
 
       <ItemList
         items={[hero.equipment.leftHand, hero.equipment.rightHand, hero.equipment.torso].filter(identity) as Item[]}
-        listSize={6}
+        listSize={3}
         smallDisplay={true}
       ></ItemList>
     </div>

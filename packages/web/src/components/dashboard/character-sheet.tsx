@@ -32,8 +32,7 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
       <ItemList
         items={[unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[]}
         onItemSelect={setCharacterSelectedItem}
-        listSize={6}
-        selectable={true}
+        listSize={3}
         smallDisplay={true}
       ></ItemList>
       {characterSelectedItem && (
