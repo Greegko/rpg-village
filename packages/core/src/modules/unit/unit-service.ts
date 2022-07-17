@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { always, assoc, dissoc, evolve, map, propEq, when } from "ramda";
+import { always, assoc, dissoc, evolve, find, map, propEq, toPairs, when } from "ramda";
 
 import { EquipmentSlot, Item, ItemID } from "@models/item";
 import { ItemStash, addItems, getItem, removeItem } from "@models/stash";
@@ -33,7 +33,15 @@ export class UnitService {
     this.unitStore.update(unitId, evolver);
   }
 
-  getEquipment(unitId: UnitID, equipmentSlot: EquipmentSlot): Item | undefined {
+  getEquipmentByItemId(unitId: UnitID, itemId: ItemID): [EquipmentSlot, Item] | undefined {
+    const pairs = toPairs<EquipmentSlot, Item>(
+      this.unitStore.get(unitId).equipment as Record<keyof EquipmentSlot, Item>,
+    );
+
+    return find(([slot, item]) => item.id === itemId, pairs);
+  }
+
+  getEquipmentBySlot(unitId: UnitID, equipmentSlot: EquipmentSlot): Item | undefined {
     return this.unitStore.get(unitId).equipment[equipmentSlot];
   }
 

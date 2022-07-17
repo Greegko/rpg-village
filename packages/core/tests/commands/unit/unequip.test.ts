@@ -14,7 +14,7 @@ test("should be able to un-equip item", {
   commands: [
     {
       command: UnitCommand.UnequipItem,
-      args: { unitId: "test-hero-id", slot: EquipmentSlot.Torso, stash: StashLocation.Unit },
+      args: { unitId: "test-hero-id", itemId: "test-item-id", stash: StashLocation.Unit },
     },
   ],
   expectedState: { units: { "test-hero-id": { equipment: {} } } },
@@ -32,7 +32,7 @@ test("should add un-equiped item to the unit stash", {
   commands: [
     {
       command: UnitCommand.UnequipItem,
-      args: { unitId: "test-hero-id", slot: EquipmentSlot.Torso, stash: StashLocation.Unit },
+      args: { unitId: "test-hero-id", itemId: "test-item-id", stash: StashLocation.Unit },
     },
   ],
   expectedState: {
@@ -54,7 +54,7 @@ test("should add un-equiped item to the village stash", {
   commands: [
     {
       command: UnitCommand.UnequipItem,
-      args: { unitId: "test-hero-id", slot: EquipmentSlot.Torso, stash: StashLocation.Village },
+      args: { unitId: "test-hero-id", itemId: "test-item-id", stash: StashLocation.Village },
     },
   ],
   expectedState: {

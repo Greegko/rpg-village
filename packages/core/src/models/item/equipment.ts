@@ -7,7 +7,7 @@ export enum EquipmentSlot {
 }
 
 export interface Equipment {
-  torso?: Armor;
-  leftHand?: Weapon;
-  rightHand?: Shield;
+  [EquipmentSlot.Torso]?: Armor;
+  [EquipmentSlot.LeftHand]?: Weapon;
+  [EquipmentSlot.RightHand]?: Shield;
 }

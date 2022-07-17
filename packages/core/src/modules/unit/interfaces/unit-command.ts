@@ -1,4 +1,4 @@
-import { EquipmentSlot, ItemID } from "@models/item";
+import { ItemID } from "@models/item";
 
 import { UnitID } from "../interfaces";
 
@@ -15,13 +15,12 @@ export enum StashLocation {
 export interface UnitCommandEquipItemArgs {
   unitId: UnitID;
   itemId: ItemID;
-  slot: EquipmentSlot;
   stash: StashLocation;
 }
 
 export interface UnitCommandUnequipItemArgs {
   unitId: UnitID;
-  slot: EquipmentSlot;
+  itemId: ItemID;
   stash: StashLocation;
 }
 

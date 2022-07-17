@@ -1,13 +1,13 @@
 import { test } from "../../utils";
 
-import { EquipmentSlot, StashLocation, UnitCommand } from "../../../public-api";
+import { EquipmentSlot, ItemType, StashLocation, UnitCommand } from "../../../public-api";
 
 test("should be able to equip item", {
   initState: {
     units: {
       "test-hero-id": {
         equipment: {},
-        stash: { items: [{ id: "test-item-id" }] },
+        stash: { items: [{ id: "test-item-id", itemType: ItemType.Armor }] },
       },
     },
   },
@@ -17,7 +17,6 @@ test("should be able to equip item", {
       args: {
         unitId: "test-hero-id",
         itemId: "test-item-id",
-        slot: EquipmentSlot.Torso,
         stash: StashLocation.Unit,
       },
     },
@@ -25,7 +24,7 @@ test("should be able to equip item", {
   expectedState: {
     units: {
       "test-hero-id": {
-        equipment: { [EquipmentSlot.Torso]: { id: "test-item-id" } },
+        equipment: { [EquipmentSlot.Torso]: { id: "test-item-id", itemType: ItemType.Armor } },
       },
     },
   },
@@ -36,7 +35,7 @@ test("should remove item from the stash", {
     units: {
       "test-hero-id": {
         equipment: {},
-        stash: { items: [{ id: "test-item-id" }] },
+        stash: { items: [{ id: "test-item-id", itemType: ItemType.Armor }] },
       },
     },
   },
@@ -46,7 +45,6 @@ test("should remove item from the stash", {
       args: {
         unitId: "test-hero-id",
         itemId: "test-item-id",
-        slot: EquipmentSlot.Torso,
         stash: StashLocation.Unit,
       },
     },
@@ -69,7 +67,6 @@ test("should keep original on no available item id", {
       args: {
         unitId: "test-hero-id",
         itemId: "missing-item-id",
-        slot: EquipmentSlot.Torso,
         stash: StashLocation.Unit,
       },
     },
@@ -87,8 +84,8 @@ test("should unequip the current equipped item on same place target", {
   initState: {
     units: {
       "test-hero-id": {
-        equipment: { [EquipmentSlot.Torso]: { id: "equipped-item-id" } },
-        stash: { items: [{ id: "new-item-id" }] },
+        equipment: { [EquipmentSlot.Torso]: { id: "equipped-item-id", itemType: ItemType.Armor } },
+        stash: { items: [{ id: "new-item-id", itemType: ItemType.Armor }] },
       },
     },
   },
@@ -98,7 +95,6 @@ test("should unequip the current equipped item on same place target", {
       args: {
         unitId: "test-hero-id",
         itemId: "new-item-id",
-        slot: EquipmentSlot.Torso,
         stash: StashLocation.Unit,
       },
     },
@@ -106,8 +102,8 @@ test("should unequip the current equipped item on same place target", {
   expectedState: {
     units: {
       "test-hero-id": {
-        equipment: { [EquipmentSlot.Torso]: { id: "new-item-id" } },
-        stash: { items: [{ id: "equipped-item-id" }] },
+        equipment: { [EquipmentSlot.Torso]: { id: "new-item-id", itemType: ItemType.Armor } },
+        stash: { items: [{ id: "equipped-item-id", itemType: ItemType.Armor }] },
       },
     },
   },
