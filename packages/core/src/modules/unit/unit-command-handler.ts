@@ -1,47 +1,44 @@
 import { injectable } from "inversify";
-import { assoc, dissoc, evolve, path } from "ramda";
 
 import { commandHandler } from "@core/command";
 
-import { Item } from "@models/item";
-import { ItemStash, addItem, getItem, removeItem } from "@models/stash";
+import { VillageStashService } from "@modules/village";
 
-import { UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "./interfaces";
-import { UnitStore } from "./unit-store";
+import { StashLocation, UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "./interfaces";
+import { UnitService } from "./unit-service";
 
 @injectable()
 export class UnitCommandHandler {
-  constructor(private unitStore: UnitStore) {}
+  constructor(private unitService: UnitService, private villageStash: VillageStashService) {}
 
   @commandHandler(UnitCommand.EquipItem)
-  equipItem({ unitId, itemId, slot }: UnitCommandEquipItemArgs) {
-    const unit = this.unitStore.get(unitId);
-    const item = getItem(unit.stash, itemId);
+  equipItem({ unitId, itemId, slot, stash }: UnitCommandEquipItemArgs) {
+    const item =
+      stash === StashLocation.Unit
+        ? this.unitService.takeItemFromStash(unitId, itemId)
+        : this.villageStash.takeItem(itemId);
 
     if (!item) return;
 
-    this.unequipEquipment({ unitId, slot });
+    this.unequipEquipment({ unitId, slot, stash });
 
-    const evolveUnit = evolve({
-      stash: (stash: ItemStash) => removeItem(stash, itemId),
-      equipment: assoc(slot, item) as any,
-    });
-
-    this.unitStore.update(unitId, evolveUnit);
+    this.unitService.setEquipment(unitId, slot, item);
   }
 
   @commandHandler(UnitCommand.UnequipItem)
-  unequipEquipment({ unitId, slot }: UnitCommandUnequipItemArgs) {
-    const unit = this.unitStore.get(unitId);
-    const item = path(["equipment", slot], unit) as Item;
+  unequipEquipment({ unitId, slot, stash }: UnitCommandUnequipItemArgs) {
+    const item = this.unitService.getEquipment(unitId, slot);
+
+    this.unitService.setEquipment(unitId, slot, undefined);
 
     if (!item) return;
 
-    const evolveUnit = evolve({
-      stash: (stash: ItemStash) => addItem(stash, item),
-      equipment: dissoc(slot),
-    });
+    if (stash === StashLocation.Unit) {
+      this.unitService.stashItems(unitId, [item]);
+    }
 
-    this.unitStore.update(unitId, evolveUnit);
+    if (stash === StashLocation.Village) {
+      this.villageStash.addItems([item]);
+    }
   }
 }

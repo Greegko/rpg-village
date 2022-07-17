@@ -5,8 +5,7 @@ import { commandHandler } from "@core/command";
 
 import { AttackEffectType, Effect } from "@models/effect";
 import { EquipmentSlot, Item, ItemID, ItemType } from "@models/item";
-import { getItem } from "@models/stash";
-import { UnitID, UnitStore } from "@modules/unit";
+import { StashLocation, UnitID, UnitService } from "@modules/unit";
 import { VillageStashService } from "@modules/village";
 import { armorFactory, shieldFactory, weaponFactory } from "@modules/village/lib/equipment-factory";
 
@@ -18,14 +17,20 @@ import {
 
 @injectable()
 export class BlacksmithCommandHandler {
-  constructor(private unitStore: UnitStore, private villageStashService: VillageStashService) {}
+  constructor(private unitService: UnitService, private villageStashService: VillageStashService) {}
 
   @commandHandler(BlacksmithCommand.UpgradeItem)
   upgradeItem(args: BlacksmithCommandUpgradeItemArgs) {
-    if (args.equipmentSlot) {
+    if ("equipmentSlot" in args) {
       this.upgradeEquipmentItem(args.unitId, args.equipmentSlot);
-    } else if (args.itemId) {
-      this.upgradeStashItem(args.unitId, args.itemId);
+    } else if ("itemId" in args) {
+      if (args.stash === StashLocation.Unit) {
+        this.upgradeUnitStashItem(args.unitId, args.itemId);
+      }
+
+      if (args.stash === StashLocation.Village) {
+        this.upgradeVillageStashItem(args.itemId);
+      }
     }
   }
 
@@ -50,22 +55,20 @@ export class BlacksmithCommandHandler {
     }
   }
 
-  private upgradeStashItem(unitId: UnitID, itemId: ItemID) {
-    const unit = this.unitStore.get(unitId);
+  private upgradeUnitStashItem(unitId: UnitID, itemId: ItemID) {
+    this.unitService.updateStashItem(unitId, itemId, item => this.adjustItemWithEffect(item));
+  }
 
-    const stashItem = getItem(unit.stash, itemId);
-    if (stashItem) {
-      const newItem = this.adjustItemWithEffect(stashItem);
-      this.unitStore.updateStashItem(unitId, itemId, newItem);
-    }
+  private upgradeVillageStashItem(itemId: ItemID) {
+    this.villageStashService.updateStashItem(itemId, item => this.adjustItemWithEffect(item));
   }
 
   private upgradeEquipmentItem(unitId: UnitID, equipmentSlot: EquipmentSlot) {
-    const item = this.unitStore.getEquipment(unitId, equipmentSlot);
+    const item = this.unitService.getEquipment(unitId, equipmentSlot);
 
     if (item) {
       const newItem = this.adjustItemWithEffect(item);
-      this.unitStore.setEquipment(unitId, equipmentSlot, newItem);
+      this.unitService.setEquipment(unitId, equipmentSlot, newItem);
     }
   }
 

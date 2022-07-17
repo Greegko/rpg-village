@@ -1,6 +1,6 @@
 import { createState, test } from "../../../utils";
 
-import { AttackEffectType, BlacksmithCommand } from "../../../../public-api";
+import { AttackEffectType, BlacksmithCommand, StashLocation } from "../../../../public-api";
 
 test("should give new dmg effect", {
   initState: createState(({ unit, village, party }) => [
@@ -17,7 +17,7 @@ test("should give new dmg effect", {
   commands: [
     {
       command: BlacksmithCommand.UpgradeItem,
-      args: { unitId: "target-unit", itemId: "test-item" },
+      args: { unitId: "target-unit", itemId: "test-item", stash: StashLocation.Unit },
     },
   ],
   expectedState: {
@@ -46,7 +46,7 @@ test("should use village gold for upgrade", {
   commands: [
     {
       command: BlacksmithCommand.UpgradeItem,
-      args: { unitId: "target-unit", itemId: "test-item" },
+      args: { unitId: "target-unit", itemId: "test-item", stash: StashLocation.Unit },
     },
   ],
   expectedState: { village: { stash: { resource: { gold: 0 } } } },

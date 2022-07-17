@@ -63,22 +63,20 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay }: ItemLi
   return (
     <div className={"item-list" + (smallDisplay ? " item-list--small" : "")}>
       <div className="items" onClick={() => setSelectedItemIndex(undefined)}>
-        {range(0, listSize).map(index => (
-          <>
-            {!items[index] && <div className="item-slot"></div>}
+        {range(0, listSize).map(index => {
+          if (!items[index]) return <div className="item-slot"></div>;
 
-            {items[index] && (
-              <Popup key={index} content={() => <ItemStats item={items[index]} />}>
-                <span
-                  className={"item-slot" + (selectedItemIndex === index ? " item-slot-selected" : "")}
-                  onClick={event => itemClick(event, index)}
-                >
-                  <Asset id={getAssetId(index)} size="icon" />
-                </span>
-              </Popup>
-            )}
-          </>
-        ))}
+          return (
+            <Popup key={index} content={() => <ItemStats item={items[index]} />}>
+              <span
+                className={"item-slot" + (selectedItemIndex === index ? " item-slot-selected" : "")}
+                onClick={event => itemClick(event, index)}
+              >
+                <Asset id={getAssetId(index)} size="icon" />
+              </span>
+            </Popup>
+          );
+        })}
       </div>
     </div>
   );

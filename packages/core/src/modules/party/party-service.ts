@@ -5,14 +5,19 @@ import { Loot } from "@models/loot";
 import { addResource } from "@models/stash";
 import { ActivityStore } from "@modules/activity";
 import { MapLocationID } from "@modules/map";
-import { Unit, UnitID, UnitStore, isAlive } from "@modules/unit";
+import { Unit, UnitID, UnitService, UnitStore, isAlive } from "@modules/unit";
 
 import { Party, PartyID, PartyStash } from "./interfaces";
 import { PartyStore } from "./party-store";
 
 @injectable()
 export class PartyService {
-  constructor(private partyStore: PartyStore, private unitStore: UnitStore, private activityStore: ActivityStore) {}
+  constructor(
+    private partyStore: PartyStore,
+    private unitStore: UnitStore,
+    private unitService: UnitService,
+    private activityStore: ActivityStore,
+  ) {}
 
   getPartiesOnLocation(locationId: MapLocationID): Party[] {
     const parties = this.partyStore.getState();
@@ -26,7 +31,7 @@ export class PartyService {
   collectLoot(partyId: PartyID, loot: Loot) {
     const partyUnits = this.getPartyUnits(partyId);
 
-    partyUnits.forEach(unit => this.unitStore.gainXpUnit(unit.id, Math.floor(loot.xp / partyUnits.length)));
+    partyUnits.forEach(unit => this.unitService.gainXpUnit(unit.id, Math.floor(loot.xp / partyUnits.length)));
 
     this.partyStore.update(partyId, party => ({
       stash: addResource(party.stash, loot.resource),

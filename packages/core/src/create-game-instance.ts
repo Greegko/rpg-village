@@ -5,10 +5,9 @@ import { applyModule } from "@core/module";
 
 import { GameInstance, GameState } from "@modules/game";
 
-import * as modules from "./modules/public-api";
-
 import { GameConfig } from "./game-config";
 import { GameController } from "./modules/game/game-controller";
+import * as modules from "./modules/modules";
 
 export type CreateGameInstance<S extends GameState> = (config?: GameConfig) => GameInstance<S>;
 

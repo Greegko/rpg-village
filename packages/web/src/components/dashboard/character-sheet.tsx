@@ -1,7 +1,7 @@
 import { identity } from "ramda";
 import { useState } from "react";
 
-import { BlacksmithCommand, EquipmentSlot, Item, UnitID } from "@rpg-village/core";
+import { BlacksmithCommand, Item, StashLocation, UnitCommand, UnitID, getEquipmentSlot } from "@rpg-village/core";
 
 import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
 import { useExecuteCommandDispatch } from "@web/store/game-command";
@@ -36,23 +36,63 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
         smallDisplay={true}
       ></ItemList>
       {characterSelectedItem && (
-        <button
-          onClick={() =>
-            executeCommand({
-              command: BlacksmithCommand.UpgradeItem,
-              args: { unitId: unit.id, equipmentSlot: EquipmentSlot.Torso },
-            })
-          }
-        >
-          Upgrade
-        </button>
+        <>
+          <button
+            onClick={() =>
+              executeCommand({
+                command: BlacksmithCommand.UpgradeItem,
+                args: { unitId: unit.id, equipmentSlot: getEquipmentSlot(characterSelectedItem)! },
+              })
+            }
+          >
+            Upgrade
+          </button>
+          <button
+            onClick={() => {
+              executeCommand({
+                command: UnitCommand.UnequipItem,
+                args: {
+                  unitId: unit.id,
+                  slot: getEquipmentSlot(characterSelectedItem)!,
+                  stash: StashLocation.Village,
+                },
+              });
+
+              setCharacterSelectedItem(null);
+            }}
+          >
+            Unequipe
+          </button>
+        </>
       )}
       <div>
         <div>
           Village Stash:
           <ItemList listSize={128} items={village.stash.items} onItemSelect={setStashSelectedItem} />
         </div>
-        <div>{stashSelectedItem && <ItemStats item={stashSelectedItem} />}</div>
+        <div>
+          {stashSelectedItem && (
+            <>
+              <ItemStats item={stashSelectedItem} />
+
+              <button
+                onClick={() =>
+                  executeCommand({
+                    command: UnitCommand.EquipItem,
+                    args: {
+                      unitId: unit.id,
+                      slot: getEquipmentSlot(stashSelectedItem)!,
+                      itemId: stashSelectedItem.id,
+                      stash: StashLocation.Village,
+                    },
+                  })
+                }
+              >
+                Equipe
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

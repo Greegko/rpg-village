@@ -1,4 +1,5 @@
 import { injectable } from "inversify";
+import { always, evolve, map, propEq, when } from "ramda";
 
 import { Item, ItemID } from "@models/item";
 import { Resource } from "@models/resource";
@@ -19,6 +20,16 @@ export class VillageStashService {
     const item = getItem(stash, itemId);
     this.villageStore.set("stash", removeItem(stash, itemId));
     return item;
+  }
+
+  updateStashItem(itemId: ItemID, item: Item | ((item: Item) => Item)) {
+    const itemFn = typeof item === "function" ? item : always(item);
+
+    const evolver = evolve({
+      items: map(when(propEq("id", itemId), itemFn)),
+    });
+
+    this.villageStore.update("stash", evolver);
   }
 
   addResource(resource: Resource): void {

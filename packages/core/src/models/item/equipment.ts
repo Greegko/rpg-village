@@ -9,5 +9,5 @@ export enum EquipmentSlot {
 export interface Equipment {
   torso?: Armor;
   leftHand?: Weapon;
-  rightHand?: Weapon | Shield;
+  rightHand?: Shield;
 }

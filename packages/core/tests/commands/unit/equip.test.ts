@@ -1,6 +1,6 @@
 import { test } from "../../utils";
 
-import { EquipmentSlot, UnitCommand } from "../../../public-api";
+import { EquipmentSlot, StashLocation, UnitCommand } from "../../../public-api";
 
 test("should be able to equip item", {
   initState: {
@@ -18,6 +18,7 @@ test("should be able to equip item", {
         unitId: "test-hero-id",
         itemId: "test-item-id",
         slot: EquipmentSlot.Torso,
+        stash: StashLocation.Unit,
       },
     },
   ],
@@ -46,6 +47,7 @@ test("should remove item from the stash", {
         unitId: "test-hero-id",
         itemId: "test-item-id",
         slot: EquipmentSlot.Torso,
+        stash: StashLocation.Unit,
       },
     },
   ],
@@ -68,6 +70,7 @@ test("should keep original on no available item id", {
         unitId: "test-hero-id",
         itemId: "missing-item-id",
         slot: EquipmentSlot.Torso,
+        stash: StashLocation.Unit,
       },
     },
   ],
@@ -96,6 +99,7 @@ test("should unequip the current equipped item on same place target", {
         unitId: "test-hero-id",
         itemId: "new-item-id",
         slot: EquipmentSlot.Torso,
+        stash: StashLocation.Unit,
       },
     },
   ],

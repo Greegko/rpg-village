@@ -3,7 +3,7 @@ import { filter, forEach, map } from "ramda";
 
 import { Activity, IActivityHandler } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
-import { UnitID, UnitStore } from "@modules/unit";
+import { UnitID, UnitService, UnitStore } from "@modules/unit";
 
 export type VillageHealState = {
   partyId: PartyID;
@@ -14,7 +14,7 @@ export type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
 export class VillageHealActivity implements IActivityHandler<VillageHealStateArgs, VillageHealState> {
-  constructor(private unitStore: UnitStore, private partyStore: PartyStore) {}
+  constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
 
   start({ partyId }: VillageHealStateArgs): VillageHealState {
     return {
@@ -29,7 +29,7 @@ export class VillageHealActivity implements IActivityHandler<VillageHealStateArg
   execute({ state }: Activity<VillageHealState>): VillageHealState {
     const recoverableUnits = this.getRecoverableUnits(state.partyId);
 
-    forEach(unit => this.unitStore.healUnit(unit.id, Math.ceil(unit.maxhp / 10)), recoverableUnits);
+    forEach(unit => this.unitService.healUnit(unit.id, Math.ceil(unit.maxhp / 10)), recoverableUnits);
 
     return state;
   }

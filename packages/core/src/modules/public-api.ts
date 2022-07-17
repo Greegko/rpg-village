@@ -1,5 +1,4 @@
 export * from "./game";
-export * from "./config";
 export * from "./activity";
 export * from "./battle";
 export * from "./unit";

@@ -7,15 +7,22 @@ export enum UnitCommand {
   UnequipItem = "unit/unequip-item",
 }
 
+export enum StashLocation {
+  Unit,
+  Village,
+}
+
 export interface UnitCommandEquipItemArgs {
   unitId: UnitID;
   itemId: ItemID;
   slot: EquipmentSlot;
+  stash: StashLocation;
 }
 
 export interface UnitCommandUnequipItemArgs {
   unitId: UnitID;
   slot: EquipmentSlot;
+  stash: StashLocation;
 }
 
 declare module "../../../core/command/command-type" {

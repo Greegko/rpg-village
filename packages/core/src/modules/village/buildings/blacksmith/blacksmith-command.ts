@@ -1,16 +1,21 @@
 import { EquipmentSlot, ItemID, ItemType } from "@models/item";
-import { UnitID } from "@modules/unit";
+import { StashLocation, UnitID } from "@modules/unit";
 
 export enum BlacksmithCommand {
   UpgradeItem = "blacksmith/upgrade-item",
   CreateItem = "blacksmith/create-item",
 }
 
-export interface BlacksmithCommandUpgradeItemArgs {
-  unitId: UnitID;
-  itemId?: ItemID;
-  equipmentSlot?: EquipmentSlot;
-}
+export type BlacksmithCommandUpgradeItemArgs =
+  | {
+      unitId: UnitID;
+      equipmentSlot: EquipmentSlot;
+    }
+  | {
+      unitId: UnitID;
+      itemId: ItemID;
+      stash: StashLocation;
+    };
 
 export interface BlacksmithCommandCreateItemArgs {
   itemType: ItemType;
