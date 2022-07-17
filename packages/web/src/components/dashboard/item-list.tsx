@@ -1,5 +1,5 @@
 import { range } from "ramda";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useCallback } from "react";
 
 import { Item, ItemType } from "@rpg-village/core";
@@ -18,7 +18,9 @@ export interface ItemListProperties {
 }
 
 export const ItemList = ({ items, onItemSelect, listSize, smallDisplay }: ItemListProperties) => {
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number>();
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>();
+
+  useEffect(() => setSelectedItemIndex(null), [items]);
 
   const itemClick = useCallback(
     (event: MouseEvent, index: number) => {
@@ -64,7 +66,7 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay }: ItemLi
     <div className={"item-list" + (smallDisplay ? " item-list--small" : "")}>
       <div className="items" onClick={() => setSelectedItemIndex(undefined)}>
         {range(0, listSize).map(index => {
-          if (!items[index]) return <div className="item-slot"></div>;
+          if (!items[index]) return <div key={index} className="item-slot"></div>;
 
           return (
             <Popup key={index} content={() => <ItemStats item={items[index]} />}>

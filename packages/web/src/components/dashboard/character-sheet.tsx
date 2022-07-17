@@ -1,11 +1,12 @@
 import { identity } from "ramda";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BlacksmithCommand, Item, StashLocation, UnitCommand, UnitID } from "@rpg-village/core";
 
 import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
 import { useExecuteCommandDispatch } from "@web/store/game-command";
 
+import { useValue } from "../core/use-value";
 import { ItemList } from "./item-list";
 import { ItemStats } from "./item-stats";
 
@@ -17,12 +18,24 @@ interface CharacterSheetProperties {
 
 export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
   const unit = useGameStateSelector(state => unitByIdSelector(state, unitId));
+
   const village = useGameStateSelector(villageSelector);
 
   const executeCommand = useExecuteCommandDispatch();
 
+  useEffect(() => {
+    setCharacterSelectedItem(null);
+    setStashSelectedItem(null);
+  }, [unit.equipment, village.stash]);
+
   const [characterSelectedItem, setCharacterSelectedItem] = useState<Item | null>();
   const [stashSelectedItem, setStashSelectedItem] = useState<Item | null>();
+
+  const userEquipment = useValue(
+    () => [unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[],
+    [unit.equipment],
+    [],
+  );
 
   return (
     <div className="character-sheet">
@@ -30,7 +43,7 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
       <div>{unit.name}</div>
       {characterSelectedItem && <ItemStats item={characterSelectedItem} />}
       <ItemList
-        items={[unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[]}
+        items={userEquipment}
         onItemSelect={setCharacterSelectedItem}
         listSize={3}
         smallDisplay={true}
