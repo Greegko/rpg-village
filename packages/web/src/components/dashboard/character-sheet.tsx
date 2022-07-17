@@ -1,12 +1,11 @@
 import { identity } from "ramda";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { BlacksmithCommand, Item, StashLocation, UnitCommand, UnitID } from "@rpg-village/core";
 
 import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
 import { useExecuteCommandDispatch } from "@web/store/game-command";
 
-import { useValue } from "../core/use-value";
 import { ItemList } from "./item-list";
 import { ItemStats } from "./item-stats";
 
@@ -31,10 +30,9 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
   const [characterSelectedItem, setCharacterSelectedItem] = useState<Item | null>();
   const [stashSelectedItem, setStashSelectedItem] = useState<Item | null>();
 
-  const userEquipment = useValue(
+  const userEquipment = useMemo(
     () => [unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[],
     [unit.equipment],
-    [],
   );
 
   return (

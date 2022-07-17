@@ -1,4 +1,5 @@
 import { identity } from "ramda";
+import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 
 import { Item } from "@rpg-village/core";
@@ -8,7 +9,6 @@ import { changePage } from "@web/store/game-ui";
 import { GamePageType } from "@web/store/game-ui/interface";
 
 import { Icons, ProgressBar } from "../core";
-import { useValue } from "../core/use-value";
 import { ItemList } from "./item-list";
 
 import "./hero.scss";
@@ -21,10 +21,9 @@ export const Hero = ({ heroId }: HeroProperties) => {
   const hero = useGameStateSelector(state => unitByIdSelector(state, heroId));
   const dispatch = useDispatch();
 
-  const userEquipment = useValue(
+  const userEquipment = useMemo(
     () => [hero.equipment.leftHand, hero.equipment.rightHand, hero.equipment.torso].filter(identity) as Item[],
     [hero.equipment],
-    [],
   );
 
   return (
