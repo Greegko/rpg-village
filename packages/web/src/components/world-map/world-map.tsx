@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { mapSelector, useGameUISelector } from "@web/store/game-ui";
 
@@ -10,7 +10,11 @@ export const WorldMap = () => {
   const activeMapId = useGameUISelector(mapSelector);
   const [mapSize, setMapSize] = useState<[number, number] | null>(null);
 
-  const mapRef = useCallback<(element: HTMLDivElement) => void>(node => {
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = mapRef.current;
+
     if (!node) return;
 
     const handleResize = () => setMapSize([node.offsetWidth, node.offsetHeight]);
@@ -18,7 +22,7 @@ export const WorldMap = () => {
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [mapRef.current, activeMapId]);
 
   if (!activeMapId) return null;
 
