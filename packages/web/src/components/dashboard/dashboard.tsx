@@ -86,10 +86,10 @@ const Portals = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
+    <div>
       Portals:
       <button onClick={() => executeCommand({ command: VillageCommand.BuildPortals })}>Build Portal</button>
       <button onClick={() => dispatch(changePage({ page: GamePageType.OpenPortal }))}>Open Portal</button>
-    </>
+    </div>
   );
 };
