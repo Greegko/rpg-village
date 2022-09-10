@@ -1,16 +1,20 @@
 @import "./var.scss";
 
 button {
-  display: block;
+  display: inline-block;
   color: $color-white;
   border-radius: $border-radius;
   padding: $unit;
   border: none;
   background-color: $color-light-gray;
   margin: $unit;
-  width: 100%;
 
   &.active {
     background-color: $color-active;
+  }
+
+  &.block {
+    display: block;
+    width: 100%;
   }
 }

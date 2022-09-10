@@ -18,7 +18,7 @@ const Maps = () => {
   const dispatcher = useDispatch();
 
   return (
-    <div style={{ width: "300px" }}>
+    <span>
       {keys(maps).map(mapId => (
         <button
           key={mapId}
@@ -28,7 +28,7 @@ const Maps = () => {
           {mapId === worldMapId ? "World Map" : mapId}
         </button>
       ))}
-    </div>
+    </span>
   );
 };
 

@@ -58,39 +58,87 @@ export const DeveloperToolbox = () => {
   return (
     <div className="developer-toolbox">
       <div>
-        {isAIEnabled && <button onClick={() => dispatch(disableAI())}>Turn AI off</button>}
-        {!isAIEnabled && <button onClick={() => dispatch(enableAI())}>Turn AI on</button>}
-        {!isPaused && <button onClick={() => dispatch(pause())}>Pause</button>}
-        {isPaused && <button onClick={() => dispatch(resume())}>Resume</button>}
-        <button onClick={() => dispatch(save())}>Save</button>
-        <button onClick={() => dispatch(reset())}>Reset</button>
-        <button onClick={() => dispatch(logState())}>Log State</button>
+        {isAIEnabled && (
+          <button className="block" onClick={() => dispatch(disableAI())}>
+            Turn AI off
+          </button>
+        )}
+        {!isAIEnabled && (
+          <button className="block" onClick={() => dispatch(enableAI())}>
+            Turn AI on
+          </button>
+        )}
+        {!isPaused && (
+          <button className="block" onClick={() => dispatch(pause())}>
+            Pause
+          </button>
+        )}
+        {isPaused && (
+          <button className="block" onClick={() => dispatch(resume())}>
+            Resume
+          </button>
+        )}
+        <button className="block" onClick={() => dispatch(save())}>
+          Save
+        </button>
+        <button className="block" onClick={() => dispatch(reset())}>
+          Reset
+        </button>
+        <button className="block" onClick={() => dispatch(logState())}>
+          Log State
+        </button>
       </div>
       <div>
         Turn:
-        <button onClick={() => dispatch(fastForward(10))}>+10</button>
-        <button onClick={() => dispatch(fastForward(100))}>+100</button>
-        <button onClick={() => dispatch(fastForward(500))}>+500</button>
+        <button className="block" onClick={() => dispatch(fastForward(10))}>
+          +10
+        </button>
+        <button className="block" onClick={() => dispatch(fastForward(100))}>
+          +100
+        </button>
+        <button className="block" onClick={() => dispatch(fastForward(500))}>
+          +500
+        </button>
       </div>
       <div>
         Gold:
-        <button onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 10 } })}>+10</button>
-        <button onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 100 } })}>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 10 } })}
+        >
+          +10
+        </button>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 100 } })}
+        >
           +100
         </button>
-        <button onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 1000 } })}>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 1000 } })}
+        >
           +1000
         </button>
       </div>
       <div>
         Items:
-        <button onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateRune() } })}>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateRune() } })}
+        >
           Add Rune
         </button>
-        <button onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateDungeonKey() } })}>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateDungeonKey() } })}
+        >
           Add Dungeon Key
         </button>
-        <button onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateItem() } })}>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateItem() } })}
+        >
           Add Item
         </button>
       </div>
