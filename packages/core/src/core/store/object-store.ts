@@ -26,10 +26,10 @@ export class ObjectStore<T extends object> implements IObjectStore<T> {
   }
 
   set<P extends keyof T>(prop: P, value: T[P]) {
-    this.state = assoc(prop as string, value, this.state);
+    this.state = assoc(prop as string, value, this.state) as T;
   }
 
   update<P extends keyof T>(property: P, updater: (value: T[P]) => T[P]) {
-    this.state = assoc(property as string, updater(prop(property as string, this.state)), this.state);
+    this.state = assoc(property as string, updater(prop(property, this.state)), this.state) as T;
   }
 }

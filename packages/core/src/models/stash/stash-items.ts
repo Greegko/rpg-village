@@ -22,7 +22,7 @@ export function addItem<T extends ItemStash>(stash: T, item: Item): T {
       items: append(item),
     },
     stash,
-  );
+  ) as T;
 }
 
 export function addItems<T extends ItemStash>(stash: T, items: Item[]): T {
@@ -31,7 +31,7 @@ export function addItems<T extends ItemStash>(stash: T, items: Item[]): T {
       items: concat(items),
     },
     stash,
-  );
+  ) as T;
 }
 
 export function removeItem<T extends ItemStash>(stash: T, itemId: ItemID): T {
@@ -40,14 +40,14 @@ export function removeItem<T extends ItemStash>(stash: T, itemId: ItemID): T {
       items: reject(propEq("id", itemId)),
     },
     stash,
-  );
+  ) as T;
 }
 
 export function removeItems<T extends ItemStash>(stash: T, itemIds: ItemID[]): T {
   return evolve(
     {
-      items: items => filter(item => itemIds.indexOf(item.id) === -1, items),
+      items: filter((item: Item) => itemIds.indexOf(item.id) === -1),
     },
     stash,
-  );
+  ) as T;
 }

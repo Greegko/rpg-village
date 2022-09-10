@@ -1,10 +1,10 @@
 import { injectable } from "inversify";
 import { always, assoc, dissoc, evolve, find, map, propEq, toPairs, when } from "ramda";
 
-import { EquipmentSlot, Item, ItemID } from "@models/item";
-import { ItemStash, addItems, getItem, removeItem } from "@models/stash";
+import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID } from "@models/item";
+import { addItems, getItem, removeItem } from "@models/stash";
 
-import { UnitID } from "./interfaces";
+import { UnitID, UnitStash } from "./interfaces";
 import { UnitStore } from "./unit-store";
 
 @injectable()
@@ -33,10 +33,8 @@ export class UnitService {
     this.unitStore.update(unitId, evolver);
   }
 
-  getEquipmentByItemId(unitId: UnitID, itemId: ItemID): [EquipmentSlot, Item] | undefined {
-    const pairs = toPairs<EquipmentSlot, Item>(
-      this.unitStore.get(unitId).equipment as Record<keyof EquipmentSlot, Item>,
-    );
+  getEquipmentByItemId(unitId: UnitID, itemId: ItemID): [EquipmentSlot, EquipmentItem] | undefined {
+    const pairs = toPairs(this.unitStore.get(unitId).equipment) as [EquipmentSlot, EquipmentItem][];
 
     return find(([slot, item]) => item.id === itemId, pairs);
   }
@@ -45,7 +43,7 @@ export class UnitService {
     return this.unitStore.get(unitId).equipment[equipmentSlot];
   }
 
-  setEquipment(unitId: UnitID, equipmentSlot: EquipmentSlot, item: Item | undefined) {
+  setEquipment<Slot extends EquipmentSlot>(unitId: UnitID, equipmentSlot: Slot, item: Equipment[Slot] | undefined) {
     if (item === undefined) {
       this.unitStore.update(unitId, unit => evolve({ equipment: dissoc(equipmentSlot) }, unit));
     } else {
@@ -55,18 +53,18 @@ export class UnitService {
 
   stashItems(unitId: UnitID, items: Item[]) {
     const evolveUnit = evolve({
-      stash: (stash: ItemStash) => addItems(stash, items),
+      stash: (stash: UnitStash) => addItems(stash, items),
     });
 
     this.unitStore.update(unitId, evolveUnit);
   }
 
   takeItemFromStash(unitId: UnitID, itemId: ItemID): Item {
-    const stash = this.unitStore.get(unitId);
-    const item = getItem(stash.stash, itemId);
+    const unit = this.unitStore.get(unitId);
+    const item = getItem(unit.stash, itemId);
 
     const evolveUnit = evolve({
-      stash: (stash: ItemStash) => removeItem(stash, itemId),
+      stash: (stash: UnitStash) => removeItem(stash, itemId),
     });
 
     this.unitStore.update(unitId, evolveUnit);

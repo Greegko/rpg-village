@@ -13,7 +13,7 @@ export function calculateUnitBattleStats(unit: Unit): UnitBattleStats {
     criticalChance: 0,
   };
 
-  const effectsToApply = sortBy(prop("isPercentage"), getUnitEffects(unit));
+  const effectsToApply = sortBy(x => prop("isPercentage", x) || false, getUnitEffects(unit));
 
   return reduce(applyEffect, battleStats, effectsToApply);
 }

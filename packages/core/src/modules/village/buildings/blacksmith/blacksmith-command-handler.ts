@@ -4,7 +4,7 @@ import { append, evolve } from "ramda";
 import { commandHandler } from "@core/command";
 
 import { AttackEffectType, Effect } from "@models/effect";
-import { Item, ItemID, ItemType } from "@models/item";
+import { EquipmentItem, Item, ItemID, ItemType } from "@models/item";
 import { StashLocation, UnitID, UnitService } from "@modules/unit";
 import { VillageStashService } from "@modules/village";
 import { armorFactory, shieldFactory, weaponFactory } from "@modules/village/lib/equipment-factory";
@@ -56,22 +56,26 @@ export class BlacksmithCommandHandler {
   }
 
   private upgradeUnitStashItem(unitId: UnitID, itemId: ItemID) {
-    this.unitService.updateStashItem(unitId, itemId, item => this.adjustItemWithEffect(item));
+    this.unitService.updateStashItem(unitId, itemId, (item: Item) =>
+      this.adjustEquipmentWithEffect(item as EquipmentItem),
+    );
   }
 
   private upgradeVillageStashItem(itemId: ItemID) {
-    this.villageStashService.updateStashItem(itemId, item => this.adjustItemWithEffect(item));
+    this.villageStashService.updateStashItem(itemId, (item: Item) =>
+      this.adjustEquipmentWithEffect(item as EquipmentItem),
+    );
   }
 
   private upgradeEquipmentItem(unitId: UnitID, itemId: ItemID) {
     const equipment = this.unitService.getEquipmentByItemId(unitId, itemId);
 
     if (equipment) {
-      this.unitService.setEquipment(unitId, equipment[0], this.adjustItemWithEffect(equipment[1]));
+      this.unitService.setEquipment(unitId, equipment[0], this.adjustEquipmentWithEffect(equipment[1]));
     }
   }
 
-  private adjustItemWithEffect(item: Item): Item {
+  private adjustEquipmentWithEffect(item: EquipmentItem): EquipmentItem {
     const price = ((item.effects || []).length + 1) * 50;
     if (this.villageStashService.hasEnoughResource({ gold: price })) {
       this.villageStashService.removeResource({ gold: price });

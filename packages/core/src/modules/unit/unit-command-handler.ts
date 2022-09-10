@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core/command";
 
+import { isEquipmentItem } from "@models/item";
 import { VillageStashService } from "@modules/village";
 
 import { StashLocation, UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "./interfaces";
@@ -20,6 +21,8 @@ export class UnitCommandHandler {
         : this.villageStash.takeItem(itemId);
 
     if (!item) return;
+
+    if (!isEquipmentItem(item)) return;
 
     const slot = getEquipmentSlot(item);
 

@@ -61,7 +61,7 @@ export const unitByIdSelector = createSelector(
   selectorProperty<UnitID>(),
   (units, unitId) => units[unitId],
 );
-export const heroUnitsSelector = createSelector(unitsSelector, filter(isHero));
+export const heroUnitsSelector = createSelector(unitsSelector, units => filter(isHero, units));
 
 export const villageSelector = (game: GameState) => game.village;
 
@@ -89,14 +89,12 @@ export const activityByIdSelector = createSelector(
   selectorProperty<ActivityID>(),
   (activities, activityID) => activities[activityID],
 );
-export const partyActivitiesSelector = createSelector(
-  activitiesSelector,
-  filter((activity: Activity) => activity.type === ActivityType.Party),
+export const partyActivitiesSelector = createSelector(activitiesSelector, activities =>
+  filter((activity: Activity) => activity.type === ActivityType.Party, activities),
 );
 
-export const idlePartiesSelector = createSelector(
-  partiesSelector,
-  filter((party: Party) => party.activityId === undefined),
+export const idlePartiesSelector = createSelector(partiesSelector, parties =>
+  filter((party: Party) => party.activityId === undefined, parties),
 );
 
 export const generalSelector = (game: GameState) => game.general;

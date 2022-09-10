@@ -24,5 +24,5 @@ export const translation = {
 type Translation = typeof translation;
 
 export function translate<P extends Path<Translation>>(path: P): PathValue<Translation, P> {
-  return dotPath(path, translation);
+  return dotPath(path)(translation) as any;
 }

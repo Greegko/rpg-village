@@ -5,23 +5,25 @@ import { IStore } from "@core/store";
 
 import { GameState } from "./interfaces";
 
-export interface ProvidedStore {
+export interface ProvidedStore<State> {
   store: IStore;
-  scope: string;
+  scope: keyof State;
   initialState?: object;
 }
 
 @injectable()
 export class GameStore<S extends GameState> {
-  constructor(@multiInject("Stores") private stores: ProvidedStore[]) {}
+  constructor(@multiInject("Stores") private stores: ProvidedStore<S>[]) {}
 
   init(state: S) {
     forEach(store => {
-      (store.store as any).init(prop(store.scope, state) || store.initialState || {});
+      (store.store as any).init(prop(store.scope as keyof S, state) || store.initialState || {});
     }, this.stores);
   }
 
   getState(): S {
-    return mergeAll(map(({ store, scope }) => ({ [scope]: store.getState() }), this.stores));
+    const states = map(({ store, scope }) => ({ [scope]: store.getState() }), this.stores) as Partial<S>[];
+
+    return mergeAll(states) as S;
   }
 }
