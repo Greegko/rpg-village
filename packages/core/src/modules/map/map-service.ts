@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { find, values } from "ramda";
+import { append, evolve, find, values } from "ramda";
 
 import { EventSystem } from "@core/event";
 
@@ -36,7 +36,7 @@ export class MapService {
   addLocationToMap(mapId: MapID, mapLocation: Omit<MapLocation, "id">): MapLocation {
     const newLocation = this.mapLocationStore.add(mapLocation);
 
-    this.mapStore.update(mapId, x => ({ ...x, mapLocationIds: [...x.mapLocationIds, newLocation.id] }));
+    this.mapStore.update(mapId, evolve({ mapLocationIds: append(newLocation.id) }));
 
     return newLocation;
   }

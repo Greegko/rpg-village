@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { assoc, dissoc, merge, omit, prop } from "ramda";
+import { assoc, dissoc, mergeAll, omit, prop } from "ramda";
 import { generate } from "shortid";
 
 export type EntityUpdater<T> = (entity: T) => Partial<T>;
@@ -55,7 +55,7 @@ export class EntityStore<EntityID extends string, Entity extends { id: EntityID 
     }
 
     const oldObject = prop(entityId, this.state);
-    const newObject = merge(oldObject, omit(["id"], entity));
+    const newObject = mergeAll([oldObject, omit(["id"], entity)]);
     this.state = assoc(entityId, newObject, this.state);
   }
 

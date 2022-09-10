@@ -1,4 +1,4 @@
-import { prop, reduce, sortBy } from "ramda";
+import { propOr, reduce, sortBy } from "ramda";
 
 import { Effect, unitEffectPropertyMap } from "@models/effect";
 import { Unit, getUnitEffects } from "@modules/unit";
@@ -13,7 +13,7 @@ export function calculateUnitBattleStats(unit: Unit): UnitBattleStats {
     criticalChance: 0,
   };
 
-  const effectsToApply = sortBy(x => prop("isPercentage", x) || false, getUnitEffects(unit));
+  const effectsToApply = sortBy(propOr(false, "isPercentage"), getUnitEffects(unit));
 
   return reduce(applyEffect, battleStats, effectsToApply);
 }
