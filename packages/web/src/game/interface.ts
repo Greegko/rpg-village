@@ -1,4 +1,3 @@
-import { Command, GameState } from "@rpg-village/core";
+import { GameState } from "@rpg-village/core";
 
-export type AICommandGenerator = (state: GameState) => Command[];
 export type StateUpdateCallback = (game: GameState) => void;

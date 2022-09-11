@@ -1,5 +1,9 @@
+import { ChangeEvent, useCallback } from "react";
+import { useDispatch } from "react-redux";
+
 import { ActivityID, PartyID } from "@rpg-village/core";
 
+import { PartyPreference, partyPreferenceSelector, setPartyPreference, useGameAIStateSelector } from "@web/store/ai";
 import { activityByIdSelector, partyByIdSelector, useGameStateSelector } from "@web/store/game";
 
 import { Hero } from "./hero";
@@ -10,11 +14,29 @@ interface PartyDisplayProperties {
 
 export const PartyDisplay = (props: PartyDisplayProperties) => {
   const party = useGameStateSelector(state => partyByIdSelector(state, props.partyId));
+  const preference = useGameAIStateSelector(state => partyPreferenceSelector(state, props.partyId));
+  const dispatch = useDispatch();
+
+  const selectPartyPreference = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      dispatch(
+        setPartyPreference({ partyId: props.partyId, partyPreference: Number(event.target.value) as PartyPreference }),
+      );
+    },
+    [props.partyId],
+  );
 
   return (
     <>
-      Location: {party.locationId}
-      <br />
+      <div>Location: {party.locationId}</div>
+      <div>
+        Preference:
+        <select value={preference} onChange={selectPartyPreference}>
+          <option value={PartyPreference.Idle}>Idle</option>
+          <option value={PartyPreference.AutoExplore}>Auto Explore</option>
+          <option value={PartyPreference.MoveToVillage}>Move to village</option>
+        </select>
+      </div>
       <Activity activityId={party.activityId} />
       <br />
       {party.unitIds.map(heroId => (

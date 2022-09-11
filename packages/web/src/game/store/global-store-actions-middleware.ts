@@ -4,7 +4,7 @@ export const globalStoreActions: Record<string, Function> = {};
 export const globalStoreActionsMiddleware: Middleware = store => next => action => {
   let result = next(action);
 
-  if (globalStoreActions[action.type]) globalStoreActions[action.type]();
+  if (globalStoreActions[action.type]) globalStoreActions[action.type](action.payload);
 
   return result;
 };

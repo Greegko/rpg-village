@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { generate } from "shortid";
 
 import { Armor, AttackEffectType, DebugCommand, DungeonKey, ItemType, Rune, Shield, Weapon } from "@rpg-village/core";
@@ -23,6 +23,7 @@ export const DeveloperToolbox = () => {
 
   const isAIEnabled = useGameUISelector(isAIEnabledSelector);
   const isPaused = useGameUISelector(pausedSelector);
+  const store = useStore();
   const dispatch = useDispatch();
   const executeCommand = useGameExecuteCommand();
 
@@ -87,7 +88,7 @@ export const DeveloperToolbox = () => {
         <button className="block" onClick={() => (gameInstance.localReset(), window.location.reload())}>
           Reset
         </button>
-        <button className="block" onClick={() => console.log(gameInstance.getState())}>
+        <button className="block" onClick={() => console.log(store.getState())}>
           Log State
         </button>
       </div>

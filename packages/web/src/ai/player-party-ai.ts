@@ -1,4 +1,4 @@
-import { filter, map, partition, sum, values } from "ramda";
+import { filter, partition, sum, values } from "ramda";
 
 import {
   Command,
@@ -11,9 +11,9 @@ import {
   calculateUnitStrength,
 } from "@rpg-village/core";
 
+import { PartyPreference } from "@web/store/ai";
 import {
   heroUnitsSelector,
-  idlePartiesSelector,
   mapByPartyIdSelector,
   mapLocationByIdSelector,
   mapLocationsByMapIdSelector,
@@ -25,14 +25,8 @@ import {
 
 import { sample } from "../lib";
 
-export class PlayerAI {
-  execute = (gameState: GameState): Command[] => {
-    const parties = idlePartiesSelector(gameState);
-    const playerParties = filter(party => party.owner === PartyOwner.Player, parties);
-    return map(party => this.executeParty(gameState, party), values(playerParties));
-  };
-
-  private executeParty(gameState: GameState, party: Party): Command {
+export class PlayerPartyAI {
+  execute(gameState: GameState, party: Party, partyPreference: PartyPreference): Command {
     return (this.handleVillageLocation(gameState, party) ||
       this.handleNewLocation(gameState, party) ||
       this.handleNextLocationSearch(gameState, party))!;

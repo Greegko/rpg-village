@@ -1,17 +1,21 @@
+import { forEach } from "ramda";
+
 import { Command, GameInstance, GameState, createGameInstance } from "@rpg-village/core";
 
-import { AICommandGenerator, StateUpdateCallback } from "./interface";
+import { StateUpdateCallback } from "./interface";
 
 interface CommandHistory {
   turn: number;
   command: Command;
 }
 
+export type AICommandsGenerator = (gameState: GameState) => Command[];
+
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;
   private gameInstance: GameInstance<GameState>;
   private timer: any | number | null = null;
-  private AI?: AICommandGenerator;
+  private AICommandsGenerator?: AICommandsGenerator;
   private updateStateCallbacks: StateUpdateCallback[] = [];
   private enabledAI: boolean = true;
   private commandHistory: CommandHistory[] = [];
@@ -20,8 +24,8 @@ export class GameInstanceWrapper {
     this.gameInstance = createGameInstance();
   }
 
-  setAI(AI: AICommandGenerator) {
-    this.AI = AI;
+  setAICommandsGenerator(commandsGenerator: AICommandsGenerator) {
+    this.AICommandsGenerator = commandsGenerator;
   }
 
   onStateUpdate(callback: StateUpdateCallback) {
@@ -111,10 +115,10 @@ export class GameInstanceWrapper {
   }
 
   private doTurn() {
-    const state = this.gameInstance.gameTurn();
-    if (this.AI && this.enabledAI) {
-      const commands = this.AI(state);
-      commands.forEach(command => this.gameInstance.executeCommand(command));
+    const gameState = this.gameInstance.gameTurn();
+
+    if (this.AICommandsGenerator && this.enabledAI) {
+      forEach(command => this.gameInstance.executeCommand(command), this.AICommandsGenerator(gameState));
     }
   }
 }
