@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import { Item } from "@rpg-village/core";
 
 import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
-import { changePage } from "@web/store/game-ui";
-import { GamePageType } from "@web/store/game-ui/interface";
+import { changePage } from "@web/store/ui";
+import { GamePageType } from "@web/store/ui/interface";
 
 import { Icons, ProgressBar } from "../core";
 import { ItemList } from "./item-list";

@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 
 import { DungeonKey, ItemType, PortalsCommand } from "@rpg-village/core";
 
+import { useGameExecuteCommand } from "@web/react-hooks";
 import { useGameStateSelector, villageSelector } from "@web/store/game";
-import { useExecuteCommandDispatch } from "@web/store/game-command";
 
 import { ItemList } from "./item-list";
 
 export const OpenPortalPage = () => {
   const village = useGameStateSelector(villageSelector);
-  const executeCommand = useExecuteCommandDispatch();
+  const executeCommand = useGameExecuteCommand();
   const [dungeonKeys, setDungeonKeys] = useState<DungeonKey[]>([]);
   const [selectedDungeonKey, setSelectedDungeonKey] = useState<DungeonKey | undefined>();
 

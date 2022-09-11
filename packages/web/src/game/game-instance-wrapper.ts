@@ -10,7 +10,7 @@ interface CommandHistory {
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;
   private gameInstance: GameInstance<GameState>;
-  private timer: any = null;
+  private timer: any | number | null = null;
   private AI?: AICommandGenerator;
   private updateStateCallbacks: StateUpdateCallback[] = [];
   private enabledAI: boolean = true;
@@ -87,6 +87,8 @@ export class GameInstanceWrapper {
   }
 
   resume() {
+    if (this.timer) return;
+
     this.timer = setInterval(() => {
       this.doTurn();
       this.emitStateUpdates();

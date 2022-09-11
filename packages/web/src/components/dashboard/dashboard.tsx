@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 
 import { VillageCommand } from "@rpg-village/core";
 
+import { useGameExecuteCommand } from "@web/react-hooks";
 import { playerPartiesSelector, useGameStateSelector, villageSelector } from "@web/store/game";
-import { useExecuteCommandDispatch } from "@web/store/game-command";
-import { changePage, pageSelector, useGameUISelector } from "@web/store/game-ui";
-import { GamePageType } from "@web/store/game-ui/interface";
+import { changePage, pageSelector, useGameUISelector } from "@web/store/ui";
+import { GamePageType } from "@web/store/ui/interface";
 
 import { CharacterSheet } from "./character-sheet";
 import { Header } from "./header";
@@ -40,7 +40,7 @@ export const Dashboard = () => {
 };
 
 const Parties = () => {
-  const executeCommand = useExecuteCommandDispatch();
+  const executeCommand = useGameExecuteCommand();
   const parties = useGameStateSelector(playerPartiesSelector);
 
   return (
@@ -56,7 +56,7 @@ const Parties = () => {
 };
 
 const Village = () => {
-  const executeCommand = useExecuteCommandDispatch();
+  const executeCommand = useGameExecuteCommand();
   const village = useGameStateSelector(villageSelector);
 
   return (
@@ -82,7 +82,7 @@ const Village = () => {
 };
 
 const Portals = () => {
-  const executeCommand = useExecuteCommandDispatch();
+  const executeCommand = useGameExecuteCommand();
   const dispatch = useDispatch();
 
   return (

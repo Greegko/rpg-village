@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { GameState } from "@rpg-village/core";
 
-const initialState: GameState = {} as GameState;
+const initialState: GameState = null as any;
 
 const gameSlice = createSlice({
   name: "game",

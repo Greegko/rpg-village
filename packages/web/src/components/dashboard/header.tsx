@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { mapsSelector, useGameStateSelector, worldMapIdSelector } from "@web/store/game";
-import { mapSelector, selectMap, useGameUISelector } from "@web/store/game-ui";
+import { mapSelector, selectMap, useGameUISelector } from "@web/store/ui";
 
 import { DeveloperToolbox } from "./developer-toolbox";
 import { VillageStats } from "./villagestats";

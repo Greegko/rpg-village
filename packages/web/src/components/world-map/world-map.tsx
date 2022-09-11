@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { mapSelector, useGameUISelector } from "@web/store/game-ui";
+import { mapSelector, useGameUISelector } from "@web/store/ui";
 
 import { MapStage } from "./map/map-stage";
 

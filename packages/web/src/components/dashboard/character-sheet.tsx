@@ -3,8 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 
 import { BlacksmithCommand, Item, StashLocation, UnitCommand, UnitID } from "@rpg-village/core";
 
+import { useGameExecuteCommand } from "@web/react-hooks";
 import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
-import { useExecuteCommandDispatch } from "@web/store/game-command";
 
 import { ItemList } from "./item-list";
 import { ItemStats } from "./item-stats";
@@ -20,7 +20,7 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
 
   const village = useGameStateSelector(villageSelector);
 
-  const executeCommand = useExecuteCommandDispatch();
+  const executeCommand = useGameExecuteCommand();
 
   useEffect(() => {
     setCharacterSelectedItem(null);

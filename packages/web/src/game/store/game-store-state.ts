@@ -1,6 +1,6 @@
 import { GameState } from "@rpg-village/core";
 
-import { GameUIState } from "./game-ui/interface";
+import { GameUIState } from "./ui/interface";
 
 export interface GameStoreState {
   game: GameState;
