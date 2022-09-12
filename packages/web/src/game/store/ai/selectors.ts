@@ -12,10 +12,10 @@ const selectorProperty =
   (...args: [GameAIState, P]): P =>
     args[1];
 
-export const partiesPreferencesSelector = (aiState: GameAIState) => aiState.partyPreferences;
+export const partiesStatesSelector = (aiState: GameAIState) => aiState.partyStates;
 
-export const partyPreferenceSelector = createSelector(
-  partiesPreferencesSelector,
+export const partyStateSelector = createSelector(
+  partiesStatesSelector,
   selectorProperty<PartyID>(),
   (partiesPreferences, partyId) => partiesPreferences[partyId],
 );

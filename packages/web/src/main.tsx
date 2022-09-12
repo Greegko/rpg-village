@@ -1,14 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { filter, map, values } from "ramda";
+import { filter, forEach, map, values } from "ramda";
 import { useContext, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 
-import { Command, GameState, PartyOwner } from "@rpg-village/core";
+import { Command, GameState, Party, PartyOwner } from "@rpg-village/core";
 
 import { GameInstanceWrapperContext } from "@web/react-hooks";
-import { PartyPreference, gameAIReducer, partiesPreferencesSelector, useGameAIStateSelector } from "@web/store/ai";
-import { gameReducer, idlePartiesSelector, setGameState } from "@web/store/game";
+import {
+  PartyAction,
+  PartyState,
+  gameAIReducer,
+  partiesStatesSelector,
+  setPartyAction,
+  useGameAIStateSelector,
+} from "@web/store/ai";
+import { gameReducer, noActiveActivityPartiesSelector, setGameState } from "@web/store/game";
 import { globalStoreActionsMiddleware, onStoreAction } from "@web/store/global-store-actions-middleware";
 import { gameUIReducer } from "@web/store/ui";
 import * as storeUIActions from "@web/store/ui/reducers";
@@ -32,7 +39,8 @@ const partyAI = new PlayerPartyAI();
 
 const GameInstanceLogic = () => {
   const gameInstanceWrapper = useContext(GameInstanceWrapperContext);
-  const partiesPreferences = useGameAIStateSelector(partiesPreferencesSelector);
+  const partyStates = useGameAIStateSelector(partiesStatesSelector);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     gameInstanceWrapper.restoreOrNewGame();
@@ -44,18 +52,26 @@ const GameInstanceLogic = () => {
   }, []);
 
   useEffect(() => {
-    const generateAICommands = (gameState: GameState, partiesPreferences: Record<string, PartyPreference>) => {
-      const parties = idlePartiesSelector(gameState);
+    console.log("Effect");
+
+    const executeAI = (gameState: GameState, partyStates: Record<string, PartyState>) => {
+      const parties = noActiveActivityPartiesSelector(gameState);
       const playerParties = filter(party => party.owner === PartyOwner.Player, parties);
 
       return map(
-        party => partyAI.execute(gameState, party, partiesPreferences[party.id]),
+        party => [party, partyAI.execute(gameState, party, { ...(partyStates[party.id] || {}), autoExplore: true })],
         values(playerParties),
-      ).filter(x => x) as Command[];
+      ).filter(x => x[0]) as [Party, [PartyAction, Command]][];
     };
 
-    gameInstanceWrapper.setAICommandsGenerator(gameState => generateAICommands(gameState, partiesPreferences));
-  }, [partiesPreferences]);
+    gameInstanceWrapper.setAICommandsGenerator(gameState => {
+      const updates = executeAI(gameState, partyStates);
+
+      forEach(([party, [action]]) => dispatch(setPartyAction({ partyId: party.id, partyAction: action })), updates);
+
+      return map(x => x[1][1], updates);
+    });
+  }, [partyStates]);
 
   useEffect(() => {
     onStoreAction(storeUIActions.pause, () => gameInstanceWrapper.pause());

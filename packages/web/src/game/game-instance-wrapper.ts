@@ -47,16 +47,13 @@ export class GameInstanceWrapper {
   }
 
   fastForward(turns: number) {
-    const isRunning = this.timer !== null;
     this.pause();
 
     for (let i = 0; i < turns; i++) {
       this.doTurn();
     }
 
-    if (isRunning) {
-      this.resume();
-    }
+    this.resume();
 
     this.emitStateUpdates();
   }

@@ -1,9 +1,21 @@
-export enum PartyPreference {
-  Idle,
-  AutoExplore,
-  MoveToVillage,
+export enum PartyActionType {
+  Heal = "heal",
+  Explore = "explore",
+  Battle = "battle",
+  Travel = "travel",
+  MoveToVillage = "move-to-village",
+}
+
+export interface PartyAction {
+  type: PartyActionType;
+  args?: any;
+}
+
+export interface PartyState {
+  action: PartyAction | null;
+  autoExplore: boolean;
 }
 
 export interface GameAIState {
-  partyPreferences: Record<string, PartyPreference>;
+  partyStates: Record<string, PartyState>;
 }
