@@ -29,8 +29,6 @@ export class PlayerPartyAI {
   execute(gameState: GameState, party: Party, partyState: PartyState): [PartyAction, Command] | null {
     const activeAction = (partyState.autoExplore && this.getNextPartyAction(gameState, party)) || null;
 
-    console.log("Active Action", activeAction);
-
     if (activeAction === null) return null;
 
     const command = this.getCommand(gameState, party, activeAction);
