@@ -26,7 +26,18 @@ import {
 import { sample } from "../lib";
 
 export class PlayerPartyAI {
-  execute(gameState: GameState, party: Party, partyPreference: PartyPreference): Command {
+  execute(gameState: GameState, party: Party, partyPreference: PartyPreference): Command | undefined {
+    if (partyPreference === PartyPreference.Idle) return;
+
+    const village = villageSelector(gameState);
+    if (partyPreference === PartyPreference.MoveToVillage) {
+      if (village.locationId !== party.locationId) {
+        return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
+      }
+
+      return this.handleVillageLocation(gameState, party);
+    }
+
     return (this.handleVillageLocation(gameState, party) ||
       this.handleNewLocation(gameState, party) ||
       this.handleNextLocationSearch(gameState, party))!;
@@ -39,6 +50,11 @@ export class PlayerPartyAI {
       return { command: MapCommand.Explore, args: { partyId: party.id } };
     }
 
+    return this.handleBattleCommand(gameState, party);
+  }
+
+  private handleBattleCommand(gameState: GameState, party: Party): Command | undefined {
+    const partyLocation = mapLocationByIdSelector(gameState, party.locationId);
     const [userParties, enemyParties] = this.getPartiesOnLocation(gameState, partyLocation.id);
 
     if (userParties.length !== 1 || enemyParties.length !== 1) return;
@@ -48,13 +64,13 @@ export class PlayerPartyAI {
     }
   }
 
-  private handleVillageLocation(gameState: GameState, party: Party) {
+  private handleVillageLocation(gameState: GameState, party: Party): Command | undefined {
     const village = villageSelector(gameState);
 
     if (party.locationId !== village.locationId) return;
 
     const heroes = heroUnitsSelector(gameState);
-    if (party.unitIds.some(x => heroes[x].hp < heroes[x].maxhp)) {
+    if (party.unitIds.some(x => heroes[x].hp < heroes[x].maxhp * 0.1)) {
       return { command: VillageCommand.HealParty, args: { partyId: party.id } };
     }
   }
@@ -66,9 +82,7 @@ export class PlayerPartyAI {
     const heroes = heroUnitsSelector(gameState);
 
     if (party.unitIds.some(x => heroes[x].hp < heroes[x].maxhp * 0.1)) {
-      if (village.locationId === party.locationId) {
-        return { command: VillageCommand.HealParty, args: { partyId: party.id } };
-      } else {
+      if (village.locationId !== party.locationId) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
     }
@@ -87,7 +101,7 @@ export class PlayerPartyAI {
     }, mapLocations);
 
     const possibleLocations = [...unexploredLocations, ...weakerUnitLocations].filter(location =>
-      this.isLocationAccessible(gameState, location.id),
+      this.isEnemyOnTheLocation(gameState, location.id),
     );
 
     const newUnexploredLocation = sample(possibleLocations);
@@ -120,7 +134,7 @@ export class PlayerPartyAI {
     return sum(partyUnits.map(calculateUnitStrength));
   }
 
-  private isLocationAccessible(gameState: GameState, mapLocationId: string): boolean {
+  private isEnemyOnTheLocation(gameState: GameState, mapLocationId: string): boolean {
     const mapLocations = mapLocationsByMapLocationIdSelector(gameState, mapLocationId);
     const targetLocation = mapLocationByIdSelector(gameState, mapLocationId);
 

@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { filter, map, values } from "ramda";
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
-import { GameState, PartyOwner } from "@rpg-village/core";
+import { Command, GameState, PartyOwner } from "@rpg-village/core";
 
 import { GameInstanceWrapperContext } from "@web/react-hooks";
-import { gameAIReducer, partiesPreferencesSelector, useGameAIStateSelector } from "@web/store/ai";
+import { PartyPreference, gameAIReducer, partiesPreferencesSelector, useGameAIStateSelector } from "@web/store/ai";
 import { gameReducer, idlePartiesSelector, setGameState } from "@web/store/game";
 import { globalStoreActionsMiddleware, onStoreAction } from "@web/store/global-store-actions-middleware";
 import { gameUIReducer } from "@web/store/ui";
@@ -34,28 +34,28 @@ const GameInstanceLogic = () => {
   const gameInstanceWrapper = useContext(GameInstanceWrapperContext);
   const partiesPreferences = useGameAIStateSelector(partiesPreferencesSelector);
 
-  const generateAICommands = useCallback(
-    (gameState: GameState) => {
+  useEffect(() => {
+    gameInstanceWrapper.restoreOrNewGame();
+
+    gameStore.dispatch(setGameState(gameInstanceWrapper.getState()));
+
+    gameInstanceWrapper.onStateUpdate(state => gameStore.dispatch(setGameState(state)));
+    gameInstanceWrapper.resume();
+  }, []);
+
+  useEffect(() => {
+    const generateAICommands = (gameState: GameState, partiesPreferences: Record<string, PartyPreference>) => {
       const parties = idlePartiesSelector(gameState);
       const playerParties = filter(party => party.owner === PartyOwner.Player, parties);
 
       return map(
         party => partyAI.execute(gameState, party, partiesPreferences[party.id]),
         values(playerParties),
-      ).filter(x => x);
-    },
-    [partiesPreferences],
-  );
+      ).filter(x => x) as Command[];
+    };
 
-  useEffect(() => {
-    gameInstanceWrapper.restoreOrNewGame();
-
-    gameStore.dispatch(setGameState(gameInstanceWrapper.getState()));
-
-    gameInstanceWrapper.setAICommandsGenerator(gameState => generateAICommands(gameState));
-    gameInstanceWrapper.onStateUpdate(state => gameStore.dispatch(setGameState(state)));
-    gameInstanceWrapper.resume();
-  }, []);
+    gameInstanceWrapper.setAICommandsGenerator(gameState => generateAICommands(gameState, partiesPreferences));
+  }, [partiesPreferences]);
 
   useEffect(() => {
     onStoreAction(storeUIActions.pause, () => gameInstanceWrapper.pause());
