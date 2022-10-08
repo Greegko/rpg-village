@@ -52,8 +52,6 @@ const GameInstanceLogic = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Effect");
-
     const executeAI = (gameState: GameState, partyStates: Record<string, PartyState>) => {
       const parties = noActiveActivityPartiesSelector(gameState);
       const playerParties = filter(party => party.owner === PartyOwner.Player, parties);

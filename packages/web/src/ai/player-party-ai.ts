@@ -4,7 +4,6 @@ import {
   Command,
   GameState,
   MapCommand,
-  MapLocation,
   Party,
   PartyOwner,
   VillageCommand,
@@ -17,7 +16,6 @@ import {
   mapByPartyIdSelector,
   mapLocationByIdSelector,
   mapLocationsByMapIdSelector,
-  mapLocationsByMapLocationIdSelector,
   partiesSelector,
   unitsSelector,
   villageSelector,
@@ -69,6 +67,11 @@ export class PlayerPartyAI {
         };
       }
 
+      const targetLocation = mapLocationByIdSelector(gameState, partyAction.args.targetLocationId);
+      if (!targetLocation.explored) {
+        return { command: MapCommand.Explore, args: { partyId: party.id } };
+      }
+
       return { command: MapCommand.Battle, args: { locationId: party.locationId } };
     }
 
@@ -90,10 +93,18 @@ export class PlayerPartyAI {
 
   private getNextPartyAction(gameState: GameState, party: Party): PartyAction | undefined {
     return (
+      this.battleOnLocation(gameState, party) ||
       this.handlePartyHeal(gameState, party) ||
-      this.searchUnexploredLocation(gameState, party) ||
-      this.searchWeakerEnemyLocation(gameState, party)
+      this.searchWeakerEnemyLocation(gameState, party) ||
+      this.searchUnexploredLocation(gameState, party)
     );
+  }
+
+  private battleOnLocation(gameState: GameState, party: Party): PartyAction | undefined {
+    const isEnemyOnLocation = this.isEnemyOnTheLocation(gameState, party.locationId);
+    if (isEnemyOnLocation) {
+      return { type: PartyActionType.Battle, args: { targetLocationId: party.locationId } };
+    }
   }
 
   private handlePartyHeal(gameState: GameState, party: Party): PartyAction | undefined {
@@ -109,9 +120,7 @@ export class PlayerPartyAI {
 
     const unexploredLocations = filter(location => !location.explored, mapLocations);
 
-    const possibleLocations = unexploredLocations.filter(location => this.isEnemyOnTheLocation(gameState, location.id));
-
-    const newUnexploredLocation = sample(possibleLocations);
+    const newUnexploredLocation = sample(unexploredLocations);
 
     if (newUnexploredLocation) {
       return { type: PartyActionType.Explore, args: { targetLocationId: newUnexploredLocation.id } };
@@ -121,7 +130,6 @@ export class PlayerPartyAI {
   private searchWeakerEnemyLocation(gameState: GameState, party: Party): PartyAction | undefined {
     const map = mapByPartyIdSelector(gameState, party.id);
     const mapLocations = mapLocationsByMapIdSelector(gameState, map!.id);
-    const exploredLocations = filter(x => x.explored, mapLocations);
 
     const partyStrength = this.getPartyStrength(gameState, party.id);
 
@@ -133,7 +141,7 @@ export class PlayerPartyAI {
       const enemyPartyStrength = this.getPartyStrength(gameState, enemyParty.id);
 
       return partyStrength > enemyPartyStrength;
-    }, exploredLocations);
+    }, mapLocations);
 
     const possibleLocations = weakerUnitLocations.filter(location => this.isEnemyOnTheLocation(gameState, location.id));
 
@@ -166,17 +174,6 @@ export class PlayerPartyAI {
   }
 
   private isEnemyOnTheLocation(gameState: GameState, mapLocationId: string): boolean {
-    const mapLocations = mapLocationsByMapLocationIdSelector(gameState, mapLocationId);
-    const targetLocation = mapLocationByIdSelector(gameState, mapLocationId);
-
-    const neighboursTiles = (values(mapLocations) as MapLocation[]).filter(
-      location =>
-        Math.abs(location.x - targetLocation.x) <= 1 &&
-        location.x !== targetLocation.x &&
-        Math.abs(location.y - targetLocation.y) <= 1 &&
-        location.y !== targetLocation.y,
-    );
-
-    return neighboursTiles.some(location => this.getPartiesOnLocation(gameState, location.id)[1].length === 0);
+    return this.getPartiesOnLocation(gameState, mapLocationId)[1].length > 0;
   }
 }
