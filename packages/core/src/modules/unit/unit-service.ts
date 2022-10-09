@@ -1,10 +1,11 @@
 import { injectable } from "inversify";
-import { always, assoc, dissoc, evolve, find, map, propEq, toPairs, when } from "ramda";
+import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "ramda";
 
 import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID } from "@models/item";
 import { addItems, getItem, removeItem } from "@models/stash";
 
 import { UnitID, UnitStash } from "./interfaces";
+import { nextLevelXp } from "./lib/next-level-xp";
 import { UnitStore } from "./unit-store";
 
 @injectable()
@@ -18,7 +19,15 @@ export class UnitService {
   }
 
   gainXpUnit(unitId: UnitID, xp: number): void {
-    this.unitStore.update(unitId, unit => ({ xp: unit.xp + xp }));
+    const unit = this.unitStore.get(unitId);
+
+    const newXp = unit.xp + xp;
+
+    if (nextLevelXp(unit.level) <= newXp) {
+      this.unitStore.update(unitId, evolve({ level: inc, xp: always(0), maxhp: add(20), hp: add(20), dmg: add(5) }));
+    } else {
+      this.unitStore.update(unitId, evolve({ xp: add(xp) }));
+    }
   }
 
   updateStashItem(unitId: UnitID, itemId: ItemID, item: Item | ((item: Item) => Item)) {

@@ -47,6 +47,7 @@ test("should gain xp then winner heroes", {
                 xp: 0,
                 dmg: 100,
                 hp: 100,
+                level: 1,
                 type: UnitType.Hero,
               }),
             ],
@@ -115,7 +116,7 @@ test("should apply item dmg effect", {
           }),
           defenderPartyId: party({
             locationId: "locationId",
-            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0 })],
+            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0, maxhp: 25 })],
           }),
         }),
       },
