@@ -5,5 +5,9 @@
   { "id": "weapon_1", "file": "icons/weapon.png" },
   { "id": "dungeon_key", "file": "icons/dungeon-key.png" },
   { "id": "rune", "file": "icons/rune-stone.png" },
-  { "id": "placeholder", "file": "icons/placeholder.png" }
+  { "id": "body", "file": "icons/muscular-torso.svg" },
+  { "id": "portal", "file": "icons/portal.svg" },
+  { "id": "treasure-map", "file": "icons/treasure-map.svg" },
+  { "id": "village", "file": "icons/village.svg" },
+  { "id": "healing", "file": "icons/healing.svg" }
 ]
