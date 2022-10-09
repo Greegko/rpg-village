@@ -12,6 +12,10 @@ const gameAISlice = createSlice({
       state.partyStates[action.payload.partyId] = state.partyStates[action.payload.partyId] || {};
       state.partyStates[action.payload.partyId].action = action.payload.partyAction;
     },
+    clearPartyAction(state, action: PayloadAction<{ partyId: string }>) {
+      state.partyStates[action.payload.partyId] = state.partyStates[action.payload.partyId] || {};
+      state.partyStates[action.payload.partyId].action = null;
+    },
     setAutoExplore(state, action: PayloadAction<{ partyId: string; enable: boolean }>) {
       state.partyStates[action.payload.partyId] = state.partyStates[action.payload.partyId] || {};
       state.partyStates[action.payload.partyId].autoExplore = action.payload.enable;
@@ -19,6 +23,6 @@ const gameAISlice = createSlice({
   },
 });
 
-export const { setPartyAction, setAutoExplore } = gameAISlice.actions;
+export const { setPartyAction, setAutoExplore, clearPartyAction } = gameAISlice.actions;
 
 export const gameAIReducer = gameAISlice.reducer;

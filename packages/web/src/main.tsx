@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { filter, forEach, map, values } from "ramda";
+import { filter, forEach, map, partition, values } from "ramda";
 import { useContext, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider, useDispatch } from "react-redux";
@@ -10,6 +10,7 @@ import { GameInstanceWrapperContext } from "@web/react-hooks";
 import {
   PartyAction,
   PartyState,
+  clearPartyAction,
   gameAIReducer,
   partiesStatesSelector,
   setPartyAction,
@@ -57,7 +58,7 @@ const GameInstanceLogic = () => {
       const playerParties = filter(party => party.owner === PartyOwner.Player, parties);
 
       return map(
-        party => [party, partyAI.execute(gameState, party, { ...(partyStates[party.id] || {}), autoExplore: true })],
+        party => [party, partyAI.execute(gameState, party, partyStates[party.id] || {})],
         values(playerParties),
       ).filter(x => x[0]) as [Party, [PartyAction, Command]][];
     };
@@ -65,9 +66,16 @@ const GameInstanceLogic = () => {
     gameInstanceWrapper.setAICommandsGenerator(gameState => {
       const updates = executeAI(gameState, partyStates);
 
-      forEach(([party, [action]]) => dispatch(setPartyAction({ partyId: party.id, partyAction: action })), updates);
+      const [nonNullCommands, nullCommands] = partition(x => !!x[1], updates);
 
-      return map(x => x[1][1], updates);
+      forEach(
+        ([party, [action]]) => dispatch(setPartyAction({ partyId: party.id, partyAction: action })),
+        nonNullCommands,
+      );
+
+      forEach(([party]) => dispatch(clearPartyAction({ partyId: party.id })), nullCommands);
+
+      return map(x => x[1][1], nonNullCommands);
     });
   }, [partyStates]);
 
