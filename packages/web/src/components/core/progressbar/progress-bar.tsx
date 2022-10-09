@@ -1,19 +1,13 @@
-import { Icon, Icons, Size } from "../icon";
-
 import "./progress-bar.scss";
 
 interface ProgressBarProperties {
-  icon: Icons;
   maxValue: number;
   value: number;
   color: string;
 }
 
-export const ProgressBar = ({ icon, maxValue, value, color }: ProgressBarProperties) => (
+export const ProgressBar = ({ maxValue, value, color }: ProgressBarProperties) => (
   <div className="progressbar">
-    <span className="progressbar__icon">
-      <Icon icon={icon} size={Size.Tiny} />
-    </span>
     <div className="progressbar__placeholder" style={{ backgroundColor: "#333", height: 12 }}>
       <div
         className="progressbar__liquid"

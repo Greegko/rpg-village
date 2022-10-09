@@ -2,13 +2,14 @@ import { identity } from "ramda";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 
-import { Item } from "@rpg-village/core";
+import { Item, nextLevelXp } from "@rpg-village/core";
 
 import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
 import { changePage } from "@web/store/ui";
 import { GamePageType } from "@web/store/ui/interface";
 
-import { Icons, ProgressBar } from "../core";
+import { Icon, Icons, ProgressBar, Size } from "../core";
+import { Col, Row } from "../core/grid";
 import { ItemList } from "./item-list";
 
 import "./hero.scss";
@@ -32,9 +33,22 @@ export const Hero = ({ heroId }: HeroProperties) => {
       onClick={() => dispatch(changePage({ page: GamePageType.CharacterSheet, args: { unitId: hero.id } }))}
     >
       <div className="hero__name">{hero.name}</div>
-      <ProgressBar icon={Icons.Heart} color="crimson" value={hero.hp} maxValue={hero.maxhp} />
-      <div className="hero__attack">Attack: {hero.dmg}</div>
+      <Row>
+        <Col col={1}>
+          <Icon icon={Icons.Heart} size={Size.Tiny} />
+        </Col>
+        <Col col={7}>
+          <ProgressBar color="crimson" value={hero.hp} maxValue={hero.maxhp} />
+        </Col>
+      </Row>
+      <Row>
+        <Col col={1}>XP</Col>
+        <Col col={7}>
+          <ProgressBar color="orange" value={hero.xp} maxValue={nextLevelXp(hero.level)} />
+        </Col>
+      </Row>
 
+      <div className="hero__attack">Attack: {hero.dmg}</div>
       <ItemList items={userEquipment} listSize={3} smallDisplay={true}></ItemList>
     </div>
   );
