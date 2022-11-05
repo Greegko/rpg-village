@@ -21,7 +21,9 @@ export class GameInstanceWrapper {
   private commandHistory: CommandHistory[] = [];
 
   constructor() {
-    this.gameInstance = createGameInstance();
+    this.gameInstance = createGameInstance({
+      config: { "village/direct-loot-to-village": true },
+    });
   }
 
   setAICommandsGenerator(commandsGenerator: AICommandsGenerator) {
