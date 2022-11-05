@@ -13,7 +13,7 @@ export interface AddItemArgs {
   item: Item;
 }
 
-declare module "../../../core/command/command-type" {
+declare module "@core/command/command-type" {
   interface CommandType {
     [DebugCommand.GenerateGold]: GenerateGoldArgs;
     [DebugCommand.AddItem]: AddItemArgs;
