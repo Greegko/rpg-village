@@ -1,13 +1,14 @@
 import { Container, interfaces } from "inversify";
 import { forEach } from "ramda";
 
-import { ModuleConfig, applyModule } from "@core/module";
+import { ModuleConfig } from "@core/global-type";
+import { applyModule } from "@core/module";
 import {
   ActivityHandlersToken,
-  ConfigToken,
   GetActivityHandlerToken,
   GetInjectionToken,
   ModuleConfigToken,
+  ModuleDefaultConfigToken,
 } from "@core/module/tokens";
 
 import { GameInstance, GameState } from "@modules/game";
@@ -52,8 +53,8 @@ function createInvesifyContainer(config?: ModuleConfig) {
         context.container.getTagged(ActivityHandlersToken, "name", name),
     );
 
-  container.bind(ConfigToken).toDynamicValue((context: interfaces.Context) => {
-    const moduleConfigs = context.container.getAll<object>(ModuleConfigToken);
+  container.bind(ModuleConfigToken).toDynamicValue((context: interfaces.Context) => {
+    const moduleConfigs = context.container.getAll<object>(ModuleDefaultConfigToken);
 
     return [moduleConfigs, config || {}].reduce((acc, value) => Object.assign(acc, value), {});
   });

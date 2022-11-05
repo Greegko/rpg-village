@@ -3,7 +3,7 @@ export enum RuneWorkshopCommand {
   ForgeDungeonKey = "rune-workshop/forge-dungeon-key",
 }
 
-declare module "@core/command/command-type" {
+declare module "@core/global-type/command-type" {
   interface CommandType {
     [RuneWorkshopCommand.CreateRune]: undefined;
     [RuneWorkshopCommand.ForgeDungeonKey]: undefined;

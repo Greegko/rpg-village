@@ -1,3 +1,4 @@
+import { ModuleConfig } from "@core/global-type";
 import { IStore } from "@core/store";
 
 import { IActivityHandler } from "@modules/activity";
@@ -29,8 +30,6 @@ export interface ModulStore {
   store: StoreClass;
   initialState?: object;
 }
-
-export interface ModuleConfig {}
 
 export interface Module {
   activities?: ModulActivity[];

@@ -24,7 +24,7 @@ export interface UnitCommandUnequipItemArgs {
   stash: StashLocation;
 }
 
-declare module "@core/command/command-type" {
+declare module "@core/global-type/command-type" {
   interface CommandType {
     [UnitCommand.EquipItem]: UnitCommandEquipItemArgs;
     [UnitCommand.UnequipItem]: UnitCommandUnequipItemArgs;

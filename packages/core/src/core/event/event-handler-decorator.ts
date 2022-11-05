@@ -1,5 +1,5 @@
+import { EventType } from "../global-type/event-type";
 import { EventSystem } from "./event-system";
-import { EventType } from "./event-type";
 
 export function eventHandler(eventType: keyof EventType) {
   return (targetClass: any, handlerFunctionName: string) => {

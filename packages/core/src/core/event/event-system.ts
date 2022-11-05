@@ -3,7 +3,7 @@ import { forEach } from "ramda";
 
 import { GetInjectionToken } from "@core/module/tokens";
 
-import { EventType } from "./event-type";
+import { EventType } from "../global-type/event-type";
 
 interface EventHandlerDecoratorSubscription {
   event: any;
@@ -15,7 +15,7 @@ interface EventHandlerDecoratorSubscription {
 export class EventSystem {
   static eventHandlerDecorators: EventHandlerDecoratorSubscription[] | null = [];
 
-  private subscribers: { [key: keyof EventType]: Function[] } = {};
+  private subscribers: Partial<Record<keyof EventType, Function[]>> = {};
 
   constructor(@inject(GetInjectionToken) private getInjector: (functor: any) => any) {}
 
@@ -30,7 +30,7 @@ export class EventSystem {
   on<T extends keyof EventType>(eventType: T, eventHandlerFunction: (args?: EventType[T]) => void): void {
     if (!this.subscribers[eventType]) this.subscribers[eventType] = [];
 
-    this.subscribers[eventType].push(eventHandlerFunction);
+    this.subscribers[eventType]!.push(eventHandlerFunction);
   }
 
   fire<T extends keyof EventType>(eventType: T, args?: EventType[T]): void {

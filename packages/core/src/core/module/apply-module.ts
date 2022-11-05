@@ -1,9 +1,9 @@
 import { Container, interfaces } from "inversify";
 import { forEach, juxt, pipe, propOr } from "ramda";
 
-import { ModulActivity, ModulStore, Module, ModuleConfig, ProvideClass, ProvideValue } from "@core/module";
+import { ModulActivity, ModulStore, Module, ProvideClass, ProvideValue } from "@core/module";
 
-import { ActivityHandlersToken, ModuleConfigToken, StoresToken } from "./tokens";
+import { ActivityHandlersToken, ModuleDefaultConfigToken, StoresToken } from "./tokens";
 
 export type ApplyModule = (container: Container) => (module: Module) => void;
 
@@ -50,5 +50,5 @@ const applyActivities = (container: Container) =>
 
 const applyModuleConfig = (container: Container) =>
   pipe(propOr(null, "defaultConfig"), config => {
-    if (config) container.bind(ModuleConfigToken).toConstantValue(config);
+    if (config) container.bind(ModuleDefaultConfigToken).toConstantValue(config);
   });

@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
 import { add, complement, mergeDeepWith, prop } from "ramda";
 
-import { ModuleConfig } from "@core/module";
-import { ConfigToken } from "@core/module/tokens";
+import { ModuleConfig } from "@core/global-type";
+import { ModuleConfigToken } from "@core/module/tokens";
 
 import { Activity, IActivityHandler } from "@modules/activity";
 import { PartyID, PartyService } from "@modules/party";
@@ -23,7 +23,7 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
     private partyService: PartyService,
     private battleService: BattleService,
     private villageStashService: VillageStashService,
-    @inject(ConfigToken) private config: ModuleConfig,
+    @inject(ModuleConfigToken) private config: ModuleConfig,
   ) {}
 
   start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {

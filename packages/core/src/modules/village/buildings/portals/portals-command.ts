@@ -22,7 +22,7 @@ export interface PortalsCommandLeavePortalArgs {
   portalLocationId: MapLocationID;
 }
 
-declare module "@core/command/command-type" {
+declare module "@core/global-type/command-type" {
   interface CommandType {
     [PortalsCommand.OpenPortal]: PortalsCommandOpenPortalArgs;
     [PortalsCommand.EnterPortal]: PortalsCommandEnterPortalArgs;
