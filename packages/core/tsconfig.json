@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -8,6 +8,7 @@
     "removeComments": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "noUnusedParameters": true,
     "noUnusedLocals": true,
     "declarationMap": true,
     "strict": true,

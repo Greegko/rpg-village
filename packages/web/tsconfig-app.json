@@ -3,6 +3,5 @@
   "compilerOptions": {
     "noUnusedParameters": false,
     "noUnusedLocals": false
-  },
-  "include": ["public-api.ts", "tests/**/*.ts"]
+  }
 }
