@@ -25,7 +25,8 @@ import { sample } from "../lib";
 
 export class PlayerPartyAI {
   execute(gameState: GameState, party: Party, partyState: PartyState): [PartyAction, Command] | null {
-    const activeAction = (partyState.autoExplore && this.getNextPartyAction(gameState, party)) || null;
+    const activeAction =
+      (partyState.autoExplore && this.getNextPartyAction(gameState, party)) || partyState.action || null;
 
     if (activeAction === null) return null;
 
