@@ -1,9 +1,0 @@
-{
-  "trailingComma": "all",
-  "printWidth": 120,
-  "arrowParens": "avoid",
-  "importOrder": ["^ava|util$", "utils", "public-api$", "^\\."],
-  "importOrderParserPlugins": ["typescript"],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
-}
