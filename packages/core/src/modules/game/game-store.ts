@@ -1,6 +1,7 @@
 import { injectable, multiInject } from "inversify";
 import { forEach, map, mergeAll, prop } from "ramda";
 
+import { StoresToken } from "@core/module/tokens";
 import { IStore } from "@core/store";
 
 import { GameState } from "./interfaces";
@@ -13,7 +14,7 @@ export interface ProvidedStore<State> {
 
 @injectable()
 export class GameStore<S extends GameState> {
-  constructor(@multiInject("Stores") private stores: ProvidedStore<S>[]) {}
+  constructor(@multiInject(StoresToken) private stores: ProvidedStore<S>[]) {}
 
   init(state: S) {
     forEach(store => {

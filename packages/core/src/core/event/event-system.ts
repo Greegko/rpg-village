@@ -1,6 +1,8 @@
 import { inject, injectable } from "inversify";
 import { forEach } from "ramda";
 
+import { GetInjectionToken } from "@core/module/tokens";
+
 import { EventType } from "./event-type";
 
 interface EventHandlerDecoratorSubscription {
@@ -15,7 +17,7 @@ export class EventSystem {
 
   private subscribers: { [key: keyof EventType]: Function[] } = {};
 
-  constructor(@inject("getInjection") private getInjector: (functor: any) => any) {}
+  constructor(@inject(GetInjectionToken) private getInjector: (functor: any) => any) {}
 
   hookEventHandlers() {
     EventSystem.eventHandlerDecorators!.forEach(handler => {

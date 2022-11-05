@@ -1,6 +1,8 @@
 import { inject, injectable } from "inversify";
 import { assoc, forEach, values } from "ramda";
 
+import { GetActivityHandlerToken } from "@core/module/tokens";
+
 import { PartyStore } from "@modules/party";
 
 import { ActivityStore } from "./activity-store";
@@ -9,7 +11,7 @@ import { ActivityType, GetActivityHandlerByName, PartyActivity, PartyActivitySta
 @injectable()
 export class ActivityManager {
   constructor(
-    @inject("getActivityHandler") private getActivityHandler: GetActivityHandlerByName,
+    @inject(GetActivityHandlerToken) private getActivityHandler: GetActivityHandlerByName,
     private activityStore: ActivityStore,
     private partyStore: PartyStore,
   ) {}

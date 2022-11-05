@@ -1,5 +1,5 @@
-import { Module } from "@core/module";
+import { ModuleConfig } from "@core/module";
 
 export interface GameConfig {
-  modules: Module[];
+  config?: ModuleConfig;
 }

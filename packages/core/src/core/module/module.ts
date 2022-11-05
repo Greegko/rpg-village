@@ -30,8 +30,11 @@ export interface ModulStore {
   initialState?: object;
 }
 
+export interface ModuleConfig {}
+
 export interface Module {
   activities?: ModulActivity[];
   stores?: ModulStore[];
   provides?: (ProvideClass | ProvideValue)[];
+  defaultConfig?: ModuleConfig;
 }

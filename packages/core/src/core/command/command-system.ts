@@ -1,5 +1,7 @@
 import { inject, injectable } from "inversify";
 
+import { GetInjectionToken } from "@core/module/tokens";
+
 import { CommandType } from "./command-type";
 
 interface CommandHandlerDecoratorSubscription {
@@ -14,7 +16,7 @@ export class CommandSystem {
 
   private subscribers: { [key: string]: Function } = {};
 
-  constructor(@inject("getInjection") private getInjector: (functor: any) => any) {}
+  constructor(@inject(GetInjectionToken) private getInjector: (functor: any) => any) {}
 
   hookCommandHandlers() {
     CommandSystem.commandHandlerDecorators!.forEach(handler => {

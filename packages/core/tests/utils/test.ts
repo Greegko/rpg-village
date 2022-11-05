@@ -1,7 +1,7 @@
 import * as ava from "ava";
 import * as util from "util";
 
-import { Command, GameState } from "../../public-api";
+import { Command, GameConfig, GameState } from "../../public-api";
 
 import { ExecutionTestContext, lengthAssertionFactory, withRandomIDAssertionFactory } from "./custom-assertions";
 import { gameFactory } from "./game-factory";
@@ -15,14 +15,15 @@ type ExpectedState = TestGameState | ExpectedStateMatcher;
 
 type Test = {
   initState: TestGameState;
+  config?: GameConfig["config"];
   commands?: (Command | string)[];
   turn?: boolean | number;
   expectedState: ExpectedState;
 };
 
-export function test(testName: string, { initState, commands, expectedState, turn = 0 }: Test) {
+export function test(testName: string, { config, initState, commands, expectedState, turn = 0 }: Test) {
   ava.default(testName, t => {
-    const game = gameFactory({ state: initState } as any);
+    const game = gameFactory({ state: initState, config } as any);
 
     if (commands) {
       commands.forEach(command => {

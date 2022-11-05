@@ -28,11 +28,13 @@ export class PartyService {
     return any(isAlive, this.getPartyUnits(partyId));
   }
 
-  collectLoot(partyId: PartyID, loot: Loot) {
+  gainXp(partyId: PartyID, xp: number) {
     const partyUnits = this.getPartyUnits(partyId);
 
-    partyUnits.forEach(unit => this.unitService.gainXpUnit(unit.id, Math.floor(loot.xp / partyUnits.length)));
+    partyUnits.forEach(unit => this.unitService.gainXpUnit(unit.id, Math.floor(xp / partyUnits.length)));
+  }
 
+  collectLoot(partyId: PartyID, loot: Loot) {
     this.partyStore.update(partyId, party => ({
       stash: addResource(party.stash, loot.resource),
     }));

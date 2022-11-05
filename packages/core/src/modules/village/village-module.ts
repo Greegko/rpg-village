@@ -1,7 +1,7 @@
 import { Module } from "@core/module";
 
 import { VillageHealActivity } from "./activities";
-import { VillageActivity } from "./interfaces";
+import { VillageActivity, VillageConfig } from "./interfaces";
 import { VillageCommandHandler } from "./village-command-handler";
 import { VillageEventHandler } from "./village-event-handler";
 import { VillageStashService } from "./village-stash-service";
@@ -25,5 +25,6 @@ export const villageModule: Module = {
       },
     },
   ],
+  defaultConfig: { [VillageConfig.DirectLootToVillage]: false },
   provides: [VillageStashService, VillageEventHandler, VillageCommandHandler],
 };

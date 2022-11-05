@@ -1,7 +1,14 @@
 import { Container, interfaces } from "inversify";
 import { forEach } from "ramda";
 
-import { applyModule } from "@core/module";
+import { ModuleConfig, applyModule } from "@core/module";
+import {
+  ActivityHandlersToken,
+  ConfigToken,
+  GetActivityHandlerToken,
+  GetInjectionToken,
+  ModuleConfigToken,
+} from "@core/module/tokens";
 
 import { GameInstance, GameState } from "@modules/game";
 
@@ -15,7 +22,6 @@ const coreModules = [
   modules.unitModule,
   modules.activityModule,
   modules.gameModule,
-  modules.configModule,
   modules.mapModule,
   modules.villageModule,
   modules.villageBuildingsModule,
@@ -24,26 +30,33 @@ const coreModules = [
   modules.debugModule,
 ];
 
-export const createGameInstance: CreateGameInstance<GameState> = () => {
-  const container = createInvesifyContainer();
+export const createGameInstance: CreateGameInstance<GameState> = (config?: GameConfig) => {
+  const container = createInvesifyContainer(config?.config);
 
   forEach(applyModule(container), coreModules);
 
   return container.get(GameController);
 };
 
-function createInvesifyContainer() {
+function createInvesifyContainer(config?: ModuleConfig) {
   const container = new Container({ defaultScope: "Singleton" });
 
   container
-    .bind("getInjection")
+    .bind(GetInjectionToken)
     .toFactory((context: interfaces.Context) => (classDeclaration: any) => context.container.get(classDeclaration));
 
   container
-    .bind("getActivityHandler")
+    .bind(GetActivityHandlerToken)
     .toFactory(
-      (context: interfaces.Context) => (name: string) => context.container.getTagged("ActivityHandlers", "name", name),
+      (context: interfaces.Context) => (name: string) =>
+        context.container.getTagged(ActivityHandlersToken, "name", name),
     );
+
+  container.bind(ConfigToken).toDynamicValue((context: interfaces.Context) => {
+    const moduleConfigs = context.container.getAll<object>(ModuleConfigToken);
+
+    return [moduleConfigs, config || {}].reduce((acc, value) => Object.assign(acc, value), {});
+  });
 
   return container;
 }

@@ -34,7 +34,7 @@ export class VillageEventHandler {
   private storePartyLoot(partyId: PartyID) {
     const partyStash = this.partyService.clearPartyStash(partyId);
 
-    this.villageStash.addResource(getResource(partyStash));
-    this.villageStash.addItems(getItems(partyStash));
+    this.villageStash.addItems(partyStash.items);
+    this.villageStash.addResource(partyStash.resource);
   }
 }

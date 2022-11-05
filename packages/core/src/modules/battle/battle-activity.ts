@@ -1,20 +1,30 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { add, complement, mergeDeepWith, prop } from "ramda";
+
+import { ModuleConfig } from "@core/module";
+import { ConfigToken } from "@core/module/tokens";
 
 import { Activity, IActivityHandler } from "@modules/activity";
 import { PartyID, PartyService } from "@modules/party";
 import { isAlive } from "@modules/unit";
+import { VillageStashService } from "@modules/village";
+import { VillageConfig } from "@modules/village/interfaces/village-config";
 
 import { BattleService } from "./battle-service";
 import { BattleID } from "./interfaces";
-import { calculateLoot } from "./lib";
+import { calculateLoot, calculateXpGain } from "./lib";
 
 export type BattleState = { battleId: BattleID };
 export type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
 
 @injectable()
 export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
-  constructor(private partyService: PartyService, private battleService: BattleService) {}
+  constructor(
+    private partyService: PartyService,
+    private battleService: BattleService,
+    private villageStashService: VillageStashService,
+    @inject(ConfigToken) private config: ModuleConfig,
+  ) {}
 
   start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {
     return {
@@ -43,13 +53,22 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
       ? [battle.partyId, battle.defenderPartyId]
       : [battle.defenderPartyId, battle.partyId];
 
-    const partyStash = this.partyService.clearPartyStash(looserPartyId);
     const winnerUnits = this.partyService.getPartyUnits(winnerPartyId);
     const looserUnits = this.partyService.getPartyUnits(looserPartyId);
     const loot = calculateLoot(looserUnits);
-    const mergedLoot = mergeDeepWith(add, loot, partyStash);
+    const xpGain = calculateXpGain(looserUnits);
 
-    this.partyService.collectLoot(winnerPartyId, mergedLoot);
+    this.partyService.gainXp(winnerPartyId, xpGain);
+
+    if (this.config[VillageConfig.DirectLootToVillage]) {
+      if (loot.resource) this.villageStashService.addResource(loot.resource);
+      if (loot.items) this.villageStashService.addItems(loot.items);
+    } else {
+      const partyStash = this.partyService.clearPartyStash(looserPartyId);
+      const mergedLoot = mergeDeepWith(add, loot, partyStash) as typeof loot & typeof partyStash;
+
+      this.partyService.collectLoot(winnerPartyId, mergedLoot);
+    }
 
     const diedWinnerUnits = winnerUnits.filter(complement(isAlive));
 

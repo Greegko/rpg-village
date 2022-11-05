@@ -1,5 +1,4 @@
 export * from "./game/game-module";
-export * from "./config/config-module";
 export * from "./activity/activity-module";
 export * from "./battle/battle-module";
 export * from "./unit/unit-module";

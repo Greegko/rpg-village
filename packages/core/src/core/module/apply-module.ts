@@ -1,12 +1,19 @@
 import { Container, interfaces } from "inversify";
 import { forEach, juxt, pipe, propOr } from "ramda";
 
-import { ModulActivity, ModulStore, Module, ProvideClass, ProvideValue } from "@core/module";
+import { ModulActivity, ModulStore, Module, ModuleConfig, ProvideClass, ProvideValue } from "@core/module";
+
+import { ActivityHandlersToken, ModuleConfigToken, StoresToken } from "./tokens";
 
 export type ApplyModule = (container: Container) => (module: Module) => void;
 
 export const applyModule: ApplyModule = (container: Container) =>
-  juxt([applyStores(container), applyProviders(container), applyActivities(container)] as any);
+  juxt([
+    applyStores(container),
+    applyProviders(container),
+    applyActivities(container),
+    applyModuleConfig(container),
+  ] as any);
 
 const applyProviders = (container: Container) =>
   pipe(
@@ -25,7 +32,7 @@ const applyStores = (container: Container) =>
     propOr([], "stores"),
     forEach((storeModule: ModulStore) => {
       container.bind(storeModule.store).toSelf();
-      container.bind("Stores").toDynamicValue((context: interfaces.Context) => ({
+      container.bind(StoresToken).toDynamicValue((context: interfaces.Context) => ({
         scope: storeModule.scope,
         store: context.container.get(storeModule.store),
         initialState: storeModule.initialState,
@@ -37,6 +44,11 @@ const applyActivities = (container: Container) =>
   pipe(
     propOr([], "activities"),
     forEach((activityModule: ModulActivity) => {
-      container.bind("ActivityHandlers").to(activityModule.activity).whenTargetTagged("name", activityModule.name);
+      container.bind(ActivityHandlersToken).to(activityModule.activity).whenTargetTagged("name", activityModule.name);
     }),
   );
+
+const applyModuleConfig = (container: Container) =>
+  pipe(propOr(null, "defaultConfig"), config => {
+    if (config) container.bind(ModuleConfigToken).toConstantValue(config);
+  });

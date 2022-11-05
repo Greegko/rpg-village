@@ -1,7 +1,7 @@
 import { createState, test } from "../utils";
 import { equipmentFactory } from "../utils/factories";
 
-import { AttackEffectType, BattleActivityType, ItemType, UnitType } from "../../public-api";
+import { AttackEffectType, BattleActivityType, ItemType, UnitType, VillageConfig } from "../../public-api";
 
 test("should finish correctly", {
   initState: createState(({ activity, party, unit, battle, map }) => [
@@ -64,9 +64,11 @@ test("should gain xp then winner heroes", {
   expectedState: { units: { "winner-unit": { xp: 25 } } },
 });
 
-test("should party gain the looser stash", {
-  initState: createState(({ activity, party, unit, battle, map, location }) => [
+test("should gain resource in village when enabled VillageConfig.DirectLootToVillage config", {
+  config: { [VillageConfig.DirectLootToVillage]: true },
+  initState: createState(({ activity, party, unit, battle, map, village }) => [
     map({ mapLocationIds: ["locationId"] }),
+    village({ stash: { resource: { gold: 0 } } }),
     activity({
       name: BattleActivityType.Battle,
       state: {
@@ -88,7 +90,8 @@ test("should party gain the looser stash", {
   ]),
   turn: true,
   expectedState: {
-    parties: { "winner-party": { stash: { resource: { gold: 25 } } } },
+    parties: { "winner-party": { stash: { resource: { gold: 0 } } } },
+    village: { stash: { resource: { gold: 25 } } },
   },
 });
 
