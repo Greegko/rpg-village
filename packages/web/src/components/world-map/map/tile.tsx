@@ -14,6 +14,7 @@ export const Tile = ({ x, y, parties, locationType }: TileProperties) => {
     <Group>
       <RegularPolygon sides={6} radius={40} rotation={90} x={x} y={y} fill="red" />
       {locationType === MapLocationType.Village && <Circle radius={18} fill="green" x={x} y={y} />}
+      {locationType === MapLocationType.Portal && <Circle radius={18} fill="yellow" x={x} y={y} />}
       {parties && parties[0] && parties[0].owner === PartyOwner.Player && (
         <Circle radius={14} fill="blue" x={x} y={y} />
       )}

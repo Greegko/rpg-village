@@ -55,6 +55,8 @@ export const mapByMapLocationIdSelector = createSelector(
   (maps, mapLocationId) => find(x => x.mapLocationIds.includes(mapLocationId), values(maps)),
 );
 
+export const entryPortalLocationForMapSelector = createSelector(mapByMapIdSelector, x => x.mapLocationIds[0]);
+
 export const unitsSelector = (game: GameState) => game.units;
 export const unitByIdSelector = createSelector(
   unitsSelector,

@@ -6,47 +6,108 @@ import {
   MapCommand,
   Party,
   PartyOwner,
+  PortalsCommand,
   VillageCommand,
   calculateUnitStrength,
 } from "@rpg-village/core";
 
 import { PartyAction, PartyActionType, PartyState } from "@web/store/ai";
 import {
+  entryPortalLocationForMapSelector,
   heroUnitsSelector,
   mapByPartyIdSelector,
   mapLocationByIdSelector,
   mapLocationsByMapIdSelector,
+  mapsSelector,
   partiesSelector,
   unitsSelector,
   villageSelector,
+  worldMapIdSelector,
 } from "@web/store/game";
 
 import { sample } from "../lib";
 
 export class PlayerPartyAI {
-  execute(gameState: GameState, party: Party, partyState: PartyState): [PartyAction, Command] | null {
+  execute(gameState: GameState, party: Party, partyState: PartyState): [PartyAction | null, Command | null] {
     const activeAction =
       (partyState.autoExplore && this.getNextPartyAction(gameState, party)) || partyState.action || null;
 
-    if (activeAction === null) return null;
+    if (activeAction === null) return [null, null];
 
-    const command = this.getCommand(gameState, party, activeAction);
+    let clearAction = false;
+
+    const command = this.getCommand(gameState, party, activeAction, () => (clearAction = true)) || null;
 
     if (!command) {
       console.warn("No command found for action: ", activeAction);
-      return null;
+      return [null, null];
     }
 
-    return [activeAction, command];
+    return [clearAction ? null : activeAction, command];
   }
 
-  private getCommand(gameState: GameState, party: Party, partyAction: PartyAction): Command | undefined {
+  private getCommand(
+    gameState: GameState,
+    party: Party,
+    partyAction: PartyAction,
+    clearPartyAction: () => void,
+  ): Command | undefined {
+    const maps = mapsSelector(gameState);
     const village = villageSelector(gameState);
+    const currentMap = mapByPartyIdSelector(gameState, party.id)!;
+    const worldMapId = worldMapIdSelector(gameState);
+    const entryPortalLocationForMap = entryPortalLocationForMapSelector(gameState, currentMap.id);
 
     if (partyAction.type === PartyActionType.MoveToVillage) {
+      if (currentMap.id !== worldMapId) {
+        if (party.locationId !== entryPortalLocationForMap) {
+          return {
+            command: MapCommand.Travel,
+            args: { partyId: party.id, targetLocationId: entryPortalLocationForMap },
+          };
+        }
+
+        clearPartyAction();
+        return {
+          command: PortalsCommand.LeavePortal,
+          args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
+        };
+      }
+
+      clearPartyAction();
+
       if (village.locationId !== party.locationId) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
+    }
+
+    if (partyAction.type === PartyActionType.GoIntoPortal) {
+      if (currentMap.id !== worldMapId) {
+        if (party.locationId !== entryPortalLocationForMap) {
+          return {
+            command: MapCommand.Travel,
+            args: { partyId: party.id, targetLocationId: entryPortalLocationForMap },
+          };
+        }
+
+        clearPartyAction();
+        return {
+          command: PortalsCommand.LeavePortal,
+          args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
+        };
+      }
+
+      if (village.locationId !== party.locationId) {
+        return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
+      }
+
+      clearPartyAction();
+
+      const map = sample(Object.values(maps));
+      return {
+        command: PortalsCommand.EnterPortal,
+        args: { partyId: party.id, portalLocationId: map.mapLocationIds[0] },
+      };
     }
 
     if (partyAction.type === PartyActionType.Explore) {
@@ -57,6 +118,7 @@ export class PlayerPartyAI {
         };
       }
 
+      clearPartyAction();
       return { command: MapCommand.Explore, args: { partyId: party.id } };
     }
 
@@ -73,6 +135,7 @@ export class PlayerPartyAI {
         return { command: MapCommand.Explore, args: { partyId: party.id } };
       }
 
+      clearPartyAction();
       return { command: MapCommand.Battle, args: { locationId: party.locationId } };
     }
 
@@ -81,10 +144,13 @@ export class PlayerPartyAI {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
 
+      clearPartyAction();
       return { command: VillageCommand.HealParty, args: { partyId: party.id } };
     }
 
     if (partyAction.type === PartyActionType.Travel) {
+      clearPartyAction();
+
       return {
         command: MapCommand.Travel,
         args: { partyId: party.id, targetLocationId: partyAction.args.targetLocationId },
@@ -122,6 +188,8 @@ export class PlayerPartyAI {
     const unexploredLocations = filter(location => !location.explored, mapLocations);
 
     const newUnexploredLocation = sample(unexploredLocations);
+
+    console.log(unexploredLocations);
 
     if (newUnexploredLocation) {
       return { type: PartyActionType.Explore, args: { targetLocationId: newUnexploredLocation.id } };
