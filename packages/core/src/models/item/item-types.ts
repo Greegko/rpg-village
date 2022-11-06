@@ -10,6 +10,7 @@ export enum ItemType {
 
 export interface Rune extends BaseItem {
   itemType: ItemType.Rune;
+  power: number;
 }
 
 export interface DungeonKey extends BaseItem {

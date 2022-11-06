@@ -52,10 +52,11 @@ export const DeveloperToolbox = () => {
 
   const generateRune = (): Rune => {
     return {
-      effects: [],
       id: generate(),
       name: generate(),
       itemType: ItemType.Rune,
+      power: 100,
+      effects: [],
     };
   };
 

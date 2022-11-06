@@ -1,4 +1,4 @@
-import { AttackEffectType, DefenseEffectType, Item } from "@rpg-village/core";
+import { AttackEffectType, DefenseEffectType, Item, ItemType } from "@rpg-village/core";
 
 import { translate } from "../../game";
 
@@ -16,5 +16,13 @@ export const ItemStats = ({ item }: { item: Item }) => (
         <span>{effect.value}</span>
       </div>
     ))}
+
+    <RuneStats item={item} />
   </div>
 );
+
+const RuneStats = ({ item }: { item: Item }) => {
+  if (item.itemType !== ItemType.Rune) return null;
+
+  return <div>Power: {item.power}</div>;
+};

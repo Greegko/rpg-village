@@ -7,6 +7,7 @@ export function createRune(): Rune {
     id: generate(),
     name: "Rune",
     effects: [],
+    power: 100,
     itemType: ItemType.Rune,
   };
 }
