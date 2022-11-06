@@ -3,6 +3,7 @@ import { ItemID } from "@models/item";
 export enum RuneWorkshopCommand {
   CreateRune = "rune-workshop/create-rune",
   EmpowerRune = "rune-workshop/empower-rune",
+  DismantleRune = "rune-workshop/dissamble-rune",
   ForgeDungeonKey = "rune-workshop/forge-dungeon-key",
 }
 
@@ -11,10 +12,15 @@ export interface EmpowerRuneCommandArgs {
   soul: number;
 }
 
+export interface DismantleRuneCommandArgs {
+  runeId: ItemID;
+}
+
 declare module "@core/global-type/command-type" {
   interface CommandType {
     [RuneWorkshopCommand.CreateRune]: undefined;
     [RuneWorkshopCommand.ForgeDungeonKey]: undefined;
     [RuneWorkshopCommand.EmpowerRune]: EmpowerRuneCommandArgs;
+    [RuneWorkshopCommand.DismantleRune]: DismantleRuneCommandArgs;
   }
 }

@@ -124,6 +124,21 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
                   Empower
                 </button>
               )}
+
+              {stashSelectedItem.itemType === ItemType.Rune && (
+                <button
+                  onClick={() =>
+                    executeCommand({
+                      command: RuneWorkshopCommand.DismantleRune,
+                      args: {
+                        runeId: stashSelectedItem.id
+                      },
+                    })
+                  }
+                >
+                  Dismantle
+                </button>
+              )}
             </>
           )}
         </div>

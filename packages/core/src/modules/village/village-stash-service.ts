@@ -15,11 +15,11 @@ export class VillageStashService {
     this.villageStore.update("stash", stash => addItems(stash, items));
   }
 
-  takeItem(itemId: ItemID): Item {
+  takeItem<T extends Item>(itemId: ItemID): T {
     const stash = this.villageStore.get("stash");
     const item = getItem(stash, itemId);
     this.villageStore.set("stash", removeItem(stash, itemId));
-    return item;
+    return item as T;
   }
 
   updateStashItem<T extends Item>(itemId: ItemID, item: T | ((item: T) => T)) {

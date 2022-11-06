@@ -6,7 +6,7 @@ import { commandHandler } from "@core/command";
 import { Rune } from "@models/item";
 import { VillageStashService } from "@modules/village";
 
-import { EmpowerRuneCommandArgs, RuneWorkshopCommand } from "./rune-workshop-command";
+import { DismantleRuneCommandArgs, EmpowerRuneCommandArgs, RuneWorkshopCommand } from "./rune-workshop-command";
 import { createDungeonKey, createRune } from "./utils";
 
 @injectable()
@@ -43,6 +43,15 @@ export class RuneWorkshopCommandHandler {
       this.villageStashService.removeResource({ soul: args.soul });
 
       this.villageStashService.updateStashItem<Rune>(args.runeId, evolve({ soul: add(args.soul) }));
+    }
+  }
+
+  @commandHandler(RuneWorkshopCommand.DismantleRune)
+  dismantleRune(args: DismantleRuneCommandArgs) {
+    const item = this.villageStashService.takeItem<Rune>(args.runeId);
+
+    if(item) {
+      this.villageStashService.addResource({ soul: item.soul })
     }
   }
 }
