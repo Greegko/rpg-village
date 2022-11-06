@@ -49,7 +49,7 @@ export const Hero = ({ heroId }: HeroProperties) => {
       </Row>
 
       <div className="hero__attack">Attack: {hero.dmg}</div>
-      <ItemList items={userEquipment} listSize={3} smallDisplay={true}></ItemList>
+      <ItemList items={userEquipment} listSize={6} smallDisplay={true} hideEmpty={true}></ItemList>
     </div>
   );
 };

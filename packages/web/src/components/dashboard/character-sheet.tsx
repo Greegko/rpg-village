@@ -39,7 +39,7 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
   const [stashSelectedItem, setStashSelectedItem] = useState<Item | null>();
 
   const userEquipment = useMemo(
-    () => [unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso].filter(identity) as Item[],
+    () => [unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso, unit.equipment.rune].filter(identity) as Item[],
     [unit.equipment],
   );
 
@@ -51,8 +51,9 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
       <ItemList
         items={userEquipment}
         onItemSelect={setCharacterSelectedItem}
-        listSize={3}
+        listSize={6}
         smallDisplay={true}
+        hideEmpty={true}
       ></ItemList>
       {characterSelectedItem && (
         <>

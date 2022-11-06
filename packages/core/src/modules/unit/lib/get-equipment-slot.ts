@@ -8,6 +8,8 @@ export function getEquipmentSlot(item: Item): EquipmentSlot | null {
       return EquipmentSlot.RightHand;
     case ItemType.Weapon:
       return EquipmentSlot.LeftHand;
+    case ItemType.Rune:
+      return EquipmentSlot.Rune;
     default:
       return null;
   }

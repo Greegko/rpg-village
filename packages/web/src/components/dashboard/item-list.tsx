@@ -13,11 +13,12 @@ import "./item-list.scss";
 export interface ItemListProperties {
   items: Item[];
   listSize: number;
+  hideEmpty?: boolean;
   smallDisplay?: boolean;
   onItemSelect?: (item: Item | null) => void;
 }
 
-export const ItemList = ({ items, onItemSelect, listSize, smallDisplay }: ItemListProperties) => {
+export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, hideEmpty }: ItemListProperties) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>();
 
   useEffect(() => setSelectedItemIndex(null), [items]);
@@ -66,7 +67,7 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay }: ItemLi
     <div className={"item-list" + (smallDisplay ? " item-list--small" : "")}>
       <div className="items" onClick={() => setSelectedItemIndex(undefined)}>
         {range(0, listSize).map(index => {
-          if (!items[index]) return <span key={index} className="item-slot"></span>;
+          if (!items[index]) return hideEmpty ? null : <span key={index} className="item-slot"></span>;
 
           return (
             <Popup key={index} content={() => <ItemStats item={items[index]} />}>
