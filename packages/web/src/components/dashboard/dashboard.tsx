@@ -55,6 +55,7 @@ const Parties = () => {
 
 const Village = () => {
   const executeCommand = useGameExecuteCommand();
+  const dispatch = useDispatch();
   const village = useGameStateSelector(villageSelector);
 
   return (
@@ -99,19 +100,9 @@ const Village = () => {
         Upgrade Training Field
       </button>
 
-      <Portals />
-    </div>
-  );
-};
-
-const Portals = () => {
-  const executeCommand = useGameExecuteCommand();
-  const dispatch = useDispatch();
-
-  return (
-    <div>
-      Portals:
-      <button onClick={() => executeCommand({ command: VillageCommand.BuildPortals })}>Build Portal</button>
+      <button onClick={() => executeCommand({ command: VillageCommand.BuildPortalSummonerStone })}>
+        Build Portal Summoner Stone
+      </button>
       <button onClick={() => dispatch(changePage({ page: GamePageType.OpenPortal }))}>Open Portal</button>
     </div>
   );

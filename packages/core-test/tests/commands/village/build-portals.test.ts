@@ -8,12 +8,12 @@ const initState = {
 
 test("should build a portals", {
   initState,
-  commands: [VillageCommand.BuildPortals],
+  commands: [VillageCommand.BuildPortalSummonerStone],
   expectedState: { village: { portals: 1 } },
 });
 
 test("should reduce the village resouce by the portals cost", {
   initState,
-  commands: [VillageCommand.BuildPortals],
+  commands: [VillageCommand.BuildPortalSummonerStone],
   expectedState: { village: { stash: { resource: { gold: 0 } } } },
 });

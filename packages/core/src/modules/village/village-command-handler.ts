@@ -66,7 +66,7 @@ export class VillageCommandHandler {
     }
   }
 
-  @commandHandler(VillageCommand.BuildPortals)
+  @commandHandler(VillageCommand.BuildPortalSummonerStone)
   buildPortals(): void {
     const goldCost = 100;
 
