@@ -66,7 +66,7 @@ export const ItemList = ({ items, onItemSelect, listSize, smallDisplay }: ItemLi
     <div className={"item-list" + (smallDisplay ? " item-list--small" : "")}>
       <div className="items" onClick={() => setSelectedItemIndex(undefined)}>
         {range(0, listSize).map(index => {
-          if (!items[index]) return <div key={index} className="item-slot"></div>;
+          if (!items[index]) return <span key={index} className="item-slot"></span>;
 
           return (
             <Popup key={index} content={() => <ItemStats item={items[index]} />}>

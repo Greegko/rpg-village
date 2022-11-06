@@ -25,10 +25,10 @@ export const Popup = ({ children, content }: PopupProperties) => {
   }, [visible]);
 
   return (
-    <span>
+    <span className="popup">
       {visible && (
         <div
-          className="popup"
+          className="popup-content"
           style={popupStyle}
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
