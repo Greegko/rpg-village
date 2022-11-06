@@ -41,7 +41,10 @@ export function mapLocationFactory({
   return { explored, x, y, id, type };
 }
 
-export function stashFactory({ resource = { gold: chance.integer() }, items = [] } = {}): ItemStash & ResourceStash {
+export function stashFactory({
+  resource = { gold: chance.integer(), soul: chance.integer() },
+  items = [],
+} = {}): ItemStash & ResourceStash {
   return {
     items,
     resource,

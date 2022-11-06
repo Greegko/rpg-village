@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { add, complement, mergeDeepWith, prop } from "ramda";
+import { complement, prop } from "ramda";
 
 import { ModuleConfig } from "@core/global-type";
 import { ModuleConfigToken } from "@core/module/tokens";
@@ -64,10 +64,7 @@ export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleS
       if (loot.resource) this.villageStashService.addResource(loot.resource);
       if (loot.items) this.villageStashService.addItems(loot.items);
     } else {
-      const partyStash = this.partyService.clearPartyStash(looserPartyId);
-      const mergedLoot = mergeDeepWith(add, loot, partyStash) as typeof loot & typeof partyStash;
-
-      this.partyService.collectLoot(winnerPartyId, mergedLoot);
+      this.partyService.collectLoot(winnerPartyId, loot);
     }
 
     const diedWinnerUnits = winnerUnits.filter(complement(isAlive));

@@ -47,7 +47,7 @@ export class PartyService {
   clearPartyStash(partyId: PartyID): PartyStash {
     const stash = this.partyStore.get(partyId).stash;
     this.partyStore.update(partyId, () => ({
-      stash: { resource: { gold: 0 }, items: [] },
+      stash: { resource: { gold: 0, soul: 0 }, items: [] },
     }));
 
     return stash;

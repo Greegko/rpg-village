@@ -27,18 +27,18 @@ test("should store looted resource into village stash", {
         partyId: party({
           id: "test-party-id",
           locationId: location(),
-          stash: stashFactory({ resource: { gold: 5 } }),
+          stash: stashFactory({ resource: { gold: 5, soul: 1 } }),
         }),
         progress: 1,
         targetLocationId: village({
-          stash: stashFactory({ resource: { gold: 10 } }),
+          stash: stashFactory({ resource: { gold: 10, soul: 5 } }),
         }),
       },
     }),
   ]),
   turn: true,
   expectedState: {
-    village: { stash: { resource: { gold: 15 } } },
-    parties: { "test-party-id": { stash: { resource: { gold: 0 } } } },
+    village: { stash: { resource: { gold: 15, soul: 6 } } },
+    parties: { "test-party-id": { stash: { resource: { gold: 0, soul: 0 } } } },
   },
 });

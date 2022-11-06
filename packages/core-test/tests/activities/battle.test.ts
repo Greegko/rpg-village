@@ -31,7 +31,7 @@ test("should finish correctly", {
   expectedState: (state, t) => t.falsy(state.activities.battleActivity),
 });
 
-test("should gain xp then winner heroes", {
+test("should gain xp for winner heroes", {
   initState: createState(({ activity, party, unit, battle, map }) => [
     map({ mapLocationIds: ["locationId"] }),
     activity({
@@ -64,6 +64,56 @@ test("should gain xp then winner heroes", {
   expectedState: { units: { "winner-unit": { xp: 25 } } },
 });
 
+test("should gain gold", {
+  initState: createState(({ activity, party, unit, battle, map }) => [
+    map({ mapLocationIds: ["locationId"] }),
+    activity({
+      name: BattleActivityType.Battle,
+      state: {
+        battleId: battle({
+          partyId: party({
+            id: "party-id",
+            locationId: "locationId",
+            unitIds: [unit({ dmg: 100, hp: 100 })],
+            stash: { resource: { gold: 0 } },
+          }),
+          defenderPartyId: party({
+            locationId: "locationId",
+            unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
+          }),
+        }),
+      },
+    }),
+  ]),
+  turn: true,
+  expectedState: { parties: { "party-id": { stash: { resource: { gold: 25 } } } } },
+});
+
+test("should gain soul", {
+  initState: createState(({ activity, party, unit, battle, map }) => [
+    map({ mapLocationIds: ["locationId"] }),
+    activity({
+      name: BattleActivityType.Battle,
+      state: {
+        battleId: battle({
+          partyId: party({
+            id: "party-id",
+            locationId: "locationId2",
+            unitIds: [unit({ dmg: 100, hp: 100 })],
+            stash: { resource: { soul: 5 } },
+          }),
+          defenderPartyId: party({
+            locationId: "locationId",
+            unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
+          }),
+        }),
+      },
+    }),
+  ]),
+  turn: true,
+  expectedState: { parties: { "party-id": { stash: { resource: { soul: 6 } } } } },
+});
+
 test("should gain resource in village when enabled VillageConfig.DirectLootToVillage config", {
   config: { [VillageConfig.DirectLootToVillage]: true },
   initState: createState(({ activity, party, unit, battle, map, village }) => [
@@ -82,7 +132,6 @@ test("should gain resource in village when enabled VillageConfig.DirectLootToVil
           defenderPartyId: party({
             locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
-            stash: { resource: { gold: 25 } },
           }),
         }),
       },
