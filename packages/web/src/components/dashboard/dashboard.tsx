@@ -40,7 +40,6 @@ export const Dashboard = () => {
 };
 
 const Parties = () => {
-  const executeCommand = useGameExecuteCommand();
   const parties = useGameStateSelector(playerPartiesSelector);
 
   return (
@@ -50,7 +49,6 @@ const Parties = () => {
       {keys(parties).map(partyId => (
         <PartyDisplay key={partyId} partyId={partyId} />
       ))}
-      <button onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Hire Hero</button>
     </div>
   );
 };
@@ -68,6 +66,9 @@ const Village = () => {
       <div>Training Field Level: {village.trainingField}</div>
       <div>Portal Level: {village.portals}</div>
       <button onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Upgrade House</button>
+
+      <button onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Hire Hero</button>
+
       <button onClick={() => executeCommand({ command: VillageCommand.BuildBlacksmith })}>Upgrade Blacksmith</button>
       <button
         onClick={() => executeCommand({ command: BlacksmithCommand.CreateItem, args: { itemType: ItemType.Armor } })}
