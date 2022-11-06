@@ -1,7 +1,7 @@
 import { keys } from "ramda";
 import { useDispatch } from "react-redux";
 
-import { BlacksmithCommand, ItemType, VillageCommand } from "@rpg-village/core";
+import { BlacksmithCommand, ItemType, RuneWorkshopCommand, VillageCommand } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
 import { playerPartiesSelector, useGameStateSelector, villageSelector } from "@web/store/game";
@@ -87,6 +87,13 @@ const Village = () => {
       <button onClick={() => executeCommand({ command: VillageCommand.BuildRuneWorkshop })}>
         Upgrade Rune Workshop
       </button>
+
+      <button onClick={() => executeCommand({ command: RuneWorkshopCommand.CreateRune })}>Forge Rune</button>
+
+      <button onClick={() => executeCommand({ command: RuneWorkshopCommand.ForgeDungeonKey })}>
+        Forge Dungeon Key
+      </button>
+
       <button onClick={() => executeCommand({ command: VillageCommand.BuildTrainingField })}>
         Upgrade Training Field
       </button>
