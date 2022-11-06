@@ -7,6 +7,7 @@ import {
   Party,
   PartyOwner,
   PortalsCommand,
+  TrainingFieldCommand,
   VillageCommand,
   calculateUnitStrength,
 } from "@rpg-village/core";
@@ -146,6 +147,15 @@ export class PlayerPartyAI {
 
       clearPartyAction();
       return { command: VillageCommand.HealParty, args: { partyId: party.id } };
+    }
+
+    if (partyAction.type === PartyActionType.Training) {
+      if (village.locationId !== party.locationId) {
+        return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
+      }
+
+      clearPartyAction();
+      return { command: TrainingFieldCommand.Train, args: { partyId: party.id } };
     }
 
     if (partyAction.type === PartyActionType.Travel) {
