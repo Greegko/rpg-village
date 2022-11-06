@@ -5,7 +5,8 @@ export enum PartyActionType {
   Travel = "travel",
   MoveToVillage = "move-to-village",
   Training = "training",
-  GoIntoPortal = "go-into-portal",
+  EnterPortal = "enter-portal",
+  LeavePortal = "leave-portal",
 }
 
 export interface PartyAction {

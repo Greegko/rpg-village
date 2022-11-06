@@ -10,7 +10,13 @@ import {
   setPartyAction,
   useGameAIStateSelector,
 } from "@web/store/ai";
-import { activityByIdSelector, partyByIdSelector, useGameStateSelector } from "@web/store/game";
+import {
+  activityByIdSelector,
+  mapByPartyIdSelector,
+  partyByIdSelector,
+  useGameStateSelector,
+  worldMapIdSelector,
+} from "@web/store/game";
 
 import { Asset } from "../core";
 import { Hero } from "./hero";
@@ -22,6 +28,11 @@ interface PartyDisplayProperties {
 }
 
 export const PartyDisplay = (props: PartyDisplayProperties) => {
+  const worldMapId = useGameStateSelector(state => worldMapIdSelector(state));
+  const currentMap = useGameStateSelector(state => mapByPartyIdSelector(state, props.partyId))!;
+
+  const isWorldMap = currentMap.id === worldMapId;
+
   const party = useGameStateSelector(state => partyByIdSelector(state, props.partyId));
   const partyAIState = useGameAIStateSelector(state => partyStateSelector(state, props.partyId)) || {};
   const dispatch = useDispatch();
@@ -72,11 +83,21 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
           onClick={() => setAction(PartyActionType.Training)}
         />
 
-        <Action
-          iconId="portal"
-          active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.GoIntoPortal}
-          onClick={() => setAction(PartyActionType.GoIntoPortal)}
-        />
+        {isWorldMap && (
+          <Action
+            iconId="portal"
+            active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.EnterPortal}
+            onClick={() => setAction(PartyActionType.EnterPortal)}
+          />
+        )}
+
+        {!isWorldMap && (
+          <Action
+            iconId="portal"
+            active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.LeavePortal}
+            onClick={() => setAction(PartyActionType.LeavePortal)}
+          />
+        )}
       </div>
 
       <br />

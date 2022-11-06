@@ -82,29 +82,30 @@ export class PlayerPartyAI {
       }
     }
 
-    if (partyAction.type === PartyActionType.GoIntoPortal) {
-      if (currentMap.id !== worldMapId) {
-        if (party.locationId !== entryPortalLocationForMap) {
-          return {
-            command: MapCommand.Travel,
-            args: { partyId: party.id, targetLocationId: entryPortalLocationForMap },
-          };
-        }
-
-        clearPartyAction();
+    if (partyAction.type === PartyActionType.LeavePortal) {
+      if (party.locationId !== entryPortalLocationForMap) {
         return {
-          command: PortalsCommand.LeavePortal,
-          args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
+          command: MapCommand.Travel,
+          args: { partyId: party.id, targetLocationId: entryPortalLocationForMap },
         };
       }
 
+      clearPartyAction();
+      return {
+        command: PortalsCommand.LeavePortal,
+        args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
+      };
+    }
+
+    if (partyAction.type === PartyActionType.EnterPortal) {
       if (village.locationId !== party.locationId) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
 
       clearPartyAction();
 
-      const map = sample(Object.values(maps));
+      const map = sample(filter(map => map.id !== currentMap.id, Object.values(maps)));
+
       return {
         command: PortalsCommand.EnterPortal,
         args: { partyId: party.id, portalLocationId: map.mapLocationIds[0] },
