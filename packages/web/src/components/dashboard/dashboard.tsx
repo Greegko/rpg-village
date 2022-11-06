@@ -1,7 +1,7 @@
 import { keys } from "ramda";
 import { useDispatch } from "react-redux";
 
-import { VillageCommand } from "@rpg-village/core";
+import { BlacksmithCommand, ItemType, VillageCommand } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
 import { playerPartiesSelector, useGameStateSelector, villageSelector } from "@web/store/game";
@@ -68,7 +68,22 @@ const Village = () => {
       <div>Training Field Level: {village.trainingField}</div>
       <div>Portal Level: {village.portals}</div>
       <button onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Upgrade House</button>
-      <button onClick={() => executeCommand({ command: VillageCommand.BuildBlacksmith })}>Upgrade Blashmith</button>
+      <button onClick={() => executeCommand({ command: VillageCommand.BuildBlacksmith })}>Upgrade Blacksmith</button>
+      <button
+        onClick={() => executeCommand({ command: BlacksmithCommand.CreateItem, args: { itemType: ItemType.Armor } })}
+      >
+        Create Armor
+      </button>
+      <button
+        onClick={() => executeCommand({ command: BlacksmithCommand.CreateItem, args: { itemType: ItemType.Weapon } })}
+      >
+        Create Weapon
+      </button>
+      <button
+        onClick={() => executeCommand({ command: BlacksmithCommand.CreateItem, args: { itemType: ItemType.Shield } })}
+      >
+        Create Shield
+      </button>
       <button onClick={() => executeCommand({ command: VillageCommand.BuildRuneWorkshop })}>
         Upgrade Rune Workshop
       </button>
