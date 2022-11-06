@@ -11,6 +11,7 @@ export const VillageStats = () => {
       <ul className="villagestats__list">
         <li className="villagestats__list-item">Turn: {general.turn}</li>
         <li className="villagestats__list-item">Gold: {village.stash.resource.gold}</li>
+        <li className="villagestats__list-item">Soul: {village.stash.resource.soul}</li>
       </ul>
     </div>
   );

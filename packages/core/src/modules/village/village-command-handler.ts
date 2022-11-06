@@ -106,7 +106,7 @@ export class VillageCommandHandler {
     const map = this.mapService.createMap(MapLocationType.Village);
     this.generalGameStore.set("worldMapId", map.id);
 
-    this.villageStore.set("stash", { items: [], resource: { gold: 0 } });
+    this.villageStore.set("stash", { items: [], resource: { gold: 0, soul: 0 } });
     this.villageStore.set("locationId", head(map.mapLocationIds)!);
   }
 }

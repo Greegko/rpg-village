@@ -19,7 +19,7 @@ export const villageModule: Module = {
         portals: 0,
         trainingField: 0,
         runeWorkshop: 0,
-        stash: { resource: {}, items: [] },
+        stash: { resource: { gold: 0, soul: 0 }, items: [] },
         locationId: undefined,
         heroes: [],
       },

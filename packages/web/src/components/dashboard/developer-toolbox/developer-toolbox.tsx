@@ -126,6 +126,24 @@ export const DeveloperToolbox = () => {
         </button>
       </div>
       <div>
+        Soul:
+        <button className="block" onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { soul: 10 } })}>
+          +10
+        </button>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { soul: 100 } })}
+        >
+          +100
+        </button>
+        <button
+          className="block"
+          onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { soul: 1000 } })}
+        >
+          +1000
+        </button>
+      </div>
+      <div>
         Items:
         <button
           className="block"

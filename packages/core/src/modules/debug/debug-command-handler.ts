@@ -4,7 +4,7 @@ import { commandHandler } from "@core/command";
 
 import { VillageStashService } from "@modules/village";
 
-import { AddItemArgs, DebugCommand, GenerateGoldArgs } from "./interfaces";
+import { AddItemArgs, AddSoulArgs, DebugCommand, GenerateGoldArgs } from "./interfaces";
 
 @injectable()
 export class DebugCommandHandler {
@@ -18,5 +18,10 @@ export class DebugCommandHandler {
   @commandHandler(DebugCommand.AddItem)
   addItem(args: AddItemArgs) {
     this.villageStash.addItems([args.item]);
+  }
+
+  @commandHandler(DebugCommand.AddSoul)
+  addSoul(args: AddSoulArgs) {
+    this.villageStash.addResource({ soul: args.soul });
   }
 }
