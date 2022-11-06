@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { forEach } from "ramda";
+import { dec, evolve, forEach } from "ramda";
 
 import { Activity, IActivityHandler } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
@@ -7,6 +7,7 @@ import { UnitID, UnitService } from "@modules/unit";
 
 export type TrainingFieldState = {
   partyId: PartyID;
+  progress: number;
 };
 
 export type TrainingFieldStateArgs = TrainingFieldState;
@@ -19,6 +20,7 @@ export class TrainingFieldTrainActivity implements IActivityHandler<TrainingFiel
   start({ partyId }: TrainingFieldStateArgs): TrainingFieldState {
     return {
       partyId,
+      progress: 100,
     };
   }
 
@@ -31,11 +33,11 @@ export class TrainingFieldTrainActivity implements IActivityHandler<TrainingFiel
 
     forEach(unitId => this.unitService.gainXpUnit(unitId, 25), units);
 
-    return state;
+    return evolve({ progress: dec }, state);
   }
 
-  isDone(): boolean {
-    return false;
+  isDone({ state }: Activity<TrainingFieldState>): boolean {
+    return state.progress === 0;
   }
 
   resolve() {}
