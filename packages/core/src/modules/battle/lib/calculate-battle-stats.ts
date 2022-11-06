@@ -1,6 +1,6 @@
 import { propOr, reduce, sortBy } from "ramda";
 
-import { Effect, unitEffectPropertyMap } from "@models/effect";
+import { EffectBase, unitEffectBasePropertiesMap } from "@models/effect";
 import { Unit, getUnitEffects } from "@modules/unit";
 
 import { UnitBattleStats } from "../interfaces";
@@ -18,12 +18,12 @@ export function calculateUnitBattleStats(unit: Unit): UnitBattleStats {
   return reduce(applyEffect, battleStats, effectsToApply);
 }
 
-function getEffectProperty(effect: Effect): keyof UnitBattleStats {
-  return unitEffectPropertyMap[effect.type] as keyof UnitBattleStats;
+function getEffectBaseProperty(effect: EffectBase): keyof UnitBattleStats {
+  return unitEffectBasePropertiesMap[effect.type] as keyof UnitBattleStats;
 }
 
-function applyEffect(battleStat: UnitBattleStats, effect: Effect): UnitBattleStats {
-  let prop = getEffectProperty(effect);
+function applyEffect(battleStat: UnitBattleStats, effect: EffectBase): UnitBattleStats {
+  let prop = getEffectBaseProperty(effect);
 
   if (!prop) return battleStat;
 

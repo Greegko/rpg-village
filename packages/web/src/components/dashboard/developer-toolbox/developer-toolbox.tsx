@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useDispatch, useStore } from "react-redux";
 import { generate } from "shortid";
 
-import { Armor, AttackEffectType, DebugCommand, DungeonKey, ItemType, Rune, Shield, Weapon } from "@rpg-village/core";
+import { Armor, AttackEffectType, DebugCommand, DungeonKey, ItemType, Rune, RuneAttackEffectType, Shield, Weapon } from "@rpg-village/core";
 
 import { sample } from "@lib/sample";
 import { GameInstanceWrapperContext, useGameExecuteCommand } from "@web/react-hooks";
@@ -57,7 +57,7 @@ export const DeveloperToolbox = () => {
       itemType: ItemType.Rune,
       power: 100,
       soul: 10,
-      effects: [],
+      effects: [{ type: RuneAttackEffectType.Dmg }],
     };
   };
 

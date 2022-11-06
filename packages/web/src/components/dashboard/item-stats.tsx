@@ -1,4 +1,4 @@
-import { AttackEffectType, DefenseEffectType, Item, ItemType } from "@rpg-village/core";
+import { AttackEffectType, DefenseEffectType, Item, ItemType, getItemEffects } from "@rpg-village/core";
 
 import { translate } from "../../game";
 
@@ -6,7 +6,7 @@ export const ItemStats = ({ item }: { item: Item }) => (
   <div>
     <div>Name: {item.name}</div>
     <div>Stats</div>
-    {item.effects.map((effect, i) => (
+    {getItemEffects(item).map((effect, i) => (
       <div key={i}>
         <span>
           {AttackEffectType[effect.type] && translate("core.model.attackEffectType")[effect.type as AttackEffectType]}

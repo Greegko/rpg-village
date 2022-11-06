@@ -1,7 +1,7 @@
-import { AttackEffectType, BattleActivityType, ItemType, UnitType, VillageConfig } from "@rpg-village/core";
+import { AttackEffectType, BattleActivityType, ItemType, RuneAttackEffectType, UnitType, VillageConfig } from "@rpg-village/core";
 
 import { createState, test } from "../utils";
-import { equipmentFactory } from "../utils/factories";
+import { equipmentFactory, runeFactory } from "../utils/factories";
 
 test("should finish correctly", {
   initState: createState(({ activity, party, unit, battle, map }) => [
@@ -176,4 +176,39 @@ test("should apply item dmg effect", {
   ]),
   turn: true,
   expectedState: { units: { "defender-unit": { hp: 5 } } },
+});
+
+test("should apply dynamic item effects", {
+  initState: createState(({ activity, party, unit, battle, map }) => [
+    map({ mapLocationIds: ["locationId"] }),
+    activity({
+      name: BattleActivityType.Battle,
+      state: {
+        battleId: battle({
+          partyId: party({
+            locationId: "locationId",
+            unitIds: [
+              unit({
+                dmg: 10,
+                hp: 100,
+                equipment: {
+                  rune: runeFactory({
+                    power: 100,
+                    soul: 0,
+                    effects: [{ type: RuneAttackEffectType.Dmg }],
+                  }),
+                },
+              }),
+            ],
+          }),
+          defenderPartyId: party({
+            locationId: "locationId",
+            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 200, armor: 0, maxhp: 200 })],
+          }),
+        }),
+      },
+    }),
+  ]),
+  turn: true,
+  expectedState: { units: { "defender-unit": { hp: 90 } } },
 });

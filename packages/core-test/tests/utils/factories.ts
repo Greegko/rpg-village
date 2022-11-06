@@ -14,6 +14,7 @@ import {
   PartyActivity,
   PartyOwner,
   ResourceStash,
+  Rune,
   Shield,
   Unit,
   UnitType,
@@ -125,8 +126,18 @@ export function equipmentFactory({
   id = chance.string(),
   name = chance.string(),
   itemType = chance.pickone([ItemType.Armor, ItemType.Shield, ItemType.Weapon]),
-}: Partial<Armor | Shield | Weapon>): Armor | Shield | Weapon {
+}: Partial<Armor | Weapon | Shield>): Armor | Weapon | Shield {
   return { effects, id, name, itemType };
+}
+
+export function runeFactory({
+  id = chance.string(),
+  name = chance.string(),
+  power = chance.integer(),
+  soul = chance.integer(),
+  effects = [],
+}: Partial<Rune>): Rune {
+  return { effects, id, name, itemType: ItemType.Rune, power, soul };
 }
 
 export function generalStateFactory({
