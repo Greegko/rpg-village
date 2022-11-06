@@ -2,7 +2,7 @@ import { identity } from "ramda";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 
-import { Item, nextLevelXp } from "@rpg-village/core";
+import { calculateUnitBattleStats, Item, nextLevelXp } from "@rpg-village/core";
 
 import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
 import { changePage } from "@web/store/ui";
@@ -21,6 +21,8 @@ interface HeroProperties {
 export const Hero = ({ heroId }: HeroProperties) => {
   const hero = useGameStateSelector(state => unitByIdSelector(state, heroId));
   const dispatch = useDispatch();
+
+  const effects = calculateUnitBattleStats(hero);
 
   const userEquipment = useMemo(
     () => [hero.equipment.leftHand, hero.equipment.rightHand, hero.equipment.torso].filter(identity) as Item[],
@@ -48,7 +50,7 @@ export const Hero = ({ heroId }: HeroProperties) => {
         </Col>
       </Row>
 
-      <div className="hero__attack">Attack: {hero.dmg}</div>
+      <div className="hero__attack">Attack: {effects.dmg}</div>
       <ItemList items={userEquipment} listSize={6} smallDisplay={true} hideEmpty={true}></ItemList>
     </div>
   );
