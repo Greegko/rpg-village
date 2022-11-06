@@ -22,14 +22,14 @@ export class VillageStashService {
     return item;
   }
 
-  updateStashItem(itemId: ItemID, item: Item | ((item: Item) => Item)) {
+  updateStashItem<T extends Item>(itemId: ItemID, item: T | ((item: T) => T)) {
     const itemFn = typeof item === "function" ? item : always(item);
 
     const evolver = evolve({
       items: map(when(propEq("id", itemId), itemFn)),
     });
 
-    this.villageStore.update("stash", evolver);
+    this.villageStore.update("stash", evolver as any);
   }
 
   addResource(resource: Resource): void {
@@ -47,8 +47,10 @@ export class VillageStashService {
 
   hasEnoughResource(resource: Resource): boolean {
     const stashResource = this.getResource();
-    if (resource.gold === undefined || stashResource.gold === undefined) return false;
 
-    return stashResource.gold >= resource.gold;
+    if(resource.gold && (resource.gold > (stashResource.gold || 0))) return false;
+    if(resource.soul && (resource.soul > (stashResource.soul || 0))) return false;
+
+    return true;
   }
 }

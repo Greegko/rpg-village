@@ -8,6 +8,7 @@ export function createRune(): Rune {
     name: "Rune",
     effects: [],
     power: 100,
+    soul: 0,
     itemType: ItemType.Rune,
   };
 }

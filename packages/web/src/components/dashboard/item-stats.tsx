@@ -24,5 +24,10 @@ export const ItemStats = ({ item }: { item: Item }) => (
 const RuneStats = ({ item }: { item: Item }) => {
   if (item.itemType !== ItemType.Rune) return null;
 
-  return <div>Power: {item.power}</div>;
+  return (
+    <>
+      <div>Power: {item.power}</div>
+      <div>Soul: {item.soul}</div>
+    </>
+  );
 };

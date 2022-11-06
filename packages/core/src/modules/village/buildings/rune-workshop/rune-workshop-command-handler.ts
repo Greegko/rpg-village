@@ -1,10 +1,12 @@
 import { injectable } from "inversify";
+import { add, evolve } from "ramda";
 
 import { commandHandler } from "@core/command";
 
+import { Rune } from "@models/item";
 import { VillageStashService } from "@modules/village";
 
-import { RuneWorkshopCommand } from "./rune-workshop-command";
+import { EmpowerRuneCommandArgs, RuneWorkshopCommand } from "./rune-workshop-command";
 import { createDungeonKey, createRune } from "./utils";
 
 @injectable()
@@ -32,6 +34,15 @@ export class RuneWorkshopCommandHandler {
       const item = createRune();
 
       this.villageStashService.addItems([item]);
+    }
+  }
+
+  @commandHandler(RuneWorkshopCommand.EmpowerRune)
+  empowerRune(args: EmpowerRuneCommandArgs) {
+    if (this.villageStashService.hasEnoughResource({ soul: args.soul })) {
+      this.villageStashService.removeResource({ soul: args.soul });
+
+      this.villageStashService.updateStashItem<Rune>(args.runeId, evolve({ soul: add(args.soul) }));
     }
   }
 }

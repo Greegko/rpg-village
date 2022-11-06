@@ -56,6 +56,7 @@ export const DeveloperToolbox = () => {
       name: generate(),
       itemType: ItemType.Rune,
       power: 100,
+      soul: 10,
       effects: [],
     };
   };

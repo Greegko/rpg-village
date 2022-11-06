@@ -1,7 +1,15 @@
 import { identity } from "ramda";
 import { useEffect, useMemo, useState } from "react";
 
-import { BlacksmithCommand, Item, StashLocation, UnitCommand, UnitID } from "@rpg-village/core";
+import {
+  BlacksmithCommand,
+  Item,
+  ItemType,
+  RuneWorkshopCommand,
+  StashLocation,
+  UnitCommand,
+  UnitID,
+} from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
 import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
@@ -100,6 +108,22 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
               >
                 Equipe
               </button>
+
+              {stashSelectedItem.itemType === ItemType.Rune && (
+                <button
+                  onClick={() =>
+                    executeCommand({
+                      command: RuneWorkshopCommand.EmpowerRune,
+                      args: {
+                        runeId: stashSelectedItem.id,
+                        soul: 1,
+                      },
+                    })
+                  }
+                >
+                  Empower
+                </button>
+              )}
             </>
           )}
         </div>
