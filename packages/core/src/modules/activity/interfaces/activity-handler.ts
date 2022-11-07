@@ -1,9 +1,9 @@
-import { Activity, PartyActivityStartArgs } from "./activity";
+import { Activity } from "./activity";
 
-export interface IActivityHandler<StaringArgs extends PartyActivityStartArgs, ActivityState> {
-  start(startArgs: StaringArgs): ActivityState;
-  isRunnable(startArgs: StaringArgs): boolean;
-  isDone(activity: Activity<ActivityState>): boolean;
-  execute(activity: Activity<ActivityState>): ActivityState;
-  resolve(activity: Activity<ActivityState>): void;
+export interface IActivityHandler<A extends Activity> {
+  start(startArgs: A['startArgs']): A['state'];
+  isRunnable(startArgs: A['startArgs']): boolean;
+  isDone(activity: Activity): boolean;
+  execute(activity: Activity): A['state'];
+  resolve(activity: Activity): void;
 }

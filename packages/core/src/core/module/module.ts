@@ -1,7 +1,7 @@
 import { ModuleConfig } from "@core/global-type";
 import { IStore } from "@core/store";
 
-import { IActivityHandler } from "@modules/activity";
+import { AnyActivity, IActivityHandler } from "@modules/activity";
 
 export interface ProvideClass {
   new (...args: any[]): any;
@@ -17,7 +17,7 @@ export interface StoreClass {
 }
 
 export interface ActivityClass {
-  new (...args: any[]): IActivityHandler<any, any>;
+  new (...args: any[]): IActivityHandler<AnyActivity>;
 }
 
 export interface ModulActivity {

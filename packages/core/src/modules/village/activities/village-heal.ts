@@ -9,20 +9,20 @@ export type VillageHealState = {
   partyId: PartyID;
 };
 
-export type VillageHealStateArgs = VillageHealState;
+export type VillageHealStartArgs = VillageHealState;
 export type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
-export class VillageHealActivity implements IActivityHandler<VillageHealStateArgs, VillageHealState> {
+export class VillageHealActivity implements IActivityHandler<Activity<VillageHealState, VillageHealStartArgs>> {
   constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
 
-  start({ partyId }: VillageHealStateArgs): VillageHealState {
+  start({ partyId }: VillageHealStartArgs): VillageHealState {
     return {
       partyId,
     };
   }
 
-  isRunnable({ partyId }: VillageHealStateArgs): boolean {
+  isRunnable({ partyId }: VillageHealStartArgs): boolean {
     return this.getRecoverableUnits(partyId).length > 0;
   }
 

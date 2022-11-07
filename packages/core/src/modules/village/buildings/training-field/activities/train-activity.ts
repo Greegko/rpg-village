@@ -10,14 +10,14 @@ export type TrainingFieldState = {
   progress: number;
 };
 
-export type TrainingFieldStateArgs = TrainingFieldState;
+export type TrainingFieldStartArgs = TrainingFieldState;
 export type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
-export class TrainingFieldTrainActivity implements IActivityHandler<TrainingFieldStateArgs, TrainingFieldState> {
+export class TrainingFieldTrainActivity implements IActivityHandler<Activity<TrainingFieldState, TrainingFieldStartArgs>> {
   constructor(private unitService: UnitService, private partyStore: PartyStore) {}
 
-  start({ partyId }: TrainingFieldStateArgs): TrainingFieldState {
+  start({ partyId }: TrainingFieldStartArgs): TrainingFieldState {
     return {
       partyId,
       progress: 100,

@@ -18,7 +18,7 @@ export type BattleState = { battleId: BattleID };
 export type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
 
 @injectable()
-export class BattleActivity implements IActivityHandler<BattleStartArgs, BattleState> {
+export class BattleActivity implements IActivityHandler<Activity<BattleState, BattleStartArgs>> {
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,

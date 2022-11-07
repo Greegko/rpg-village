@@ -17,7 +17,7 @@ export type ExploreStartArgs = {
 };
 
 @injectable()
-export class MapExploreActivity implements IActivityHandler<ExploreStartArgs, ExploreState> {
+export class MapExploreActivity implements IActivityHandler<Activity<ExploreState, ExploreStartArgs>> {
   constructor(
     private mapService: MapService,
     private mapLocationStore: MapLocationStore,

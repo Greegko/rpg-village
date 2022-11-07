@@ -21,7 +21,7 @@ export type TravelStartArgs = {
 };
 
 @injectable()
-export class MapTravelActivity implements IActivityHandler<TravelStartArgs, TravelState> {
+export class MapTravelActivity implements IActivityHandler<Activity<TravelState, TravelStartArgs>> {
   constructor(private partyStore: PartyStore, private mapService: MapService, private eventSystem: EventSystem) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
