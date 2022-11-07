@@ -3,25 +3,25 @@ import { dec, evolve } from "ramda";
 
 import { EventSystem } from "@core/event";
 
-import { Activity, IActivityHandler } from "@modules/activity";
+import { PartyActivity, IActivityHandler } from "@modules/activity";
 import { PartyEvent, PartyID, PartyStore } from "@modules/party";
 
 import { MapLocationID } from "../interfaces";
 import { MapService } from "../map-service";
 
-export type TravelState = {
+type TravelState = {
   partyId: PartyID;
   targetLocationId: MapLocationID;
   progress: number;
 };
 
-export type TravelStartArgs = {
+type TravelStartArgs = {
   partyId: PartyID;
   targetLocationId: MapLocationID;
 };
 
 @injectable()
-export class MapTravelActivity implements IActivityHandler<Activity<TravelState, TravelStartArgs>> {
+export class MapTravelActivity implements IActivityHandler<PartyActivity<TravelState, TravelStartArgs>> {
   constructor(private partyStore: PartyStore, private mapService: MapService, private eventSystem: EventSystem) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
@@ -40,15 +40,15 @@ export class MapTravelActivity implements IActivityHandler<Activity<TravelState,
     return targetLocationId !== partyLocation;
   }
 
-  execute({ state }: Activity<TravelState>): TravelState {
+  execute({ state }: PartyActivity<TravelState>): TravelState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: Activity<TravelState>): boolean {
+  isDone({ state }: PartyActivity<TravelState>): boolean {
     return state.progress === 0;
   }
 
-  resolve({ state }: Activity<TravelState>) {
+  resolve({ state }: PartyActivity<TravelState>) {
     this.partyStore.setLocation(state.partyId, state.targetLocationId);
     this.eventSystem.fire(PartyEvent.ArrivedToLocation, {
       partyId: state.partyId,

@@ -1,23 +1,23 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "ramda";
 
-import { Activity, IActivityHandler } from "@modules/activity";
+import { PartyActivity, IActivityHandler } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
 
 import { MapLocationStore } from "../map-location-store";
 import { MapService } from "../map-service";
 
-export type ExploreState = {
+type ExploreState = {
   progress: number;
   partyId: PartyID;
 };
 
-export type ExploreStartArgs = {
+type ExploreStartArgs = {
   partyId: PartyID;
 };
 
 @injectable()
-export class MapExploreActivity implements IActivityHandler<Activity<ExploreState, ExploreStartArgs>> {
+export class MapExploreActivity implements IActivityHandler<PartyActivity<ExploreState, ExploreStartArgs>> {
   constructor(
     private mapService: MapService,
     private mapLocationStore: MapLocationStore,
@@ -37,15 +37,15 @@ export class MapExploreActivity implements IActivityHandler<Activity<ExploreStat
     return !exploreLocation.explored;
   }
 
-  execute({ state }: Activity<ExploreState>): ExploreState {
+  execute({ state }: PartyActivity<ExploreState>): ExploreState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: Activity<ExploreState>): boolean {
+  isDone({ state }: PartyActivity<ExploreState>): boolean {
     return state.progress === 0;
   }
 
-  resolve({ state }: Activity<ExploreState>) {
+  resolve({ state }: PartyActivity<ExploreState>) {
     this.mapService.exploreLocation(this.partyStore.get(state.partyId).locationId);
   }
 }

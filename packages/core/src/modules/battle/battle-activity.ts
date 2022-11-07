@@ -4,7 +4,7 @@ import { complement, prop } from "ramda";
 import { ModuleConfig } from "@core/global-type";
 import { ModuleConfigToken } from "@core/module/tokens";
 
-import { Activity, IActivityHandler } from "@modules/activity";
+import { IActivityHandler, PartyActivity } from "@modules/activity";
 import { PartyID, PartyService } from "@modules/party";
 import { isAlive } from "@modules/unit";
 import { VillageStashService } from "@modules/village";
@@ -14,11 +14,11 @@ import { BattleService } from "./battle-service";
 import { BattleID } from "./interfaces";
 import { calculateLoot, calculateXpGain } from "./lib";
 
-export type BattleState = { battleId: BattleID };
-export type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
+type BattleState = { battleId: BattleID };
+type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
 
 @injectable()
-export class BattleActivity implements IActivityHandler<Activity<BattleState, BattleStartArgs>> {
+export class BattleActivity implements IActivityHandler<PartyActivity<BattleState, BattleStartArgs>> {
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,
@@ -36,17 +36,17 @@ export class BattleActivity implements IActivityHandler<Activity<BattleState, Ba
     return this.partyService.isPartyAlive(partyId) && this.partyService.isPartyAlive(involvedPartyId);
   }
 
-  execute(activity: Activity<BattleState>): BattleState {
+  execute(activity: PartyActivity<BattleState>): BattleState {
     this.battleService.turnBattle(activity.state.battleId);
 
     return activity.state;
   }
 
-  isDone({ state: { battleId } }: Activity<BattleState>): boolean {
+  isDone({ state: { battleId } }: PartyActivity<BattleState>): boolean {
     return this.battleService.isDoneBattle(battleId);
   }
 
-  resolve({ state }: Activity<BattleState>) {
+  resolve({ state }: PartyActivity<BattleState>) {
     const battle = this.battleService.getBattle(state.battleId);
 
     const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.partyId)

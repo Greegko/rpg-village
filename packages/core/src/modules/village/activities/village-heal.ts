@@ -1,19 +1,22 @@
 import { injectable } from "inversify";
 import { filter, forEach, map } from "ramda";
 
-import { Activity, IActivityHandler } from "@modules/activity";
+import { PartyActivity, IActivityHandler } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
 import { UnitID, UnitService, UnitStore } from "@modules/unit";
 
-export type VillageHealState = {
+type VillageHealState = {
   partyId: PartyID;
 };
 
-export type VillageHealStartArgs = VillageHealState;
-export type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
+type VillageHealStartArgs = {
+  partyId: PartyID;
+};
+
+type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
-export class VillageHealActivity implements IActivityHandler<Activity<VillageHealState, VillageHealStartArgs>> {
+export class VillageHealActivity implements IActivityHandler<PartyActivity<VillageHealState, VillageHealStartArgs>> {
   constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
 
   start({ partyId }: VillageHealStartArgs): VillageHealState {
@@ -26,7 +29,7 @@ export class VillageHealActivity implements IActivityHandler<Activity<VillageHea
     return this.getRecoverableUnits(partyId).length > 0;
   }
 
-  execute({ state }: Activity<VillageHealState>): VillageHealState {
+  execute({ state }: PartyActivity<VillageHealState>): VillageHealState {
     const recoverableUnits = this.getRecoverableUnits(state.partyId);
 
     forEach(unit => this.unitService.healUnit(unit.id, Math.ceil(unit.maxhp / 10)), recoverableUnits);
@@ -34,7 +37,7 @@ export class VillageHealActivity implements IActivityHandler<Activity<VillageHea
     return state;
   }
 
-  isDone({ state: { partyId } }: Activity<VillageHealState>): boolean {
+  isDone({ state: { partyId } }: PartyActivity<VillageHealState>): boolean {
     return this.getRecoverableUnits(partyId).length === 0;
   }
 

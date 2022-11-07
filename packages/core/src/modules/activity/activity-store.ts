@@ -1,5 +1,5 @@
 import { EntityStore } from "@core/store";
 
-import { ActivityID, PartyActivity } from "./interfaces";
+import { ActivityID, Activity } from "./interfaces";
 
-export class ActivityStore extends EntityStore<ActivityID, PartyActivity> {}
+export class ActivityStore extends EntityStore<ActivityID, Activity> {}

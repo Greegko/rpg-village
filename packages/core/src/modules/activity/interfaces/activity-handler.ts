@@ -1,9 +1,9 @@
 import { Activity } from "./activity";
 
-export interface IActivityHandler<A extends Activity> {
-  start(startArgs: A['startArgs']): A['state'];
-  isRunnable(startArgs: A['startArgs']): boolean;
-  isDone(activity: Activity): boolean;
-  execute(activity: Activity): A['state'];
-  resolve(activity: Activity): void;
+export interface IActivityHandler<T extends Activity> {
+  start(startArgs: T['startArgs']): T['state'];
+  isRunnable(startArgs: T['startArgs']): boolean;
+  isDone(activity: T): boolean;
+  execute(activity: T): T['state'];
+  resolve(activity: T): void;
 }

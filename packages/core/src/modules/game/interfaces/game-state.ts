@@ -1,4 +1,4 @@
-import { ActivityID, PartyActivity } from "@modules/activity";
+import { Activity, ActivityID } from "@modules/activity";
 import { BattleID, BattleStoreState } from "@modules/battle";
 import { Map, MapID, MapLocation, MapLocationID } from "@modules/map";
 import { Party, PartyID } from "@modules/party";
@@ -8,7 +8,7 @@ import { VillageState } from "@modules/village";
 import { GeneralGameStoreState } from "./general-game-store-state";
 
 export type GameState = {
-  activities: Record<ActivityID, PartyActivity<any>>;
+  activities: Record<ActivityID, Activity>;
   battle: Record<BattleID, BattleStoreState>;
   units: Record<UnitID, Unit>;
   parties: Record<PartyID, Party>;

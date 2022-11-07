@@ -6,7 +6,7 @@ import { GetActivityHandlerToken } from "@core/module/tokens";
 import { PartyStore } from "@modules/party";
 
 import { ActivityStore } from "./activity-store";
-import { ActivityType, GetActivityHandlerByName, PartyActivity, PartyActivityStartArgs } from "./interfaces";
+import { Activity, ActivityType, GetActivityHandlerByName, PartyActivityStartArgs } from "./interfaces";
 
 @injectable()
 export class ActivityManager {
@@ -28,6 +28,7 @@ export class ActivityManager {
         type: ActivityType.Party,
         startArgs: startingArgs,
       });
+
       this.partyStore.setActivity(startingArgs.partyId, activity.id);
       if (startingArgs.involvedPartyId) {
         this.partyStore.setActivity(startingArgs.involvedPartyId, activity.id);
@@ -39,18 +40,21 @@ export class ActivityManager {
     forEach(activity => this.executeActivity(activity), values(this.activityStore.getState()));
   }
 
-  private executeActivity(activity: PartyActivity) {
+  private executeActivity(activity: Activity) {
     const activityHandler = this.getActivityHandler(activity.name);
     const activityNewState = activityHandler.execute(activity);
-    const updatedActivity = assoc("state", activityNewState, activity);
+    const updatedActivity = assoc("state", activityNewState, activity) as Activity;
     const isDone = activityHandler.isDone(updatedActivity);
 
     if (isDone) {
       activityHandler.resolve(updatedActivity);
       this.activityStore.remove(activity.id);
-      this.partyStore.clearActivity(activity.startArgs.partyId);
-      if (activity.startArgs.involvedPartyId) {
-        this.partyStore.clearActivity(activity.startArgs.involvedPartyId);
+
+      if(activity.type === ActivityType.Party) {
+        this.partyStore.clearActivity(activity.startArgs.partyId);
+        if (activity.startArgs.involvedPartyId) {
+          this.partyStore.clearActivity(activity.startArgs.involvedPartyId);
+        }
       }
     } else {
       this.activityStore.update(activity.id, updatedActivity);

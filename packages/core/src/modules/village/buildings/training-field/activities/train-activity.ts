@@ -1,20 +1,19 @@
 import { injectable } from "inversify";
 import { dec, evolve, forEach } from "ramda";
 
-import { Activity, IActivityHandler } from "@modules/activity";
+import { PartyActivity, IActivityHandler } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
-import { UnitID, UnitService } from "@modules/unit";
+import { UnitService } from "@modules/unit";
 
-export type TrainingFieldState = {
+type TrainingFieldState = {
   partyId: PartyID;
   progress: number;
 };
 
-export type TrainingFieldStartArgs = TrainingFieldState;
-export type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
+type TrainingFieldStartArgs = TrainingFieldState;
 
 @injectable()
-export class TrainingFieldTrainActivity implements IActivityHandler<Activity<TrainingFieldState, TrainingFieldStartArgs>> {
+export class TrainingFieldTrainActivity implements IActivityHandler<PartyActivity<TrainingFieldState, TrainingFieldStartArgs>> {
   constructor(private unitService: UnitService, private partyStore: PartyStore) {}
 
   start({ partyId }: TrainingFieldStartArgs): TrainingFieldState {
@@ -28,7 +27,7 @@ export class TrainingFieldTrainActivity implements IActivityHandler<Activity<Tra
     return true;
   }
 
-  execute({ state }: Activity<TrainingFieldState>): TrainingFieldState {
+  execute({ state }: PartyActivity<TrainingFieldState, TrainingFieldStartArgs>): TrainingFieldState {
     const units = this.partyStore.get(state.partyId).unitIds;
 
     forEach(unitId => this.unitService.gainXpUnit(unitId, 25), units);
@@ -36,7 +35,7 @@ export class TrainingFieldTrainActivity implements IActivityHandler<Activity<Tra
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: Activity<TrainingFieldState>): boolean {
+  isDone({ state }: PartyActivity<TrainingFieldState, TrainingFieldStartArgs>): boolean {
     return state.progress === 0;
   }
 
