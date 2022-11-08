@@ -19,7 +19,7 @@ type Test = {
   config?: GameConfig["config"];
   commands?: (Command | string)[];
   turn?: boolean | number;
-  expectedState: ExpectedState;
+  expectedState: ExpectedState | ExpectedState[];
 };
 
 export function test(testName: string, { config, initState, commands, expectedState, turn = 0 }: Test) {
@@ -42,14 +42,22 @@ export function test(testName: string, { config, initState, commands, expectedSt
 
     const gameState = game.getState();
 
-    if (typeof expectedState === "object") {
-      t.like(gameState, expectedState);
+    const testExpectedState = (expectedState: ExpectedState) => {
+      if (typeof expectedState === "object") {
+        t.like(gameState, expectedState);
+      } else {
+        expectedState(gameState, {
+          ...t,
+          withRandomId: withRandomIDAssertionFactory(t),
+          length: lengthAssertionFactory(t),
+        });
+      }
+    }
+
+    if(Array.isArray(expectedState)) {
+      expectedState.forEach(testExpectedState);
     } else {
-      expectedState(gameState, {
-        ...t,
-        withRandomId: withRandomIDAssertionFactory(t),
-        length: lengthAssertionFactory(t),
-      });
+      testExpectedState(expectedState);
     }
   });
 }
