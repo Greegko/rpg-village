@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { BlacksmithCommand, ItemType, RuneWorkshopCommand, VillageCommand } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
-import { playerPartiesSelector, useGameStateSelector, villageSelector } from "@web/store/game";
+import { playerPartiesSelector, useGameStateSelector, villageActivitiesSelector, villageSelector } from "@web/store/game";
 import { changePage, pageSelector, useGameUISelector } from "@web/store/ui";
 import { GamePageType } from "@web/store/ui/interface";
 
@@ -57,10 +57,15 @@ const Village = () => {
   const executeCommand = useGameExecuteCommand();
   const dispatch = useDispatch();
   const village = useGameStateSelector(villageSelector);
+  const villageActivities = useGameStateSelector(villageActivitiesSelector);
 
   return (
     <div className="village">
       <div>Village:</div>
+      <div>
+        Activities: 
+        {villageActivities.map(x => <div>{x.name} - {(x.startArgs as any).targetBuilding}</div>)}
+      </div>
       <div>House Level: {village.houses}</div>
       <div>Blacksmith Level: {village.blacksmith}</div>
       <div>Rune Workshop: {village.runeWorkshop}</div>

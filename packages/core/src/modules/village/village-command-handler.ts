@@ -1,18 +1,20 @@
 import { injectable } from "inversify";
-import { append, head, inc } from "ramda";
+import { append, find, head, values, whereEq } from "ramda";
 
 import { commandHandler } from "@core/command";
 
-import { ActivityManager } from "@modules/activity";
+import { ActivityManager, ActivityStore } from "@modules/activity";
 import { GameCommand, GeneralGameStore } from "@modules/game";
 import { MapLocationType, MapService } from "@modules/map";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore, isAlive } from "@modules/unit";
+import { Resource } from "@models/resource";
 
 import { VillageActivity, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
 import { heroFactory, newBuildingCost, newHeroCost } from "./lib";
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
+import { VillageBuildings } from "./activities";
 
 @injectable()
 export class VillageCommandHandler {
@@ -22,58 +24,44 @@ export class VillageCommandHandler {
     private partyService: PartyService,
     private unitStore: UnitStore,
     private activityManager: ActivityManager,
+    private activityStore: ActivityStore,
     private mapService: MapService,
-    private generalGameStore: GeneralGameStore,
+    private generalGameStore: GeneralGameStore
   ) {}
 
   @commandHandler(VillageCommand.BuildHouse)
   buildHouse(): void {
-    const goldCost = newBuildingCost(1 + this.villageStore.getState().houses);
+    const gold = newBuildingCost(1 + this.villageStore.getState().houses);
 
-    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.update("houses", inc);
-      this.villageStash.removeResource({ gold: goldCost });
-    }
+    this.buildBuilding('houses', { gold })
   }
 
   @commandHandler(VillageCommand.BuildBlacksmith)
   buildBlacksmith(): void {
-    const goldCost = 100;
+    const gold = 100;
 
-    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.update("blacksmith", inc);
-      this.villageStash.removeResource({ gold: goldCost });
-    }
+    this.buildBuilding('blacksmith', { gold })
   }
 
   @commandHandler(VillageCommand.BuildRuneWorkshop)
   buildRuneWorkshop(): void {
-    const goldCost = 100;
+    const gold = 100;
 
-    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.update("runeWorkshop", inc);
-      this.villageStash.removeResource({ gold: goldCost });
-    }
+    this.buildBuilding('runeWorkshop', { gold })
   }
 
   @commandHandler(VillageCommand.BuildTrainingField)
   buildTrainingField(): void {
-    const goldCost = 100;
+    const gold = 100;
 
-    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.update("trainingField", inc);
-      this.villageStash.removeResource({ gold: goldCost });
-    }
+    this.buildBuilding('trainingField', { gold })
   }
 
   @commandHandler(VillageCommand.BuildPortalSummonerStone)
   buildPortals(): void {
-    const goldCost = 100;
+    const gold = 100;
 
-    if (this.villageStash.hasEnoughResource({ gold: goldCost })) {
-      this.villageStore.update("portals", inc);
-      this.villageStash.removeResource({ gold: goldCost });
-    }
+    this.buildBuilding('portals', { gold })
   }
 
   @commandHandler(VillageCommand.HireHero)
@@ -91,7 +79,7 @@ export class VillageCommandHandler {
         locationId: this.villageStore.getState().locationId,
         unitIds: [heroId],
         owner: PartyOwner.Player,
-        stash: { resource: { gold: 0 }, items: [] },
+        stash: { resource: { gold: 0, soul: 0 }, items: [] },
       });
     }
   }
@@ -108,5 +96,15 @@ export class VillageCommandHandler {
 
     this.villageStore.set("stash", { items: [], resource: { gold: 0, soul: 0 } });
     this.villageStore.set("locationId", head(map.mapLocationIds)!);
+  }
+
+  private buildBuilding(targetBuilding: VillageBuildings, cost: Resource) {
+    const activities = values(this.activityStore.getState());
+
+    if(find(whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding } }), activities) !== undefined) return;
+    if (!this.villageStash.hasEnoughResource(cost)) return 
+
+    this.activityManager.startActivity(VillageActivity.Build, { targetBuilding });
+    this.villageStash.removeResource(cost);
   }
 }

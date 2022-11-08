@@ -91,6 +91,9 @@ export const activityByIdSelector = createSelector(
   selectorProperty<ActivityID>(),
   (activities, activityID) => activities[activityID],
 );
+
+export const villageActivitiesSelector = createSelector(activitiesSelector, (activities) => filter(activity => activity.type === ActivityType.Global, values(activities)));
+
 export const partyActivitiesSelector = createSelector(activitiesSelector, activities =>
   filter((activity: Activity) => activity.type === ActivityType.Party, activities),
 );

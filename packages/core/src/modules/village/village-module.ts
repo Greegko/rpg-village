@@ -1,6 +1,6 @@
 import { Module } from "@core/module";
 
-import { VillageHealActivity } from "./activities";
+import { BuildActivity, VillageHealActivity } from "./activities";
 import { VillageActivity, VillageConfig } from "./interfaces";
 import { VillageCommandHandler } from "./village-command-handler";
 import { VillageEventHandler } from "./village-event-handler";
@@ -8,7 +8,7 @@ import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
 
 export const villageModule: Module = {
-  activities: [{ name: VillageActivity.Heal, activity: VillageHealActivity }],
+  activities: [{ name: VillageActivity.Heal, activity: VillageHealActivity }, { name: VillageActivity.Build, activity: BuildActivity }],
   stores: [
     {
       scope: "village",

@@ -16,14 +16,28 @@ export class ActivityManager {
     private partyStore: PartyStore,
   ) {}
 
-  startPartyActivity(activtyName: string, startingArgs: PartyActivityStartArgs) {
+  startActivity(activityName: string, startingArgs: object) {
+    const activityHandler = this.getActivityHandler(activityName);
+    if (activityHandler.isRunnable(startingArgs)) {
+      const activityState = activityHandler.start(startingArgs);
+
+      this.activityStore.add({
+        name: activityName,
+        state: activityState,
+        type: ActivityType.Global,
+        startArgs: startingArgs,
+      });
+    }
+  }
+
+  startPartyActivity(activityName: string, startingArgs: PartyActivityStartArgs) {
     if (this.partyStore.get(startingArgs.partyId).activityId) return;
 
-    const activityHandler = this.getActivityHandler(activtyName);
+    const activityHandler = this.getActivityHandler(activityName);
     if (activityHandler.isRunnable(startingArgs)) {
       const activityState = activityHandler.start(startingArgs);
       const activity = this.activityStore.add({
-        name: activtyName,
+        name: activityName,
         state: activityState,
         type: ActivityType.Party,
         startArgs: startingArgs,

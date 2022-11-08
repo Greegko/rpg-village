@@ -1,4 +1,4 @@
-import { VillageCommand } from "@rpg-village/core";
+import { VillageActivity, VillageCommand } from "@rpg-village/core";
 
 import { test } from "../../utils";
 
@@ -9,7 +9,7 @@ const initState = {
 test("should build a trainingField", {
   initState,
   commands: [VillageCommand.BuildTrainingField],
-  expectedState: { village: { trainingField: 1 } },
+  expectedState: (state, t) => t.withRandomId(state.activities, { name: VillageActivity.Build, startArgs: { targetBuilding: 'trainingField' } }),
 });
 
 test("should reduce the village resouce by the trainingField cost", {
