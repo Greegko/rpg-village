@@ -1,2 +1,5 @@
-node_modules/
-public/
+public/*
+
+!public/404.html
+!public/CNAME
+!public/index.html
