@@ -17,9 +17,7 @@
   },
   "devDependencies": {
     "@types/ramda": "0.28.15",
-    "@types/shortid": "0.0.29",
-    "prettier": "2.7.1",
-    "@trivago/prettier-plugin-sort-imports": "3.2.0"
+    "@types/shortid": "0.0.29"
   },
   "types": "dist/public-api.d.ts",
   "main": "dist/public-api.js"
