@@ -4,6 +4,7 @@ import {
   Command,
   GameState,
   MapCommand,
+  MapLocationType,
   Party,
   PartyOwner,
   PortalsCommand,
@@ -174,7 +175,8 @@ export class PlayerPartyAI {
       this.battleOnLocation(gameState, party) ||
       this.handlePartyHeal(gameState, party) ||
       this.searchWeakerEnemyLocation(gameState, party) ||
-      this.searchUnexploredLocation(gameState, party)
+      this.searchUnexploredLocation(gameState, party) ||
+      this.leavePortal(gameState, party)
     );
   }
 
@@ -196,15 +198,20 @@ export class PlayerPartyAI {
     const map = mapByPartyIdSelector(gameState, party.id);
     const mapLocations = mapLocationsByMapIdSelector(gameState, map!.id);
 
-    const unexploredLocations = filter(location => !location.explored, mapLocations);
+    const unexploredLocations = filter(
+      location => !location.explored && location.type !== MapLocationType.Empty,
+      mapLocations,
+    );
 
     const newUnexploredLocation = sample(unexploredLocations);
-
-    console.log(unexploredLocations);
 
     if (newUnexploredLocation) {
       return { type: PartyActionType.Explore, args: { targetLocationId: newUnexploredLocation.id } };
     }
+  }
+
+  private leavePortal(gameState: GameState, party: Party): PartyAction | undefined {
+    return { type: PartyActionType.LeavePortal };
   }
 
   private searchWeakerEnemyLocation(gameState: GameState, party: Party): PartyAction | undefined {

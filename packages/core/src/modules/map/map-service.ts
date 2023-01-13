@@ -4,9 +4,14 @@ import { append, evolve, find, values } from "ramda";
 import { EventSystem } from "@core/event";
 
 import { Turn } from "../game";
-import { Map, MapEvent, MapID, MapLocation, MapLocationID, MapLocationType } from "./interfaces";
+import { Map, MapEvent, MapID, MapLocation, MapLocationID, MapLocationType, MapSize } from "./interfaces";
 import { MapLocationStore } from "./map-location-store";
 import { MapStore } from "./map-store";
+
+const MAP_TILE_SIZE: Record<MapSize, number> = {
+  [MapSize.Small]: 40,
+  [MapSize.Endless]: Infinity,
+};
 
 @injectable()
 export class MapService {
@@ -16,12 +21,13 @@ export class MapService {
     private eventSystem: EventSystem,
   ) {}
 
-  createMap(mapLocationType: MapLocationType.Portal | MapLocationType.Village = MapLocationType.Portal): Map {
+  createMap(mapLocationType: MapLocationType.Portal | MapLocationType.Village, mapSize: MapSize): Map {
     const mapLocationId = this.createLocation(0, 0, true, mapLocationType).id;
 
     const map = this.mapStore.add({
       difficulty: 0,
       mapLocationIds: [mapLocationId],
+      mapSize,
     });
 
     this.revealLocation(mapLocationId);
@@ -62,7 +68,7 @@ export class MapService {
     const map = this.getMapByLocation(location.id);
     const locations = map.mapLocationIds.map(x => this.mapLocationStore.get(x));
 
-    const newUnexploredLocations = this.getUnexploredLocationsNextToLocation(locations, location);
+    const newUnexploredLocations = this.getUnexploredLocationsNextToLocation(locations, location, map.mapSize);
 
     for (const unexploredLocation of newUnexploredLocations) {
       const newLocation = this.addLocationToMap(map.id, unexploredLocation);
@@ -77,6 +83,7 @@ export class MapService {
   private getUnexploredLocationsNextToLocation(
     mapLocations: MapLocation[],
     mapLocation: MapLocation,
+    mapSize: MapSize,
   ): Omit<MapLocation, "id">[] {
     const nx = (x: number) => x - mapLocation.x;
     const ny = (y: number) => y - mapLocation.y;
@@ -88,20 +95,38 @@ export class MapService {
       [1, -1],
       [-1, 1],
       [-1, -1],
-    ];
+    ] as const;
 
     const neighbours = mapLocations.filter(loc => Math.abs(nx(loc.x)) <= 1 && Math.abs(ny(loc.y)) <= 2);
 
-    const emptyPositions = positions.filter(
-      pos => neighbours.findIndex(neighbour => nx(neighbour.x) == pos[0] && ny(neighbour.y) == pos[1]) === -1,
+    const openPositions = positions.filter(
+      pos => neighbours.findIndex(neighbour => nx(neighbour.x) === pos[0] && ny(neighbour.y) === pos[1]) === -1,
     );
 
-    return emptyPositions.map(position =>
-      this.mapLocationFactory(MapLocationType.Field, position[0] + mapLocation.x, position[1] + mapLocation.y),
-    );
-  }
+    const newTiles = [];
+    let hasBoss = !!mapLocations.find(x => x.type === MapLocationType.Boss);
 
-  private mapLocationFactory(type: MapLocationType, x: number, y: number): Omit<MapLocation, "id"> {
-    return { type, explored: false, x, y };
+    for (let position of openPositions) {
+      const bossIsTriggerable = MAP_TILE_SIZE[mapSize] <= mapLocations.length + newTiles.length;
+      const newTile = generateTile(mapLocation, position, hasBoss, bossIsTriggerable);
+      hasBoss = hasBoss || newTile.type === MapLocationType.Boss;
+      newTiles.push(newTile);
+    }
+
+    return newTiles;
   }
 }
+
+function mapLocationFactory(type: MapLocationType, x: number, y: number): Omit<MapLocation, "id"> {
+  return { type, explored: false, x, y };
+}
+
+const generateTile = (
+  mapLocation: MapLocation,
+  position: readonly [number, number],
+  hasBoss: boolean,
+  bossIsTriggerable: boolean,
+) => {
+  const type = hasBoss ? MapLocationType.Empty : bossIsTriggerable ? MapLocationType.Boss : MapLocationType.Field;
+  return mapLocationFactory(type, position[0] + mapLocation.x, position[1] + mapLocation.y);
+};

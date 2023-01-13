@@ -10,6 +10,7 @@ import {
   Map,
   MapLocation,
   MapLocationType,
+  MapSize,
   Party,
   PartyActivity,
   PartyOwner,
@@ -28,8 +29,9 @@ export function mapFactory({
   id = chance.string(),
   difficulty = chance.integer(),
   mapLocationIds = [],
+  mapSize = chance.pickone([MapSize.Small, MapSize.Endless]),
 }: Partial<Map> = {}): Map {
-  return { difficulty, id, mapLocationIds };
+  return { difficulty, id, mapLocationIds, mapSize };
 }
 
 export function mapLocationFactory({

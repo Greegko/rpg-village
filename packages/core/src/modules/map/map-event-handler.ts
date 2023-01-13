@@ -5,17 +5,31 @@ import { eventHandler } from "@core/event";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore } from "@modules/unit";
 
-import { MapEvent, MapEventNewLocationArgs, MapID, MapLocationID } from "./interfaces";
+import { MapEvent, MapEventNewLocationArgs, MapID, MapLocationID, MapLocationType } from "./interfaces";
 import { generateEnemyParty } from "./lib";
+import { MapLocationStore } from "./map-location-store";
 import { MapStore } from "./map-store";
 
 @injectable()
 export class MapEventHandler {
-  constructor(private partyService: PartyService, private unitStore: UnitStore, private mapStore: MapStore) {}
+  constructor(
+    private partyService: PartyService,
+    private unitStore: UnitStore,
+    private mapStore: MapStore,
+    private mapLocationStore: MapLocationStore,
+  ) {}
 
   @eventHandler(MapEvent.NewLocation)
   newLocation(args: MapEventNewLocationArgs) {
-    this.addEnemyUnitToMap(args.mapId, args.locationId);
+    const location = this.mapLocationStore.get(args.locationId);
+
+    if (location.type === MapLocationType.Empty) return;
+
+    if (location.type === MapLocationType.Boss) {
+      this.addEnemyUnitToMap(args.mapId, args.locationId);
+    } else {
+      this.addEnemyUnitToMap(args.mapId, args.locationId);
+    }
   }
 
   private addEnemyUnitToMap(mapId: MapID, locationId: MapLocationID) {

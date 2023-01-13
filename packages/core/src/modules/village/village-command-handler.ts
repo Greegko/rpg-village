@@ -5,7 +5,7 @@ import { commandHandler } from "@core/command";
 
 import { ActivityManager, ActivityStore } from "@modules/activity";
 import { GameCommand, GeneralGameStore } from "@modules/game";
-import { MapLocationType, MapService } from "@modules/map";
+import { MapLocationType, MapService, MapSize } from "@modules/map";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore, isAlive } from "@modules/unit";
 import { Resource } from "@models/resource";
@@ -91,7 +91,7 @@ export class VillageCommandHandler {
 
   @commandHandler(GameCommand.NewGame)
   createVillage(): void {
-    const map = this.mapService.createMap(MapLocationType.Village);
+    const map = this.mapService.createMap(MapLocationType.Village, MapSize.Endless);
     this.generalGameStore.set("worldMapId", map.id);
 
     this.villageStore.set("stash", { items: [], resource: { gold: 0, soul: 0 } });
