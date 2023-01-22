@@ -56,5 +56,8 @@ export function heroFactory(): Omit<Unit, "id"> {
     xp: 0,
     type: UnitType.Hero,
     stash: { resource: {}, items: [] },
+    effects: [],
+    criticalChance: 0,
+    evasion: 0,
   };
 }

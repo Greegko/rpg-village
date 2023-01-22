@@ -9,9 +9,10 @@ export const ItemStats = ({ item }: { item: Item }) => (
     {getItemEffects(item).map((effect, i) => (
       <div key={i}>
         <span>
-          {AttackEffectType[effect.type] && translate("core.model.attackEffectType")[effect.type as AttackEffectType]}
+          {AttackEffectType[effect.type] &&
+            translate("core.model.attackEffectType")[effect.effectType as AttackEffectType]}
           {DefenseEffectType[effect.type] &&
-            translate("core.model.defenseEffectType")[effect.type as DefenseEffectType]}
+            translate("core.model.defenseEffectType")[effect.effectType as DefenseEffectType]}
         </span>
         <span>{effect.value}</span>
       </div>

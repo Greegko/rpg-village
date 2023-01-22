@@ -2,7 +2,18 @@ import { useContext } from "react";
 import { useDispatch, useStore } from "react-redux";
 import { generate } from "shortid";
 
-import { Armor, AttackEffectType, DebugCommand, DungeonKey, ItemType, Rune, RuneAttackEffectType, Shield, Weapon } from "@rpg-village/core";
+import {
+  Armor,
+  AttackEffectType,
+  DebugCommand,
+  DungeonKey,
+  EffectType,
+  ItemType,
+  Rune,
+  RuneAttackEffectType,
+  Shield,
+  Weapon,
+} from "@rpg-village/core";
 
 import { sample } from "@lib/sample";
 import { GameInstanceWrapperContext, useGameExecuteCommand } from "@web/react-hooks";
@@ -34,7 +45,7 @@ export const DeveloperToolbox = () => {
       | ItemType.Shield;
 
     return {
-      effects: [{ type: AttackEffectType.Dmg, value: 10, isPercentage: false }],
+      effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10, isPercentage: false }],
       id: generate(),
       name: generate(),
       itemType,
@@ -57,7 +68,7 @@ export const DeveloperToolbox = () => {
       itemType: ItemType.Rune,
       power: 100,
       soul: 10,
-      effects: [{ type: RuneAttackEffectType.Dmg }],
+      effects: [{ type: EffectType.Dynamic, effectType: RuneAttackEffectType.Dmg }],
     };
   };
 

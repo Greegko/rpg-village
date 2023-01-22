@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { assoc, prop } from "ramda";
+import { Prop, assoc, prop } from "ramda";
 
 export interface IObjectStore<T extends object> {
   getState(): T;
@@ -29,7 +29,7 @@ export class ObjectStore<T extends object> implements IObjectStore<T> {
     this.state = assoc(prop as string, value, this.state) as T;
   }
 
-  update<P extends keyof T>(property: P, updater: (value: T[P]) => T[P]) {
+  update<P extends keyof T>(property: P, updater: (value: Prop<T, P>) => Prop<T, P>) {
     this.state = assoc(property as string, updater(prop(property, this.state)), this.state) as T;
   }
 }

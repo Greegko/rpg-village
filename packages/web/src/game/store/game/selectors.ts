@@ -13,6 +13,7 @@ import {
   PartyID,
   PartyOwner,
   UnitID,
+  calculateUnitStatsWithEffects,
   isHero,
 } from "@rpg-village/core";
 
@@ -58,10 +59,8 @@ export const mapByMapLocationIdSelector = createSelector(
 export const entryPortalLocationForMapSelector = createSelector(mapByMapIdSelector, x => x.mapLocationIds[0]);
 
 export const unitsSelector = (game: GameState) => game.units;
-export const unitByIdSelector = createSelector(
-  unitsSelector,
-  selectorProperty<UnitID>(),
-  (units, unitId) => units[unitId],
+export const unitByIdSelector = createSelector(unitsSelector, selectorProperty<UnitID>(), (units, unitId) =>
+  calculateUnitStatsWithEffects(units[unitId]),
 );
 export const heroUnitsSelector = createSelector(unitsSelector, units => filter(isHero, units));
 
@@ -92,7 +91,9 @@ export const activityByIdSelector = createSelector(
   (activities, activityID) => activities[activityID],
 );
 
-export const villageActivitiesSelector = createSelector(activitiesSelector, (activities) => filter(activity => activity.type === ActivityType.Global, values(activities)));
+export const villageActivitiesSelector = createSelector(activitiesSelector, activities =>
+  filter(activity => activity.type === ActivityType.Global, values(activities)),
+);
 
 export const partyActivitiesSelector = createSelector(activitiesSelector, activities =>
   filter((activity: Activity) => activity.type === ActivityType.Party, activities),
