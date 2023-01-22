@@ -6,10 +6,3 @@ export interface BattleState {
 }
 
 export type BattleParty = Unit[];
-
-export interface UnitBattleStats {
-  dmg: number;
-  armor: number;
-  evasion: number;
-  criticalChance: number;
-}

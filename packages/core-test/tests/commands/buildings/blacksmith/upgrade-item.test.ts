@@ -1,4 +1,4 @@
-import { AttackEffectType, BlacksmithCommand, EquipmentSlot, StashLocation } from "@rpg-village/core";
+import { AttackEffectType, BlacksmithCommand, EffectType, EquipmentSlot, StashLocation } from "@rpg-village/core";
 
 import { createState, test } from "../../../utils";
 
@@ -24,7 +24,9 @@ test("should give new dmg effect", {
     units: {
       "target-unit": {
         stash: {
-          items: [{ id: "test-item", effects: [{ type: AttackEffectType.Dmg, value: 2 }] }],
+          items: [
+            { id: "test-item", effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 2 }] },
+          ],
         },
       },
     },
@@ -73,7 +75,12 @@ test("should upgrade item on hero equipment", {
   expectedState: {
     units: {
       "target-unit": {
-        equipment: { [EquipmentSlot.Torso]: { id: "test-item", effects: [{ type: AttackEffectType.Dmg, value: 2 }] } },
+        equipment: {
+          [EquipmentSlot.Torso]: {
+            id: "test-item",
+            effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 2 }],
+          },
+        },
       },
     },
   },
@@ -94,7 +101,9 @@ test("should upgrade in village stash", {
   expectedState: {
     village: {
       stash: {
-        items: [{ id: "test-item", effects: [{ type: AttackEffectType.Dmg, value: 2 }] }],
+        items: [
+          { id: "test-item", effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 2 }] },
+        ],
       },
     },
   },

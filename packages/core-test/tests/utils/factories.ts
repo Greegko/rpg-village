@@ -30,8 +30,9 @@ export function mapFactory({
   difficulty = chance.integer(),
   mapLocationIds = [],
   mapSize = chance.pickone([MapSize.Small, MapSize.Endless]),
+  modifiers = [],
 }: Partial<Map> = {}): Map {
-  return { difficulty, id, mapLocationIds, mapSize };
+  return { difficulty, id, mapLocationIds, mapSize, modifiers };
 }
 
 export function mapLocationFactory({
@@ -66,6 +67,9 @@ export function unitFactory({
   level = chance.integer(),
   name = chance.string(),
   type = chance.pickone([UnitType.Common, UnitType.Hero]),
+  effects = [],
+  criticalChance = chance.integer(),
+  evasion = chance.integer(),
 }: Partial<Unit> = {}): Unit {
   return {
     xp,
@@ -79,6 +83,9 @@ export function unitFactory({
     name,
     type,
     dmg,
+    effects,
+    criticalChance,
+    evasion,
   };
 }
 

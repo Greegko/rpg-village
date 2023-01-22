@@ -1,11 +1,11 @@
 import { flatten, map, path } from "ramda";
 
-import { AttackEffectType, EffectBase, EffectDynamic, RuneAttackEffectType } from "@models/effect";
+import { AttackEffectType, EffectDynamic, EffectStatic, EffectType, RuneAttackEffectType } from "@models/effect";
 import { Item, ItemType, Rune } from "@models/item";
 
 import { Unit } from "../interfaces";
 
-export function getUnitEffects(unit: Unit): EffectBase[] {
+export function getUnitEffects(unit: Unit): EffectStatic[] {
   const items = [
     path(["equipment", "rightHand"], unit),
     path(["equipment", "leftHand"], unit),
@@ -13,27 +13,26 @@ export function getUnitEffects(unit: Unit): EffectBase[] {
     path(["equipment", "rune"], unit),
   ].filter(x => x) as Item[];
 
-  return flatten(map(getItemEffects, items));
+  return [...flatten(map(getItemEffects, items)), ...unit.effects];
 }
 
-export function getItemEffects(item: Item): EffectBase[] {
-  if(item.itemType === ItemType.Rune) return transformRuneEffectDynamics(item);
+export function getItemEffects(item: Item): EffectStatic[] {
+  if (item.itemType === ItemType.Rune) return transformRuneEffectDynamics(item);
 
-  return item.effects as EffectBase[];
+  return item.effects as EffectStatic[];
 }
 
-
-function transformRuneEffectDynamics(item: Rune | null): EffectBase[] {
-  if(item === null) return [];
+function transformRuneEffectDynamics(item: Rune | null): EffectStatic[] {
+  if (item === null) return [];
 
   const effects = item.effects as EffectDynamic[];
 
   return map(effect => transformRuneEffectDynamic(item, effect), effects);
 }
 
-function transformRuneEffectDynamic(item: Rune, effect: EffectDynamic): EffectBase {
-  switch(effect.type) {
+function transformRuneEffectDynamic(item: Rune, effect: EffectDynamic): EffectStatic {
+  switch (effect.effectType) {
     case RuneAttackEffectType.Dmg:
-      return { type: AttackEffectType.Dmg, value: item.power + item.soul * 10 };
+      return { type: EffectType.Static, effectType: AttackEffectType.Dmg, value: item.power + item.soul * 10 };
   }
 }

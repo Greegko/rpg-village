@@ -1,6 +1,6 @@
 import { generate } from "shortid";
 
-import { AttackEffectType, DefenseEffectType } from "@models/effect";
+import { AttackEffectType, DefenseEffectType, EffectType } from "@models/effect";
 import { Armor, ItemType, Shield, Weapon } from "@models/item";
 
 export function weaponFactory(): Weapon {
@@ -8,7 +8,8 @@ export function weaponFactory(): Weapon {
     itemType: ItemType.Weapon,
     effects: [
       {
-        type: AttackEffectType.Dmg,
+        type: EffectType.Static,
+        effectType: AttackEffectType.Dmg,
         value: 5,
       },
     ],
@@ -22,7 +23,8 @@ export function shieldFactory(): Shield {
     itemType: ItemType.Shield,
     effects: [
       {
-        type: DefenseEffectType.Armor,
+        type: EffectType.Static,
+        effectType: DefenseEffectType.Armor,
         value: 5,
       },
     ],
@@ -36,7 +38,8 @@ export function armorFactory(): Armor {
     itemType: ItemType.Armor,
     effects: [
       {
-        type: DefenseEffectType.Evasion,
+        type: EffectType.Static,
+        effectType: DefenseEffectType.Evasion,
         value: 5,
       },
     ],

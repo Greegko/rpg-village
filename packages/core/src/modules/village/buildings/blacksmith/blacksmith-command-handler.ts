@@ -3,7 +3,7 @@ import { append, evolve } from "ramda";
 
 import { commandHandler } from "@core/command";
 
-import { AttackEffectType, Effect } from "@models/effect";
+import { AttackEffectType, Effect, EffectType } from "@models/effect";
 import { EquipmentItem, Item, ItemID, ItemType } from "@models/item";
 import { StashLocation, UnitID, UnitService } from "@modules/unit";
 import { VillageStashService } from "@modules/village";
@@ -87,8 +87,9 @@ export class BlacksmithCommandHandler {
 
   private createDmgEffect(): Effect {
     return {
+      type: EffectType.Static,
+      effectType: AttackEffectType.Dmg,
       value: 2,
-      type: AttackEffectType.Dmg,
     };
   }
 }

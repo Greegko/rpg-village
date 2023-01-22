@@ -1,4 +1,4 @@
-import { Effect } from "@models/effect";
+import { EffectStatic } from "@models/effect";
 
 import { MapLocationID } from "./map-location";
 
@@ -13,6 +13,6 @@ export interface Map {
   id: MapID;
   mapSize: MapSize;
   difficulty: number;
-  modifiers: Effect[];
+  modifiers: EffectStatic[];
   mapLocationIds: MapLocationID[];
 }

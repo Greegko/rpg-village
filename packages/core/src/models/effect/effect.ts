@@ -2,8 +2,14 @@ import { AttackEffectType, DefenseEffectType, MiscEffectType, RuneAttackEffectTy
 
 export type EffectBaseType = AttackEffectType | DefenseEffectType | MiscEffectType;
 
-export interface EffectBase {
-  type: EffectBaseType;
+export enum EffectType {
+  Static,
+  Dynamic,
+}
+
+export interface EffectStatic {
+  type: EffectType.Static;
+  effectType: EffectBaseType;
   value: number;
   isPercentage?: boolean;
 }
@@ -11,8 +17,9 @@ export interface EffectBase {
 export type EffectDynamicType = RuneAttackEffectType;
 
 export interface EffectDynamic {
-  type: EffectDynamicType;
+  type: EffectType.Dynamic;
+  effectType: EffectDynamicType;
   isPercentage?: boolean;
 }
 
-export type Effect = EffectBase | EffectDynamic;
+export type Effect = EffectStatic | EffectDynamic;

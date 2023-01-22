@@ -1,13 +1,13 @@
 import { generate } from "shortid";
 
+import { EffectType, RuneAttackEffectType } from "@models/effect";
 import { ItemType, Rune } from "@models/item";
-import { RuneAttackEffectType } from "@models/effect";
 
 export function createRune(): Rune {
   return {
     id: generate(),
     name: "Rune",
-    effects: [{ type: RuneAttackEffectType.Dmg }],
+    effects: [{ type: EffectType.Dynamic, effectType: RuneAttackEffectType.Dmg }],
     power: 100,
     soul: 0,
     itemType: ItemType.Rune,

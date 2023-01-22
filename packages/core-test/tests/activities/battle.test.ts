@@ -1,4 +1,12 @@
-import { AttackEffectType, BattleActivityType, ItemType, RuneAttackEffectType, UnitType, VillageConfig } from "@rpg-village/core";
+import {
+  AttackEffectType,
+  BattleActivityType,
+  EffectType,
+  ItemType,
+  RuneAttackEffectType,
+  UnitType,
+  VillageConfig,
+} from "@rpg-village/core";
 
 import { createState, test } from "../utils";
 import { equipmentFactory, runeFactory } from "../utils/factories";
@@ -160,7 +168,7 @@ test("should apply item dmg effect", {
                 equipment: {
                   rightHand: equipmentFactory({
                     itemType: ItemType.Weapon,
-                    effects: [{ value: 10, type: AttackEffectType.Dmg }],
+                    effects: [{ value: 10, type: EffectType.Static, effectType: AttackEffectType.Dmg }],
                   }),
                 },
               }),
@@ -195,7 +203,7 @@ test("should apply dynamic item effects", {
                   rune: runeFactory({
                     power: 100,
                     soul: 0,
-                    effects: [{ type: RuneAttackEffectType.Dmg }],
+                    effects: [{ type: EffectType.Dynamic, effectType: RuneAttackEffectType.Dmg }],
                   }),
                 },
               }),

@@ -1,9 +1,12 @@
-import { AttackEffectType, DefenseEffectType } from "./battle-effect";
+import { Unit } from "@modules/unit";
+
+import { AttackEffectType, DefenseEffectType, MiscEffectType } from "./battle-effect";
 import { EffectBaseType } from "./effect";
 
-export const unitEffectBasePropertiesMap: Record<EffectBaseType, string> = {
+export const unitEffectBasePropertiesMap: Record<EffectBaseType, keyof Unit> = {
   [AttackEffectType.Dmg]: "dmg",
   [AttackEffectType.CriticalChance]: "criticalChance",
   [DefenseEffectType.Evasion]: "evasion",
-  [DefenseEffectType.Armor]: "armor"
+  [DefenseEffectType.Armor]: "armor",
+  [MiscEffectType.Hp]: "maxhp",
 };

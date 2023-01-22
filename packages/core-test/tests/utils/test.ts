@@ -52,9 +52,9 @@ export function test(testName: string, { config, initState, commands, expectedSt
           length: lengthAssertionFactory(t),
         });
       }
-    }
+    };
 
-    if(Array.isArray(expectedState)) {
+    if (Array.isArray(expectedState)) {
       expectedState.forEach(testExpectedState);
     } else {
       testExpectedState(expectedState);
