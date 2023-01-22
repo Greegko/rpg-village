@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 
 import { eventHandler } from "@core/event";
 
+import { Effect } from "@models/effect";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore } from "@modules/unit";
 
@@ -22,18 +23,19 @@ export class MapEventHandler {
   @eventHandler(MapEvent.NewLocation)
   newLocation(args: MapEventNewLocationArgs) {
     const location = this.mapLocationStore.get(args.locationId);
+    const map = this.mapStore.get(args.mapId);
 
     if (location.type === MapLocationType.Empty) return;
 
     if (location.type === MapLocationType.Boss) {
-      this.addEnemyUnitToMap(args.mapId, args.locationId);
+      this.addEnemyUnitToMap(args.mapId, args.locationId, map.modifiers);
     } else {
-      this.addEnemyUnitToMap(args.mapId, args.locationId);
+      this.addEnemyUnitToMap(args.mapId, args.locationId, map.modifiers);
     }
   }
 
-  private addEnemyUnitToMap(mapId: MapID, locationId: MapLocationID) {
-    const party = generateEnemyParty(this.mapStore.get(mapId).difficulty);
+  private addEnemyUnitToMap(mapId: MapID, locationId: MapLocationID, effects: Effect[]) {
+    const party = generateEnemyParty(this.mapStore.get(mapId).difficulty, effects);
     const unitIds = party.units.map(unit => this.unitStore.add(unit)).map(x => x.id);
 
     this.partyService.createParty({

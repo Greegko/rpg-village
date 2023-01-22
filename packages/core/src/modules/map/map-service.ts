@@ -3,6 +3,8 @@ import { append, evolve, find, values } from "ramda";
 
 import { EventSystem } from "@core/event";
 
+import { Effect } from "@models/effect";
+
 import { Turn } from "../game";
 import { Map, MapEvent, MapID, MapLocation, MapLocationID, MapLocationType, MapSize } from "./interfaces";
 import { MapLocationStore } from "./map-location-store";
@@ -21,13 +23,18 @@ export class MapService {
     private eventSystem: EventSystem,
   ) {}
 
-  createMap(mapLocationType: MapLocationType.Portal | MapLocationType.Village, mapSize: MapSize): Map {
+  createMap(
+    mapLocationType: MapLocationType.Portal | MapLocationType.Village,
+    mapSize: MapSize,
+    modifiers: Effect[],
+  ): Map {
     const mapLocationId = this.createLocation(0, 0, true, mapLocationType).id;
 
     const map = this.mapStore.add({
       difficulty: 0,
       mapLocationIds: [mapLocationId],
       mapSize,
+      modifiers,
     });
 
     this.revealLocation(mapLocationId);

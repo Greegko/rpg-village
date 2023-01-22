@@ -1,13 +1,12 @@
-import { AttackEffectType, DefenseEffectType, RuneAttackEffectType } from "./battle-effect";
+import { AttackEffectType, DefenseEffectType, MiscEffectType, RuneAttackEffectType } from "./battle-effect";
 
-export type EffectBaseType = AttackEffectType | DefenseEffectType;
+export type EffectBaseType = AttackEffectType | DefenseEffectType | MiscEffectType;
 
 export interface EffectBase {
   type: EffectBaseType;
   value: number;
   isPercentage?: boolean;
 }
-
 
 export type EffectDynamicType = RuneAttackEffectType;
 

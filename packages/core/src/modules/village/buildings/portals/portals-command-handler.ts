@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core/command";
 
+import { DungeonKey } from "@models/item";
 import { MapLocationType, MapService, MapSize } from "@modules/map";
 import { PartyStore } from "@modules/party";
 import { VillageStashService, VillageStore } from "@modules/village";
@@ -44,10 +45,10 @@ export class PortalsCommandHandler {
 
   @commandHandler(PortalsCommand.OpenPortal)
   openPortal(args: PortalsCommandOpenPortalArgs) {
-    const item = this.villageStashService.takeItem(args.dungeonKeyId);
+    const item = this.villageStashService.takeItem<DungeonKey>(args.dungeonKeyId);
 
     if (item) {
-      this.mapService.createMap(MapLocationType.Portal, MapSize.Small);
+      this.mapService.createMap(MapLocationType.Portal, MapSize.Small, item.effects);
     }
   }
 }

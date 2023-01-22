@@ -91,7 +91,7 @@ export class VillageCommandHandler {
 
   @commandHandler(GameCommand.NewGame)
   createVillage(): void {
-    const map = this.mapService.createMap(MapLocationType.Village, MapSize.Endless);
+    const map = this.mapService.createMap(MapLocationType.Village, MapSize.Endless, []);
     this.generalGameStore.set("worldMapId", map.id);
 
     this.villageStore.set("stash", { items: [], resource: { gold: 0, soul: 0 } });

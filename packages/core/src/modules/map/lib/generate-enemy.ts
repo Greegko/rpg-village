@@ -1,3 +1,4 @@
+import { Effect } from "@models/effect";
 import { PartyStash } from "@modules/party";
 import { Unit, UnitType } from "@modules/unit";
 
@@ -6,14 +7,14 @@ export interface EnemyPartyGeneration {
   stash: PartyStash;
 }
 
-export function generateEnemyParty(difficulty: number): EnemyPartyGeneration {
+export function generateEnemyParty(difficulty: number, effects: Effect[]): EnemyPartyGeneration {
   return {
-    units: [generateEnemy(difficulty)],
+    units: [generateEnemy(difficulty, effects)],
     stash: { resource: { gold: (difficulty + 1) * 5 }, items: [] },
   };
 }
 
-function generateEnemy(point: number): Omit<Unit, "id"> {
+function generateEnemy(point: number, effects: Effect[]): Omit<Unit, "id"> {
   const level = ~~(point / 10) + 1;
 
   return {
@@ -26,6 +27,7 @@ function generateEnemy(point: number): Omit<Unit, "id"> {
     maxhp: 10 + point * 2,
     stash: { resource: { gold: 0 }, items: [] },
     xp: 0,
+    effects,
     type: UnitType.Common,
   };
 }

@@ -3,12 +3,12 @@ import { dec, evolve } from "ramda";
 
 import { EventSystem } from "@core/event";
 
-import { PartyActivity, IActivityHandler } from "@modules/activity";
+import { IActivityHandler, PartyActivity } from "@modules/activity";
 import { PartyEvent, PartyID, PartyStore } from "@modules/party";
 
 import { MapLocationID, MapLocationType } from "../interfaces";
-import { MapService } from "../map-service";
 import { MapLocationStore } from "../map-location-store";
+import { MapService } from "../map-service";
 
 type TravelState = {
   partyId: PartyID;
@@ -23,7 +23,12 @@ type TravelStartArgs = {
 
 @injectable()
 export class MapTravelActivity implements IActivityHandler<PartyActivity<TravelState, TravelStartArgs>> {
-  constructor(private partyStore: PartyStore, private mapService: MapService, private eventSystem: EventSystem; private mapLocationStore: MapLocationStore) {}
+  constructor(
+    private partyStore: PartyStore,
+    private mapService: MapService,
+    private eventSystem: EventSystem,
+    private mapLocationStore: MapLocationStore,
+  ) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
     const currentLocationId = this.partyStore.get(partyId).locationId;
@@ -39,7 +44,7 @@ export class MapTravelActivity implements IActivityHandler<PartyActivity<TravelS
     const partyLocation = this.partyStore.get(partyId).locationId;
     const targetLocation = this.mapLocationStore.get(targetLocationId);
 
-    if(targetLocation.type === MapLocationType.Empty) return false;
+    if (targetLocation.type === MapLocationType.Empty) return false;
 
     return targetLocationId !== partyLocation;
   }

@@ -1,4 +1,5 @@
 import { ItemStash, ResourceStash } from "@models//stash";
+import { Effect } from "@models/effect";
 import { Equipment } from "@models/item";
 
 export type UnitID = string;
@@ -19,5 +20,6 @@ export type Unit = {
   armor: number;
   xp: number;
   equipment: Equipment;
+  effects: Effect[];
   stash: UnitStash;
 };

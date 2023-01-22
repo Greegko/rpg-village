@@ -8,6 +8,10 @@ export enum DefenseEffectType {
   Armor,
 }
 
+export enum MiscEffectType {
+  Hp = 300,
+}
+
 export enum RuneAttackEffectType {
-  Dmg = 1000
+  Dmg = 1000,
 }
