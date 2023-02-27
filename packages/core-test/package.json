@@ -5,7 +5,8 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "test": "ava",
-    "test:watch": "concurrently 'tsc --watch' 'ava --watch' --handle-input 1:rs"
+    "test:watch": "concurrently 'tsc --watch' 'ava --watch' --handle-input 1:rs",
+    "prepare": "true"
   },
   "dependencies": {
     "@rpg-village/core": "1.0.0",

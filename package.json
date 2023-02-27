@@ -7,7 +7,7 @@
     "build:core": "npm run build --prefix packages/core",
     "build:web": "npm run build --prefix packages/web",
     "test:core": "npm run test:watch --prefix packages/core-test",
-    "prepare": "for P in packages/*/; do (cd $P && yarn prepare); done"
+    "prepare": "for P in packages/*/; do (cd $P && npm run prepare); done"
   },
   "private": true,
   "name": "rpg-village",
