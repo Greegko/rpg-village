@@ -1,5 +1,6 @@
 import * as ava from "ava";
 
+import { argv } from "process";
 import * as util from "util";
 
 import { Command, GameConfig, GameState } from "@rpg-village/core";
@@ -22,7 +23,15 @@ type Test = {
   expectedState: ExpectedState | ExpectedState[];
 };
 
+const project_dir = argv[1].replace(/node_modules.*/, "");
+
 export function test(testName: string, { config, initState, commands, expectedState, turn = 0 }: Test) {
+  const testFilePath = new Error().stack
+    .split("\n")[2]
+    .replace("at Object.<anonymous> ", "")
+    .slice(5, -1)
+    .replace(project_dir, "");
+
   ava.default(testName, t => {
     const game = gameFactory({ state: initState, config } as any);
 
@@ -36,7 +45,7 @@ export function test(testName: string, { config, initState, commands, expectedSt
       });
     }
 
-    for (let i = 0; i < turn; i++) {
+    for (let i = 0; i < +turn; i++) {
       game.gameTurn();
     }
 
@@ -44,7 +53,7 @@ export function test(testName: string, { config, initState, commands, expectedSt
 
     const testExpectedState = (expectedState: ExpectedState) => {
       if (typeof expectedState === "object") {
-        t.like(gameState, expectedState);
+        t.like(gameState, expectedState, testFilePath);
       } else {
         expectedState(gameState, {
           ...t,
