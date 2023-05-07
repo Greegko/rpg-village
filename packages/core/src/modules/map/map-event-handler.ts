@@ -28,9 +28,9 @@ export class MapEventHandler {
     if (location.type === MapLocationType.Empty) return;
 
     if (location.type === MapLocationType.Boss) {
-      this.addEnemyUnitToMap(args.mapId, args.locationId, map.modifiers);
+      this.addEnemyUnitToMap(args.mapId, args.locationId, map.modifiers || []);
     } else {
-      this.addEnemyUnitToMap(args.mapId, args.locationId, map.modifiers);
+      this.addEnemyUnitToMap(args.mapId, args.locationId, map.modifiers || []);
     }
   }
 

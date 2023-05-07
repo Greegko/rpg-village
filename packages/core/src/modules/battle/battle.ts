@@ -11,7 +11,7 @@ export class Battle {
   private battleState: BattleState;
 
   constructor(attackerParty: Unit[], defenderParty: Unit[]) {
-    this.battleState = this.createStartBattleState(clone(attackerParty), clone(defenderParty));
+    this.battleState = this.initBattleState(clone(attackerParty), clone(defenderParty));
   }
 
   turn(): BattleState {
@@ -30,10 +30,10 @@ export class Battle {
     return areAllDead(this.battleState.attackerParty) || areAllDead(this.battleState.defenderParty);
   }
 
-  private createStartBattleState(attackerPartyUnits: Unit[], defenderPartyUnits: Unit[]): BattleState {
+  private initBattleState(attackerPartyUnits: Unit[], defenderPartyUnits: Unit[]): BattleState {
     return {
-      attackerParty: attackerPartyUnits,
-      defenderParty: defenderPartyUnits,
+      attackerParty: attackerPartyUnits.map(calculateUnitStatsWithEffects),
+      defenderParty: defenderPartyUnits.map(calculateUnitStatsWithEffects),
     };
   }
 
@@ -41,12 +41,7 @@ export class Battle {
     forEach(attackerUnit => {
       const defenderUnit = sample(defenderParty.filter(isAlive));
 
-      const [attackerUnitStats, defenderUnitStats] = [
-        calculateUnitStatsWithEffects(attackerUnit),
-        calculateUnitStatsWithEffects(defenderUnit),
-      ];
-
-      defenderUnit.hp = Math.max(0, defenderUnit.hp - Math.max(attackerUnitStats.dmg - defenderUnitStats.armor, 0));
+      defenderUnit.hp = Math.max(0, defenderUnit.hp - Math.max(attackerUnit.dmg - defenderUnit.armor, 0));
     }, attackerParty.filter(isAlive));
   }
 }

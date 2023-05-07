@@ -3,7 +3,7 @@ import * as ava from "ava";
 import { argv } from "process";
 import * as util from "util";
 
-import { Command, GameConfig, GameState } from "@rpg-village/core";
+import { Command, Event, GameConfig, GameState } from "@rpg-village/core";
 
 import { ExecutionTestContext, lengthAssertionFactory, withRandomIDAssertionFactory } from "./custom-assertions";
 import { gameFactory } from "./game-factory";
@@ -17,15 +17,16 @@ type ExpectedState = TestGameState | ExpectedStateMatcher;
 
 type Test = {
   initState: TestGameState;
-  config?: GameConfig["config"];
+  gameConfig?: GameConfig["config"];
   commands?: (Command | string)[];
+  event?: Event;
   turn?: boolean | number;
   expectedState: ExpectedState | ExpectedState[];
 };
 
 const project_dir = argv[1].replace(/node_modules.*/, "");
 
-export function test(testName: string, { config, initState, commands, expectedState, turn = 0 }: Test) {
+export function test(testName: string, { gameConfig, initState, commands, event, expectedState, turn = 0 }: Test) {
   const testFilePath = new Error().stack
     .split("\n")[2]
     .replace("at Object.<anonymous> ", "")
@@ -33,7 +34,7 @@ export function test(testName: string, { config, initState, commands, expectedSt
     .replace(project_dir, "");
 
   ava.default(testName, t => {
-    const game = gameFactory({ state: initState, config } as any);
+    const game = gameFactory({ state: initState, config: gameConfig } as any);
 
     if (commands) {
       commands.forEach(command => {
@@ -43,6 +44,10 @@ export function test(testName: string, { config, initState, commands, expectedSt
           game.executeCommand(command);
         }
       });
+    }
+
+    if (event) {
+      game.emitEvent(event);
     }
 
     for (let i = 0; i < +turn; i++) {

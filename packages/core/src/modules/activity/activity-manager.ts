@@ -30,7 +30,10 @@ export class ActivityManager {
     }
   }
 
-  startPartyActivity(activityName: string, startingArgs: PartyActivityStartArgs) {
+  startPartyActivity<ActivityStartArgs extends PartyActivityStartArgs>(
+    activityName: string,
+    startingArgs: ActivityStartArgs,
+  ) {
     if (this.partyStore.get(startingArgs.partyId).activityId) return;
 
     const activityHandler = this.getActivityHandler(activityName);
@@ -64,7 +67,7 @@ export class ActivityManager {
       activityHandler.resolve(updatedActivity);
       this.activityStore.remove(activity.id);
 
-      if(activity.type === ActivityType.Party) {
+      if (activity.type === ActivityType.Party) {
         this.partyStore.clearActivity(activity.startArgs.partyId);
         if (activity.startArgs.involvedPartyId) {
           this.partyStore.clearActivity(activity.startArgs.involvedPartyId);

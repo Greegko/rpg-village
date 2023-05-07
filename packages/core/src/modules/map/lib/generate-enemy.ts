@@ -1,4 +1,4 @@
-import { EffectStatic } from "@models/effect";
+import { EffectStatic, MiscEffectType, calculateEffectsValue } from "@models/effect";
 import { PartyStash } from "@modules/party";
 import { Unit, UnitType } from "@modules/unit";
 
@@ -14,17 +14,19 @@ export function generateEnemyParty(difficulty: number, effects: EffectStatic[]):
   };
 }
 
-function generateEnemy(point: number, effects: EffectStatic[]): Omit<Unit, "id"> {
-  const level = ~~(point / 10) + 1;
+function generateEnemy(difficulty: number, effects: EffectStatic[]): Omit<Unit, "id"> {
+  const level = ~~(difficulty / 10) + 1;
+
+  const hpModifiers = effects.filter(x => x.effectType === MiscEffectType.Hp);
 
   return {
     name: "Skeleton",
     armor: 0,
-    dmg: 8 + ~~(point / 10),
+    dmg: 8 + ~~(difficulty / 10),
     equipment: {},
-    hp: 10 + point * 2,
+    hp: calculateEffectsValue(10 + difficulty * 2, hpModifiers),
     level,
-    maxhp: 10 + point * 2,
+    maxhp: calculateEffectsValue(10 + difficulty * 2, hpModifiers),
     stash: { resource: { gold: 0 }, items: [] },
     xp: 0,
     effects,

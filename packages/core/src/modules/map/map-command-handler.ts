@@ -6,19 +6,25 @@ import { ActivityManager } from "@modules/activity";
 import { BattleActivityType } from "@modules/battle";
 import { PartyOwner, PartyService } from "@modules/party";
 
-import { MapActivity, MapCommand, MapCommandBattleArgs } from "./interfaces";
+import {
+  MapActivity,
+  MapCommand,
+  MapCommandBattleArgs,
+  MapCommandExploreArgs,
+  MapCommandTravelArgs,
+} from "./interfaces";
 
 @injectable()
 export class MapCommandHandler {
   constructor(private activityManager: ActivityManager, private partyService: PartyService) {}
 
   @commandHandler(MapCommand.Travel)
-  travelCommand(travelArgs: any) {
+  travelCommand(travelArgs: MapCommandTravelArgs) {
     this.activityManager.startPartyActivity(MapActivity.Travel, travelArgs);
   }
 
   @commandHandler(MapCommand.Explore)
-  exploreCommand(exploreArgs: any) {
+  exploreCommand(exploreArgs: MapCommandExploreArgs) {
     this.activityManager.startPartyActivity(MapActivity.Explore, exploreArgs);
   }
 

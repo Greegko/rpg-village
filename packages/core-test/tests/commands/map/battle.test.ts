@@ -3,7 +3,8 @@ import { BattleActivityType, MapCommand, PartyOwner } from "@rpg-village/core";
 import { createState, test } from "../../utils";
 
 test("should start Battle activity", {
-  initState: createState(({ party, unit, location }) => [
+  initState: createState(({ party, unit, location, map }) => [
+    map({ mapLocationIds: ["battle-location"], modifiers: [] }),
     party({
       id: "party-x",
       locationId: location({ id: "battle-location" }),

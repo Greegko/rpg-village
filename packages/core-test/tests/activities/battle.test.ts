@@ -12,8 +12,7 @@ import { createState, test } from "../utils";
 import { equipmentFactory, runeFactory } from "../utils/factories";
 
 test("should finish correctly", {
-  initState: createState(({ activity, party, unit, battle, map }) => [
-    map({ mapLocationIds: ["locationId"] }),
+  initState: createState(({ activity, party, unit, battle }) => [
     activity({
       id: "battleActivity",
       name: BattleActivityType.Battle,
@@ -24,11 +23,10 @@ test("should finish correctly", {
         battleId: battle({
           partyId: party({
             id: "random-id",
-            locationId: "locationId",
+
             unitIds: [unit({ dmg: 100, hp: 100 })],
           }),
           defenderPartyId: party({
-            locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, armor: 0 })],
           }),
         }),
@@ -40,15 +38,13 @@ test("should finish correctly", {
 });
 
 test("should gain xp for winner heroes", {
-  initState: createState(({ activity, party, unit, battle, map }) => [
-    map({ mapLocationIds: ["locationId"] }),
+  initState: createState(({ activity, party, unit, battle }) => [
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
             id: "party-id",
-            locationId: "locationId",
             unitIds: [
               unit({
                 id: "winner-unit",
@@ -61,7 +57,6 @@ test("should gain xp for winner heroes", {
             ],
           }),
           defenderPartyId: party({
-            locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
           }),
         }),
@@ -73,20 +68,17 @@ test("should gain xp for winner heroes", {
 });
 
 test("should gain gold", {
-  initState: createState(({ activity, party, unit, battle, map }) => [
-    map({ mapLocationIds: ["locationId"] }),
+  initState: createState(({ activity, party, unit, battle }) => [
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
             id: "party-id",
-            locationId: "locationId",
             unitIds: [unit({ dmg: 100, hp: 100 })],
             stash: { resource: { gold: 0 } },
           }),
           defenderPartyId: party({
-            locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
           }),
         }),
@@ -98,8 +90,7 @@ test("should gain gold", {
 });
 
 test("should gain soul", {
-  initState: createState(({ activity, party, unit, battle, map }) => [
-    map({ mapLocationIds: ["locationId"] }),
+  initState: createState(({ activity, party, unit, battle }) => [
     activity({
       name: BattleActivityType.Battle,
       state: {
@@ -111,7 +102,6 @@ test("should gain soul", {
             stash: { resource: { soul: 5 } },
           }),
           defenderPartyId: party({
-            locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
           }),
         }),
@@ -122,23 +112,20 @@ test("should gain soul", {
   expectedState: { parties: { "party-id": { stash: { resource: { soul: 6 } } } } },
 });
 
-test("should gain resource in village when enabled VillageConfig.DirectLootToVillage config", {
-  config: { [VillageConfig.DirectLootToVillage]: true },
-  initState: createState(({ activity, party, unit, battle, map, village }) => [
-    map({ mapLocationIds: ["locationId"] }),
+test("should gain resource into village when enabled VillageConfig.DirectLootToVillage config", {
+  gameConfig: { [VillageConfig.DirectLootToVillage]: true },
+  initState: createState(({ activity, party, unit, battle, village }) => [
     village({ stash: { resource: { gold: 0 } } }),
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
-            locationId: "locationId",
             id: "winner-party",
             unitIds: [unit({ dmg: 10, hp: 10 })],
             stash: { resource: { gold: 0 } },
           }),
           defenderPartyId: party({
-            locationId: "locationId",
             unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
           }),
         }),
@@ -153,14 +140,12 @@ test("should gain resource in village when enabled VillageConfig.DirectLootToVil
 });
 
 test("should apply item dmg effect", {
-  initState: createState(({ activity, party, unit, battle, map }) => [
-    map({ mapLocationIds: ["locationId"] }),
+  initState: createState(({ activity, party, unit, battle }) => [
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
-            locationId: "locationId",
             unitIds: [
               unit({
                 dmg: 10,
@@ -175,7 +160,6 @@ test("should apply item dmg effect", {
             ],
           }),
           defenderPartyId: party({
-            locationId: "locationId",
             unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0, maxhp: 25 })],
           }),
         }),
@@ -186,15 +170,46 @@ test("should apply item dmg effect", {
   expectedState: { units: { "defender-unit": { hp: 5 } } },
 });
 
-test("should apply dynamic item effects", {
-  initState: createState(({ activity, party, unit, battle, map }) => [
-    map({ mapLocationIds: ["locationId"] }),
+test("should apply percentage item dmg effect", {
+  initState: createState(({ activity, party, unit, battle }) => [
     activity({
       name: BattleActivityType.Battle,
       state: {
         battleId: battle({
           partyId: party({
-            locationId: "locationId",
+            unitIds: [
+              unit({
+                dmg: 10,
+                hp: 100,
+                equipment: {
+                  rightHand: equipmentFactory({
+                    itemType: ItemType.Weapon,
+                    effects: [
+                      { value: 10, type: EffectType.Static, isPercentage: true, effectType: AttackEffectType.Dmg },
+                    ],
+                  }),
+                },
+              }),
+            ],
+          }),
+          defenderPartyId: party({
+            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0, maxhp: 25 })],
+          }),
+        }),
+      },
+    }),
+  ]),
+  turn: true,
+  expectedState: { units: { "defender-unit": { hp: 14 } } },
+});
+
+test("should apply dynamic item effects", {
+  initState: createState(({ activity, party, unit, battle }) => [
+    activity({
+      name: BattleActivityType.Battle,
+      state: {
+        battleId: battle({
+          partyId: party({
             unitIds: [
               unit({
                 dmg: 10,
@@ -210,7 +225,6 @@ test("should apply dynamic item effects", {
             ],
           }),
           defenderPartyId: party({
-            locationId: "locationId",
             unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 200, armor: 0, maxhp: 200 })],
           }),
         }),
