@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { add, evolve } from "ramda";
+import { add, evolve } from "rambda";
 
 import { commandHandler } from "@core/command";
 
@@ -50,8 +50,8 @@ export class RuneWorkshopCommandHandler {
   dismantleRune(args: DismantleRuneCommandArgs) {
     const item = this.villageStashService.takeItem<Rune>(args.runeId);
 
-    if(item) {
-      this.villageStashService.addResource({ soul: item.soul })
+    if (item) {
+      this.villageStashService.addResource({ soul: item.soul });
     }
   }
 }

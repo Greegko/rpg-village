@@ -1,4 +1,5 @@
-import { add, mergeDeepWith, prop, subtract } from "ramda";
+import { add, evolve, mergeWith, prop } from "rambda";
+import { subtract } from "rambda";
 
 import { Resource } from "../resource";
 import { Stash } from "./stash";
@@ -12,9 +13,9 @@ export function getResource(stash: ResourceStash): Resource {
 }
 
 export function addResource<T extends ResourceStash>(stash: T, resource: Partial<Resource>): T {
-  return mergeDeepWith(add, stash, { resource });
+  return evolve({ resource: stashResource => mergeWith(add, stashResource, resource) }, stash);
 }
 
 export function removeResource<T extends ResourceStash>(stash: T, resource: Partial<Resource>): T {
-  return mergeDeepWith(subtract, stash, { resource });
+  return evolve({ resource: stashResource => mergeWith(subtract, stashResource, resource) }, stash);
 }

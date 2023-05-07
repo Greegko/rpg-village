@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { filter, find, groupBy, values } from "ramda";
+import { filter, find, groupBy, values } from "rambda";
 import { useSelector } from "react-redux";
 
 import {

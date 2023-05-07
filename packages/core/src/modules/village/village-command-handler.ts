@@ -1,20 +1,20 @@
 import { injectable } from "inversify";
-import { append, find, head, values, whereEq } from "ramda";
+import { append, find, head, values, whereEq } from "rambda";
 
 import { commandHandler } from "@core/command";
 
+import { Resource } from "@models/resource";
 import { ActivityManager, ActivityStore } from "@modules/activity";
 import { GameCommand, GeneralGameStore } from "@modules/game";
 import { MapLocationType, MapService, MapSize } from "@modules/map";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore, isAlive } from "@modules/unit";
-import { Resource } from "@models/resource";
 
+import { VillageBuildings } from "./activities";
 import { VillageActivity, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
 import { heroFactory, newBuildingCost, newHeroCost } from "./lib";
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
-import { VillageBuildings } from "./activities";
 
 @injectable()
 export class VillageCommandHandler {
@@ -26,42 +26,42 @@ export class VillageCommandHandler {
     private activityManager: ActivityManager,
     private activityStore: ActivityStore,
     private mapService: MapService,
-    private generalGameStore: GeneralGameStore
+    private generalGameStore: GeneralGameStore,
   ) {}
 
   @commandHandler(VillageCommand.BuildHouse)
   buildHouse(): void {
     const gold = newBuildingCost(1 + this.villageStore.getState().houses);
 
-    this.buildBuilding('houses', { gold })
+    this.buildBuilding("houses", { gold });
   }
 
   @commandHandler(VillageCommand.BuildBlacksmith)
   buildBlacksmith(): void {
     const gold = 100;
 
-    this.buildBuilding('blacksmith', { gold })
+    this.buildBuilding("blacksmith", { gold });
   }
 
   @commandHandler(VillageCommand.BuildRuneWorkshop)
   buildRuneWorkshop(): void {
     const gold = 100;
 
-    this.buildBuilding('runeWorkshop', { gold })
+    this.buildBuilding("runeWorkshop", { gold });
   }
 
   @commandHandler(VillageCommand.BuildTrainingField)
   buildTrainingField(): void {
     const gold = 100;
 
-    this.buildBuilding('trainingField', { gold })
+    this.buildBuilding("trainingField", { gold });
   }
 
   @commandHandler(VillageCommand.BuildPortalSummonerStone)
   buildPortals(): void {
     const gold = 100;
 
-    this.buildBuilding('portals', { gold })
+    this.buildBuilding("portals", { gold });
   }
 
   @commandHandler(VillageCommand.HireHero)
@@ -101,8 +101,8 @@ export class VillageCommandHandler {
   private buildBuilding(targetBuilding: VillageBuildings, cost: Resource) {
     const activities = values(this.activityStore.getState());
 
-    if(find(whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding } }), activities) !== undefined) return;
-    if (!this.villageStash.hasEnoughResource(cost)) return 
+    if (find(whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding } }), activities) !== undefined) return;
+    if (!this.villageStash.hasEnoughResource(cost)) return;
 
     this.activityManager.startActivity(VillageActivity.Build, { targetBuilding });
     this.villageStash.removeResource(cost);

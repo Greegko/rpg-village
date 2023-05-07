@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { forEach } from "ramda";
+import { forEach } from "rambda";
 
 import { PartyID, PartyService } from "@modules/party";
 import { UnitStore } from "@modules/unit";

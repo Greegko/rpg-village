@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { append, evolve } from "ramda";
+import { append, evolve } from "rambda";
 
 import { commandHandler } from "@core/command";
 
@@ -79,6 +79,7 @@ export class BlacksmithCommandHandler {
     const price = ((item.effects || []).length + 1) * 50;
     if (this.villageStashService.hasEnoughResource({ gold: price })) {
       this.villageStashService.removeResource({ gold: price });
+
       return evolve({ effects: append(this.createDmgEffect()) }, item);
     }
 

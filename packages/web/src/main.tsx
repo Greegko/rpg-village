@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { filter, forEach, map, values } from "ramda";
+import { filter, forEach, map, values } from "rambda";
 import { useContext, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider, useDispatch } from "react-redux";
@@ -76,7 +76,7 @@ const GameInstanceLogic = () => {
 
       return filter(
         x => x !== null,
-        map(x => x[1][1], updates),
+        map(x => x[1][1] as any, updates),
       ) as Command[];
     });
   }, [partyStates]);

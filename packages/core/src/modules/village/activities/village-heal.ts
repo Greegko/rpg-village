@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
-import { filter, forEach, map } from "ramda";
+import { filter, forEach, map } from "rambda";
 
-import { PartyActivity, IActivityHandler } from "@modules/activity";
+import { IActivityHandler, PartyActivity } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
 import { UnitID, UnitService, UnitStore } from "@modules/unit";
 

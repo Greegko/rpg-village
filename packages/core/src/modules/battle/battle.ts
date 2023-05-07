@@ -1,4 +1,4 @@
-import { all, clone, complement, forEach } from "ramda";
+import { all, clone, complement, forEach } from "rambda";
 
 import { sample } from "@lib/sample";
 

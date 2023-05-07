@@ -1,4 +1,4 @@
-import { identity } from "ramda";
+import { identity } from "rambda";
 import { useEffect, useMemo, useState } from "react";
 
 import {
@@ -39,7 +39,10 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
   const [stashSelectedItem, setStashSelectedItem] = useState<Item | null>();
 
   const userEquipment = useMemo(
-    () => [unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso, unit.equipment.rune].filter(identity) as Item[],
+    () =>
+      [unit.equipment.leftHand, unit.equipment.rightHand, unit.equipment.torso, unit.equipment.rune].filter(
+        identity,
+      ) as Item[],
     [unit.equipment],
   );
 
@@ -132,7 +135,7 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
                     executeCommand({
                       command: RuneWorkshopCommand.DismantleRune,
                       args: {
-                        runeId: stashSelectedItem.id
+                        runeId: stashSelectedItem.id,
                       },
                     })
                   }

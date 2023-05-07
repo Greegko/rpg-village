@@ -1,5 +1,5 @@
 import { injectable, multiInject } from "inversify";
-import { forEach, map, mergeAll, prop } from "ramda";
+import { forEach, map, mergeAll, prop } from "rambda";
 
 import { StoresToken } from "@core/module/tokens";
 import { IStore } from "@core/store";

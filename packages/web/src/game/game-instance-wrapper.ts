@@ -1,4 +1,4 @@
-import { forEach } from "ramda";
+import { forEach } from "rambda";
 
 import { Command, GameInstance, GameState, createGameInstance } from "@rpg-village/core";
 

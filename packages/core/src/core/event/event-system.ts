@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { forEach } from "ramda";
+import { forEach } from "rambda";
 
 import { GetInjectionToken } from "@core/module/tokens";
 

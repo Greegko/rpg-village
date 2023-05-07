@@ -1,10 +1,15 @@
-import { keys } from "ramda";
+import { keys } from "rambda";
 import { useDispatch } from "react-redux";
 
 import { BlacksmithCommand, ItemType, RuneWorkshopCommand, VillageCommand } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
-import { playerPartiesSelector, useGameStateSelector, villageActivitiesSelector, villageSelector } from "@web/store/game";
+import {
+  playerPartiesSelector,
+  useGameStateSelector,
+  villageActivitiesSelector,
+  villageSelector,
+} from "@web/store/game";
 import { changePage, pageSelector, useGameUISelector } from "@web/store/ui";
 import { GamePageType } from "@web/store/ui/interface";
 
@@ -47,7 +52,7 @@ const Parties = () => {
       Parties:
       <br />
       {keys(parties).map(partyId => (
-        <PartyDisplay key={partyId} partyId={partyId} />
+        <PartyDisplay key={partyId} partyId={partyId as string} />
       ))}
     </div>
   );
@@ -63,8 +68,12 @@ const Village = () => {
     <div className="village">
       <div>Village:</div>
       <div>
-        Activities: 
-        {villageActivities.map(x => <div>{x.name} - {(x.startArgs as any).targetBuilding}</div>)}
+        Activities:
+        {villageActivities.map(x => (
+          <div>
+            {x.name} - {(x.startArgs as any).targetBuilding}
+          </div>
+        ))}
       </div>
       <div>House Level: {village.houses}</div>
       <div>Blacksmith Level: {village.blacksmith}</div>

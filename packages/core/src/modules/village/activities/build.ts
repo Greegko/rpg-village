@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { dec, evolve, inc } from "ramda";
+import { dec, evolve, inc } from "rambda";
 
 import { Activity, IActivityHandler } from "@modules/activity";
 
@@ -21,7 +21,7 @@ export class BuildActivity implements IActivityHandler<Activity<BuildState, Buil
 
   start(): BuildState {
     return {
-      progress: 100
+      progress: 100,
     };
   }
 

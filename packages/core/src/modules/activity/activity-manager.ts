@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { assoc, forEach, values } from "ramda";
+import { assoc, forEach, values } from "rambda";
 
 import { GetActivityHandlerToken } from "@core/module/tokens";
 

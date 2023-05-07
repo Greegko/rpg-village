@@ -1,4 +1,4 @@
-import { sum } from "ramda";
+import { sum } from "rambda";
 
 import { Unit } from "@modules/unit";
 

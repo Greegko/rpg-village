@@ -1,4 +1,4 @@
-import { map } from "ramda";
+import { map } from "rambda";
 
 import { MapID } from "@rpg-village/core";
 

@@ -1,4 +1,4 @@
-import { filter, partition, sum, values } from "ramda";
+import { filter, partition, sum, values } from "rambda";
 
 import {
   Command,

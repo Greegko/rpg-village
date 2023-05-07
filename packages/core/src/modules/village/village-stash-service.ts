@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { always, evolve, map, propEq, when } from "ramda";
+import { always, evolve, map, propEq, when } from "rambda";
 
 import { Item, ItemID } from "@models/item";
 import { Resource } from "@models/resource";
@@ -48,8 +48,8 @@ export class VillageStashService {
   hasEnoughResource(resource: Resource): boolean {
     const stashResource = this.getResource();
 
-    if(resource.gold && (resource.gold > (stashResource.gold || 0))) return false;
-    if(resource.soul && (resource.soul > (stashResource.soul || 0))) return false;
+    if (resource.gold && resource.gold > (stashResource.gold || 0)) return false;
+    if (resource.soul && resource.soul > (stashResource.soul || 0)) return false;
 
     return true;
   }

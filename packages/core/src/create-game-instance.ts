@@ -1,5 +1,5 @@
 import { Container, interfaces } from "inversify";
-import { forEach } from "ramda";
+import { forEach } from "rambda";
 
 import { ModuleConfig } from "@core/global-type";
 import { applyModule } from "@core/module";

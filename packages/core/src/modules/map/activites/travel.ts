@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { dec, evolve } from "ramda";
+import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@core/event";
 

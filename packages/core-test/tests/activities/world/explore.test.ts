@@ -1,4 +1,4 @@
-import { values } from "ramda";
+import { values } from "rambda";
 
 import { MapActivity, MapLocationType } from "@rpg-village/core";
 

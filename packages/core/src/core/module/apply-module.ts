@@ -1,5 +1,5 @@
 import { Container, interfaces } from "inversify";
-import { forEach, juxt, pipe, propOr } from "ramda";
+import { forEach, juxt, pipe, propOr } from "rambda";
 
 import { ModulActivity, ModulStore, Module, ProvideClass, ProvideValue } from "@core/module";
 

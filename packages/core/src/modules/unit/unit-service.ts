@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "ramda";
+import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "rambda";
 
 import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID } from "@models/item";
 import { addItems, getItem, removeItem } from "@models/stash";

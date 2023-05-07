@@ -1,4 +1,4 @@
-import { values } from "ramda";
+import { values } from "rambda";
 
 import { AttackEffectType, EffectType, ItemType, PortalsCommand } from "@rpg-village/core";
 

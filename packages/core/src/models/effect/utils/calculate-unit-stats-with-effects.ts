@@ -1,4 +1,4 @@
-import { clone, propOr, reduce, sortBy } from "ramda";
+import { clone, propOr, reduce, sortBy } from "rambda";
 
 import { Unit, getUnitEffects } from "@modules/unit";
 

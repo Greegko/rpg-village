@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { assoc } from "ramda";
+import { assoc } from "rambda";
 
 import { EntityStore } from "@core/store";
 

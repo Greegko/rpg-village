@@ -1,4 +1,4 @@
-import { range } from "ramda";
+import { range } from "rambda";
 import { MouseEvent, useEffect, useState } from "react";
 import { useCallback } from "react";
 

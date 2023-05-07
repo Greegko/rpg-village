@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { assoc, dissoc, mergeAll, omit, prop } from "ramda";
+import { assoc, dissoc, mergeAll, omit, prop } from "rambda";
 import { generate } from "shortid";
 
 export type EntityUpdater<T> = (entity: T) => Partial<T>;

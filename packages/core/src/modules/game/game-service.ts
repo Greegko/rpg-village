@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { inc } from "ramda";
+import { inc } from "rambda";
 
 import { GeneralGameStore } from "./general-store";
 

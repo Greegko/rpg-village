@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { any, filter, propEq, values, without } from "ramda";
+import { any, filter, propEq, values, without } from "rambda";
 
 import { Loot } from "@models/loot";
 import { addResource } from "@models/stash";

@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { complement, prop } from "ramda";
+import { complement, prop } from "rambda";
 
 import { ModuleConfig } from "@core/global-type";
 import { ModuleConfigToken } from "@core/module/tokens";
