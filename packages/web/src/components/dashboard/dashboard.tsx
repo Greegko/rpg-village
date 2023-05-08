@@ -71,7 +71,7 @@ const Village = () => {
         Activities:
         {villageActivities.map(x => (
           <div>
-            {x.name} - {(x.startArgs as any).targetBuilding}
+            {x.name} - {(x.startArgs as any).targetBuilding} {(x.state as any).progress}
           </div>
         ))}
       </div>
