@@ -5,3 +5,7 @@ export type PortalState = {
   id: PortalID;
   mapId: MapID;
 };
+
+export enum PortalActivity {
+  GatherResourceFromPortal = "portal/gather-resource-from-portal",
+}

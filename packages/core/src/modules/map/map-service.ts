@@ -42,6 +42,10 @@ export class MapService {
     return map;
   }
 
+  removeMap(mapId: MapID) {
+    this.mapStore.remove(mapId);
+  }
+
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocation {
     return this.mapLocationStore.add({ x, y, explored, type });
   }
