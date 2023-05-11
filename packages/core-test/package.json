@@ -5,7 +5,7 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "test": "ava",
-    "test:watch": "concurrently 'tsc --watch' 'ava --watch' --handle-input 1:rs",
+    "test:watch": "concurrently 'tsc --watch' 'ava --watch' --default-input-target 1",
     "prepare": "true"
   },
   "dependencies": {
