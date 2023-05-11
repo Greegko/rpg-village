@@ -17,6 +17,7 @@ import {
   ResourceStash,
   Rune,
   Shield,
+  ShopState,
   Unit,
   UnitType,
   VillageState,
@@ -33,6 +34,10 @@ export function mapFactory({
   modifiers = [],
 }: Partial<Map> = {}): Map {
   return { difficulty, id, mapLocationIds, mapSize, modifiers };
+}
+
+export function shopFactory({ id = chance.string(), items = [] }: Partial<ShopState> = {}): ShopState {
+  return { id, items };
 }
 
 export function mapLocationFactory({
