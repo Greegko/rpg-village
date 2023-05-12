@@ -66,6 +66,11 @@ export const heroUnitsSelector = createSelector(unitsSelector, units => filter(i
 
 export const villageSelector = (game: GameState) => game.village;
 
+export const shopsSelector = (game: GameState) => game.shops;
+export const villageShopSelector = createSelector(shopsSelector, villageSelector, (shops, village) =>
+  village.shop ? shops[village.shop.shopId] : undefined,
+);
+
 export const partiesSelector = (game: GameState) => game.parties;
 export const partyByIdSelector = createSelector(
   partiesSelector,

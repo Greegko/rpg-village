@@ -17,6 +17,7 @@ import { CharacterSheet } from "./character-sheet";
 import { Header } from "./header";
 import { OpenPortalPage } from "./open-portal-page";
 import { PartyDisplay } from "./party";
+import { VillageShopPage } from "./village-shop";
 
 import "./dashboard.scss";
 
@@ -38,6 +39,7 @@ export const Dashboard = () => {
             <div>{page.page === GamePageType.CharacterSheet && <CharacterSheet unitId={page.args.unitId} />}</div>
           )}
           {page && <div>{page.page === GamePageType.OpenPortal && <OpenPortalPage />}</div>}
+          {page && <div>{page.page === GamePageType.VillageShopPage && <VillageShopPage />}</div>}
         </div>
       </div>
     </>
@@ -76,10 +78,15 @@ const Village = () => {
         ))}
       </div>
       <div>House Level: {village.houses}</div>
+      <div>Shop Level: {village.shop?.level || 0}</div>
       <div>Blacksmith Level: {village.blacksmith}</div>
       <div>Rune Workshop: {village.runeWorkshop}</div>
       <div>Training Field Level: {village.trainingField}</div>
       <div>Portal Level: {village.portals}</div>
+      <button onClick={() => executeCommand({ command: VillageCommand.BuildShop })}>Build Shop</button>
+
+      <button onClick={() => dispatch(changePage({ page: GamePageType.VillageShopPage }))}>Open Shop</button>
+
       <button onClick={() => executeCommand({ command: VillageCommand.BuildHouse })}>Upgrade House</button>
 
       <button onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Hire Hero</button>
