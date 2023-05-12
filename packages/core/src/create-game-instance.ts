@@ -30,6 +30,7 @@ const coreModules = [
   modules.battleModule,
   modules.debugModule,
   modules.shopModule,
+  modules.optionsModule,
 ];
 
 export const createGameInstance: CreateGameInstance<GameState> = (config?: GameConfig) => {

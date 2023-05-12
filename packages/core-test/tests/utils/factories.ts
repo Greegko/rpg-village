@@ -11,6 +11,7 @@ import {
   MapLocation,
   MapLocationType,
   MapSize,
+  OptionState,
   Party,
   PartyActivity,
   PartyOwner,
@@ -37,6 +38,10 @@ export function mapFactory({
 }
 
 export function shopFactory({ id = chance.string(), items = [] }: Partial<ShopState> = {}): ShopState {
+  return { id, items };
+}
+
+export function optionFactory({ id = chance.string(), items = [] }: Partial<OptionState> = {}): OptionState {
   return { id, items };
 }
 

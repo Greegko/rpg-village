@@ -1,6 +1,7 @@
 import { Activity, ActivityID } from "@modules/activity";
 import { BattleID, BattleStoreState } from "@modules/battle";
 import { Map, MapID, MapLocation, MapLocationID } from "@modules/map";
+import { OptionID, OptionState } from "@modules/options";
 import { Party, PartyID } from "@modules/party";
 import { ShopID, ShopState } from "@modules/shop";
 import { Unit, UnitID } from "@modules/unit";
@@ -17,5 +18,6 @@ export type GameState = {
   village: VillageState;
   maps: Record<MapID, Map>;
   shops: Record<ShopID, ShopState>;
+  options: Record<OptionID, OptionState>;
   mapLocations: Record<MapLocationID, MapLocation>;
 };

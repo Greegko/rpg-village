@@ -9,6 +9,8 @@ import {
   MapLocation,
   MapLocationID,
   MapLocationType,
+  OptionID,
+  OptionState,
   Party,
   PartyActivity,
   PartyID,
@@ -25,6 +27,7 @@ import {
   generalStateFactory,
   mapFactory,
   mapLocationFactory,
+  optionFactory,
   partyFactory,
   shopFactory,
   unitFactory,
@@ -41,6 +44,7 @@ interface CreateStateCallbackArgs {
   location: (locationArgs?: PartialDeep<MapLocation>) => MapLocationID;
   unit: (unitArgs?: PartialDeep<Unit>) => UnitID;
   shop: (shopArgs?: PartialDeep<ShopState>) => ShopID;
+  option: (optionArgs?: PartialDeep<OptionState>) => OptionID;
   general: (generalArgs?: PartialDeep<GeneralGameStoreState>) => undefined;
 }
 
@@ -56,6 +60,7 @@ function createInitState(): GameState {
     activities: {},
     maps: {},
     shops: {},
+    options: {},
     mapLocations: {},
   };
 }
@@ -83,6 +88,14 @@ function createCallback(createdState: GameState) {
     createdState.shops[shop.id] = shop;
 
     return shop.id;
+  }
+
+  function createOptionReference(optionArgs?: Partial<OptionState>) {
+    const option = optionFactory(optionArgs);
+
+    createdState.options[option.id] = option;
+
+    return option.id;
   }
 
   function createUnitReference(unitArgs?: Partial<Unit>) {
@@ -145,6 +158,7 @@ function createCallback(createdState: GameState) {
     village: createVillageReference,
     activity: createActivityReference,
     unit: createUnitReference,
+    option: createOptionReference,
     general: createGeneralCallback,
   };
 }

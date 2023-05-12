@@ -8,3 +8,4 @@ export * from "./village/buildings/buildings-module";
 export * from "./map/map-module";
 export * from "./debug/debug-module";
 export * from "./shop/shop-module";
+export * from "./options/options-module";
