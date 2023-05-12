@@ -6,8 +6,7 @@ import { updateValueInList } from "@lib/update-value-in-list";
 
 import { VillageStashService } from "@modules/village";
 
-import { ShopItem } from "./interfaces";
-import { BuyItemCommandArgs, ShopCommand } from "./interfaces/village-command";
+import { BuyItemCommandArgs, ShopCommand, ShopItem } from "./interfaces";
 import { ShopStore } from "./shop-store";
 
 @injectable()

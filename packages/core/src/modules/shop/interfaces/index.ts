@@ -1,2 +1,2 @@
-export * from "./village-command";
+export * from "./shop-command";
 export * from "./shop-store";
