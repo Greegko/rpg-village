@@ -1,6 +1,6 @@
 import { values } from "rambda";
 
-import { AttackEffectType, EffectType, ItemType, PortalsCommand } from "@rpg-village/core";
+import { AttackEffectType, EffectType, ItemType, PortalCommand } from "@rpg-village/core";
 
 import { createState, test } from "../../../utils";
 
@@ -14,7 +14,7 @@ test("should create portal", {
   ]),
   commands: [
     {
-      command: PortalsCommand.OpenPortal,
+      command: PortalCommand.OpenPortal,
       args: { dungeonKeyId: "dungeon-key" },
     },
   ],
@@ -39,7 +39,7 @@ test("should apply effects to the portal", {
   ]),
   commands: [
     {
-      command: PortalsCommand.OpenPortal,
+      command: PortalCommand.OpenPortal,
       args: { dungeonKeyId: "dungeon-key" },
     },
   ],
@@ -55,7 +55,7 @@ test("should consume dungeon key", {
   ]),
   commands: [
     {
-      command: PortalsCommand.OpenPortal,
+      command: PortalCommand.OpenPortal,
       args: { dungeonKeyId: "dungeon-key" },
     },
   ],

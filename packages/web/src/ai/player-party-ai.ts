@@ -7,7 +7,7 @@ import {
   MapLocationType,
   Party,
   PartyOwner,
-  PortalsCommand,
+  PortalCommand,
   TrainingFieldCommand,
   VillageCommand,
   calculateUnitStrength,
@@ -71,7 +71,7 @@ export class PlayerPartyAI {
 
         clearPartyAction();
         return {
-          command: PortalsCommand.LeavePortal,
+          command: PortalCommand.LeavePortal,
           args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
         };
       }
@@ -93,7 +93,7 @@ export class PlayerPartyAI {
 
       clearPartyAction();
       return {
-        command: PortalsCommand.LeavePortal,
+        command: PortalCommand.LeavePortal,
         args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
       };
     }
@@ -108,7 +108,7 @@ export class PlayerPartyAI {
       const map = sample(filter(map => map.id !== currentMap.id, Object.values(maps)));
 
       return {
-        command: PortalsCommand.EnterPortal,
+        command: PortalCommand.EnterPortal,
         args: { partyId: party.id, portalLocationId: map.mapLocationIds[0] },
       };
     }

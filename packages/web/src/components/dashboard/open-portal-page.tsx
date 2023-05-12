@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { DungeonKey, ItemType, PortalsCommand } from "@rpg-village/core";
+import { DungeonKey, ItemType, PortalCommand } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
 import { useGameStateSelector, villageSelector } from "@web/store/game";
@@ -29,7 +29,7 @@ export const OpenPortalPage = () => {
           Name: {selectedDungeonKey.name}
           <button
             onClick={() =>
-              executeCommand({ command: PortalsCommand.OpenPortal, args: { dungeonKeyId: selectedDungeonKey.id } })
+              executeCommand({ command: PortalCommand.OpenPortal, args: { dungeonKeyId: selectedDungeonKey.id } })
             }
           >
             Open Portal

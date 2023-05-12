@@ -1,4 +1,4 @@
-import { MapLocationType, PortalActivity, PortalsCommand } from "@rpg-village/core";
+import { MapLocationType, PortalActivity, PortalCommand } from "@rpg-village/core";
 
 import { createState, test } from "../../../utils";
 
@@ -13,7 +13,7 @@ test("should party jump to village", {
   ]),
   commands: [
     {
-      command: PortalsCommand.LeavePortal,
+      command: PortalCommand.LeavePortal,
       args: { partyId: "party-id", portalLocationId: "portal-id" },
     },
   ],
@@ -35,7 +35,7 @@ test("should remove map when the map is finished and party leaves", {
   ]),
   commands: [
     {
-      command: PortalsCommand.LeavePortal,
+      command: PortalCommand.LeavePortal,
       args: { partyId: "party-id", portalLocationId: "portal-location-id" },
     },
   ],
@@ -57,7 +57,7 @@ test("should start gather portal resource activity when the map is finished and 
   ]),
   commands: [
     {
-      command: PortalsCommand.LeavePortal,
+      command: PortalCommand.LeavePortal,
       args: { partyId: "party-id", portalLocationId: "portal-location-id" },
     },
   ],

@@ -1,4 +1,4 @@
-import { MapLocationType, PortalsCommand } from "@rpg-village/core";
+import { MapLocationType, PortalCommand } from "@rpg-village/core";
 
 import { createState, test } from "../../../utils";
 
@@ -12,7 +12,7 @@ test("should party jump to location", {
   ]),
   commands: [
     {
-      command: PortalsCommand.EnterPortal,
+      command: PortalCommand.EnterPortal,
       args: { partyId: "party-id", portalLocationId: "portal-id" },
     },
   ],

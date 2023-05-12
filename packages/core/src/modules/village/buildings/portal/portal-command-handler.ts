@@ -12,14 +12,14 @@ import { PartyService, PartyStore } from "@modules/party";
 import { PortalActivity, VillageStashService, VillageStore } from "@modules/village";
 
 import {
-  PortalsCommand,
-  PortalsCommandEnterPortalArgs,
-  PortalsCommandLeavePortalArgs,
-  PortalsCommandOpenPortalArgs,
-} from "./portals-command";
+  PortalCommand,
+  PortalCommandEnterPortalArgs,
+  PortalCommandLeavePortalArgs,
+  PortalCommandOpenPortalArgs,
+} from "./portal-command";
 
 @injectable()
-export class PortalsCommandHandler {
+export class PortalCommandHandler {
   constructor(
     private mapService: MapService,
     private villageStashService: VillageStashService,
@@ -29,8 +29,8 @@ export class PortalsCommandHandler {
     private activityManager: ActivityManager,
   ) {}
 
-  @commandHandler(PortalsCommand.EnterPortal)
-  enterPartyInPortal(args: PortalsCommandEnterPortalArgs) {
+  @commandHandler(PortalCommand.EnterPortal)
+  enterPartyInPortal(args: PortalCommandEnterPortalArgs) {
     const party = this.partyStore.get(args.partyId);
     const villageLocationId = this.villageStore.getState().locationId;
 
@@ -39,8 +39,8 @@ export class PortalsCommandHandler {
     }
   }
 
-  @commandHandler(PortalsCommand.LeavePortal)
-  leavePartyInPortal(args: PortalsCommandLeavePortalArgs) {
+  @commandHandler(PortalCommand.LeavePortal)
+  leavePartyInPortal(args: PortalCommandLeavePortalArgs) {
     const map = this.mapService.getMapByLocation(args.portalLocationId);
     const party = this.partyStore.get(args.partyId);
     const villageLocationId = this.villageStore.getState().locationId;
@@ -61,8 +61,8 @@ export class PortalsCommandHandler {
     }
   }
 
-  @commandHandler(PortalsCommand.OpenPortal)
-  openPortal(args: PortalsCommandOpenPortalArgs) {
+  @commandHandler(PortalCommand.OpenPortal)
+  openPortal(args: PortalCommandOpenPortalArgs) {
     const item = this.villageStashService.takeItem<DungeonKey>(args.dungeonKeyId);
 
     if (item) {
