@@ -10,8 +10,7 @@ import { MapLocationType, MapService, MapSize } from "@modules/map";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore, isAlive } from "@modules/unit";
 
-import { VillageBuildings } from "./activities";
-import { VillageActivity, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
+import { VillageActivity, VillageBuilding, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
 import { heroFactory, newBuildingCost, newHeroCost } from "./lib";
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
@@ -48,6 +47,13 @@ export class VillageCommandHandler {
     const gold = 100;
 
     this.buildBuilding("runeWorkshop", { gold });
+  }
+
+  @commandHandler(VillageCommand.BuildShop)
+  buildShopWorkshop(): void {
+    const gold = 100;
+
+    this.buildBuilding("shop", { gold });
   }
 
   @commandHandler(VillageCommand.BuildTrainingField)
@@ -98,7 +104,7 @@ export class VillageCommandHandler {
     this.villageStore.set("locationId", head(map.mapLocationIds)!);
   }
 
-  private buildBuilding(targetBuilding: VillageBuildings, cost: Resource) {
+  private buildBuilding(targetBuilding: VillageBuilding, cost: Resource) {
     const activities = values(this.activityStore.getState());
 
     if (find(whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding } }), activities) !== undefined) return;

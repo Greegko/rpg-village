@@ -108,8 +108,9 @@ export function villageFactory({
   trainingField = chance.integer(),
   runeWorkshop = chance.integer(),
   portals = chance.integer(),
+  shop = { shopId: chance.string(), level: chance.integer() },
 }: Partial<VillageState> = {}): VillageState {
-  return { locationId, stash, houses, heroes, blacksmith, trainingField, runeWorkshop, portals };
+  return { locationId, stash, houses, heroes, blacksmith, trainingField, runeWorkshop, portals, shop };
 }
 
 export function partyFactory({

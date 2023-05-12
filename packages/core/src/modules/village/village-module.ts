@@ -4,11 +4,15 @@ import { BuildActivity, VillageHealActivity } from "./activities";
 import { VillageActivity, VillageConfig } from "./interfaces";
 import { VillageCommandHandler } from "./village-command-handler";
 import { VillageEventHandler } from "./village-event-handler";
+import { VillageShopService } from "./village-shop-service";
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
 
 export const villageModule: Module = {
-  activities: [{ name: VillageActivity.Heal, activity: VillageHealActivity }, { name: VillageActivity.Build, activity: BuildActivity }],
+  activities: [
+    { name: VillageActivity.Heal, activity: VillageHealActivity },
+    { name: VillageActivity.Build, activity: BuildActivity },
+  ],
   stores: [
     {
       scope: "village",
@@ -21,10 +25,11 @@ export const villageModule: Module = {
         runeWorkshop: 0,
         stash: { resource: { gold: 0, soul: 0 }, items: [] },
         locationId: undefined,
+        shop: undefined,
         heroes: [],
       },
     },
   ],
   defaultConfig: { [VillageConfig.DirectLootToVillage]: false },
-  provides: [VillageStashService, VillageEventHandler, VillageCommandHandler],
+  provides: [VillageStashService, VillageEventHandler, VillageCommandHandler, VillageShopService],
 };

@@ -1,23 +1,25 @@
 import { injectable } from "inversify";
 import { dec, evolve, inc } from "rambda";
 
-import { Activity, IActivityHandler } from "@modules/activity";
+import { EventSystem } from "@core/event";
 
+import { Activity, IActivityHandler } from "@modules/activity";
+import { ShopStore } from "@modules/shop";
+
+import { VillageBuilding, VillageEvent } from "../interfaces";
 import { VillageStore } from "../village-store";
 
 interface BuildState {
   progress: number;
 }
 
-export type VillageBuildings = "houses" | "blacksmith" | "portals" | "trainingField" | "runeWorkshop";
-
 interface BuildStartArgs {
-  targetBuilding: VillageBuildings;
+  targetBuilding: VillageBuilding;
 }
 
 @injectable()
 export class BuildActivity implements IActivityHandler<Activity<BuildState, BuildStartArgs>> {
-  constructor(private villageStore: VillageStore) {}
+  constructor(private villageStore: VillageStore, private shopStore: ShopStore, private eventSystem: EventSystem) {}
 
   start(): BuildState {
     return {
@@ -38,6 +40,31 @@ export class BuildActivity implements IActivityHandler<Activity<BuildState, Buil
   }
 
   resolve({ startArgs: { targetBuilding } }: Activity<BuildState, BuildStartArgs>) {
-    this.villageStore.update(targetBuilding, inc);
+    if (targetBuilding === "shop") {
+      this.villageStore.update(targetBuilding, shop => {
+        if (shop) {
+          return {
+            shopId: shop.shopId,
+            level: shop.level + 1,
+          };
+        }
+
+        return {
+          shopId: this.shopStore.add({ items: [] }).id,
+          level: 1,
+        };
+      });
+
+      this.eventSystem.fire(VillageEvent.BuildingBuilt, {
+        buildingType: targetBuilding,
+        level: this.villageStore.get(targetBuilding).level,
+      });
+    } else {
+      this.villageStore.update(targetBuilding, inc);
+      this.eventSystem.fire(VillageEvent.BuildingBuilt, {
+        buildingType: targetBuilding,
+        level: this.villageStore.get(targetBuilding),
+      });
+    }
   }
 }

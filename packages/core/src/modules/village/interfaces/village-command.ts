@@ -6,8 +6,10 @@ export enum VillageCommand {
   BuildTrainingField = "village/build-training-field",
   BuildRuneWorkshop = "village/build-rune-workshop",
   BuildPortalSummonerStone = "village/build-portal-summoner-stone",
+  BuildShop = "village/build-shop",
   HireHero = "village/hire-unit",
   HealParty = "village/heal",
+  GenerateShopItems = "village/generate-shop-items",
 }
 
 export interface VillageCommandHealPartyArgs {
@@ -21,7 +23,9 @@ declare module "@core/global-type/command-type" {
     [VillageCommand.BuildTrainingField]: undefined;
     [VillageCommand.BuildRuneWorkshop]: undefined;
     [VillageCommand.BuildPortalSummonerStone]: undefined;
+    [VillageCommand.BuildShop]: undefined;
     [VillageCommand.HireHero]: undefined;
     [VillageCommand.HealParty]: VillageCommandHealPartyArgs;
+    [VillageCommand.GenerateShopItems]: undefined;
   }
 }
