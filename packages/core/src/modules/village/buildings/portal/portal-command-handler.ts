@@ -1,13 +1,12 @@
 import { injectable } from "inversify";
-import { flatten } from "rambda";
 
 import { commandHandler } from "@core/command";
-import { withoutBy } from "@lib/without-by";
 
 import { EffectStatic } from "@models/effect";
 import { DungeonKey } from "@models/item";
 import { ActivityManager } from "@modules/activity";
 import { MapLocationType, MapService, MapSize } from "@modules/map";
+import { MapLocationStore } from "@modules/map/map-location-store";
 import { PartyService, PartyStore } from "@modules/party";
 import { PortalActivity, VillageStashService, VillageStore } from "@modules/village";
 
@@ -25,8 +24,9 @@ export class PortalCommandHandler {
     private villageStashService: VillageStashService,
     private partyStore: PartyStore,
     private villageStore: VillageStore,
-    private partyService: PartyService,
     private activityManager: ActivityManager,
+    private partyService: PartyService,
+    private mapLocationStore: MapLocationStore,
   ) {}
 
   @commandHandler(PortalCommand.EnterPortal)
@@ -41,20 +41,23 @@ export class PortalCommandHandler {
 
   @commandHandler(PortalCommand.LeavePortal)
   leavePartyInPortal(args: PortalCommandLeavePortalArgs) {
-    const map = this.mapService.getMapByLocation(args.portalLocationId);
     const party = this.partyStore.get(args.partyId);
+    if (party.locationId !== args.portalLocationId) return;
+
+    const map = this.mapService.getMapByLocation(args.portalLocationId);
+
     const villageLocationId = this.villageStore.getState().locationId;
 
-    const allPartiesInMap = flatten(
-      map.mapLocationIds.map(locationId => this.partyService.getPartiesOnLocation(locationId)),
-    );
+    this.partyStore.setLocation(args.partyId, villageLocationId);
 
-    const parties = withoutBy(allPartiesInMap, [party], x => x.id);
+    const bossMapLocation = map.mapLocationIds
+      .map(x => this.mapLocationStore.get(x))
+      .find(x => x.type === MapLocationType.Boss);
 
-    if (party.locationId === args.portalLocationId) {
-      this.partyStore.setLocation(args.partyId, villageLocationId);
+    if (bossMapLocation?.explored) {
+      const bossUnits = this.partyService.getPartiesOnLocation(bossMapLocation.id);
 
-      if (map.mapSize === map.mapLocationIds.length && parties.length === 1) {
+      if (bossUnits.length === 0) {
         this.activityManager.startActivity(PortalActivity.GatherResourceFromPortal, { resource: {} });
         this.mapService.removeMap(map.id);
       }

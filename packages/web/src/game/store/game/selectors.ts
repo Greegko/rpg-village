@@ -47,7 +47,7 @@ export const mapLocationsByMapLocationIdSelector = createSelector(
 );
 
 export const mapLocationsByMapIdSelector = createSelector(mapLocationsSelector, mapByMapIdSelector, (locations, map) =>
-  map.mapLocationIds.map((locationId: MapLocationID) => locations[locationId]),
+  map?.mapLocationIds.map((locationId: MapLocationID) => locations[locationId]),
 );
 
 export const mapByMapLocationIdSelector = createSelector(

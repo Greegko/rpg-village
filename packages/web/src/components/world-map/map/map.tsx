@@ -14,6 +14,8 @@ export const Map = ({ mapId }: MapProperties) => {
   const partiesOnLocations = useGameStateSelector(partiesGroupedOnLocationsSelector);
   const locations = useGameStateSelector(state => mapLocationsByMapIdSelector(state, mapId));
 
+  if (locations === undefined) return null;
+
   return (
     <>
       {map(
