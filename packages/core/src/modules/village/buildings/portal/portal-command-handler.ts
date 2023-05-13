@@ -58,7 +58,9 @@ export class PortalCommandHandler {
       const bossUnits = this.partyService.getPartiesOnLocation(bossMapLocation.id);
 
       if (bossUnits.length === 0) {
-        this.activityManager.startActivity(PortalActivity.GatherResourceFromPortal, { resource: {} });
+        this.activityManager.startActivity(PortalActivity.GatherResourceFromPortal, {
+          resource: { gold: map.mapLocationIds.length * 25 },
+        });
         this.mapService.removeMap(map.id);
       }
     }
