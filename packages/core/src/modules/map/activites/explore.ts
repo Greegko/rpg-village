@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
-import { IActivityHandler, PartyActivity } from "@modules/activity";
+import { IActivityHandlerCancelable, PartyActivity } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
 
 import { MapLocationStore } from "../map-location-store";
@@ -17,7 +17,7 @@ type ExploreStartArgs = {
 };
 
 @injectable()
-export class MapExploreActivity implements IActivityHandler<PartyActivity<ExploreState, ExploreStartArgs>> {
+export class MapExploreActivity implements IActivityHandlerCancelable<PartyActivity<ExploreState, ExploreStartArgs>> {
   constructor(
     private mapService: MapService,
     private mapLocationStore: MapLocationStore,
@@ -48,4 +48,10 @@ export class MapExploreActivity implements IActivityHandler<PartyActivity<Explor
   resolve({ state }: PartyActivity<ExploreState>) {
     this.mapService.exploreLocation(this.partyStore.get(state.partyId).locationId);
   }
+
+  isCancelable(activity: PartyActivity<ExploreState, ExploreStartArgs>): boolean {
+    return true;
+  }
+
+  onCancel(activity: PartyActivity<ExploreState, ExploreStartArgs>): void {}
 }

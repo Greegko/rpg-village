@@ -1,7 +1,7 @@
 import { keys } from "rambda";
 import { useDispatch } from "react-redux";
 
-import { BlacksmithCommand, ItemType, RuneWorkshopCommand, VillageCommand } from "@rpg-village/core";
+import { ActivityCommand, BlacksmithCommand, ItemType, RuneWorkshopCommand, VillageCommand } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
 import {
@@ -74,6 +74,9 @@ const Village = () => {
         {villageActivities.map(x => (
           <div>
             {x.name} - {(x.startArgs as any).targetBuilding} {(x.state as any).progress}
+            <a onClick={() => executeCommand({ command: ActivityCommand.CancelActivity, args: { activityId: x.id } })}>
+              [x]
+            </a>
           </div>
         ))}
       </div>

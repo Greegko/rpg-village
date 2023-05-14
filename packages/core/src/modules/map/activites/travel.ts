@@ -3,7 +3,7 @@ import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@core/event";
 
-import { IActivityHandler, PartyActivity } from "@modules/activity";
+import { IActivityHandlerCancelable, PartyActivity } from "@modules/activity";
 import { PartyEvent, PartyID, PartyStore } from "@modules/party";
 
 import { MapLocationID, MapLocationType } from "../interfaces";
@@ -22,7 +22,7 @@ type TravelStartArgs = {
 };
 
 @injectable()
-export class MapTravelActivity implements IActivityHandler<PartyActivity<TravelState, TravelStartArgs>> {
+export class MapTravelActivity implements IActivityHandlerCancelable<PartyActivity<TravelState, TravelStartArgs>> {
   constructor(
     private partyStore: PartyStore,
     private mapService: MapService,
@@ -64,4 +64,10 @@ export class MapTravelActivity implements IActivityHandler<PartyActivity<TravelS
       locationId: state.targetLocationId,
     });
   }
+
+  isCancelable(activity: PartyActivity<TravelState, TravelStartArgs>): boolean {
+    return true;
+  }
+
+  onCancel(activity: PartyActivity<TravelState, TravelStartArgs>): void {}
 }

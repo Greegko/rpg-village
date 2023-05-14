@@ -1,12 +1,14 @@
 import { inject, injectable } from "inversify";
 import { assoc, forEach, values } from "rambda";
 
+import { commandHandler } from "@core/command";
 import { GetActivityHandlerToken } from "@core/module/tokens";
 
 import { PartyStore } from "@modules/party";
 
 import { ActivityStore } from "./activity-store";
 import { Activity, ActivityType, GetActivityHandlerByName, PartyActivityStartArgs } from "./interfaces";
+import { ActivityCancelCommandArgs, ActivityCommand } from "./interfaces/activity-command";
 
 @injectable()
 export class ActivityManager {
@@ -55,6 +57,25 @@ export class ActivityManager {
 
   runActivites() {
     forEach(activity => this.executeActivity(activity), values(this.activityStore.getState()));
+  }
+
+  @commandHandler(ActivityCommand.CancelActivity)
+  cancelActivity(args: ActivityCancelCommandArgs) {
+    const activity = this.activityStore.get(args.activityId);
+
+    const activityHandler = this.getActivityHandler(activity.name);
+
+    if ("isCancelable" in activityHandler && activityHandler?.isCancelable(activity)) {
+      activityHandler.onCancel(activity);
+      this.activityStore.remove(args.activityId);
+      if (activity.type === ActivityType.Party) {
+        this.partyStore.update(activity.startArgs.partyId, { activityId: undefined });
+
+        if (activity.startArgs.involvedPartyId) {
+          this.partyStore.update(activity.startArgs.involvedPartyId, { activityId: undefined });
+        }
+      }
+    }
   }
 
   private executeActivity(activity: Activity) {

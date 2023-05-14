@@ -1,10 +1,12 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
-import { ActivityID, PartyID } from "@rpg-village/core";
+import { ActivityCommand, ActivityID, PartyID } from "@rpg-village/core";
 
+import { useGameExecuteCommand } from "@web/react-hooks";
 import {
   PartyActionType,
+  clearPartyAction,
   partyStateSelector,
   setAutoExplore,
   setPartyAction,
@@ -46,16 +48,15 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
   );
 
   const setActionExplore = useCallback(
-    (enable: boolean) => {
-      dispatch(setAutoExplore({ partyId: props.partyId, enable }));
-    },
+    (enable: boolean) => dispatch(setAutoExplore({ partyId: props.partyId, enable })),
     [props.partyId],
   );
 
   return (
     <div className="party">
       <div>Location: {party.locationId}</div>
-      <Activity activityId={party.activityId} />
+      {party.activityId && <Activity activityId={party.activityId} partyId={props.partyId} />}
+
       <br />
 
       <div className="party__actions">
@@ -114,10 +115,27 @@ const Action = ({ active, onClick, iconId }: { active: boolean; onClick: any; ic
   </span>
 );
 
-const Activity = ({ activityId }: { activityId?: ActivityID }) => {
-  if (!activityId) return null;
+interface ActivityProps {
+  activityId: ActivityID;
+  partyId: PartyID;
+}
+const Activity = ({ activityId, partyId }: ActivityProps) => {
+  const executeCommand = useGameExecuteCommand();
+  const dispatch = useDispatch();
+
+  const cancelAction = useCallback(() => {
+    executeCommand({ command: ActivityCommand.CancelActivity, args: { activityId: activity.id } });
+    dispatch(clearPartyAction({ partyId }));
+  }, [activityId]);
 
   const activity = useGameStateSelector(state => activityByIdSelector(state, activityId));
 
-  return <>Activity: {activity ? activity.name : "Idle"}</>;
+  if (!activity) return null;
+
+  return (
+    <div>
+      Activity: {activity.name}
+      <a onClick={cancelAction}>[x]</a>
+    </div>
+  );
 };

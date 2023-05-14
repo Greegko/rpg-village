@@ -3,7 +3,7 @@ import { dec, evolve, inc } from "rambda";
 
 import { EventSystem } from "@core/event";
 
-import { Activity, IActivityHandler } from "@modules/activity";
+import { Activity, IActivityHandlerCancelable } from "@modules/activity";
 import { ShopStore } from "@modules/shop";
 
 import { VillageBuilding, VillageEvent } from "../interfaces";
@@ -18,7 +18,7 @@ interface BuildStartArgs {
 }
 
 @injectable()
-export class BuildActivity implements IActivityHandler<Activity<BuildState, BuildStartArgs>> {
+export class BuildActivity implements IActivityHandlerCancelable<Activity<BuildState, BuildStartArgs>> {
   constructor(private villageStore: VillageStore, private shopStore: ShopStore, private eventSystem: EventSystem) {}
 
   start(): BuildState {
@@ -38,6 +38,12 @@ export class BuildActivity implements IActivityHandler<Activity<BuildState, Buil
   isDone({ state: { progress } }: Activity<BuildState, BuildStartArgs>): boolean {
     return progress === 0;
   }
+
+  isCancelable(activity: Activity<BuildState, BuildStartArgs>): boolean {
+    return true;
+  }
+
+  onCancel(activity: Activity<BuildState, BuildStartArgs>): void {}
 
   resolve({ startArgs: { targetBuilding } }: Activity<BuildState, BuildStartArgs>) {
     if (targetBuilding === "shop") {

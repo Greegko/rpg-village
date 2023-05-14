@@ -104,7 +104,7 @@ export const partyActivitiesSelector = createSelector(activitiesSelector, activi
   filter((activity: Activity) => activity.type === ActivityType.Party, activities),
 );
 
-export const noActiveActivityPartiesSelector = createSelector(partiesSelector, parties =>
+export const noActiveActivityPartiesSelector = createSelector(playerPartiesSelector, parties =>
   filter((party: Party) => party.activityId === undefined, parties),
 );
 

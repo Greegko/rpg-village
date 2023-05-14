@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { filter, forEach, map } from "rambda";
 
-import { IActivityHandler, PartyActivity } from "@modules/activity";
+import { IActivityHandlerCancelable, PartyActivity } from "@modules/activity";
 import { PartyID, PartyStore } from "@modules/party";
 import { UnitID, UnitService, UnitStore } from "@modules/unit";
 
@@ -16,7 +16,9 @@ type VillageHealStartArgs = {
 type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
-export class VillageHealActivity implements IActivityHandler<PartyActivity<VillageHealState, VillageHealStartArgs>> {
+export class VillageHealActivity
+  implements IActivityHandlerCancelable<PartyActivity<VillageHealState, VillageHealStartArgs>>
+{
   constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
 
   start({ partyId }: VillageHealStartArgs): VillageHealState {
@@ -42,6 +44,12 @@ export class VillageHealActivity implements IActivityHandler<PartyActivity<Villa
   }
 
   resolve() {}
+
+  isCancelable(activity: PartyActivity<VillageHealState, VillageHealStartArgs>): boolean {
+    return true;
+  }
+
+  onCancel(activity: PartyActivity<VillageHealState, VillageHealStartArgs>): void {}
 
   private getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyStore.get(partyId);
