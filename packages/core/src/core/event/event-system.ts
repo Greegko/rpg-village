@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { forEach } from "rambda";
 
-import { GetInjectionToken } from "@core/module/tokens";
+import { GetInjectionToken } from "@core";
 
 import { EventType } from "./event-type";
 

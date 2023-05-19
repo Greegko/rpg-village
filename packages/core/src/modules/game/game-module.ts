@@ -1,6 +1,4 @@
-import { CommandSystem } from "@core/command";
-import { EventSystem } from "@core/event";
-import { Module } from "@core/module";
+import { CommandSystem, EventSystem, Module } from "@core";
 
 import { GameCommandHandler } from "./game-command-handler";
 import { GameService } from "./game-service";

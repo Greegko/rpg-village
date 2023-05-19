@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { ShopCommandHandler } from "./shop-command-handler";
 import { ShopStore } from "./shop-store";

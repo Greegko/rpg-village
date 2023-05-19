@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
-import { EventSystem } from "@core/event";
+import { EventSystem } from "@core";
 
 import { IActivityHandlerCancelable, PartyActivity } from "@modules/activity";
 import { PartyEvent, PartyID, PartyStore } from "@modules/party";

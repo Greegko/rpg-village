@@ -1,6 +1,6 @@
 import "@core-types";
 
-import "@modules/public-api";
+import "@modules";
 
 export * from "./game-config";
 export * from "./create-game-instance";

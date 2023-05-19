@@ -1,4 +1,4 @@
-import { calculateUnitStatsWithEffects } from "@models/effect";
+import { calculateUnitStatsWithEffects } from "@models";
 import { Unit } from "@modules/unit";
 
 export function calculateUnitStrength(unit: Unit): number {

@@ -3,11 +3,9 @@ import { always, times } from "rambda";
 import { evolve } from "rambda";
 import * as shortid from "shortid";
 
-import { commandHandler } from "@core/command";
-import { eventHandler } from "@core/event";
+import { commandHandler, eventHandler } from "@core";
 
-import { AttackEffectType, EffectType } from "@models/effect";
-import { ItemType, Weapon } from "@models/item";
+import { AttackEffectType, EffectType, ItemType, Weapon } from "@models";
 import { ShopItem, ShopStore } from "@modules/shop";
 
 import { VillageCommand, VillageEvent, VillageEventBuildingBuiltArgs } from "./interfaces";

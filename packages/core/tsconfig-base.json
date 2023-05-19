@@ -1,30 +1,24 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "target": "esnext",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "removeComments": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
     "noUnusedLocals": true,
-    "declarationMap": true,
     "strict": true,
-    "declaration": true,
-    "outDir": "dist/",
+    "rootDir": "./src",
+    "experimentalDecorators": true,
     "paths": {
-      "@core/*": ["./src/core/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@game/*": ["./src/game/*"],
+      "@core": ["./src/core"],
+      "@game": ["./src/game"],
       "@core-types": ["./src/types"],
-      "@models/*": ["./src/models/*"],
+      "@models": ["./src/models"],
+      "@modules": ["./src/modules"],
       "@modules/*": ["./src/modules/*"],
-      "@features/*": ["./src/features/*"]
-    },
-    "plugins": [
-      { "transform": "typescript-transform-paths" },
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ]
+      "@features": ["./src/features"],
+      "@features/*": ["./src/features/*"],
+      "@lib/*": ["./src/lib/*"]
+    }
   }
 }

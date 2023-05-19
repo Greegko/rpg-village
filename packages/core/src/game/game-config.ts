@@ -1,4 +1,4 @@
-import { ModuleConfig } from "@core/module";
+import { ModuleConfig } from "@core";
 
 export interface GameConfig {
   config?: ModuleConfig;

@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { BlacksmithCommandHandler } from "./blacksmith";
 import { GatherResourceFromPortalActivity, PortalActivity, PortalCommandHandler } from "./portal";

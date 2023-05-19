@@ -1,8 +1,6 @@
-import "@core/game-state";
-
 import { GeneralGameStoreState } from "../interfaces";
 
-declare module "@core/game-state" {
+declare module "@core" {
   export interface GameState {
     general: GeneralGameStoreState;
   }

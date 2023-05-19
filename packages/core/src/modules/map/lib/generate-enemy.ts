@@ -1,4 +1,4 @@
-import { EffectStatic, MiscEffectType, calculateEffectsValue } from "@models/effect";
+import { EffectStatic, MiscEffectType, calculateEffectsValue } from "@models";
 import { PartyStash } from "@modules/party";
 import { Unit, UnitType } from "@modules/unit";
 

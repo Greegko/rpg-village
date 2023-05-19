@@ -1,8 +1,6 @@
 import { injectable } from "inversify";
 
-import { Command, CommandSystem } from "@core/command";
-import { Event, EventSystem } from "@core/event";
-import { GameState } from "@core/game-state";
+import { Command, CommandSystem, Event, EventSystem, GameState } from "@core";
 
 import { GameCommand, GameStore } from "@modules/game";
 

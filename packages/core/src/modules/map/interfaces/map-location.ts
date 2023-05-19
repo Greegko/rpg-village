@@ -4,7 +4,7 @@ export enum MapLocationType {
   Village,
   Field,
   Portal,
-  Boss
+  Boss,
 }
 
 export type MapLocation = {

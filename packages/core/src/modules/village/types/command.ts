@@ -1,8 +1,6 @@
-import "@core/command";
-
 import { VillageCommand, VillageCommandHealPartyArgs } from "../interfaces";
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [VillageCommand.BuildHouse]: undefined;
     [VillageCommand.BuildBlacksmith]: undefined;

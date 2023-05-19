@@ -1,4 +1,4 @@
-import { ItemID, ItemType } from "@models/item";
+import { ItemID, ItemType } from "@models";
 import { StashLocation, UnitID } from "@modules/unit";
 
 export enum BlacksmithCommand {
@@ -25,7 +25,7 @@ export interface BlacksmithCommandCreateItemArgs {
   itemType: ItemType;
 }
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [BlacksmithCommand.UpgradeItem]: BlacksmithCommandUpgradeItemArgs;
     [BlacksmithCommand.CreateItem]: BlacksmithCommandCreateItemArgs;

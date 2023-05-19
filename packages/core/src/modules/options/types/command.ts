@@ -1,8 +1,6 @@
-import "@core/command";
-
 import { ChooseOptionCommandArgs, OptionCommand } from "../interfaces";
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [OptionCommand.ChooseOption]: ChooseOptionCommandArgs;
   }

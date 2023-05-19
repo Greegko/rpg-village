@@ -1,4 +1,4 @@
-import { EquipmentSlot, Item, ItemType } from "@models/item";
+import { EquipmentSlot, Item, ItemType } from "@models";
 
 export function getEquipmentSlot(item: Item): EquipmentSlot | null {
   switch (item.itemType) {

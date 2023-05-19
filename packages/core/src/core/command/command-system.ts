@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 
-import { GetInjectionToken } from "@core/module/tokens";
+import { GetInjectionToken } from "@core";
 
 import { CommandType } from "./command-type";
 

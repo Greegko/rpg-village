@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
 import { ActivityManager } from "@modules/activity";
 import { BattleActivityType } from "@modules/battle";

@@ -1,8 +1,6 @@
-import "@core/game-state";
-
 import { Map, MapID, MapLocation, MapLocationID } from "../interfaces";
 
-declare module "@core/game-state" {
+declare module "@core" {
   export interface GameState {
     maps: Record<MapID, Map>;
     mapLocations: Record<MapLocationID, MapLocation>;

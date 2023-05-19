@@ -1,5 +1,4 @@
-import { Item } from "@models/item";
-import { Resource } from "@models/resource";
+import { Item, Resource } from "@models";
 
 export type ShopID = string;
 export type ShopItemID = string;

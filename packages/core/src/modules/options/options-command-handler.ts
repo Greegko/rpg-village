@@ -1,10 +1,10 @@
 import { injectable } from "inversify";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
 import { VillageStashService } from "@modules/village";
 
-import { ChooseOptionCommandArgs, OptionCommand } from "./interfaces/options-command";
+import { ChooseOptionCommandArgs, OptionCommand } from "./interfaces";
 import { OptionStore } from "./options-store";
 
 @injectable()

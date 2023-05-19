@@ -1,4 +1,4 @@
-import { ItemStash, ResourceStash } from "@models/stash";
+import { ItemStash, ResourceStash } from "@models";
 import { MapLocationID } from "@modules/map";
 import { ShopID } from "@modules/shop";
 import { UnitID } from "@modules/unit";

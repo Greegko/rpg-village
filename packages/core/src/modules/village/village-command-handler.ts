@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import { append, find, head, values, whereEq } from "rambda";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
-import { Resource } from "@models/resource";
+import { Resource } from "@models";
 import { ActivityManager, ActivityStore } from "@modules/activity";
 import { GameCommand, GeneralGameStore } from "@modules/game";
 import { MapLocationType, MapService, MapSize } from "@modules/map";

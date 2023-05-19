@@ -1,7 +1,7 @@
-import { ItemStash, ResourceStash } from "@models/stash";
+import { ItemStash, ResourceStash } from "@models";
 import { ActivityID } from "@modules/activity";
-import { MapLocationID } from "@modules/map/interfaces";
-import { UnitID } from "@modules/unit/interfaces";
+import { MapLocationID } from "@modules/map";
+import { UnitID } from "@modules/unit";
 
 import { PartyOwner } from "./party-owner";
 

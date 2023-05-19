@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import { add, evolve } from "rambda";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
-import { Rune } from "@models/item";
+import { Rune } from "@models";
 import { VillageStashService } from "@modules/village";
 
 import { DismantleRuneCommandArgs, EmpowerRuneCommandArgs, RuneWorkshopCommand } from "./rune-workshop-command";

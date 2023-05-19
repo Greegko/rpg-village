@@ -1,10 +1,10 @@
 import { injectable } from "inversify";
 import { append, evolve } from "rambda";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
-import { AttackEffectType, Effect, EffectType } from "@models/effect";
-import { EquipmentItem, Item, ItemID, ItemType } from "@models/item";
+import { AttackEffectType, Effect, EffectType } from "@models";
+import { EquipmentItem, Item, ItemID, ItemType } from "@models";
 import { StashLocation, UnitID, UnitService } from "@modules/unit";
 import { VillageStashService } from "@modules/village";
 import { armorFactory, shieldFactory, weaponFactory } from "@modules/village/lib/equipment-factory";

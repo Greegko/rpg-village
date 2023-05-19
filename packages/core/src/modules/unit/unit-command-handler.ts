@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
-import { isEquipmentItem } from "@models/item";
+import { isEquipmentItem } from "@models";
 import { VillageStashService } from "@modules/village";
 
 import { StashLocation, UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "./interfaces";

@@ -1,6 +1,6 @@
 import { ModulActivity } from "../interfaces";
 
-declare module "@core/module" {
+declare module "@core" {
   export interface Module {
     activities?: ModulActivity[];
   }

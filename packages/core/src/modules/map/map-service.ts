@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import { append, evolve, find, values } from "rambda";
 
-import { EventSystem } from "@core/event";
+import { EventSystem } from "@core";
 
-import { EffectStatic } from "@models/effect";
+import { EffectStatic } from "@models";
 
 import { Turn } from "../game";
 import { Map, MapEvent, MapID, MapLocation, MapLocationID, MapLocationType, MapSize } from "./interfaces";

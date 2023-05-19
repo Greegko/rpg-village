@@ -1,4 +1,4 @@
-import { ItemID } from "@models/item";
+import { ItemID } from "@models";
 
 export enum RuneWorkshopCommand {
   CreateRune = "rune-workshop/create-rune",
@@ -16,7 +16,7 @@ export interface DismantleRuneCommandArgs {
   runeId: ItemID;
 }
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [RuneWorkshopCommand.CreateRune]: undefined;
     [RuneWorkshopCommand.ForgeDungeonKey]: undefined;

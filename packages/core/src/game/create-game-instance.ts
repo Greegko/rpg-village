@@ -1,14 +1,15 @@
 import { Container, interfaces } from "inversify";
 import { forEach } from "rambda";
 
-import { ModuleConfig, applyModule } from "@core/module";
 import {
   ActivityHandlersToken,
   GetActivityHandlerToken,
   GetInjectionToken,
+  ModuleConfig,
   ModuleConfigToken,
   ModuleDefaultConfigToken,
-} from "@core/module/tokens";
+  applyModule,
+} from "@core";
 
 import { GameInstance } from "@modules/game";
 import * as modules from "@modules/modules";

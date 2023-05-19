@@ -1,6 +1,4 @@
-import { Command } from "@core/command";
-import { Event } from "@core/event";
-import { GameState } from "@core/game-state";
+import { Command, Event, GameState } from "@core";
 
 export interface GameInstance {
   gameTurn(): GameState;

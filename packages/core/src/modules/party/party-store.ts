@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { assoc } from "rambda";
 
-import { EntityStore } from "@core/store";
+import { EntityStore } from "@core";
 
 import { ActivityID } from "@modules/activity";
 import { MapLocationID } from "@modules/map";

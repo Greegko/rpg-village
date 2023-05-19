@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 
-import { eventHandler } from "@core/event";
+import { eventHandler } from "@core";
 
-import { EffectStatic } from "@models/effect";
+import { EffectStatic } from "@models";
 import { PartyOwner, PartyService } from "@modules/party";
 import { UnitStore } from "@modules/unit";
 

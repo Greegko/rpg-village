@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { UnitCommandHandler } from "./unit-command-handler";
 import { UnitService } from "./unit-service";

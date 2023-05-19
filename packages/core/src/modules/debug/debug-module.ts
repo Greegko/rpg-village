@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { DebugCommandHandler } from "./debug-command-handler";
 

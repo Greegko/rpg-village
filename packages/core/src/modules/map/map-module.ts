@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { MapExploreActivity, MapTravelActivity } from "./activites";
 import { MapActivity } from "./interfaces";

@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { OptionCommandHandler } from "./options-command-handler";
 import { OptionStore } from "./options-store";

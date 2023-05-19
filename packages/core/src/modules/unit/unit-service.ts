@@ -1,8 +1,7 @@
 import { injectable } from "inversify";
 import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "rambda";
 
-import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID } from "@models/item";
-import { addItems, getItem, removeItem } from "@models/stash";
+import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID, addItems, getItem, removeItem } from "@models";
 
 import { UnitID, UnitStash } from "./interfaces";
 import { nextLevelXp } from "./lib/next-level-xp";

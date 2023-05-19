@@ -1,4 +1,4 @@
-import { Loot } from "@models/loot";
+import { Loot } from "@models";
 import { Unit } from "@modules/unit";
 
 export function calculateLoot(units: Unit[]): Loot {

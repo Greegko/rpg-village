@@ -1,8 +1,7 @@
 import { inject, injectable } from "inversify";
 import { assoc, forEach, values } from "rambda";
 
-import { commandHandler } from "@core/command";
-import { GetActivityHandlerToken } from "@core/module/tokens";
+import { GetActivityHandlerToken, commandHandler } from "@core";
 
 import { PartyStore } from "@modules/party";
 

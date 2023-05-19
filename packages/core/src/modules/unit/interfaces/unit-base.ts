@@ -1,6 +1,4 @@
-import { ItemStash, ResourceStash } from "@models//stash";
-import { EffectStatic } from "@models/effect";
-import { Equipment } from "@models/item";
+import { EffectStatic, Equipment, ItemStash, ResourceStash } from "@models";
 
 export type UnitID = string;
 export enum UnitType {

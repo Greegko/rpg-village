@@ -1,6 +1,6 @@
-import "@models/resource";
+import "@models";
 
-declare module "@models/resource" {
+declare module "@models" {
   export interface Resource {
     soul?: number;
   }

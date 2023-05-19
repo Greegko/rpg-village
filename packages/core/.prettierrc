@@ -2,7 +2,13 @@
   "trailingComma": "all",
   "printWidth": 120,
   "arrowParens": "avoid",
-  "importOrder": ["<THIRD_PARTY_MODULES>", "^@(core|lib)/", "^@(modules|models)/", "public-api$", "^[./]"],
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@(core|lib|game)/?",
+    "^@(modules|models|features)/?",
+    "public-api$",
+    "^[./]"
+  ],
   "importOrderSeparation": true,
   "importOrderParserPlugins": ["typescript", "decorators-legacy"],
   "importOrderSortSpecifiers": true

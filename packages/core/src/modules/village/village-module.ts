@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { BuildActivity, VillageHealActivity } from "./activities";
 import { VillageActivity, VillageConfig } from "./interfaces";

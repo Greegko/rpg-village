@@ -1,7 +1,7 @@
 import { generate } from "shortid";
 
-import { EffectType, RuneAttackEffectType } from "@models/effect";
-import { ItemType, Rune } from "@models/item";
+import { EffectType, RuneAttackEffectType } from "@models";
+import { ItemType, Rune } from "@models";
 
 export function createRune(): Rune {
   return {

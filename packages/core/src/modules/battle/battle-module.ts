@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { BattleActivity } from "./battle-activity";
 import { BattleService } from "./battle-service";

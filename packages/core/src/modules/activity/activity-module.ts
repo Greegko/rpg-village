@@ -1,4 +1,4 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 import { ActivityManager } from "./activity-manager";
 import { ActivityStore } from "./activity-store";

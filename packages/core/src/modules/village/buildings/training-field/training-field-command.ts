@@ -8,7 +8,7 @@ export interface TrainingFieldCommandArgs {
   partyId: PartyID;
 }
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [TrainingFieldCommand.Train]: TrainingFieldCommandArgs;
   }

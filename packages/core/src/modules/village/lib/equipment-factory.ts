@@ -1,7 +1,7 @@
 import { generate } from "shortid";
 
-import { AttackEffectType, DefenseEffectType, EffectType } from "@models/effect";
-import { Armor, ItemType, Shield, Weapon } from "@models/item";
+import { AttackEffectType, DefenseEffectType, EffectType } from "@models";
+import { Armor, ItemType, Shield, Weapon } from "@models";
 
 export function weaponFactory(): Weapon {
   return {

@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 
-import { eventHandler } from "@core/event";
+import { eventHandler } from "@core";
 
 import { PartyEvent, PartyEventArrivedToLocationArgs, PartyID, PartyService } from "@modules/party";
 

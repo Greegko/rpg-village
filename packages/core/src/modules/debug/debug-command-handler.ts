@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
 import { VillageStashService } from "@modules/village";
 

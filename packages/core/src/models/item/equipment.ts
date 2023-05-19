@@ -4,7 +4,7 @@ export enum EquipmentSlot {
   Torso = "torso",
   LeftHand = "leftHand",
   RightHand = "rightHand",
-  Rune = 'rune'
+  Rune = "rune",
 }
 
 export interface Equipment {
@@ -17,7 +17,12 @@ export interface Equipment {
 export type EquipmentItem = Armor | Weapon | Shield | Rune;
 
 export function isEquipmentItem(val: any): val is EquipmentItem {
-  if (val.itemType === ItemType.Armor || val.itemType === ItemType.Shield || val.itemType === ItemType.Weapon || val.itemType === ItemType.Rune)
+  if (
+    val.itemType === ItemType.Armor ||
+    val.itemType === ItemType.Shield ||
+    val.itemType === ItemType.Weapon ||
+    val.itemType === ItemType.Rune
+  )
     return true;
 
   return false;

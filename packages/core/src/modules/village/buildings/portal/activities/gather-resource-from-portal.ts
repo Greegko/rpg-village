@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
-import { Resource } from "@models/resource";
+import { Resource } from "@models";
 import { Activity, IActivityHandler } from "@modules/activity";
 
 import { VillageStashService } from "../../../village-stash-service";

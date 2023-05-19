@@ -1,3 +1,3 @@
-import { Module } from "@core/module";
+import { Module } from "@core";
 
 export const soulModule: Module = {};

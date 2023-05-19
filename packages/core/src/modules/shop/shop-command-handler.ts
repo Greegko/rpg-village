@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 import { updateValueInList } from "@lib/update-value-in-list";
 
 import { VillageStashService } from "@modules/village";

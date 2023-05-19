@@ -1,4 +1,4 @@
-import { ItemID } from "@models/item";
+import { ItemID } from "@models";
 
 import { OptionID } from "./options-store";
 

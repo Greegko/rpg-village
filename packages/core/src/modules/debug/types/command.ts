@@ -1,8 +1,6 @@
-import "@core/command";
-
 import { AddItemArgs, AddSoulArgs, DebugCommand, GenerateGoldArgs } from "../interfaces";
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [DebugCommand.AddSoul]: AddSoulArgs;
     [DebugCommand.GenerateGold]: GenerateGoldArgs;

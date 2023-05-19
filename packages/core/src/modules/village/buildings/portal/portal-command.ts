@@ -1,4 +1,4 @@
-import { ItemID } from "@models/item";
+import { ItemID } from "@models";
 import { MapLocationID } from "@modules/map";
 import { PartyID } from "@modules/party";
 
@@ -22,7 +22,7 @@ export interface PortalCommandLeavePortalArgs {
   portalLocationId: MapLocationID;
 }
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [PortalCommand.OpenPortal]: PortalCommandOpenPortalArgs;
     [PortalCommand.EnterPortal]: PortalCommandEnterPortalArgs;

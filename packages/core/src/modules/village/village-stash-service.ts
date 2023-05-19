@@ -1,9 +1,8 @@
 import { injectable } from "inversify";
 import { always, evolve, map, propEq, when } from "rambda";
 
-import { Item, ItemID } from "@models/item";
-import { Resource } from "@models/resource";
-import { addItems, addResource, getItem, getResource, removeItem, removeResource } from "@models/stash";
+import { Item, ItemID, Resource } from "@models";
+import { addItems, addResource, getItem, getResource, removeItem, removeResource } from "@models";
 
 import { VillageStore } from "./village-store";
 

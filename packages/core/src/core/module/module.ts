@@ -1,5 +1,4 @@
-import { ModuleConfig } from "@core/module";
-import { IStore } from "@core/store";
+import { IStore, ModuleConfig } from "@core";
 
 export interface ProvideClass {
   new (...args: any[]): any;

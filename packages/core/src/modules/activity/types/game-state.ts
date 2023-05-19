@@ -1,8 +1,6 @@
-import "@core/game-state";
-
 import { Activity, ActivityID } from "../interfaces";
 
-declare module "@core/game-state" {
+declare module "@core" {
   export interface GameState {
     activities: Record<ActivityID, Activity>;
   }

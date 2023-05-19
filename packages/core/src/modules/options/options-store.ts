@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 
-import { EntityStore } from "@core/store";
+import { EntityStore } from "@core";
 
 import { OptionID, OptionState } from "./interfaces/options-store";
 

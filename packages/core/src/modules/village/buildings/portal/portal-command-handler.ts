@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 
-import { commandHandler } from "@core/command";
+import { commandHandler } from "@core";
 
-import { EffectStatic } from "@models/effect";
-import { DungeonKey } from "@models/item";
+import { EffectStatic } from "@models";
+import { DungeonKey } from "@models";
 import { ActivityManager } from "@modules/activity";
 import { MapLocationType, MapService, MapSize } from "@modules/map";
 import { MapLocationStore } from "@modules/map/map-location-store";

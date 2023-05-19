@@ -1,8 +1,6 @@
-import "@core/command";
-
 import { UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "../interfaces";
 
-declare module "@core/command" {
+declare module "@core" {
   export interface CommandType {
     [UnitCommand.EquipItem]: UnitCommandEquipItemArgs;
     [UnitCommand.UnequipItem]: UnitCommandUnequipItemArgs;

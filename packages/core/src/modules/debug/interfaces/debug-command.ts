@@ -1,4 +1,4 @@
-import { Item } from "@models/item";
+import { Item } from "@models";
 
 export enum DebugCommand {
   GenerateGold = "debug/generate-gold",
