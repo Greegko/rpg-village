@@ -11,7 +11,7 @@ export type PartyEventArrivedToLocationArgs = {
   locationId: MapLocationID;
 };
 
-declare module "@core/global-type/event-type" {
+declare module "@core/event" {
   export interface EventType {
     [PartyEvent.ArrivedToLocation]: PartyEventArrivedToLocationArgs;
   }

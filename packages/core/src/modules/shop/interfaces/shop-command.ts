@@ -11,7 +11,7 @@ export interface BuyItemCommandArgs {
   shopId: ShopID;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [ShopCommand.BuyItem]: BuyItemCommandArgs;
   }

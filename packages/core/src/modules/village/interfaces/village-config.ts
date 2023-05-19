@@ -2,7 +2,7 @@ export enum VillageConfig {
   DirectLootToVillage = "village/direct-loot-to-village",
 }
 
-declare module "@core/global-type/module-config" {
+declare module "@core/module" {
   interface ModuleConfig {
     [VillageConfig.DirectLootToVillage]: boolean;
   }

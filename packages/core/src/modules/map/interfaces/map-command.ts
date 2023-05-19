@@ -21,7 +21,7 @@ export interface MapCommandTravelArgs {
   targetLocationId: MapLocationID;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [MapCommand.Explore]: MapCommandExploreArgs;
     [MapCommand.Travel]: MapCommandTravelArgs;

@@ -16,7 +16,7 @@ export interface VillageCommandHealPartyArgs {
   partyId: PartyID;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [VillageCommand.BuildHouse]: undefined;
     [VillageCommand.BuildBlacksmith]: undefined;

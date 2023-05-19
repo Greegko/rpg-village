@@ -9,7 +9,7 @@ export type VillageEventBuildingBuiltArgs = {
   level: number;
 };
 
-declare module "@core/global-type/event-type" {
+declare module "@core/event" {
   export interface EventType {
     [VillageEvent.BuildingBuilt]: VillageEventBuildingBuiltArgs;
   }

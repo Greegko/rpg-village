@@ -1,8 +1,7 @@
 import { inject, injectable } from "inversify";
 import { complement, prop } from "rambda";
 
-import { ModuleConfig } from "@core/global-type";
-import { ModuleConfigToken } from "@core/module/tokens";
+import { ModuleConfig, ModuleConfigToken } from "@core/module";
 
 import { IActivityHandler, PartyActivity } from "@modules/activity";
 import { PartyID, PartyService } from "@modules/party";

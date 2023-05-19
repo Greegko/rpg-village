@@ -25,7 +25,7 @@ export interface BlacksmithCommandCreateItemArgs {
   itemType: ItemType;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [BlacksmithCommand.UpgradeItem]: BlacksmithCommandUpgradeItemArgs;
     [BlacksmithCommand.CreateItem]: BlacksmithCommandCreateItemArgs;

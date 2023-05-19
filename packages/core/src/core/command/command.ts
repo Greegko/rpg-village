@@ -1,4 +1,4 @@
-import { CommandType } from "../global-type/command-type";
+import { CommandType } from "./command-type";
 
 type CommandBase<T extends keyof CommandType> = T extends string
   ? CommandType[T] extends undefined

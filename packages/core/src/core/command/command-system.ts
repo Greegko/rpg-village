@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 
 import { GetInjectionToken } from "@core/module/tokens";
 
-import { CommandType } from "../global-type/command-type";
+import { CommandType } from "./command-type";
 
 interface CommandHandlerDecoratorSubscription {
   command: any;

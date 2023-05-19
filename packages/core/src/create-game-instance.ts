@@ -1,8 +1,7 @@
 import { Container, interfaces } from "inversify";
 import { forEach } from "rambda";
 
-import { ModuleConfig } from "@core/global-type";
-import { applyModule } from "@core/module";
+import { ModuleConfig, applyModule } from "@core/module";
 import {
   ActivityHandlersToken,
   GetActivityHandlerToken,

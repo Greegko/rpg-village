@@ -7,7 +7,7 @@ export enum MapEvent {
 
 export type MapEventNewLocationArgs = { mapId: MapID; locationId: MapLocationID };
 
-declare module "@core/global-type/event-type" {
+declare module "@core/event" {
   export interface EventType {
     [MapEvent.NewLocation]: MapEventNewLocationArgs;
   }

@@ -1,5 +1,5 @@
-import { CommandType } from "../global-type/command-type";
 import { CommandSystem } from "./command-system";
+import { CommandType } from "./command-type";
 
 export function commandHandler(commandType: keyof CommandType) {
   return (targetClass: any, handlerFunctionName: string) => {

@@ -3,7 +3,7 @@ import { forEach } from "rambda";
 
 import { GetInjectionToken } from "@core/module/tokens";
 
-import { EventType } from "../global-type/event-type";
+import { EventType } from "./event-type";
 
 interface EventHandlerDecoratorSubscription {
   event: any;

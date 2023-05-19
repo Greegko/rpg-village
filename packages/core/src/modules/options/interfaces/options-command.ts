@@ -11,7 +11,7 @@ export interface ChooseOptionCommandArgs {
   optionItemId: ItemID;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [OptionCommand.ChooseOption]: ChooseOptionCommandArgs;
   }

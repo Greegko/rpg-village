@@ -16,7 +16,7 @@ export interface DismantleRuneCommandArgs {
   runeId: ItemID;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [RuneWorkshopCommand.CreateRune]: undefined;
     [RuneWorkshopCommand.ForgeDungeonKey]: undefined;

@@ -1,4 +1,4 @@
-import { EventType } from "../global-type/event-type";
+import { EventType } from "./event-type";
 
 type EventBase<T extends keyof EventType> = T extends string
   ? EventType[T] extends undefined

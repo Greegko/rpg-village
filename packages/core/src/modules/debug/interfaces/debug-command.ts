@@ -18,7 +18,7 @@ export interface AddSoulArgs {
   soul: number;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [DebugCommand.AddSoul]: AddSoulArgs;
     [DebugCommand.GenerateGold]: GenerateGoldArgs;

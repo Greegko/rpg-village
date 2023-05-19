@@ -1,4 +1,4 @@
-import { ModuleConfig } from "@core/global-type";
+import { ModuleConfig } from "@core/module";
 import { IStore } from "@core/store";
 
 import { Activity, IActivityHandler } from "@modules/activity";

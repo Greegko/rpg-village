@@ -8,7 +8,7 @@ export interface ActivityCancelCommandArgs {
   activityId: ActivityID;
 }
 
-declare module "@core/global-type/command-type" {
+declare module "@core/command" {
   interface CommandType {
     [ActivityCommand.CancelActivity]: ActivityCancelCommandArgs;
   }
