@@ -1,8 +1,7 @@
 import { inject, injectable } from "inversify";
 import { forEach } from "rambda";
 
-import { GetInjectionToken } from "@core";
-
+import { GetInjectionToken } from "../module";
 import { EventType } from "./event-type";
 
 interface EventHandlerDecoratorSubscription {

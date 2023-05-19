@@ -1,7 +1,6 @@
 import { inject, injectable } from "inversify";
 
-import { GetInjectionToken } from "@core";
-
+import { GetInjectionToken } from "../module";
 import { CommandType } from "./command-type";
 
 interface CommandHandlerDecoratorSubscription {
