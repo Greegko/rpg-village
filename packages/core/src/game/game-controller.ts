@@ -31,7 +31,10 @@ export class GameController {
     return this.gameStore.getState();
   }
 
-  /** For Internal Test Helper Interface */
+  /**
+   * Interface to test events
+   * @internal
+   */
   emitEvent(event: Event) {
     this.eventSystem.fire(event.event, event.args);
   }
