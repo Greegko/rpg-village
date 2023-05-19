@@ -1,4 +1,7 @@
 {
   "extends": "../../tsconfig-base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/public-api"
+  },
   "include": ["**/*.ts"]
 }

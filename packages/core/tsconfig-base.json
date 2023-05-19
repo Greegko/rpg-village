@@ -8,24 +8,23 @@
     "removeComments": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noUnusedParameters": true,
     "noUnusedLocals": true,
     "declarationMap": true,
     "strict": true,
     "declaration": true,
     "outDir": "dist/",
     "paths": {
+      "@core/*": ["./src/core/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@game/*": ["./src/game/*"],
+      "@core-types": ["./src/types"],
       "@models/*": ["./src/models/*"],
       "@modules/*": ["./src/modules/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@core/*": ["./src/core/*"],
       "@features/*": ["./src/features/*"]
     },
     "plugins": [
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
-  },
-  "include": ["src/**/*.ts", "types/*.d.ts"],
-  "exclude": ["src/**/*.d.ts"]
+  }
 }

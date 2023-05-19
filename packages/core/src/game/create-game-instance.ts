@@ -11,10 +11,10 @@ import {
 } from "@core/module/tokens";
 
 import { GameInstance, GameState } from "@modules/game";
+import * as modules from "@modules/modules";
 
+import { GameController } from "../modules/game/game-controller";
 import { GameConfig } from "./game-config";
-import { GameController } from "./modules/game/game-controller";
-import * as modules from "./modules/modules";
 
 export type CreateGameInstance<S extends GameState> = (config?: GameConfig) => GameInstance<S>;
 

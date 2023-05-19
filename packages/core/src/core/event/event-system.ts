@@ -23,17 +23,20 @@ export class EventSystem {
     EventSystem.eventHandlerDecorators!.forEach(handler => {
       const instance = this.getInjector(handler.targetClass.constructor) as any;
 
+      // @ts-ignore
       this.on(handler.event, (args: any) => instance[handler.handlerFunctionName](args));
     });
   }
 
   on<T extends keyof EventType>(eventType: T, eventHandlerFunction: (args?: EventType[T]) => void): void {
+    // @ts-ignore
     if (!this.subscribers[eventType]) this.subscribers[eventType] = [];
 
     this.subscribers[eventType]!.push(eventHandlerFunction);
   }
 
   fire<T extends keyof EventType>(eventType: T, args?: EventType[T]): void {
+    // @ts-ignore
     forEach(callback => callback(args), this.subscribers[eventType] || []);
   }
 }

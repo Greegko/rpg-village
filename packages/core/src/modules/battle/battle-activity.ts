@@ -6,8 +6,7 @@ import { ModuleConfig, ModuleConfigToken } from "@core/module";
 import { IActivityHandler, PartyActivity } from "@modules/activity";
 import { PartyID, PartyService } from "@modules/party";
 import { isAlive } from "@modules/unit";
-import { VillageStashService } from "@modules/village";
-import { VillageConfig } from "@modules/village/interfaces/village-config";
+import { VillageConfig, VillageStashService } from "@modules/village";
 
 import { BattleService } from "./battle-service";
 import { BattleID } from "./interfaces";

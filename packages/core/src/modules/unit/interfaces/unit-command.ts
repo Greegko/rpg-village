@@ -1,3 +1,5 @@
+import "@core/command";
+
 import { ItemID } from "@models/item";
 
 import { UnitID } from "../interfaces";

@@ -1,3 +1,5 @@
+import "@core-types";
+
 export * from "./game";
 export * from "./activity";
 export * from "./battle";

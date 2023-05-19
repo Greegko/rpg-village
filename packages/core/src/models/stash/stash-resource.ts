@@ -1,5 +1,4 @@
-import { add, evolve, mergeWith, prop } from "rambda";
-import { subtract } from "rambda";
+import { add, evolve, mergeWith, prop, subtract } from "rambda";
 
 import { Resource } from "../resource";
 import { Stash } from "./stash";

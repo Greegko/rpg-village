@@ -22,6 +22,7 @@ export class CommandSystem {
     CommandSystem.commandHandlerDecorators!.forEach(handler => {
       const instance = this.getInjector(handler.targetClass.constructor) as any;
 
+      // @ts-ignore
       this.on(handler.command, (args: any) => instance[handler.handlerFunctionName](args));
     });
   }

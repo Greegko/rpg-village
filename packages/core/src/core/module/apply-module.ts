@@ -1,8 +1,7 @@
 import { Container, interfaces } from "inversify";
 import { forEach, juxt, pipe, propOr } from "rambda";
 
-import { ModulActivity, ModulStore, Module, ProvideClass, ProvideValue } from "@core/module";
-
+import { ModulStore, Module, ProvideClass, ProvideValue } from "./module";
 import { ActivityHandlersToken, ModuleDefaultConfigToken, StoresToken } from "./tokens";
 
 export type ApplyModule = (container: Container) => (module: Module) => void;
@@ -43,7 +42,7 @@ const applyStores = (container: Container) =>
 const applyActivities = (container: Container) =>
   pipe(
     propOr([], "activities"),
-    forEach((activityModule: ModulActivity) => {
+    forEach((activityModule: any) => {
       container.bind(ActivityHandlersToken).to(activityModule.activity).whenTargetTagged("name", activityModule.name);
     }),
   );
