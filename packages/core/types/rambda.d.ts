@@ -1,6 +1,5 @@
-import { Evolvable, Evolver } from "../../node_modules/rambda";
-
-export * from "../../node_modules/rambda";
+import "rambda";
+import { Evolvable, Evolver } from "rambda";
 
 /* Fix Rambda Typings to indentical type usages */
 

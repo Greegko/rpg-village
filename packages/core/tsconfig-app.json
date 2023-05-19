@@ -1,8 +1,8 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig-base.json",
   "compilerOptions": {
     "noUnusedParameters": false,
     "noUnusedLocals": false
   },
-  "include": ["public-api.ts", "tests/**/*.ts"]
+  "include": ["public-api.ts", "types/*.d.ts"]
 }

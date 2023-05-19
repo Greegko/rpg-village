@@ -18,12 +18,14 @@
       "@models/*": ["./src/models/*"],
       "@modules/*": ["./src/modules/*"],
       "@lib/*": ["./src/lib/*"],
-      "@core/*": ["./src/core/*"]
+      "@core/*": ["./src/core/*"],
+      "@features/*": ["./src/features/*"]
     },
     "plugins": [
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "types/*.d.ts"],
+  "exclude": ["src/**/*.d.ts"]
 }
