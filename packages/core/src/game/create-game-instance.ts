@@ -10,13 +10,13 @@ import {
   ModuleDefaultConfigToken,
 } from "@core/module/tokens";
 
-import { GameInstance, GameState } from "@modules/game";
+import { GameInstance } from "@modules/game";
 import * as modules from "@modules/modules";
 
-import { GameController } from "../modules/game/game-controller";
 import { GameConfig } from "./game-config";
+import { GameController } from "./game-controller";
 
-export type CreateGameInstance<S extends GameState> = (config?: GameConfig) => GameInstance<S>;
+export type CreateGameInstance = (config?: GameConfig) => GameInstance;
 
 const coreModules = [
   modules.unitModule,
@@ -32,7 +32,7 @@ const coreModules = [
   modules.optionsModule,
 ];
 
-export const createGameInstance: CreateGameInstance<GameState> = (config?: GameConfig) => {
+export const createGameInstance: CreateGameInstance = (config?: GameConfig) => {
   const container = createInvesifyContainer(config?.config);
 
   forEach(applyModule(container), coreModules);

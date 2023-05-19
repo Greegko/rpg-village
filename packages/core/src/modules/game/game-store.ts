@@ -1,10 +1,9 @@
 import { injectable, multiInject } from "inversify";
 import { forEach, map, mergeAll, prop } from "rambda";
 
+import { GameState } from "@core/game-state";
 import { StoresToken } from "@core/module/tokens";
 import { IStore } from "@core/store";
-
-import { GameState } from "./interfaces";
 
 export interface ProvidedStore<State> {
   store: IStore;
@@ -13,18 +12,18 @@ export interface ProvidedStore<State> {
 }
 
 @injectable()
-export class GameStore<S extends GameState> {
-  constructor(@multiInject(StoresToken) private stores: ProvidedStore<S>[]) {}
+export class GameStore {
+  constructor(@multiInject(StoresToken) private stores: ProvidedStore<GameState>[]) {}
 
-  init(state: S) {
+  init(state: GameState) {
     forEach(store => {
-      (store.store as any).init(prop(store.scope as keyof S, state) || store.initialState || {});
+      (store.store as any).init(prop(store.scope as keyof GameState, state) || store.initialState || {});
     }, this.stores);
   }
 
-  getState(): S {
-    const states = map(({ store, scope }) => ({ [scope]: store.getState() }), this.stores) as Partial<S>[];
+  getState(): GameState {
+    const states = map(({ store, scope }) => ({ [scope]: store.getState() }), this.stores) as Partial<GameState>[];
 
-    return mergeAll(states) as S;
+    return mergeAll(states) as GameState;
   }
 }

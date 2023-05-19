@@ -2,17 +2,13 @@ import { injectable } from "inversify";
 
 import { Command, CommandSystem } from "@core/command";
 import { Event, EventSystem } from "@core/event";
+import { GameState } from "@core/game-state";
 
-import { GameStore } from "./game-store";
-import { GameCommand, GameState } from "./interfaces";
+import { GameCommand, GameStore } from "@modules/game";
 
 @injectable()
-export class GameController<State extends GameState> {
-  constructor(
-    private gameStore: GameStore<State>,
-    private commandSystem: CommandSystem,
-    private eventSystem: EventSystem,
-  ) {
+export class GameController {
+  constructor(private gameStore: GameStore, private commandSystem: CommandSystem, private eventSystem: EventSystem) {
     commandSystem.hookCommandHandlers();
     eventSystem.hookEventHandlers();
   }
@@ -22,16 +18,16 @@ export class GameController<State extends GameState> {
     return this.gameStore.getState();
   }
 
-  loadGame(gameState: State): State {
+  loadGame(gameState: GameState): GameState {
     this.gameStore.init(gameState);
     return this.gameStore.getState();
   }
 
-  getState(): State {
+  getState(): GameState {
     return this.gameStore.getState();
   }
 
-  startNewGame(): State {
+  startNewGame(): GameState {
     this.gameStore.init({} as any);
     this.commandSystem.execute(GameCommand.NewGame);
     return this.gameStore.getState();
@@ -42,7 +38,7 @@ export class GameController<State extends GameState> {
     this.eventSystem.fire(event.event, event.args);
   }
 
-  executeCommand(command: Command): State {
+  executeCommand(command: Command): GameState {
     if ("args" in command) {
       this.commandSystem.execute(command.command, command.args);
     } else {

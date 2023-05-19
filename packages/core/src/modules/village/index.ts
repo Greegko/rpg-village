@@ -6,3 +6,4 @@ export * from "./village-stash-service";
 export * from "./village-command-handler";
 export * from "./interfaces";
 export * from "./buildings";
+export * from "./types";

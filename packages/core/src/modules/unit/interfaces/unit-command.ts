@@ -1,5 +1,3 @@
-import "@core/command";
-
 import { ItemID } from "@models/item";
 
 import { UnitID } from "../interfaces";
@@ -24,11 +22,4 @@ export interface UnitCommandUnequipItemArgs {
   unitId: UnitID;
   itemId: ItemID;
   stash: StashLocation;
-}
-
-declare module "@core/command" {
-  interface CommandType {
-    [UnitCommand.EquipItem]: UnitCommandEquipItemArgs;
-    [UnitCommand.UnequipItem]: UnitCommandUnequipItemArgs;
-  }
 }

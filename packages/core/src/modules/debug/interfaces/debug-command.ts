@@ -17,11 +17,3 @@ export interface AddItemArgs {
 export interface AddSoulArgs {
   soul: number;
 }
-
-declare module "@core/command" {
-  interface CommandType {
-    [DebugCommand.AddSoul]: AddSoulArgs;
-    [DebugCommand.GenerateGold]: GenerateGoldArgs;
-    [DebugCommand.AddItem]: AddItemArgs;
-  }
-}

@@ -7,9 +7,3 @@ export enum ActivityCommand {
 export interface ActivityCancelCommandArgs {
   activityId: ActivityID;
 }
-
-declare module "@core/command" {
-  interface CommandType {
-    [ActivityCommand.CancelActivity]: ActivityCancelCommandArgs;
-  }
-}
