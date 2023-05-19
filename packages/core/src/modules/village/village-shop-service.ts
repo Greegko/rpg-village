@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import { always, times } from "rambda";
 import { evolve } from "rambda";
+import * as shortid from "shortid";
 
 import { commandHandler } from "@core/command";
 import { eventHandler } from "@core/event";
@@ -12,8 +13,6 @@ import { ShopItem, ShopStore } from "@modules/shop";
 import { VillageCommand, VillageEvent, VillageEventBuildingBuiltArgs } from "./interfaces";
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
-
-import shortid = require("shortid");
 
 @injectable()
 export class VillageShopService {
