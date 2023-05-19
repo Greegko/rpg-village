@@ -23,7 +23,7 @@ export interface PortalCommandLeavePortalArgs {
 }
 
 declare module "@core/command" {
-  interface CommandType {
+  export interface CommandType {
     [PortalCommand.OpenPortal]: PortalCommandOpenPortalArgs;
     [PortalCommand.EnterPortal]: PortalCommandEnterPortalArgs;
     [PortalCommand.LeavePortal]: PortalCommandLeavePortalArgs;

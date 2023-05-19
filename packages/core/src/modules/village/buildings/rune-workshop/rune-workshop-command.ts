@@ -17,7 +17,7 @@ export interface DismantleRuneCommandArgs {
 }
 
 declare module "@core/command" {
-  interface CommandType {
+  export interface CommandType {
     [RuneWorkshopCommand.CreateRune]: undefined;
     [RuneWorkshopCommand.ForgeDungeonKey]: undefined;
     [RuneWorkshopCommand.EmpowerRune]: EmpowerRuneCommandArgs;

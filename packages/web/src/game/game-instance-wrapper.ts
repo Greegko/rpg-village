@@ -13,7 +13,7 @@ export type AICommandsGenerator = (gameState: GameState) => Command[];
 
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;
-  private gameInstance: GameInstance<GameState>;
+  private gameInstance: GameInstance;
   private timer: any | number | null = null;
   private AICommandsGenerator?: AICommandsGenerator;
   private updateStateCallbacks: StateUpdateCallback[] = [];

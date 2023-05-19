@@ -9,7 +9,7 @@ export interface TrainingFieldCommandArgs {
 }
 
 declare module "@core/command" {
-  interface CommandType {
+  export interface CommandType {
     [TrainingFieldCommand.Train]: TrainingFieldCommandArgs;
   }
 }

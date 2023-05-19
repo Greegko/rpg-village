@@ -3,7 +3,7 @@ import "@core/command";
 import { ActivityCancelCommandArgs, ActivityCommand } from "../interfaces";
 
 declare module "@core/command" {
-  interface CommandType {
+  export interface CommandType {
     [ActivityCommand.CancelActivity]: ActivityCancelCommandArgs;
   }
 }

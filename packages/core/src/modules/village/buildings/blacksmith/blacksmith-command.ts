@@ -26,7 +26,7 @@ export interface BlacksmithCommandCreateItemArgs {
 }
 
 declare module "@core/command" {
-  interface CommandType {
+  export interface CommandType {
     [BlacksmithCommand.UpgradeItem]: BlacksmithCommandUpgradeItemArgs;
     [BlacksmithCommand.CreateItem]: BlacksmithCommandCreateItemArgs;
   }

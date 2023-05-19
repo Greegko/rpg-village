@@ -37,6 +37,8 @@ export const createGameInstance: CreateGameInstance = (config?: GameConfig) => {
 
   forEach(applyModule(container), coreModules);
 
+  container.bind(GameController).toSelf();
+
   return container.get(GameController);
 };
 
