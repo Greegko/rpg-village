@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { always, times } from "rambda";
 import { evolve } from "rambda";
-import * as shortid from "shortid";
+import { generate } from "shortid";
 
 import { commandHandler, eventHandler } from "@core";
 
@@ -48,13 +48,13 @@ export class VillageShopService {
 
     times(() => {
       const swordWeapon: Weapon = {
-        id: shortid(),
+        id: generate(),
         name: "Magic Name",
         effects: [{ effectType: AttackEffectType.Dmg, value: 10 * shop.level, type: EffectType.Static }],
         itemType: ItemType.Weapon,
       };
 
-      const shopItem: ShopItem = { price: { gold: shop.level * 10 }, item: swordWeapon, quantity: 1, id: shortid() };
+      const shopItem: ShopItem = { price: { gold: shop.level * 10 }, item: swordWeapon, quantity: 1, id: generate() };
       shopItems.push(shopItem);
     }, 30);
 

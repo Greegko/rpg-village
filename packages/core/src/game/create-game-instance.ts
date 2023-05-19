@@ -11,11 +11,11 @@ import {
   applyModule,
 } from "@core";
 
-import { GameInstance } from "@modules/game";
 import * as modules from "@modules/modules";
 
 import { GameConfig } from "./game-config";
 import { GameController } from "./game-controller";
+import { GameInstance } from "./interfaces";
 
 export type CreateGameInstance = (config?: GameConfig) => GameInstance;
 
