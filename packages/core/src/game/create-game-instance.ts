@@ -11,7 +11,8 @@ import {
   applyModule,
 } from "@core";
 
-import * as modules from "@modules/modules";
+import * as features from "@features";
+import * as modules from "@modules";
 
 import { GameConfig } from "./game-config";
 import { GameController } from "./game-controller";
@@ -31,6 +32,7 @@ const coreModules = [
   modules.debugModule,
   modules.shopModule,
   modules.optionsModule,
+  features.soulModule,
 ];
 
 export const createGameInstance: CreateGameInstance = (config?: GameConfig) => {

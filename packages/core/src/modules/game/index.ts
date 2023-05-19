@@ -4,3 +4,4 @@ export * from "./game-command-handler";
 export * from "./interfaces";
 export * from "./game-service";
 export * from "./types";
+export * from "./game-module";

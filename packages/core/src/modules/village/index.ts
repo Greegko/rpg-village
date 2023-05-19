@@ -7,3 +7,4 @@ export * from "./village-command-handler";
 export * from "./interfaces";
 export * from "./buildings";
 export * from "./types";
+export * from "./village-module";
