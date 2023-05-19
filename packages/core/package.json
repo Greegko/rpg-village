@@ -2,8 +2,8 @@
   "name": "@rpg-village/core",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc -b src/core src/modules src/models src/features src/lib src/game",
-    "build:watch": "tsc -b src/core src/modules src/models src/features src/lib src/game --watch",
+    "build": "tsc -b src/core src/modules src/models src/features src/lib src/game src/public-api",
+    "build:watch": "tsc -b src/core src/modules src/models src/features src/lib src/game src/public-api --watch",
     "prepare": "ts-patch install -s"
   },
   "dependencies": {
