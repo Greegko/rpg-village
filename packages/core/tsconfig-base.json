@@ -1,14 +1,23 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "rootDir": "./src",
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "noEmit": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "noUnusedLocals": true,
     "strict": true,
-    "rootDir": "./src",
+    "composite": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ],
     "paths": {
       "@core": ["./src/core"],
       "@game": ["./src/game"],

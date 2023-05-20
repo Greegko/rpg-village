@@ -2,8 +2,8 @@
   "name": "@rpg-village/core",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc -b src/core src/modules src/models src/features src/lib src/game src/public-api",
-    "build:watch": "tsc -b src/core src/modules src/models src/features src/lib src/game src/public-api --watch",
+    "build": "tsc -b ./tsconfig-public-api.json",
+    "build:watch": "tsc -b ./tsconfig-public-api.json --watch",
     "prepare": "ts-patch install -s"
   },
   "dependencies": {
@@ -18,6 +18,6 @@
   "devDependencies": {
     "@types/shortid": "0.0.29"
   },
-  "types": "dist/public-api/public-api.d.ts",
-  "main": "dist/public-api/public-api.js"
+  "types": "dist/public-api.d.ts",
+  "main": "dist/public-api.js"
 }

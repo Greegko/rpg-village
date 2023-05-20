@@ -2,8 +2,7 @@ import { all, clone, complement, forEach } from "rambda";
 
 import { sample } from "@lib/sample";
 
-import { calculateUnitStatsWithEffects } from "@models";
-import { Unit, isAlive } from "@modules/unit";
+import { Unit, calculateUnitStatsWithEffects, isAlive } from "@modules/unit";
 
 import { BattleParty, BattleState } from "./interfaces";
 

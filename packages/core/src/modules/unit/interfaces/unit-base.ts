@@ -7,7 +7,7 @@ export enum UnitType {
 }
 export type UnitStash = ItemStash & ResourceStash;
 
-export type Unit = {
+export interface Unit {
   id: UnitID;
   name: string;
   level: number;
@@ -22,4 +22,4 @@ export type Unit = {
   stash: UnitStash;
   evasion: number;
   criticalChance: number;
-};
+}

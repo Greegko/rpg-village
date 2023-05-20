@@ -1,9 +1,9 @@
 import { clone, propOr, reduce, sortBy } from "rambda";
 
-import { Unit, getUnitEffects } from "@modules/unit";
+import { EffectStatic, unitEffectBasePropertiesMap } from "@models";
 
-import { EffectStatic } from "../effect";
-import { unitEffectBasePropertiesMap } from "../unit-effect-property-map";
+import { Unit } from "../interfaces";
+import { getUnitEffects } from "./get-unit-effects";
 
 export function calculateUnitStatsWithEffects(unit: Unit): Unit {
   const unitWithEffects: Unit = clone(unit);
@@ -14,7 +14,7 @@ export function calculateUnitStatsWithEffects(unit: Unit): Unit {
 }
 
 function getEffectBaseProperty(effect: EffectStatic): keyof Unit | null {
-  return unitEffectBasePropertiesMap[effect.effectType];
+  return unitEffectBasePropertiesMap[effect.effectType] as keyof Unit | null;
 }
 
 function applyEffect(unit: Unit, effect: EffectStatic): Unit {
