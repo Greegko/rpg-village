@@ -1,7 +1,9 @@
 {
   "extends": "./tsconfig-base.json",
   "files": ["./src/public-api.ts"],
-  "compilerOptions": { "outDir": "./dist/public-api" },
+  "compilerOptions": {
+    "outDir": "./dist/public-api"
+  },
   "references": [
     { "path": "./src/core" },
     { "path": "./src/features" },
