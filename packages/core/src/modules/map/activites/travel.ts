@@ -4,9 +4,9 @@ import { dec, evolve } from "rambda";
 import { EventSystem } from "@core";
 
 import { IActivityHandlerCancelable } from "@modules/activity";
-import { PartyActivity, PartyEvent, PartyID, PartyStore } from "@modules/party";
+import { PartyActivity, PartyID, PartyStore } from "@modules/party";
 
-import { MapLocationID, MapLocationType } from "../interfaces";
+import { MapEvent, MapLocationID, MapLocationType } from "../interfaces";
 import { MapLocationStore } from "../map-location-store";
 import { MapService } from "../map-service";
 
@@ -59,7 +59,7 @@ export class MapTravelActivity implements IActivityHandlerCancelable<PartyActivi
 
   resolve({ state }: PartyActivity<TravelState>) {
     this.partyStore.setLocation(state.partyId, state.targetLocationId);
-    this.eventSystem.fire(PartyEvent.ArrivedToLocation, {
+    this.eventSystem.fire(MapEvent.PartyArrivedToLocation, {
       partyId: state.partyId,
       locationId: state.targetLocationId,
     });

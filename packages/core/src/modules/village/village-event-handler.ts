@@ -2,7 +2,8 @@ import { injectable } from "inversify";
 
 import { eventHandler } from "@core";
 
-import { PartyEvent, PartyEventArrivedToLocationArgs, PartyID, PartyService } from "@modules/party";
+import { MapEvent, PartyEventArrivedToLocationArgs } from "@modules/map";
+import { PartyID, PartyService } from "@modules/party";
 
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
@@ -15,7 +16,7 @@ export class VillageEventHandler {
     private villageStore: VillageStore,
   ) {}
 
-  @eventHandler(PartyEvent.ArrivedToLocation)
+  @eventHandler(MapEvent.PartyArrivedToLocation)
   partyArrivedToLocation(args: PartyEventArrivedToLocationArgs) {
     if (this.isPartyArrivedToVillage(args)) {
       this.partyArrived(args);

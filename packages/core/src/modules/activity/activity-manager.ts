@@ -1,20 +1,19 @@
 import { inject, injectable } from "inversify";
 import { assoc, forEach, values } from "rambda";
 
-import { GetActivityHandlerToken, commandHandler } from "@core";
-
-import { PartyStore } from "@modules/party";
+import { EventSystem, GetActivityHandlerToken, commandHandler } from "@core";
 
 import { ActivityStore } from "./activity-store";
 import { Activity, ActivityType, GetActivityHandlerByName } from "./interfaces";
 import { ActivityCancelCommandArgs, ActivityCommand } from "./interfaces/activity-command";
+import { ActivityEvent } from "./types/event";
 
 @injectable()
 export class ActivityManager {
   constructor(
     @inject(GetActivityHandlerToken) public getActivityHandler: GetActivityHandlerByName,
     private activityStore: ActivityStore,
-    private partyStore: PartyStore,
+    private eventSystem: EventSystem,
   ) {}
 
   startActivity(activityName: string, startingArgs: object) {
@@ -47,14 +46,8 @@ export class ActivityManager {
 
     if ("isCancelable" in activityHandler && activityHandler?.isCancelable(activity)) {
       activityHandler.onCancel(activity);
+      this.eventSystem.fire(ActivityEvent.ActivityCancelled, { activityId: args.activityId });
       this.activityStore.remove(args.activityId);
-      if (activity.type === ActivityType.Party) {
-        this.partyStore.update(activity.startArgs.partyId, { activityId: undefined });
-
-        if (activity.startArgs.involvedPartyId) {
-          this.partyStore.update(activity.startArgs.involvedPartyId, { activityId: undefined });
-        }
-      }
     }
   }
 
@@ -66,14 +59,8 @@ export class ActivityManager {
 
     if (isDone) {
       activityHandler.resolve(updatedActivity);
+      this.eventSystem.fire(ActivityEvent.ActivityFinished, { activityId: activity.id });
       this.activityStore.remove(activity.id);
-
-      if (activity.type === ActivityType.Party) {
-        this.partyStore.clearActivity(activity.startArgs.partyId);
-        if (activity.startArgs.involvedPartyId) {
-          this.partyStore.clearActivity(activity.startArgs.involvedPartyId);
-        }
-      }
     } else {
       this.activityStore.update(activity.id, updatedActivity);
     }
