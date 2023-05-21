@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
 import { Resource } from "@models";
-import { Activity, IActivityHandler } from "@modules/activity";
+import { GlobalActivity, IActivityHandler } from "@modules/activity";
 
 import { VillageStashService } from "../../../village-stash-service";
 
@@ -16,7 +16,7 @@ interface GatherResourceFromPortalStartArgs {
 
 @injectable()
 export class GatherResourceFromPortalActivity
-  implements IActivityHandler<Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>>
+  implements IActivityHandler<GlobalActivity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>>
 {
   constructor(private villageStashService: VillageStashService) {}
 
@@ -32,15 +32,19 @@ export class GatherResourceFromPortalActivity
 
   execute({
     state,
-  }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>): GatherResourceFromPortalState {
+  }: GlobalActivity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>): GatherResourceFromPortalState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state: { progress } }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>): boolean {
+  isDone({
+    state: { progress },
+  }: GlobalActivity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>): boolean {
     return progress === 0;
   }
 
-  resolve({ startArgs: { resource } }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>) {
+  resolve({
+    startArgs: { resource },
+  }: GlobalActivity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>) {
     this.villageStashService.addResource(resource);
   }
 }

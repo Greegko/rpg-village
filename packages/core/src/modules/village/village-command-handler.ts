@@ -7,7 +7,7 @@ import { Resource } from "@models";
 import { ActivityManager, ActivityStore } from "@modules/activity";
 import { GameCommand, GeneralGameStore } from "@modules/game";
 import { MapLocationType, MapService, MapSize } from "@modules/map";
-import { PartyOwner, PartyService } from "@modules/party";
+import { PartyActivityManager, PartyOwner, PartyService } from "@modules/party";
 import { UnitStore, isAlive } from "@modules/unit";
 
 import { VillageActivity, VillageBuilding, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
@@ -23,6 +23,7 @@ export class VillageCommandHandler {
     private partyService: PartyService,
     private unitStore: UnitStore,
     private activityManager: ActivityManager,
+    private playerActivityManager: PartyActivityManager,
     private activityStore: ActivityStore,
     private mapService: MapService,
     private generalGameStore: GeneralGameStore,
@@ -92,7 +93,7 @@ export class VillageCommandHandler {
 
   @commandHandler(VillageCommand.HealParty)
   healParty(healPartyArgs: VillageCommandHealPartyArgs): void {
-    this.activityManager.startPartyActivity(VillageActivity.Heal, healPartyArgs);
+    this.playerActivityManager.startPartyActivity(VillageActivity.Heal, healPartyArgs);
   }
 
   @commandHandler(GameCommand.NewGame)

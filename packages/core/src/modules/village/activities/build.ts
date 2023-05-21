@@ -3,7 +3,7 @@ import { dec, evolve, inc } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { Activity, IActivityHandlerCancelable } from "@modules/activity";
+import { GlobalActivity, IActivityHandlerCancelable } from "@modules/activity";
 import { ShopStore } from "@modules/shop";
 
 import { VillageBuilding, VillageEvent } from "../interfaces";
@@ -18,7 +18,7 @@ interface BuildStartArgs {
 }
 
 @injectable()
-export class BuildActivity implements IActivityHandlerCancelable<Activity<BuildState, BuildStartArgs>> {
+export class BuildActivity implements IActivityHandlerCancelable<GlobalActivity<BuildState, BuildStartArgs>> {
   constructor(private villageStore: VillageStore, private shopStore: ShopStore, private eventSystem: EventSystem) {}
 
   start(): BuildState {
@@ -31,21 +31,21 @@ export class BuildActivity implements IActivityHandlerCancelable<Activity<BuildS
     return true;
   }
 
-  execute({ state }: Activity<BuildState, BuildStartArgs>): BuildState {
+  execute({ state }: GlobalActivity<BuildState, BuildStartArgs>): BuildState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state: { progress } }: Activity<BuildState, BuildStartArgs>): boolean {
+  isDone({ state: { progress } }: GlobalActivity<BuildState, BuildStartArgs>): boolean {
     return progress === 0;
   }
 
-  isCancelable(activity: Activity<BuildState, BuildStartArgs>): boolean {
+  isCancelable(activity: GlobalActivity<BuildState, BuildStartArgs>): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<BuildState, BuildStartArgs>): void {}
+  onCancel(activity: GlobalActivity<BuildState, BuildStartArgs>): void {}
 
-  resolve({ startArgs: { targetBuilding } }: Activity<BuildState, BuildStartArgs>) {
+  resolve({ startArgs: { targetBuilding } }: GlobalActivity<BuildState, BuildStartArgs>) {
     if (targetBuilding === "shop") {
       this.villageStore.update(targetBuilding, shop => {
         if (shop) {

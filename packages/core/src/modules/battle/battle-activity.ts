@@ -3,8 +3,8 @@ import { complement, prop } from "rambda";
 
 import { ModuleConfig, ModuleConfigToken } from "@core";
 
-import { IActivityHandler, PartyActivity } from "@modules/activity";
-import { PartyID, PartyService } from "@modules/party";
+import { IActivityHandler } from "@modules/activity";
+import { PartyActivity, PartyID, PartyService } from "@modules/party";
 import { isAlive } from "@modules/unit";
 import { VillageConfig, VillageStashService } from "@modules/village";
 

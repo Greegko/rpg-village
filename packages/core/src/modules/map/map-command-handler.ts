@@ -2,9 +2,8 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core";
 
-import { ActivityManager } from "@modules/activity";
 import { BattleActivityType } from "@modules/battle";
-import { PartyOwner, PartyService } from "@modules/party";
+import { PartyActivityManager, PartyOwner, PartyService } from "@modules/party";
 
 import {
   MapActivity,
@@ -16,16 +15,16 @@ import {
 
 @injectable()
 export class MapCommandHandler {
-  constructor(private activityManager: ActivityManager, private partyService: PartyService) {}
+  constructor(private playerActivityManager: PartyActivityManager, private partyService: PartyService) {}
 
   @commandHandler(MapCommand.Travel)
   travelCommand(travelArgs: MapCommandTravelArgs) {
-    this.activityManager.startPartyActivity(MapActivity.Travel, travelArgs);
+    this.playerActivityManager.startPartyActivity(MapActivity.Travel, travelArgs);
   }
 
   @commandHandler(MapCommand.Explore)
   exploreCommand(exploreArgs: MapCommandExploreArgs) {
-    this.activityManager.startPartyActivity(MapActivity.Explore, exploreArgs);
+    this.playerActivityManager.startPartyActivity(MapActivity.Explore, exploreArgs);
   }
 
   @commandHandler(MapCommand.Battle)
@@ -36,7 +35,7 @@ export class MapCommandHandler {
     const enemyParty = parties.find(party => party.owner === PartyOwner.Enemy);
 
     if (playerParty && enemyParty) {
-      this.activityManager.startPartyActivity(BattleActivityType.Battle, {
+      this.playerActivityManager.startPartyActivity(BattleActivityType.Battle, {
         partyId: playerParty.id,
         involvedPartyId: enemyParty.id,
       });

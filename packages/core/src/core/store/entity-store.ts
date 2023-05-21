@@ -36,9 +36,9 @@ export class EntityStore<EntityID extends string, Entity extends { id: EntityID 
     return prop(id, this.state);
   }
 
-  add(entity: Omit<Entity, "id">): Entity {
+  add<T extends Entity>(entity: Omit<T, "id">): T {
     const id = generate();
-    const newObject = assoc("id", id, entity) as Entity;
+    const newObject = assoc("id", id, entity) as T;
     this.state = assoc(id, newObject, this.state);
     return newObject;
   }
