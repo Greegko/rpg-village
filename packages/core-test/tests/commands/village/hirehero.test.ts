@@ -3,7 +3,8 @@ import { VillageCommand } from "@rpg-village/core";
 import { test } from "../../utils";
 
 const initState = {
-  village: { stash: { resource: { gold: 25 } }, houses: 1, heroes: [] },
+  mapLocations: { village: { partyIds: [] } },
+  village: { stash: { resource: { gold: 25 } }, houses: 1, heroes: [], locationId: "village" },
 };
 
 test("should reduce village gold capacity by cost amount", {

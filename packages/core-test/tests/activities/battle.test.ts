@@ -97,7 +97,6 @@ test("should gain soul", {
         battleId: battle({
           partyId: party({
             id: "party-id",
-            locationId: "locationId2",
             unitIds: [unit({ dmg: 100, hp: 100 })],
             stash: { resource: { soul: 5 } },
           }),

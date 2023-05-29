@@ -1,28 +1,20 @@
-import { MapActivity } from "@rpg-village/core";
+import { ActivityType, MapActivity, VillageActivity } from "@rpg-village/core";
 
 import { createState, test } from "../utils";
 
 test("should resolve activity result", {
-  initState: {
-    activities: {
-      "test-activity-id": {
-        name: MapActivity.Travel,
-        startArgs: {
-          partyId: "test-party",
-        },
-        state: {
-          partyId: "test-party",
-          progress: 1,
-          targetLocationId: "location-2",
-        },
-      },
-    },
-    parties: { "test-party": { locationId: "location-1" } },
-  },
+  initState: createState(({ activity, village }) => [
+    village({ houses: 0 }),
+    activity({
+      id: "testActivityId",
+      name: VillageActivity.Build,
+      type: ActivityType.Global,
+      startArgs: { targetBuilding: "houses" },
+      state: { progress: 1 },
+    }),
+  ]),
   turn: true,
-  expectedState: {
-    parties: { "test-party": { locationId: "location-2" } },
-  },
+  expectedState: { village: { houses: 1 } },
 });
 
 test("should decrease progress counter when not finished", {
@@ -31,6 +23,7 @@ test("should decrease progress counter when not finished", {
       "test-activity-id": {
         id: "test-activity-id",
         name: MapActivity.Travel,
+        type: ActivityType.Party,
         state: { progress: 2 },
       },
     },
@@ -39,7 +32,9 @@ test("should decrease progress counter when not finished", {
   expectedState: {
     activities: {
       "test-activity-id": {
+        id: "test-activity-id",
         name: MapActivity.Travel,
+        type: ActivityType.Party,
         state: { progress: 1 },
       },
     },
@@ -47,11 +42,13 @@ test("should decrease progress counter when not finished", {
 });
 
 test("should remove old activity on finish", {
-  initState: createState(({ activity }) => [
+  initState: createState(({ activity, village }) => [
+    village({ houses: 0 }),
     activity({
       id: "testActivityId",
-      name: MapActivity.Travel,
-      state: { progress: 1 },
+      name: VillageActivity.Build,
+      type: ActivityType.Global,
+      state: { progress: 1, buildingType: "house" },
     }),
   ]),
   turn: true,

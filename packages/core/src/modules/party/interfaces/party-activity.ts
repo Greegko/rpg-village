@@ -21,3 +21,5 @@ declare module "@modules/activity" {
     PartyActivity: PartyActivity<State, StartingArgs>;
   }
 }
+
+(ActivityType as any)["Party"] = "party";

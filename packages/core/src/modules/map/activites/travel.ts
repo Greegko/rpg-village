@@ -4,11 +4,12 @@ import { dec, evolve } from "rambda";
 import { EventSystem } from "@core";
 
 import { IActivityHandlerCancelable } from "@modules/activity";
-import { PartyActivity, PartyID, PartyStore } from "@modules/party";
+import { PartyActivity, PartyID } from "@modules/party";
 
 import { MapEvent, MapLocationID, MapLocationType } from "../interfaces";
 import { MapLocationStore } from "../map-location-store";
 import { MapService } from "../map-service";
+import { PartyMapService } from "../party-map-service";
 
 type TravelState = {
   partyId: PartyID;
@@ -24,29 +25,32 @@ type TravelStartArgs = {
 @injectable()
 export class MapTravelActivity implements IActivityHandlerCancelable<PartyActivity<TravelState, TravelStartArgs>> {
   constructor(
-    private partyStore: PartyStore,
     private mapService: MapService,
+    private partyMapService: PartyMapService,
     private eventSystem: EventSystem,
     private mapLocationStore: MapLocationStore,
   ) {}
 
   start({ partyId, targetLocationId }: TravelStartArgs): TravelState {
-    const currentLocationId = this.partyStore.get(partyId).locationId;
+    const partyLocation = this.partyMapService.getPartyLocation(partyId)!;
 
     return {
       partyId,
       targetLocationId,
-      progress: this.mapService.getDistance(currentLocationId, targetLocationId),
+      progress: this.mapService.getDistance(partyLocation.id, targetLocationId),
     };
   }
 
   isRunnable({ partyId, targetLocationId }: TravelStartArgs) {
-    const partyLocation = this.partyStore.get(partyId).locationId;
+    const partyLocation = this.partyMapService.getPartyLocation(partyId);
+
+    if (!partyLocation) return false;
+
     const targetLocation = this.mapLocationStore.get(targetLocationId);
 
     if (targetLocation.type === MapLocationType.Empty) return false;
 
-    return targetLocationId !== partyLocation;
+    return targetLocationId !== partyLocation.id;
   }
 
   execute({ state }: PartyActivity<TravelState>): TravelState {
@@ -58,7 +62,7 @@ export class MapTravelActivity implements IActivityHandlerCancelable<PartyActivi
   }
 
   resolve({ state }: PartyActivity<TravelState>) {
-    this.partyStore.setLocation(state.partyId, state.targetLocationId);
+    this.partyMapService.setLocation(state.partyId, state.targetLocationId);
     this.eventSystem.fire(MapEvent.PartyArrivedToLocation, {
       partyId: state.partyId,
       locationId: state.targetLocationId,

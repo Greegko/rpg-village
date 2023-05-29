@@ -1,9 +1,8 @@
 import { injectable } from "inversify";
-import { any, filter, propEq, values, without } from "rambda";
+import { any, without } from "rambda";
 
 import { Loot, addResource } from "@models";
 import { ActivityStore } from "@modules/activity";
-import { MapLocationID } from "@modules/map";
 import { Unit, UnitID, UnitService, UnitStore, isAlive } from "@modules/unit";
 
 import { Party, PartyID, PartyStash } from "./interfaces";
@@ -17,11 +16,6 @@ export class PartyService {
     private unitService: UnitService,
     private activityStore: ActivityStore,
   ) {}
-
-  getPartiesOnLocation(locationId: MapLocationID): Party[] {
-    const parties = this.partyStore.getState();
-    return values(filter(propEq("locationId", locationId), parties));
-  }
 
   isPartyAlive(partyId: PartyID): boolean {
     return any(isAlive, this.getPartyUnits(partyId));
@@ -40,7 +34,7 @@ export class PartyService {
   }
 
   createParty(party: Omit<Party, "id">) {
-    this.partyStore.add(party);
+    return this.partyStore.add(party);
   }
 
   clearPartyStash(partyId: PartyID): PartyStash {

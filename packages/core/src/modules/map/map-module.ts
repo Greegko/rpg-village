@@ -7,6 +7,7 @@ import { MapEventHandler } from "./map-event-handler";
 import { MapLocationStore } from "./map-location-store";
 import { MapService } from "./map-service";
 import { MapStore } from "./map-store";
+import { PartyMapService } from "./party-map-service";
 
 export const mapModule: Module = {
   activities: [
@@ -17,5 +18,5 @@ export const mapModule: Module = {
     { scope: "maps", store: MapStore },
     { scope: "mapLocations", store: MapLocationStore },
   ],
-  provides: [MapService, MapEventHandler, MapCommandHandler],
+  provides: [MapService, MapEventHandler, MapCommandHandler, PartyMapService],
 };

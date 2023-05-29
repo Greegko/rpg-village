@@ -4,8 +4,8 @@ import { append, evolve, find, values } from "rambda";
 import { EventSystem } from "@core";
 
 import { EffectStatic } from "@models";
+import { Turn } from "@modules/game";
 
-import { Turn } from "../game";
 import { Map, MapEvent, MapID, MapLocation, MapLocationID, MapLocationType, MapSize } from "./interfaces";
 import { MapLocationStore } from "./map-location-store";
 import { MapStore } from "./map-store";
@@ -47,7 +47,7 @@ export class MapService {
   }
 
   createLocation(x: number, y: number, explored: boolean, type: MapLocationType): MapLocation {
-    return this.mapLocationStore.add({ x, y, explored, type });
+    return this.mapLocationStore.add({ x, y, explored, type, partyIds: [] });
   }
 
   addLocationToMap(mapId: MapID, mapLocation: Omit<MapLocation, "id">): MapLocation {
@@ -129,7 +129,7 @@ export class MapService {
 }
 
 function mapLocationFactory(type: MapLocationType, x: number, y: number): Omit<MapLocation, "id"> {
-  return { type, explored: false, x, y };
+  return { type, explored: false, x, y, partyIds: [] };
 }
 
 const generateTile = (

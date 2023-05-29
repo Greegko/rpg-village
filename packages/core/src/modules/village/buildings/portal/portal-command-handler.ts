@@ -5,9 +5,8 @@ import { commandHandler } from "@core";
 import { EffectStatic } from "@models";
 import { DungeonKey } from "@models";
 import { ActivityManager } from "@modules/activity";
-import { MapLocationType, MapService, MapSize } from "@modules/map";
+import { MapLocationType, MapService, MapSize, PartyMapService } from "@modules/map";
 import { MapLocationStore } from "@modules/map/map-location-store";
-import { PartyService, PartyStore } from "@modules/party";
 import { PortalActivity, VillageStashService, VillageStore } from "@modules/village";
 
 import {
@@ -21,41 +20,40 @@ import {
 export class PortalCommandHandler {
   constructor(
     private mapService: MapService,
+    private partyMapService: PartyMapService,
     private villageStashService: VillageStashService,
-    private partyStore: PartyStore,
     private villageStore: VillageStore,
     private activityManager: ActivityManager,
-    private partyService: PartyService,
     private mapLocationStore: MapLocationStore,
   ) {}
 
   @commandHandler(PortalCommand.EnterPortal)
   enterPartyInPortal(args: PortalCommandEnterPortalArgs) {
-    const party = this.partyStore.get(args.partyId);
+    const partyLocation = this.partyMapService.getPartyLocation(args.partyId);
     const villageLocationId = this.villageStore.getState().locationId;
 
-    if (party.locationId === villageLocationId) {
-      this.partyStore.setLocation(args.partyId, args.portalLocationId);
+    if (partyLocation && partyLocation.id === villageLocationId) {
+      this.partyMapService.setLocation(args.partyId, args.portalLocationId);
     }
   }
 
   @commandHandler(PortalCommand.LeavePortal)
   leavePartyInPortal(args: PortalCommandLeavePortalArgs) {
-    const party = this.partyStore.get(args.partyId);
-    if (party.locationId !== args.portalLocationId) return;
+    const location = this.partyMapService.getPartyLocation(args.partyId);
+    if (location && location.id !== args.portalLocationId) return;
 
     const map = this.mapService.getMapByLocation(args.portalLocationId);
 
     const villageLocationId = this.villageStore.getState().locationId;
 
-    this.partyStore.setLocation(args.partyId, villageLocationId);
+    this.partyMapService.setLocation(args.partyId, villageLocationId);
 
     const bossMapLocation = map.mapLocationIds
       .map(x => this.mapLocationStore.get(x))
       .find(x => x.type === MapLocationType.Boss);
 
     if (bossMapLocation?.explored) {
-      const bossUnits = this.partyService.getPartiesOnLocation(bossMapLocation.id);
+      const bossUnits = this.partyMapService.getPartiesOnLocation(bossMapLocation.id);
 
       if (bossUnits.length === 0) {
         this.activityManager.startActivity(PortalActivity.GatherResourceFromPortal, {

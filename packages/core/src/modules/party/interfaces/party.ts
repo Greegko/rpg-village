@@ -1,6 +1,5 @@
 import { ItemStash, ResourceStash } from "@models";
 import { ActivityID } from "@modules/activity";
-import { MapLocationID } from "@modules/map";
 import { UnitID } from "@modules/unit";
 
 import { PartyOwner } from "./party-owner";
@@ -14,5 +13,4 @@ export interface Party {
   owner: PartyOwner;
   unitIds: UnitID[];
   stash: PartyStash;
-  locationId: MapLocationID;
 }

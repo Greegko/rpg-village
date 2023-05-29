@@ -2,10 +2,10 @@ import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
 import { IActivityHandlerCancelable } from "@modules/activity";
-import { PartyActivity, PartyID, PartyStore } from "@modules/party";
+import { PartyActivity, PartyID } from "@modules/party";
 
-import { MapLocationStore } from "../map-location-store";
 import { MapService } from "../map-service";
+import { PartyMapService } from "../party-map-service";
 
 type ExploreState = {
   progress: number;
@@ -18,11 +18,7 @@ type ExploreStartArgs = {
 
 @injectable()
 export class MapExploreActivity implements IActivityHandlerCancelable<PartyActivity<ExploreState, ExploreStartArgs>> {
-  constructor(
-    private mapService: MapService,
-    private mapLocationStore: MapLocationStore,
-    private partyStore: PartyStore,
-  ) {}
+  constructor(private mapService: MapService, private partyMapService: PartyMapService) {}
 
   start({ partyId }: ExploreStartArgs): ExploreState {
     return {
@@ -32,9 +28,11 @@ export class MapExploreActivity implements IActivityHandlerCancelable<PartyActiv
   }
 
   isRunnable({ partyId }: ExploreStartArgs): boolean {
-    const partyLocation = this.partyStore.get(partyId).locationId;
-    const exploreLocation = this.mapLocationStore.get(partyLocation);
-    return !exploreLocation.explored;
+    const partyLocation = this.partyMapService.getPartyLocation(partyId);
+
+    if (!partyLocation) return false;
+
+    return !partyLocation.explored;
   }
 
   execute({ state }: PartyActivity<ExploreState>): ExploreState {
@@ -46,7 +44,7 @@ export class MapExploreActivity implements IActivityHandlerCancelable<PartyActiv
   }
 
   resolve({ state }: PartyActivity<ExploreState>) {
-    this.mapService.exploreLocation(this.partyStore.get(state.partyId).locationId);
+    this.mapService.exploreLocation(this.partyMapService.getPartyLocation(state.partyId)!.id);
   }
 
   isCancelable(activity: PartyActivity<ExploreState, ExploreStartArgs>): boolean {

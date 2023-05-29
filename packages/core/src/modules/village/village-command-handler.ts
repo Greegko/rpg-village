@@ -6,7 +6,7 @@ import { commandHandler } from "@core";
 import { Resource } from "@models";
 import { ActivityManager, ActivityStore } from "@modules/activity";
 import { GameCommand, GeneralGameStore } from "@modules/game";
-import { MapLocationType, MapService, MapSize } from "@modules/map";
+import { MapLocationType, MapService, MapSize, PartyMapService } from "@modules/map";
 import { PartyActivityManager, PartyOwner, PartyService } from "@modules/party";
 import { UnitStore, isAlive } from "@modules/unit";
 
@@ -27,6 +27,7 @@ export class VillageCommandHandler {
     private activityStore: ActivityStore,
     private mapService: MapService,
     private generalGameStore: GeneralGameStore,
+    private partyMapService: PartyMapService,
   ) {}
 
   @commandHandler(VillageCommand.BuildHouse)
@@ -82,12 +83,14 @@ export class VillageCommandHandler {
 
       this.villageStash.removeResource({ gold: goldCost });
       this.villageStore.update("heroes", append(heroId));
-      this.partyService.createParty({
-        locationId: this.villageStore.getState().locationId,
+
+      const party = this.partyService.createParty({
         unitIds: [heroId],
         owner: PartyOwner.Player,
         stash: { resource: { gold: 0, soul: 0 }, items: [] },
       });
+
+      this.partyMapService.setLocation(party.id, villageState.locationId);
     }
   }
 

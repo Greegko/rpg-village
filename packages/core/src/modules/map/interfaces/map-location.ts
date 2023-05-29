@@ -1,3 +1,5 @@
+import { PartyID } from "@modules/party";
+
 export type MapLocationID = string;
 export enum MapLocationType {
   Empty,
@@ -13,4 +15,5 @@ export type MapLocation = {
   explored: boolean;
   x: number;
   y: number;
+  partyIds: PartyID[];
 };

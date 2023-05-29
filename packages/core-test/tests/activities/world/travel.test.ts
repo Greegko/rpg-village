@@ -1,13 +1,15 @@
-import { MapActivity } from "@rpg-village/core";
+import { ActivityType, MapActivity } from "@rpg-village/core";
 
 import { createState, stashFactory, test } from "../../utils";
 
 test("should move party to the new location on finish", {
   initState: createState(({ party, activity, location }) => [
+    location({ id: "test", partyIds: ["test-party-id"] }),
     activity({
       name: MapActivity.Travel,
+      type: ActivityType.Party,
       state: {
-        partyId: party({ id: "test-party-id", locationId: location() }),
+        partyId: party({ id: "test-party-id" }),
         progress: 1,
         targetLocationId: location({ id: "target-location" }),
       },
@@ -15,18 +17,19 @@ test("should move party to the new location on finish", {
   ]),
   turn: true,
   expectedState: {
-    parties: { "test-party-id": { locationId: "target-location" } },
+    mapLocations: { "target-location": { partyIds: ["test-party-id"] } },
   },
 });
 
 test("should store looted resource into village stash", {
   initState: createState(({ party, activity, location, village }) => [
+    location({ id: "test", partyIds: ["test-party-id"] }),
     activity({
       name: MapActivity.Travel,
+      type: ActivityType.Party,
       state: {
         partyId: party({
           id: "test-party-id",
-          locationId: location(),
           stash: stashFactory({ resource: { gold: 5, soul: 1 } }),
         }),
         progress: 1,

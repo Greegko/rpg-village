@@ -1,4 +1,5 @@
 import { injectable } from "inversify";
+import { append, evolve } from "rambda";
 
 import { eventHandler } from "@core";
 
@@ -35,14 +36,15 @@ export class MapEventHandler {
   }
 
   private addEnemyUnitToMap(mapId: MapID, locationId: MapLocationID, effects: EffectStatic[]) {
-    const party = generateEnemyParty(this.mapStore.get(mapId).difficulty, effects);
-    const unitIds = party.units.map(unit => this.unitStore.add(unit)).map(x => x.id);
+    const generatedParty = generateEnemyParty(this.mapStore.get(mapId).difficulty, effects);
+    const unitIds = generatedParty.units.map(unit => this.unitStore.add(unit)).map(x => x.id);
 
-    this.partyService.createParty({
-      locationId,
+    const party = this.partyService.createParty({
       owner: PartyOwner.Enemy,
       unitIds: unitIds,
-      stash: party.stash,
+      stash: generatedParty.stash,
     });
+
+    this.mapLocationStore.update(locationId, evolve({ partyIds: append(party.id) }));
   }
 }

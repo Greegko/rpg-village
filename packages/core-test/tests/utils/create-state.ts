@@ -1,4 +1,5 @@
 import {
+  Activity,
   ActivityID,
   BattleID,
   BattleStoreState,
@@ -9,10 +10,10 @@ import {
   MapLocation,
   MapLocationID,
   MapLocationType,
+  MapSize,
   OptionID,
   OptionState,
   Party,
-  PartyActivity,
   PartyID,
   ShopID,
   ShopState,
@@ -38,7 +39,7 @@ import { PartialDeep } from "./partial-deep";
 interface CreateStateCallbackArgs {
   battle: (battleArgs: PartialDeep<BattleStoreState>) => BattleID;
   party: (partyArgs: PartialDeep<Party>) => PartyID;
-  activity: (activityArgs: PartialDeep<PartyActivity>) => ActivityID;
+  activity: <S, A>(activityArgs: PartialDeep<Activity<S, A>>) => ActivityID;
   village: (villageArgs?: PartialDeep<VillageState>) => MapLocationID;
   map: (mapArgs?: PartialDeep<Map>) => MapID;
   location: (locationArgs?: PartialDeep<MapLocation>) => MapLocationID;
@@ -119,15 +120,20 @@ function createCallback(createdState: GameState) {
 
     createdState.village = village;
 
-    return createLocationReference({
+    createLocationReference({
       id: village.locationId,
       type: MapLocationType.Village,
       x: 0,
       y: 0,
     });
+
+    createMapReference({
+      mapSize: MapSize.Endless,
+      mapLocationIds: [village.locationId],
+    });
   }
 
-  function createActivityReference(activityArgs: Partial<PartyActivity>) {
+  function createActivityReference(activityArgs: Partial<Activity>) {
     const activity = activityFactory(activityArgs);
 
     createdState.activities[activity.id] = activity;
