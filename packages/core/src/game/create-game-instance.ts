@@ -21,7 +21,6 @@ import { GameInstance } from "./interfaces";
 export type CreateGameInstance = (config?: GameConfig) => GameInstance;
 
 const coreModules = [
-  modules.unitModule,
   modules.activityModule,
   modules.gameModule,
   modules.mapModule,
@@ -33,6 +32,7 @@ const coreModules = [
   modules.shopModule,
   modules.optionsModule,
   features.soulModule,
+  features.unitModule,
 ];
 
 export const createGameInstance: CreateGameInstance = (config?: GameConfig) => {

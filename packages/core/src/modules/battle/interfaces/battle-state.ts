@@ -1,4 +1,4 @@
-import { Unit } from "@modules/unit";
+import { Unit } from "@features/unit";
 
 export interface BattleState {
   attackerParty: BattleParty;

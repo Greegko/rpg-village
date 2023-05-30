@@ -1,4 +1,4 @@
-import { EquipmentSlot, ItemType, StashLocation, UnitCommand } from "@rpg-village/core";
+import { EquipmentSlot, ItemType, UnitCommand } from "@rpg-village/core";
 
 import { test } from "../../utils";
 
@@ -17,15 +17,12 @@ test("should be able to equip item", {
       args: {
         unitId: "test-hero-id",
         itemId: "test-item-id",
-        stash: StashLocation.Unit,
       },
     },
   ],
   expectedState: {
     units: {
-      "test-hero-id": {
-        equipment: { [EquipmentSlot.Torso]: { id: "test-item-id", itemType: ItemType.Armor } },
-      },
+      "test-hero-id": { equipment: { [EquipmentSlot.Torso]: { id: "test-item-id", itemType: ItemType.Armor } } },
     },
   },
 });
@@ -39,16 +36,7 @@ test("should remove item from the stash", {
       },
     },
   },
-  commands: [
-    {
-      command: UnitCommand.EquipItem,
-      args: {
-        unitId: "test-hero-id",
-        itemId: "test-item-id",
-        stash: StashLocation.Unit,
-      },
-    },
-  ],
+  commands: [{ command: UnitCommand.EquipItem, args: { unitId: "test-hero-id", itemId: "test-item-id" } }],
   expectedState: { units: { "test-hero-id": { stash: { items: [] } } } },
 });
 
@@ -64,18 +52,12 @@ test("should keep original on no available item id", {
   commands: [
     {
       command: UnitCommand.EquipItem,
-      args: {
-        unitId: "test-hero-id",
-        itemId: "missing-item-id",
-        stash: StashLocation.Unit,
-      },
+      args: { unitId: "test-hero-id", itemId: "missing-item-id" },
     },
   ],
   expectedState: {
     units: {
-      "test-hero-id": {
-        equipment: { [EquipmentSlot.Torso]: { id: "stay" } },
-      },
+      "test-hero-id": { equipment: { [EquipmentSlot.Torso]: { id: "stay" } } },
     },
   },
 });
@@ -89,16 +71,7 @@ test("should unequip the current equipped item on same place target", {
       },
     },
   },
-  commands: [
-    {
-      command: UnitCommand.EquipItem,
-      args: {
-        unitId: "test-hero-id",
-        itemId: "new-item-id",
-        stash: StashLocation.Unit,
-      },
-    },
-  ],
+  commands: [{ command: UnitCommand.EquipItem, args: { unitId: "test-hero-id", itemId: "new-item-id" } }],
   expectedState: {
     units: {
       "test-hero-id": {

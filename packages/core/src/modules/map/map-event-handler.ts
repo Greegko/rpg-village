@@ -3,9 +3,9 @@ import { append, evolve } from "rambda";
 
 import { eventHandler } from "@core";
 
+import { UnitStore } from "@features/unit";
 import { EffectStatic } from "@models";
 import { PartyOwner, PartyService } from "@modules/party";
-import { UnitStore } from "@modules/unit";
 
 import { MapEvent, MapEventNewLocationArgs, MapID, MapLocationID, MapLocationType } from "./interfaces";
 import { generateEnemyParty } from "./lib";

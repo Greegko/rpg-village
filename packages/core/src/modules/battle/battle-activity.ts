@@ -3,9 +3,9 @@ import { complement, prop } from "rambda";
 
 import { ModuleConfig, ModuleConfigToken } from "@core";
 
+import { isAlive } from "@features/unit";
 import { IActivityHandler } from "@modules/activity";
 import { PartyActivity, PartyID, PartyService } from "@modules/party";
-import { isAlive } from "@modules/unit";
 import { VillageConfig, VillageStashService } from "@modules/village";
 
 import { BattleService } from "./battle-service";

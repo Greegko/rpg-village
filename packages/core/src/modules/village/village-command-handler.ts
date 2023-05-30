@@ -3,12 +3,12 @@ import { append, find, head, values, whereEq } from "rambda";
 
 import { commandHandler } from "@core";
 
+import { UnitStore, isAlive } from "@features/unit";
 import { Resource } from "@models";
 import { ActivityManager, ActivityStore } from "@modules/activity";
 import { GameCommand, GeneralGameStore } from "@modules/game";
 import { MapLocationType, MapService, MapSize, PartyMapService } from "@modules/map";
 import { PartyActivityManager, PartyOwner, PartyService } from "@modules/party";
-import { UnitStore, isAlive } from "@modules/unit";
 
 import { VillageActivity, VillageBuilding, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
 import { heroFactory, newBuildingCost, newHeroCost } from "./lib";

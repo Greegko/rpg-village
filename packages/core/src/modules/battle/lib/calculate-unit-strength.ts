@@ -1,4 +1,4 @@
-import { Unit, calculateUnitStatsWithEffects } from "@modules/unit";
+import { Unit, calculateUnitStatsWithEffects } from "@features/unit";
 
 export function calculateUnitStrength(unit: Unit): number {
   const battleStats = calculateUnitStatsWithEffects(unit);

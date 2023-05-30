@@ -1,5 +1,6 @@
+import { UnitID } from "@features/unit";
 import { ItemID, ItemType } from "@models";
-import { StashLocation, UnitID } from "@modules/unit";
+import { StashLocation } from "@modules/village";
 
 export enum BlacksmithCommand {
   UpgradeItem = "blacksmith/upgrade-item",

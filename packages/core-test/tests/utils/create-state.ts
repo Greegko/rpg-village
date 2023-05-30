@@ -127,10 +127,7 @@ function createCallback(createdState: GameState) {
       y: 0,
     });
 
-    createMapReference({
-      mapSize: MapSize.Endless,
-      mapLocationIds: [village.locationId],
-    });
+    return village.locationId;
   }
 
   function createActivityReference(activityArgs: Partial<Activity>) {

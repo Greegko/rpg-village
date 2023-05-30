@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import { dec, evolve, forEach } from "rambda";
 
+import { UnitService } from "@features/unit";
 import { IActivityHandler } from "@modules/activity";
 import { PartyActivity, PartyID, PartyStore } from "@modules/party";
-import { UnitService } from "@modules/unit";
 
 type TrainingFieldState = {
   partyId: PartyID;

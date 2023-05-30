@@ -1,7 +1,7 @@
+import { UnitID } from "@features/unit";
 import { ItemStash, ResourceStash } from "@models";
 import { MapLocationID } from "@modules/map";
 import { ShopID } from "@modules/shop";
-import { UnitID } from "@modules/unit";
 
 export type VillageStash = ItemStash & ResourceStash;
 

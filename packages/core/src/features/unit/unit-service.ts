@@ -1,9 +1,20 @@
 import { injectable } from "inversify";
 import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "rambda";
 
-import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID, addItems, getItem, removeItem } from "@models";
+import {
+  Equipment,
+  EquipmentItem,
+  EquipmentSlot,
+  Item,
+  ItemID,
+  addItems,
+  getItem,
+  isEquipmentItem,
+  removeItem,
+} from "@models";
 
 import { UnitID, UnitStash } from "./interfaces";
+import { getEquipmentSlot } from "./lib";
 import { nextLevelXp } from "./lib/next-level-xp";
 import { UnitStore } from "./unit-store";
 
@@ -78,5 +89,32 @@ export class UnitService {
     this.unitStore.update(unitId, evolveUnit);
 
     return item;
+  }
+
+  equipItem(unitId: UnitID, item: Item): void {
+    if (!isEquipmentItem(item)) return;
+
+    const slot = getEquipmentSlot(item);
+
+    if (!slot) return;
+
+    const oldItem = this.getEquipmentBySlot(unitId, slot);
+
+    if (oldItem) {
+      this.unequipEquipment(unitId, oldItem.id);
+      this.stashItems(unitId, [oldItem]);
+    }
+
+    this.setEquipment(unitId, slot, item);
+  }
+
+  unequipEquipment(unitId: UnitID, itemId: ItemID): EquipmentItem | undefined {
+    const equipment = this.getEquipmentByItemId(unitId, itemId);
+
+    if (!equipment) return;
+
+    this.setEquipment(unitId, equipment[0], undefined);
+
+    return equipment[1];
   }
 }

@@ -1,5 +1,5 @@
+import { Unit } from "@features/unit";
 import { Loot } from "@models";
-import { Unit } from "@modules/unit";
 
 export function calculateLoot(units: Unit[]): Loot {
   return {
