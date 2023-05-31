@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "esnext",
+    "module": "commonjs",
+    "composite": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "../dist/tests",
+    "rootDir": "../dist/tests",
+    "paths": {
+      "@core": ["../dist/core"],
+      "@game": ["../dist/game"],
+      "@models": ["../dist/models"],
+      // "@modules": ["../dist/modules"],
+      "@modules/*": ["../dist/modules/*"],
+      "@features": ["../dist/features"],
+      "@features/*": ["../dist/features/*"]
+    },
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
+  },
+  "include": ["**/*"],
+  "references": [
+    { "path": "../src/core" },
+    { "path": "../src/features" },
+    { "path": "../src/lib" },
+    { "path": "../src/models" },
+    { "path": "../src/modules" },
+    { "path": "../src/game" }
+  ]
+}

@@ -1,9 +1,0 @@
-{
-  "trailingComma": "all",
-  "printWidth": 120,
-  "arrowParens": "avoid",
-  "importOrder": ["ava", "<THIRD_PARTY_MODULES>", "^@rpg-village/core", "^[./]"],
-  "importOrderSeparation": true,
-  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
-  "importOrderSortSpecifiers": true
-}

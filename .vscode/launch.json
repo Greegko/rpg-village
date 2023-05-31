@@ -13,9 +13,9 @@
       "request": "launch",
       "name": "Debug AVA test file in Core",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ava",
-      "runtimeArgs": ["${file}", "--config", "./ava.config-debug.mjs", "--file-line", "${lineNumber}"],
+      "runtimeArgs": ["${file}", "--config", "../ava.config-debug.mjs", "--file-line", "${lineNumber}"],
       "outputCapture": "std",
-      "cwd": "${workspaceFolder}/packages/core-test",
+      "cwd": "${workspaceFolder}/packages/core/tests",
       "skipFiles": ["<node_internals>/**/*.js"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

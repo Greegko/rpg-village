@@ -6,7 +6,7 @@
     "build": "npm run build:core && npm run build:web",
     "build:core": "npm run build --prefix packages/core",
     "build:web": "npm run build --prefix packages/web",
-    "test:core": "npm run test:watch --prefix packages/core-test",
+    "test:core": "npm run test:watch --prefix packages/core",
     "prepare": "for P in packages/*/; do (cd $P && npm run prepare); done"
   },
   "private": true,
