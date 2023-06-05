@@ -1,15 +1,7 @@
 import { identity } from "rambda";
 import { useEffect, useMemo, useState } from "react";
 
-import {
-  BlacksmithCommand,
-  Item,
-  ItemType,
-  RuneWorkshopCommand,
-  StashLocation,
-  UnitCommand,
-  UnitID,
-} from "@rpg-village/core";
+import { BlacksmithCommand, Item, ItemType, RuneWorkshopCommand, UnitCommand, UnitID } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
 import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
@@ -77,7 +69,6 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
                 args: {
                   unitId: unit.id,
                   itemId: characterSelectedItem.id,
-                  stash: StashLocation.Village,
                 },
               });
 
@@ -105,7 +96,6 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
                     args: {
                       unitId: unit.id,
                       itemId: stashSelectedItem.id,
-                      stash: StashLocation.Village,
                     },
                   })
                 }

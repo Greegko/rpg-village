@@ -1,6 +1,6 @@
 import { forEach } from "rambda";
 
-import { Command, GameInstance, GameState, createGameInstance } from "@rpg-village/core";
+import { Command, GameInstance, GameState, VillageConfig, createGameInstance } from "@rpg-village/core";
 
 import { StateUpdateCallback } from "./interface";
 
@@ -22,7 +22,7 @@ export class GameInstanceWrapper {
 
   constructor() {
     this.gameInstance = createGameInstance({
-      config: { "village/direct-loot-to-village": true },
+      config: { [VillageConfig.DirectLootToVillage]: true },
     });
   }
 

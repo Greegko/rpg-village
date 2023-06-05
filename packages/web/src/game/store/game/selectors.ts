@@ -46,6 +46,12 @@ export const mapLocationsByMapLocationIdSelector = createSelector(
   },
 );
 
+export const mapLocationByPartyIdSelector = createSelector(
+  mapLocationsSelector,
+  selectorProperty<PartyID>(),
+  (mapLocations, partyId) => find(x => x.partyIds.includes(partyId), values(mapLocations)),
+);
+
 export const mapLocationsByMapIdSelector = createSelector(mapLocationsSelector, mapByMapIdSelector, (locations, map) =>
   map?.mapLocationIds.map((locationId: MapLocationID) => locations[locationId]),
 );
