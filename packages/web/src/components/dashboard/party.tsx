@@ -15,6 +15,7 @@ import {
 import {
   activityByIdSelector,
   mapByPartyIdSelector,
+  mapLocationByPartyIdSelector,
   partyByIdSelector,
   useGameStateSelector,
   worldMapIdSelector,
@@ -32,6 +33,7 @@ interface PartyDisplayProperties {
 export const PartyDisplay = (props: PartyDisplayProperties) => {
   const worldMapId = useGameStateSelector(state => worldMapIdSelector(state));
   const currentMap = useGameStateSelector(state => mapByPartyIdSelector(state, props.partyId))!;
+  const partyMapLocation = useGameStateSelector(state => mapLocationByPartyIdSelector(state, props.partyId));
 
   const isWorldMap = currentMap.id === worldMapId;
 
@@ -54,7 +56,7 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
 
   return (
     <div className="party">
-      <div>Location: {party.locationId}</div>
+      <div>Location: {partyMapLocation.id}</div>
       {party.activityId && <Activity activityId={party.activityId} partyId={props.partyId} />}
 
       <br />

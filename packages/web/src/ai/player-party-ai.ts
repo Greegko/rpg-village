@@ -19,8 +19,10 @@ import {
   heroUnitsSelector,
   mapByPartyIdSelector,
   mapLocationByIdSelector,
+  mapLocationByPartyIdSelector,
   mapLocationsByMapIdSelector,
   mapsSelector,
+  partiesOnLocationSelector,
   partiesSelector,
   unitsSelector,
   villageSelector,
@@ -59,10 +61,11 @@ export class PlayerPartyAI {
     const currentMap = mapByPartyIdSelector(gameState, party.id)!;
     const worldMapId = worldMapIdSelector(gameState);
     const entryPortalLocationForMap = entryPortalLocationForMapSelector(gameState, currentMap.id);
+    const partyMapLocation = mapLocationByPartyIdSelector(gameState, party.id);
 
     if (partyAction.type === PartyActionType.MoveToVillage) {
       if (currentMap.id !== worldMapId) {
-        if (party.locationId !== entryPortalLocationForMap) {
+        if (partyMapLocation.id !== entryPortalLocationForMap) {
           return {
             command: MapCommand.Travel,
             args: { partyId: party.id, targetLocationId: entryPortalLocationForMap },
@@ -78,13 +81,13 @@ export class PlayerPartyAI {
 
       clearPartyAction();
 
-      if (village.locationId !== party.locationId) {
+      if (village.locationId !== partyMapLocation.id) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
     }
 
     if (partyAction.type === PartyActionType.LeavePortal) {
-      if (party.locationId !== entryPortalLocationForMap) {
+      if (partyMapLocation.id !== entryPortalLocationForMap) {
         return {
           command: MapCommand.Travel,
           args: { partyId: party.id, targetLocationId: entryPortalLocationForMap },
@@ -99,7 +102,7 @@ export class PlayerPartyAI {
     }
 
     if (partyAction.type === PartyActionType.EnterPortal) {
-      if (village.locationId !== party.locationId) {
+      if (village.locationId !== partyMapLocation.id) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
 
@@ -114,7 +117,7 @@ export class PlayerPartyAI {
     }
 
     if (partyAction.type === PartyActionType.Explore) {
-      if (partyAction.args.targetLocationId !== party.locationId) {
+      if (partyAction.args.targetLocationId !== partyMapLocation.id) {
         return {
           command: MapCommand.Travel,
           args: { partyId: party.id, targetLocationId: partyAction.args.targetLocationId },
@@ -126,7 +129,7 @@ export class PlayerPartyAI {
     }
 
     if (partyAction.type === PartyActionType.Battle) {
-      if (partyAction.args.targetLocationId !== party.locationId) {
+      if (partyAction.args.targetLocationId !== partyMapLocation.id) {
         return {
           command: MapCommand.Travel,
           args: { partyId: party.id, targetLocationId: partyAction.args.targetLocationId },
@@ -139,11 +142,11 @@ export class PlayerPartyAI {
       }
 
       clearPartyAction();
-      return { command: MapCommand.Battle, args: { locationId: party.locationId } };
+      return { command: MapCommand.Battle, args: { locationId: partyMapLocation.id } };
     }
 
     if (partyAction.type === PartyActionType.Heal) {
-      if (village.locationId !== party.locationId) {
+      if (village.locationId !== partyMapLocation.id) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
 
@@ -152,7 +155,7 @@ export class PlayerPartyAI {
     }
 
     if (partyAction.type === PartyActionType.Training) {
-      if (village.locationId !== party.locationId) {
+      if (village.locationId !== partyMapLocation.id) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
 
@@ -181,9 +184,10 @@ export class PlayerPartyAI {
   }
 
   private battleOnLocation(gameState: GameState, party: Party): PartyAction | undefined {
-    const isEnemyOnLocation = this.isEnemyOnTheLocation(gameState, party.locationId);
+    const partyMapLocation = mapLocationByPartyIdSelector(gameState, party.id);
+    const isEnemyOnLocation = this.isEnemyOnTheLocation(gameState, partyMapLocation.id);
     if (isEnemyOnLocation) {
-      return { type: PartyActionType.Battle, args: { targetLocationId: party.locationId } };
+      return { type: PartyActionType.Battle, args: { targetLocationId: partyMapLocation.id } };
     }
   }
 
@@ -243,12 +247,9 @@ export class PlayerPartyAI {
     gameState: GameState,
     locationId: string,
   ): [UserParties: Party[], EnemyParties: Party[]] {
-    const parties = partiesSelector(gameState);
+    const parties = partiesOnLocationSelector(gameState, locationId);
 
-    return partition(
-      party => party.owner === PartyOwner.Player,
-      values(parties).filter(x => x.locationId === locationId),
-    ) as [Party[], Party[]];
+    return partition(party => party.owner === PartyOwner.Player, parties) as [Party[], Party[]];
   }
 
   private getPartyStrength(gameState: GameState, partyId: string) {

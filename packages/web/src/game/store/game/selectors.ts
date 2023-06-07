@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { filter, find, groupBy, values } from "rambda";
+import { filter, find, values } from "rambda";
 import { useSelector } from "react-redux";
 
 import {
@@ -49,7 +49,7 @@ export const mapLocationsByMapLocationIdSelector = createSelector(
 export const mapLocationByPartyIdSelector = createSelector(
   mapLocationsSelector,
   selectorProperty<PartyID>(),
-  (mapLocations, partyId) => find(x => x.partyIds.includes(partyId), values(mapLocations)),
+  (mapLocations, partyId) => find(x => x.partyIds.includes(partyId), values(mapLocations))!,
 );
 
 export const mapLocationsByMapIdSelector = createSelector(mapLocationsSelector, mapByMapIdSelector, (locations, map) =>
@@ -84,15 +84,23 @@ export const partyByIdSelector = createSelector(
   (parties, partyId) => parties[partyId],
 );
 
+export const partiesOnLocationSelector = createSelector(
+  mapLocationsSelector,
+  partiesSelector,
+  selectorProperty<MapLocationID>(),
+  (mapLocations, parties, mapLocationId) => {
+    const partyIds = mapLocations[mapLocationId].partyIds;
+
+    return partyIds.map(partyId => parties[partyId]);
+  },
+);
+
 export const playerPartiesSelector = createSelector(partiesSelector, parties =>
   filter(party => party.owner === PartyOwner.Player, parties),
 );
-export const mapByPartyIdSelector = createSelector(gameStateSelf, partyByIdSelector, (gameState, party) =>
-  mapByMapLocationIdSelector(gameState, party.locationId),
-);
 
-export const partiesGroupedOnLocationsSelector = createSelector(partiesSelector, parties =>
-  groupBy(party => party.locationId, values(parties)),
+export const mapByPartyIdSelector = createSelector(gameStateSelf, selectorProperty<PartyID>(), (gameState, partyId) =>
+  mapByMapLocationIdSelector(gameState, mapLocationByPartyIdSelector(gameState, partyId).id),
 );
 
 export const activitiesSelector = (game: GameState) => game.activities;

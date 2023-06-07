@@ -1,8 +1,6 @@
-import { map } from "rambda";
+import { MapID, MapLocation } from "@rpg-village/core";
 
-import { MapID } from "@rpg-village/core";
-
-import { mapLocationsByMapIdSelector, partiesGroupedOnLocationsSelector, useGameStateSelector } from "@web/store/game";
+import { mapLocationsByMapIdSelector, partiesOnLocationSelector, useGameStateSelector } from "@web/store/game";
 
 import { Tile } from "./tile";
 
@@ -11,25 +9,23 @@ interface MapProperties {
 }
 
 export const Map = ({ mapId }: MapProperties) => {
-  const partiesOnLocations = useGameStateSelector(partiesGroupedOnLocationsSelector);
   const locations = useGameStateSelector(state => mapLocationsByMapIdSelector(state, mapId));
 
   if (locations === undefined) return null;
 
+  return <>{locations.map(MapLocationDisplay)}</>;
+};
+
+const MapLocationDisplay = (location: MapLocation) => {
+  const partiesOnLocations = useGameStateSelector(state => partiesOnLocationSelector(state, location.id));
+
   return (
-    <>
-      {map(
-        location => (
-          <Tile
-            key={location.id}
-            parties={partiesOnLocations[location.id]}
-            locationType={location.type}
-            x={61 * location.x}
-            y={35 * location.y}
-          />
-        ),
-        locations,
-      )}
-    </>
+    <Tile
+      key={location.id}
+      parties={partiesOnLocations}
+      locationType={location.type}
+      x={61 * location.x}
+      y={35 * location.y}
+    />
   );
 };
