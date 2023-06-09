@@ -13,10 +13,16 @@ export const Map = ({ mapId }: MapProperties) => {
 
   if (locations === undefined) return null;
 
-  return <>{locations.map(MapLocationDisplay)}</>;
+  return (
+    <>
+      {locations.map(location => (
+        <MapLocationDisplay location={location} />
+      ))}
+    </>
+  );
 };
 
-const MapLocationDisplay = (location: MapLocation) => {
+const MapLocationDisplay = ({ location }: { location: MapLocation }) => {
   const partiesOnLocations = useGameStateSelector(state => partiesOnLocationSelector(state, location.id));
 
   return (
