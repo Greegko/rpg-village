@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "concurrently \"npm:*:start\"",
-    "build": "npm run build:core && npm run build:web",
+    "build": "npm run core:build && npm run web:build",
     "core:start": "npm run build:watch --prefix packages/core",
     "core:build": "npm run build --prefix packages/core",
     "core:build-test": "npm run build:test --prefix packages/core",
