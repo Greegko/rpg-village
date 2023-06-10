@@ -4,8 +4,13 @@ import { assoc, forEach, values } from "rambda";
 import { EventSystem, GetActivityHandlerToken, commandHandler } from "@core";
 
 import { ActivityStore } from "./activity-store";
-import { Activity, ActivityType, GetActivityHandlerByName } from "./interfaces";
-import { ActivityCancelCommandArgs, ActivityCommand } from "./interfaces/activity-command";
+import {
+  Activity,
+  ActivityCancelCommandArgs,
+  ActivityCommand,
+  ActivityType,
+  GetActivityHandlerByName,
+} from "./interfaces";
 import { ActivityEvent } from "./types/event";
 
 @injectable()

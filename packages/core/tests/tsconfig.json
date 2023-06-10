@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "../dist/tests",
-    "rootDir": "../dist/tests",
+    "rootDirs": ["../dist/tests", "../src"],
     "paths": {
       "@core": ["../dist/core"],
       "@game": ["../dist/game"],

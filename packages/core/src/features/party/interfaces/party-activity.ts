@@ -1,4 +1,4 @@
-import { ActivityBase, ActivityType } from "@modules/activity";
+import { ActivityBase, ActivityType } from "@features/activity";
 
 import { PartyID } from "./party";
 
@@ -12,7 +12,7 @@ export interface PartyActivity<State = unknown, StartingArgs = unknown>
   type: ActivityType.Party;
 }
 
-declare module "@modules/activity" {
+declare module "@features/activity" {
   enum ActivityType {
     Party = "party",
   }

@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { append, evolve, find, values, without } from "rambda";
 
-import { Party, PartyID, PartyStore } from "@modules/party";
+import { Party, PartyID, PartyStore } from "@features/party";
 
 import { MapLocation, MapLocationID } from "./interfaces";
 import { MapLocationStore } from "./map-location-store";

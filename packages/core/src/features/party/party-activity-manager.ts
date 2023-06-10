@@ -9,10 +9,10 @@ import {
   ActivityManager,
   ActivityStore,
   ActivityType,
-} from "@modules/activity";
-import { PartyStore } from "@modules/party";
+} from "@features/activity";
 
 import { PartyActivityStartArgs } from "./interfaces";
+import { PartyStore } from "./party-store";
 
 @injectable()
 export class PartyActivityManager {

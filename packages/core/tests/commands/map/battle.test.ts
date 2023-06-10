@@ -1,6 +1,6 @@
-import { BattleActivityType } from "@modules/battle";
+import { BattleActivityType } from "@features/battle";
+import { PartyOwner } from "@features/party";
 import { MapCommand } from "@modules/map";
-import { PartyOwner } from "@modules/party";
 
 import { createState, test } from "../../utils";
 

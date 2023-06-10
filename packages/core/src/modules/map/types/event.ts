@@ -1,4 +1,4 @@
-import { PartyID } from "@modules/party";
+import { PartyID } from "@features/party";
 
 import { MapEvent, MapEventNewLocationArgs, MapLocationID } from "../interfaces";
 

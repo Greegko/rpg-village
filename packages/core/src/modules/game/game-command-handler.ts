@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core";
 
-import { ActivityManager } from "@modules/activity";
+import { ActivityManager } from "@features/activity";
 
 import { GameService } from "./game-service";
 import { GameCommand } from "./interfaces";

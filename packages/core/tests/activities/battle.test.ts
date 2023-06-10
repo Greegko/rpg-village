@@ -1,6 +1,6 @@
+import { BattleActivityType } from "@features/battle";
 import { UnitType } from "@features/unit";
 import { AttackEffectType, EffectType, ItemType, RuneAttackEffectType } from "@models";
-import { BattleActivityType } from "@modules/battle";
 import { VillageConfig } from "@modules/village";
 
 import { createState, test } from "../utils";

@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import { filter, forEach, map } from "rambda";
 
+import { IActivityHandlerCancelable } from "@features/activity";
+import { PartyActivity, PartyID, PartyStore } from "@features/party";
 import { UnitID, UnitService, UnitStore } from "@features/unit";
-import { IActivityHandlerCancelable } from "@modules/activity";
-import { PartyActivity, PartyID, PartyStore } from "@modules/party";
 
 type VillageHealState = {
   partyId: PartyID;

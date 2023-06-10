@@ -1,4 +1,4 @@
-import { ActivityType } from "@modules/activity";
+import { ActivityType } from "@features/activity";
 import { MapActivity } from "@modules/map";
 
 import { createState, stashFactory, test } from "../../utils";

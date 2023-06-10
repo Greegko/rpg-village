@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
+import { GlobalActivity, IActivityHandler } from "@features/activity";
 import { Resource } from "@models";
-import { GlobalActivity, IActivityHandler } from "@modules/activity";
 
 import { VillageStashService } from "../../../village-stash-service";
 

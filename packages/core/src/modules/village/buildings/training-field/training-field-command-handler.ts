@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core";
 
-import { PartyActivityManager } from "@modules/party";
+import { PartyActivityManager } from "@features/party";
 
 import { TrainingFieldActivity } from "./interface";
 import { TrainingFieldCommand, TrainingFieldCommandArgs } from "./training-field-command";

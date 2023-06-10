@@ -1,10 +1,15 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import { complement, prop } from "rambda";
 
-import { eventHandler } from "@core";
+import { ModuleConfig, ModuleConfigToken, eventHandler } from "@core";
 
+import { BattleEvent, BattleFinishedActivityArgs } from "@features/battle";
+import { PartyID, PartyService } from "@features/party";
+import { isAlive } from "@features/unit";
 import { MapEvent, PartyEventArrivedToLocationArgs } from "@modules/map";
-import { PartyID, PartyService } from "@modules/party";
 
+import { VillageConfig } from "./interfaces";
+import { calculateLoot, calculateXpGain } from "./lib";
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
 
@@ -14,6 +19,7 @@ export class VillageEventHandler {
     private partyService: PartyService,
     private villageStash: VillageStashService,
     private villageStore: VillageStore,
+    @inject(ModuleConfigToken) private config: ModuleConfig,
   ) {}
 
   @eventHandler(MapEvent.PartyArrivedToLocation)
@@ -21,6 +27,30 @@ export class VillageEventHandler {
     if (this.isPartyArrivedToVillage(args)) {
       this.partyArrived(args);
     }
+  }
+
+  @eventHandler(BattleEvent.Finished)
+  battleFinishedEvent({ winnerPartyId, looserPartyId }: BattleFinishedActivityArgs) {
+    const winnerUnits = this.partyService.getPartyUnits(winnerPartyId);
+    const looserUnits = this.partyService.getPartyUnits(looserPartyId);
+    const loot = calculateLoot(looserUnits);
+    const xpGain = calculateXpGain(looserUnits);
+
+    this.partyService.gainXp(winnerPartyId, xpGain);
+
+    if (this.config[VillageConfig.DirectLootToVillage]) {
+      if (loot.resource) this.villageStash.addResource(loot.resource);
+      if (loot.items) this.villageStash.addItems(loot.items);
+    } else {
+      this.partyService.collectLoot(winnerPartyId, loot);
+    }
+
+    const diedWinnerUnits = winnerUnits.filter(complement(isAlive));
+
+    this.partyService.removeUnitFromParty(winnerPartyId, diedWinnerUnits.map(prop("id")));
+    this.partyService.removeUnitFromParty(looserPartyId, looserUnits.map(prop("id")));
+
+    this.partyService.removeParty(looserPartyId);
   }
 
   private isPartyArrivedToVillage(args: PartyEventArrivedToLocationArgs): boolean {

@@ -2,11 +2,9 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core";
 
-import { EffectStatic } from "@models";
-import { DungeonKey } from "@models";
-import { ActivityManager } from "@modules/activity";
-import { MapLocationType, MapService, MapSize, PartyMapService } from "@modules/map";
-import { MapLocationStore } from "@modules/map/map-location-store";
+import { ActivityManager } from "@features/activity";
+import { DungeonKey, EffectStatic } from "@models";
+import { MapLocationStore, MapLocationType, MapService, MapSize, PartyMapService } from "@modules/map";
 import { PortalActivity, VillageStashService, VillageStore } from "@modules/village";
 
 import {

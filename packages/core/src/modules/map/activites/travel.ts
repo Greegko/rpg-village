@@ -3,8 +3,8 @@ import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { IActivityHandlerCancelable } from "@modules/activity";
-import { PartyActivity, PartyID } from "@modules/party";
+import { IActivityHandlerCancelable } from "@features/activity";
+import { PartyActivity, PartyID } from "@features/party";
 
 import { MapEvent, MapLocationID, MapLocationType } from "../interfaces";
 import { MapLocationStore } from "../map-location-store";

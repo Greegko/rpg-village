@@ -1,4 +1,5 @@
 // Dependencies
+import "@features/battle";
 import "@features/soul";
 
 export * from "./village-store";
@@ -7,4 +8,5 @@ export * from "./village-command-handler";
 export * from "./interfaces";
 export * from "./buildings";
 export * from "./types";
+export * from "./lib";
 export * from "./village-module";

@@ -21,16 +21,16 @@ import { GameInstance } from "./interfaces";
 export type CreateGameInstance = (config?: GameConfig) => GameInstance;
 
 const coreModules = [
-  modules.activityModule,
   modules.gameModule,
   modules.mapModule,
   modules.villageModule,
   modules.villageBuildingsModule,
-  modules.partyModule,
-  modules.battleModule,
   modules.debugModule,
   modules.shopModule,
   modules.optionsModule,
+  features.activityModule,
+  features.partyModule,
+  features.battleModule,
   features.soulModule,
   features.unitModule,
 ];

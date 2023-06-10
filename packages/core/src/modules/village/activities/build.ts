@@ -3,7 +3,7 @@ import { dec, evolve, inc } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { GlobalActivity, IActivityHandlerCancelable } from "@modules/activity";
+import { GlobalActivity, IActivityHandlerCancelable } from "@features/activity";
 import { ShopStore } from "@modules/shop";
 
 import { VillageBuilding, VillageEvent } from "../interfaces";

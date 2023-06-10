@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { forEach } from "rambda";
 
+import { PartyID, PartyService } from "@features/party";
 import { UnitStore } from "@features/unit";
-import { PartyID, PartyService } from "@modules/party";
 
 import { Battle } from "./battle";
 import { BattleStore } from "./battle-store";

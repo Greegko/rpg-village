@@ -3,7 +3,7 @@ import { assoc } from "rambda";
 
 import { EntityStore } from "@core";
 
-import { ActivityID } from "@modules/activity";
+import { ActivityID } from "@features/activity";
 
 import { Party, PartyID } from "./interfaces";
 

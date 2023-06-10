@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
-import { IActivityHandlerCancelable } from "@modules/activity";
-import { PartyActivity, PartyID } from "@modules/party";
+import { IActivityHandlerCancelable } from "@features/activity";
+import { PartyActivity, PartyID } from "@features/party";
 
 import { MapService } from "../map-service";
 import { PartyMapService } from "../party-map-service";

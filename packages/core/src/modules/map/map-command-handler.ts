@@ -2,8 +2,8 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core";
 
-import { BattleActivityType } from "@modules/battle";
-import { PartyActivityManager, PartyOwner } from "@modules/party";
+import { BattleActivityType } from "@features/battle";
+import { PartyActivityManager, PartyOwner } from "@features/party";
 
 import {
   MapActivity,

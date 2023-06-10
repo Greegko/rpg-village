@@ -1,4 +1,4 @@
-import { PartyID } from "@modules/party";
+import { PartyID } from "@features/party";
 
 export enum VillageCommand {
   BuildHouse = "village/build-house",

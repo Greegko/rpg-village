@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import { any, without } from "rambda";
 
+import { ActivityStore } from "@features/activity";
 import { Unit, UnitID, UnitService, UnitStore, isAlive } from "@features/unit";
 import { Loot, addResource } from "@models";
-import { ActivityStore } from "@modules/activity";
 
 import { Party, PartyID, PartyStash } from "./interfaces";
 import { PartyStore } from "./party-store";

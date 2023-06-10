@@ -1,6 +1,6 @@
+import { ActivityID } from "@features/activity";
 import { UnitID } from "@features/unit";
 import { ItemStash, ResourceStash } from "@models";
-import { ActivityID } from "@modules/activity";
 
 import { PartyOwner } from "./party-owner";
 
