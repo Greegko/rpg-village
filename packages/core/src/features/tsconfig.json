@@ -1,11 +1,5 @@
 {
   "extends": "../../tsconfig-base.json",
   "include": ["./index.ts"],
-  "references": [
-    { "path": "./soul" },
-    { "path": "./unit" },
-    { "path": "./battle" },
-    { "path": "./party" },
-    { "path": "./activity" }
-  ]
+  "references": [{ "path": "./unit" }, { "path": "./battle" }, { "path": "./party" }, { "path": "./activity" }]
 }

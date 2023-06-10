@@ -31,7 +31,6 @@ const coreModules = [
   features.activityModule,
   features.partyModule,
   features.battleModule,
-  features.soulModule,
   features.unitModule,
 ];
 
