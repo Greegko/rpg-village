@@ -3,8 +3,8 @@ import { injectable } from "inversify";
 import { commandHandler } from "@core";
 
 import { ActivityManager } from "@features/activity";
+import { MapLocationStore, MapLocationType, MapService, MapSize, PartyMapService } from "@features/map";
 import { DungeonKey, EffectStatic } from "@models";
-import { MapLocationStore, MapLocationType, MapService, MapSize, PartyMapService } from "@modules/map";
 import { PortalActivity, VillageStashService, VillageStore } from "@modules/village";
 
 import {

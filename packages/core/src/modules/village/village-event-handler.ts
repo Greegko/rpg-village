@@ -4,9 +4,9 @@ import { complement, prop } from "rambda";
 import { ModuleConfig, ModuleConfigToken, eventHandler } from "@core";
 
 import { BattleEvent, BattleFinishedActivityArgs } from "@features/battle";
+import { MapEvent, PartyEventArrivedToLocationArgs } from "@features/map";
 import { PartyID, PartyService } from "@features/party";
 import { isAlive } from "@features/unit";
-import { MapEvent, PartyEventArrivedToLocationArgs } from "@modules/map";
 
 import { VillageConfig } from "./interfaces";
 import { calculateLoot, calculateXpGain } from "./lib";

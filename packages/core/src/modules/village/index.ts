@@ -1,5 +1,6 @@
 // Dependencies
 import "@features/battle";
+import "@features/map";
 
 export * from "./village-store";
 export * from "./village-stash-service";

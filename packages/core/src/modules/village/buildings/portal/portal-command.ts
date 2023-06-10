@@ -1,6 +1,6 @@
+import { MapLocationID } from "@features/map";
 import { PartyID } from "@features/party";
 import { ItemID } from "@models";
-import { MapLocationID } from "@modules/map";
 
 export enum PortalCommand {
   OpenPortal = "portal/open-portal",

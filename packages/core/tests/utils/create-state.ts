@@ -2,10 +2,10 @@ import { GameState } from "@core";
 
 import { Activity, ActivityID } from "@features/activity";
 import { BattleID, BattleStoreState } from "@features/battle";
+import { GeneralGameStoreState } from "@features/game";
+import { Map, MapID, MapLocation, MapLocationID, MapLocationType } from "@features/map";
 import { Party, PartyID } from "@features/party";
 import { Unit, UnitID } from "@features/unit";
-import { GeneralGameStoreState } from "@modules/game";
-import { Map, MapID, MapLocation, MapLocationID, MapLocationType } from "@modules/map";
 import { OptionID, OptionState } from "@modules/options";
 import { ShopID, ShopState } from "@modules/shop";
 import { VillageState } from "@modules/village";

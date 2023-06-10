@@ -1,4 +1,4 @@
-import { MapActivity, MapCommand } from "@modules/map";
+import { MapActivity, MapCommand } from "@features/map";
 
 import { createState, test } from "../../utils";
 

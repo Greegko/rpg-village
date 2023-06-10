@@ -1,5 +1,5 @@
+import { MapEvent } from "@features/map";
 import { EffectType, MiscEffectType } from "@models";
-import { MapEvent } from "@modules/map";
 
 import { createState, test } from "../../utils";
 

@@ -1,4 +1,4 @@
-import { MapID } from "@modules/map";
+import { MapID } from "@features/map";
 
 export type PortalID = string;
 export type PortalState = {

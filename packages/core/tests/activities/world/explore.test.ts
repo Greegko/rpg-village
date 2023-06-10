@@ -1,6 +1,6 @@
 import { values } from "rambda";
 
-import { MapActivity, MapLocationType } from "@modules/map";
+import { MapActivity, MapLocationType } from "@features/map";
 
 import { createState, test } from "../../utils";
 

@@ -1,3 +1,5 @@
+import "@core";
+
 import { Map, MapID, MapLocation, MapLocationID } from "../interfaces";
 
 declare module "@core" {

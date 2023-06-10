@@ -1,6 +1,6 @@
 import { ItemID } from "@models";
 
-import { UnitID } from ".";
+import { UnitID } from "./unit-base";
 
 export enum UnitCommand {
   EquipItem = "unit/equip-item",
