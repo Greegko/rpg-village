@@ -30,7 +30,10 @@ const applyStores = (container: Container) =>
   pipe(
     propOr([], "stores"),
     forEach((storeModule: ModulStore) => {
-      container.bind(storeModule.store).toSelf();
+      if (!container.isBound(storeModule.store)) {
+        container.bind(storeModule.store).toSelf();
+      }
+
       container.bind(StoresToken).toDynamicValue((context: interfaces.Context) => ({
         scope: storeModule.scope,
         store: context.container.get(storeModule.store),

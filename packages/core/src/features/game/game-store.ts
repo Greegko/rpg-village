@@ -14,9 +14,7 @@ export class GameStore {
   constructor(@multiInject(StoresToken) private stores: ProvidedStore<GameState>[]) {}
 
   init(state: GameState) {
-    forEach(store => {
-      (store.store as any).init(prop(store.scope as keyof GameState, state) || store.initialState || {});
-    }, this.stores);
+    forEach(store => store.store.init(prop(store.scope, state) || store.initialState || {}), this.stores);
   }
 
   getState(): GameState {
