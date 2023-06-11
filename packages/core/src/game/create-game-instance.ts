@@ -12,7 +12,6 @@ import {
 } from "@core";
 
 import * as features from "@features";
-import * as modules from "@modules";
 
 import { GameConfig } from "./game-config";
 import { GameController } from "./game-controller";
@@ -21,11 +20,11 @@ import { GameInstance } from "./interfaces";
 export type CreateGameInstance = (config?: GameConfig) => GameInstance;
 
 const coreModules = [
-  modules.villageModule,
-  modules.villageBuildingsModule,
-  modules.debugModule,
-  modules.shopModule,
-  modules.optionsModule,
+  features.villageModule,
+  features.villageBuildingsModule,
+  features.debugModule,
+  features.shopModule,
+  features.optionsModule,
   features.gameModule,
   features.mapModule,
   features.activityModule,

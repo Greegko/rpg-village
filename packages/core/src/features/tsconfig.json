@@ -7,6 +7,11 @@
     { "path": "./party" },
     { "path": "./activity" },
     { "path": "./game" },
-    { "path": "./map" }
+    { "path": "./map" },
+    { "path": "./debug" },
+    { "path": "./options" },
+    { "path": "./village" },
+    { "path": "./village-buildings" },
+    { "path": "./shop" }
   ]
 }

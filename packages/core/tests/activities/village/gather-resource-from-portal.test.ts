@@ -1,4 +1,4 @@
-import { PortalActivity } from "@modules/village";
+import { PortalActivity } from "@features/village-buildings";
 
 import { createState, test } from "../../utils";
 

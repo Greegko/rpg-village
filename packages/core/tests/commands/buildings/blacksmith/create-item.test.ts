@@ -1,5 +1,5 @@
+import { BlacksmithCommand } from "@features/village-buildings";
 import { ItemType } from "@models";
-import { BlacksmithCommand } from "@modules/village";
 
 import { createState, test } from "../../../utils";
 

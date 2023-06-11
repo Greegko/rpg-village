@@ -4,11 +4,11 @@ import { Activity, ActivityID } from "@features/activity";
 import { BattleID, BattleStoreState } from "@features/battle";
 import { GeneralGameStoreState } from "@features/game";
 import { Map, MapID, MapLocation, MapLocationID, MapLocationType } from "@features/map";
+import { OptionID, OptionState } from "@features/options";
 import { Party, PartyID } from "@features/party";
+import { ShopID, ShopState } from "@features/shop";
 import { Unit, UnitID } from "@features/unit";
-import { OptionID, OptionState } from "@modules/options";
-import { ShopID, ShopState } from "@modules/shop";
-import { VillageState } from "@modules/village";
+import { VillageState } from "@features/village";
 
 import {
   activityFactory,

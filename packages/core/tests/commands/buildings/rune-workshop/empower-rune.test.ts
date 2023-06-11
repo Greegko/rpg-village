@@ -1,5 +1,5 @@
+import { RuneWorkshopCommand } from "@features/village-buildings";
 import { ItemType } from "@models";
-import { RuneWorkshopCommand } from "@modules/village";
 
 import { createState, test } from "../../../utils";
 

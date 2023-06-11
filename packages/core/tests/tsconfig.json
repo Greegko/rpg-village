@@ -12,8 +12,6 @@
       "@core": ["../dist/core"],
       "@game": ["../dist/game"],
       "@models": ["../dist/models"],
-      // "@modules": ["../dist/modules"],
-      "@modules/*": ["../dist/modules/*"],
       "@features": ["../dist/features"],
       "@features/*": ["../dist/features/*"]
     },
@@ -28,7 +26,6 @@
     { "path": "../src/features" },
     { "path": "../src/lib" },
     { "path": "../src/models" },
-    { "path": "../src/modules" },
     { "path": "../src/game" }
   ]
 }

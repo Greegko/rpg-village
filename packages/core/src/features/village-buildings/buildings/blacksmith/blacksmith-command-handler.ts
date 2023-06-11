@@ -1,0 +1,105 @@
+import { injectable } from "inversify";
+import { append, evolve } from "rambda";
+
+import { commandHandler } from "@core";
+
+import { UnitID, UnitService } from "@features/unit";
+import { StashLocation, VillageStashService } from "@features/village";
+import {
+  AttackEffectType,
+  Effect,
+  EffectType,
+  EquipmentItem,
+  Item,
+  ItemID,
+  ItemType,
+  armorFactory,
+  shieldFactory,
+  weaponFactory,
+} from "@models";
+
+import {
+  BlacksmithCommand,
+  BlacksmithCommandCreateItemArgs,
+  BlacksmithCommandUpgradeItemArgs,
+} from "./blacksmith-command";
+
+@injectable()
+export class BlacksmithCommandHandler {
+  constructor(private unitService: UnitService, private villageStashService: VillageStashService) {}
+
+  @commandHandler(BlacksmithCommand.UpgradeItem)
+  upgradeItem(args: BlacksmithCommandUpgradeItemArgs) {
+    if ("stash" in args) {
+      if (args.stash === StashLocation.Unit && "unitId" in args) {
+        this.upgradeUnitStashItem(args.unitId!, args.itemId);
+      }
+
+      if (args.stash === StashLocation.Village) {
+        this.upgradeVillageStashItem(args.itemId);
+      }
+    } else if ("unitId" in args) {
+      this.upgradeEquipmentItem(args.unitId!, args.itemId);
+    }
+  }
+
+  @commandHandler(BlacksmithCommand.CreateItem)
+  createItem(args: BlacksmithCommandCreateItemArgs) {
+    const price = 50;
+    if (this.villageStashService.hasEnoughResource({ gold: price })) {
+      this.villageStashService.removeResource({ gold: price });
+
+      const item = (() => {
+        switch (args.itemType) {
+          case ItemType.Armor:
+            return armorFactory();
+          case ItemType.Shield:
+            return shieldFactory();
+          case ItemType.Weapon:
+            return weaponFactory();
+        }
+      })()!;
+
+      this.villageStashService.addItems([item]);
+    }
+  }
+
+  private upgradeUnitStashItem(unitId: UnitID, itemId: ItemID) {
+    this.unitService.updateStashItem(unitId, itemId, (item: Item) =>
+      this.adjustEquipmentWithEffect(item as EquipmentItem),
+    );
+  }
+
+  private upgradeVillageStashItem(itemId: ItemID) {
+    this.villageStashService.updateStashItem(itemId, (item: Item) =>
+      this.adjustEquipmentWithEffect(item as EquipmentItem),
+    );
+  }
+
+  private upgradeEquipmentItem(unitId: UnitID, itemId: ItemID) {
+    const equipment = this.unitService.getEquipmentByItemId(unitId, itemId);
+
+    if (equipment) {
+      this.unitService.setEquipment(unitId, equipment[0], this.adjustEquipmentWithEffect(equipment[1]));
+    }
+  }
+
+  private adjustEquipmentWithEffect(item: EquipmentItem): EquipmentItem {
+    const price = ((item.effects || []).length + 1) * 50;
+    if (this.villageStashService.hasEnoughResource({ gold: price })) {
+      this.villageStashService.removeResource({ gold: price });
+
+      return evolve({ effects: append(this.createDmgEffect()) }, item);
+    }
+
+    return item;
+  }
+
+  private createDmgEffect(): Effect {
+    return {
+      type: EffectType.Static,
+      effectType: AttackEffectType.Dmg,
+      value: 2,
+    };
+  }
+}

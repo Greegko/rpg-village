@@ -1,4 +1,4 @@
-import { TrainingFieldActivity } from "@modules/village";
+import { TrainingFieldActivity } from "@features/village-buildings";
 
 import { createState, test } from "../../../utils";
 

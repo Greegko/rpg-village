@@ -1,17 +1,18 @@
-import { VillageActivity, VillageCommand } from "@modules/village";
+import { VillageActivity } from "@features/village";
+import { VillageBuildingsCommand } from "@features/village-buildings";
 
 import { test } from "../../utils";
 
 test("should start a build activity when gold is enough", {
   initState: { village: { stash: { resource: { gold: 100 } }, trainingField: 0 } },
-  commands: [VillageCommand.BuildTrainingField],
+  commands: [VillageBuildingsCommand.BuildTrainingField],
   expectedState: (state, t) =>
     t.withRandomId(state.activities, { name: VillageActivity.Build, startArgs: { targetBuilding: "trainingField" } }),
 });
 
 test("should block the second command for building", {
   initState: { village: { stash: { resource: { gold: 1000 } }, trainingField: 0 } },
-  commands: [VillageCommand.BuildTrainingField, VillageCommand.BuildTrainingField],
+  commands: [VillageBuildingsCommand.BuildTrainingField, VillageBuildingsCommand.BuildTrainingField],
   expectedState: [
     (state, t) =>
       t.withRandomId(state.activities, { name: VillageActivity.Build, startArgs: { targetBuilding: "trainingField" } }),

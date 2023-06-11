@@ -1,6 +1,6 @@
 import { ActivityType } from "@features/activity";
 import { MapActivity } from "@features/map";
-import { VillageActivity } from "@modules/village";
+import { VillageActivity } from "@features/village";
 
 import { createState, test } from "../utils";
 

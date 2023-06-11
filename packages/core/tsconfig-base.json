@@ -23,8 +23,6 @@
       "@game": ["./src/game"],
       "@core-types": ["./src/types"],
       "@models": ["./src/models"],
-      "@modules": ["./src/modules"],
-      "@modules/*": ["./src/modules/*"],
       "@features": ["./src/features"],
       "@features/*": ["./src/features/*"],
       "@lib/*": ["./src/lib/*"]

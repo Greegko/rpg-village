@@ -1,5 +1,5 @@
 {
   "extends": "../../tsconfig-base.json",
   "include": ["**/*.ts"],
-  "references": [{ "path": "../features" }, { "path": "../core" }, { "path": "../modules" }]
+  "references": [{ "path": "../features" }, { "path": "../core" }]
 }

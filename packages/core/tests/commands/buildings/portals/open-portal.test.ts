@@ -1,7 +1,7 @@
 import { values } from "rambda";
 
+import { PortalCommand } from "@features/village-buildings";
 import { AttackEffectType, EffectType, ItemType } from "@models";
-import { PortalCommand } from "@modules/village";
 
 import { createState, test } from "../../../utils";
 

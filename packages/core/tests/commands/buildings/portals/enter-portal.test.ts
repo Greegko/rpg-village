@@ -1,5 +1,5 @@
 import { MapLocationType } from "@features/map";
-import { PortalCommand } from "@modules/village";
+import { PortalCommand } from "@features/village-buildings";
 
 import { createState, test } from "../../../utils";
 

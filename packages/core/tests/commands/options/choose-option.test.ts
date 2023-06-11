@@ -1,4 +1,4 @@
-import { OptionCommand } from "@modules/options";
+import { OptionCommand } from "@features/options";
 
 import { createState, test } from "../../utils";
 

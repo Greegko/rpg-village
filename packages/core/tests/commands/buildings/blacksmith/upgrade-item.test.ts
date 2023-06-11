@@ -1,5 +1,6 @@
+import { StashLocation } from "@features/village";
+import { BlacksmithCommand } from "@features/village-buildings";
 import { AttackEffectType, EffectType, EquipmentSlot } from "@models";
-import { BlacksmithCommand, StashLocation } from "@modules/village";
 
 import { createState, test } from "../../../utils";
 

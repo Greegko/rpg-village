@@ -1,4 +1,4 @@
-import { VillageActivity, VillageCommand } from "@modules/village";
+import { VillageActivity, VillageCommand } from "@features/village";
 
 import { test } from "../../utils";
 

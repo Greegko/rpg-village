@@ -1,4 +1,4 @@
-import { ShopCommand } from "@modules/shop";
+import { ShopCommand } from "@features/shop";
 
 import { createState, test } from "../../utils";
 
