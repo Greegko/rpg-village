@@ -1,7 +1,14 @@
 import { keys } from "rambda";
 import { useDispatch } from "react-redux";
 
-import { ActivityCommand, BlacksmithCommand, ItemType, RuneWorkshopCommand, VillageCommand } from "@rpg-village/core";
+import {
+  ActivityCommand,
+  BlacksmithCommand,
+  ItemType,
+  RuneWorkshopCommand,
+  VillageBuildingsCommand,
+  VillageCommand,
+} from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
 import {
@@ -86,7 +93,7 @@ const Village = () => {
       <div>Rune Workshop: {village.runeWorkshop}</div>
       <div>Training Field Level: {village.trainingField}</div>
       <div>Portal Level: {village.portals}</div>
-      <button onClick={() => executeCommand({ command: VillageCommand.BuildShop })}>Build Shop</button>
+      <button onClick={() => executeCommand({ command: VillageBuildingsCommand.BuildShop })}>Build Shop</button>
 
       <button onClick={() => dispatch(changePage({ page: GamePageType.VillageShopPage }))}>Open Shop</button>
 
@@ -94,7 +101,9 @@ const Village = () => {
 
       <button onClick={() => executeCommand({ command: VillageCommand.HireHero })}>Hire Hero</button>
 
-      <button onClick={() => executeCommand({ command: VillageCommand.BuildBlacksmith })}>Upgrade Blacksmith</button>
+      <button onClick={() => executeCommand({ command: VillageBuildingsCommand.BuildBlacksmith })}>
+        Upgrade Blacksmith
+      </button>
       <button
         onClick={() => executeCommand({ command: BlacksmithCommand.CreateItem, args: { itemType: ItemType.Armor } })}
       >
@@ -110,7 +119,7 @@ const Village = () => {
       >
         Create Shield
       </button>
-      <button onClick={() => executeCommand({ command: VillageCommand.BuildRuneWorkshop })}>
+      <button onClick={() => executeCommand({ command: VillageBuildingsCommand.BuildRuneWorkshop })}>
         Upgrade Rune Workshop
       </button>
 
@@ -120,11 +129,11 @@ const Village = () => {
         Forge Dungeon Key
       </button>
 
-      <button onClick={() => executeCommand({ command: VillageCommand.BuildTrainingField })}>
+      <button onClick={() => executeCommand({ command: VillageBuildingsCommand.BuildTrainingField })}>
         Upgrade Training Field
       </button>
 
-      <button onClick={() => executeCommand({ command: VillageCommand.BuildPortalSummonerStone })}>
+      <button onClick={() => executeCommand({ command: VillageBuildingsCommand.BuildPortalSummonerStone })}>
         Build Portal Summoner Stone
       </button>
       <button onClick={() => dispatch(changePage({ page: GamePageType.OpenPortal }))}>Open Portal</button>
