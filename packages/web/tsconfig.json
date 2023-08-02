@@ -2,13 +2,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "target": "esnext",
-    "moduleResolution": "node",
-    "sourceMap": true,
+    "moduleResolution": "bundler",
     "removeComments": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noUnusedParameters": true,
     "noUnusedLocals": true,
+    "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
     "paths": {

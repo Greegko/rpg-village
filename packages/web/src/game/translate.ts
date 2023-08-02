@@ -1,4 +1,4 @@
-import { path, split } from "rambda";
+import { path } from "rambda";
 
 import { AttackEffectType, DefenseEffectType } from "@rpg-village/core";
 

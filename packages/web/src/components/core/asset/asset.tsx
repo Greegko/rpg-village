@@ -1,11 +1,6 @@
+import assets from "../../../assets/assets.json";
+
 import "./asset.scss";
-
-const assets = require("../../../assets/assets.json" as any) as AssetData[];
-
-interface AssetData {
-  file: string;
-  id: string;
-}
 
 export type AssetSize = "icon";
 

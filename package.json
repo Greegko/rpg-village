@@ -2,13 +2,14 @@
   "name": "rpg-village",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm:*:start\"",
+    "start": "concurrently npm:core:start npm:web:serve npm:web:type-checking",
     "build": "npm run core:build && npm run web:build",
     "core:start": "npm run build:watch --prefix packages/core",
     "core:build": "npm run build --prefix packages/core",
     "core:build-test": "npm run build:test --prefix packages/core",
     "core:test": "npm run test:watch --prefix packages/core",
-    "web:start": "npm run start --prefix packages/web",
+    "web:serve": "npm run serve --prefix packages/web",
+    "web:type-checking": "npm run type-checking --prefix packages/web",
     "web:build": "npm run build --prefix packages/web",
     "prepare": "for P in packages/*/; do (cd $P && npm run prepare); done"
   },
