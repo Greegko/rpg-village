@@ -1,4 +1,6 @@
 {
+  "name": "rpg-village",
+  "private": true,
   "scripts": {
     "start": "concurrently \"npm:*:start\"",
     "build": "npm run core:build && npm run web:build",
@@ -10,8 +12,6 @@
     "web:build": "npm run build --prefix packages/web",
     "prepare": "for P in packages/*/; do (cd $P && npm run prepare); done"
   },
-  "private": true,
-  "name": "rpg-village",
   "workspaces": [
     "packages/*"
   ],
