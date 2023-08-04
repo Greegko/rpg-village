@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "../src",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "strict": true,
     "composite": true,
-    "outDir": "./dist",
+    "outDir": "../dist",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -19,13 +19,13 @@
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ],
     "paths": {
-      "@core": ["./src/core"],
-      "@game": ["./src/game"],
-      "@core-types": ["./src/types"],
-      "@models": ["./src/models"],
-      "@features": ["./src/features"],
-      "@features/*": ["./src/features/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@core": ["./core"],
+      "@game": ["./game"],
+      "@core-types": ["./types"],
+      "@models": ["./models"],
+      "@features": ["./features"],
+      "@features/*": ["./features/*"],
+      "@lib/*": ["./lib/*"]
     }
   }
 }
