@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "../dist/tests",
-    "rootDirs": ["../dist/tests", "../src"],
     "paths": {
       "@core": ["../dist/core"],
       "@game": ["../dist/game"],
@@ -21,11 +20,5 @@
     ]
   },
   "include": ["**/*"],
-  "references": [
-    { "path": "../src/core" },
-    { "path": "../src/features" },
-    { "path": "../src/lib" },
-    { "path": "../src/models" },
-    { "path": "../src/game" }
-  ]
+  "references": [{ "path": "../src" }]
 }
