@@ -1,11 +1,13 @@
 {
+  "extends": "../src/tsconfig.json",
+  "files": [],
+  "include": ["**/*"],
+  "references": [{ "path": "../src" }],
   "compilerOptions": {
-    "baseUrl": "./",
-    "target": "esnext",
-    "module": "esnext",
+    "rootDir": "./",
     "composite": true,
+    "strict": false,
     "moduleResolution": "node",
-    "sourceMap": true,
     "outDir": "../dist/tests",
     "paths": {
       "@core": ["../dist/core"],
@@ -13,12 +15,6 @@
       "@models": ["../dist/models"],
       "@features": ["../dist/features"],
       "@features/*": ["../dist/features/*"]
-    },
-    "plugins": [
-      { "transform": "typescript-transform-paths" },
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ]
-  },
-  "include": ["**/*"],
-  "references": [{ "path": "../src" }]
+    }
+  }
 }
