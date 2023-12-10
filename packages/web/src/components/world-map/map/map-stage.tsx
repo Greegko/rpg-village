@@ -13,9 +13,9 @@ interface MapStageProperties {
 
 export const MapStage = ({ width, height, worldMapId }: MapStageProperties) => (
   <ReactReduxContext.Consumer>
-    {({ store }: { store: any }) => (
+    {val => (
       <Stage width={width} height={height} draggable={true} offsetX={-width / 2} offsetY={-height / 2}>
-        <Provider store={store}>
+        <Provider store={val!.store}>
           <Layer>
             <Map mapId={worldMapId} />
           </Layer>

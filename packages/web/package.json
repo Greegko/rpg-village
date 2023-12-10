@@ -1,6 +1,7 @@
 {
   "name": "@rpg-village/web",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "vite build",
@@ -9,25 +10,25 @@
     "prepare": "true"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "1.9.5",
+    "@reduxjs/toolkit": "2.0.1",
     "@rpg-village/core": "1.0.0",
-    "@vitejs/plugin-react": "4.0.4",
-    "jsdom": "22.0.0",
-    "konva": "9.0.1",
-    "rambda": "7.5.0",
+    "@vitejs/plugin-react": "4.2.1",
+    "jsdom": "23.0.1",
+    "konva": "9.2.3",
+    "rambda": "8.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-konva": "18.2.8",
-    "react-redux": "8.0.5",
-    "reflect-metadata": "0.1.13",
-    "sass": "1.62.1",
-    "typescript": "5.0.4",
-    "vite": "4.4.8",
-    "vite-plugin-static-copy": "0.17.0"
+    "react-konva": "18.2.10",
+    "react-redux": "9.0.3",
+    "reflect-metadata": "0.1.14",
+    "sass": "1.69.5",
+    "typescript": "5.3.3",
+    "vite": "5.0.7",
+    "vite-plugin-static-copy": "1.0.0"
   },
   "devDependencies": {
-    "@types/react": "18.2.6",
-    "@types/react-dom": "18.2.4",
-    "@types/react-redux": "7.1.25"
+    "@types/react": "18.2.43",
+    "@types/react-dom": "18.2.17",
+    "@types/react-redux": "7.1.32"
   }
 }
