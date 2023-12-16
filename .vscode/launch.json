@@ -12,7 +12,7 @@
       "type": "node",
       "request": "launch",
       "name": "Debug AVA test file in Core",
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ava",
+      "runtimeExecutable": "${workspaceFolder}/packages/core/node_modules/.bin/ava",
       "runtimeArgs": ["${file}", "--config", "../ava.config-debug.mjs", "--file-line", "${lineNumber}"],
       "outputCapture": "std",
       "cwd": "${workspaceFolder}/packages/core/tests",

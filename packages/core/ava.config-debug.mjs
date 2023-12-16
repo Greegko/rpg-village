@@ -3,7 +3,7 @@ import * as fs from "fs";
 const defaultSettings = {
   extensions: ["ts"],
   timeout: "5s",
-  require: ["ts-node/register", "reflect-metadata"],
+  require: ["tsx", "reflect-metadata"],
 };
 
 const extraSettings = {};
@@ -19,7 +19,7 @@ console.log();
 
 if (match) {
   console.log("Running a specific testcase! =>", match[1]);
-  extraSettings["match"] = match[1];
+  extraSettings["match"] = match[1] + "*";
 } else {
   console.log("Running all testcases");
 }
