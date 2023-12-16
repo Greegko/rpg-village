@@ -8,12 +8,12 @@
     "strict": true,
     "composite": true,
     "outDir": "../dist",
-    "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "inlineSourceMap": true,
     "plugins": [
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
