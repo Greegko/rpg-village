@@ -34,7 +34,7 @@ export class VillageStashService {
     const itemFn = typeof item === "function" ? item : always(item);
 
     const evolver = evolve({
-      items: map(when(propEq("id", itemId), itemFn)),
+      items: map(when(propEq(itemId, "id"), itemFn)),
     });
 
     this.villageStore.update("stash", evolver as any);

@@ -45,7 +45,7 @@ export class UnitService {
 
     const evolver = evolve({
       stash: {
-        items: map(when(propEq("id", itemId), itemFn)),
+        items: map(when(propEq(itemId, "id"), itemFn)),
       },
     });
 

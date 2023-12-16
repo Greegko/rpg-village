@@ -9,7 +9,7 @@ export interface ItemStash extends Stash {
 
 export function getItem<T extends ItemStash>(stash: T, itemId: ItemID): Item {
   const items = stash.items;
-  return find(propEq("id", itemId), items)!;
+  return find(propEq(itemId, "id"), items)!;
 }
 
 export function getItems(stash: ItemStash): Item[] {
@@ -37,7 +37,7 @@ export function addItems<T extends ItemStash>(stash: T, items: Item[]): T {
 export function removeItem<T extends ItemStash>(stash: T, itemId: ItemID): T {
   return evolve(
     {
-      items: reject(propEq("id", itemId)),
+      items: reject(propEq(itemId, "id")),
     },
     stash,
   ) as T;
