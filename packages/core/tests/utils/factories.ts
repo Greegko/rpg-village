@@ -9,7 +9,23 @@ import { Party, PartyOwner } from "@features/party";
 import { ShopState } from "@features/shop";
 import { Unit, UnitType } from "@features/unit";
 import { VillageState } from "@features/village";
-import { Armor, ItemStash, ItemType, ResourceStash, Rune, Shield, Weapon } from "@models";
+import {
+  Armor,
+  AttackEffectType,
+  DefenseEffectType,
+  Effect,
+  EffectDynamic,
+  EffectStatic,
+  EffectType,
+  ItemStash,
+  ItemType,
+  MiscEffectType,
+  ResourceStash,
+  Rune,
+  RuneAttackEffectType,
+  Shield,
+  Weapon,
+} from "@models";
 
 const chance = Chance();
 
@@ -134,6 +150,30 @@ export function equipmentFactory({
   itemType = chance.pickone([ItemType.Armor, ItemType.Shield, ItemType.Weapon]),
 }: Partial<Armor | Weapon | Shield>): Armor | Weapon | Shield {
   return { effects, id, name, itemType };
+}
+
+export function effectFactory(): Effect {
+  return chance.bool() ? staticEffectFactory({}) : dynamicEffectFactory({});
+}
+
+export function staticEffectFactory({
+  value = chance.integer(),
+  isPercentage = chance.bool(),
+  effectType = chance.pickone([
+    AttackEffectType.Dmg,
+    DefenseEffectType.Armor,
+    DefenseEffectType.Evasion,
+    MiscEffectType.Hp,
+  ]),
+}: Partial<EffectStatic>): EffectStatic {
+  return { value, type: EffectType.Static, effectType, isPercentage };
+}
+
+export function dynamicEffectFactory({
+  isPercentage = chance.bool(),
+  effectType = chance.pickone([RuneAttackEffectType.Dmg]),
+}: Partial<EffectDynamic>): EffectDynamic {
+  return { effectType, type: EffectType.Dynamic, isPercentage };
 }
 
 export function runeFactory({

@@ -3,7 +3,7 @@ import { values } from "rambda";
 import { PortalCommand } from "@features/village-buildings";
 import { AttackEffectType, EffectType, ItemType } from "@models";
 
-import { createState, test } from "../../../utils";
+import { createState, staticEffectFactory, test } from "../../../utils";
 
 test("should create portal", {
   initState: createState(({ village, map }) => [
@@ -32,7 +32,7 @@ test("should apply effects to the portal", {
           {
             itemType: ItemType.DungeonKey,
             id: "dungeon-key",
-            effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10 }],
+            effects: [staticEffectFactory({ effectType: AttackEffectType.Dmg, value: 10, isPercentage: false })],
           },
         ],
       },
@@ -46,7 +46,7 @@ test("should apply effects to the portal", {
   ],
   expectedState: (state, t) =>
     t.deepEqual(values(state.maps).find(x => x.id !== "global-map").modifiers, [
-      { type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10 },
+      { type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10, isPercentage: false },
     ]),
 });
 

@@ -22,7 +22,7 @@ test("should remove map when the map is finished and party leaves", {
     map({
       id: "portal-map-id",
       mapLocationIds: [
-        location({ id: "boss-location-id", partyIds: [], type: MapLocationType.Boss }),
+        location({ id: "boss-location-id", partyIds: [], type: MapLocationType.Boss, explored: true }),
         location({ id: "portal-location-id", partyIds: [party({ id: "party-id" })], type: MapLocationType.Portal }),
       ],
       mapSize: 1,
@@ -41,7 +41,7 @@ test("should start gather portal resource activity when the map is finished and 
       id: "portal-map-id",
       mapLocationIds: [
         location({ type: MapLocationType.Portal, id: "portal-location-id", partyIds: [party({ id: "party-id" })] }),
-        location({ type: MapLocationType.Boss, id: "boss-location-id", partyIds: [] }),
+        location({ type: MapLocationType.Boss, id: "boss-location-id", partyIds: [], explored: true }),
       ],
       mapSize: 1,
     }),

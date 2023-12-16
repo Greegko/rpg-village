@@ -1,10 +1,10 @@
 import { BattleActivityType } from "@features/battle";
 import { UnitType } from "@features/unit";
 import { VillageConfig } from "@features/village";
-import { AttackEffectType, EffectType, ItemType, RuneAttackEffectType } from "@models";
+import { AttackEffectType, ItemType, RuneAttackEffectType } from "@models";
 
 import { createState, test } from "../utils";
-import { equipmentFactory, runeFactory } from "../utils/factories";
+import { dynamicEffectFactory, equipmentFactory, runeFactory, staticEffectFactory } from "../utils/factories";
 
 test("should finish correctly", {
   initState: createState(({ activity, party, unit, battle }) => [
@@ -18,7 +18,6 @@ test("should finish correctly", {
         battleId: battle({
           partyId: party({
             id: "random-id",
-
             unitIds: [unit({ dmg: 100, hp: 100 })],
           }),
           defenderPartyId: party({
@@ -147,7 +146,9 @@ test("should apply item dmg effect", {
                 equipment: {
                   rightHand: equipmentFactory({
                     itemType: ItemType.Weapon,
-                    effects: [{ value: 10, type: EffectType.Static, effectType: AttackEffectType.Dmg }],
+                    effects: [
+                      staticEffectFactory({ value: 10, effectType: AttackEffectType.Dmg, isPercentage: false }),
+                    ],
                   }),
                 },
               }),
@@ -178,9 +179,7 @@ test("should apply percentage item dmg effect", {
                 equipment: {
                   rightHand: equipmentFactory({
                     itemType: ItemType.Weapon,
-                    effects: [
-                      { value: 10, type: EffectType.Static, isPercentage: true, effectType: AttackEffectType.Dmg },
-                    ],
+                    effects: [staticEffectFactory({ value: 10, isPercentage: true, effectType: AttackEffectType.Dmg })],
                   }),
                 },
               }),
@@ -212,7 +211,7 @@ test("should apply dynamic item effects", {
                   rune: runeFactory({
                     power: 100,
                     soul: 0,
-                    effects: [{ type: EffectType.Dynamic, effectType: RuneAttackEffectType.Dmg }],
+                    effects: [dynamicEffectFactory({ effectType: RuneAttackEffectType.Dmg, isPercentage: false })],
                   }),
                 },
               }),
