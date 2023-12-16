@@ -89,7 +89,7 @@ test("should upgrade item on hero equipment", {
 });
 
 test("should upgrade in village stash", {
-  initState: createState(({ village, party }) => [
+  initState: createState(({ village }) => [
     village({ stash: { resource: { gold: 50 }, items: [{ id: "test-item", effects: [] }] } }),
   ]),
   commands: [

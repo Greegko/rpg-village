@@ -29,11 +29,11 @@ const project_dir = argv[1].replace(/node_modules.*/, "");
 export function test(testName: string, { gameConfig, initState, commands, event, expectedState, turn = 0 }: Test) {
   const testFilePath = new Error().stack
     .split("\n")[2]
-    .replace("at Object.<anonymous> ", "")
-    .slice(5, -1)
+    .replace("at <anonymous> (", "")
+    .slice(0, -1)
     .replace(project_dir, "");
 
-  ava.default(testName, t => {
+  ava.default(testName + " - " + testFilePath, t => {
     const game = gameFactory({ state: initState, config: gameConfig } as any);
 
     if (commands) {
@@ -58,7 +58,7 @@ export function test(testName: string, { gameConfig, initState, commands, event,
 
     const testExpectedState = (expectedState: ExpectedState) => {
       if (typeof expectedState === "object") {
-        t.like(gameState, expectedState, testFilePath);
+        t.like(gameState, expectedState);
       } else {
         expectedState(gameState, {
           ...t,
