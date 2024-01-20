@@ -6,7 +6,7 @@
       "request": "launch",
       "type": "chrome",
       "url": "http://localhost:8080",
-      "skipFiles": ["${workspaceFolder}/node_modules/**/*.js"],
+      "skipFiles": ["${workspaceFolder}/**/node_modules/**/*.js"],
       "webRoot": "${workspaceFolder}/packages/web",
       "sourceMapPathOverrides": {
         "../../../*": "${workspaceFolder}/packages/core/*"

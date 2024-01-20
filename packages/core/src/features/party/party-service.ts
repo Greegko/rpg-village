@@ -1,11 +1,11 @@
 import { injectable } from "inversify";
 import { any, without } from "rambda";
 
-import { ActivityStore } from "@features/activity";
 import { Unit, UnitID, UnitService, UnitStore, isAlive } from "@features/unit";
 import { Loot, addResource } from "@models";
 
-import { Party, PartyID, PartyStash } from "./interfaces";
+import { EventSystem } from "../../core/event";
+import { Party, PartyEvent, PartyID, PartyStash } from "./interfaces";
 import { PartyStore } from "./party-store";
 
 @injectable()
@@ -14,7 +14,7 @@ export class PartyService {
     private partyStore: PartyStore,
     private unitStore: UnitStore,
     private unitService: UnitService,
-    private activityStore: ActivityStore,
+    private eventSystem: EventSystem,
   ) {}
 
   isPartyAlive(partyId: PartyID): boolean {
@@ -47,7 +47,7 @@ export class PartyService {
   }
 
   removeParty(partyId: PartyID) {
-    this.removePartyActivity(partyId);
+    this.eventSystem.fire(PartyEvent.Disband, { partyId });
     this.partyStore.remove(partyId);
   }
 
@@ -57,13 +57,5 @@ export class PartyService {
 
   removeUnitFromParty(partyId: PartyID, unitIds: UnitID[]) {
     this.partyStore.update(partyId, party => ({ unitIds: without(unitIds, party.unitIds) }));
-  }
-
-  private removePartyActivity(partyId: PartyID) {
-    const activityId = this.partyStore.get(partyId).activityId;
-
-    if (activityId) {
-      this.activityStore.remove(activityId);
-    }
   }
 }

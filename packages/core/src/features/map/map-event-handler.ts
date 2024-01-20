@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
-import { append, evolve } from "rambda";
+import { append, evolve, find, values, without } from "rambda";
 
 import { eventHandler } from "@core";
 
-import { PartyOwner, PartyService } from "@features/party";
+import { PartyEvent, PartyEventDisbandArgs, PartyOwner, PartyService } from "@features/party";
 import { UnitStore } from "@features/unit";
 import { EffectStatic } from "@models";
 
@@ -46,5 +46,12 @@ export class MapEventHandler {
     });
 
     this.mapLocationStore.update(locationId, evolve({ partyIds: append(party.id) }));
+  }
+
+  @eventHandler(PartyEvent.Disband)
+  onDisbandParty(args: PartyEventDisbandArgs) {
+    const mapLocation = find(x => x.partyIds.includes(args.partyId), values(this.mapLocationStore.getState()))!;
+
+    this.mapLocationStore.update(mapLocation.id, evolve({ partyIds: without([args.partyId]) }));
   }
 }
