@@ -18,7 +18,6 @@ export interface ModulStore {
   scope: string;
   store: StoreClass;
   initialState?: object;
-  extendInitialState?: object;
 }
 
 export interface Module {

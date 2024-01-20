@@ -21,7 +21,7 @@ export const villageBuildingsModule: Module = {
     {
       scope: "village",
       store: VillageStore,
-      extendInitialState: {
+      initialState: {
         blacksmith: 0,
         portals: 0,
         trainingField: 0,

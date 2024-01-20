@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { Prop, assoc, prop } from "rambda";
+import { Prop, assoc, merge, prop } from "rambda";
 
 export interface IObjectStore<T extends object> {
   getState(): T;
@@ -18,7 +18,7 @@ export class ObjectStore<T extends object> implements IObjectStore<T> {
   }
 
   init(state: T) {
-    this.state = state;
+    this.state = merge(this.state, state);
   }
 
   get<P extends keyof T>(prop: P): T[P] {
