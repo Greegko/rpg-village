@@ -50,7 +50,9 @@ export class MapEventHandler {
 
   @eventHandler(PartyEvent.Disband)
   onDisbandParty(args: PartyEventDisbandArgs) {
-    const mapLocation = find(x => x.partyIds.includes(args.partyId), values(this.mapLocationStore.getState()))!;
+    const mapLocation = find(x => x.partyIds.includes(args.partyId), values(this.mapLocationStore.getState()));
+
+    if (mapLocation === undefined) return;
 
     this.mapLocationStore.update(mapLocation.id, evolve({ partyIds: without([args.partyId]) }));
   }
