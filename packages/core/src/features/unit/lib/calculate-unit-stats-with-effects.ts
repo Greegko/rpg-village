@@ -6,11 +6,9 @@ import { Unit } from "../interfaces";
 import { getUnitEffects } from "./get-unit-effects";
 
 export function calculateUnitStatsWithEffects(unit: Unit): Unit {
-  const unitWithEffects: Unit = clone(unit);
-
   const effectsToApply = sortBy(propOr(false, "isPercentage"), getUnitEffects(unit));
 
-  return reduce(applyEffect, unitWithEffects, effectsToApply);
+  return reduce(applyEffect, clone(unit), effectsToApply);
 }
 
 function getEffectBaseProperty(effect: EffectStatic): keyof Unit | null {
@@ -33,7 +31,7 @@ function applyEffect(unit: Unit, effect: EffectStatic): Unit {
 
 function calculateEffectValue(value: number, effect: EffectStatic): number {
   if (effect.isPercentage) {
-    return (value * effect.value) / 100 + 1;
+    return value * (effect.value / 100 + 1);
   } else {
     return value + effect.value;
   }
