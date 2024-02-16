@@ -6,6 +6,12 @@ export enum MapCommand {
   Explore = "map/explore",
   Travel = "map/travel",
   Battle = "map/battle",
+  MergeParties = "map/merge-parties",
+}
+
+export interface MapCommandMergePartiesArgs {
+  partyId: PartyID;
+  otherPartyId: PartyID;
 }
 
 export interface MapCommandBattleArgs {

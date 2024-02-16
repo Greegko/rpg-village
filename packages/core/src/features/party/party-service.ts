@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { any, without } from "rambda";
+import { any, evolve, mergeLeft, without } from "rambda";
 
 import { Unit, UnitID, UnitService, UnitStore, isAlive } from "@features/unit";
 import { Loot, addResource } from "@models";
@@ -46,7 +46,20 @@ export class PartyService {
     return stash;
   }
 
-  removeParty(partyId: PartyID) {
+  mergeWithParty(partyId: PartyID, otherPartyId: PartyID) {
+    const otherParty = this.partyStore.get(otherPartyId);
+    this.partyStore.update(
+      partyId,
+      evolve({
+        stash: mergeLeft(otherParty.stash),
+        unitIds: mergeLeft(otherParty.unitIds),
+      }),
+    );
+
+    this.disbandParty(otherPartyId);
+  }
+
+  disbandParty(partyId: PartyID) {
     this.eventSystem.fire(PartyEvent.Disband, { partyId });
     this.partyStore.remove(partyId);
   }

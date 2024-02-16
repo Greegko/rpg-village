@@ -55,7 +55,7 @@ export class VillageEventHandler {
     this.partyService.removeUnitFromParty(winnerPartyId, diedWinnerUnits.map(prop("id")));
     this.partyService.removeUnitFromParty(looserPartyId, looserUnits.map(prop("id")));
 
-    this.partyService.removeParty(looserPartyId);
+    this.partyService.disbandParty(looserPartyId);
   }
 
   private isPartyArrivedToVillage(args: PartyEventArrivedToLocationArgs): boolean {

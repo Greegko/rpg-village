@@ -3,20 +3,25 @@ import { injectable } from "inversify";
 import { commandHandler } from "@core";
 
 import { BattleActivityType } from "@features/battle";
-import { PartyActivityManager, PartyOwner } from "@features/party";
+import { PartyActivityManager, PartyOwner, PartyService } from "@features/party";
 
 import {
   MapActivity,
   MapCommand,
   MapCommandBattleArgs,
   MapCommandExploreArgs,
+  MapCommandMergePartiesArgs,
   MapCommandTravelArgs,
 } from "./interfaces";
 import { PartyMapService } from "./party-map-service";
 
 @injectable()
 export class MapCommandHandler {
-  constructor(private playerActivityManager: PartyActivityManager, private partyMapService: PartyMapService) {}
+  constructor(
+    private partyService: PartyService,
+    private playerActivityManager: PartyActivityManager,
+    private partyMapService: PartyMapService,
+  ) {}
 
   @commandHandler(MapCommand.Travel)
   travelCommand(travelArgs: MapCommandTravelArgs) {
@@ -41,5 +46,15 @@ export class MapCommandHandler {
         involvedPartyId: enemyParty.id,
       });
     }
+  }
+
+  @commandHandler(MapCommand.MergeParties)
+  mergePartiesCommand(mergePartiesArgs: MapCommandMergePartiesArgs) {
+    const partyLocation = this.partyMapService.getPartyLocation(mergePartiesArgs.partyId);
+    const otherPartyLocation = this.partyMapService.getPartyLocation(mergePartiesArgs.otherPartyId);
+
+    if (partyLocation !== otherPartyLocation) return;
+
+    this.partyService.mergeWithParty(mergePartiesArgs.partyId, mergePartiesArgs.otherPartyId);
   }
 }
