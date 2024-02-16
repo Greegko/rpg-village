@@ -1,9 +1,10 @@
 import { injectable } from "inversify";
+import { evolve, intersection, without } from "rambda";
 
 import { commandHandler } from "@core";
 
 import { BattleActivityType } from "@features/battle";
-import { PartyActivityManager, PartyOwner, PartyService } from "@features/party";
+import { PartyActivityManager, PartyOwner, PartyService, PartyStore } from "@features/party";
 
 import {
   MapActivity,
@@ -11,6 +12,7 @@ import {
   MapCommandBattleArgs,
   MapCommandExploreArgs,
   MapCommandMergePartiesArgs,
+  MapCommandSplitPartyArgs,
   MapCommandTravelArgs,
 } from "./interfaces";
 import { PartyMapService } from "./party-map-service";
@@ -18,6 +20,7 @@ import { PartyMapService } from "./party-map-service";
 @injectable()
 export class MapCommandHandler {
   constructor(
+    private partyStore: PartyStore,
     private partyService: PartyService,
     private playerActivityManager: PartyActivityManager,
     private partyMapService: PartyMapService,
@@ -56,5 +59,29 @@ export class MapCommandHandler {
     if (partyLocation !== otherPartyLocation) return;
 
     this.partyService.mergeWithParty(mergePartiesArgs.partyId, mergePartiesArgs.otherPartyId);
+  }
+
+  @commandHandler(MapCommand.SplitParty)
+  splitPartyCommand(splitPartyArgs: MapCommandSplitPartyArgs) {
+    const party = this.partyStore.get(splitPartyArgs.partyId);
+    if (intersection(party.unitIds, splitPartyArgs.unitIds).length !== splitPartyArgs.unitIds.length) return;
+
+    const partyLocation = this.partyMapService.getPartyLocation(splitPartyArgs.partyId);
+
+    this.partyStore.update(
+      party.id,
+      evolve({
+        unitIds: without(splitPartyArgs.unitIds),
+      }),
+    );
+
+    const newParty = this.partyService.createParty({
+      owner: party.owner,
+      unitIds: splitPartyArgs.unitIds,
+      activityId: undefined,
+      stash: { items: [], resource: {} },
+    });
+
+    this.partyMapService.setLocation(newParty.id, partyLocation!.id);
   }
 }

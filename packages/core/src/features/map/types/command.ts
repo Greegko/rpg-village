@@ -3,6 +3,7 @@ import {
   MapCommandBattleArgs,
   MapCommandExploreArgs,
   MapCommandMergePartiesArgs,
+  MapCommandSplitPartyArgs,
   MapCommandTravelArgs,
 } from "../interfaces";
 
@@ -12,5 +13,6 @@ declare module "@core" {
     [MapCommand.Travel]: MapCommandTravelArgs;
     [MapCommand.Battle]: MapCommandBattleArgs;
     [MapCommand.MergeParties]: MapCommandMergePartiesArgs;
+    [MapCommand.SplitParty]: MapCommandSplitPartyArgs;
   }
 }
