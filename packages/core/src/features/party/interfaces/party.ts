@@ -9,7 +9,7 @@ export type PartyStash = ItemStash & ResourceStash;
 
 export interface Party {
   id: PartyID;
-  activityId?: ActivityID;
+  activityId: ActivityID | undefined;
   owner: PartyOwner;
   unitIds: UnitID[];
   stash: PartyStash;

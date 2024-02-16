@@ -42,6 +42,7 @@ export class MapEventHandler {
     const party = this.partyService.createParty({
       owner: PartyOwner.Enemy,
       unitIds: unitIds,
+      activityId: undefined,
       stash: generatedParty.stash,
     });
 

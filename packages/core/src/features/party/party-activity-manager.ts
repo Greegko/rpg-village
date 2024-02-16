@@ -11,7 +11,7 @@ import {
   ActivityType,
 } from "@features/activity";
 
-import { PartyActivityStartArgs } from "./interfaces";
+import { PartyActivityStartArgs, PartyEvent, PartyEventDisbandArgs } from "./interfaces";
 import { PartyStore } from "./party-store";
 
 @injectable()
@@ -60,11 +60,19 @@ export class PartyActivityManager {
   onPartyActivityCancel(args: ActivityCancelledActivityArgs) {
     const activity = this.activityStore.get(args.activityId);
     if (activity.type === ActivityType.Party) {
-      this.partyStore.update(activity.startArgs.partyId, { activityId: undefined });
-
+      this.partyStore.clearActivity(activity.startArgs.partyId);
       if (activity.startArgs.involvedPartyId) {
-        this.partyStore.update(activity.startArgs.involvedPartyId, { activityId: undefined });
+        this.partyStore.clearActivity(activity.startArgs.involvedPartyId);
       }
+    }
+  }
+
+  @eventHandler(PartyEvent.Disband)
+  onPartyDisbandCancelActiveEvent(partyEventDisbandArgs: PartyEventDisbandArgs) {
+    const activityId = this.partyStore.get(partyEventDisbandArgs.partyId).activityId;
+
+    if (activityId) {
+      this.activityStore.remove(activityId);
     }
   }
 }

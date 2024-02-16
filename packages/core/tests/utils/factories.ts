@@ -121,8 +121,9 @@ export function partyFactory({
   owner = chance.pickone([PartyOwner.Enemy, PartyOwner.Player]),
   unitIds = [],
   stash = stashFactory(),
+  activityId = undefined,
 }: Partial<Party> = {}): Party {
-  return { id, owner, unitIds, stash };
+  return { id, owner, unitIds, stash, activityId };
 }
 
 export function activityFactory({

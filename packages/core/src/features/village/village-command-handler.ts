@@ -45,6 +45,7 @@ export class VillageCommandHandler {
       const party = this.partyService.createParty({
         unitIds: [heroId],
         owner: PartyOwner.Player,
+        activityId: undefined,
         stash: { resource: { gold: 0, soul: 0 }, items: [] },
       });
 
