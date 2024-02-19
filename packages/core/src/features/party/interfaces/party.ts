@@ -1,4 +1,3 @@
-import { ActivityID } from "@features/activity";
 import { UnitID } from "@features/unit";
 import { ItemStash, ResourceStash } from "@models";
 
@@ -9,7 +8,6 @@ export type PartyStash = ItemStash & ResourceStash;
 
 export interface Party {
   id: PartyID;
-  activityId: ActivityID | undefined;
   owner: PartyOwner;
   unitIds: UnitID[];
   stash: PartyStash;

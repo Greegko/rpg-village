@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { filter, forEach, map } from "rambda";
 
-import { IActivityHandlerCancelable } from "@features/activity";
-import { PartyActivity, PartyID, PartyStore } from "@features/party";
+import { Activity, IActivityHandlerCancelable } from "@features/activity";
+import { PartyID, PartyStore } from "@features/party";
 import { UnitID, UnitService, UnitStore } from "@features/unit";
 
 type VillageHealState = {
@@ -17,7 +17,7 @@ type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
 export class VillageHealActivity
-  implements IActivityHandlerCancelable<PartyActivity<VillageHealState, VillageHealStartArgs>>
+  implements IActivityHandlerCancelable<Activity<VillageHealState, VillageHealStartArgs>>
 {
   constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
 
@@ -31,7 +31,7 @@ export class VillageHealActivity
     return this.getRecoverableUnits(partyId).length > 0;
   }
 
-  execute({ state }: PartyActivity<VillageHealState>): VillageHealState {
+  execute({ state }: Activity<VillageHealState>): VillageHealState {
     const recoverableUnits = this.getRecoverableUnits(state.partyId);
 
     forEach(unit => this.unitService.healUnit(unit.id, Math.ceil(unit.maxhp / 10)), recoverableUnits);
@@ -39,17 +39,17 @@ export class VillageHealActivity
     return state;
   }
 
-  isDone({ state: { partyId } }: PartyActivity<VillageHealState>): boolean {
+  isDone({ state: { partyId } }: Activity<VillageHealState>): boolean {
     return this.getRecoverableUnits(partyId).length === 0;
   }
 
   resolve() {}
 
-  isCancelable(activity: PartyActivity<VillageHealState, VillageHealStartArgs>): boolean {
+  isCancelable(activity: Activity<VillageHealState, VillageHealStartArgs>): boolean {
     return true;
   }
 
-  onCancel(activity: PartyActivity<VillageHealState, VillageHealStartArgs>): void {}
+  onCancel(activity: Activity<VillageHealState, VillageHealStartArgs>): void {}
 
   private getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyStore.get(partyId);

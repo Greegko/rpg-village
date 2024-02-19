@@ -1,6 +1,6 @@
 import { Chance } from "chance";
 
-import { Activity, ActivityType } from "@features/activity";
+import { Activity } from "@features/activity";
 import { BattleStoreState } from "@features/battle";
 import { GeneralGameStoreState } from "@features/game";
 import { Map, MapLocation, MapLocationType, MapSize } from "@features/map";
@@ -121,19 +121,17 @@ export function partyFactory({
   owner = chance.pickone([PartyOwner.Enemy, PartyOwner.Player]),
   unitIds = [],
   stash = stashFactory(),
-  activityId = undefined,
 }: Partial<Party> = {}): Party {
-  return { id, owner, unitIds, stash, activityId };
+  return { id, owner, unitIds, stash };
 }
 
 export function activityFactory({
   id = chance.string(),
   state = {},
   name = chance.string(),
-  type = chance.pickone([ActivityType.Global, ActivityType.Party]),
   startArgs = {} as any,
 }: Partial<Activity> = {}): Activity {
-  return { id, state, type, name, startArgs } as Activity<unknown>;
+  return { id, state, name, startArgs } as Activity<unknown>;
 }
 
 export function battleStoreStateFactory({

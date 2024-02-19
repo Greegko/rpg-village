@@ -3,8 +3,8 @@ import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { IActivityHandlerCancelable } from "@features/activity";
-import { PartyActivity, PartyID } from "@features/party";
+import { Activity, IActivityHandlerCancelable } from "@features/activity";
+import { PartyID } from "@features/party";
 
 import { MapEvent, MapLocationID, MapLocationType } from "../interfaces";
 import { MapLocationStore } from "../map-location-store";
@@ -23,7 +23,7 @@ type TravelStartArgs = {
 };
 
 @injectable()
-export class MapTravelActivity implements IActivityHandlerCancelable<PartyActivity<TravelState, TravelStartArgs>> {
+export class MapTravelActivity implements IActivityHandlerCancelable<Activity<TravelState, TravelStartArgs>> {
   constructor(
     private mapService: MapService,
     private partyMapService: PartyMapService,
@@ -53,15 +53,15 @@ export class MapTravelActivity implements IActivityHandlerCancelable<PartyActivi
     return targetLocationId !== partyLocation.id;
   }
 
-  execute({ state }: PartyActivity<TravelState>): TravelState {
+  execute({ state }: Activity<TravelState>): TravelState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: PartyActivity<TravelState>): boolean {
+  isDone({ state }: Activity<TravelState>): boolean {
     return state.progress === 0;
   }
 
-  resolve({ state }: PartyActivity<TravelState>) {
+  resolve({ state }: Activity<TravelState>) {
     this.partyMapService.setLocation(state.partyId, state.targetLocationId);
     this.eventSystem.fire(MapEvent.PartyArrivedToLocation, {
       partyId: state.partyId,
@@ -69,9 +69,9 @@ export class MapTravelActivity implements IActivityHandlerCancelable<PartyActivi
     });
   }
 
-  isCancelable(activity: PartyActivity<TravelState, TravelStartArgs>): boolean {
+  isCancelable(activity: Activity<TravelState, TravelStartArgs>): boolean {
     return true;
   }
 
-  onCancel(activity: PartyActivity<TravelState, TravelStartArgs>): void {}
+  onCancel(activity: Activity<TravelState, TravelStartArgs>): void {}
 }

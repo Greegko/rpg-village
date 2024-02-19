@@ -3,6 +3,7 @@ import { append, evolve, find, values, without } from "rambda";
 
 import { eventHandler } from "@core";
 
+import { ActivityStore } from "@features/activity";
 import { PartyEvent, PartyEventDisbandArgs, PartyOwner, PartyService } from "@features/party";
 import { UnitStore } from "@features/unit";
 import { EffectStatic } from "@models";
@@ -19,6 +20,7 @@ export class MapEventHandler {
     private unitStore: UnitStore,
     private mapStore: MapStore,
     private mapLocationStore: MapLocationStore,
+    private activityStore: ActivityStore,
   ) {}
 
   @eventHandler(MapEvent.NewLocation)
@@ -42,7 +44,6 @@ export class MapEventHandler {
     const party = this.partyService.createParty({
       owner: PartyOwner.Enemy,
       unitIds: unitIds,
-      activityId: undefined,
       stash: generatedParty.stash,
     });
 
@@ -50,11 +51,23 @@ export class MapEventHandler {
   }
 
   @eventHandler(PartyEvent.Disband)
-  onDisbandParty(args: PartyEventDisbandArgs) {
+  onDisbandPartyRemovePartyFromMap(args: PartyEventDisbandArgs) {
     const mapLocation = find(x => x.partyIds.includes(args.partyId), values(this.mapLocationStore.getState()));
 
     if (mapLocation === undefined) return;
 
     this.mapLocationStore.update(mapLocation.id, evolve({ partyIds: without([args.partyId]) }));
+  }
+
+  @eventHandler(PartyEvent.Disband)
+  onDisbandPartyRemovePartyActiveActivity(args: PartyEventDisbandArgs) {
+    const partyActivity = find(
+      x => (x.startArgs as { partyId?: string })?.partyId === args.partyId,
+      values(this.activityStore.getState()),
+    );
+
+    if (partyActivity === undefined) return;
+
+    this.activityStore.remove(partyActivity.id);
   }
 }

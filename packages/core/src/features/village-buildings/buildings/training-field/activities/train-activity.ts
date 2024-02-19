@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { dec, evolve, forEach } from "rambda";
 
-import { IActivityHandler } from "@features/activity";
-import { PartyActivity, PartyID, PartyStore } from "@features/party";
+import { Activity, IActivityHandler } from "@features/activity";
+import { PartyID, PartyStore } from "@features/party";
 import { UnitService } from "@features/unit";
 
 type TrainingFieldState = {
@@ -14,7 +14,7 @@ type TrainingFieldStartArgs = TrainingFieldState;
 
 @injectable()
 export class TrainingFieldTrainActivity
-  implements IActivityHandler<PartyActivity<TrainingFieldState, TrainingFieldStartArgs>>
+  implements IActivityHandler<Activity<TrainingFieldState, TrainingFieldStartArgs>>
 {
   constructor(private unitService: UnitService, private partyStore: PartyStore) {}
 
@@ -29,7 +29,7 @@ export class TrainingFieldTrainActivity
     return true;
   }
 
-  execute({ state }: PartyActivity<TrainingFieldState, TrainingFieldStartArgs>): TrainingFieldState {
+  execute({ state }: Activity<TrainingFieldState, TrainingFieldStartArgs>): TrainingFieldState {
     const units = this.partyStore.get(state.partyId).unitIds;
 
     forEach(unitId => this.unitService.gainXpUnit(unitId, 25), units);
@@ -37,7 +37,7 @@ export class TrainingFieldTrainActivity
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: PartyActivity<TrainingFieldState, TrainingFieldStartArgs>): boolean {
+  isDone({ state }: Activity<TrainingFieldState, TrainingFieldStartArgs>): boolean {
     return state.progress === 0;
   }
 

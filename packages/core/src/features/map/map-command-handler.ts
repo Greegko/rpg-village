@@ -3,8 +3,9 @@ import { evolve, intersection, without } from "rambda";
 
 import { commandHandler } from "@core";
 
+import { ActivityManager } from "@features/activity";
 import { BattleActivityType } from "@features/battle";
-import { PartyActivityManager, PartyOwner, PartyService, PartyStore } from "@features/party";
+import { PartyOwner, PartyService, PartyStore } from "@features/party";
 
 import {
   MapActivity,
@@ -22,18 +23,18 @@ export class MapCommandHandler {
   constructor(
     private partyStore: PartyStore,
     private partyService: PartyService,
-    private playerActivityManager: PartyActivityManager,
+    private activityManager: ActivityManager,
     private partyMapService: PartyMapService,
   ) {}
 
   @commandHandler(MapCommand.Travel)
   travelCommand(travelArgs: MapCommandTravelArgs) {
-    this.playerActivityManager.startPartyActivity(MapActivity.Travel, travelArgs);
+    this.activityManager.startActivity(MapActivity.Travel, travelArgs);
   }
 
   @commandHandler(MapCommand.Explore)
   exploreCommand(exploreArgs: MapCommandExploreArgs) {
-    this.playerActivityManager.startPartyActivity(MapActivity.Explore, exploreArgs);
+    this.activityManager.startActivity(MapActivity.Explore, exploreArgs);
   }
 
   @commandHandler(MapCommand.Battle)
@@ -44,7 +45,7 @@ export class MapCommandHandler {
     const enemyParty = parties.find(party => party.owner === PartyOwner.Enemy);
 
     if (playerParty && enemyParty) {
-      this.playerActivityManager.startPartyActivity(BattleActivityType.Battle, {
+      this.activityManager.startActivity(BattleActivityType.Battle, {
         partyId: playerParty.id,
         involvedPartyId: enemyParty.id,
       });
@@ -78,7 +79,6 @@ export class MapCommandHandler {
     const newParty = this.partyService.createParty({
       owner: party.owner,
       unitIds: splitPartyArgs.unitIds,
-      activityId: undefined,
       stash: { items: [], resource: {} },
     });
 

@@ -1,4 +1,3 @@
-import { ActivityType } from "@features/activity";
 import { MapActivity } from "@features/map";
 
 import { createState, stashFactory, test } from "../../utils";
@@ -8,7 +7,6 @@ test("should move party to the new location on finish", {
     location({ id: "test", partyIds: ["test-party-id"] }),
     activity({
       name: MapActivity.Travel,
-      type: ActivityType.Party,
       state: {
         partyId: party({ id: "test-party-id" }),
         progress: 1,
@@ -27,7 +25,6 @@ test("should store looted resource into village stash", {
     location({ id: "test", partyIds: ["test-party-id"] }),
     activity({
       name: MapActivity.Travel,
-      type: ActivityType.Party,
       state: {
         partyId: party({
           id: "test-party-id",

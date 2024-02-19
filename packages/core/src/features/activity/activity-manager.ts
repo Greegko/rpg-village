@@ -4,13 +4,7 @@ import { assoc, forEach, values } from "rambda";
 import { EventSystem, GetActivityHandlerToken, commandHandler } from "@core";
 
 import { ActivityStore } from "./activity-store";
-import {
-  Activity,
-  ActivityCancelCommandArgs,
-  ActivityCommand,
-  ActivityType,
-  GetActivityHandlerByName,
-} from "./interfaces";
+import { Activity, ActivityCancelCommandArgs, ActivityCommand, GetActivityHandlerByName } from "./interfaces";
 import { ActivityEvent } from "./types/event";
 
 @injectable()
@@ -29,7 +23,6 @@ export class ActivityManager {
       this.storeActivity({
         name: activityName,
         state: activityState,
-        type: ActivityType.Global,
         startArgs: startingArgs,
       });
     }

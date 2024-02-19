@@ -2,8 +2,8 @@ import { injectable } from "inversify";
 
 import { EventSystem } from "@core";
 
-import { IActivityHandler } from "@features/activity";
-import { PartyActivity, PartyID, PartyService } from "@features/party";
+import { Activity, IActivityHandler } from "@features/activity";
+import { PartyID, PartyService } from "@features/party";
 
 import { BattleService } from "./battle-service";
 import { BattleID } from "./interfaces";
@@ -13,7 +13,7 @@ type BattleState = { battleId: BattleID };
 type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
 
 @injectable()
-export class BattleActivity implements IActivityHandler<PartyActivity<BattleState, BattleStartArgs>> {
+export class BattleActivity implements IActivityHandler<Activity<BattleState, BattleStartArgs>> {
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,
@@ -30,17 +30,17 @@ export class BattleActivity implements IActivityHandler<PartyActivity<BattleStat
     return this.partyService.isPartyAlive(partyId) && this.partyService.isPartyAlive(involvedPartyId);
   }
 
-  execute(activity: PartyActivity<BattleState>): BattleState {
+  execute(activity: Activity<BattleState>): BattleState {
     this.battleService.turnBattle(activity.state.battleId);
 
     return activity.state;
   }
 
-  isDone({ state: { battleId } }: PartyActivity<BattleState>): boolean {
+  isDone({ state: { battleId } }: Activity<BattleState>): boolean {
     return this.battleService.isDoneBattle(battleId);
   }
 
-  resolve({ state }: PartyActivity<BattleState>) {
+  resolve({ state }: Activity<BattleState>) {
     const battle = this.battleService.getBattle(state.battleId);
 
     const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.partyId)

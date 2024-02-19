@@ -2,17 +2,17 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core";
 
-import { PartyActivityManager } from "@features/party";
+import { ActivityManager } from "@features/activity";
 
 import { TrainingFieldActivity } from "./interface";
 import { TrainingFieldCommand, TrainingFieldCommandArgs } from "./training-field-command";
 
 @injectable()
 export class TrainingFieldCommandHandler {
-  constructor(private partyActivityManager: PartyActivityManager) {}
+  constructor(private activityManager: ActivityManager) {}
 
   @commandHandler(TrainingFieldCommand.Train)
   upgradeItem(args: TrainingFieldCommandArgs) {
-    this.partyActivityManager.startPartyActivity(TrainingFieldActivity.Train, args);
+    this.activityManager.startActivity(TrainingFieldActivity.Train, args);
   }
 }

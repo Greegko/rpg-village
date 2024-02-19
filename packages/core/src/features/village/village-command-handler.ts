@@ -6,9 +6,8 @@ import { commandHandler } from "@core";
 import { ActivityManager, ActivityStore } from "@features/activity";
 import { GameCommand, GeneralGameStore } from "@features/game";
 import { MapLocationType, MapService, MapSize, PartyMapService } from "@features/map";
-import { PartyActivityManager, PartyOwner, PartyService } from "@features/party";
+import { PartyOwner, PartyService } from "@features/party";
 import { UnitStore, isAlive } from "@features/unit";
-import { Resource } from "@models";
 
 import { VillageActivity, VillageBuilding, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
 import { heroFactory, newHeroCost } from "./lib";
@@ -22,7 +21,6 @@ export class VillageCommandHandler {
     private villageStash: VillageStashService,
     private partyService: PartyService,
     private unitStore: UnitStore,
-    private playerActivityManager: PartyActivityManager,
     private mapService: MapService,
     private generalGameStore: GeneralGameStore,
     private partyMapService: PartyMapService,
@@ -45,7 +43,6 @@ export class VillageCommandHandler {
       const party = this.partyService.createParty({
         unitIds: [heroId],
         owner: PartyOwner.Player,
-        activityId: undefined,
         stash: { resource: { gold: 0, soul: 0 }, items: [] },
       });
 
@@ -55,7 +52,7 @@ export class VillageCommandHandler {
 
   @commandHandler(VillageCommand.HealParty)
   healParty(healPartyArgs: VillageCommandHealPartyArgs): void {
-    this.playerActivityManager.startPartyActivity(VillageActivity.Heal, healPartyArgs);
+    this.activityManager.startActivity(VillageActivity.Heal, healPartyArgs);
   }
 
   @commandHandler(GameCommand.NewGame)
@@ -71,16 +68,16 @@ export class VillageCommandHandler {
   buildHouse(): void {
     const gold = (1 + this.villageStore.getState().houses) * 20;
 
-    this.buildBuilding(VillageBuilding.House, { gold });
-  }
-
-  private buildBuilding(targetBuilding: VillageBuilding, cost: Resource) {
     const activities = values(this.activityStore.getState());
+    const buildActivity = find(
+      whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding: VillageBuilding.House } }),
+      activities,
+    );
 
-    if (find(whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding } }), activities) !== undefined) return;
-    if (!this.villageStash.hasEnoughResource(cost)) return;
+    if (buildActivity !== undefined) return;
+    if (!this.villageStash.hasEnoughResource({ gold })) return;
 
-    this.activityManager.startActivity(VillageActivity.Build, { targetBuilding });
-    this.villageStash.removeResource(cost);
+    this.activityManager.startActivity(VillageActivity.Build, { targetBuilding: VillageBuilding.House });
+    this.villageStash.removeResource({ gold });
   }
 }
