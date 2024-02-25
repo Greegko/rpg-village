@@ -9,25 +9,25 @@ type VillageHealState = {
   partyId: PartyID;
 };
 
-type VillageHealStartArgs = {
+export type VillageActivityHealStartArgs = {
   partyId: PartyID;
 };
 
 type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 @injectable()
-export class VillageHealActivity
-  implements IActivityHandlerCancelable<Activity<VillageHealState, VillageHealStartArgs>>
+export class VillageActivityHeal
+  implements IActivityHandlerCancelable<Activity<VillageHealState, VillageActivityHealStartArgs>>
 {
   constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
 
-  start({ partyId }: VillageHealStartArgs): VillageHealState {
+  start({ partyId }: VillageActivityHealStartArgs): VillageHealState {
     return {
       partyId,
     };
   }
 
-  isRunnable({ partyId }: VillageHealStartArgs): boolean {
+  isRunnable({ partyId }: VillageActivityHealStartArgs): boolean {
     return this.getRecoverableUnits(partyId).length > 0;
   }
 
@@ -45,11 +45,11 @@ export class VillageHealActivity
 
   resolve() {}
 
-  isCancelable(activity: Activity<VillageHealState, VillageHealStartArgs>): boolean {
+  isCancelable(activity: Activity<VillageHealState, VillageActivityHealStartArgs>): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<VillageHealState, VillageHealStartArgs>): void {}
+  onCancel(activity: Activity<VillageHealState, VillageActivityHealStartArgs>): void {}
 
   private getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyStore.get(partyId);

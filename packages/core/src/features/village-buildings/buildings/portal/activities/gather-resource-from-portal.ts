@@ -9,13 +9,13 @@ interface GatherResourceFromPortalState {
   progress: number;
 }
 
-interface GatherResourceFromPortalStartArgs {
+export interface GatherResourceFromPortalActivityStartArgs {
   resource: Resource;
 }
 
 @injectable()
 export class GatherResourceFromPortalActivity
-  implements IActivityHandler<Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>>
+  implements IActivityHandler<Activity<GatherResourceFromPortalState, GatherResourceFromPortalActivityStartArgs>>
 {
   constructor(private villageStashService: VillageStashService) {}
 
@@ -31,15 +31,22 @@ export class GatherResourceFromPortalActivity
 
   execute({
     state,
-  }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>): GatherResourceFromPortalState {
+  }: Activity<
+    GatherResourceFromPortalState,
+    GatherResourceFromPortalActivityStartArgs
+  >): GatherResourceFromPortalState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state: { progress } }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>): boolean {
+  isDone({
+    state: { progress },
+  }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalActivityStartArgs>): boolean {
     return progress === 0;
   }
 
-  resolve({ startArgs: { resource } }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalStartArgs>) {
+  resolve({
+    startArgs: { resource },
+  }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalActivityStartArgs>) {
     this.villageStashService.addResource(resource);
   }
 }

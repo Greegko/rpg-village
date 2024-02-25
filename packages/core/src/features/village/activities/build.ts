@@ -12,12 +12,14 @@ interface BuildState {
   progress: number;
 }
 
-interface BuildStartArgs {
+export interface VillageActivityBuildStartArgs {
   targetBuilding: VillageBuilding;
 }
 
 @injectable()
-export class VillageBuildActivity implements IActivityHandlerCancelable<Activity<BuildState, BuildStartArgs>> {
+export class VillageBuildActivity
+  implements IActivityHandlerCancelable<Activity<BuildState, VillageActivityBuildStartArgs>>
+{
   constructor(private villageStore: VillageStore, private eventSystem: EventSystem) {}
 
   start(): BuildState {
@@ -30,21 +32,21 @@ export class VillageBuildActivity implements IActivityHandlerCancelable<Activity
     return true;
   }
 
-  execute({ state }: Activity<BuildState, BuildStartArgs>): BuildState {
+  execute({ state }: Activity<BuildState, VillageActivityBuildStartArgs>): BuildState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state: { progress } }: Activity<BuildState, BuildStartArgs>): boolean {
+  isDone({ state: { progress } }: Activity<BuildState, VillageActivityBuildStartArgs>): boolean {
     return progress === 0;
   }
 
-  isCancelable(activity: Activity<BuildState, BuildStartArgs>): boolean {
+  isCancelable(activity: Activity<BuildState, VillageActivityBuildStartArgs>): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<BuildState, BuildStartArgs>): void {}
+  onCancel(activity: Activity<BuildState, VillageActivityBuildStartArgs>): void {}
 
-  resolve({ startArgs: { targetBuilding } }: Activity<BuildState, BuildStartArgs>) {
+  resolve({ startArgs: { targetBuilding } }: Activity<BuildState, VillageActivityBuildStartArgs>) {
     this.eventSystem.fire(VillageEvent.BuildingBuilt, {
       buildingType: targetBuilding,
       level: this.villageStore.get(targetBuilding),

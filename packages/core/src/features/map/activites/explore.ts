@@ -12,22 +12,24 @@ type ExploreState = {
   partyId: PartyID;
 };
 
-type ExploreStartArgs = {
+export type MapActivityExploreStartArgs = {
   partyId: PartyID;
 };
 
 @injectable()
-export class MapExploreActivity implements IActivityHandlerCancelable<Activity<ExploreState, ExploreStartArgs>> {
+export class MapExploreActivity
+  implements IActivityHandlerCancelable<Activity<ExploreState, MapActivityExploreStartArgs>>
+{
   constructor(private mapService: MapService, private partyMapService: PartyMapService) {}
 
-  start({ partyId }: ExploreStartArgs): ExploreState {
+  start({ partyId }: MapActivityExploreStartArgs): ExploreState {
     return {
       partyId,
       progress: 50,
     };
   }
 
-  isRunnable({ partyId }: ExploreStartArgs): boolean {
+  isRunnable({ partyId }: MapActivityExploreStartArgs): boolean {
     const partyLocation = this.partyMapService.getPartyLocation(partyId);
 
     if (!partyLocation) return false;
@@ -47,9 +49,9 @@ export class MapExploreActivity implements IActivityHandlerCancelable<Activity<E
     this.mapService.exploreLocation(this.partyMapService.getPartyLocation(state.partyId)!.id);
   }
 
-  isCancelable(activity: Activity<ExploreState, ExploreStartArgs>): boolean {
+  isCancelable(activity: Activity<ExploreState, MapActivityExploreStartArgs>): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<ExploreState, ExploreStartArgs>): void {}
+  onCancel(activity: Activity<ExploreState, MapActivityExploreStartArgs>): void {}
 }

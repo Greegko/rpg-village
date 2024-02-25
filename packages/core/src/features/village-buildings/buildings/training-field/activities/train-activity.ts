@@ -10,15 +10,15 @@ type TrainingFieldState = {
   progress: number;
 };
 
-type TrainingFieldStartArgs = TrainingFieldState;
+export type TrainingFieldActivityStartArgs = { partyId: PartyID };
 
 @injectable()
 export class TrainingFieldTrainActivity
-  implements IActivityHandler<Activity<TrainingFieldState, TrainingFieldStartArgs>>
+  implements IActivityHandler<Activity<TrainingFieldState, TrainingFieldActivityStartArgs>>
 {
   constructor(private unitService: UnitService, private partyStore: PartyStore) {}
 
-  start({ partyId }: TrainingFieldStartArgs): TrainingFieldState {
+  start({ partyId }: TrainingFieldActivityStartArgs): TrainingFieldState {
     return {
       partyId,
       progress: 100,
@@ -29,7 +29,7 @@ export class TrainingFieldTrainActivity
     return true;
   }
 
-  execute({ state }: Activity<TrainingFieldState, TrainingFieldStartArgs>): TrainingFieldState {
+  execute({ state }: Activity<TrainingFieldState, TrainingFieldActivityStartArgs>): TrainingFieldState {
     const units = this.partyStore.get(state.partyId).unitIds;
 
     forEach(unitId => this.unitService.gainXpUnit(unitId, 25), units);
@@ -37,7 +37,7 @@ export class TrainingFieldTrainActivity
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: Activity<TrainingFieldState, TrainingFieldStartArgs>): boolean {
+  isDone({ state }: Activity<TrainingFieldState, TrainingFieldActivityStartArgs>): boolean {
     return state.progress === 0;
   }
 

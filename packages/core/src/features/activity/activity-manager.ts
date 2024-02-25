@@ -4,7 +4,13 @@ import { assoc, forEach, values } from "rambda";
 import { EventSystem, GetActivityHandlerToken, commandHandler } from "@core";
 
 import { ActivityStore } from "./activity-store";
-import { Activity, ActivityCancelCommandArgs, ActivityCommand, GetActivityHandlerByName } from "./interfaces";
+import {
+  Activity,
+  ActivityCancelCommandArgs,
+  ActivityCommand,
+  ActivityType,
+  GetActivityHandlerByName,
+} from "./interfaces";
 import { ActivityEvent } from "./types/event";
 
 @injectable()
@@ -15,7 +21,7 @@ export class ActivityManager {
     private eventSystem: EventSystem,
   ) {}
 
-  startActivity(activityName: string, startingArgs: object) {
+  startActivity<Activity extends keyof ActivityType>(activityName: Activity, startingArgs: ActivityType[Activity]) {
     const activityHandler = this.getActivityHandler(activityName);
     if (activityHandler.isRunnable(startingArgs)) {
       const activityState = activityHandler.start(startingArgs);

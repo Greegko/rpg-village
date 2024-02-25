@@ -10,23 +10,24 @@ import { BattleID } from "./interfaces";
 import { BattleEvent } from "./types";
 
 type BattleState = { battleId: BattleID };
-type BattleStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
+
+export type BattleActivityStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
 
 @injectable()
-export class BattleActivity implements IActivityHandler<Activity<BattleState, BattleStartArgs>> {
+export class BattleActivity implements IActivityHandler<Activity<BattleState, BattleActivityStartArgs>> {
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,
     private eventSystem: EventSystem,
   ) {}
 
-  start({ partyId, involvedPartyId }: BattleStartArgs): BattleState {
+  start({ partyId, involvedPartyId }: BattleActivityStartArgs): BattleState {
     return {
       battleId: this.battleService.startBattle(partyId, involvedPartyId),
     };
   }
 
-  isRunnable({ partyId, involvedPartyId }: BattleStartArgs) {
+  isRunnable({ partyId, involvedPartyId }: BattleActivityStartArgs) {
     return this.partyService.isPartyAlive(partyId) && this.partyService.isPartyAlive(involvedPartyId);
   }
 
