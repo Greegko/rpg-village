@@ -1,7 +1,7 @@
 import { VillageBuildingsCommand } from "../interfaces";
 
 declare module "@core" {
-  export interface CommandType {
+  interface CommandType {
     [VillageBuildingsCommand.BuildBlacksmith]: undefined;
     [VillageBuildingsCommand.BuildTrainingField]: undefined;
     [VillageBuildingsCommand.BuildRuneWorkshop]: undefined;

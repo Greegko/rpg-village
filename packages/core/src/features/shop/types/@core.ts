@@ -1,7 +1,12 @@
 import { BuyItemCommandArgs, ShopCommand } from "../interfaces";
+import { ShopID, ShopState } from "../interfaces";
 
 declare module "@core" {
-  export interface CommandType {
+  interface GameState {
+    shops: Record<ShopID, ShopState>;
+  }
+
+  interface CommandType {
     [ShopCommand.BuyItem]: BuyItemCommandArgs;
   }
 }

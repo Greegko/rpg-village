@@ -8,10 +8,10 @@ import {
   Activity,
   ActivityCancelCommandArgs,
   ActivityCommand,
+  ActivityEvent,
   ActivityType,
   GetActivityHandlerByName,
 } from "./interfaces";
-import { ActivityEvent } from "./types/event";
 
 @injectable()
 export class ActivityManager {

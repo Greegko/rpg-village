@@ -2,7 +2,7 @@ import { ShopID } from "@features/shop";
 import { VillageBuilding } from "@features/village";
 
 declare module "@features/village" {
-  export interface VillageState {
+  interface VillageState {
     blacksmith: number;
     trainingField: number;
     runeWorkshop: number;

@@ -3,7 +3,7 @@ import "@features/game";
 import { MapID } from "../interfaces";
 
 declare module "@features/game" {
-  export interface GeneralGameStoreState {
+  interface GeneralGameStoreState {
     worldMapId: MapID;
   }
 }

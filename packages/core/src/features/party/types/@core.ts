@@ -1,7 +1,11 @@
 import { PartyEvent, PartyEventDisbandArgs } from "../interfaces";
+import { Party, PartyID } from "../interfaces";
 
 declare module "@core" {
-  export interface EventType {
+  interface GameState {
+    parties: Record<PartyID, Party>;
+  }
+  interface EventType {
     [PartyEvent.Disband]: PartyEventDisbandArgs;
   }
 }

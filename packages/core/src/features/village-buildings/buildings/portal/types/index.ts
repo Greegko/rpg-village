@@ -1,1 +1,2 @@
-export * from "./features-activity";
+export * from "./@features-activity";
+export * from "./@core";

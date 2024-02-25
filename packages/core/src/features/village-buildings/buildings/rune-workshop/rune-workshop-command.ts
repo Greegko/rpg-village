@@ -15,12 +15,3 @@ export interface EmpowerRuneCommandArgs {
 export interface DismantleRuneCommandArgs {
   runeId: ItemID;
 }
-
-declare module "@core" {
-  export interface CommandType {
-    [RuneWorkshopCommand.CreateRune]: undefined;
-    [RuneWorkshopCommand.ForgeDungeonKey]: undefined;
-    [RuneWorkshopCommand.EmpowerRune]: EmpowerRuneCommandArgs;
-    [RuneWorkshopCommand.DismantleRune]: DismantleRuneCommandArgs;
-  }
-}

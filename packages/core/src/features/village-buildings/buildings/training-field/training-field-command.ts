@@ -7,9 +7,3 @@ export enum TrainingFieldCommand {
 export interface TrainingFieldCommandArgs {
   partyId: PartyID;
 }
-
-declare module "@core" {
-  export interface CommandType {
-    [TrainingFieldCommand.Train]: TrainingFieldCommandArgs;
-  }
-}

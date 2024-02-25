@@ -6,8 +6,7 @@ import { Activity, IActivityHandler } from "@features/activity";
 import { PartyID, PartyService } from "@features/party";
 
 import { BattleService } from "./battle-service";
-import { BattleID } from "./interfaces";
-import { BattleEvent } from "./types";
+import { BattleEvent, BattleID } from "./interfaces";
 
 type BattleState = { battleId: BattleID };
 

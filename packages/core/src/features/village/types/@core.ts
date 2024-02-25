@@ -1,23 +1,28 @@
 import {
   VillageCommand,
   VillageCommandHealPartyArgs,
+  VillageConfig,
   VillageEvent,
   VillageEventBuildingBuiltArgs,
   VillageState,
 } from "../interfaces";
 
 declare module "@core" {
-  export interface EventType {
+  interface EventType {
     [VillageEvent.BuildingBuilt]: VillageEventBuildingBuiltArgs;
   }
 
-  export interface CommandType {
+  interface CommandType {
     [VillageCommand.HireHero]: undefined;
     [VillageCommand.HealParty]: VillageCommandHealPartyArgs;
     [VillageCommand.BuildHouse]: undefined;
   }
 
-  export interface GameState {
+  interface GameState {
     village: VillageState;
+  }
+
+  interface ModuleConfig {
+    [VillageConfig.DirectLootToVillage]: boolean;
   }
 }

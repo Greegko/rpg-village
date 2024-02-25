@@ -2,7 +2,7 @@ import { VillageActivityBuildStartArgs, VillageActivityHealStartArgs } from "../
 import { VillageActivity } from "../interfaces";
 
 declare module "@features/activity" {
-  export interface ActivityType {
+  interface ActivityType {
     [VillageActivity.Build]: VillageActivityBuildStartArgs;
     [VillageActivity.Heal]: VillageActivityHealStartArgs;
   }

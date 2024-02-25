@@ -1,3 +1,2 @@
-export * from "./game-state";
-export * from "./event";
-export * from "./features-activity";
+export * from "./@core";
+export * from "./@features-activity";

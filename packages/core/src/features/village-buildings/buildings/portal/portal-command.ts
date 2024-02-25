@@ -21,11 +21,3 @@ export interface PortalCommandLeavePortalArgs {
   partyId: PartyID;
   portalLocationId: MapLocationID;
 }
-
-declare module "@core" {
-  export interface CommandType {
-    [PortalCommand.OpenPortal]: PortalCommandOpenPortalArgs;
-    [PortalCommand.EnterPortal]: PortalCommandEnterPortalArgs;
-    [PortalCommand.LeavePortal]: PortalCommandLeavePortalArgs;
-  }
-}

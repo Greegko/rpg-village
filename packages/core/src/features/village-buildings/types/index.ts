@@ -1,2 +1,2 @@
-export * from "./@village";
+export * from "./@features-village";
 export * from "./@core";
