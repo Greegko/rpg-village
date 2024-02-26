@@ -45,7 +45,7 @@ test("should apply effects to the portal", {
     },
   ],
   expectedState: (state, t) =>
-    t.deepEqual(values(state.maps).find(x => x.id !== "global-map").modifiers, [
+    t.deepEqual(values(state.maps).find(x => x.id !== "global-map")!.modifiers, [
       { type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10, isPercentage: false },
     ]),
 });

@@ -23,7 +23,7 @@ test("should decrease quantity", {
     village({ stash: { resource: { gold: 100 }, items: [] } }),
   ]),
   commands: [{ command: ShopCommand.BuyItem, args: { shopId: "shop-id", shopItemId: "shop-item-id" } }],
-  expectedState: (state, t) => t.is(state.shops["shop-id"].items.find(x => x.id === "shop-item-id").quantity, 1),
+  expectedState: (state, t) => t.is(state.shops["shop-id"].items.find(x => x.id === "shop-item-id")!.quantity, 1),
 });
 
 test("should remove item when runs out", {

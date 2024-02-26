@@ -43,9 +43,8 @@ export class PortalCommandHandler {
 
     const map = this.mapService.getMapByLocation(args.portalLocationId);
 
-    const villageLocationId = this.villageStore.getState().locationId;
-
-    this.partyMapService.setLocation(args.partyId, villageLocationId);
+    const villageState = this.villageStore.getState();
+    this.partyMapService.setLocation(args.partyId, villageState.locationId);
 
     const bossMapLocation = map.mapLocationIds
       .map(x => this.mapLocationStore.get(x))
@@ -56,6 +55,8 @@ export class PortalCommandHandler {
 
       if (bossUnits.length === 0) {
         this.activityManager.startActivity(PortalActivity.GatherResourceFromPortal, {
+          targetId: map.id,
+          involvedTargetId: villageState.id,
           resource: { gold: map.mapLocationIds.length * 25 },
         });
         this.mapService.removeMap(map.id);

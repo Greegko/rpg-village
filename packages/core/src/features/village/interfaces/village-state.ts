@@ -5,6 +5,7 @@ import { ItemStash, ResourceStash } from "@models";
 export type VillageStash = ItemStash & ResourceStash;
 
 export interface VillageState {
+  id: string;
   houses: number;
   stash: VillageStash;
   locationId: MapLocationID;

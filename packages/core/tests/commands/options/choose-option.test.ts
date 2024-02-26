@@ -11,7 +11,7 @@ test("should remove option object", {
     village(),
   ]),
   commands: [{ command: OptionCommand.ChooseOption, args: { optionId: "option-id", optionItemId: "option-item-id" } }],
-  expectedState: (state, t) => t.is(state.options["option-id"], undefined),
+  expectedState: (state, t) => t.undefined(state.options["option-id"]),
 });
 
 test("should put into village items the choosed option", {

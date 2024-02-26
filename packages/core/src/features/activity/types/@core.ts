@@ -1,11 +1,11 @@
 import {
-  Activity,
   ActivityCancelCommandArgs,
   ActivityCancelledActivityArgs,
   ActivityCommand,
   ActivityEvent,
   ActivityFinishedActivityArgs,
   ActivityID,
+  AnyActivity,
   ModulActivity,
 } from "../interfaces";
 
@@ -24,6 +24,6 @@ declare module "@core" {
   }
 
   interface GameState {
-    activities: Record<ActivityID, Activity>;
+    activities: Record<ActivityID, AnyActivity>;
   }
 }

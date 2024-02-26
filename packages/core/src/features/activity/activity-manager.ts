@@ -5,11 +5,11 @@ import { EventSystem, GetActivityHandlerToken, commandHandler } from "@core";
 
 import { ActivityStore } from "./activity-store";
 import {
-  Activity,
   ActivityCancelCommandArgs,
   ActivityCommand,
   ActivityEvent,
   ActivityType,
+  AnyActivity,
   GetActivityHandlerByName,
 } from "./interfaces";
 
@@ -21,7 +21,10 @@ export class ActivityManager {
     private eventSystem: EventSystem,
   ) {}
 
-  startActivity<Activity extends keyof ActivityType>(activityName: Activity, startingArgs: ActivityType[Activity]) {
+  startActivity<Activity extends keyof ActivityType>(
+    activityName: Activity,
+    startingArgs: ActivityType[Activity] & { targetId?: string; involvedTargetId?: string },
+  ) {
     const activityHandler = this.getActivityHandler(activityName);
     if (activityHandler.isRunnable(startingArgs)) {
       const activityState = activityHandler.start(startingArgs);
@@ -29,12 +32,14 @@ export class ActivityManager {
       this.storeActivity({
         name: activityName,
         state: activityState,
+        targetId: (startingArgs as { targetId?: string }).targetId,
+        involvedTargetId: (startingArgs as { involvedTargetId?: string }).involvedTargetId,
         startArgs: startingArgs,
       });
     }
   }
 
-  storeActivity<T extends Activity>(activity: Omit<T, "id">): T {
+  storeActivity<T extends AnyActivity>(activity: Omit<T, "id">): T {
     return this.activityStore.add(activity);
   }
 
@@ -48,17 +53,17 @@ export class ActivityManager {
 
     const activityHandler = this.getActivityHandler(activity.name);
 
-    if ("isCancelable" in activityHandler && activityHandler?.isCancelable(activity)) {
+    if ("isCancelable" in activityHandler && activityHandler.isCancelable(activity)) {
       activityHandler.onCancel(activity);
       this.eventSystem.fire(ActivityEvent.ActivityCancelled, { activityId: args.activityId });
       this.activityStore.remove(args.activityId);
     }
   }
 
-  private executeActivity(activity: Activity) {
+  private executeActivity(activity: AnyActivity) {
     const activityHandler = this.getActivityHandler(activity.name);
     const activityNewState = activityHandler.execute(activity);
-    const updatedActivity = assoc("state", activityNewState, activity) as Activity;
+    const updatedActivity = assoc("state", activityNewState, activity);
     const isDone = activityHandler.isDone(updatedActivity);
 
     if (isDone) {

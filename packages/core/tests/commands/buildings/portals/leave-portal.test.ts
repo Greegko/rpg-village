@@ -32,7 +32,7 @@ test("should remove map when the map is finished and party leaves", {
   commands: [
     { command: PortalCommand.LeavePortal, args: { partyId: "party-id", portalLocationId: "portal-location-id" } },
   ],
-  expectedState: (state, t) => t.is(state.maps["portal-map-id"], undefined),
+  expectedState: (state, t) => t.undefined(state.maps["portal-map-id"]),
 });
 
 test("should start gather portal resource activity when the map is finished and party leaves", {

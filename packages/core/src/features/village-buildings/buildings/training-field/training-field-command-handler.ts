@@ -13,6 +13,9 @@ export class TrainingFieldCommandHandler {
 
   @commandHandler(TrainingFieldCommand.Train)
   upgradeItem(args: TrainingFieldCommandArgs) {
-    this.activityManager.startActivity(TrainingFieldActivity.Train, args);
+    this.activityManager.startActivity(TrainingFieldActivity.Train, {
+      targetId: args.villageId,
+      involvedTargetId: args.partyId,
+    });
   }
 }

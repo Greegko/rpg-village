@@ -5,3 +5,4 @@ export * from "./village-config";
 export * from "./stash-location";
 export * from "./village-building";
 export * from "./village-events";
+export * from "./village";

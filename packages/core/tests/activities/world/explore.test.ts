@@ -9,7 +9,8 @@ test("should change explore status on tile", {
     map({ mapLocationIds: [location({ id: "tile", partyIds: ["party"], explored: false })] }),
     activity({
       name: MapActivity.Explore,
-      state: { partyId: party({ id: "party" }), progress: 1 },
+      targetId: party({ id: "party" }),
+      state: { progress: 1 },
     }),
   ]),
   turn: true,
@@ -21,7 +22,8 @@ test("should add new locations around explored tile", {
     map({ mapLocationIds: [location({ id: "tile", partyIds: ["party"], explored: false })] }),
     activity({
       name: MapActivity.Explore,
-      state: { partyId: party({ id: "party" }), progress: 1 },
+      targetId: party({ id: "party" }),
+      state: { progress: 1 },
     }),
   ]),
   turn: true,
@@ -33,7 +35,8 @@ test("should add enemy units on new map tile", {
     map({ mapLocationIds: [location({ id: "tile", partyIds: ["party"], explored: false })] }),
     activity({
       name: MapActivity.Explore,
-      state: { partyId: party({ id: "party" }), progress: 1 },
+      targetId: party({ id: "party" }),
+      state: { progress: 1 },
     }),
   ]),
   turn: true,
@@ -47,7 +50,8 @@ test("should spawn empty tiles after boss tiles", {
     }),
     activity({
       name: MapActivity.Explore,
-      state: { partyId: party({ id: "party" }), progress: 1 },
+      targetId: party({ id: "party" }),
+      state: { progress: 1 },
     }),
   ]),
   turn: true,
@@ -73,7 +77,8 @@ test("should not add enemies on empty tiles", {
     }),
     activity({
       name: MapActivity.Explore,
-      state: { partyId: party({ id: "party" }), progress: 1 },
+      targetId: party({ id: "party" }),
+      state: { progress: 1 },
     }),
   ]),
   turn: true,

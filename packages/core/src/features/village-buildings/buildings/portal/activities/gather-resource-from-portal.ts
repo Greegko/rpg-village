@@ -2,7 +2,8 @@ import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
 import { Activity, IActivityHandler } from "@features/activity";
-import { VillageStashService } from "@features/village";
+import { MapID } from "@features/map";
+import { VillageID, VillageStashService } from "@features/village";
 import { Resource } from "@models";
 
 interface GatherResourceFromPortalState {
@@ -11,12 +12,19 @@ interface GatherResourceFromPortalState {
 
 export interface GatherResourceFromPortalActivityStartArgs {
   resource: Resource;
+  targetId: MapID;
+  involvedTargetId: VillageID;
 }
 
+type GatherResourceActivityType = Activity<
+  GatherResourceFromPortalState,
+  MapID,
+  VillageID,
+  GatherResourceFromPortalActivityStartArgs
+>;
+
 @injectable()
-export class GatherResourceFromPortalActivity
-  implements IActivityHandler<Activity<GatherResourceFromPortalState, GatherResourceFromPortalActivityStartArgs>>
-{
+export class GatherResourceFromPortalActivity implements IActivityHandler<GatherResourceActivityType> {
   constructor(private villageStashService: VillageStashService) {}
 
   start(): GatherResourceFromPortalState {
@@ -29,24 +37,15 @@ export class GatherResourceFromPortalActivity
     return true;
   }
 
-  execute({
-    state,
-  }: Activity<
-    GatherResourceFromPortalState,
-    GatherResourceFromPortalActivityStartArgs
-  >): GatherResourceFromPortalState {
+  execute({ state }: GatherResourceActivityType): GatherResourceFromPortalState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({
-    state: { progress },
-  }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalActivityStartArgs>): boolean {
+  isDone({ state: { progress } }: GatherResourceActivityType): boolean {
     return progress === 0;
   }
 
-  resolve({
-    startArgs: { resource },
-  }: Activity<GatherResourceFromPortalState, GatherResourceFromPortalActivityStartArgs>) {
+  resolve({ startArgs: { resource } }: GatherResourceActivityType) {
     this.villageStashService.addResource(resource);
   }
 }

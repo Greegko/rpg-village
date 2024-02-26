@@ -1,6 +1,6 @@
 import { Chance } from "chance";
 
-import { Activity } from "@features/activity";
+import { AnyActivity } from "@features/activity";
 import { BattleStoreState } from "@features/battle";
 import { GeneralGameStoreState } from "@features/game";
 import { Map, MapLocation, MapLocationType, MapSize } from "@features/map";
@@ -103,6 +103,7 @@ export function unitFactory({
 }
 
 export function villageFactory({
+  id = chance.string(),
   heroes = [],
   houses = chance.integer(),
   stash = stashFactory(),
@@ -113,7 +114,7 @@ export function villageFactory({
   portals = chance.integer(),
   shop = { shopId: chance.string(), level: chance.integer() },
 }: Partial<VillageState> = {}): VillageState {
-  return { locationId, stash, houses, heroes, blacksmith, trainingField, runeWorkshop, portals, shop };
+  return { id, locationId, stash, houses, heroes, blacksmith, trainingField, runeWorkshop, portals, shop };
 }
 
 export function partyFactory({
@@ -129,9 +130,11 @@ export function activityFactory({
   id = chance.string(),
   state = {},
   name = chance.string(),
+  targetId = chance.string(),
   startArgs = {} as any,
-}: Partial<Activity> = {}): Activity {
-  return { id, state, name, startArgs } as Activity<unknown>;
+  involvedTargetId = undefined,
+}: Partial<AnyActivity> = {}): AnyActivity {
+  return { id, state, name, startArgs, targetId, involvedTargetId } as AnyActivity;
 }
 
 export function battleStoreStateFactory({

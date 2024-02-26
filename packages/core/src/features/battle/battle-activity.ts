@@ -10,37 +10,39 @@ import { BattleEvent, BattleID } from "./interfaces";
 
 type BattleState = { battleId: BattleID };
 
-export type BattleActivityStartArgs = { partyId: PartyID; involvedPartyId: PartyID };
+export type BattleActivityStartArgs = { targetId: PartyID; involvedTargetId: PartyID };
+
+type BattleActivityType = Activity<BattleState, PartyID, PartyID, BattleActivityStartArgs>;
 
 @injectable()
-export class BattleActivity implements IActivityHandler<Activity<BattleState, BattleActivityStartArgs>> {
+export class BattleActivity implements IActivityHandler<BattleActivityType> {
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,
     private eventSystem: EventSystem,
   ) {}
 
-  start({ partyId, involvedPartyId }: BattleActivityStartArgs): BattleState {
+  start({ targetId, involvedTargetId }: BattleActivityStartArgs): BattleState {
     return {
-      battleId: this.battleService.startBattle(partyId, involvedPartyId),
+      battleId: this.battleService.startBattle(targetId, involvedTargetId),
     };
   }
 
-  isRunnable({ partyId, involvedPartyId }: BattleActivityStartArgs) {
-    return this.partyService.isPartyAlive(partyId) && this.partyService.isPartyAlive(involvedPartyId);
+  isRunnable({ targetId, involvedTargetId }: BattleActivityStartArgs) {
+    return this.partyService.isPartyAlive(targetId) && this.partyService.isPartyAlive(involvedTargetId);
   }
 
-  execute(activity: Activity<BattleState>): BattleState {
+  execute(activity: BattleActivityType): BattleState {
     this.battleService.turnBattle(activity.state.battleId);
 
     return activity.state;
   }
 
-  isDone({ state: { battleId } }: Activity<BattleState>): boolean {
+  isDone({ state: { battleId } }: BattleActivityType): boolean {
     return this.battleService.isDoneBattle(battleId);
   }
 
-  resolve({ state }: Activity<BattleState>) {
+  resolve({ state }: BattleActivityType) {
     const battle = this.battleService.getBattle(state.battleId);
 
     const [winnerPartyId, looserPartyId] = this.partyService.isPartyAlive(battle.partyId)

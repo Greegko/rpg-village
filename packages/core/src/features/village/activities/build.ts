@@ -5,7 +5,7 @@ import { EventSystem } from "@core";
 
 import { Activity, IActivityHandlerCancelable } from "@features/activity";
 
-import { VillageBuilding, VillageEvent } from "../interfaces";
+import { VillageBuilding, VillageEvent, VillageID } from "../interfaces";
 import { VillageStore } from "../village-store";
 
 interface BuildState {
@@ -13,13 +13,14 @@ interface BuildState {
 }
 
 export interface VillageActivityBuildStartArgs {
+  targetId: VillageID;
   targetBuilding: VillageBuilding;
 }
 
+type VillageBuildActivityType = Activity<BuildState, VillageID, null, VillageActivityBuildStartArgs>;
+
 @injectable()
-export class VillageBuildActivity
-  implements IActivityHandlerCancelable<Activity<BuildState, VillageActivityBuildStartArgs>>
-{
+export class VillageBuildActivity implements IActivityHandlerCancelable<VillageBuildActivityType> {
   constructor(private villageStore: VillageStore, private eventSystem: EventSystem) {}
 
   start(): BuildState {
@@ -32,22 +33,23 @@ export class VillageBuildActivity
     return true;
   }
 
-  execute({ state }: Activity<BuildState, VillageActivityBuildStartArgs>): BuildState {
+  execute({ state }: VillageBuildActivityType): BuildState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state: { progress } }: Activity<BuildState, VillageActivityBuildStartArgs>): boolean {
+  isDone({ state: { progress } }: VillageBuildActivityType): boolean {
     return progress === 0;
   }
 
-  isCancelable(activity: Activity<BuildState, VillageActivityBuildStartArgs>): boolean {
+  isCancelable(activity: VillageBuildActivityType): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<BuildState, VillageActivityBuildStartArgs>): void {}
+  onCancel(activity: VillageBuildActivityType): void {}
 
-  resolve({ startArgs: { targetBuilding } }: Activity<BuildState, VillageActivityBuildStartArgs>) {
+  resolve({ targetId, startArgs: { targetBuilding } }: VillageBuildActivityType) {
     this.eventSystem.fire(VillageEvent.BuildingBuilt, {
+      villageId: targetId,
       buildingType: targetBuilding,
       level: this.villageStore.get(targetBuilding),
     });

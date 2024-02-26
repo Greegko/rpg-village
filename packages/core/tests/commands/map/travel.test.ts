@@ -11,7 +11,8 @@ test("should start Travel activity", {
   expectedState: (state, t) =>
     t.withRandomId(state.activities, {
       name: MapActivity.Travel,
-      state: { partyId: "party" },
+      targetId: "party",
+      state: { targetLocationId: "next-tile" },
     }),
 });
 

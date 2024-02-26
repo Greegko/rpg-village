@@ -10,7 +10,8 @@ test("should start Explore activity", {
   expectedState: (state, t) =>
     t.withRandomId(state.activities, {
       name: MapActivity.Explore,
-      state: { partyId: "party" },
+      targetId: "party",
+      state: { progress: 50 },
     }),
 });
 
@@ -26,9 +27,9 @@ test("should explore the target tile", {
   initState: createState(({ location, party, activity, map }) => [
     map({ mapLocationIds: [location({ id: "tile", partyIds: ["party-id"], explored: false })] }),
     activity({
-      startArgs: { partyId: party({ id: "party-id" }) },
       name: MapActivity.Explore,
-      state: { progress: 1, partyId: "party-id" },
+      targetId: party({ id: "party-id" }),
+      state: { progress: 1 },
     }),
   ]),
   turn: true,
@@ -41,9 +42,9 @@ test("should explore neighbour tiles", {
       mapLocationIds: [location({ id: "tile", explored: false, partyIds: [party({ id: "party-id" })] })],
     }),
     activity({
-      startArgs: { partyId: "party-id" },
+      targetId: "party-id",
       name: MapActivity.Explore,
-      state: { progress: 1, partyId: "party-id" },
+      state: { progress: 1 },
     }),
   ]),
   turn: true,
@@ -61,9 +62,9 @@ test("should only explore tiles in the same map", {
       mapLocationIds: [location({ id: "map-non-world-location", explored: false })],
     }),
     activity({
-      startArgs: { partyId: party({ id: "party-id" }) },
+      targetId: party({ id: "party-id" }),
       name: MapActivity.Explore,
-      state: { progress: 1, partyId: "party-id" },
+      state: { progress: 1 },
     }),
   ]),
   turn: true,

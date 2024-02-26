@@ -29,12 +29,15 @@ export class MapCommandHandler {
 
   @commandHandler(MapCommand.Travel)
   travelCommand(travelArgs: MapCommandTravelArgs) {
-    this.activityManager.startActivity(MapActivity.Travel, travelArgs);
+    this.activityManager.startActivity(MapActivity.Travel, {
+      targetId: travelArgs.partyId,
+      targetLocationId: travelArgs.targetLocationId,
+    });
   }
 
   @commandHandler(MapCommand.Explore)
   exploreCommand(exploreArgs: MapCommandExploreArgs) {
-    this.activityManager.startActivity(MapActivity.Explore, exploreArgs);
+    this.activityManager.startActivity(MapActivity.Explore, { targetId: exploreArgs.partyId });
   }
 
   @commandHandler(MapCommand.Battle)
@@ -46,8 +49,8 @@ export class MapCommandHandler {
 
     if (playerParty && enemyParty) {
       this.activityManager.startActivity(BattleActivityType.Battle, {
-        partyId: playerParty.id,
-        involvedPartyId: enemyParty.id,
+        targetId: playerParty.id,
+        involvedTargetId: enemyParty.id,
       });
     }
   }

@@ -136,9 +136,12 @@ test("should apply item dmg effect", {
   initState: createState(({ activity, party, unit, battle }) => [
     activity({
       name: BattleActivityType.Battle,
+      targetId: "party-id",
+      involvedTargetId: "involved-party-id",
       state: {
         battleId: battle({
           partyId: party({
+            id: "party-id",
             unitIds: [
               unit({
                 dmg: 10,
@@ -155,6 +158,7 @@ test("should apply item dmg effect", {
             ],
           }),
           defenderPartyId: party({
+            id: "involved-party-id",
             unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0, maxhp: 25 })],
           }),
         }),
@@ -169,9 +173,12 @@ test("should apply percentage item dmg effect", {
   initState: createState(({ activity, party, unit, battle }) => [
     activity({
       name: BattleActivityType.Battle,
+      targetId: "party-id",
+      involvedTargetId: "involved-party-id",
       state: {
         battleId: battle({
           partyId: party({
+            id: "party-id",
             unitIds: [
               unit({
                 dmg: 10,
@@ -186,6 +193,7 @@ test("should apply percentage item dmg effect", {
             ],
           }),
           defenderPartyId: party({
+            id: "involved-party-id",
             unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 25, armor: 0, maxhp: 25 })],
           }),
         }),

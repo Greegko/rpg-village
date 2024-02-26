@@ -1,5 +1,6 @@
 import { injectable } from "inversify";
 import { append, find, head, values, whereEq } from "rambda";
+import { generate } from "shortid";
 
 import { commandHandler } from "@core";
 
@@ -9,7 +10,14 @@ import { MapLocationType, MapService, MapSize, PartyMapService } from "@features
 import { PartyOwner, PartyService } from "@features/party";
 import { UnitStore, isAlive } from "@features/unit";
 
-import { VillageActivity, VillageBuilding, VillageCommand, VillageCommandHealPartyArgs } from "./interfaces";
+import {
+  VillageActivity,
+  VillageBuilding,
+  VillageCommand,
+  VillageCommandBuildHouseArgs,
+  VillageCommandHealPartyArgs,
+  VillageCommandHeroHireArgs,
+} from "./interfaces";
 import { heroFactory, newHeroCost } from "./lib";
 import { VillageStashService } from "./village-stash-service";
 import { VillageStore } from "./village-store";
@@ -29,7 +37,7 @@ export class VillageCommandHandler {
   ) {}
 
   @commandHandler(VillageCommand.HireHero)
-  hireHero(): void {
+  hireHero(args: VillageCommandHeroHireArgs): void {
     const villageState = this.villageStore.getState();
     const heroesCount = villageState.heroes.map(unitId => this.unitStore.get(unitId)).filter(isAlive).length;
     const goldCost = newHeroCost(1 + heroesCount);
@@ -52,7 +60,10 @@ export class VillageCommandHandler {
 
   @commandHandler(VillageCommand.HealParty)
   healParty(healPartyArgs: VillageCommandHealPartyArgs): void {
-    this.activityManager.startActivity(VillageActivity.Heal, healPartyArgs);
+    this.activityManager.startActivity(VillageActivity.Heal, {
+      targetId: healPartyArgs.villageId,
+      involvedTargetId: healPartyArgs.partyId,
+    });
   }
 
   @commandHandler(GameCommand.NewGame)
@@ -60,12 +71,13 @@ export class VillageCommandHandler {
     const map = this.mapService.createMap(MapLocationType.Village, MapSize.Endless, []);
     this.generalGameStore.set("worldMapId", map.id);
 
+    this.villageStore.set("id", generate());
     this.villageStore.set("stash", { items: [], resource: { gold: 0, soul: 0 } });
     this.villageStore.set("locationId", head(map.mapLocationIds)!);
   }
 
   @commandHandler(VillageCommand.BuildHouse)
-  buildHouse(): void {
+  buildHouse(args: VillageCommandBuildHouseArgs): void {
     const gold = (1 + this.villageStore.getState().houses) * 20;
 
     const activities = values(this.activityStore.getState());
@@ -77,7 +89,10 @@ export class VillageCommandHandler {
     if (buildActivity !== undefined) return;
     if (!this.villageStash.hasEnoughResource({ gold })) return;
 
-    this.activityManager.startActivity(VillageActivity.Build, { targetBuilding: VillageBuilding.House });
+    this.activityManager.startActivity(VillageActivity.Build, {
+      targetId: args.villageId,
+      targetBuilding: VillageBuilding.House,
+    });
     this.villageStash.removeResource({ gold });
   }
 }

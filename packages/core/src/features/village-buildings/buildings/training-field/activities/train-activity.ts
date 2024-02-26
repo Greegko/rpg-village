@@ -4,23 +4,22 @@ import { dec, evolve, forEach } from "rambda";
 import { Activity, IActivityHandler } from "@features/activity";
 import { PartyID, PartyStore } from "@features/party";
 import { UnitService } from "@features/unit";
+import { VillageID } from "@features/village";
 
 type TrainingFieldState = {
-  partyId: PartyID;
   progress: number;
 };
 
-export type TrainingFieldActivityStartArgs = { partyId: PartyID };
+export type TrainingFieldActivityStartArgs = { targetId: VillageID; involvedTargetId: PartyID };
+
+type TrainingActivityType = Activity<TrainingFieldState, VillageID, PartyID, TrainingFieldActivityStartArgs>;
 
 @injectable()
-export class TrainingFieldTrainActivity
-  implements IActivityHandler<Activity<TrainingFieldState, TrainingFieldActivityStartArgs>>
-{
+export class TrainingFieldTrainActivity implements IActivityHandler<TrainingActivityType> {
   constructor(private unitService: UnitService, private partyStore: PartyStore) {}
 
-  start({ partyId }: TrainingFieldActivityStartArgs): TrainingFieldState {
+  start(args: TrainingFieldActivityStartArgs): TrainingFieldState {
     return {
-      partyId,
       progress: 100,
     };
   }
@@ -29,15 +28,15 @@ export class TrainingFieldTrainActivity
     return true;
   }
 
-  execute({ state }: Activity<TrainingFieldState, TrainingFieldActivityStartArgs>): TrainingFieldState {
-    const units = this.partyStore.get(state.partyId).unitIds;
+  execute({ state, involvedTargetId }: TrainingActivityType): TrainingFieldState {
+    const units = this.partyStore.get(involvedTargetId).unitIds;
 
     forEach(unitId => this.unitService.gainXpUnit(unitId, 25), units);
 
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: Activity<TrainingFieldState, TrainingFieldActivityStartArgs>): boolean {
+  isDone({ state }: TrainingActivityType): boolean {
     return state.progress === 0;
   }
 

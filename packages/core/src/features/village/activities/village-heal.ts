@@ -5,51 +5,50 @@ import { Activity, IActivityHandlerCancelable } from "@features/activity";
 import { PartyID, PartyStore } from "@features/party";
 import { UnitID, UnitService, UnitStore } from "@features/unit";
 
-type VillageHealState = {
-  partyId: PartyID;
-};
+import { VillageID } from "../interfaces";
+
+type VillageHealState = {};
 
 export type VillageActivityHealStartArgs = {
-  partyId: PartyID;
+  targetId: VillageID;
+  involvedTargetId: PartyID;
 };
 
 type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
+type VillageHealActivityType = Activity<{}, VillageID, PartyID, VillageActivityHealStartArgs>;
+
 @injectable()
-export class VillageActivityHeal
-  implements IActivityHandlerCancelable<Activity<VillageHealState, VillageActivityHealStartArgs>>
-{
+export class VillageActivityHeal implements IActivityHandlerCancelable<VillageHealActivityType> {
   constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
 
-  start({ partyId }: VillageActivityHealStartArgs): VillageHealState {
-    return {
-      partyId,
-    };
+  start(args: VillageActivityHealStartArgs): VillageHealState {
+    return {};
   }
 
-  isRunnable({ partyId }: VillageActivityHealStartArgs): boolean {
-    return this.getRecoverableUnits(partyId).length > 0;
+  isRunnable({ involvedTargetId }: VillageActivityHealStartArgs): boolean {
+    return this.getRecoverableUnits(involvedTargetId).length > 0;
   }
 
-  execute({ state }: Activity<VillageHealState>): VillageHealState {
-    const recoverableUnits = this.getRecoverableUnits(state.partyId);
+  execute({ involvedTargetId }: VillageHealActivityType): VillageHealState {
+    const recoverableUnits = this.getRecoverableUnits(involvedTargetId);
 
     forEach(unit => this.unitService.healUnit(unit.id, Math.ceil(unit.maxhp / 10)), recoverableUnits);
 
-    return state;
+    return {};
   }
 
-  isDone({ state: { partyId } }: Activity<VillageHealState>): boolean {
-    return this.getRecoverableUnits(partyId).length === 0;
+  isDone({ involvedTargetId }: VillageHealActivityType): boolean {
+    return this.getRecoverableUnits(involvedTargetId).length === 0;
   }
 
   resolve() {}
 
-  isCancelable(activity: Activity<VillageHealState, VillageActivityHealStartArgs>): boolean {
+  isCancelable(activity: VillageHealActivityType): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<VillageHealState, VillageActivityHealStartArgs>): void {}
+  onCancel(activity: VillageHealActivityType): void {}
 
   private getRecoverableUnits(partyId: PartyID): RecoverableUnit[] {
     const party = this.partyStore.get(partyId);

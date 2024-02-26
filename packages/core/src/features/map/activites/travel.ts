@@ -12,19 +12,18 @@ import { MapService } from "../map-service";
 import { PartyMapService } from "../party-map-service";
 
 type TravelState = {
-  partyId: PartyID;
   targetLocationId: MapLocationID;
   progress: number;
 };
 
 export type MapActivityTravelStartArgs = {
-  partyId: PartyID;
+  targetId: PartyID;
   targetLocationId: MapLocationID;
 };
 
 @injectable()
 export class MapTravelActivity
-  implements IActivityHandlerCancelable<Activity<TravelState, MapActivityTravelStartArgs>>
+  implements IActivityHandlerCancelable<Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>>
 {
   constructor(
     private mapService: MapService,
@@ -33,18 +32,17 @@ export class MapTravelActivity
     private mapLocationStore: MapLocationStore,
   ) {}
 
-  start({ partyId, targetLocationId }: MapActivityTravelStartArgs): TravelState {
-    const partyLocation = this.partyMapService.getPartyLocation(partyId)!;
+  start({ targetId, targetLocationId }: MapActivityTravelStartArgs): TravelState {
+    const partyLocation = this.partyMapService.getPartyLocation(targetId)!;
 
     return {
-      partyId,
       targetLocationId,
       progress: this.mapService.getDistance(partyLocation.id, targetLocationId),
     };
   }
 
-  isRunnable({ partyId, targetLocationId }: MapActivityTravelStartArgs) {
-    const partyLocation = this.partyMapService.getPartyLocation(partyId);
+  isRunnable({ targetId, targetLocationId }: MapActivityTravelStartArgs) {
+    const partyLocation = this.partyMapService.getPartyLocation(targetId);
 
     if (!partyLocation) return false;
 
@@ -55,25 +53,25 @@ export class MapTravelActivity
     return targetLocationId !== partyLocation.id;
   }
 
-  execute({ state }: Activity<TravelState>): TravelState {
+  execute({ state }: Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>): TravelState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: Activity<TravelState>): boolean {
+  isDone({ state }: Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>): boolean {
     return state.progress === 0;
   }
 
-  resolve({ state }: Activity<TravelState>) {
-    this.partyMapService.setLocation(state.partyId, state.targetLocationId);
+  resolve({ state, targetId }: Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>) {
+    this.partyMapService.setLocation(targetId, state.targetLocationId);
     this.eventSystem.fire(MapEvent.PartyArrivedToLocation, {
-      partyId: state.partyId,
+      partyId: targetId,
       locationId: state.targetLocationId,
     });
   }
 
-  isCancelable(activity: Activity<TravelState, MapActivityTravelStartArgs>): boolean {
+  isCancelable(activity: Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<TravelState, MapActivityTravelStartArgs>): void {}
+  onCancel(activity: Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>): void {}
 }

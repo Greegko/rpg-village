@@ -4,10 +4,17 @@ import { find, values, whereEq } from "rambda";
 import { commandHandler } from "@core";
 
 import { ActivityManager, ActivityStore } from "@features/activity";
-import { VillageActivity, VillageBuilding, VillageStashService } from "@features/village";
+import { VillageActivity, VillageBuilding, VillageID, VillageStashService } from "@features/village";
 import { Resource } from "@models";
 
-import { VillageBuildingsCommand } from "./interfaces";
+import {
+  VillageBuildingBuildShopArgs,
+  VillageBuildingCommandBuildBlacksmithArgs,
+  VillageBuildingCommandBuildPortalSummonerStoneArgs,
+  VillageBuildingCommandBuildRuneWorkshopArgs,
+  VillageBuildingCommandBuildTrainingFieldArgs,
+  VillageBuildingsCommand,
+} from "./interfaces";
 
 @injectable()
 export class VillageBuildingsCommandHandler {
@@ -18,47 +25,47 @@ export class VillageBuildingsCommandHandler {
   ) {}
 
   @commandHandler(VillageBuildingsCommand.BuildBlacksmith)
-  buildBlacksmith(): void {
+  buildBlacksmith(args: VillageBuildingCommandBuildBlacksmithArgs): void {
     const gold = 100;
 
-    this.buildBuilding(VillageBuilding.Blacksmith, { gold });
+    this.buildBuilding(args.villageId, VillageBuilding.Blacksmith, { gold });
   }
 
   @commandHandler(VillageBuildingsCommand.BuildRuneWorkshop)
-  buildRuneWorkshop(): void {
+  buildRuneWorkshop(args: VillageBuildingCommandBuildRuneWorkshopArgs): void {
     const gold = 100;
 
-    this.buildBuilding(VillageBuilding.RuneWorkshop, { gold });
+    this.buildBuilding(args.villageId, VillageBuilding.RuneWorkshop, { gold });
   }
 
   @commandHandler(VillageBuildingsCommand.BuildShop)
-  buildShopWorkshop(): void {
+  buildShopWorkshop(args: VillageBuildingBuildShopArgs): void {
     const gold = 100;
 
-    this.buildBuilding(VillageBuilding.Shop, { gold });
+    this.buildBuilding(args.villageId, VillageBuilding.Shop, { gold });
   }
 
   @commandHandler(VillageBuildingsCommand.BuildTrainingField)
-  buildTrainingField(): void {
+  buildTrainingField(args: VillageBuildingCommandBuildTrainingFieldArgs): void {
     const gold = 100;
 
-    this.buildBuilding(VillageBuilding.TrainingField, { gold });
+    this.buildBuilding(args.villageId, VillageBuilding.TrainingField, { gold });
   }
 
   @commandHandler(VillageBuildingsCommand.BuildPortalSummonerStone)
-  buildPortals(): void {
+  buildPortals(args: VillageBuildingCommandBuildPortalSummonerStoneArgs): void {
     const gold = 100;
 
-    this.buildBuilding(VillageBuilding.Portals, { gold });
+    this.buildBuilding(args.villageId, VillageBuilding.Portals, { gold });
   }
 
-  private buildBuilding(targetBuilding: VillageBuilding, cost: Resource) {
+  private buildBuilding(villageId: VillageID, targetBuilding: VillageBuilding, cost: Resource) {
     const activities = values(this.activityStore.getState());
 
     if (find(whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding } }), activities) !== undefined) return;
     if (!this.villageStash.hasEnoughResource(cost)) return;
 
-    this.activityManager.startActivity(VillageActivity.Build, { targetBuilding });
+    this.activityManager.startActivity(VillageActivity.Build, { targetId: villageId, targetBuilding });
     this.villageStash.removeResource(cost);
   }
 }

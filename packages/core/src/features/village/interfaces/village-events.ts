@@ -1,3 +1,4 @@
+import { VillageID } from "./village";
 import { VillageBuilding } from "./village-building";
 
 export enum VillageEvent {
@@ -5,6 +6,7 @@ export enum VillageEvent {
 }
 
 export interface VillageEventBuildingBuiltArgs {
+  villageId: VillageID;
   buildingType: VillageBuilding;
   level: number;
 }

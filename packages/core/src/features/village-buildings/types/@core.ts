@@ -1,11 +1,18 @@
-import { VillageBuildingsCommand } from "../interfaces";
+import {
+  VillageBuildingBuildShopArgs,
+  VillageBuildingCommandBuildBlacksmithArgs,
+  VillageBuildingCommandBuildPortalSummonerStoneArgs,
+  VillageBuildingCommandBuildRuneWorkshopArgs,
+  VillageBuildingCommandBuildTrainingFieldArgs,
+  VillageBuildingsCommand,
+} from "../interfaces";
 
 declare module "@core" {
   interface CommandType {
-    [VillageBuildingsCommand.BuildBlacksmith]: undefined;
-    [VillageBuildingsCommand.BuildTrainingField]: undefined;
-    [VillageBuildingsCommand.BuildRuneWorkshop]: undefined;
-    [VillageBuildingsCommand.BuildPortalSummonerStone]: undefined;
-    [VillageBuildingsCommand.BuildShop]: undefined;
+    [VillageBuildingsCommand.BuildBlacksmith]: VillageBuildingCommandBuildBlacksmithArgs;
+    [VillageBuildingsCommand.BuildTrainingField]: VillageBuildingCommandBuildRuneWorkshopArgs;
+    [VillageBuildingsCommand.BuildRuneWorkshop]: VillageBuildingBuildShopArgs;
+    [VillageBuildingsCommand.BuildPortalSummonerStone]: VillageBuildingCommandBuildTrainingFieldArgs;
+    [VillageBuildingsCommand.BuildShop]: VillageBuildingCommandBuildPortalSummonerStoneArgs;
   }
 }

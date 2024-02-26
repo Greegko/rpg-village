@@ -1,6 +1,8 @@
 import {
   VillageCommand,
+  VillageCommandBuildHouseArgs,
   VillageCommandHealPartyArgs,
+  VillageCommandHeroHireArgs,
   VillageConfig,
   VillageEvent,
   VillageEventBuildingBuiltArgs,
@@ -13,9 +15,9 @@ declare module "@core" {
   }
 
   interface CommandType {
-    [VillageCommand.HireHero]: undefined;
+    [VillageCommand.HireHero]: VillageCommandHeroHireArgs;
     [VillageCommand.HealParty]: VillageCommandHealPartyArgs;
-    [VillageCommand.BuildHouse]: undefined;
+    [VillageCommand.BuildHouse]: VillageCommandBuildHouseArgs;
   }
 
   interface GameState {

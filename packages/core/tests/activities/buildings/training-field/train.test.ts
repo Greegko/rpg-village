@@ -3,14 +3,13 @@ import { TrainingFieldActivity } from "@features/village-buildings";
 import { createState, test } from "../../../utils";
 
 test("should get 25 xp for each turn", {
-  initState: createState(({ party, activity, unit }) => [
+  initState: createState(({ party, activity, unit, village }) => [
     activity({
       name: TrainingFieldActivity.Train,
-      state: {
-        partyId: party({
-          unitIds: [unit({ id: "unit-id", xp: 10, level: 1 })],
-        }),
-      },
+      targetId: village(),
+      involvedTargetId: party({
+        unitIds: [unit({ id: "unit-id", xp: 10, level: 1 })],
+      }),
     }),
   ]),
   turn: true,
@@ -18,14 +17,13 @@ test("should get 25 xp for each turn", {
 });
 
 test("should level up after xp gained", {
-  initState: createState(({ party, activity, unit }) => [
+  initState: createState(({ party, activity, unit, village }) => [
     activity({
       name: TrainingFieldActivity.Train,
-      state: {
-        partyId: party({
-          unitIds: [unit({ id: "unit-id", xp: 100, level: 1 })],
-        }),
-      },
+      targetId: village(),
+      involvedTargetId: party({
+        unitIds: [unit({ id: "unit-id", xp: 100, level: 1 })],
+      }),
     }),
   ]),
   turn: true,

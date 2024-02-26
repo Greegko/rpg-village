@@ -7,8 +7,8 @@ test("should move party to the new location on finish", {
     location({ id: "test", partyIds: ["test-party-id"] }),
     activity({
       name: MapActivity.Travel,
+      targetId: party({ id: "test-party-id" }),
       state: {
-        partyId: party({ id: "test-party-id" }),
         progress: 1,
         targetLocationId: location({ id: "target-location" }),
       },
@@ -25,11 +25,11 @@ test("should store looted resource into village stash", {
     location({ id: "test", partyIds: ["test-party-id"] }),
     activity({
       name: MapActivity.Travel,
+      targetId: party({
+        id: "test-party-id",
+        stash: stashFactory({ resource: { gold: 5, soul: 1 } }),
+      }),
       state: {
-        partyId: party({
-          id: "test-party-id",
-          stash: stashFactory({ resource: { gold: 5, soul: 1 } }),
-        }),
         progress: 1,
         targetLocationId: village({
           stash: stashFactory({ resource: { gold: 10, soul: 5 } }),

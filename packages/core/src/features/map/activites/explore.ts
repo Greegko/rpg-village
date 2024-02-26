@@ -9,49 +9,47 @@ import { PartyMapService } from "../party-map-service";
 
 type ExploreState = {
   progress: number;
-  partyId: PartyID;
 };
 
 export type MapActivityExploreStartArgs = {
-  partyId: PartyID;
+  targetId: PartyID;
 };
 
+type MapExploreActivityType = Activity<ExploreState, PartyID, null, MapActivityExploreStartArgs>;
+
 @injectable()
-export class MapExploreActivity
-  implements IActivityHandlerCancelable<Activity<ExploreState, MapActivityExploreStartArgs>>
-{
+export class MapExploreActivity implements IActivityHandlerCancelable<MapExploreActivityType> {
   constructor(private mapService: MapService, private partyMapService: PartyMapService) {}
 
-  start({ partyId }: MapActivityExploreStartArgs): ExploreState {
+  start(args: MapActivityExploreStartArgs): ExploreState {
     return {
-      partyId,
       progress: 50,
     };
   }
 
-  isRunnable({ partyId }: MapActivityExploreStartArgs): boolean {
-    const partyLocation = this.partyMapService.getPartyLocation(partyId);
+  isRunnable({ targetId }: MapActivityExploreStartArgs): boolean {
+    const partyLocation = this.partyMapService.getPartyLocation(targetId);
 
     if (!partyLocation) return false;
 
     return !partyLocation.explored;
   }
 
-  execute({ state }: Activity<ExploreState>): ExploreState {
+  execute({ state }: MapExploreActivityType): ExploreState {
     return evolve({ progress: dec }, state);
   }
 
-  isDone({ state }: Activity<ExploreState>): boolean {
+  isDone({ state }: MapExploreActivityType): boolean {
     return state.progress === 0;
   }
 
-  resolve({ state }: Activity<ExploreState>) {
-    this.mapService.exploreLocation(this.partyMapService.getPartyLocation(state.partyId)!.id);
+  resolve({ targetId }: MapExploreActivityType) {
+    this.mapService.exploreLocation(this.partyMapService.getPartyLocation(targetId)!.id);
   }
 
-  isCancelable(activity: Activity<ExploreState, MapActivityExploreStartArgs>): boolean {
+  isCancelable(activity: MapExploreActivityType): boolean {
     return true;
   }
 
-  onCancel(activity: Activity<ExploreState, MapActivityExploreStartArgs>): void {}
+  onCancel(activity: MapExploreActivityType): void {}
 }
