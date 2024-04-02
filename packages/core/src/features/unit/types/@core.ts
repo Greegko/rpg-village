@@ -1,5 +1,4 @@
-import { Unit, UnitID } from "../interfaces";
-import { UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "../interfaces";
+import { Unit, UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs, UnitID } from "../interfaces";
 
 declare module "@core" {
   interface CommandType {

@@ -1,6 +1,5 @@
 import { BattleActivityType } from "@features/battle";
 import { UnitType } from "@features/unit";
-import { VillageConfig } from "@features/village";
 import { AttackEffectType, ItemType, RuneAttackEffectType } from "@models";
 
 import { createState, test } from "../utils";
@@ -103,33 +102,6 @@ test("should gain soul", {
   ]),
   turn: true,
   expectedState: { parties: { "party-id": { stash: { resource: { soul: 6 } } } } },
-});
-
-test("should gain resource into village when enabled VillageConfig.DirectLootToVillage config", {
-  gameConfig: { [VillageConfig.DirectLootToVillage]: true },
-  initState: createState(({ activity, party, unit, battle, village }) => [
-    village({ stash: { resource: { gold: 0 } } }),
-    activity({
-      name: BattleActivityType.Battle,
-      state: {
-        battleId: battle({
-          partyId: party({
-            id: "winner-party",
-            unitIds: [unit({ dmg: 10, hp: 10 })],
-            stash: { resource: { gold: 0 } },
-          }),
-          defenderPartyId: party({
-            unitIds: [unit({ dmg: 1, hp: 1, level: 1, armor: 0 })],
-          }),
-        }),
-      },
-    }),
-  ]),
-  turn: true,
-  expectedState: {
-    parties: { "winner-party": { stash: { resource: { gold: 0 } } } },
-    village: { stash: { resource: { gold: 25 } } },
-  },
 });
 
 test("should apply item dmg effect", {

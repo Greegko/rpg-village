@@ -1,11 +1,11 @@
-import { EffectStatic, Equipment, ItemStash, ResourceStash } from "@models";
+import { Stash } from "@features/stash";
+import { EffectStatic, Equipment } from "@models";
 
 export type UnitID = string;
 export enum UnitType {
   Common,
   Hero,
 }
-export type UnitStash = ItemStash & ResourceStash;
 
 export interface Unit {
   id: UnitID;
@@ -19,7 +19,7 @@ export interface Unit {
   xp: number;
   equipment: Equipment;
   effects: EffectStatic[];
-  stash: UnitStash;
+  stash: Stash;
   evasion: number;
   criticalChance: number;
 }

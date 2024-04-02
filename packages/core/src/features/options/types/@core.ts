@@ -1,5 +1,4 @@
-import { ChooseOptionCommandArgs, OptionCommand } from "../interfaces";
-import { OptionID, OptionState } from "../interfaces";
+import { ChooseOptionCommandArgs, OptionCommand, OptionID, OptionState } from "../interfaces";
 
 declare module "@core" {
   interface CommandType {

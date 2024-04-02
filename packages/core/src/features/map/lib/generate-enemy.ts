@@ -1,10 +1,10 @@
-import { PartyStash } from "@features/party";
+import { Stash } from "@features/stash";
 import { Unit, UnitType, calculateEffectsValue } from "@features/unit";
 import { EffectStatic, MiscEffectType } from "@models";
 
 export interface EnemyPartyGeneration {
   units: Omit<Unit, "id">[];
-  stash: PartyStash;
+  stash: Stash;
 }
 
 export function generateEnemyParty(difficulty: number, effects: EffectStatic[]): EnemyPartyGeneration {

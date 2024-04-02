@@ -2,11 +2,13 @@ import { Chance } from "chance";
 
 import { AnyActivity } from "@features/activity";
 import { BattleStoreState } from "@features/battle";
+import { PortalSummoningStone } from "@features/buildings/portal-summoning-stone";
+import { Shop } from "@features/buildings/shop";
 import { GeneralGameStoreState } from "@features/game";
 import { Map, MapLocation, MapLocationType, MapSize } from "@features/map";
 import { OptionState } from "@features/options";
 import { Party, PartyOwner } from "@features/party";
-import { ShopState } from "@features/shop";
+import { Stash } from "@features/stash";
 import { Unit, UnitType } from "@features/unit";
 import { VillageState } from "@features/village";
 import {
@@ -17,10 +19,8 @@ import {
   EffectDynamic,
   EffectStatic,
   EffectType,
-  ItemStash,
   ItemType,
   MiscEffectType,
-  ResourceStash,
   Rune,
   RuneAttackEffectType,
   Shield,
@@ -39,8 +39,20 @@ export function mapFactory({
   return { difficulty, id, mapLocationIds, mapSize, modifiers };
 }
 
-export function shopFactory({ id = chance.string(), items = [] }: Partial<ShopState> = {}): ShopState {
-  return { id, items };
+export function portalSummoningStoreFactory({
+  id = chance.string(),
+  portals = [],
+  level = chance.integer(),
+}: Partial<PortalSummoningStone> = {}): PortalSummoningStone {
+  return { id, portals, level };
+}
+
+export function shopFactory({
+  level = chance.integer(),
+  items = [],
+  stash = stashFactory(),
+}: Partial<Shop> = {}): Shop {
+  return { level, items, stash };
 }
 
 export function optionFactory({ id = chance.string(), items = [] }: Partial<OptionState> = {}): OptionState {
@@ -61,7 +73,7 @@ export function mapLocationFactory({
 export function stashFactory({
   resource = { gold: chance.integer(), soul: chance.integer() },
   items = [],
-} = {}): ItemStash & ResourceStash {
+} = {}): Stash {
   return {
     items,
     resource,
@@ -105,16 +117,18 @@ export function unitFactory({
 export function villageFactory({
   id = chance.string(),
   heroes = [],
-  houses = chance.integer(),
   stash = stashFactory(),
   locationId = chance.string(),
-  blacksmith = chance.integer(),
-  trainingField = chance.integer(),
-  runeWorkshop = chance.integer(),
-  portals = chance.integer(),
-  shop = { shopId: chance.string(), level: chance.integer() },
+  buildings = {
+    houses: chance.integer(),
+    blacksmith: chance.integer(),
+    trainingField: chance.integer(),
+    runeWorkshop: chance.integer(),
+    portalSummoningStone: portalSummoningStoreFactory(),
+    shop: shopFactory(),
+  },
 }: Partial<VillageState> = {}): VillageState {
-  return { id, locationId, stash, houses, heroes, blacksmith, trainingField, runeWorkshop, portals, shop };
+  return { id, locationId, stash, heroes, buildings };
 }
 
 export function partyFactory({

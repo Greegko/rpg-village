@@ -1,29 +1,36 @@
 import { Module } from "@core";
 
 import { VillageActivityHeal, VillageBuildActivity } from "./activities";
-import { VillageActivity, VillageConfig } from "./interfaces";
+import {
+  BlacksmithCommandHandler,
+  RuneWorkshopCommandHandler,
+  TrainingFieldActivity,
+  TrainingFieldCommandHandler,
+  TrainingFieldTrainActivity,
+} from "./buildings";
+import { VillageActivity } from "./interfaces";
+import { VillageBuildingsCommandHandler } from "./village-buildings-command-handler";
+import { VillageBuildingsEventHandler } from "./village-buildings-event-handler";
 import { VillageCommandHandler } from "./village-command-handler";
 import { VillageEventHandler } from "./village-event-handler";
-import { VillageStashService } from "./village-stash-service";
+import { VillageService } from "./village-service";
 import { VillageStore } from "./village-store";
 
 export const villageModule: Module = {
   activities: [
     { name: VillageActivity.Heal, activity: VillageActivityHeal },
     { name: VillageActivity.Build, activity: VillageBuildActivity },
+    { name: TrainingFieldActivity.Train, activity: TrainingFieldTrainActivity },
   ],
-  stores: [
-    {
-      scope: "village",
-      store: VillageStore,
-      initialState: {
-        houses: 0,
-        stash: { resource: { gold: 0, soul: 0 }, items: [] },
-        locationId: undefined,
-        heroes: [],
-      },
-    },
+  stores: [{ scope: "villages", store: VillageStore }],
+  provides: [
+    VillageService,
+    VillageEventHandler,
+    VillageCommandHandler,
+    VillageBuildingsCommandHandler,
+    VillageBuildingsEventHandler,
+    BlacksmithCommandHandler,
+    TrainingFieldCommandHandler,
+    RuneWorkshopCommandHandler,
   ],
-  defaultConfig: { [VillageConfig.DirectLootToVillage]: false },
-  provides: [VillageStashService, VillageEventHandler, VillageCommandHandler],
 };

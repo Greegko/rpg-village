@@ -1,19 +1,10 @@
 import { injectable } from "inversify";
 import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "rambda";
 
-import {
-  Equipment,
-  EquipmentItem,
-  EquipmentSlot,
-  Item,
-  ItemID,
-  addItems,
-  getItem,
-  isEquipmentItem,
-  removeItem,
-} from "@models";
+import { StashHandler } from "@features/stash";
+import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID, isEquipmentItem } from "@models";
 
-import { UnitID, UnitStash } from "./interfaces";
+import { UnitID } from "./interfaces";
 import { getEquipmentSlot } from "./lib";
 import { nextLevelXp } from "./lib/next-level-xp";
 import { UnitStore } from "./unit-store";
@@ -21,6 +12,13 @@ import { UnitStore } from "./unit-store";
 @injectable()
 export class UnitService {
   constructor(private unitStore: UnitStore) {}
+
+  getStash(unitId: UnitID) {
+    return new StashHandler({
+      get: () => this.unitStore.get(unitId).stash,
+      update: stashUpdater => this.unitStore.update(unitId, evolve({ stash: stashUpdater })),
+    });
+  }
 
   healUnit(unitId: UnitID, hpGain: number): void {
     this.unitStore.update(unitId, unit => ({
@@ -71,24 +69,11 @@ export class UnitService {
   }
 
   stashItems(unitId: UnitID, items: Item[]) {
-    const evolveUnit = evolve({
-      stash: (stash: UnitStash) => addItems(stash, items),
-    });
-
-    this.unitStore.update(unitId, evolveUnit);
+    this.getStash(unitId).addItems(items);
   }
 
   takeItemFromStash(unitId: UnitID, itemId: ItemID): Item {
-    const unit = this.unitStore.get(unitId);
-    const item = getItem(unit.stash, itemId);
-
-    const evolveUnit = evolve({
-      stash: (stash: UnitStash) => removeItem(stash, itemId),
-    });
-
-    this.unitStore.update(unitId, evolveUnit);
-
-    return item;
+    return this.getStash(unitId).takeItem(itemId);
   }
 
   equipItem(unitId: UnitID, item: Item): void {

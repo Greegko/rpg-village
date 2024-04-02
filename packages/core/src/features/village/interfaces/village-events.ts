@@ -7,6 +7,6 @@ export enum VillageEvent {
 
 export interface VillageEventBuildingBuiltArgs {
   villageId: VillageID;
-  buildingType: VillageBuilding;
   level: number;
+  buildingType: VillageBuilding;
 }

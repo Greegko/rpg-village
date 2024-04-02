@@ -1,52 +1,47 @@
 import { injectable } from "inversify";
-import { append, find, head, values, whereEq } from "rambda";
-import { generate } from "shortid";
+import { append, evolve, find, head, values } from "rambda";
 
 import { commandHandler } from "@core";
 
-import { ActivityManager, ActivityStore } from "@features/activity";
+import { ActivityManager } from "@features/activity";
+import { PortalCommand, PortalCommandEnterPortalArgs } from "@features/buildings/portal";
 import { GameCommand, GeneralGameStore } from "@features/game";
 import { MapLocationType, MapService, MapSize, PartyMapService } from "@features/map";
 import { PartyOwner, PartyService } from "@features/party";
 import { UnitStore, isAlive } from "@features/unit";
 
-import {
-  VillageActivity,
-  VillageBuilding,
-  VillageCommand,
-  VillageCommandBuildHouseArgs,
-  VillageCommandHealPartyArgs,
-  VillageCommandHeroHireArgs,
-} from "./interfaces";
+import { VillageActivity, VillageCommand, VillageCommandHealPartyArgs, VillageCommandHeroHireArgs } from "./interfaces";
 import { heroFactory, newHeroCost } from "./lib";
-import { VillageStashService } from "./village-stash-service";
+import { VillageService } from "./village-service";
 import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageCommandHandler {
   constructor(
     private villageStore: VillageStore,
-    private villageStash: VillageStashService,
+    private villageService: VillageService,
     private partyService: PartyService,
     private unitStore: UnitStore,
     private mapService: MapService,
     private generalGameStore: GeneralGameStore,
     private partyMapService: PartyMapService,
     private activityManager: ActivityManager,
-    private activityStore: ActivityStore,
   ) {}
 
   @commandHandler(VillageCommand.HireHero)
   hireHero(args: VillageCommandHeroHireArgs): void {
-    const villageState = this.villageStore.getState();
+    const villageState = this.villageStore.get(args.villageId);
     const heroesCount = villageState.heroes.map(unitId => this.unitStore.get(unitId)).filter(isAlive).length;
     const goldCost = newHeroCost(1 + heroesCount);
+    const villageStash = this.villageService.getStash(args.villageId);
 
-    if (this.villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < villageState.houses) {
+    const houses = villageState.buildings.houses || 0;
+
+    if (villageStash.hasEnoughResource({ gold: goldCost }) && heroesCount < houses) {
       const heroId = this.unitStore.add(heroFactory()).id;
 
-      this.villageStash.removeResource({ gold: goldCost });
-      this.villageStore.update("heroes", append(heroId));
+      villageStash.removeResource({ gold: goldCost });
+      this.villageStore.update(args.villageId, evolve({ heroes: append(heroId) }));
 
       const party = this.partyService.createParty({
         unitIds: [heroId],
@@ -71,28 +66,36 @@ export class VillageCommandHandler {
     const map = this.mapService.createMap(MapLocationType.Village, MapSize.Endless, []);
     this.generalGameStore.set("worldMapId", map.id);
 
-    this.villageStore.set("id", generate());
-    this.villageStore.set("stash", { items: [], resource: { gold: 0, soul: 0 } });
-    this.villageStore.set("locationId", head(map.mapLocationIds)!);
+    this.villageStore.add({
+      stash: { items: [], resource: { gold: 0, soul: 0 } },
+      locationId: head(map.mapLocationIds)!,
+      heroes: [],
+      buildings: {
+        houses: 0,
+        blacksmith: 0,
+        trainingField: 0,
+        runeWorkshop: 0,
+        portalSummoningStone: undefined,
+        shop: undefined,
+      },
+    });
   }
 
-  @commandHandler(VillageCommand.BuildHouse)
-  buildHouse(args: VillageCommandBuildHouseArgs): void {
-    const gold = (1 + this.villageStore.getState().houses) * 20;
+  @commandHandler(PortalCommand.EnterPortal)
+  enterPartyInPortal(args: PortalCommandEnterPortalArgs) {
+    const partyLocation = this.partyMapService.getPartyLocation(args.partyId);
+    const villages = values(this.villageStore.getState());
+    const village = find(x => x.locationId === partyLocation!.id, villages);
 
-    const activities = values(this.activityStore.getState());
-    const buildActivity = find(
-      whereEq({ name: VillageActivity.Build, startArgs: { targetBuilding: VillageBuilding.House } }),
-      activities,
-    );
+    if (village && village.buildings.portalSummoningStone?.portals) {
+      const summoningStone = village.buildings.portalSummoningStone;
+      if (summoningStone) {
+        const portal = summoningStone.portals.find(x => x.id === args.portalId);
 
-    if (buildActivity !== undefined) return;
-    if (!this.villageStash.hasEnoughResource({ gold })) return;
-
-    this.activityManager.startActivity(VillageActivity.Build, {
-      targetId: args.villageId,
-      targetBuilding: VillageBuilding.House,
-    });
-    this.villageStash.removeResource({ gold });
+        if (portal) {
+          this.partyMapService.setLocation(args.partyId, portal.connectedLocationId);
+        }
+      }
+    }
   }
 }

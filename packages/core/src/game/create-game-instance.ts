@@ -21,9 +21,7 @@ export type CreateGameInstance = (config?: GameConfig) => GameInstance;
 
 const coreModules = [
   features.villageModule,
-  features.villageBuildingsModule,
   features.debugModule,
-  features.shopModule,
   features.optionsModule,
   features.gameModule,
   features.mapModule,

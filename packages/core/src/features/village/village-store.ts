@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 
-import { ObjectStore } from "@core";
+import { EntityStore } from "@core";
 
-import { VillageState } from "./interfaces";
+import { VillageID, VillageState } from "./interfaces";
 
 @injectable()
-export class VillageStore extends ObjectStore<VillageState> {}
+export class VillageStore extends EntityStore<VillageID, VillageState> {}

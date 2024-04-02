@@ -7,6 +7,10 @@
     { "path": "../battle" },
     { "path": "../party" },
     { "path": "../unit" },
-    { "path": "../map" }
+    { "path": "../map" },
+    { "path": "../stash" },
+    { "path": "../buildings/shop" },
+    { "path": "../buildings/portal" },
+    { "path": "../buildings/portal-summoning-stone" }
   ]
 }

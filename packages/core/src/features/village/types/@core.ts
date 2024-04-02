@@ -1,11 +1,20 @@
 import {
+  VillageBuildingBuildShopArgs,
+  VillageBuildingCommand,
+  VillageBuildingCommandBuildBlacksmithArgs,
+  VillageBuildingCommandBuildHouseArgs,
+  VillageBuildingCommandBuildPortalSummoningStoneArgs,
+  VillageBuildingCommandBuildRuneWorkshopArgs,
+  VillageBuildingCommandBuildTrainingFieldArgs,
+  VillageBuildingCommandGenerateShopItemsArgs,
+  VillageBuildingCommandPortalSummoningStoneOpenPortalArgs,
+  VillageBuildingCommandShopBuyItemArgs,
   VillageCommand,
-  VillageCommandBuildHouseArgs,
   VillageCommandHealPartyArgs,
   VillageCommandHeroHireArgs,
-  VillageConfig,
   VillageEvent,
   VillageEventBuildingBuiltArgs,
+  VillageID,
   VillageState,
 } from "../interfaces";
 
@@ -17,14 +26,21 @@ declare module "@core" {
   interface CommandType {
     [VillageCommand.HireHero]: VillageCommandHeroHireArgs;
     [VillageCommand.HealParty]: VillageCommandHealPartyArgs;
-    [VillageCommand.BuildHouse]: VillageCommandBuildHouseArgs;
+  }
+
+  interface CommandType {
+    [VillageBuildingCommand.BuildHouse]: VillageBuildingCommandBuildHouseArgs;
+    [VillageBuildingCommand.BuildBlacksmith]: VillageBuildingCommandBuildBlacksmithArgs;
+    [VillageBuildingCommand.BuildTrainingField]: VillageBuildingCommandBuildRuneWorkshopArgs;
+    [VillageBuildingCommand.BuildRuneWorkshop]: VillageBuildingBuildShopArgs;
+    [VillageBuildingCommand.BuildPortalSummoningStone]: VillageBuildingCommandBuildTrainingFieldArgs;
+    [VillageBuildingCommand.PortalSummoningStoneOpenPortal]: VillageBuildingCommandPortalSummoningStoneOpenPortalArgs;
+    [VillageBuildingCommand.BuildShop]: VillageBuildingCommandBuildPortalSummoningStoneArgs;
+    [VillageBuildingCommand.ShopBuyItem]: VillageBuildingCommandShopBuyItemArgs;
+    [VillageBuildingCommand.GenerateShopItems]: VillageBuildingCommandGenerateShopItemsArgs;
   }
 
   interface GameState {
-    village: VillageState;
-  }
-
-  interface ModuleConfig {
-    [VillageConfig.DirectLootToVillage]: boolean;
+    villages: Record<VillageID, VillageState>;
   }
 }

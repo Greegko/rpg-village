@@ -1,11 +1,13 @@
 import { injectable } from "inversify";
-import { any, evolve, mergeLeft, without } from "rambda";
+import { any, evolve, mergeLeft, values, without } from "rambda";
 
+import { EventSystem } from "@core";
+
+import { Stash, StashHandler } from "@features/stash";
 import { Unit, UnitID, UnitService, UnitStore, isAlive } from "@features/unit";
-import { Loot, addResource } from "@models";
+import { Loot } from "@models";
 
-import { EventSystem } from "../../core/event";
-import { Party, PartyEvent, PartyID, PartyStash } from "./interfaces";
+import { Party, PartyEvent, PartyID } from "./interfaces";
 import { PartyStore } from "./party-store";
 
 @injectable()
@@ -16,6 +18,17 @@ export class PartyService {
     private unitService: UnitService,
     private eventSystem: EventSystem,
   ) {}
+
+  getStash(partyId: PartyID) {
+    return new StashHandler({
+      get: () => this.partyStore.get(partyId).stash,
+      update: stashUpdater => this.partyStore.update(partyId, evolve({ stash: stashUpdater })),
+    });
+  }
+
+  getPartyForUnitId(unitId: UnitID): Party | undefined {
+    return values(this.partyStore.getState()).find(x => x.unitIds.includes(unitId));
+  }
 
   isPartyAlive(partyId: PartyID): boolean {
     return any(isAlive, this.getPartyUnits(partyId));
@@ -28,30 +41,26 @@ export class PartyService {
   }
 
   collectLoot(partyId: PartyID, loot: Loot) {
-    this.partyStore.update(partyId, party => ({
-      stash: addResource(party.stash, loot.resource),
-    }));
+    this.getStash(partyId).addResource(loot.resource);
   }
 
   createParty(party: Omit<Party, "id">) {
     return this.partyStore.add(party);
   }
 
-  clearPartyStash(partyId: PartyID): PartyStash {
-    const stash = this.partyStore.get(partyId).stash;
-    this.partyStore.update(partyId, () => ({
-      stash: { resource: { gold: 0, soul: 0 }, items: [] },
-    }));
-
-    return stash;
+  takePartyStash(partyId: PartyID): Stash {
+    return this.getStash(partyId).takeStash();
   }
 
   mergeWithParty(partyId: PartyID, otherPartyId: PartyID) {
     const otherParty = this.partyStore.get(otherPartyId);
+    const partyStash = this.getStash(partyId);
+    partyStash.addResource(otherParty.stash.resource);
+    partyStash.addItems(otherParty.stash.items);
+
     this.partyStore.update(
       partyId,
       evolve({
-        stash: mergeLeft(otherParty.stash),
         unitIds: mergeLeft(otherParty.unitIds),
       }),
     );

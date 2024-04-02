@@ -1,32 +1,59 @@
 import { VillageCommand } from "@features/village";
 
-import { test } from "../../utils";
-
-const initState = {
-  mapLocations: { village: { partyIds: [] } },
-  village: { id: "village-id", stash: { resource: { gold: 25 } }, houses: 1, heroes: [], locationId: "village" },
-};
+import { createState, test } from "../../utils";
 
 test("should reduce village gold capacity by cost amount", {
-  initState,
-  commands: [{ command: VillageCommand.HireHero, args: { villageId: "village-id" } }],
-  expectedState: { village: { stash: { resource: { gold: 5 } } } },
+  initState: createState(({ village }) => [
+    village({
+      id: "villageId",
+      stash: { resource: { gold: 25 } },
+      buildings: { houses: 1 },
+      heroes: [],
+      locationId: "village",
+    }),
+  ]),
+  commands: [{ command: VillageCommand.HireHero, args: { villageId: "villageId" } }],
+  expectedState: { villages: { villageId: { stash: { resource: { gold: 5 } } } } },
 });
 
 test("should add to village heroes list", {
-  initState,
-  commands: [{ command: VillageCommand.HireHero, args: { villageId: "village-id" } }],
-  expectedState: (state, t) => t.notDeepEqual(state.village.heroes, []),
+  initState: createState(({ village }) => [
+    village({
+      id: "villageId",
+      stash: { resource: { gold: 25 } },
+      buildings: { houses: 1 },
+      heroes: [],
+      locationId: "village",
+    }),
+  ]),
+  commands: [{ command: VillageCommand.HireHero, args: { villageId: "villageId" } }],
+  expectedState: (state, t) => t.notDeepEqual(state.villages.villageId.heroes, []),
 });
 
 test("should store in units list", {
-  initState,
-  commands: [{ command: VillageCommand.HireHero, args: { villageId: "village-id" } }],
+  initState: createState(({ village }) => [
+    village({
+      id: "villageId",
+      stash: { resource: { gold: 25 } },
+      buildings: { houses: 1 },
+      heroes: [],
+      locationId: "village",
+    }),
+  ]),
+  commands: [{ command: VillageCommand.HireHero, args: { villageId: "villageId" } }],
   expectedState: (state, t) => t.notDeepEqual(state.units, {}),
 });
 
 test("should assign to a new party", {
-  initState,
-  commands: [{ command: VillageCommand.HireHero, args: { villageId: "village-id" } }],
+  initState: createState(({ village }) => [
+    village({
+      id: "villageId",
+      stash: { resource: { gold: 25 } },
+      buildings: { houses: 1 },
+      heroes: [],
+      locationId: "village",
+    }),
+  ]),
+  commands: [{ command: VillageCommand.HireHero, args: { villageId: "villageId" } }],
   expectedState: (state, t) => t.notDeepEqual(state.parties, {}),
 });

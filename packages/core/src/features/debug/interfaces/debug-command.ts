@@ -1,3 +1,4 @@
+import { VillageID } from "@features/village";
 import { Item } from "@models";
 
 export enum DebugCommand {
@@ -7,13 +8,16 @@ export enum DebugCommand {
 }
 
 export interface GenerateGoldArgs {
+  villageId: VillageID;
   gold: number;
 }
 
 export interface AddItemArgs {
+  villageId: VillageID;
   item: Item;
 }
 
 export interface AddSoulArgs {
+  villageId: VillageID;
   soul: number;
 }

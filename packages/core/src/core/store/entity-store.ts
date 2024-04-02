@@ -2,11 +2,18 @@ import { injectable } from "inversify";
 import { assoc, dissoc, merge, mergeAll, omit, prop } from "rambda";
 import { generate } from "shortid";
 
-export type EntityUpdater<T> = (entity: T) => Partial<T>;
+export type EntityUpdaterCallback<T> = (entity: T) => Partial<T>;
+export type EntityUpdater<T> = Partial<T> | EntityUpdaterCallback<T>;
 
 export type EntityStoreState<EntityID extends string, Entity extends { id: EntityID }> = {
   [key: string]: Entity;
 };
+
+export function isEntityUpdaterCallback<T>(
+  entityOrUpdater: EntityUpdater<T>,
+): entityOrUpdater is EntityUpdaterCallback<T> {
+  return typeof entityOrUpdater === "function";
+}
 
 export interface IEntityStore<EntityID extends string, Entity extends { id: EntityID }> {
   getState(): EntityStoreState<EntityID, Entity>;
@@ -14,7 +21,7 @@ export interface IEntityStore<EntityID extends string, Entity extends { id: Enti
   get(id: EntityID): Entity;
   add(entity: Omit<Entity, "id">): Entity;
   update(entityId: EntityID, entity: Partial<Entity>): void;
-  update(entityId: EntityID, updater: EntityUpdater<Entity>): void;
+  update(entityId: EntityID, updater: EntityUpdaterCallback<Entity>): void;
   remove(entityId: EntityID): void;
 }
 
@@ -44,11 +51,11 @@ export class EntityStore<EntityID extends string, Entity extends { id: EntityID 
   }
 
   update(entityId: EntityID, entity: Partial<Entity>): void;
-  update(entityId: EntityID, updater: EntityUpdater<Entity>): void;
-  update(entityId: EntityID, entityOrUpdater: Partial<Entity> | EntityUpdater<Entity>): void {
+  update(entityId: EntityID, updater: EntityUpdaterCallback<Entity>): void;
+  update(entityId: EntityID, entityOrUpdater: EntityUpdater<Entity>): void {
     let entity: Partial<Entity> | null = null;
 
-    if (typeof entityOrUpdater === "function") {
+    if (isEntityUpdaterCallback(entityOrUpdater)) {
       entity = entityOrUpdater(this.get(entityId));
     } else {
       entity = entityOrUpdater;

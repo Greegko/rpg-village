@@ -48,10 +48,24 @@ export class VillageBuildActivity implements IActivityHandlerCancelable<VillageB
   onCancel(activity: VillageBuildActivityType): void {}
 
   resolve({ targetId, startArgs: { targetBuilding } }: VillageBuildActivityType) {
-    this.eventSystem.fire(VillageEvent.BuildingBuilt, {
-      villageId: targetId,
-      buildingType: targetBuilding,
-      level: this.villageStore.get(targetBuilding),
-    });
+    if (targetBuilding === VillageBuilding.Shop) {
+      this.eventSystem.fire(VillageEvent.BuildingBuilt, {
+        villageId: targetId,
+        buildingType: targetBuilding,
+        level: this.villageStore.get(targetId).buildings[targetBuilding]!.level,
+      });
+    } else if (targetBuilding === VillageBuilding.PortalSummoningStone) {
+      this.eventSystem.fire(VillageEvent.BuildingBuilt, {
+        villageId: targetId,
+        buildingType: targetBuilding,
+        level: this.villageStore.get(targetId).buildings[targetBuilding]!.level,
+      });
+    } else {
+      this.eventSystem.fire(VillageEvent.BuildingBuilt, {
+        villageId: targetId,
+        buildingType: targetBuilding,
+        level: this.villageStore.get(targetId).buildings[targetBuilding]!,
+      });
+    }
   }
 }

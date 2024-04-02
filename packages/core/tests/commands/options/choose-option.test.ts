@@ -8,9 +8,14 @@ test("should remove option object", {
       id: "option-id",
       items: [{ id: "option-item-id", item: { name: "option-buy-item" } }],
     }),
-    village(),
+    village({ id: "villageId" }),
   ]),
-  commands: [{ command: OptionCommand.ChooseOption, args: { optionId: "option-id", optionItemId: "option-item-id" } }],
+  commands: [
+    {
+      command: OptionCommand.ChooseOption,
+      args: { villageId: "villageId", optionId: "option-id", optionItemId: "option-item-id" },
+    },
+  ],
   expectedState: (state, t) => t.undefined(state.options["option-id"]),
 });
 
@@ -20,8 +25,13 @@ test("should put into village items the choosed option", {
       id: "option-id",
       items: [{ id: "option-item-id", item: { name: "option-buy-item" } }],
     }),
-    village({ stash: { items: [] } }),
+    village({ id: "villageId", stash: { items: [] } }),
   ]),
-  commands: [{ command: OptionCommand.ChooseOption, args: { optionId: "option-id", optionItemId: "option-item-id" } }],
-  expectedState: { village: { stash: { items: [{ name: "option-buy-item" }] } } },
+  commands: [
+    {
+      command: OptionCommand.ChooseOption,
+      args: { villageId: "villageId", optionId: "option-id", optionItemId: "option-item-id" },
+    },
+  ],
+  expectedState: { villages: { villageId: { stash: { items: [{ name: "option-buy-item" }] } } } },
 });

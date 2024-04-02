@@ -133,8 +133,8 @@ const Village = () => {
         Upgrade Training Field
       </button>
 
-      <button onClick={() => executeCommand({ command: VillageBuildingsCommand.BuildPortalSummonerStone })}>
-        Build Portal Summoner Stone
+      <button onClick={() => executeCommand({ command: VillageBuildingsCommand.BuildPortalSummoningStone })}>
+        Build Portal Summoning Stone
       </button>
       <button onClick={() => dispatch(changePage({ page: GamePageType.OpenPortal }))}>Open Portal</button>
     </div>

@@ -1,5 +1,4 @@
-import { PartyEvent, PartyEventDisbandArgs } from "../interfaces";
-import { Party, PartyID } from "../interfaces";
+import { Party, PartyEvent, PartyEventDisbandArgs, PartyID } from "../interfaces";
 
 declare module "@core" {
   interface GameState {

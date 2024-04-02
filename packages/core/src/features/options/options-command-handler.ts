@@ -2,14 +2,14 @@ import { injectable } from "inversify";
 
 import { commandHandler } from "@core";
 
-import { VillageStashService } from "@features/village";
+import { VillageService } from "@features/village";
 
 import { ChooseOptionCommandArgs, OptionCommand } from "./interfaces";
 import { OptionStore } from "./options-store";
 
 @injectable()
 export class OptionCommandHandler {
-  constructor(private villageStashService: VillageStashService, private optionStore: OptionStore) {}
+  constructor(private villageService: VillageService, private optionStore: OptionStore) {}
 
   @commandHandler(OptionCommand.ChooseOption)
   chooseOption(args: ChooseOptionCommandArgs) {
@@ -18,7 +18,6 @@ export class OptionCommandHandler {
     if (!item) return;
 
     this.optionStore.remove(args.optionId);
-
-    this.villageStashService.addItems([item.item]);
+    this.villageService.getStash(args.villageId).addItems([item.item]);
   }
 }

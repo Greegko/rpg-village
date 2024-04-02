@@ -1,14 +1,19 @@
 import { PartyID } from "@features/party";
 
 import {
+  Map,
   MapCommand,
   MapCommandBattleArgs,
   MapCommandExploreArgs,
   MapCommandMergePartiesArgs,
   MapCommandSplitPartyArgs,
   MapCommandTravelArgs,
+  MapEvent,
+  MapEventNewLocationArgs,
+  MapID,
+  MapLocation,
+  MapLocationID,
 } from "../interfaces";
-import { Map, MapEvent, MapEventNewLocationArgs, MapID, MapLocation, MapLocationID } from "../interfaces";
 
 export type PartyEventArrivedToLocationArgs = {
   partyId: PartyID;
