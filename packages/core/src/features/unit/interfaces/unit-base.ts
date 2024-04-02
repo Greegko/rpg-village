@@ -1,7 +1,7 @@
 import { Stash } from "@features/stash";
 import { EffectStatic, Equipment } from "@models";
 
-export type UnitID = string;
+export type UnitID = string & { __typeGuard: "unit-id" };
 export enum UnitType {
   Common,
   Hero,

@@ -1,5 +1,6 @@
 import { always, evolve, inc, times } from "rambda";
-import { generate } from "shortid";
+
+import { generateId } from "@lib/generate-id";
 
 import { StashHandler } from "@features/stash";
 import { AttackEffectType, EffectType, ItemType, Weapon } from "@models";
@@ -44,13 +45,18 @@ export class ShopHandler {
 
     times(() => {
       const swordWeapon: Weapon = {
-        id: generate(),
+        id: generateId(),
         name: "Magic Name",
         effects: [{ effectType: AttackEffectType.Dmg, value: 10 * shop.level, type: EffectType.Static }],
         itemType: ItemType.Weapon,
       };
 
-      const shopItem: ShopItem = { price: { gold: shop.level * 10 }, item: swordWeapon, quantity: 1, id: generate() };
+      const shopItem: ShopItem = {
+        id: generateId(),
+        price: { gold: shop.level * 10 },
+        item: swordWeapon,
+        quantity: 1,
+      };
       shopItems.push(shopItem);
     }, 30);
 

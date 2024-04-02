@@ -3,7 +3,7 @@ import { UnitID } from "@features/unit";
 
 import { PartyOwner } from "./party-owner";
 
-export type PartyID = string;
+export type PartyID = string & { __typeGuard: "party-id" };
 
 export interface Party {
   id: PartyID;

@@ -4,7 +4,7 @@ import { MapLocationID } from "@features/map";
 import { Stash } from "@features/stash";
 import { UnitID } from "@features/unit";
 
-export type VillageID = string;
+export type VillageID = string & { __typeGuard: "village-id" };
 
 export interface VillageState {
   id: string;

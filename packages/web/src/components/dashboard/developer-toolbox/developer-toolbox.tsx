@@ -14,6 +14,7 @@ import {
   Shield,
   Weapon,
 } from "@rpg-village/core";
+import { generateId } from "@rpg-village/lib";
 
 import { sample } from "@lib/sample";
 import { GameInstanceWrapperContext, useGameExecuteCommand } from "@web/react-hooks";
@@ -46,7 +47,7 @@ export const DeveloperToolbox = () => {
 
     return {
       effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10, isPercentage: false }],
-      id: generate(),
+      id: generateId(),
       name: generate(),
       itemType,
     };
@@ -55,7 +56,7 @@ export const DeveloperToolbox = () => {
   const generateDungeonKey = (): DungeonKey => {
     return {
       effects: [],
-      id: generate(),
+      id: generateId(),
       name: generate(),
       itemType: ItemType.DungeonKey,
     };
@@ -63,7 +64,7 @@ export const DeveloperToolbox = () => {
 
   const generateRune = (): Rune => {
     return {
-      id: generate(),
+      id: generateId(),
       name: generate(),
       itemType: ItemType.Rune,
       power: 100,

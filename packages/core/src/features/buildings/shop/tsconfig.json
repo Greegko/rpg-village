@@ -1,5 +1,5 @@
 {
   "extends": "../../../tsconfig-base.json",
   "include": ["**/*.ts"],
-  "references": [{ "path": "../../../models" }, { "path": "../../stash" }]
+  "references": [{ "path": "../../../models" }, { "path": "../../stash" }, { "path": "../../../lib" }]
 }

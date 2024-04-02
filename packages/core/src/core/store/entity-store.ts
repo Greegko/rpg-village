@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import { assoc, dissoc, merge, mergeAll, omit, prop } from "rambda";
-import { generate } from "shortid";
+
+import { generateId } from "@lib/generate-id";
 
 export type EntityUpdaterCallback<T> = (entity: T) => Partial<T>;
 export type EntityUpdater<T> = Partial<T> | EntityUpdaterCallback<T>;
@@ -26,7 +27,7 @@ export interface IEntityStore<EntityID extends string, Entity extends { id: Enti
 }
 
 @injectable()
-export class EntityStore<EntityID extends string, Entity extends { id: EntityID }>
+export class EntityStore<EntityID extends string & { __typeGuard: string }, Entity extends { id: EntityID }>
   implements IEntityStore<EntityID, Entity>
 {
   private state: EntityStoreState<EntityID, Entity> = {};
@@ -44,7 +45,7 @@ export class EntityStore<EntityID extends string, Entity extends { id: EntityID 
   }
 
   add<T extends Entity>(entity: Omit<T, "id">): T {
-    const id = generate();
+    const id = generateId<EntityID>();
     const newObject = assoc("id", id, entity) as T;
     this.state = assoc(id, newObject, this.state);
     return newObject;

@@ -1,4 +1,4 @@
-import { generate } from "shortid";
+import { generateId } from "@lib/generate-id";
 
 import { AttackEffectType, DefenseEffectType, EffectType } from "../effect";
 import { Armor, ItemType, Shield, Weapon } from "./item-types";
@@ -14,7 +14,7 @@ export function weaponFactory(): Weapon {
       },
     ],
     name: "Exalibur",
-    id: generate(),
+    id: generateId(),
   };
 }
 
@@ -29,7 +29,7 @@ export function shieldFactory(): Shield {
       },
     ],
     name: "Exalibur",
-    id: generate(),
+    id: generateId(),
   };
 }
 
@@ -44,6 +44,6 @@ export function armorFactory(): Armor {
       },
     ],
     name: "Exalibur",
-    id: generate(),
+    id: generateId(),
   };
 }

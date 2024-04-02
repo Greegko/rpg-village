@@ -1,10 +1,10 @@
-import { generate } from "shortid";
+import { generateId } from "@lib/generate-id";
 
 import { DungeonKey, ItemType } from "@models";
 
 export function createDungeonKey(): DungeonKey {
   return {
-    id: generate(),
+    id: generateId(),
     name: "Dungeon Key",
     effects: [],
     itemType: ItemType.DungeonKey,
