@@ -1,5 +1,7 @@
+import { injectable } from "inversify";
 import { Prop, assoc, merge, prop } from "rambda";
 
+@injectable()
 export abstract class ObjectStore<T extends object> {
   private state: T = {} as T;
 
