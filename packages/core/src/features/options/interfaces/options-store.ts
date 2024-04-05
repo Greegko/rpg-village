@@ -1,7 +1,7 @@
 import { Item } from "@models";
 
-export type OptionID = string & { __typeGuard: "option-id" };
-export type OptionItemID = string & { __typeGuard: "option-item-id" };
+export type OptionID = string;
+export type OptionItemID = string;
 
 export interface OptionItem {
   id: OptionItemID;

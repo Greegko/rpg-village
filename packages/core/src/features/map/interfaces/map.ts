@@ -2,7 +2,7 @@ import { EffectStatic } from "@models";
 
 import { MapLocationID } from "./map-location";
 
-export type MapID = string & { __typeGuard: "map-id" };
+export type MapID = string;
 
 export enum MapSize {
   Small,

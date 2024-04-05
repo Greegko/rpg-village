@@ -1,4 +1,4 @@
-export type ActivityID = string & { __typeGuard: "activity-id" };
+export type ActivityID = string;
 
 export type ActivityTargetIDsConditionalsArgs<
   TargetID extends string | null,

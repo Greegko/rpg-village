@@ -1,6 +1,6 @@
 import { PartyID } from "@features/party";
 
-export type MapLocationID = string & { __typeGuard: "map-location-id" };
+export type MapLocationID = string;
 export enum MapLocationType {
   Empty,
   Village,

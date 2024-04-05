@@ -17,7 +17,7 @@ export function isEntityUpdaterCallback<T>(
 }
 
 @injectable()
-export abstract class EntityStore<EntityID extends string & { __typeGuard: string }, Entity extends { id: EntityID }> {
+export abstract class EntityStore<EntityID extends string, Entity extends { id: EntityID }> {
   private state: EntityStoreState<EntityID, Entity> = {};
 
   getState(): EntityStoreState<EntityID, Entity> {

@@ -8,7 +8,7 @@ export enum BuildingActivityType {
   Build = "build",
 }
 
-export type BuildingActivityTargetID = string & { __typeGuard: "building-activity-type-id" };
+export type BuildingActivityTargetID = string;
 
 export interface BuildingEventBuiltArgs {
   building: Building;
