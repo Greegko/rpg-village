@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 
 import { EventSystem } from "@core";
 
-import { Activity, IActivityHandler } from "@features/activity";
+import { Activity, ActivityHandler } from "@features/activity";
 import { PartyID, PartyService } from "@features/party";
 
 import { BattleService } from "./battle-service";
@@ -15,7 +15,7 @@ export type BattleActivityStartArgs = { targetId: PartyID; involvedTargetId: Par
 type BattleActivityType = Activity<BattleState, PartyID, PartyID, BattleActivityStartArgs>;
 
 @injectable()
-export class BattleActivity implements IActivityHandler<BattleActivityType> {
+export class BattleActivity implements ActivityHandler<BattleActivityType> {
   constructor(
     private partyService: PartyService,
     private battleService: BattleService,

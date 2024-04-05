@@ -1,4 +1,4 @@
-import { IEntityStore } from "./entity-store";
-import { IObjectStore } from "./object-store";
+import { EntityStore } from "./entity-store";
+import { ObjectStore } from "./object-store";
 
-export type IStore = IObjectStore<any> | IEntityStore<any, any>;
+export type Store = ObjectStore<any> | EntityStore<any, any>;

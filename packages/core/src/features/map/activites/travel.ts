@@ -3,7 +3,7 @@ import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { Activity, IActivityHandlerCancelable } from "@features/activity";
+import { Activity, ActivityHandlerCancelable } from "@features/activity";
 import { PartyID } from "@features/party";
 
 import { MapEvent, MapLocationID, MapLocationType } from "../interfaces";
@@ -23,7 +23,7 @@ export type MapActivityTravelStartArgs = {
 
 @injectable()
 export class MapTravelActivity
-  implements IActivityHandlerCancelable<Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>>
+  implements ActivityHandlerCancelable<Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>>
 {
   constructor(
     private mapService: MapService,

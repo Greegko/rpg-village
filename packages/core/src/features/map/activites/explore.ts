@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
-import { Activity, IActivityHandlerCancelable } from "@features/activity";
+import { Activity, ActivityHandlerCancelable } from "@features/activity";
 import { PartyID } from "@features/party";
 
 import { MapService } from "../map-service";
@@ -18,7 +18,7 @@ export type MapActivityExploreStartArgs = {
 type MapExploreActivityType = Activity<ExploreState, PartyID, null, MapActivityExploreStartArgs>;
 
 @injectable()
-export class MapExploreActivity implements IActivityHandlerCancelable<MapExploreActivityType> {
+export class MapExploreActivity implements ActivityHandlerCancelable<MapExploreActivityType> {
   constructor(private mapService: MapService, private partyMapService: PartyMapService) {}
 
   start(args: MapActivityExploreStartArgs): ExploreState {

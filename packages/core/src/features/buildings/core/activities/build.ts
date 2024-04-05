@@ -3,7 +3,7 @@ import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { Activity, IActivityHandlerCancelable } from "@features/activity";
+import { Activity, ActivityHandlerCancelable } from "@features/activity";
 
 import { Building, BuildingActivityTargetID, BuildingEvent } from "../interface";
 
@@ -20,7 +20,7 @@ export interface BuildStartArgs {
 type BuildingActivityBuildType = Activity<BuildState, BuildingActivityTargetID, null, BuildStartArgs>;
 
 @injectable()
-export class BuildingActivityBuild implements IActivityHandlerCancelable<BuildingActivityBuildType> {
+export class BuildingActivityBuild implements ActivityHandlerCancelable<BuildingActivityBuildType> {
   constructor(private eventSystem: EventSystem) {}
 
   start({ progress }: BuildStartArgs): BuildState {

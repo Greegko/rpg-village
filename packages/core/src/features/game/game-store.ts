@@ -1,10 +1,10 @@
 import { injectable, multiInject } from "inversify";
 import { forEach, map, mergeAll, prop } from "rambda";
 
-import { GameState, IStore, StoresToken } from "@core";
+import { GameState, Store, StoresToken } from "@core";
 
 export interface ProvidedStore<State> {
-  store: IStore;
+  store: Store;
   scope: keyof State;
   initialState?: object;
 }

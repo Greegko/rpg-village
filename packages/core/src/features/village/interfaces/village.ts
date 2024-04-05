@@ -7,7 +7,7 @@ import { UnitID } from "@features/unit";
 export type VillageID = string & { __typeGuard: "village-id" };
 
 export interface VillageState {
-  id: string;
+  id: VillageID;
   stash: Stash;
   locationId: MapLocationID;
   heroes: UnitID[];

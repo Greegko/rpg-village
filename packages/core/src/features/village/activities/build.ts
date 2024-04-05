@@ -3,7 +3,7 @@ import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { Activity, IActivityHandlerCancelable } from "@features/activity";
+import { Activity, ActivityHandlerCancelable } from "@features/activity";
 
 import { VillageBuilding, VillageEvent, VillageID } from "../interfaces";
 import { VillageStore } from "../village-store";
@@ -20,7 +20,7 @@ export interface VillageActivityBuildStartArgs {
 type VillageBuildActivityType = Activity<BuildState, VillageID, null, VillageActivityBuildStartArgs>;
 
 @injectable()
-export class VillageBuildActivity implements IActivityHandlerCancelable<VillageBuildActivityType> {
+export class VillageBuildActivity implements ActivityHandlerCancelable<VillageBuildActivityType> {
   constructor(private villageStore: VillageStore, private eventSystem: EventSystem) {}
 
   start(): BuildState {

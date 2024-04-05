@@ -1,4 +1,4 @@
-import { IStore } from "../store";
+import { Store } from "../store";
 import { ModuleConfig } from "./module-config";
 
 export interface ProvideClass {
@@ -11,7 +11,7 @@ export interface ProvideValue {
 }
 
 export interface StoreClass {
-  new (...args: any[]): IStore;
+  new (...args: any[]): Store;
 }
 
 export interface ModulStore {

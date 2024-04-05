@@ -1,6 +1,6 @@
 import { AnyActivity } from "./activity";
 
-export interface IActivityHandler<T extends AnyActivity> {
+export interface ActivityHandler<T extends AnyActivity> {
   start(startArgs: T["startArgs"]): T["state"];
   isRunnable(startArgs: T["startArgs"]): boolean;
   isDone(activity: T): boolean;
@@ -8,7 +8,7 @@ export interface IActivityHandler<T extends AnyActivity> {
   resolve(activity: T): void;
 }
 
-export interface IActivityHandlerCancelable<T extends AnyActivity> extends IActivityHandler<T> {
+export interface ActivityHandlerCancelable<T extends AnyActivity> extends ActivityHandler<T> {
   isCancelable(activity: T): boolean;
   onCancel(activity: T): void;
 }

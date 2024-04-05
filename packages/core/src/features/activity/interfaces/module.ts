@@ -1,11 +1,11 @@
 import { AnyActivity } from "./activity";
-import { IActivityHandler } from "./activity-handler";
+import { ActivityHandler } from "./activity-handler";
 
-export interface ActivityClass {
-  new (...args: any[]): IActivityHandler<AnyActivity>;
+interface ActivityHandlerClass {
+  new (...args: any[]): ActivityHandler<AnyActivity>;
 }
 
 export interface ModulActivity {
-  activity: ActivityClass;
+  activity: ActivityHandlerClass;
   name: string;
 }

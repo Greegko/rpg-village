@@ -1,16 +1,6 @@
-import { injectable } from "inversify";
 import { Prop, assoc, merge, prop } from "rambda";
 
-export interface IObjectStore<T extends object> {
-  getState(): T;
-  init(state: T): void;
-
-  get(prop: keyof T): T[keyof T];
-  set(prop: keyof T, value: T[keyof T]): void;
-}
-
-@injectable()
-export class ObjectStore<T extends object> implements IObjectStore<T> {
+export abstract class ObjectStore<T extends object> {
   private state: T = {} as T;
 
   getState(): T {

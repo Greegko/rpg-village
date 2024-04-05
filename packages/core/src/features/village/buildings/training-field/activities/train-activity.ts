@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { dec, evolve, forEach } from "rambda";
 
-import { Activity, IActivityHandler } from "@features/activity";
+import { Activity, ActivityHandler } from "@features/activity";
 import { PartyID, PartyStore } from "@features/party";
 import { UnitService } from "@features/unit";
 
@@ -16,7 +16,7 @@ export type TrainingFieldActivityStartArgs = { targetId: VillageID; involvedTarg
 type TrainingActivityType = Activity<TrainingFieldState, VillageID, PartyID, TrainingFieldActivityStartArgs>;
 
 @injectable()
-export class TrainingFieldTrainActivity implements IActivityHandler<TrainingActivityType> {
+export class TrainingFieldTrainActivity implements ActivityHandler<TrainingActivityType> {
   constructor(private unitService: UnitService, private partyStore: PartyStore) {}
 
   start(args: TrainingFieldActivityStartArgs): TrainingFieldState {

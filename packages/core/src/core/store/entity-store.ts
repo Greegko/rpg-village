@@ -1,4 +1,3 @@
-import { injectable } from "inversify";
 import { assoc, dissoc, merge, mergeAll, omit, prop } from "rambda";
 
 import { generateId } from "@lib/generate-id";
@@ -16,20 +15,7 @@ export function isEntityUpdaterCallback<T>(
   return typeof entityOrUpdater === "function";
 }
 
-export interface IEntityStore<EntityID extends string, Entity extends { id: EntityID }> {
-  getState(): EntityStoreState<EntityID, Entity>;
-  init(state: EntityStoreState<EntityID, Entity>): void;
-  get(id: EntityID): Entity;
-  add(entity: Omit<Entity, "id">): Entity;
-  update(entityId: EntityID, entity: Partial<Entity>): void;
-  update(entityId: EntityID, updater: EntityUpdaterCallback<Entity>): void;
-  remove(entityId: EntityID): void;
-}
-
-@injectable()
-export class EntityStore<EntityID extends string & { __typeGuard: string }, Entity extends { id: EntityID }>
-  implements IEntityStore<EntityID, Entity>
-{
+export abstract class EntityStore<EntityID extends string & { __typeGuard: string }, Entity extends { id: EntityID }> {
   private state: EntityStoreState<EntityID, Entity> = {};
 
   getState(): EntityStoreState<EntityID, Entity> {
