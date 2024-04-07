@@ -16,6 +16,7 @@ import {
   activityByIdSelector,
   mapByPartyIdSelector,
   mapLocationByPartyIdSelector,
+  partyActivitySelector,
   partyByIdSelector,
   useGameStateSelector,
   worldMapIdSelector,
@@ -34,6 +35,7 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
   const worldMapId = useGameStateSelector(state => worldMapIdSelector(state));
   const currentMap = useGameStateSelector(state => mapByPartyIdSelector(state, props.partyId))!;
   const partyMapLocation = useGameStateSelector(state => mapLocationByPartyIdSelector(state, props.partyId));
+  const partyActivity = useGameStateSelector(state => partyActivitySelector(state, props.partyId));
 
   const isWorldMap = currentMap.id === worldMapId;
 
@@ -57,7 +59,7 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
   return (
     <div className="party">
       <div>Location: {partyMapLocation.id}</div>
-      {party.activityId && <Activity activityId={party.activityId} partyId={props.partyId} />}
+      {partyActivity && partyActivity.id && <Activity activityId={partyActivity.id} partyId={props.partyId} />}
 
       <br />
 
@@ -91,14 +93,6 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
             iconId="portal"
             active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.EnterPortal}
             onClick={() => setAction(PartyActionType.EnterPortal)}
-          />
-        )}
-
-        {!isWorldMap && (
-          <Action
-            iconId="portal"
-            active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.LeavePortal}
-            onClick={() => setAction(PartyActionType.LeavePortal)}
           />
         )}
       </div>

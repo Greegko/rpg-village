@@ -1,4 +1,4 @@
-import { MapID } from "@rpg-village/core";
+import { MapID, VillageID } from "@rpg-village/core";
 
 export enum GamePageType {
   CharacterSheet,
@@ -14,6 +14,7 @@ export interface GamePage {
 export interface GameUIState {
   paused: boolean;
   ai: boolean;
+  selectedVillageId?: VillageID;
   page?: GamePage;
   map?: MapID;
 }

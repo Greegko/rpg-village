@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { BlacksmithCommand, Item, ItemType, RuneWorkshopCommand, UnitCommand, UnitID } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
-import { unitByIdSelector, useGameStateSelector, villageSelector } from "@web/store/game";
+import { unitByIdSelector, useGameStateSelector, villageByIdSelector } from "@web/store/game";
+import { useGameUISelector, villageSelector } from "@web/store/ui";
 
 import { ItemList } from "./item-list";
 import { ItemStats } from "./item-stats";
@@ -18,14 +19,16 @@ interface CharacterSheetProperties {
 export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
   const unit = useGameStateSelector(state => unitByIdSelector(state, unitId));
 
-  const village = useGameStateSelector(villageSelector);
+  const villageId = useGameUISelector(villageSelector);
+
+  const village = villageId ? useGameStateSelector(state => villageByIdSelector(state, villageId)) : null;
 
   const executeCommand = useGameExecuteCommand();
 
   useEffect(() => {
     setCharacterSelectedItem(null);
     setStashSelectedItem(null);
-  }, [unit.equipment, village.stash]);
+  }, [unit.equipment, village?.stash]);
 
   const [characterSelectedItem, setCharacterSelectedItem] = useState<Item | null>();
   const [stashSelectedItem, setStashSelectedItem] = useState<Item | null>();
@@ -79,64 +82,58 @@ export const CharacterSheet = ({ unitId }: CharacterSheetProperties) => {
           </button>
         </>
       )}
-      <div>
-        <div>
-          Village Stash:
-          <ItemList listSize={128} items={village.stash.items} onItemSelect={setStashSelectedItem} />
-        </div>
-        <div>
-          {stashSelectedItem && (
-            <>
-              <ItemStats item={stashSelectedItem} />
+      {villageId && village && (
+        <>
+          <div>
+            Village Stash:
+            <ItemList listSize={128} items={village.stash.items} onItemSelect={setStashSelectedItem} />
+          </div>
+          <div>
+            {stashSelectedItem && (
+              <>
+                <ItemStats item={stashSelectedItem} />
 
-              <button
-                onClick={() =>
-                  executeCommand({
-                    command: UnitCommand.EquipItem,
-                    args: {
-                      unitId: unit.id,
-                      itemId: stashSelectedItem.id,
-                    },
-                  })
-                }
-              >
-                Equipe
-              </button>
-
-              {stashSelectedItem.itemType === ItemType.Rune && (
                 <button
                   onClick={() =>
                     executeCommand({
-                      command: RuneWorkshopCommand.EmpowerRune,
-                      args: {
-                        runeId: stashSelectedItem.id,
-                        soul: 1,
-                      },
+                      command: UnitCommand.EquipItem,
+                      args: { unitId: unit.id, itemId: stashSelectedItem.id },
                     })
                   }
                 >
-                  Empower
+                  Equipe
                 </button>
-              )}
 
-              {stashSelectedItem.itemType === ItemType.Rune && (
-                <button
-                  onClick={() =>
-                    executeCommand({
-                      command: RuneWorkshopCommand.DismantleRune,
-                      args: {
-                        runeId: stashSelectedItem.id,
-                      },
-                    })
-                  }
-                >
-                  Dismantle
-                </button>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+                {stashSelectedItem.itemType === ItemType.Rune && (
+                  <button
+                    onClick={() =>
+                      executeCommand({
+                        command: RuneWorkshopCommand.EmpowerRune,
+                        args: { villageId, runeId: stashSelectedItem.id, soul: 1 },
+                      })
+                    }
+                  >
+                    Empower
+                  </button>
+                )}
+
+                {stashSelectedItem.itemType === ItemType.Rune && (
+                  <button
+                    onClick={() =>
+                      executeCommand({
+                        command: RuneWorkshopCommand.DismantleRune,
+                        args: { villageId, runeId: stashSelectedItem.id },
+                      })
+                    }
+                  >
+                    Dismantle
+                  </button>
+                )}
+              </>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

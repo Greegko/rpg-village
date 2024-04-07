@@ -13,5 +13,5 @@ export type BlacksmithCommandUpgradeItemArgs = {
 
 export interface BlacksmithCommandCreateItemArgs {
   itemType: ItemType;
-  unitId: UnitID;
+  villageId: UnitID;
 }

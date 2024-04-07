@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { MapID } from "@rpg-village/core";
+import { MapID, VillageID } from "@rpg-village/core";
 
 import { GamePage, GameUIState } from "./interface";
 
@@ -31,9 +31,12 @@ const gameUISlice = createSlice({
     selectMap(state, action: PayloadAction<MapID>) {
       state.map = action.payload;
     },
+    setVillage(state, action: PayloadAction<VillageID>) {
+      state.selectedVillageId = action.payload;
+    },
   },
 });
 
-export const { pause, resume, enableAI, disableAI, changePage, selectMap } = gameUISlice.actions;
+export const { pause, resume, enableAI, disableAI, changePage, selectMap, setVillage } = gameUISlice.actions;
 
 export const gameUIReducer = gameUISlice.reducer;

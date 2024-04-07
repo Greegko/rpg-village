@@ -1,16 +1,17 @@
 import { useState } from "react";
 
-import { Item, ShopCommand } from "@rpg-village/core";
+import { Item, VillageBuildingCommand, VillageID } from "@rpg-village/core";
 
 import { useGameExecuteCommand } from "@web/react-hooks";
-import { useGameStateSelector, villageShopSelector } from "@web/store/game";
+import { useGameStateSelector, villageByIdSelector } from "@web/store/game";
 
 import { ItemList } from "./item-list";
 
-export const VillageShopPage = () => {
+export const VillageShopPage = (props: { villageId: VillageID }) => {
   const execute = useGameExecuteCommand();
   const [selectedItem, setSelectedItem] = useState<Item | null>();
-  const shop = useGameStateSelector(villageShopSelector);
+  const village = useGameStateSelector(state => villageByIdSelector(state, props.villageId));
+  const shop = village.buildings.shop;
 
   if (!shop) return <div>No shop!</div>;
 
@@ -20,8 +21,8 @@ export const VillageShopPage = () => {
         <button
           onClick={() =>
             execute({
-              command: ShopCommand.BuyItem,
-              args: { shopId: shop.id, shopItemId: shop.items.find(x => x.item === selectedItem)?.id! },
+              command: VillageBuildingCommand.ShopBuyItem,
+              args: { villageId: props.villageId, shopItemId: shop.items.find(x => x.item === selectedItem)?.id! },
             })
           }
         >

@@ -14,7 +14,6 @@ import {
   Shield,
   Weapon,
 } from "@rpg-village/core";
-import { generateId } from "@rpg-village/lib";
 
 import { sample } from "@lib/sample";
 import { GameInstanceWrapperContext, useGameExecuteCommand } from "@web/react-hooks";
@@ -26,6 +25,7 @@ import {
   pausedSelector,
   resume,
   useGameUISelector,
+  villageSelector,
 } from "@web/store/ui";
 
 import "./developer-toolbox.scss";
@@ -35,6 +35,7 @@ export const DeveloperToolbox = () => {
 
   const isAIEnabled = useGameUISelector(isAIEnabledSelector);
   const isPaused = useGameUISelector(pausedSelector);
+  const villageId = useGameUISelector(villageSelector);
   const store = useStore();
   const dispatch = useDispatch();
   const executeCommand = useGameExecuteCommand();
@@ -47,7 +48,7 @@ export const DeveloperToolbox = () => {
 
     return {
       effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10, isPercentage: false }],
-      id: generateId(),
+      id: generate(),
       name: generate(),
       itemType,
     };
@@ -56,7 +57,7 @@ export const DeveloperToolbox = () => {
   const generateDungeonKey = (): DungeonKey => {
     return {
       effects: [],
-      id: generateId(),
+      id: generate(),
       name: generate(),
       itemType: ItemType.DungeonKey,
     };
@@ -64,7 +65,7 @@ export const DeveloperToolbox = () => {
 
   const generateRune = (): Rune => {
     return {
-      id: generateId(),
+      id: generate(),
       name: generate(),
       itemType: ItemType.Rune,
       power: 100,
@@ -118,66 +119,79 @@ export const DeveloperToolbox = () => {
           +500
         </button>
       </div>
-      <div>
-        Gold:
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 10 } })}
-        >
-          +10
-        </button>
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 100 } })}
-        >
-          +100
-        </button>
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { gold: 1000 } })}
-        >
-          +1000
-        </button>
-      </div>
-      <div>
-        Soul:
-        <button className="block" onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { soul: 10 } })}>
-          +10
-        </button>
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { soul: 100 } })}
-        >
-          +100
-        </button>
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { soul: 1000 } })}
-        >
-          +1000
-        </button>
-      </div>
-      <div>
-        Items:
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateRune() } })}
-        >
-          Add Rune
-        </button>
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateDungeonKey() } })}
-        >
-          Add Dungeon Key
-        </button>
-        <button
-          className="block"
-          onClick={() => executeCommand({ command: DebugCommand.AddItem, args: { item: generateItem() } })}
-        >
-          Add Item
-        </button>
-      </div>
+      {villageId && (
+        <>
+          <div>
+            Gold:
+            <button
+              className="block"
+              onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 10 } })}
+            >
+              +10
+            </button>
+            <button
+              className="block"
+              onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 100 } })}
+            >
+              +100
+            </button>
+            <button
+              className="block"
+              onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 1000 } })}
+            >
+              +1000
+            </button>
+          </div>
+          <div>
+            Soul:
+            <button
+              className="block"
+              onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 10 } })}
+            >
+              +10
+            </button>
+            <button
+              className="block"
+              onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 100 } })}
+            >
+              +100
+            </button>
+            <button
+              className="block"
+              onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 1000 } })}
+            >
+              +1000
+            </button>
+          </div>
+          <div>
+            Items:
+            <button
+              className="block"
+              onClick={() =>
+                executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateRune() } })
+              }
+            >
+              Add Rune
+            </button>
+            <button
+              className="block"
+              onClick={() =>
+                executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateDungeonKey() } })
+              }
+            >
+              Add Dungeon Key
+            </button>
+            <button
+              className="block"
+              onClick={() =>
+                executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateItem() } })
+              }
+            >
+              Add Item
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

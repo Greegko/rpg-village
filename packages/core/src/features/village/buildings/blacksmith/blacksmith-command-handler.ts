@@ -18,6 +18,7 @@ import {
   weaponFactory,
 } from "@models";
 
+import { VillageService } from "../../village-service";
 import {
   BlacksmithCommand,
   BlacksmithCommandCreateItemArgs,
@@ -26,7 +27,11 @@ import {
 
 @injectable()
 export class BlacksmithCommandHandler {
-  constructor(private unitService: UnitService, private partyService: PartyService) {}
+  constructor(
+    private unitService: UnitService,
+    private partyService: PartyService,
+    private villageService: VillageService,
+  ) {}
 
   @commandHandler(BlacksmithCommand.UpgradeItem)
   upgradeItem(args: BlacksmithCommandUpgradeItemArgs) {
@@ -37,7 +42,7 @@ export class BlacksmithCommandHandler {
   @commandHandler(BlacksmithCommand.CreateItem)
   createItem(args: BlacksmithCommandCreateItemArgs) {
     const price = 50;
-    const stash = this.unitService.getStash(args.unitId);
+    const stash = this.villageService.getStash(args.villageId);
     if (stash.hasEnoughResource({ gold: price })) {
       stash.removeResource({ gold: price });
 
@@ -75,7 +80,7 @@ export class BlacksmithCommandHandler {
 
     const party = this.partyService.getPartyForUnitId(unitId);
 
-    if (!party) throw new Error("Crash!");
+    if (!party) throw new Error("Not handled error case!");
 
     const stash = this.partyService.getStash(party.id);
 

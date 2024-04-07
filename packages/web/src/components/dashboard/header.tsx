@@ -2,6 +2,8 @@ import { keys } from "rambda";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { VillageID } from "@rpg-village/core";
+
 import { mapsSelector, useGameStateSelector, worldMapIdSelector } from "@web/store/game";
 import { mapSelector, selectMap, useGameUISelector } from "@web/store/ui";
 
@@ -32,12 +34,12 @@ const Maps = () => {
   );
 };
 
-export const Header = () => {
+export const Header = (props: { villageId: VillageID }) => {
   const [devToolboxVisible, setDevToolboxVisibile] = useState<boolean>();
 
   return (
     <div className="header">
-      <VillageStats />
+      <VillageStats villageId={props.villageId} />
 
       <Maps />
 

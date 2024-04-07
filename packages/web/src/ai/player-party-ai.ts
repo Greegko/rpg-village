@@ -1,4 +1,4 @@
-import { filter, partition, sum } from "rambda";
+import { filter, partition, sum, values } from "rambda";
 
 import {
   Command,
@@ -7,11 +7,11 @@ import {
   MapLocationType,
   Party,
   PartyOwner,
-  PortalCommand,
   TrainingFieldCommand,
   VillageCommand,
   calculateUnitStrength,
 } from "@rpg-village/core";
+import { PortalCommand } from "@rpg-village/core/dist/features/buildings/portal";
 
 import { PartyAction, PartyActionType, PartyState } from "@web/store/ai";
 import {
@@ -21,11 +21,10 @@ import {
   mapLocationByIdSelector,
   mapLocationByPartyIdSelector,
   mapLocationsByMapIdSelector,
-  mapsSelector,
   partiesOnLocationSelector,
   partiesSelector,
   unitsSelector,
-  villageSelector,
+  villagesSelector,
   worldMapIdSelector,
 } from "@web/store/game";
 
@@ -56,8 +55,7 @@ export class PlayerPartyAI {
     partyAction: PartyAction,
     clearPartyAction: () => void,
   ): Command | undefined {
-    const maps = mapsSelector(gameState);
-    const village = villageSelector(gameState);
+    const village = values(villagesSelector(gameState))[0];
     const currentMap = mapByPartyIdSelector(gameState, party.id)!;
     const worldMapId = worldMapIdSelector(gameState);
     const entryPortalLocationForMap = entryPortalLocationForMapSelector(gameState, currentMap.id);
@@ -74,8 +72,8 @@ export class PlayerPartyAI {
 
         clearPartyAction();
         return {
-          command: PortalCommand.LeavePortal,
-          args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
+          command: PortalCommand.EnterPortal,
+          args: { portalId: village.buildings.portalSummoningStone?.portals[0].id!, partyId: party.id },
         };
       }
 
@@ -84,21 +82,6 @@ export class PlayerPartyAI {
       if (village.locationId !== partyMapLocation.id) {
         return { command: MapCommand.Travel, args: { partyId: party.id, targetLocationId: village.locationId } };
       }
-    }
-
-    if (partyAction.type === PartyActionType.LeavePortal) {
-      if (partyMapLocation.id !== entryPortalLocationForMap) {
-        return {
-          command: MapCommand.Travel,
-          args: { partyId: party.id, targetLocationId: entryPortalLocationForMap },
-        };
-      }
-
-      clearPartyAction();
-      return {
-        command: PortalCommand.LeavePortal,
-        args: { partyId: party.id, portalLocationId: entryPortalLocationForMap },
-      };
     }
 
     if (partyAction.type === PartyActionType.EnterPortal) {
@@ -108,11 +91,9 @@ export class PlayerPartyAI {
 
       clearPartyAction();
 
-      const map = sample(filter(map => map.id !== currentMap.id, Object.values(maps)));
-
       return {
         command: PortalCommand.EnterPortal,
-        args: { partyId: party.id, portalLocationId: map.mapLocationIds[0] },
+        args: { portalId: village.buildings.portalSummoningStone?.portals[0].id!, partyId: party.id },
       };
     }
 
@@ -151,7 +132,7 @@ export class PlayerPartyAI {
       }
 
       clearPartyAction();
-      return { command: VillageCommand.HealParty, args: { partyId: party.id } };
+      return { command: VillageCommand.HealParty, args: { villageId: village.id, partyId: party.id } };
     }
 
     if (partyAction.type === PartyActionType.Training) {
@@ -160,7 +141,7 @@ export class PlayerPartyAI {
       }
 
       clearPartyAction();
-      return { command: TrainingFieldCommand.Train, args: { partyId: party.id } };
+      return { command: TrainingFieldCommand.Train, args: { villageId: village.id, partyId: party.id } };
     }
 
     if (partyAction.type === PartyActionType.Travel) {
@@ -179,7 +160,7 @@ export class PlayerPartyAI {
       this.handlePartyHeal(gameState, party) ||
       this.searchWeakerEnemyLocation(gameState, party) ||
       this.searchUnexploredLocation(gameState, party) ||
-      this.leavePortal(gameState, party)
+      this.enterPortal(gameState, party)
     );
   }
 
@@ -214,8 +195,8 @@ export class PlayerPartyAI {
     }
   }
 
-  private leavePortal(gameState: GameState, party: Party): PartyAction | undefined {
-    return { type: PartyActionType.LeavePortal };
+  private enterPortal(gameState: GameState, party: Party): PartyAction | undefined {
+    return { type: PartyActionType.EnterPortal };
   }
 
   private searchWeakerEnemyLocation(gameState: GameState, party: Party): PartyAction | undefined {

@@ -3,9 +3,7 @@ import { filter, find, values } from "rambda";
 import { useSelector } from "react-redux";
 
 import {
-  Activity,
   ActivityID,
-  ActivityType,
   GameState,
   MapID,
   MapLocationID,
@@ -13,6 +11,7 @@ import {
   PartyID,
   PartyOwner,
   UnitID,
+  VillageID,
   calculateUnitStatsWithEffects,
   isHero,
 } from "@rpg-village/core";
@@ -70,12 +69,15 @@ export const unitByIdSelector = createSelector(unitsSelector, selectorProperty<U
 );
 export const heroUnitsSelector = createSelector(unitsSelector, units => filter(isHero, units));
 
-export const villageSelector = (game: GameState) => game.village;
+export const villagesSelector = (game: GameState) => game.villages;
 
-export const shopsSelector = (game: GameState) => game.shops;
-export const villageShopSelector = createSelector(shopsSelector, villageSelector, (shops, village) =>
-  village.shop ? shops[village.shop.shopId] : undefined,
+export const villageByIdSelector = createSelector(
+  villagesSelector,
+  selectorProperty<VillageID>(),
+  (villages, villageId) => villages[villageId],
 );
+
+export const villageShopSelector = createSelector(villageByIdSelector, village => village.buildings.shop);
 
 export const partiesSelector = (game: GameState) => game.parties;
 export const partyByIdSelector = createSelector(
@@ -110,16 +112,30 @@ export const activityByIdSelector = createSelector(
   (activities, activityID) => activities[activityID],
 );
 
-export const villageActivitiesSelector = createSelector(activitiesSelector, activities =>
-  filter(activity => activity.type === ActivityType.Global, values(activities)),
+export const villageActivitiesSelector = createSelector(
+  villageByIdSelector,
+  activitiesSelector,
+  (village, activities) => filter(x => x.targetId === village.id, values(activities)),
 );
 
-export const partyActivitiesSelector = createSelector(activitiesSelector, activities =>
-  filter((activity: Activity) => activity.type === ActivityType.Party, activities),
+export const partyActivitySelector = createSelector(
+  activitiesSelector,
+  selectorProperty<UnitID>(),
+  (activitiesSelector, partyId) =>
+    values(activitiesSelector).find(x => x.targetId === partyId || x.involvedTargetId === partyId),
 );
 
-export const noActiveActivityPartiesSelector = createSelector(playerPartiesSelector, parties =>
-  filter((party: Party) => party.activityId === undefined, parties),
+export const noActiveActivityPartiesSelector = createSelector(
+  playerPartiesSelector,
+  activitiesSelector,
+  (parties, activities) => {
+    const activitiesArray = values(activities);
+    return filter(
+      (party: Party) =>
+        !activitiesArray.some(activity => activity.targetId === party.id || activity.involvedTargetId === party.id),
+      parties,
+    );
+  },
 );
 
 export const generalSelector = (game: GameState) => game.general;
