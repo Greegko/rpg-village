@@ -24,10 +24,7 @@ export class VillageBuildingsEventHandler {
 
     const increase = (val: number | undefined) => (val === undefined ? 1 : val + 1);
     if (args.buildingType === VillageBuilding.PortalSummoningStone) {
-      this.villageStore.update(
-        args.villageId,
-        evolve({ buildings: { [VillageBuilding.PortalSummoningStone]: { level: increase } } }),
-      );
+      this.villageService.getPortalSummoningStone(args.villageId).build();
 
       return;
     }

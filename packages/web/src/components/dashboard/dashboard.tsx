@@ -111,7 +111,7 @@ const Village = (props: { villageId: VillageID }) => {
       <div>Blacksmith Level: {village.buildings.blacksmith}</div>
       <div>Rune Workshop: {village.buildings.runeWorkshop}</div>
       <div>Training Field Level: {village.buildings.trainingField}</div>
-      <div>Portal Level: {village.buildings.portalSummoningStone?.level || 0}</div>
+      <div>Portal Summoning Stone Level: {village.buildings.portalSummoningStone?.level || 0}</div>
       <button
         onClick={() =>
           executeCommand({ command: VillageBuildingCommand.BuildShop, args: { villageId: props.villageId } })

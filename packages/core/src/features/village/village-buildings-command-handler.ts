@@ -115,11 +115,19 @@ export class VillageBuildingsCommandHandler {
 
   @commandHandler(VillageBuildingCommand.PortalSummoningStoneOpenPortal)
   openPortal(args: VillageBuildingCommandPortalSummoningStoneOpenPortalArgs) {
+    const portalSummoningStone = this.villageService.getPortalSummoningStone(args.villageId);
+    if (!portalSummoningStone.state) return;
+
     const villageStash = this.villageService.getStash(args.villageId);
     const dungeonKey = villageStash.takeItem(args.dungeonKeyId);
 
     if (dungeonKey) {
-      this.mapService.createMap(MapLocationType.Portal, MapSize.Small, dungeonKey.effects as EffectStatic[]);
+      const map = this.mapService.createMap(
+        MapLocationType.Portal,
+        MapSize.Small,
+        dungeonKey.effects as EffectStatic[],
+      );
+      portalSummoningStone.addPortal(map.mapLocationIds[0]);
     }
   }
 

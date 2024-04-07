@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import { evolve } from "rambda";
 
+import { PortalSummoningStoneHandler } from "@features/buildings/portal-summoning-stone";
 import { ShopHandler } from "@features/buildings/shop";
 import { StashHandler } from "@features/stash";
 
@@ -22,6 +23,17 @@ export class VillageService {
     return new ShopHandler({
       get: () => this.villageStore.get(villageId).buildings.shop!,
       update: shopUpdater => this.villageStore.update(villageId, evolve({ buildings: { shop: shopUpdater } })),
+    });
+  }
+
+  getPortalSummoningStone(villageId: VillageID) {
+    return new PortalSummoningStoneHandler({
+      get: () => this.villageStore.get(villageId).buildings.portalSummoningStone!,
+      update: portalSummoningStoneUpdater =>
+        this.villageStore.update(
+          villageId,
+          evolve({ buildings: { portalSummoningStone: portalSummoningStoneUpdater } }),
+        ),
     });
   }
 }

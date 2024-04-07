@@ -9,4 +9,5 @@ declare module "rambda" {
   function prop<P extends keyof T, T extends object>(p: P): (v: T) => T[P];
   function flatten<T>(list: T[][]): T[];
   function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): V;
+  function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E): (obj: V) => V;
 }
