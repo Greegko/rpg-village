@@ -1,7 +1,5 @@
 import assets from "../../../assets/assets.json";
 
-import "./asset.scss";
-
 export type AssetSize = "icon";
 
 export interface AssetProps {
@@ -14,5 +12,5 @@ export const Asset = ({ id, size }: AssetProps) => {
 
   if (!asset) return null;
 
-  return <img src={"assets/" + asset.file} className={size === "icon" ? "asset-icon" : ""} />;
+  return <img src={"assets/" + asset.file} className={size === "icon" ? "w-[32px] h-[32px]" : ""} />;
 };

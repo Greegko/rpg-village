@@ -25,6 +25,7 @@ import "../polyfill";
 import { PlayerPartyAI } from "./ai/player-party-ai";
 import { GameField } from "./components/game-field";
 import { GameInstanceWrapper } from "./game/game-instance-wrapper";
+import "./main.css";
 
 const gameStore = configureStore({
   reducer: {

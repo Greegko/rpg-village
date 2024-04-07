@@ -14,11 +14,11 @@ export const Map = ({ mapId }: MapProperties) => {
   if (locations === undefined) return null;
 
   return (
-    <>
+    <div className="relative" style={{ top: window.innerHeight / 2, left: window.innerWidth / 2 }}>
       {locations.map(location => (
         <MapLocationDisplay location={location} />
       ))}
-    </>
+    </div>
   );
 };
 
