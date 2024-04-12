@@ -17,13 +17,15 @@ const Maps = () => {
   const selectedMapId = useGameUiStateSelector(mapSelector);
 
   return (
-    <For each={keys(maps())}>
-      {mapId => (
-        <button onClick={() => setMap(mapId)} class={selectedMapId() === mapId ? "active" : ""}>
-          {mapId === worldMapId() ? "World Map" : mapId}
-        </button>
-      )}
-    </For>
+    <div class="flex items-center">
+      <For each={keys(maps())}>
+        {mapId => (
+          <button onClick={() => setMap(mapId)} class={selectedMapId() === mapId ? "active" : ""}>
+            {mapId === worldMapId() ? "World Map" : mapId}
+          </button>
+        )}
+      </For>
+    </div>
   );
 };
 
