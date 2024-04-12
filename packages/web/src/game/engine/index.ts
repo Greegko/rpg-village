@@ -1,6 +1,8 @@
-import { createSignal } from "solid-js";
+import { batch, createSignal } from "solid-js";
 
 import { Command } from "@rpg-village/core";
+
+import { addToCommandHistory } from "@web/store/debug";
 
 import { GameInstanceWrapper } from "./game-instance-wrapper";
 
@@ -9,5 +11,10 @@ export const [gameInstanceWrapper, setGameInstanceWrapper] = createSignal<GameIn
 );
 
 export const useGameExecuteCommand = () => {
-  return (command: Command) => gameInstanceWrapper().executeCommand(command);
+  return (command: Command) => {
+    batch(() => {
+      addToCommandHistory(command);
+      gameInstanceWrapper().executeCommand(command);
+    });
+  };
 };

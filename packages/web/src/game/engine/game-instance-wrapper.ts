@@ -4,11 +4,6 @@ import { Command, GameInstance, GameState, createGameInstance } from "@rpg-villa
 
 import { StateUpdateCallback } from "../interface";
 
-interface CommandHistory {
-  turn: number;
-  command: Command;
-}
-
 export type AICommandsGenerator = (gameState: GameState) => Command[];
 
 export class GameInstanceWrapper {
@@ -18,7 +13,6 @@ export class GameInstanceWrapper {
   private AICommandsGenerator?: AICommandsGenerator;
   private updateStateCallbacks: StateUpdateCallback[] = [];
   private enabledAI: boolean = true;
-  private commandHistory: CommandHistory[] = [];
 
   constructor() {
     this.gameInstance = createGameInstance();
@@ -32,7 +26,7 @@ export class GameInstanceWrapper {
     this.updateStateCallbacks.push(callback);
   }
 
-  load(gameState: GameState) {
+  loadGame(gameState: GameState) {
     this.gameInstance.loadGame(gameState);
     this.emitStateUpdates();
   }
@@ -58,28 +52,6 @@ export class GameInstanceWrapper {
     this.emitStateUpdates();
   }
 
-  localSave() {
-    localStorage.setItem("gameState", JSON.stringify(this.gameInstance.getState()));
-    localStorage.setItem("commandHistory", JSON.stringify(this.commandHistory));
-  }
-
-  localReset() {
-    localStorage.removeItem("gameState");
-    localStorage.removeItem("commandHistory");
-  }
-
-  restoreOrNewGame() {
-    const state = localStorage.getItem("gameState");
-    const initGameState = state ? (JSON.parse(state) as GameState) : null;
-
-    if (initGameState !== null) {
-      this.load(initGameState);
-      this.commandHistory = JSON.parse(localStorage.getItem("commandHistory") as string);
-    } else {
-      this.startNewGame();
-    }
-  }
-
   pause() {
     if (this.timer) {
       clearInterval(this.timer);
@@ -97,7 +69,6 @@ export class GameInstanceWrapper {
   }
 
   executeCommand(command: Command) {
-    this.commandHistory.push({ turn: this.gameInstance.getState().general.turn, command });
     this.gameInstance.executeCommand(command);
     this.emitStateUpdates();
   }

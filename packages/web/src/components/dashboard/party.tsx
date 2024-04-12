@@ -55,8 +55,6 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
         {partyActivityId => <Activity activityId={partyActivityId} partyId={props.partyId} />}
       </Show>
 
-      <br />
-
       <Show when={partyAIState()} keyed>
         {partyAIState => (
           <div class="party__actions">
@@ -95,7 +93,6 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
         )}
       </Show>
 
-      <br />
       <For each={party().unitIds}>{unitId => <Hero heroId={unitId} />}</For>
     </div>
   );

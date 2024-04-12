@@ -18,7 +18,7 @@ import {
 
 import { sample } from "@lib/sample";
 import { gameInstanceWrapper, useGameExecuteCommand } from "@web/engine";
-import { gameStore } from "@web/store";
+import { clearStateFromLocalStorage, gameStore, saveStoreIntoLocalStorage } from "@web/store";
 import {
   disableAI,
   enableAI,
@@ -97,10 +97,10 @@ export const DeveloperToolbox = () => {
             Resume
           </button>
         </Show>
-        <button class="block" onClick={() => gameInstanceWrapper().localSave()}>
+        <button class="block" onClick={() => saveStoreIntoLocalStorage()}>
           Save
         </button>
-        <button class="block" onClick={() => (gameInstanceWrapper().localReset(), window.location.reload())}>
+        <button class="block" onClick={() => (clearStateFromLocalStorage(), window.location.reload())}>
           Reset
         </button>
         <button class="block" onClick={() => console.log(unwrap(gameStore))}>

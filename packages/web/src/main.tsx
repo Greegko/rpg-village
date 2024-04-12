@@ -1,11 +1,11 @@
 import { filter, forEach, map, values } from "rambda";
-import { batch, createComputed } from "solid-js";
+import { batch, createComputed, onMount } from "solid-js";
 import { render } from "solid-js/web";
 
 import { Command, GameState, Party, PartyOwner } from "@rpg-village/core";
 
 import { gameInstanceWrapper } from "@web/engine";
-import { setGameStore } from "@web/store";
+import { gameStore, restoreStateFromLocalStorage, setGameStore } from "@web/store";
 import {
   PartyAction,
   PartyState,
@@ -28,12 +28,20 @@ const GameInstanceLogic = () => {
   const partyStates = useGameAiStateSelector(partiesStatesSelector);
   const gameUiState = useGameUiStateSelector(x => x);
 
-  gameInstanceWrapper().restoreOrNewGame();
+  onMount(() => {
+    restoreStateFromLocalStorage();
 
-  setGameStore("game", gameInstanceWrapper().getState());
+    if (gameStore.game) {
+      gameInstanceWrapper().loadGame(gameStore.game);
+    } else {
+      gameInstanceWrapper().startNewGame();
+    }
 
-  gameInstanceWrapper().onStateUpdate(state => setGameStore("game", state));
-  gameInstanceWrapper().resume();
+    setGameStore("game", gameInstanceWrapper().getState());
+
+    gameInstanceWrapper().onStateUpdate(state => setGameStore("game", state));
+    gameInstanceWrapper().resume();
+  });
 
   const executeAI = (gameState: GameState, partyStates: Record<string, PartyState>) => {
     const parties = noActiveActivityPartiesSelector(gameState);

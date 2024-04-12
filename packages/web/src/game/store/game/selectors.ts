@@ -21,6 +21,7 @@ const createSelector = createSelectorFactory<GameState>();
 const gameStateSelf = (game: GameState) => game;
 
 export const worldMapIdSelector = (game: GameState) => game.general.worldMapId;
+export const turnSelector = createSelector(gameStateSelf, x => x.general.turn);
 
 export const mapsSelector = (game: GameState) => game.maps;
 export const mapByMapIdSelector = createSelector(mapsSelector, selectorProperty<MapID>, (maps, mapId) => maps[mapId]);
