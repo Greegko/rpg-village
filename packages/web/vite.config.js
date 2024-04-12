@@ -1,6 +1,6 @@
-import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
+import solid from "vite-plugin-solid";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
@@ -14,7 +14,7 @@ export default defineConfig({
     port: 8080,
   },
   plugins: [
-    react(),
+    solid(),
     viteStaticCopy({
       targets: [{ src: "src/assets/**/*", dest: "assets" }],
     }),

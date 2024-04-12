@@ -1,10 +1,7 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
+import { createSelectorFactory } from "../create-selector";
+import { GameUIState } from "./state";
 
-import { GameStoreState } from "../game-store-state";
-import { GameUIState } from "./interface";
-
-export const gameStoreUISelector = (game: GameStoreState) => game.ui;
+const createSelector = createSelectorFactory<GameUIState>();
 
 export const gameUISelf = (ui: GameUIState) => ui;
 
@@ -13,7 +10,4 @@ export const mapSelector = createSelector(gameUISelf, ui => ui.map);
 
 export const isAIEnabledSelector = createSelector(gameUISelf, ui => ui.ai);
 export const pausedSelector = createSelector(gameUISelf, ui => ui.paused);
-export const villageSelector = createSelector(gameUISelf, ui => ui.selectedVillageId);
-
-export const useGameUISelector = <T extends (gameState: GameUIState) => any>(selector: T): ReturnType<T> =>
-  useSelector(createSelector(gameStoreUISelector, selector));
+export const selectedVillageIdSelector = createSelector(gameUISelf, ui => ui.selectedVillageId);

@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+  display: inline-block;
+  color: #ffffffd8;
+  border-radius: 4px;
+  padding: 4px 8px;
+  border: none;
+  background-color: #00000041;
+  margin: 8px;
+
+  &.active {
+    background-color: #00000041;
+  }
+
+  &.block {
+    display: block;
+    width: 100%;
+  }
+}

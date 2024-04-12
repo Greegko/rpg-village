@@ -9,12 +9,12 @@ export const VillageStats = (props: { villageId: VillageID }) => {
   const general = useGameStateSelector(generalSelector);
 
   return (
-    <div className="villagestats">
-      ID: {props.villageId}
-      <ul className="villagestats__list">
-        <li className="villagestats__list-item">Turn: {general.turn}</li>
-        <li className="villagestats__list-item">Gold: {village.stash.resource.gold}</li>
-        <li className="villagestats__list-item">Soul: {village.stash.resource.soul}</li>
+    <div class="villagestats">
+      <ul class="villagestats__list">
+        <li class="villagestats__list-item">VillageId: {props.villageId}</li>
+        <li class="villagestats__list-item">Turn: {general().turn}</li>
+        <li class="villagestats__list-item">Gold: {village().stash.resource.gold}</li>
+        <li class="villagestats__list-item">Soul: {village().stash.resource.soul}</li>
       </ul>
     </div>
   );

@@ -2,7 +2,7 @@ import { forEach } from "rambda";
 
 import { Command, GameInstance, GameState, createGameInstance } from "@rpg-village/core";
 
-import { StateUpdateCallback } from "./interface";
+import { StateUpdateCallback } from "../interface";
 
 interface CommandHistory {
   turn: number;

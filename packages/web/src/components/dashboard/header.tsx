@@ -1,11 +1,10 @@
 import { keys } from "rambda";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { For, Show, createSignal } from "solid-js";
 
 import { VillageID } from "@rpg-village/core";
 
 import { mapsSelector, useGameStateSelector, worldMapIdSelector } from "@web/store/game";
-import { mapSelector, selectMap, useGameUISelector } from "@web/store/ui";
+import { mapSelector, setMap, useGameUiStateSelector } from "@web/store/ui";
 
 import { DeveloperToolbox } from "./developer-toolbox";
 import { VillageStats } from "./villagestats";
@@ -15,42 +14,38 @@ import "./header.scss";
 const Maps = () => {
   const maps = useGameStateSelector(mapsSelector);
   const worldMapId = useGameStateSelector(worldMapIdSelector);
-  const selectedMapId = useGameUISelector(mapSelector);
-
-  const dispatcher = useDispatch();
+  const selectedMapId = useGameUiStateSelector(mapSelector);
 
   return (
-    <span>
-      {keys(maps).map(mapId => (
-        <button
-          key={mapId}
-          onClick={() => dispatcher(selectMap(mapId))}
-          className={selectedMapId === mapId ? "active" : ""}
-        >
-          {mapId === worldMapId ? "World Map" : mapId}
+    <For each={keys(maps())}>
+      {mapId => (
+        <button onClick={() => setMap(mapId)} class={selectedMapId() === mapId ? "active" : ""}>
+          {mapId === worldMapId() ? "World Map" : mapId}
         </button>
-      ))}
-    </span>
+      )}
+    </For>
   );
 };
 
 export const Header = (props: { villageId: VillageID }) => {
-  const [devToolboxVisible, setDevToolboxVisibile] = useState<boolean>();
+  const [devToolboxVisible, setDevToolboxVisibile] = createSignal<boolean>();
 
   return (
-    <div className="header">
+    <div class="header">
       <VillageStats villageId={props.villageId} />
 
       <Maps />
 
       <button
-        className={"dev-toolbox-button" + (devToolboxVisible ? " active" : "")}
+        class={"w-[125px] " + (devToolboxVisible() ? " active" : "")}
         onClick={() => setDevToolboxVisibile(val => !val)}
       >
         Dev Toolbox
       </button>
 
-      {devToolboxVisible && <DeveloperToolbox />}
+      <Show when={devToolboxVisible()}>
+        <DeveloperToolbox />
+      </Show>
     </div>
   );
 };

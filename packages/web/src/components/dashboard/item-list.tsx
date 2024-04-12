@@ -1,11 +1,9 @@
 import { range } from "rambda";
-import { MouseEvent, useEffect, useState } from "react";
-import { useCallback } from "react";
+import { For, Match, Show, Switch, createComputed, createSignal, on } from "solid-js";
 
 import { Item, ItemType } from "@rpg-village/core";
 
-import { Asset } from "../core";
-import { Popup } from "../core/popup/popup";
+import { Asset, Popup } from "../core";
 import { ItemStats } from "./item-stats";
 
 import "./item-list.scss";
@@ -18,68 +16,69 @@ export interface ItemListProperties {
   onItemSelect?: (item: Item | null) => void;
 }
 
-export const ItemList = ({ items, onItemSelect, listSize, smallDisplay, hideEmpty }: ItemListProperties) => {
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>();
+export const ItemList = (props: ItemListProperties) => {
+  const [selectedItemIndex, setSelectedItemIndex] = createSignal<number | null>();
 
-  useEffect(() => setSelectedItemIndex(null), [items]);
+  createComputed(on(selectedItemIndex, () => setSelectedItemIndex(null)));
 
-  const itemClick = useCallback(
-    (event: MouseEvent, index: number) => {
-      if (!onItemSelect) return;
+  const itemClick = (event: MouseEvent, index: number) => {
+    if (!props.onItemSelect) return;
 
-      event.stopPropagation();
+    event.stopPropagation();
 
-      if (index === selectedItemIndex) return;
+    if (index === selectedItemIndex()) return;
 
-      if (items[index]) {
-        setSelectedItemIndex(index);
-        onItemSelect?.(items[index]);
-      } else {
-        onItemSelect?.(null);
-      }
-    },
-    [selectedItemIndex, items, onItemSelect],
-  );
+    if (props.items[index]) {
+      setSelectedItemIndex(index);
+      props.onItemSelect!(props.items[index]);
+    } else {
+      props.onItemSelect!(null);
+    }
+  };
 
-  const getAssetId = useCallback(
-    (index: number) => {
-      if (!items || !items[index]) return "placeholder";
+  const getAssetId = (index: number) => {
+    if (!props.items || !props.items[index]) return "placeholder";
 
-      switch (items[index].itemType) {
-        case ItemType.Armor:
-          return "helmet_1";
-        case ItemType.Weapon:
-          return "weapon_1";
-        case ItemType.Shield:
-          return "shield_1";
-        case ItemType.DungeonKey:
-          return "dungeon_key";
-        case ItemType.Rune:
-          return "rune";
-        default:
-          return "placeholder";
-      }
-    },
-    [items],
-  );
+    switch (props.items[index].itemType) {
+      case ItemType.Armor:
+        return "helmet_1";
+      case ItemType.Weapon:
+        return "weapon_1";
+      case ItemType.Shield:
+        return "shield_1";
+      case ItemType.DungeonKey:
+        return "dungeon_key";
+      case ItemType.Rune:
+        return "rune";
+      default:
+        return "placeholder";
+    }
+  };
 
   return (
-    <div className={"item-list" + (smallDisplay ? " item-list--small" : "")}>
-      <div className="items" onClick={() => setSelectedItemIndex(undefined)}>
-        {range(0, listSize).map(index => {
-          if (!items[index]) return hideEmpty ? null : <span key={index} className="item-slot"></span>;
-
-          return (
-            <Popup key={index} content={() => <ItemStats item={items[index]} />}>
-              <span
-                className={"item-slot" + (selectedItemIndex === index ? " item-slot-selected" : "")}
-                onClick={event => itemClick(event, index)}
-              >
-                <Asset id={getAssetId(index)} size="icon" />
-              </span>
-            </Popup>
-          );
-        })}
+    <div class={"item-list" + (props.smallDisplay ? " item-list--small" : "")}>
+      <div class="w-[800px]" onClick={() => setSelectedItemIndex(undefined)}>
+        <For each={range(0, props.listSize)}>
+          {index => (
+            <Switch>
+              <Match when={!props.items[index]}>
+                <Show when={!props.hideEmpty}>
+                  <span class="item-slot"></span>
+                </Show>
+              </Match>
+              <Match when={props.items[index]}>
+                <Popup content={() => <ItemStats item={props.items[index]} />}>
+                  <span
+                    class={"item-slot" + (selectedItemIndex() === index ? " item-slot-selected" : "")}
+                    onClick={event => itemClick(event, index)}
+                  >
+                    <Asset id={getAssetId(index)} size="icon" />
+                  </span>
+                </Popup>
+              </Match>
+            </Switch>
+          )}
+        </For>
       </div>
     </div>
   );

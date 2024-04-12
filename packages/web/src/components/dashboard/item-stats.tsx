@@ -1,34 +1,36 @@
-import { AttackEffectType, DefenseEffectType, Item, ItemType, getItemEffects } from "@rpg-village/core";
+import { For, Show } from "solid-js";
+
+import { AttackEffectType, DefenseEffectType, Item, ItemType, Rune, getItemEffects } from "@rpg-village/core";
 
 import { translate } from "../../game";
 
-export const ItemStats = ({ item }: { item: Item }) => (
+export const ItemStats = (props: { item: Item }) => (
   <div>
-    <div>Name: {item.name}</div>
+    <div>Name: {props.item.name}</div>
     <div>Stats</div>
-    {getItemEffects(item).map((effect, i) => (
-      <div key={i}>
-        <span>
-          {AttackEffectType[effect.type] &&
-            translate("core.model.attackEffectType")[effect.effectType as AttackEffectType]}
-          {DefenseEffectType[effect.type] &&
-            translate("core.model.defenseEffectType")[effect.effectType as DefenseEffectType]}
-        </span>
-        <span>{effect.value}</span>
-      </div>
-    ))}
+    <For each={getItemEffects(props.item)}>
+      {effect => (
+        <div>
+          <span>
+            <Show when={AttackEffectType[effect.type]}>
+              {translate("core.model.attackEffectType")[effect.effectType as AttackEffectType]}
+            </Show>
+            <Show when={DefenseEffectType[effect.type]}>
+              {translate("core.model.defenseEffectType")[effect.effectType as DefenseEffectType]}
+            </Show>
+          </span>
+          <span>{effect.value}</span>
+        </div>
+      )}
+    </For>
 
-    <RuneStats item={item} />
+    <RuneStats item={props.item} />
   </div>
 );
 
-const RuneStats = ({ item }: { item: Item }) => {
-  if (item.itemType !== ItemType.Rune) return null;
-
-  return (
-    <>
-      <div>Power: {item.power}</div>
-      <div>Soul: {item.soul}</div>
-    </>
-  );
-};
+const RuneStats = (props: { item: Item }) => (
+  <Show when={props.item.itemType === ItemType.Rune}>
+    <div>Power: {(props.item as Rune).power}</div>
+    <div>Soul: {(props.item as Rune).soul}</div>
+  </Show>
+);

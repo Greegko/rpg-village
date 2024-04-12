@@ -7,13 +7,13 @@ interface ProgressBarProperties {
 }
 
 export const ProgressBar = ({ maxValue, value, color }: ProgressBarProperties) => (
-  <div className="progressbar">
-    <div className="progressbar__placeholder" style={{ backgroundColor: "#333", height: 12 }}>
+  <div class="flex justify-between">
+    <div class="progressbar__placeholder h-[12px] bg-[#333]">
       <div
-        className="progressbar__liquid"
-        style={{ backgroundColor: color, width: Math.max(0, (value / maxValue) * 100) + "%", height: 12 }}
+        class="progressbar__liquid h-[12px]"
+        style={{ "background-color": color, width: Math.max(0, (value / maxValue) * 100) + "%" }}
       />
-      <div className="progressbar__value">
+      <div class="progressbar__value">
         {Math.ceil(Math.max(0, value))} / {maxValue}
       </div>
     </div>

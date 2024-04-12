@@ -1,6 +1,9 @@
+import { For, Show } from "solid-js";
+
 import { MapID, MapLocation } from "@rpg-village/core";
 
-import { mapLocationsByMapIdSelector, partiesOnLocationSelector, useGameStateSelector } from "@web/store/game";
+import { useGameStateSelector } from "@web/store/game";
+import { mapLocationsByMapIdSelector, partiesOnLocationSelector } from "@web/store/game";
 
 import { Tile } from "./tile";
 
@@ -8,30 +11,29 @@ interface MapProperties {
   mapId: MapID;
 }
 
-export const Map = ({ mapId }: MapProperties) => {
-  const locations = useGameStateSelector(state => mapLocationsByMapIdSelector(state, mapId));
-
-  if (locations === undefined) return null;
+export const Map = (props: MapProperties) => {
+  const locations = useGameStateSelector(state => mapLocationsByMapIdSelector(state, props.mapId));
 
   return (
-    <div className="relative" style={{ top: window.innerHeight / 2, left: window.innerWidth / 2 }}>
-      {locations.map(location => (
-        <MapLocationDisplay location={location} />
-      ))}
-    </div>
+    <Show when={locations()} keyed>
+      {locations => (
+        <div class="relative" style={{ top: window.innerHeight / 2 + "px", left: window.innerWidth / 2 + "px" }}>
+          <For each={locations}>{location => <MapLocationDisplay location={location} />}</For>
+        </div>
+      )}
+    </Show>
   );
 };
 
-const MapLocationDisplay = ({ location }: { location: MapLocation }) => {
-  const partiesOnLocations = useGameStateSelector(state => partiesOnLocationSelector(state, location.id));
+const MapLocationDisplay = (props: { location: MapLocation }) => {
+  const partiesOnLocations = useGameStateSelector(state => partiesOnLocationSelector(state, props.location.id));
 
   return (
     <Tile
-      key={location.id}
-      parties={partiesOnLocations}
-      locationType={location.type}
-      x={61 * location.x}
-      y={35 * location.y}
+      parties={partiesOnLocations()}
+      locationType={props.location.type}
+      x={61 * props.location.x}
+      y={35 * props.location.y}
     />
   );
 };

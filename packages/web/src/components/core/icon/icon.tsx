@@ -1,5 +1,3 @@
-import "./icon.scss";
-
 export enum Icons {
   Heart = "heart",
 }
@@ -20,7 +18,7 @@ interface IconProperties {
 export const Icon = ({ icon, size }: IconProperties) => {
   return (
     <img
-      className={"icon" + (size === Size.Tiny ? " icon--tiny" : "")}
+      class={"icon" + (size === Size.Tiny ? " w-[12px] h-[12px]" : " w-[40px] h-[40px]")}
       src={"data:image/svg+xml;base64, " + Base64[icon]}
     />
   );

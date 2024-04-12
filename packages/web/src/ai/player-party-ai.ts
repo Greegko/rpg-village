@@ -11,6 +11,7 @@ import {
   VillageCommand,
   calculateUnitStrength,
 } from "@rpg-village/core";
+// TODO: Check this up!
 import { PortalCommand } from "@rpg-village/core/dist/features/buildings/portal";
 
 import { PartyAction, PartyActionType, PartyState } from "@web/store/ai";

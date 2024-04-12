@@ -1,16 +1,15 @@
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { For, Show } from "solid-js";
 
 import { ActivityCommand, ActivityID, PartyID } from "@rpg-village/core";
 
-import { useGameExecuteCommand } from "@web/react-hooks";
+import { useGameExecuteCommand } from "@web/engine";
 import {
   PartyActionType,
   clearPartyAction,
   partyStateSelector,
   setAutoExplore,
   setPartyAction,
-  useGameAIStateSelector,
+  useGameAiStateSelector,
 } from "@web/store/ai";
 import {
   activityByIdSelector,
@@ -37,77 +36,74 @@ export const PartyDisplay = (props: PartyDisplayProperties) => {
   const partyMapLocation = useGameStateSelector(state => mapLocationByPartyIdSelector(state, props.partyId));
   const partyActivity = useGameStateSelector(state => partyActivitySelector(state, props.partyId));
 
-  const isWorldMap = currentMap.id === worldMapId;
+  const isWorldMap = () => currentMap()?.id === worldMapId();
 
   const party = useGameStateSelector(state => partyByIdSelector(state, props.partyId));
-  const partyAIState = useGameAIStateSelector(state => partyStateSelector(state, props.partyId)) || {};
-  const dispatch = useDispatch();
+  const partyAIState = useGameAiStateSelector(state => partyStateSelector(state, props.partyId));
 
-  const setAction = useCallback(
-    (partyActionType: PartyActionType) => {
-      dispatch(setPartyAction({ partyId: props.partyId, partyAction: { type: partyActionType } }));
-      setActionExplore(false);
-    },
-    [props.partyId],
-  );
+  const setAction = (partyActionType: PartyActionType) => {
+    setPartyAction(props.partyId, partyActionType);
+    setActionExplore(false);
+  };
 
-  const setActionExplore = useCallback(
-    (enable: boolean) => dispatch(setAutoExplore({ partyId: props.partyId, enable })),
-    [props.partyId],
-  );
+  const setActionExplore = (enable: boolean) => setAutoExplore(props.partyId, enable);
 
   return (
-    <div className="party">
-      <div>Location: {partyMapLocation.id}</div>
-      {partyActivity && partyActivity.id && <Activity activityId={partyActivity.id} partyId={props.partyId} />}
+    <div class="party">
+      <div>Location: {partyMapLocation().id}</div>
+      <Show when={partyActivity()?.id} keyed>
+        {partyActivityId => <Activity activityId={partyActivityId} partyId={props.partyId} />}
+      </Show>
 
       <br />
 
-      <div className="party__actions">
-        <Action
-          iconId="treasure-map"
-          active={partyAIState.autoExplore}
-          onClick={() => setActionExplore(!partyAIState.autoExplore)}
-        />
+      <Show when={partyAIState()} keyed>
+        {partyAIState => (
+          <div class="party__actions">
+            <Action
+              iconId="treasure-map"
+              active={partyAIState.autoExplore}
+              onClick={() => setActionExplore(!partyAIState.autoExplore)}
+            />
 
-        <Action
-          iconId="village"
-          active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.MoveToVillage}
-          onClick={() => setAction(PartyActionType.MoveToVillage)}
-        />
+            <Action
+              iconId="village"
+              active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.MoveToVillage}
+              onClick={() => setAction(PartyActionType.MoveToVillage)}
+            />
 
-        <Action
-          iconId="healing"
-          active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.Heal}
-          onClick={() => setAction(PartyActionType.Heal)}
-        />
+            <Action
+              iconId="healing"
+              active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.Heal}
+              onClick={() => setAction(PartyActionType.Heal)}
+            />
 
-        <Action
-          iconId="body"
-          active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.Training}
-          onClick={() => setAction(PartyActionType.Training)}
-        />
+            <Action
+              iconId="body"
+              active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.Training}
+              onClick={() => setAction(PartyActionType.Training)}
+            />
 
-        {isWorldMap && (
-          <Action
-            iconId="portal"
-            active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.EnterPortal}
-            onClick={() => setAction(PartyActionType.EnterPortal)}
-          />
+            <Show when={isWorldMap()}>
+              <Action
+                iconId="portal"
+                active={!partyAIState.autoExplore && partyAIState.action?.type === PartyActionType.EnterPortal}
+                onClick={() => setAction(PartyActionType.EnterPortal)}
+              />
+            </Show>
+          </div>
         )}
-      </div>
+      </Show>
 
       <br />
-      {party.unitIds.map(heroId => (
-        <Hero key={heroId} heroId={heroId} />
-      ))}
+      <For each={party().unitIds}>{unitId => <Hero heroId={unitId} />}</For>
     </div>
   );
 };
 
-const Action = ({ active, onClick, iconId }: { active: boolean; onClick: any; iconId: string }) => (
-  <span className={"party__action " + (active ? "active" : "")} onClick={onClick}>
-    <Asset id={iconId} size="icon" />
+const Action = (props: { active: boolean; onClick: any; iconId: string }) => (
+  <span class={"party__action " + (props.active ? "active" : "")} onClick={props.onClick}>
+    <Asset id={props.iconId} size="icon" />
   </span>
 );
 
@@ -115,23 +111,23 @@ interface ActivityProps {
   activityId: ActivityID;
   partyId: PartyID;
 }
-const Activity = ({ activityId, partyId }: ActivityProps) => {
+const Activity = (props: ActivityProps) => {
   const executeCommand = useGameExecuteCommand();
-  const dispatch = useDispatch();
 
-  const cancelAction = useCallback(() => {
-    executeCommand({ command: ActivityCommand.CancelActivity, args: { activityId: activity.id } });
-    dispatch(clearPartyAction({ partyId }));
-  }, [activityId]);
-
-  const activity = useGameStateSelector(state => activityByIdSelector(state, activityId));
-
-  if (!activity) return null;
+  const activity = useGameStateSelector(state => activityByIdSelector(state, props.activityId));
+  const cancelAction = () => {
+    executeCommand({ command: ActivityCommand.CancelActivity, args: { activityId: activity().id } });
+    clearPartyAction(props.partyId);
+  };
 
   return (
-    <div>
-      Activity: {activity.name}
-      <a onClick={cancelAction}>[x]</a>
-    </div>
+    <Show when={activity()} keyed>
+      {activity => (
+        <div>
+          Activity: {activity.name}
+          <a onClick={cancelAction}>[x]</a>
+        </div>
+      )}
+    </Show>
   );
 };

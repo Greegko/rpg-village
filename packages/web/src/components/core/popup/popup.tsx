@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-
-import "./popup.scss";
+import { JSX, Show, createEffect, createSignal } from "solid-js";
 
 interface PopupProperties {
   content: () => JSX.Element;
@@ -8,36 +6,39 @@ interface PopupProperties {
 }
 
 interface PopupStyle {
-  top: number;
-  left: number;
+  top: string;
+  left: string;
 }
 
-export const Popup = ({ children, content }: PopupProperties) => {
-  const ref = useRef<HTMLElement>(null);
-  const [popupStyle, setPopupStyle] = useState<PopupStyle>(null!);
-  const [visible, setVisible] = useState(false);
+export const Popup = (props: PopupProperties) => {
+  let ref: HTMLElement;
 
-  useEffect(() => {
+  const [popupStyle, setPopupStyle] = createSignal<PopupStyle>(null!);
+  const [visible, setVisible] = createSignal(false);
+
+  createEffect(() => {
+    if (visible()) return;
+
     setPopupStyle({
-      top: ref.current!.offsetTop,
-      left: ref.current!.offsetLeft + ref.current?.getClientRects()[0].width!,
+      top: ref.offsetTop + "px",
+      left: ref.offsetLeft + ref.getClientRects()[0].width! + "px",
     });
-  }, [visible]);
+  });
 
   return (
-    <span className="popup">
-      {visible && (
+    <span class="popup">
+      <Show when={visible()}>
         <div
-          className="popup-content"
-          style={popupStyle}
+          class="absolute z-10 bg-black"
+          style={{ ...popupStyle() }}
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
         >
-          {content()}
+          {props.content()}
         </div>
-      )}
-      <span ref={ref} onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
-        {children}
+      </Show>
+      <span ref={ref!} onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
+        {props.children}
       </span>
     </span>
   );

@@ -1,3 +1,5 @@
+import { Show } from "solid-js";
+
 import assets from "../../../assets/assets.json";
 
 export type AssetSize = "icon";
@@ -7,10 +9,12 @@ export interface AssetProps {
   size: AssetSize;
 }
 
-export const Asset = ({ id, size }: AssetProps) => {
-  const asset = assets.find(asset => asset.id === id);
+export const Asset = (props: AssetProps) => {
+  const asset = assets.find(asset => asset.id === props.id);
 
-  if (!asset) return null;
-
-  return <img src={"assets/" + asset.file} className={size === "icon" ? "w-[32px] h-[32px]" : ""} />;
+  return (
+    <Show when={asset}>
+      <img src={"assets/" + asset!.file} class={props.size === "icon" ? "w-[32px] h-[32px]" : ""} />
+    </Show>
+  );
 };

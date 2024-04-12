@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { useDispatch, useStore } from "react-redux";
 import { generate } from "shortid";
+import { Show } from "solid-js";
+import { unwrap } from "solid-js/store";
 
 import {
   Armor,
@@ -12,11 +12,13 @@ import {
   Rune,
   RuneAttackEffectType,
   Shield,
+  VillageID,
   Weapon,
 } from "@rpg-village/core";
 
 import { sample } from "@lib/sample";
-import { GameInstanceWrapperContext, useGameExecuteCommand } from "@web/react-hooks";
+import { gameInstanceWrapper, useGameExecuteCommand } from "@web/engine";
+import { gameStore } from "@web/store";
 import {
   disableAI,
   enableAI,
@@ -24,20 +26,16 @@ import {
   pause,
   pausedSelector,
   resume,
-  useGameUISelector,
-  villageSelector,
+  selectedVillageIdSelector,
+  useGameUiStateSelector,
 } from "@web/store/ui";
 
 import "./developer-toolbox.scss";
 
 export const DeveloperToolbox = () => {
-  const gameInstance = useContext(GameInstanceWrapperContext);
-
-  const isAIEnabled = useGameUISelector(isAIEnabledSelector);
-  const isPaused = useGameUISelector(pausedSelector);
-  const villageId = useGameUISelector(villageSelector);
-  const store = useStore();
-  const dispatch = useDispatch();
+  const isAIEnabled = useGameUiStateSelector(isAIEnabledSelector);
+  const isPaused = useGameUiStateSelector(pausedSelector);
+  const villageId = useGameUiStateSelector(selectedVillageIdSelector) as () => VillageID;
   const executeCommand = useGameExecuteCommand();
 
   const generateItem = (): Weapon | Armor | Shield => {
@@ -75,123 +73,130 @@ export const DeveloperToolbox = () => {
   };
 
   return (
-    <div className="developer-toolbox">
+    <div class="developer-toolbox">
       <div>
-        {isAIEnabled && (
-          <button className="block" onClick={() => dispatch(disableAI())}>
+        <Show when={isAIEnabled()}>
+          <button class="block" onClick={disableAI}>
             Turn AI off
           </button>
-        )}
-        {!isAIEnabled && (
-          <button className="block" onClick={() => dispatch(enableAI())}>
+        </Show>
+
+        <Show when={!isAIEnabled()}>
+          <button class="block" onClick={enableAI}>
             Turn AI on
           </button>
-        )}
-        {!isPaused && (
-          <button className="block" onClick={() => dispatch(pause())}>
+        </Show>
+
+        <Show when={!isPaused()}>
+          <button class="block" onClick={pause}>
             Pause
           </button>
-        )}
-        {isPaused && (
-          <button className="block" onClick={() => dispatch(resume())}>
+        </Show>
+        <Show when={isPaused()}>
+          <button class="block" onClick={resume}>
             Resume
           </button>
-        )}
-        <button className="block" onClick={() => gameInstance.localSave()}>
+        </Show>
+        <button class="block" onClick={() => gameInstanceWrapper().localSave()}>
           Save
         </button>
-        <button className="block" onClick={() => (gameInstance.localReset(), window.location.reload())}>
+        <button class="block" onClick={() => (gameInstanceWrapper().localReset(), window.location.reload())}>
           Reset
         </button>
-        <button className="block" onClick={() => console.log(store.getState())}>
+        <button class="block" onClick={() => console.log(unwrap(gameStore))}>
           Log State
         </button>
       </div>
       <div>
         Turn:
-        <button className="block" onClick={() => gameInstance.fastForward(10)}>
+        <button class="block" onClick={() => gameInstanceWrapper().fastForward(10)}>
           +10
         </button>
-        <button className="block" onClick={() => gameInstance.fastForward(100)}>
+        <button class="block" onClick={() => gameInstanceWrapper().fastForward(100)}>
           +100
         </button>
-        <button className="block" onClick={() => gameInstance.fastForward(500)}>
+        <button class="block" onClick={() => gameInstanceWrapper().fastForward(500)}>
           +500
         </button>
       </div>
-      {villageId && (
-        <>
-          <div>
-            Gold:
-            <button
-              className="block"
-              onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 10 } })}
-            >
-              +10
-            </button>
-            <button
-              className="block"
-              onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 100 } })}
-            >
-              +100
-            </button>
-            <button
-              className="block"
-              onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 1000 } })}
-            >
-              +1000
-            </button>
-          </div>
-          <div>
-            Soul:
-            <button
-              className="block"
-              onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 10 } })}
-            >
-              +10
-            </button>
-            <button
-              className="block"
-              onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 100 } })}
-            >
-              +100
-            </button>
-            <button
-              className="block"
-              onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 1000 } })}
-            >
-              +1000
-            </button>
-          </div>
-          <div>
-            Items:
-            <button
-              className="block"
-              onClick={() =>
-                executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateRune() } })
-              }
-            >
-              Add Rune
-            </button>
-            <button
-              className="block"
-              onClick={() =>
-                executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateDungeonKey() } })
-              }
-            >
-              Add Dungeon Key
-            </button>
-            <button
-              className="block"
-              onClick={() =>
-                executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateItem() } })
-              }
-            >
-              Add Item
-            </button>
-          </div>
-        </>
-      )}
+      <Show when={villageId()} keyed>
+        {villageId => (
+          <>
+            <div>
+              Gold:
+              <button
+                class="block"
+                onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 10 } })}
+              >
+                +10
+              </button>
+              <button
+                class="block"
+                onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 100 } })}
+              >
+                +100
+              </button>
+              <button
+                class="block"
+                onClick={() => executeCommand({ command: DebugCommand.GenerateGold, args: { villageId, gold: 1000 } })}
+              >
+                +1000
+              </button>
+            </div>
+            <div>
+              Soul:
+              <button
+                class="block"
+                onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 10 } })}
+              >
+                +10
+              </button>
+              <button
+                class="block"
+                onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 100 } })}
+              >
+                +100
+              </button>
+              <button
+                class="block"
+                onClick={() => executeCommand({ command: DebugCommand.AddSoul, args: { villageId, soul: 1000 } })}
+              >
+                +1000
+              </button>
+            </div>
+            <div>
+              Items:
+              <button
+                class="block"
+                onClick={() =>
+                  executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateRune() } })
+                }
+              >
+                Add Rune
+              </button>
+              <button
+                class="block"
+                onClick={() =>
+                  executeCommand({
+                    command: DebugCommand.AddItem,
+                    args: { villageId, item: generateDungeonKey() },
+                  })
+                }
+              >
+                Add Dungeon Key
+              </button>
+              <button
+                class="block"
+                onClick={() =>
+                  executeCommand({ command: DebugCommand.AddItem, args: { villageId, item: generateItem() } })
+                }
+              >
+                Add Item
+              </button>
+            </div>
+          </>
+        )}
+      </Show>
     </div>
   );
 };

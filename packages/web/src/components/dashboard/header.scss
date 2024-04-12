@@ -1,15 +1,9 @@
-@import "../../style/var.scss";
-
 .header {
-  background-color: rgba(#333d47, 0.8);
+  background-color: #333d47be;
 
-  color: $color-white;
-  box-shadow: 0 4px rgba(#000, 0.2);
+  color: #ffff;
+  box-shadow: 0 4px #00000038;
 
   display: flex;
   justify-content: space-between;
-
-  .dev-toolbox-button {
-    width: 125px;
-  }
 }
