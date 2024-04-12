@@ -17,6 +17,9 @@ interface CharacterSheetProperties {
 }
 
 export const CharacterSheet = (props: CharacterSheetProperties) => {
+  const [characterSelectedItem, setCharacterSelectedItem] = createSignal<Item | null>();
+  const [stashSelectedItem, setStashSelectedItem] = createSignal<Item | null>();
+
   const unit = useGameStateSelector(state => unitByIdSelector(state, props.unitId));
 
   const villageId = useGameUiStateSelector(selectedVillageIdSelector);
@@ -31,9 +34,6 @@ export const CharacterSheet = (props: CharacterSheetProperties) => {
       setStashSelectedItem(null);
     }),
   );
-
-  const [characterSelectedItem, setCharacterSelectedItem] = createSignal<Item | null>();
-  const [stashSelectedItem, setStashSelectedItem] = createSignal<Item | null>();
 
   const userEquipment = () => values(unit().equipment).filter(identity) as Item[];
 

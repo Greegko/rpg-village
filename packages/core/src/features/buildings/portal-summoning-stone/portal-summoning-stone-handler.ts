@@ -9,6 +9,7 @@ import { PortalSummoningStone } from "./interface";
 export interface PortalSummoningStoneHandlerDelegator {
   get: () => PortalSummoningStone;
   update: (updater: (stash: PortalSummoningStone) => PortalSummoningStone) => void;
+  create: (state: PortalSummoningStone) => void;
 }
 
 export class PortalSummoningStoneHandler {
@@ -20,7 +21,7 @@ export class PortalSummoningStoneHandler {
 
   build() {
     if (this.delegator.get() === undefined) {
-      this.delegator.update(() => ({ id: generate(), level: 1, portals: [] }));
+      this.delegator.create({ id: generate(), level: 1, portals: [] });
     } else {
       this.delegator.update(evolve({ level: inc }));
     }

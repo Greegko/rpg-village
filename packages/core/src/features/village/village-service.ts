@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { evolve } from "rambda";
+import { evolve, lensPath, set } from "rambda";
 
 import { PortalSummoningStoneHandler } from "@features/buildings/portal-summoning-stone";
 import { ShopHandler } from "@features/buildings/shop";
@@ -23,6 +23,7 @@ export class VillageService {
     return new ShopHandler({
       get: () => this.villageStore.get(villageId).buildings.shop!,
       update: shopUpdater => this.villageStore.update(villageId, evolve({ buildings: { shop: shopUpdater } })),
+      create: state => this.villageStore.update(villageId, set(lensPath("buildings.shop"), state)),
     });
   }
 
@@ -34,6 +35,7 @@ export class VillageService {
           villageId,
           evolve({ buildings: { portalSummoningStone: portalSummoningStoneUpdater } }),
         ),
+      create: state => this.villageStore.update(villageId, set(lensPath("buildings.portalSummoningStone"), state)),
     });
   }
 }

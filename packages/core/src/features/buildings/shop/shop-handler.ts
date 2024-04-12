@@ -10,6 +10,7 @@ import { Shop, ShopItem } from "./interface";
 export interface ShopHandlerDelegator {
   get: () => Shop;
   update: (updater: (stash: Shop) => Shop) => void;
+  create: (state: Shop) => void;
 }
 
 export class ShopHandler {
@@ -32,7 +33,7 @@ export class ShopHandler {
 
   build() {
     if (this.delegator.get() === undefined) {
-      this.delegator.update(() => ({ level: 1, stash: { resource: { gold: 0 }, items: [] }, items: [] }));
+      this.delegator.create({ level: 1, stash: { resource: { gold: 0 }, items: [] }, items: [] });
     } else {
       this.delegator.update(evolve({ level: inc }));
     }
