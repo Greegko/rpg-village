@@ -68,10 +68,10 @@ export const Dashboard = () => {
             <Match when={page()?.page === GamePageType.CharacterSheet}>
               <CharacterSheet unitId={page()!.args.unitId} />
             </Match>
-            <Match when={page()?.page === GamePageType.CharacterSheet && villageId()}>
+            <Match when={page()?.page === GamePageType.OpenPortal && villageId()}>
               <OpenPortalPage villageId={villageId()!} />
             </Match>
-            <Match when={page()?.page === GamePageType.CharacterSheet && villageId()}>
+            <Match when={page()?.page === GamePageType.VillageShopPage && villageId()}>
               <VillageShopPage villageId={villageId()!} />
             </Match>
           </Switch>
