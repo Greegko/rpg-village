@@ -1,4 +1,9 @@
-import { VillageActivity, VillageBuilding, VillageBuildingCommand, VillageEvent } from "@rpg-village/core";
+import {
+  VillageActivity,
+  VillageBuilding,
+  VillageBuildingCommand,
+  VillageEvent,
+} from "@rpg-village/core/features/village";
 
 import { createState, test } from "../../../../utils";
 

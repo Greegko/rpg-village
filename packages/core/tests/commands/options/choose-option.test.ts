@@ -1,4 +1,4 @@
-import { OptionCommand } from "@rpg-village/core";
+import { OptionCommand } from "@rpg-village/core/features/options";
 
 import { createState, test } from "../../utils";
 

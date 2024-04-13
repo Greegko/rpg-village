@@ -1,4 +1,4 @@
-import { PartyEvent } from "@rpg-village/core";
+import { PartyEvent } from "@rpg-village/core/features/party";
 
 import { createState, test } from "../../utils";
 

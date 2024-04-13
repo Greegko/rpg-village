@@ -15,6 +15,10 @@
     "rambda": "9.2.0",
     "shortid": "2.2.16"
   },
+  "exports": {
+    ".": "./dist/public-api.js",
+    "./features/*": "./dist/features/*/index.js"
+  },
   "peerDependencies": {
     "reflect-metadata": "0.2.2"
   },
@@ -29,7 +33,5 @@
     "typescript-transform-paths": "3.4.7",
     "tsx": "4.7.2",
     "chance": "1.1.11"
-  },
-  "types": "dist/public-api.d.ts",
-  "main": "dist/public-api.js"
+  }
 }

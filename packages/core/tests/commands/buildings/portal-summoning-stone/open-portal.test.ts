@@ -1,6 +1,7 @@
-import { VillageBuildingCommand } from "@rpg-village/core";
-import { AttackEffectType, EffectType, ItemType } from "@rpg-village/core";
 import { values } from "rambda";
+
+import { AttackEffectType, EffectType, ItemType } from "@rpg-village/core";
+import { VillageBuildingCommand } from "@rpg-village/core/features/village";
 
 import { createState, staticEffectFactory, test } from "../../../utils";
 

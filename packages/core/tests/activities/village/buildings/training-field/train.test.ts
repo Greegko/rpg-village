@@ -1,4 +1,4 @@
-import { TrainingFieldActivity } from "@rpg-village/core";
+import { TrainingFieldActivity } from "@rpg-village/core/features/village";
 
 import { createState, test } from "../../../../utils";
 

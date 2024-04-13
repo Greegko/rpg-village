@@ -1,5 +1,5 @@
-import { MapActivity } from "@rpg-village/core";
-import { VillageActivity } from "@rpg-village/core";
+import { MapActivity } from "@rpg-village/core/features/map";
+import { VillageActivity } from "@rpg-village/core/features/village";
 
 import { createState, test } from "../utils";
 

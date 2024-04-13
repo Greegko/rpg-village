@@ -7,11 +7,11 @@ import {
   MapLocationType,
   Party,
   PartyOwner,
+  PortalCommand,
   TrainingFieldCommand,
   VillageCommand,
   calculateUnitStrength,
 } from "@rpg-village/village-manager";
-import { PortalCommand } from "@rpg-village/village-manager";
 
 import { PartyAction, PartyActionType, PartyState } from "@web/store/ai";
 import {

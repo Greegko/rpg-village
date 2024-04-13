@@ -6,7 +6,7 @@
     "rootDir": "./",
     "composite": true,
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "outDir": "../dist/tests"
   }
 }

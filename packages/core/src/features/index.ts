@@ -8,4 +8,3 @@ export * from "./debug";
 export * from "./village";
 export * from "./options";
 export * from "./stash";
-export * from "./buildings";

@@ -1,14 +1,5 @@
-import { AnyActivity } from "@rpg-village/core";
-import { BattleStoreState } from "@rpg-village/core";
-import { PortalSummoningStone } from "@rpg-village/core";
-import { Shop } from "@rpg-village/core";
-import { GeneralGameStoreState } from "@rpg-village/core";
-import { Map, MapLocation, MapLocationType, MapSize } from "@rpg-village/core";
-import { OptionState } from "@rpg-village/core";
-import { Party, PartyOwner } from "@rpg-village/core";
-import { Stash } from "@rpg-village/core";
-import { Unit, UnitType } from "@rpg-village/core";
-import { VillageState } from "@rpg-village/core";
+import { Chance } from "chance";
+
 import {
   Armor,
   AttackEffectType,
@@ -24,7 +15,17 @@ import {
   Shield,
   Weapon,
 } from "@rpg-village/core";
-import { Chance } from "chance";
+import { AnyActivity } from "@rpg-village/core/features/activity";
+import { BattleStoreState } from "@rpg-village/core/features/battle";
+import { PortalSummoningStone } from "@rpg-village/core/features/buildings/portal-summoning-stone";
+import { Shop } from "@rpg-village/core/features/buildings/shop";
+import { GeneralGameStoreState } from "@rpg-village/core/features/game";
+import { Map, MapLocation, MapLocationType, MapSize } from "@rpg-village/core/features/map";
+import { OptionState } from "@rpg-village/core/features/options";
+import { Party, PartyOwner } from "@rpg-village/core/features/party";
+import { Stash } from "@rpg-village/core/features/stash";
+import { Unit, UnitType } from "@rpg-village/core/features/unit";
+import { VillageState } from "@rpg-village/core/features/village";
 
 const chance = Chance();
 

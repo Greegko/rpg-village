@@ -1,4 +1,4 @@
-import { MapActivity } from "@rpg-village/core";
+import { MapActivity } from "@rpg-village/core/features/map";
 
 import { createState, stashFactory, test } from "../../utils";
 

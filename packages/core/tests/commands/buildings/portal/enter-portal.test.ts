@@ -1,5 +1,5 @@
-import { PortalCommand } from "@rpg-village/core";
-import { MapLocationType } from "@rpg-village/core";
+import { PortalCommand } from "@rpg-village/core/features/buildings/portal";
+import { MapLocationType } from "@rpg-village/core/features/map";
 
 import { createState, test } from "../../../utils";
 

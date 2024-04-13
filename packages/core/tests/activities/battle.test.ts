@@ -1,6 +1,6 @@
-import { BattleActivityType } from "@rpg-village/core";
-import { UnitType } from "@rpg-village/core";
 import { AttackEffectType, ItemType, RuneAttackEffectType } from "@rpg-village/core";
+import { BattleActivityType } from "@rpg-village/core/features/battle";
+import { UnitType } from "@rpg-village/core/features/unit";
 
 import { createState, test } from "../utils";
 import { dynamicEffectFactory, equipmentFactory, runeFactory, staticEffectFactory } from "../utils/factories";
