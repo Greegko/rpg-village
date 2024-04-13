@@ -5,5 +5,5 @@
     "composite": true,
     "outDir": "../dist"
   },
-  "references": []
+  "references": [{ "path": "./game" }]
 }

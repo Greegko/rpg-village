@@ -11,30 +11,16 @@ import {
   applyModule,
 } from "@core";
 
-import * as features from "@features";
-
 import { GameConfig } from "./game-config";
 import { GameController } from "./game-controller";
 import { GameInstance } from "./interfaces";
 
-export type CreateGameInstance = (config?: GameConfig) => GameInstance;
+export type CreateGameInstance = (config: GameConfig) => GameInstance;
 
-const coreModules = [
-  features.villageModule,
-  features.debugModule,
-  features.optionsModule,
-  features.gameModule,
-  features.mapModule,
-  features.activityModule,
-  features.partyModule,
-  features.battleModule,
-  features.unitModule,
-];
+export const createGameInstance: CreateGameInstance = (config: GameConfig) => {
+  const container = createInvesifyContainer(config.config);
 
-export const createGameInstance: CreateGameInstance = (config?: GameConfig) => {
-  const container = createInvesifyContainer(config?.config);
-
-  forEach(applyModule(container), coreModules);
+  forEach(applyModule(container), config.modules);
 
   container.bind(GameController).toSelf();
 

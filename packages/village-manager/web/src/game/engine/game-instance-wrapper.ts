@@ -5,7 +5,6 @@ import { Command, GameInstance, GameState, createGameInstance } from "@rpg-villa
 import { StateUpdateCallback } from "../interface";
 
 export type AICommandsGenerator = (gameState: GameState) => Command[];
-
 export class GameInstanceWrapper {
   private turnsPerSecond = 2;
   private gameInstance: GameInstance;

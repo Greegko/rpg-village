@@ -1,8 +1,9 @@
-import { Command, Event, GameState } from "@rpg-village/core";
-import { GameConfig } from "@rpg-village/core";
 import * as ava from "ava";
 import * as util from "node:util";
 import { argv } from "process";
+
+import { Command, Event, GameState } from "@rpg-village/core";
+import { GameConfig } from "@rpg-village/core";
 
 import {
   ExecutionTestContext,
@@ -10,7 +11,7 @@ import {
   undefinedAssertionFactory,
   withRandomIDAssertionFactory,
 } from "./custom-assertions";
-import { gameFactory } from "./game-factory";
+import { GameModules, gameFactory } from "./game-factory";
 import { PartialDeep } from "./partial-deep";
 
 util.inspect.defaultOptions.depth = 5;
@@ -21,7 +22,7 @@ type ExpectedState = TestGameState | ExpectedStateMatcher;
 
 type Test = {
   initState: TestGameState;
-  gameConfig?: GameConfig["config"];
+  gameConfig?: GameConfig;
   commands?: Command | Command[];
   event?: Event;
   turn?: boolean | number;
@@ -30,7 +31,10 @@ type Test = {
 
 const project_dir = argv[1].replace(/node_modules.*/, "");
 
-export function test(testName: string, { gameConfig, initState, commands, event, expectedState, turn = 0 }: Test) {
+export function test(
+  testName: string,
+  { gameConfig = { modules: GameModules }, initState, commands, event, expectedState, turn = 0 }: Test,
+) {
   const testFilePath = new Error()
     .stack!.split("\n")[2]
     .replace("at <anonymous> (", "")
@@ -38,7 +42,7 @@ export function test(testName: string, { gameConfig, initState, commands, event,
     .replace(project_dir, "");
 
   ava.default(testName + " - " + testFilePath, t => {
-    const game = gameFactory({ state: initState, config: gameConfig } as any);
+    const game = gameFactory({ state: initState as GameState, config: gameConfig });
 
     if (commands) {
       if (Array.isArray(commands)) {

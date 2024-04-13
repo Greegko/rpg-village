@@ -1,1 +1,1 @@
-export * from "@rpg-village/core";
+export * from "./models";

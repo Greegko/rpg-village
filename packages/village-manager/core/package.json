@@ -11,7 +11,7 @@
     "prepare": "ts-patch install -s"
   },
   "dependencies": {
-    "@rpg-village/core": "0.0.1",
+    "@rpg-village/core": "0.0.2",
     "inversify": "6.0.2",
     "rambda": "9.2.0",
     "shortid": "2.2.16"

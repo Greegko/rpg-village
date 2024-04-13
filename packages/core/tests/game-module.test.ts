@@ -2,10 +2,10 @@ import test from "ava";
 
 import { GameState } from "@rpg-village/core";
 
-import { gameFactory } from "./utils/game-factory";
+import { GameModules, gameFactory } from "./utils/game-factory";
 
 test("loadGame should load the state", t => {
-  const game = gameFactory();
+  const game = gameFactory({ config: { modules: GameModules } });
 
   game.loadGame({ general: { turn: 1 } } as GameState);
 
@@ -15,7 +15,7 @@ test("loadGame should load the state", t => {
 });
 
 test("gameState should return the current state of the game", t => {
-  const game = gameFactory({ state: { general: { turn: 1, worldMapId: "" } } });
+  const game = gameFactory({ state: { general: { turn: 1, worldMapId: "" } }, config: { modules: GameModules } });
 
   const state = game.getState();
 
