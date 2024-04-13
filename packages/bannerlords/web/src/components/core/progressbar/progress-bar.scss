@@ -1,0 +1,38 @@
+.progressbar {
+  display: flex;
+  justify-content: space-between;
+
+  &__icon {
+    display: flex;
+    align-self: center;
+    margin-right: 4px;
+  }
+
+  &__placeholder {
+    border: 2px solid darken(#333d47, 10%);
+    display: flex;
+    width: 100%;
+    align-self: center;
+    border-radius: 8px;
+    box-shadow: 0 2px rgba(#000, 0.2) inset;
+    position: relative;
+  }
+
+  &__liquid {
+    border-radius: 8px;
+    box-shadow: 0 2px rgba(#fff, 0.2) inset;
+    transition: all 0.3s;
+  }
+
+  &__value {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 900;
+    text-shadow: 1px 1px #000;
+    left: 0;
+    right: 0;
+    align-self: center;
+    position: absolute;
+  }
+}

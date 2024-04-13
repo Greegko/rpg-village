@@ -1,0 +1,12 @@
+{
+  "extends": "../src/tsconfig.json",
+  "files": [],
+  "include": ["**/*"],
+  "compilerOptions": {
+    "rootDir": "./",
+    "composite": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "outDir": "../dist/tests"
+  }
+}

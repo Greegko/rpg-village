@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig-base.json",
+  "files": ["./public-api.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "../dist"
+  },
+  "references": []
+}

@@ -7,12 +7,15 @@
     "core:build-test": "npm run build:test --prefix packages/core",
     "core:test": "npm run test:watch --prefix packages/core",
     "village-manager:start": "npm run start --prefix packages/village-manager",
+    "bannerlords:start": "npm run start --prefix packages/bannerlords",
     "prepare": "for P in packages/*/; do (cd $P && npm run prepare); done"
   },
   "workspaces": [
     "packages/core",
     "packages/village-manager/core",
-    "packages/village-manager/web"
+    "packages/village-manager/web",
+    "packages/bannerlords/core",
+    "packages/bannerlords/web"
   ],
   "dependencies": {
     "concurrently": "8.0.1"
