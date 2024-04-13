@@ -2,19 +2,17 @@
   "name": "rpg-village",
   "private": true,
   "scripts": {
-    "start": "concurrently npm:core:start npm:web:serve npm:web:type-checking",
-    "build": "npm run core:build && npm run web:build",
     "core:start": "npm run build:watch --prefix packages/core",
     "core:build": "npm run build --prefix packages/core",
     "core:build-test": "npm run build:test --prefix packages/core",
     "core:test": "npm run test:watch --prefix packages/core",
-    "web:serve": "npm run serve --prefix packages/web",
-    "web:type-checking": "npm run type-checking --prefix packages/web",
-    "web:build": "npm run build --prefix packages/web",
+    "village-manager:start": "npm run start --prefix packages/village-manager",
     "prepare": "for P in packages/*/; do (cd $P && npm run prepare); done"
   },
   "workspaces": [
-    "packages/*"
+    "packages/core",
+    "packages/village-manager/core",
+    "packages/village-manager/web"
   ],
   "dependencies": {
     "concurrently": "8.0.1"
