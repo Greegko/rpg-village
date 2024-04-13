@@ -1,4 +1,5 @@
 import { filter, forEach, map, values } from "rambda";
+import "reflect-metadata";
 import { batch, createComputed, onMount } from "solid-js";
 import { render } from "solid-js/web";
 
@@ -17,7 +18,6 @@ import {
 import { noActiveActivityPartiesSelector } from "@web/store/game";
 import { useGameUiStateSelector } from "@web/store/ui";
 
-import "../polyfill";
 import { PlayerPartyAI } from "./ai/player-party-ai";
 import { GameField } from "./components/game-field";
 import "./main.css";
