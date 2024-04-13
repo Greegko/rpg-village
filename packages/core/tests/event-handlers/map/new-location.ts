@@ -1,5 +1,5 @@
-import { MapEvent } from "@features/map";
-import { EffectType, MiscEffectType } from "@models";
+import { MapEvent } from "@rpg-village/core";
+import { EffectType, MiscEffectType } from "@rpg-village/core";
 
 import { createState, test } from "../../utils";
 

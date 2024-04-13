@@ -2,19 +2,11 @@
   "extends": "../src/tsconfig.json",
   "files": [],
   "include": ["**/*"],
-  "references": [{ "path": "../src" }],
   "compilerOptions": {
     "rootDir": "./",
     "composite": true,
     "strict": true,
     "moduleResolution": "node",
-    "outDir": "../dist/tests",
-    "paths": {
-      "@core": ["../dist/core"],
-      "@game": ["../dist/game"],
-      "@models": ["../dist/models"],
-      "@features": ["../dist/features"],
-      "@features/*": ["../dist/features/*"]
-    }
+    "outDir": "../dist/tests"
   }
 }

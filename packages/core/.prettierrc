@@ -2,7 +2,7 @@
   "trailingComma": "all",
   "printWidth": 120,
   "arrowParens": "avoid",
-  "importOrder": ["<THIRD_PARTY_MODULES>", "^@(core|lib|game)/?", "^@(models|features)/?", "public-api$", "^[./]"],
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^@(core|lib|game)/?", "^@(models|features)/?", "@rpg-village/core$", "public-api$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderParserPlugins": ["typescript", "decorators-legacy"],
   "importOrderSortSpecifiers": true

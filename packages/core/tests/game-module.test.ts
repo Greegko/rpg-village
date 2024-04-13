@@ -1,6 +1,6 @@
 import test from "ava";
 
-import { GameState } from "@core";
+import { GameState } from "@rpg-village/core";
 
 import { gameFactory } from "./utils/game-factory";
 

@@ -1,6 +1,5 @@
+import { MapActivity, MapLocationType } from "@rpg-village/core";
 import { values } from "rambda";
-
-import { MapActivity, MapLocationType } from "@features/map";
 
 import { createState, test } from "../../utils";
 

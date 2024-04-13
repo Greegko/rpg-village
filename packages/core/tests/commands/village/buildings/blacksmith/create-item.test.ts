@@ -1,5 +1,5 @@
-import { BlacksmithCommand } from "@features/village/buildings";
-import { ItemType } from "@models";
+import { BlacksmithCommand } from "@rpg-village/core";
+import { ItemType } from "@rpg-village/core";
 
 import { createState, test } from "../../../../utils";
 

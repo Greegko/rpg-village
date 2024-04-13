@@ -1,13 +1,12 @@
-import { GameState } from "@core";
-
-import { ActivityID, AnyActivity } from "@features/activity";
-import { BattleID, BattleStoreState } from "@features/battle";
-import { GeneralGameStoreState } from "@features/game";
-import { Map, MapID, MapLocation, MapLocationID, MapLocationType } from "@features/map";
-import { OptionID, OptionState } from "@features/options";
-import { Party, PartyID } from "@features/party";
-import { Unit, UnitID } from "@features/unit";
-import { VillageState } from "@features/village";
+import { GameState } from "@rpg-village/core";
+import { ActivityID, AnyActivity } from "@rpg-village/core";
+import { BattleID, BattleStoreState } from "@rpg-village/core";
+import { GeneralGameStoreState } from "@rpg-village/core";
+import { Map, MapID, MapLocation, MapLocationID, MapLocationType } from "@rpg-village/core";
+import { OptionID, OptionState } from "@rpg-village/core";
+import { Party, PartyID } from "@rpg-village/core";
+import { Unit, UnitID } from "@rpg-village/core";
+import { VillageState } from "@rpg-village/core";
 
 import {
   activityFactory,

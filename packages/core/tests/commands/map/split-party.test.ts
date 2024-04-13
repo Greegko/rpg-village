@@ -1,6 +1,5 @@
+import { MapCommand } from "@rpg-village/core";
 import { head, without } from "rambda";
-
-import { MapCommand } from "@features";
 
 import { createState, test } from "../../utils";
 

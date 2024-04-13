@@ -1,6 +1,6 @@
-import { BattleActivityType } from "@features/battle";
-import { MapCommand } from "@features/map";
-import { PartyOwner } from "@features/party";
+import { BattleActivityType } from "@rpg-village/core";
+import { MapCommand } from "@rpg-village/core";
+import { PartyOwner } from "@rpg-village/core";
 
 import { createState, test } from "../../utils";
 

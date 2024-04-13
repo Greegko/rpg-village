@@ -1,9 +1,8 @@
+import { Command, Event, GameState } from "@rpg-village/core";
+import { GameConfig } from "@rpg-village/core";
 import * as ava from "ava";
 import * as util from "node:util";
 import { argv } from "process";
-
-import { Command, Event, GameState } from "@core";
-import { GameConfig } from "@game";
 
 import {
   ExecutionTestContext,

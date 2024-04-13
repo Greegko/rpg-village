@@ -1,4 +1,4 @@
-import { VillageCommand } from "@features/village";
+import { VillageCommand } from "@rpg-village/core";
 
 import { createState, test } from "../../utils";
 

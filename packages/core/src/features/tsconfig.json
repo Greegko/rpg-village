@@ -11,6 +11,7 @@
     { "path": "./debug" },
     { "path": "./options" },
     { "path": "./village" },
-    { "path": "./stash" }
+    { "path": "./stash" },
+    { "path": "./buildings" }
   ]
 }

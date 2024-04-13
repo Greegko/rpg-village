@@ -1,4 +1,4 @@
-import { MapCommand } from "@features";
+import { MapCommand } from "@rpg-village/core";
 
 import { createState, test } from "../../utils";
 
