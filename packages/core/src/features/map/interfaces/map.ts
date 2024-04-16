@@ -1,4 +1,4 @@
-import { EffectStatic } from "@models";
+import { EffectStatic } from "@features/effect";
 
 import { MapLocationID } from "./map-location";
 

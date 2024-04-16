@@ -4,9 +4,9 @@ import { append, evolve, find, values, without } from "rambda";
 import { eventHandler } from "@core";
 
 import { ActivityStore } from "@features/activity";
+import { EffectStatic } from "@features/effect";
 import { PartyEvent, PartyEventDisbandArgs, PartyOwner, PartyService } from "@features/party";
 import { UnitStore } from "@features/unit";
-import { EffectStatic } from "@models";
 
 import { MapEvent, MapEventNewLocationArgs, MapID, MapLocationID, MapLocationType } from "./interfaces";
 import { generateEnemyParty } from "./lib";

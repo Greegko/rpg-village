@@ -1,15 +1,7 @@
 import { flatten, map, path } from "rambda";
 
-import {
-  AttackEffectType,
-  EffectDynamic,
-  EffectStatic,
-  EffectType,
-  Item,
-  ItemType,
-  Rune,
-  RuneAttackEffectType,
-} from "@models";
+import { AttackEffectType, EffectDynamic, EffectStatic, EffectType, RuneAttackEffectType } from "@features/effect";
+import { Item, ItemType, Rune } from "@features/item";
 
 import { Unit } from "../interfaces";
 

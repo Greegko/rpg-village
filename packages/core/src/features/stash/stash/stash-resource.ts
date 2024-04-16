@@ -1,6 +1,8 @@
 import { add, evolve, mergeWith, prop, subtract } from "rambda";
 
-import { Resource } from "@models";
+import "@core-types";
+
+import { Resource } from "../resource";
 
 export interface ResourceStash {
   resource: Resource;

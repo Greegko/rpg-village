@@ -1,11 +1,5 @@
 {
   "extends": "../../tsconfig-base.json",
   "include": ["**/*.ts"],
-  "references": [
-    { "path": "../../core" },
-    { "path": "../../models" },
-    { "path": "../unit" },
-    { "path": "../activity" },
-    { "path": "../stash" }
-  ]
+  "references": [{ "path": "../../core" }, { "path": "../unit" }, { "path": "../activity" }, { "path": "../stash" }]
 }

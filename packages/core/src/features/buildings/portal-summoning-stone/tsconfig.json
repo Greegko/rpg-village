@@ -1,10 +1,5 @@
 {
   "extends": "../../../tsconfig-base.json",
   "include": ["**/*.ts"],
-  "references": [
-    { "path": "../../../core" },
-    { "path": "../../../models" },
-    { "path": "../../map" },
-    { "path": "../portal" }
-  ]
+  "references": [{ "path": "../../../core" }, { "path": "../../map" }, { "path": "../portal" }]
 }

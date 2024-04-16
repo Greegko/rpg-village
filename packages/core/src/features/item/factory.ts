@@ -1,6 +1,7 @@
 import { generateId } from "@lib/generate-id";
 
-import { AttackEffectType, DefenseEffectType, EffectType } from "../effect";
+import { AttackEffectType, DefenseEffectType, EffectType } from "@features/effect";
+
 import { Armor, ItemType, Shield, Weapon } from "./item-types";
 
 export function weaponFactory(): Weapon {

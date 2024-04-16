@@ -1,5 +1,5 @@
+import { Item } from "@features/item";
 import { VillageID } from "@features/village";
-import { Item } from "@models";
 
 export enum DebugCommand {
   GenerateGold = "debug/generate-gold",

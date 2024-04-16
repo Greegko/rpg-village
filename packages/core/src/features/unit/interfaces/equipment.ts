@@ -1,4 +1,4 @@
-import { Armor, ItemType, Rune, Shield, Weapon } from "./item-types";
+import { Armor, Rune, Shield, Weapon } from "@features/item";
 
 export enum EquipmentSlot {
   Torso = "torso",
@@ -15,15 +15,3 @@ export interface Equipment {
 }
 
 export type EquipmentItem = Armor | Weapon | Shield | Rune;
-
-export function isEquipmentItem(val: any): val is EquipmentItem {
-  if (
-    val.itemType === ItemType.Armor ||
-    val.itemType === ItemType.Shield ||
-    val.itemType === ItemType.Weapon ||
-    val.itemType === ItemType.Rune
-  )
-    return true;
-
-  return false;
-}

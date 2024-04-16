@@ -1,6 +1,6 @@
 import { clone, propOr, reduce, sortBy } from "rambda";
 
-import { EffectStatic, unitEffectBasePropertiesMap } from "@models";
+import { EffectStatic, unitEffectBasePropertiesMap } from "@features/effect";
 
 import { Unit } from "../interfaces";
 import { getUnitEffects } from "./get-unit-effects";

@@ -2,8 +2,9 @@ import { always, evolve, inc, times } from "rambda";
 
 import { generateId } from "@lib/generate-id";
 
+import { AttackEffectType, EffectType } from "@features/effect";
+import { ItemType, Weapon } from "@features/item";
 import { StashHandler } from "@features/stash";
-import { AttackEffectType, EffectType, ItemType, Weapon } from "@models";
 
 import { Shop, ShopItem } from "./interface";
 

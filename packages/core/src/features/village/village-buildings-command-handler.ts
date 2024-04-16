@@ -6,9 +6,10 @@ import { updateValueInList } from "@lib/update-value-in-list";
 
 import { ActivityManager, ActivityStore } from "@features/activity";
 import { ShopItem } from "@features/buildings/shop";
+import { EffectStatic } from "@features/effect";
 import { MapLocationType, MapService, MapSize } from "@features/map";
+import { Resource } from "@features/stash";
 import { VillageActivity, VillageBuilding, VillageID, VillageService, VillageStore } from "@features/village";
-import { EffectStatic, Resource } from "@models";
 
 import {
   VillageBuildingBuildShopArgs,

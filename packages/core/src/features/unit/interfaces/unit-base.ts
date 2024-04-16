@@ -1,5 +1,7 @@
+import { EffectStatic } from "@features/effect";
 import { Stash } from "@features/stash";
-import { EffectStatic, Equipment } from "@models";
+
+import { Equipment } from "./equipment";
 
 export type UnitID = string;
 export enum UnitType {

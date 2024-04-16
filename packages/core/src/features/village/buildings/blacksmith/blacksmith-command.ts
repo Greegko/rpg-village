@@ -1,5 +1,5 @@
+import { ItemID, ItemType } from "@features/item";
 import { UnitID } from "@features/unit";
-import { ItemID, ItemType } from "@models";
 
 export enum BlacksmithCommand {
   UpgradeItem = "blacksmith/upgrade-item",

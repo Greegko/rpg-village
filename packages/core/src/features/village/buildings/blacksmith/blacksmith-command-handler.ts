@@ -3,20 +3,10 @@ import { append, evolve } from "rambda";
 
 import { commandHandler } from "@core";
 
+import { AttackEffectType, Effect, EffectType } from "@features/effect";
+import { Item, ItemID, ItemType, armorFactory, shieldFactory, weaponFactory } from "@features/item";
 import { PartyService } from "@features/party";
-import { UnitID, UnitService } from "@features/unit";
-import {
-  AttackEffectType,
-  Effect,
-  EffectType,
-  EquipmentItem,
-  Item,
-  ItemID,
-  ItemType,
-  armorFactory,
-  shieldFactory,
-  weaponFactory,
-} from "@models";
+import { EquipmentItem, UnitID, UnitService } from "@features/unit";
 
 import { VillageService } from "../../village-service";
 import {

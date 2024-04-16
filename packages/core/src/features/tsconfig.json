@@ -12,6 +12,8 @@
     { "path": "./options" },
     { "path": "./village" },
     { "path": "./stash" },
-    { "path": "./buildings" }
+    { "path": "./buildings" },
+    { "path": "./item" },
+    { "path": "./effect" }
   ]
 }

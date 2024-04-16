@@ -17,7 +17,8 @@
   },
   "exports": {
     ".": "./dist/public-api.js",
-    "./features/*": "./dist/features/*/index.js"
+    "./features/*": "./dist/features/*/index.js",
+    "./types": "./dist/types.d.ts"
   },
   "peerDependencies": {
     "reflect-metadata": "0.2.2"

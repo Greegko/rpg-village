@@ -21,7 +21,6 @@
     "paths": {
       "@game": ["./game"],
       "@core-types": ["./types"],
-      "@models": ["./models"],
       "@features": ["./features"],
       "@features/*": ["./features/*"],
       "@lib/*": ["./lib/*"]

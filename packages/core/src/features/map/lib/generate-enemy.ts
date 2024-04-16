@@ -1,6 +1,6 @@
+import { EffectStatic, MiscEffectType } from "@features/effect";
 import { Stash } from "@features/stash";
 import { Unit, UnitType, calculateEffectsValue } from "@features/unit";
-import { EffectStatic, MiscEffectType } from "@models";
 
 export interface EnemyPartyGeneration {
   units: Omit<Unit, "id">[];

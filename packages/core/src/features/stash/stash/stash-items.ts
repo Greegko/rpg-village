@@ -1,6 +1,6 @@
 import { append, concat, evolve, filter, find, prop, propEq, reject } from "rambda";
 
-import { Item, ItemID } from "@models";
+import { Item, ItemID } from "@features/item";
 
 export interface ItemStash {
   items: Item[];

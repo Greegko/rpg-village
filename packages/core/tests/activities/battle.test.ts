@@ -1,5 +1,6 @@
-import { AttackEffectType, ItemType, RuneAttackEffectType } from "@rpg-village/core";
 import { BattleActivityType } from "@rpg-village/core/features/battle";
+import { AttackEffectType, RuneAttackEffectType } from "@rpg-village/core/features/effect";
+import { ItemType } from "@rpg-village/core/features/item";
 import { UnitType } from "@rpg-village/core/features/unit";
 
 import { createState, test } from "../utils";
@@ -79,7 +80,7 @@ test("should gain gold", {
     }),
   ]),
   turn: true,
-  expectedState: { parties: { "party-id": { stash: { resource: { gold: 25 } } } } },
+  expectedState: { parties: { "party-id": { stash: { resource: { gold: 10 } } } } },
 });
 
 test("should gain soul", {

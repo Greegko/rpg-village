@@ -1,4 +1,4 @@
-import { ItemID } from "@models";
+import { ItemID } from "@features/item";
 
 import { VillageID } from "../../interfaces";
 

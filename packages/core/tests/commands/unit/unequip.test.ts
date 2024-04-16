@@ -1,5 +1,4 @@
-import { EquipmentSlot } from "@rpg-village/core";
-import { UnitCommand } from "@rpg-village/core/features/unit";
+import { EquipmentSlot, UnitCommand } from "@rpg-village/core/features/unit";
 
 import { test } from "../../utils";
 

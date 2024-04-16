@@ -1,6 +1,6 @@
 import { generateId } from "@lib/generate-id";
 
-import { DungeonKey, ItemType } from "@models";
+import { DungeonKey, ItemType } from "@features/item";
 
 export function createDungeonKey(): DungeonKey {
   return {

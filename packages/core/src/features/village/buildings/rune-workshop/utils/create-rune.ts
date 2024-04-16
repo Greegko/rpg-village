@@ -1,6 +1,7 @@
 import { generateId } from "@lib/generate-id";
 
-import { EffectType, ItemType, Rune, RuneAttackEffectType } from "@models";
+import { EffectType, RuneAttackEffectType } from "@features/effect";
+import { ItemType, Rune } from "@features/item";
 
 export function createRune(): Rune {
   return {

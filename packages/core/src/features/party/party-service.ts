@@ -3,9 +3,8 @@ import { any, evolve, mergeLeft, values, without } from "rambda";
 
 import { EventSystem } from "@core";
 
-import { Stash, StashHandler } from "@features/stash";
+import { Resource, Stash, StashHandler } from "@features/stash";
 import { Unit, UnitID, UnitService, UnitStore, isAlive } from "@features/unit";
-import { Loot } from "@models";
 
 import { Party, PartyEvent, PartyID } from "./interfaces";
 import { PartyStore } from "./party-store";
@@ -40,8 +39,8 @@ export class PartyService {
     partyUnits.forEach(unit => this.unitService.gainXpUnit(unit.id, Math.floor(xp / partyUnits.length)));
   }
 
-  collectLoot(partyId: PartyID, loot: Loot) {
-    this.getStash(partyId).addResource(loot.resource);
+  collectLoot(partyId: PartyID, resource: Resource) {
+    this.getStash(partyId).addResource(resource);
   }
 
   createParty(party: Omit<Party, "id">) {

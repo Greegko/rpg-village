@@ -3,7 +3,7 @@ import { append, evolve, find, values } from "rambda";
 
 import { EventSystem, Turn } from "@core";
 
-import { EffectStatic } from "@models";
+import { EffectStatic } from "@features/effect";
 
 import { Map, MapEvent, MapID, MapLocation, MapLocationID, MapLocationType, MapSize } from "./interfaces";
 import { MapLocationStore } from "./map-location-store";

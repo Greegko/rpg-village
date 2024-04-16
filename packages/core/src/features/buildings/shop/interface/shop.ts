@@ -1,5 +1,5 @@
-import { Stash } from "@features/stash";
-import { Item, Resource } from "@models";
+import { Item } from "@features/item";
+import { Resource, Stash } from "@features/stash";
 
 export type ShopID = string;
 export type ShopItemID = string;

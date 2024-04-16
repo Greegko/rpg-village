@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "../src",
+    "rootDir": "./",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -22,7 +22,6 @@
       "@core": ["./core"],
       "@game": ["./game"],
       "@core-types": ["./types"],
-      "@models": ["./models"],
       "@features": ["./features"],
       "@features/*": ["./features/*"],
       "@lib/*": ["./lib/*"]

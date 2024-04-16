@@ -1,7 +1,7 @@
 import { sample } from "@lib/sample";
 
+import { armorFactory, shieldFactory, weaponFactory } from "@features/item";
 import { Unit, UnitType } from "@features/unit";
-import { armorFactory, shieldFactory, weaponFactory } from "@models";
 
 const lastname = [
   "Emperor",

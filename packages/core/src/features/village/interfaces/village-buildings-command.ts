@@ -1,6 +1,6 @@
 import { ShopItemID } from "@features/buildings/shop";
+import { ItemID } from "@features/item";
 import { VillageID } from "@features/village";
-import { ItemID } from "@models";
 
 export enum VillageBuildingCommand {
   BuildHouse = "village/build-house",

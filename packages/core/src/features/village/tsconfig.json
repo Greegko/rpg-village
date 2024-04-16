@@ -3,8 +3,9 @@
   "include": ["**/*.ts"],
   "references": [
     { "path": "../../core" },
-    { "path": "../../models" },
     { "path": "../battle" },
+    { "path": "../effect" },
+    { "path": "../item" },
     { "path": "../party" },
     { "path": "../unit" },
     { "path": "../map" },

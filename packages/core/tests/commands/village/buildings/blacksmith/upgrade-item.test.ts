@@ -1,4 +1,5 @@
-import { AttackEffectType, EffectType, EquipmentSlot } from "@rpg-village/core";
+import { AttackEffectType, EffectType } from "@rpg-village/core/features/effect";
+import { EquipmentSlot } from "@rpg-village/core/features/unit";
 import { BlacksmithCommand } from "@rpg-village/core/features/village";
 
 import { createState, test } from "../../../../utils";

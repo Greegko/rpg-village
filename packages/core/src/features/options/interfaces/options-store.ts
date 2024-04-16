@@ -1,4 +1,4 @@
-import { Item } from "@models";
+import { Item } from "@features/item";
 
 export type OptionID = string;
 export type OptionItemID = string;

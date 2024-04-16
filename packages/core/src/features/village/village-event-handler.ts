@@ -8,7 +8,7 @@ import { MapEvent, PartyEventArrivedToLocationArgs } from "@features/map";
 import { PartyService } from "@features/party";
 import { isAlive } from "@features/unit";
 
-import { calculateLoot, calculateXpGain } from "./lib";
+import { calculateXpGain } from "./lib";
 import { VillageService } from "./village-service";
 import { VillageStore } from "./village-store";
 
@@ -39,7 +39,7 @@ export class VillageEventHandler {
   battleFinishedEvent({ winnerPartyId, looserPartyId }: BattleFinishedActivityArgs) {
     const winnerUnits = this.partyService.getPartyUnits(winnerPartyId);
     const looserUnits = this.partyService.getPartyUnits(looserPartyId);
-    const loot = calculateLoot(looserUnits);
+    const loot = { gold: looserUnits.length * 10, soul: 1 };
     const xpGain = calculateXpGain(looserUnits);
 
     this.partyService.gainXp(winnerPartyId, xpGain);

@@ -3,7 +3,7 @@ import { add, evolve } from "rambda";
 
 import { commandHandler } from "@core";
 
-import { Rune } from "@models";
+import { Rune } from "@features/item";
 
 import { VillageService } from "../../village-service";
 import {

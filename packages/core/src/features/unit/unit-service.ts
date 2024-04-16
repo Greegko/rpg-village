@@ -1,11 +1,11 @@
 import { injectable } from "inversify";
 import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "rambda";
 
+import { Item, ItemID } from "@features/item";
 import { StashHandler } from "@features/stash";
-import { Equipment, EquipmentItem, EquipmentSlot, Item, ItemID, isEquipmentItem } from "@models";
 
-import { UnitID } from "./interfaces";
-import { getEquipmentSlot } from "./lib";
+import { Equipment, EquipmentItem, EquipmentSlot, UnitID } from "./interfaces";
+import { getEquipmentSlot, isEquipmentItem } from "./lib";
 import { nextLevelXp } from "./lib/next-level-xp";
 import { UnitStore } from "./unit-store";
 

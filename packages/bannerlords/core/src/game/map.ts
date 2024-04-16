@@ -1,4 +1,4 @@
-import { Castle, Clan, Fraction, Lord, Product, Town, Village } from "@models";
+import { Castle, Clan, Fraction, Lord, Product, Town, Village } from "./model";
 
 interface MapData {
   fractions: Fraction[];

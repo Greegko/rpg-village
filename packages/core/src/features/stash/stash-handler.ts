@@ -1,8 +1,9 @@
 import { injectable } from "inversify";
 import { always, evolve, map, propEq, when } from "rambda";
 
-import { Item, ItemID, Resource } from "@models";
+import { Item, ItemID } from "@features/item";
 
+import { Resource } from "./resource";
 import { Stash, addItems, addResource, getItem, getResource, removeItem, removeResource } from "./stash";
 
 interface StashHandlerDelegator {
