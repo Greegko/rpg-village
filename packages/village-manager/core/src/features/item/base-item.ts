@@ -1,4 +1,5 @@
-import { Effect } from "../effect/effect";
+import { Effect } from "@features/effect";
+
 import { ItemType } from "./item-types";
 
 export type ItemID = string;
