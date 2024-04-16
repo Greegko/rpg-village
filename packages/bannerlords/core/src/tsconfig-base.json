@@ -3,7 +3,7 @@
     "rootDir": "../src",
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "noUnusedLocals": true,
     "strict": true,
     "composite": true,

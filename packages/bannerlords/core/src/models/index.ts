@@ -35,7 +35,7 @@ export interface Village {
 
 export type CastleID = string;
 export interface Castle {
-  id: string;
+  id: CastleID;
   name: string;
   belongTo: LordID;
   position: Position;
@@ -45,7 +45,7 @@ export interface Castle {
 
 export type TownID = string;
 export interface Town {
-  id: string;
+  id: TownID;
   name: string;
   belongTo: LordID;
   prosperity: number;
@@ -56,7 +56,7 @@ export interface Town {
 
 export type LordID = string;
 export interface Lord {
-  id: string;
+  id: LordID;
   name: string;
   belongTo: ClanID;
   stash: Stash;
@@ -65,13 +65,13 @@ export interface Lord {
 
 export type ClanID = string;
 export interface Clan {
-  id: string;
+  id: ClanID;
   name: string;
   belongTo: FractionID;
 }
 
 export type FractionID = string;
 export interface Fraction {
-  id: string;
+  id: FractionID;
   name: string;
 }
