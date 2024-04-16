@@ -5,8 +5,9 @@
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
     "^@(core|lib|game)/?",
-    "^@features/?",
     "@rpg-village/core",
+    "@rpg-village/village-manager",
+    "^@features/?",
     "public-api$",
     "^[./]"
   ],

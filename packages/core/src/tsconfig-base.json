@@ -20,9 +20,6 @@
     ],
     "paths": {
       "@core": ["./core"],
-      "@game": ["./game"],
-      "@core-types": ["./types"],
-      "@features": ["./features"],
       "@features/*": ["./features/*"],
       "@lib/*": ["./lib/*"]
     }

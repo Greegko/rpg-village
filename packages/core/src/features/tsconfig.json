@@ -1,19 +1,5 @@
 {
   "extends": "../tsconfig-base.json",
   "include": ["./index.ts"],
-  "references": [
-    { "path": "./unit" },
-    { "path": "./battle" },
-    { "path": "./party" },
-    { "path": "./activity" },
-    { "path": "./game" },
-    { "path": "./map" },
-    { "path": "./debug" },
-    { "path": "./options" },
-    { "path": "./village" },
-    { "path": "./stash" },
-    { "path": "./buildings" },
-    { "path": "./item" },
-    { "path": "./effect" }
-  ]
+  "references": [{ "path": "./activity" }, { "path": "./game" }]
 }

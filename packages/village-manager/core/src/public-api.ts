@@ -1,24 +1,14 @@
-export {
-  Command,
-  GameInstance,
-  GameState,
-  Item,
-  ItemType,
-  Armor,
-  AttackEffectType,
-  DungeonKey,
-  EffectType,
-  Rune,
-  RuneAttackEffectType,
-  Shield,
-  Weapon,
-  DefenseEffectType,
-} from "@rpg-village/core";
+export { Command, GameState } from "@rpg-village/core";
+export { GameInstance } from "@rpg-village/core/game";
 
-export { MapLocationType, MapID, MapLocation, MapLocationID, MapCommand } from "@rpg-village/core/features/map";
+export { Item, ItemType, Armor, DungeonKey, Rune, Shield, Weapon } from "@features/item";
+
+export { AttackEffectType, EffectType, RuneAttackEffectType, DefenseEffectType } from "@features/effect";
+
+export { MapLocationType, MapID, MapLocation, MapLocationID, MapCommand } from "@features/map";
 export { ActivityID, ActivityCommand } from "@rpg-village/core/features/activity";
-export { DebugCommand } from "@rpg-village/core/features/debug";
-export { calculateUnitStrength } from "@rpg-village/core/features/battle";
+export { DebugCommand } from "@features/debug";
+export { calculateUnitStrength } from "@features/battle";
 export {
   TrainingFieldCommand,
   VillageCommand,
@@ -26,9 +16,9 @@ export {
   VillageID,
   RuneWorkshopCommand,
   BlacksmithCommand,
-} from "@rpg-village/core/features/village";
-export { PortalCommand } from "@rpg-village/core/features/buildings/portal";
-export { Party, PartyOwner, PartyID } from "@rpg-village/core/features/party";
+} from "@features/village";
+export { PortalCommand } from "@features/buildings/portal";
+export { Party, PartyOwner, PartyID } from "@features/party";
 export {
   UnitCommand,
   UnitID,
@@ -36,6 +26,6 @@ export {
   nextLevelXp,
   getItemEffects,
   calculateUnitStatsWithEffects,
-} from "@rpg-village/core/features/unit";
+} from "@features/unit";
 
 export * from "./game";

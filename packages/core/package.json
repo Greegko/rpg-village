@@ -16,9 +16,10 @@
     "shortid": "2.2.16"
   },
   "exports": {
-    ".": "./dist/public-api.js",
+    ".": "./dist/core/index.js",
+    "./game": "./dist/game/index.js",
     "./features/*": "./dist/features/*/index.js",
-    "./types": "./dist/types.d.ts"
+    "./lib/*": "./dist/lib/*.js"
   },
   "peerDependencies": {
     "reflect-metadata": "0.2.2"

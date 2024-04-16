@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "../src",
+    "rootDir": "./",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -19,9 +19,7 @@
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ],
     "paths": {
-      "@game": ["./game"],
       "@core-types": ["./types"],
-      "@features": ["./features"],
       "@features/*": ["./features/*"],
       "@lib/*": ["./lib/*"]
     }

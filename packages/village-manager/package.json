@@ -11,6 +11,6 @@
     "web:serve": "npm run serve --prefix ./web",
     "web:type-checking": "npm run type-checking --prefix ./web",
     "web:build": "npm run build --prefix ./web",
-    "prepare": "true"
+    "prepare": "for P in */; do (cd $P && npm run prepare); done"
   }
 }

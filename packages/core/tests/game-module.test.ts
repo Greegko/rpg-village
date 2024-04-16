@@ -15,7 +15,7 @@ test("loadGame should load the state", t => {
 });
 
 test("gameState should return the current state of the game", t => {
-  const game = gameFactory({ state: { general: { turn: 1, worldMapId: "" } }, config: { modules: GameModules } });
+  const game = gameFactory({ state: { general: { turn: 1 } }, config: { modules: GameModules } });
 
   const state = game.getState();
 
