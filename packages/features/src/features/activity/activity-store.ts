@@ -1,4 +1,4 @@
-import { EntityStore } from "@core";
+import { EntityStore } from "@rpg-village/core";
 
 import { ActivityID, AnyActivity } from "./interfaces";
 

@@ -1,5 +1,6 @@
+import { activityModule } from "@rpg-village/features/activity";
+
 import { GameState, Module } from "@rpg-village/core";
-import { activityModule } from "@rpg-village/core/features/activity";
 import { gameModule } from "@rpg-village/core/features/game";
 import { GameConfig, createGameInstance } from "@rpg-village/core/game";
 

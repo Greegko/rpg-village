@@ -1,8 +1,8 @@
+import { ActivityManager } from "@rpg-village/features/activity";
 import { injectable } from "inversify";
 import { evolve, intersection, without } from "rambda";
 
 import { commandHandler } from "@rpg-village/core";
-import { ActivityManager } from "@rpg-village/core/features/activity";
 
 import { BattleActivityType } from "@features/battle";
 import { PartyOwner, PartyService, PartyStore } from "@features/party";

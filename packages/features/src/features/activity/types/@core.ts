@@ -9,7 +9,7 @@ import {
   ModulActivity,
 } from "../interfaces";
 
-declare module "@core" {
+declare module "@rpg-village/core" {
   interface CommandType {
     [ActivityCommand.CancelActivity]: ActivityCancelCommandArgs;
   }

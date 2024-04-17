@@ -36,11 +36,13 @@ export class GameController {
    * @internal
    */
   emitEvent(event: Event) {
+    // @ts-ignore
     this.eventSystem.fire(event.event, event.args);
   }
 
   executeCommand(command: Command): GameState {
     if ("args" in command) {
+      // @ts-ignore
       this.commandSystem.execute(command.command, command.args);
     } else {
       this.commandSystem.execute(command.command);

@@ -1,5 +1,4 @@
 import { GameState, Module } from "@rpg-village/core";
-import { activityModule } from "@rpg-village/core/features/activity";
 import { gameModule } from "@rpg-village/core/features/game";
 import { GameConfig, createGameInstance } from "@rpg-village/core/game";
 
@@ -8,7 +7,7 @@ interface GameFactory {
   config: Partial<GameConfig>;
 }
 
-export const GameModules: Module[] = [gameModule, activityModule];
+export const GameModules: Module[] = [gameModule];
 
 export function gameFactory({ state, config }: GameFactory) {
   const game = createGameInstance({ config: config?.config, modules: config.modules || GameModules });

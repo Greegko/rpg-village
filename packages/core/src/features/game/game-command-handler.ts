@@ -1,16 +1,17 @@
 import { injectable } from "inversify";
 
-import { commandHandler } from "@core";
+import { EventSystem, commandHandler } from "@core";
 
 import { GameService } from "./game-service";
-import { GameCommand } from "./interfaces";
+import { GameCommand, GameEvent } from "./interfaces";
 
 @injectable()
 export class GameCommandHandler {
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService, private eventSystem: EventSystem) {}
 
   @commandHandler(GameCommand.TurnCommand)
   turn() {
     this.gameService.increaseTurn();
+    this.eventSystem.fire(GameEvent.Turn);
   }
 }

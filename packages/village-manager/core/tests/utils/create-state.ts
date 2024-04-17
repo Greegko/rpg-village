@@ -1,5 +1,6 @@
+import { ActivityID, AnyActivity } from "@rpg-village/features/activity";
+
 import { GameState } from "@rpg-village/core";
-import { ActivityID, AnyActivity } from "@rpg-village/core/features/activity";
 import { GeneralGameStoreState } from "@rpg-village/core/features/game";
 
 import { BattleID, BattleStoreState } from "@rpg-village/village-manager/features/battle";

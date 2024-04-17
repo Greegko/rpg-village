@@ -1,7 +1,6 @@
+import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
-
-import { Activity, ActivityHandlerCancelable } from "@rpg-village/core/features/activity";
 
 import { PartyID } from "@features/party";
 

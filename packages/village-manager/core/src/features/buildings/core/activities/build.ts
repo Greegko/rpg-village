@@ -1,8 +1,8 @@
+import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
 import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
 import { EventSystem } from "@rpg-village/core";
-import { Activity, ActivityHandlerCancelable } from "@rpg-village/core/features/activity";
 
 import { Building, BuildingActivityTargetID, BuildingEvent } from "../interface";
 

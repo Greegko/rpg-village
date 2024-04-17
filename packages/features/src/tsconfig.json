@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig-base.json",
-  "files": ["./public-api.ts"],
+  "files": [],
   "compilerOptions": {
     "composite": true,
     "outDir": "../dist"

@@ -1,8 +1,7 @@
 import { injectable } from "inversify";
 
-import { commandHandler } from "@core";
-
-import { GameCommand } from "@features/game";
+import { eventHandler } from "@rpg-village/core";
+import { GameEvent } from "@rpg-village/core/features/game";
 
 import { ActivityManager } from "./activity-manager";
 
@@ -10,7 +9,7 @@ import { ActivityManager } from "./activity-manager";
 export class ActivityCommandHandler {
   constructor(private activityManager: ActivityManager) {}
 
-  @commandHandler(GameCommand.TurnCommand)
+  @eventHandler(GameEvent.Turn)
   runActivities() {
     this.activityManager.runActivites();
   }

@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { assoc, forEach, values } from "rambda";
 
-import { EventSystem, GetActivityHandlerToken, commandHandler } from "@core";
+import { EventSystem, GetActivityHandlerToken, commandHandler } from "@rpg-village/core";
 
 import { ActivityStore } from "./activity-store";
 import {

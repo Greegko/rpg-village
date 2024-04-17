@@ -1,4 +1,4 @@
-import { Module } from "@core";
+import { Module } from "@rpg-village/core";
 
 import { ActivityCommandHandler } from "./activity-command-handler";
 import { ActivityManager } from "./activity-manager";

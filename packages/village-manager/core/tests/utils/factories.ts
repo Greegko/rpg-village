@@ -1,6 +1,6 @@
+import { AnyActivity } from "@rpg-village/features/activity";
 import { Chance } from "chance";
 
-import { AnyActivity } from "@rpg-village/core/features/activity";
 import { GeneralGameStoreState } from "@rpg-village/core/features/game";
 
 import { BattleStoreState } from "@rpg-village/village-manager/features/battle";
