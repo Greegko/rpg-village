@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 
 import { commandHandler } from "@rpg-village/core";
+
 import { ActivityManager } from "@rpg-village/features/activity";
 
 import { TrainingFieldActivity } from "./interface";

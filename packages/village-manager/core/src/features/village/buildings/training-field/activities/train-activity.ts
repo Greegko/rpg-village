@@ -1,6 +1,7 @@
-import { Activity, ActivityHandler } from "@rpg-village/features/activity";
 import { injectable } from "inversify";
 import { dec, evolve, forEach } from "rambda";
+
+import { Activity, ActivityHandler } from "@rpg-village/features/activity";
 
 import { PartyID, PartyStore } from "@features/party";
 import { UnitService } from "@features/unit";

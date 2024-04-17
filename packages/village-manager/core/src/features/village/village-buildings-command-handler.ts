@@ -1,9 +1,10 @@
-import { ActivityManager, ActivityStore } from "@rpg-village/features/activity";
 import { injectable } from "inversify";
 import { dec, evolve, find, values, whereEq } from "rambda";
 
 import { commandHandler } from "@rpg-village/core";
 import { updateValueInList } from "@rpg-village/core/lib/update-value-in-list";
+
+import { ActivityManager, ActivityStore } from "@rpg-village/features/activity";
 
 import { ShopItem } from "@features/buildings/shop";
 import { EffectStatic } from "@features/effect";

@@ -1,7 +1,8 @@
-import { Activity, ActivityHandler } from "@rpg-village/features/activity";
 import { injectable } from "inversify";
 
 import { EventSystem } from "@rpg-village/core";
+
+import { Activity, ActivityHandler } from "@rpg-village/features/activity";
 
 import { PartyID, PartyService } from "@features/party";
 
