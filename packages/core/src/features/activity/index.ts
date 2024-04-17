@@ -3,3 +3,4 @@ export * from "./activity-manager";
 export * from "./interfaces";
 export * from "./types";
 export * from "./activity-module";
+export * from "./activity-command-handler";
