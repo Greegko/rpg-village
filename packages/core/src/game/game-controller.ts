@@ -2,7 +2,8 @@ import { injectable } from "inversify";
 
 import { Command, CommandSystem, Event, EventSystem, GameState } from "@core";
 
-import { GameCommand, GameStore } from "@features/game";
+import { GameStore } from "./game-store";
+import { GameCommand } from "./interfaces";
 
 @injectable()
 export class GameController {

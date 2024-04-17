@@ -1,7 +1,6 @@
 import { injectable } from "inversify";
 
-import { eventHandler } from "@rpg-village/core";
-import { GameEvent } from "@rpg-village/core/features/game";
+import { GameEvent, eventHandler } from "@rpg-village/core";
 
 import { ActivityManager } from "./activity-manager";
 

@@ -1,5 +1,4 @@
-export { Command, GameState } from "@rpg-village/core";
-export { GameInstance } from "@rpg-village/core/game";
+export { Command, GameState, GameInstance } from "@rpg-village/core";
 
 export { Item, ItemType, Armor, DungeonKey, Rune, Shield, Weapon } from "@features/item";
 

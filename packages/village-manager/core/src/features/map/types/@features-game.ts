@@ -1,8 +1,8 @@
-import "@rpg-village/core/features/game";
+import "@rpg-village/core";
 
 import { MapID } from "../interfaces";
 
-declare module "@rpg-village/core/features/game" {
+declare module "@rpg-village/core" {
   interface GeneralGameStoreState {
     worldMapId: MapID;
   }

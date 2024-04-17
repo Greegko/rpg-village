@@ -1,7 +1,6 @@
-import { activityModule } from "@rpg-village/features/activity";
+import { createGameInstance as createBaseGameInstance } from "@rpg-village/core";
 
-import { gameModule } from "@rpg-village/core/features/game";
-import { createGameInstance as createBaseGameInstance } from "@rpg-village/core/game";
+import { activityModule } from "@rpg-village/features/activity";
 
 import { battleModule } from "@features/battle";
 import { debugModule } from "@features/debug";
@@ -14,7 +13,6 @@ import { villageModule } from "@features/village";
 const GAME_MODULES = [
   villageModule,
   debugModule,
-  gameModule,
   optionsModule,
   mapModule,
   activityModule,

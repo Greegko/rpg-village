@@ -1,5 +1,5 @@
 {
   "extends": "../tsconfig-base.json",
   "include": ["**/*.ts"],
-  "references": [{ "path": "../features/game" }, { "path": "../core" }]
+  "references": [{ "path": "../core" }]
 }

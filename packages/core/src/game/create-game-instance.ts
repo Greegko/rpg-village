@@ -13,6 +13,7 @@ import {
 
 import { GameConfig } from "./game-config";
 import { GameController } from "./game-controller";
+import { gameModule } from "./game-module";
 import { GameInstance } from "./interfaces";
 
 export type CreateGameInstance = (config: GameConfig) => GameInstance;
@@ -20,7 +21,7 @@ export type CreateGameInstance = (config: GameConfig) => GameInstance;
 export const createGameInstance: CreateGameInstance = (config: GameConfig) => {
   const container = createInvesifyContainer(config.config);
 
-  forEach(applyModule(container), config.modules);
+  forEach(applyModule(container), [gameModule, ...(config.modules || [])]);
 
   container.bind(GameController).toSelf();
 

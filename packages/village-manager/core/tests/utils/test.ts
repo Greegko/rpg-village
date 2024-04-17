@@ -2,8 +2,7 @@ import * as ava from "ava";
 import * as util from "node:util";
 import { argv } from "process";
 
-import { Command, Event, GameState } from "@rpg-village/core";
-import { GameConfig } from "@rpg-village/core/game";
+import { Command, Event, GameConfig, GameState } from "@rpg-village/core";
 
 import {
   ExecutionTestContext,

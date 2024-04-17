@@ -4,9 +4,10 @@
   "arrowParens": "avoid",
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
+    "@rpg-village/core",
+    "@rpg-village/features",
     "^@(core|lib|game)/?",
     "^@features/?",
-    "@rpg-village/core",
     "public-api$",
     "^[./]"
   ],

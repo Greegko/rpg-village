@@ -1,7 +1,8 @@
-import { AnyActivity } from "@rpg-village/features/activity";
 import { Chance } from "chance";
 
-import { GeneralGameStoreState } from "@rpg-village/core/features/game";
+import { GeneralGameStoreState } from "@rpg-village/core";
+
+import { AnyActivity } from "@rpg-village/features/activity";
 
 import { BattleStoreState } from "@rpg-village/village-manager/features/battle";
 import { PortalSummoningStone } from "@rpg-village/village-manager/features/buildings/portal-summoning-stone";

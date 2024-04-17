@@ -1,9 +1,9 @@
-import { ActivityManager } from "@rpg-village/features/activity";
 import { injectable } from "inversify";
 import { append, evolve, find, head, values } from "rambda";
 
-import { commandHandler } from "@rpg-village/core";
-import { GameCommand, GeneralGameStore } from "@rpg-village/core/features/game";
+import { GameCommand, GeneralGameStore, commandHandler } from "@rpg-village/core";
+
+import { ActivityManager } from "@rpg-village/features/activity";
 
 import { PortalCommand, PortalCommandEnterPortalArgs } from "@features/buildings/portal";
 import { MapLocationType, MapService, MapSize, PartyMapService } from "@features/map";
