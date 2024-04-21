@@ -39,8 +39,8 @@ export abstract class EntityStore<EntityID extends string, Entity extends { id: 
     return newObject as Entity;
   }
 
-  update(entityId: EntityID, entity: Partial<Entity>): void;
   update(entityId: EntityID, updater: EntityUpdaterCallback<Entity>): void;
+  update(entityId: EntityID, entity: Partial<Entity>): void;
   update(entityId: EntityID, entityOrUpdater: EntityUpdater<Entity>): void {
     let entity: Partial<Entity> | null = null;
 

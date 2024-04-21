@@ -3,6 +3,7 @@ import "@features/clan";
 import "@features/fraction";
 import "@features/lord";
 import "@features/map";
+import "@features/time";
 import "@features/town";
 import "@features/village";
 

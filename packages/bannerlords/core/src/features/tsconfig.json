@@ -10,6 +10,7 @@
     { "path": "./map" },
     { "path": "./town" },
     { "path": "./unit" },
-    { "path": "./village" }
+    { "path": "./village" },
+    { "path": "./time" }
   ]
 }
