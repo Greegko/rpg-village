@@ -1,15 +1,25 @@
-import { Castle, Clan, Fraction, Lord, Product, Town, Village } from "./model";
+import { Castle } from "@features/castle";
+import { Clan } from "@features/clan";
+import { Fraction } from "@features/fraction";
+import { Product } from "@features/item";
+import { Lord } from "@features/lord";
+import { Position } from "@features/map";
+import { Town } from "@features/town";
+import { Village } from "@features/village";
 
-interface MapData {
+export type WithoutId<T> = Omit<T, "id">;
+export type WithPosition<T> = T & { position: Position };
+
+export interface InitialMapData {
   fractions: Fraction[];
   clans: Clan[];
-  lords: Lord[];
-  towns: Town[];
-  castles: Castle[];
-  villages: Village[];
+  lords: WithPosition<Lord>[];
+  towns: WithPosition<Town>[];
+  castles: WithPosition<Castle>[];
+  villages: WithPosition<Village>[];
 }
 
-export const mapData: MapData = {
+export const initialMapData: InitialMapData = {
   fractions: [
     { id: "fraction-western-id", name: "Western" },
     { id: "fraction-empire-id", name: "Empire" },
@@ -34,7 +44,7 @@ export const mapData: MapData = {
       name: "",
       prosperity: 0,
       produce: Product.Grain,
-      belongsTo: "",
+      belongTo: "",
       position: { x: 0, y: 0 },
       stash: { gold: 0, items: [] },
     },

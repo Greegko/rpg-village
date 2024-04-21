@@ -32,11 +32,11 @@ export abstract class EntityStore<EntityID extends string, Entity extends { id: 
     return prop(id, this.state);
   }
 
-  add<T extends Entity>(entity: Omit<T, "id">): T {
+  add(entity: Omit<Entity, "id">): Entity {
     const id = generateId<EntityID>();
-    const newObject = assoc("id", id, entity) as T;
+    const newObject = assoc("id", id, entity);
     this.state = assoc(id, newObject, this.state);
-    return newObject;
+    return newObject as Entity;
   }
 
   update(entityId: EntityID, entity: Partial<Entity>): void;

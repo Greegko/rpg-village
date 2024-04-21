@@ -13,7 +13,7 @@
   "dependencies": {
     "@rpg-village/core": "0.0.2",
     "inversify": "6.0.2",
-    "rambda": "9.2.0",
+    "remeda": "1.60.1",
     "shortid": "2.2.16"
   },
   "peerDependencies": {
