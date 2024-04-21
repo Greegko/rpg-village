@@ -3,8 +3,7 @@
   "files": ["./public-api.ts"],
   "compilerOptions": {
     "composite": true,
-    "outDir": "../dist",
-    "moduleResolution": "Bundler"
+    "outDir": "../dist"
   },
   "references": [{ "path": "./game" }, { "path": "./features" }]
 }

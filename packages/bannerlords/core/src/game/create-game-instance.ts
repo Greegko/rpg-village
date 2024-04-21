@@ -1,4 +1,4 @@
-import { createGameInstance as createBaseGameInstance, gameModule } from "@rpg-village/core";
+import { createGameInstance as createBaseGameInstance } from "@rpg-village/core";
 
 import { castleModule } from "@features/castle";
 import { clanModule } from "@features/clan";
@@ -7,6 +7,8 @@ import { lordModule } from "@features/lord";
 import { mapModule } from "@features/map";
 import { townModule } from "@features/town";
 import { villageModule } from "@features/village";
+
+import { gameModule } from "./game-module";
 
 const GAME_MODULES = [
   gameModule,
