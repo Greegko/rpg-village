@@ -1,10 +1,10 @@
 import { injectable } from "inversify";
 
-type ValueUpdaterCallback<T> = (entity: T) => T;
+type ValueUpdaterCallback<T> = (value: T | undefined) => T;
 type ValueUpdater<T> = T | ValueUpdaterCallback<T>;
 
-function isValueUpdaterCallback<T>(entityOrUpdater: ValueUpdater<T>): entityOrUpdater is ValueUpdaterCallback<T> {
-  return typeof entityOrUpdater === "function";
+function isValueUpdaterCallback<T>(valueOrUpdater: ValueUpdater<T>): valueOrUpdater is ValueUpdaterCallback<T> {
+  return typeof valueOrUpdater === "function";
 }
 
 @injectable()
@@ -23,15 +23,11 @@ export abstract class KeyValueStore<Key extends string, Value> {
     return this.state.get(id);
   }
 
-  add(key: Key, value: Value): void {
-    this.state.set(key, value);
-  }
-
-  update(key: Key, updater: ValueUpdaterCallback<Value>): void;
-  update(key: Key, value: Value): void;
-  update(key: Key, valueOrUpdater: ValueUpdater<Value>): void {
+  set(key: Key, updater: ValueUpdaterCallback<Value>): void;
+  set(key: Key, value: Value): void;
+  set(key: Key, valueOrUpdater: ValueUpdater<Value>): void {
     if (isValueUpdaterCallback(valueOrUpdater)) {
-      this.state.set(key, valueOrUpdater(this.get(key)!));
+      this.state.set(key, valueOrUpdater(this.get(key)));
     } else {
       this.state.set(key, valueOrUpdater as Value);
     }
