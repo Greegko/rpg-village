@@ -1,7 +1,7 @@
-import { MapElement, MapElementID } from "../interface";
+import { EntityID, MapElement } from "../interface";
 
 declare module "@rpg-village/core" {
   interface GameState {
-    map: Record<MapElementID, MapElement>;
+    map: Record<EntityID, MapElement>;
   }
 }

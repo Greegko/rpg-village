@@ -7,13 +7,11 @@ import { CastleStore } from "@features/castle";
 import { ClanStore } from "@features/clan";
 import { FractionStore } from "@features/fraction";
 import { LordStore } from "@features/lord";
-import { MapStore, Position } from "@features/map";
+import { MapStore } from "@features/map";
 import { TownStore } from "@features/town";
 import { VillageStore } from "@features/village";
 
 import { initialMapData } from "./map";
-
-const toPositionString = (x: Position) => `${x.x},${x.y}` as const;
 
 @injectable()
 export class GameCommandHandler {
@@ -51,23 +49,7 @@ export class GameCommandHandler {
       lord.belongTo = virtualIdMap[lord.belongTo];
       const entityId = this.lordStore.add(lord).id;
       virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(toPositionString(position), { entityId });
-    });
-
-    forEach(data.villages, villageInput => {
-      const { position, id: virtualId, ...village } = villageInput;
-      village.belongTo = virtualIdMap[village.belongTo];
-      const entityId = this.villageStore.add(village).id;
-      virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(toPositionString(position), { entityId });
-    });
-
-    forEach(data.castles, castleInput => {
-      const { position, id: virtualId, ...castle } = castleInput;
-      castle.belongTo = virtualIdMap[castle.belongTo];
-      const entityId = this.castleStore.add(castle).id;
-      virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(toPositionString(position), { entityId });
+      this.mapStore.update(entityId, { position });
     });
 
     forEach(data.towns, townInput => {
@@ -75,7 +57,23 @@ export class GameCommandHandler {
       town.belongTo = virtualIdMap[town.belongTo];
       const entityId = this.townStore.add(town).id;
       virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(toPositionString(position), { entityId });
+      this.mapStore.update(entityId, { position });
+    });
+
+    forEach(data.villages, villageInput => {
+      const { position, id: virtualId, ...village } = villageInput;
+      village.belongTo = virtualIdMap[village.belongTo];
+      const entityId = this.villageStore.add(village).id;
+      virtualIdMap[virtualId] = entityId;
+      this.mapStore.update(entityId, { position });
+    });
+
+    forEach(data.castles, castleInput => {
+      const { position, id: virtualId, ...castle } = castleInput;
+      castle.belongTo = virtualIdMap[castle.belongTo];
+      const entityId = this.castleStore.add(castle).id;
+      virtualIdMap[virtualId] = entityId;
+      this.mapStore.update(entityId, { position });
     });
   }
 }

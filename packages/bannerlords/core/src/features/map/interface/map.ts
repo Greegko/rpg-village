@@ -1,12 +1,12 @@
-import { PositionString } from "./position";
+import { Position } from "./position";
 
-export type MapElementID = PositionString;
+export type EntityID = string;
 
 export interface MapElement {
-  id: MapElementID;
-  entityId: string;
+  id: EntityID;
+  position: Position;
 }
 
 export interface MapElements {
-  [key: MapElementID]: MapElement;
+  [key: EntityID]: MapElement;
 }

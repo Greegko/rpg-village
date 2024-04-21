@@ -24,28 +24,59 @@ export const initialMapData: InitialMapData = {
     { id: "fraction-western-id", name: "Western" },
     { id: "fraction-empire-id", name: "Empire" },
   ],
-  clans: [{ id: "", name: "", belongTo: "" }],
-  lords: [{ id: "", name: "", stash: { gold: 0, items: [] }, belongTo: "", position: { x: 0, y: 0 } }],
+  // prettier-ignore
+  clans: [
+    { id: "bisu", name: "Bisu Clan", belongTo: "fraction-western-id" },
+    { id: "granson", name: "Granson Clan", belongTo: "fraction-empire-id" }
+  ],
+  // prettier-ignore
+  lords: [
+    { id: "bisu-lord-1", name: "Bisuson", stash: { gold: 0, items: [] }, belongTo: "bisu", position: { x: 120, y: 120 } },
+    { id: "bisu-lord-2", name: "Bisupar", stash: { gold: 0, items: [] }, belongTo: "bisu", position: { x: 120, y: 120 } },
+    
+    { id: "granson-lord-1", name: "Grand son", stash: { gold: 0, items: [] }, belongTo: "granson", position: { x: 220, y: 220 } },
+    { id: "granson-lord-2", name: "Grand Grand son", stash: { gold: 0, items: [] }, belongTo: "granson", position: { x: 220, y: 220 } },
+  ],
   towns: [
     {
-      id: "",
-      name: "",
-      prosperity: 0,
-      position: { x: 0, y: 0 },
-      belongTo: "",
+      id: "bisumaron",
+      name: "Bisumaron",
+      prosperity: 10,
+      position: { x: 100, y: 100 },
+      belongTo: "bisu-lord-1",
+      garrison: [],
+      stash: { gold: 0, items: [] },
+    },
+
+    {
+      id: "grandenson",
+      name: "Grandenson",
+      prosperity: 10,
+      position: { x: 200, y: 200 },
+      belongTo: "granson-lord-1",
       garrison: [],
       stash: { gold: 0, items: [] },
     },
   ],
-  castles: [{ id: "", name: "", position: { x: 0, y: 0 }, belongTo: "", garrison: [], stash: { gold: 0, items: [] } }],
+  castles: [],
   villages: [
     {
-      id: "",
-      name: "",
-      prosperity: 0,
+      id: "bisumaron-village-1",
+      name: "Bisumaroner",
+      prosperity: 5,
       produce: Product.Grain,
-      belongTo: "",
-      position: { x: 0, y: 0 },
+      belongTo: "bisumaron",
+      position: { x: 130, y: 100 },
+      stash: { gold: 0, items: [] },
+    },
+
+    {
+      id: "grandenson-village-1",
+      name: "Petit garçon",
+      prosperity: 5,
+      produce: Product.Grain,
+      belongTo: "grandenson",
+      position: { x: 230, y: 200 },
       stash: { gold: 0, items: [] },
     },
   ],
