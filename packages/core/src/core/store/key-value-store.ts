@@ -11,8 +11,8 @@ function isValueUpdaterCallback<T>(valueOrUpdater: ValueUpdater<T>): valueOrUpda
 export abstract class KeyValueStore<Key extends string, Value> {
   private state: Map<Key, Value> = new Map();
 
-  getState(): Map<Key, Value> {
-    return this.state;
+  getState(): Record<Key, Value> {
+    return Object.fromEntries(this.state.entries()) as Record<Key, Value>;
   }
 
   init(state: Record<Key, Value>) {
