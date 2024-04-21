@@ -49,7 +49,8 @@ export class GameCommandHandler {
       lord.belongTo = virtualIdMap[lord.belongTo];
       const entityId = this.lordStore.add(lord).id;
       virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(entityId, { position });
+
+      this.mapStore.set(entityId, position);
     });
 
     forEach(data.towns, townInput => {
@@ -57,7 +58,7 @@ export class GameCommandHandler {
       town.belongTo = virtualIdMap[town.belongTo];
       const entityId = this.townStore.add(town).id;
       virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(entityId, { position });
+      this.mapStore.set(entityId, position);
     });
 
     forEach(data.villages, villageInput => {
@@ -65,7 +66,7 @@ export class GameCommandHandler {
       village.belongTo = virtualIdMap[village.belongTo];
       const entityId = this.villageStore.add(village).id;
       virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(entityId, { position });
+      this.mapStore.set(entityId, position);
     });
 
     forEach(data.castles, castleInput => {
@@ -73,7 +74,7 @@ export class GameCommandHandler {
       castle.belongTo = virtualIdMap[castle.belongTo];
       const entityId = this.castleStore.add(castle).id;
       virtualIdMap[virtualId] = entityId;
-      this.mapStore.update(entityId, { position });
+      this.mapStore.set(entityId, position);
     });
   }
 }

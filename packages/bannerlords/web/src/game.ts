@@ -12,11 +12,8 @@ const [gameState, setGameState] = createSignal<GameState>(gameInstance.getState(
 const turnHandler = () => setGameState(gameInstance.gameTurn());
 const run = () => gameSpeed() > 0;
 
-const fastForward = (turns: number) => {
-  batch(() => {
-    times(turns, turnHandler);
-  });
-};
+
+const fastForward = (turns: number) => batch(() => times(turns, turnHandler));
 
 createComputed(() => {
   if (gameSpeed() > 0) {

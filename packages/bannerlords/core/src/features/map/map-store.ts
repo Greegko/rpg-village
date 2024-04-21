@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 
-import { EntityStore } from "@rpg-village/core";
+import { KeyValueStore } from "@rpg-village/core";
 
-import { EntityID, MapElement } from "./interface";
+import { EntityID, Point } from "./interface";
 
 @injectable()
-export class MapStore extends EntityStore<EntityID, MapElement> {}
+export class MapStore extends KeyValueStore<EntityID, Point> {}

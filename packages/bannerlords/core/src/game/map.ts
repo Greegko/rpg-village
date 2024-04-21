@@ -3,12 +3,12 @@ import { Clan } from "@features/clan";
 import { Fraction } from "@features/fraction";
 import { Product } from "@features/item";
 import { Lord } from "@features/lord";
-import { Position } from "@features/map";
+import { Point } from "@features/map";
 import { Town } from "@features/town";
 import { Village } from "@features/village";
 
 export type WithoutId<T> = Omit<T, "id">;
-export type WithPosition<T> = T & { position: Position };
+export type WithPosition<T> = T & { position: Point };
 
 export interface InitialMapData {
   fractions: Fraction[];
@@ -32,10 +32,10 @@ export const initialMapData: InitialMapData = {
   // prettier-ignore
   lords: [
     { id: "bisu-lord-1", name: "Bisuson", stash: { gold: 0, items: [] }, belongTo: "bisu", position: { x: 120, y: 120 } },
-    { id: "bisu-lord-2", name: "Bisupar", stash: { gold: 0, items: [] }, belongTo: "bisu", position: { x: 120, y: 120 } },
+    { id: "bisu-lord-2", name: "Bisupar", stash: { gold: 0, items: [] }, belongTo: "bisu", position: { x: 140, y: 120 } },
     
     { id: "granson-lord-1", name: "Grand son", stash: { gold: 0, items: [] }, belongTo: "granson", position: { x: 220, y: 220 } },
-    { id: "granson-lord-2", name: "Grand Grand son", stash: { gold: 0, items: [] }, belongTo: "granson", position: { x: 220, y: 220 } },
+    { id: "granson-lord-2", name: "Grand Grand son", stash: { gold: 0, items: [] }, belongTo: "granson", position: { x: 240, y: 220 } },
   ],
   towns: [
     {

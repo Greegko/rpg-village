@@ -11,9 +11,9 @@ const entityIdRefsMap = createMemo(() => ({
 }));
 
 const map = createMemo(() =>
-  mapValues(gameState().map, (entity, entityId) => ({
+  mapValues(gameState().map, (position, entityId) => ({
     entity: entityIdRefsMap()[entityId],
-    position: entity.position,
+    position,
   })),
 );
 
