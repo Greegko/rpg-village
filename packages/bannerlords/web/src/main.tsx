@@ -10,11 +10,29 @@ const Control = () => {
     <div>
       Turn: {gameState().general.turn}
       State: {run() ? "Running" : "Paused"} -{" "}
-      <button onClick={() => setGameSpeed(gameSpeed => +!gameSpeed)}>Switch</button>
-      GameSpeed: {gameSpeed()} <button onClick={() => setGameSpeed(speed => (speed + 1) % 4)}>Switch</button>
-      Fast Forward: <button onClick={[fastForward, 10]}>10</button> <button onClick={[fastForward, 100]}>100</button>{" "}
-      <button onClick={[fastForward, 1000]}>1000</button>
-      <button onClick={() => console.log(gameState())}>Log GameState</button>
+      <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={() => setGameSpeed(gameSpeed => +!gameSpeed)}>
+        Switch
+      </button>
+      GameSpeed: {gameSpeed()}{" "}
+      <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={() => setGameSpeed(speed => (speed + 1) % 4)}>
+        Switch
+      </button>
+      Fast Forward:{" "}
+      <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={[fastForward, 1]}>
+        Step
+      </button>
+      <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={[fastForward, 10]}>
+        10
+      </button>{" "}
+      <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={[fastForward, 100]}>
+        100
+      </button>{" "}
+      <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={[fastForward, 1000]}>
+        1000
+      </button>
+      <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={() => console.log(gameState())}>
+        Log GameState
+      </button>
     </div>
   );
 };

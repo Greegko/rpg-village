@@ -1,9 +1,10 @@
-import { forEach, groupBy, values } from "remeda";
-import { createStore } from "solid-js/store";
+import { forEach, keys, pickBy, values } from "remeda";
+import { createComputed } from "solid-js";
+import { createStore, unwrap } from "solid-js/store";
 
 import { Command, GameState, MapCommand, VillageCommand } from "@rpg-village/bannerlords";
 
-import { PartyType, PartyTypes, getPartyType } from "../utils/party-type";
+import { PartyType, getPartyType } from "../utils/party-type";
 import { TimePhase, getTimePhase } from "../utils/time-phase";
 import { getVectorAngle, getVectorDistance } from "../utils/vector";
 
@@ -25,54 +26,103 @@ interface VillagerState {
 }
 
 interface AIState {
+  commands: Command[];
   villages: Record<string, VillageState>;
   villagers: Record<string, VillagerState>;
 }
 
-const [aiState, setAiState] = createStore<AIState>({
-  villages: {},
-  villagers: {},
-});
+const onKeyAdded = <K extends string, V>(path: () => Record<K, V>, fn: (key: K, value: V) => void) => {
+  let prevState = {} as Record<K, V>;
 
-export const executeAI = (gameState: GameState) => {
-  const commands = [] as Command[];
-  const turn = gameState.general.turn;
-  const villages = gameState.villages;
-  const partyGroups = groupBy(values(gameState.parties), x =>
-    getPartyType(gameState, x.belongTo),
-  ) as unknown as PartyTypes;
+  createComputed(() => {
+    const currentState = path();
 
-  forEach(values(villages), village => {
-    if (aiState.villages[village.id] === undefined) {
-      setAiState("villages", village.id, {});
-    }
+    forEach(keys(currentState) as K[], (currentStateKey: K) => {
+      if (prevState[currentStateKey] === undefined) {
+        fn(currentStateKey, currentState[currentStateKey]);
+      }
+    });
+
+    prevState = currentState;
+  });
+};
+
+const onKeyRemoved = <K extends string, V>(path: () => Record<K, V>, fn: (key: K, value: V) => void) => {
+  let prevState = {} as Record<K, V>;
+
+  createComputed(() => {
+    const currentState = path();
+
+    forEach(keys(prevState) as K[], (prevStateKey: K) => {
+      if (currentState[prevStateKey] === undefined) {
+        fn(prevStateKey, currentState[prevStateKey]);
+      }
+    });
+
+    prevState = currentState;
+  });
+};
+
+export const createAiHandler = (initialGameState: GameState) => {
+  const [gameState, setAIGameState] = createStore<GameState>(initialGameState);
+
+  const [aiState, setAiState] = createStore<AIState>({
+    commands: [],
+    villages: {},
+    villagers: {},
   });
 
-  forEach(values(villages), village => {
-    if (getTimePhase(turn) === TimePhase.Dawn) {
-      commands.push({ command: VillageCommand.SpawnVillager, args: { villageId: village.id } });
-    }
+  onKeyAdded(
+    () => gameState.villages,
+    villageId => setAiState("villages", villageId, {}),
+  );
+
+  createComputed(() => {
+    forEach(values(gameState.villages), village => {
+      if (getTimePhase(gameState.general.turn) === TimePhase.Dawn) {
+        setAiState("commands", commands => [
+          ...commands,
+          { command: VillageCommand.SpawnVillager, args: { villageId: village.id } },
+        ]);
+      }
+    });
   });
 
-  forEach(partyGroups[PartyType.Villager] || [], villager => {
-    if (aiState.villagers[villager.id] === undefined) {
-      setAiState("villagers", villager.id, {});
-    }
+  const villagerParties = () =>
+    pickBy(gameState.parties, party => getPartyType(gameState, party.belongTo) === PartyType.Villager);
+
+  onKeyAdded(
+    () => villagerParties(),
+    villagerId => setAiState("villages", villagerId, {}),
+  );
+
+  createComputed(() => {
+    forEach(values(villagerParties()), villager => {
+      const village = gameState.villages[villager.belongTo];
+      const town = gameState.towns[village.belongTo];
+      const townMapPosition = gameState.map[town.id];
+      const villagerMapPosition = gameState.map[village.id];
+
+      if (getVectorDistance(townMapPosition, villagerMapPosition) > 5) {
+        setAiState("commands", commands => [
+          ...commands,
+          {
+            command: MapCommand.SetEntityDirection,
+            args: { entityId: villager.id, direction: getVectorAngle(villagerMapPosition, townMapPosition) },
+          },
+        ]);
+      }
+    });
   });
 
-  forEach(partyGroups[PartyType.Villager] || [], villager => {
-    const village = gameState.villages[villager.belongTo];
-    const town = gameState.towns[village.belongTo];
-    const townMapPosition = gameState.map[town.id];
-    const villagerMapPosition = gameState.map[village.id];
+  const executeAI = (_gameState: GameState) => {
+    setAIGameState(_gameState);
 
-    if (getVectorDistance(townMapPosition, villagerMapPosition) > 5) {
-      commands.push({
-        command: MapCommand.SetEntityDirection,
-        args: { entityId: villager.id, direction: getVectorAngle(villagerMapPosition, townMapPosition) },
-      });
-    }
-  });
+    const commands = unwrap(aiState.commands);
+    setAiState("commands", []);
 
-  return commands;
+    return commands;
+  };
+
+  return { executeAI };
 };
