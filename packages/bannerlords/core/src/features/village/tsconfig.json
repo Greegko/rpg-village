@@ -1,5 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "include": ["**/*.ts"],
-  "references": [{ "path": "../item" }, { "path": "../town" }, { "path": "../castle" }, { "path": "../time" }]
+  "references": [
+    { "path": "../item" },
+    { "path": "../town" },
+    { "path": "../castle" },
+    { "path": "../time" },
+    { "path": "../map" },
+    { "path": "../party" }
+  ]
 }

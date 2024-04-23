@@ -1,7 +1,8 @@
-import { mapValues, values } from "remeda";
+import { groupBy, mapValues, values } from "remeda";
 import { For, createMemo } from "solid-js";
 
 import { gameState } from "./game";
+import { PartyTypes, getPartyType } from "./utils/party-type";
 
 const entityIdRefsMap = createMemo(() => ({
   ...gameState().lords,
@@ -18,7 +19,8 @@ const map = createMemo(() =>
 );
 
 const villages = () => gameState().villages;
-const lords = () => gameState().lords;
+const parties = () =>
+  groupBy(values(gameState().parties), party => getPartyType(gameState(), party.belongTo)) as unknown as PartyTypes;
 const towns = () => gameState().towns;
 const castles = () => gameState().castles;
 
@@ -31,7 +33,11 @@ export const Map = () => {
         )}
       </For>
 
-      <For each={values(lords())}>
+      <For each={parties().lord}>
+        {lord => <Dot x={map()[lord.id].position.x} y={map()[lord.id].position.y} size={10} color={"red"} />}
+      </For>
+
+      <For each={parties().villager}>
         {lord => <Dot x={map()[lord.id].position.x} y={map()[lord.id].position.y} size={10} color={"red"} />}
       </For>
 

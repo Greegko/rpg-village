@@ -4,7 +4,7 @@ import { EventSystem, GameEvent, GeneralGameStore, eventHandler } from "@rpg-vil
 
 import { TimeEvent } from "./interface";
 
-const ONE_DAY_PER_TURN = 10;
+const ONE_DAY_PER_TURN = 24;
 
 @injectable()
 export class TimeEventHandler {
