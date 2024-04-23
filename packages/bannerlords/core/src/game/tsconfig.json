@@ -10,6 +10,7 @@
     { "path": "../features/map" },
     { "path": "../features/town" },
     { "path": "../features/unit" },
-    { "path": "../features/village" }
+    { "path": "../features/village" },
+    { "path": "../features/party" }
   ]
 }

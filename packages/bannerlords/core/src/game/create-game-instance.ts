@@ -5,6 +5,7 @@ import { clanModule } from "@features/clan";
 import { fractionModule } from "@features/fraction";
 import { lordModule } from "@features/lord";
 import { mapModule } from "@features/map";
+import { partyModule } from "@features/party";
 import { timeModule } from "@features/time";
 import { townModule } from "@features/town";
 import { villageModule } from "@features/village";
@@ -19,6 +20,7 @@ const GAME_MODULES = [
   castleModule,
   villageModule,
   townModule,
+  partyModule,
   lordModule,
   timeModule,
 ];

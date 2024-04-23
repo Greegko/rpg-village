@@ -8,6 +8,7 @@ import { ClanStore } from "@features/clan";
 import { FractionStore } from "@features/fraction";
 import { LordStore } from "@features/lord";
 import { MapStore } from "@features/map";
+import { PartyStore } from "@features/party";
 import { TownStore } from "@features/town";
 import { VillageStore } from "@features/village";
 
@@ -23,6 +24,7 @@ export class GameCommandHandler {
     private castleStore: CastleStore,
     private villageStore: VillageStore,
     private townStore: TownStore,
+    private partyStore: PartyStore,
   ) {}
 
   @commandHandler(GameCommand.NewGame)
@@ -49,8 +51,8 @@ export class GameCommandHandler {
       lord.belongTo = virtualIdMap[lord.belongTo];
       const entityId = this.lordStore.add(lord).id;
       virtualIdMap[virtualId] = entityId;
-
-      this.mapStore.set(entityId, position);
+      const party = this.partyStore.add({ belongTo: entityId, stash: { gold: 0, items: [] }, units: [] });
+      this.mapStore.set(party.id, position);
     });
 
     forEach(data.towns, townInput => {

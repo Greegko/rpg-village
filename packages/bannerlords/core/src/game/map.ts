@@ -31,11 +31,11 @@ export const initialMapData: InitialMapData = {
   ],
   // prettier-ignore
   lords: [
-    { id: "bisu-lord-1", name: "Bisuson", stash: { gold: 0, items: [] }, belongTo: "bisu", position: { x: 120, y: 120 } },
-    { id: "bisu-lord-2", name: "Bisupar", stash: { gold: 0, items: [] }, belongTo: "bisu", position: { x: 140, y: 120 } },
+    { id: "bisu-lord-1", name: "Bisuson", gold: 0, belongTo: "bisu", position: { x: 120, y: 120 } },
+    { id: "bisu-lord-2", name: "Bisupar", gold: 0, belongTo: "bisu", position: { x: 140, y: 120 } },
     
-    { id: "granson-lord-1", name: "Grand son", stash: { gold: 0, items: [] }, belongTo: "granson", position: { x: 220, y: 220 } },
-    { id: "granson-lord-2", name: "Grand Grand son", stash: { gold: 0, items: [] }, belongTo: "granson", position: { x: 240, y: 220 } },
+    { id: "granson-lord-1", name: "Grand son", gold: 0, belongTo: "granson", position: { x: 220, y: 220 } },
+    { id: "granson-lord-2", name: "Grand Grand son", gold: 0, belongTo: "granson", position: { x: 240, y: 220 } },
   ],
   towns: [
     {
