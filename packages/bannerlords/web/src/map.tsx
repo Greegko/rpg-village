@@ -1,8 +1,8 @@
-import { groupBy, mapValues, values } from "remeda";
+import { mapValues, pickBy, values } from "remeda";
 import { For, createMemo } from "solid-js";
 
 import { gameState } from "./game";
-import { PartyTypes, getPartyType } from "./utils/party-type";
+import { PartyType, getPartyType } from "./utils/party-type";
 
 const entityIdRefsMap = createMemo(() => ({
   ...gameState().lords,
@@ -19,8 +19,10 @@ const map = createMemo(() =>
 );
 
 const villages = () => gameState().villages;
-const parties = () =>
-  groupBy(values(gameState().parties), party => getPartyType(gameState(), party.belongTo)) as unknown as PartyTypes;
+const villagerParties = () =>
+  pickBy(gameState().parties, party => getPartyType(gameState(), party.belongTo) === PartyType.Villager);
+const lordParties = () =>
+  pickBy(gameState().parties, party => getPartyType(gameState(), party.belongTo) === PartyType.Lord);
 const towns = () => gameState().towns;
 const castles = () => gameState().castles;
 
@@ -33,11 +35,11 @@ export const Map = () => {
         )}
       </For>
 
-      <For each={parties().lord}>
+      <For each={values(lordParties())}>
         {lord => <Dot x={map()[lord.id].position.x} y={map()[lord.id].position.y} size={10} color={"red"} />}
       </For>
 
-      <For each={parties().villager}>
+      <For each={values(villagerParties())}>
         {lord => <Dot x={map()[lord.id].position.x} y={map()[lord.id].position.y} size={10} color={"red"} />}
       </For>
 

@@ -1,5 +1,5 @@
-import { forEach, keys, pickBy, values } from "remeda";
-import { createComputed } from "solid-js";
+import { forEach, pickBy, values } from "remeda";
+import { createComputed, untrack } from "solid-js";
 import { createStore, unwrap } from "solid-js/store";
 
 import { Command, GameState, MapCommand, VillageCommand } from "@rpg-village/bannerlords";
@@ -17,65 +17,20 @@ enum VillagerAction {
 
 type PartyID = string;
 
-interface VillageState {
-  activeVillagerId: PartyID | null;
-}
-
 interface VillagerState {
   action: VillagerAction;
 }
 
 interface AIState {
   commands: Command[];
-  villages: Record<string, VillageState>;
-  villagers: Record<string, VillagerState>;
 }
-
-const onKeyAdded = <K extends string, V>(path: () => Record<K, V>, fn: (key: K, value: V) => void) => {
-  let prevState = {} as Record<K, V>;
-
-  createComputed(() => {
-    const currentState = path();
-
-    forEach(keys(currentState) as K[], (currentStateKey: K) => {
-      if (prevState[currentStateKey] === undefined) {
-        fn(currentStateKey, currentState[currentStateKey]);
-      }
-    });
-
-    prevState = currentState;
-  });
-};
-
-const onKeyRemoved = <K extends string, V>(path: () => Record<K, V>, fn: (key: K, value: V) => void) => {
-  let prevState = {} as Record<K, V>;
-
-  createComputed(() => {
-    const currentState = path();
-
-    forEach(keys(prevState) as K[], (prevStateKey: K) => {
-      if (currentState[prevStateKey] === undefined) {
-        fn(prevStateKey, currentState[prevStateKey]);
-      }
-    });
-
-    prevState = currentState;
-  });
-};
 
 export const createAiHandler = (initialGameState: GameState) => {
   const [gameState, setAIGameState] = createStore<GameState>(initialGameState);
 
   const [aiState, setAiState] = createStore<AIState>({
     commands: [],
-    villages: {},
-    villagers: {},
   });
-
-  onKeyAdded(
-    () => gameState.villages,
-    villageId => setAiState("villages", villageId, {}),
-  );
 
   createComputed(() => {
     forEach(values(gameState.villages), village => {
@@ -89,12 +44,7 @@ export const createAiHandler = (initialGameState: GameState) => {
   });
 
   const villagerParties = () =>
-    pickBy(gameState.parties, party => getPartyType(gameState, party.belongTo) === PartyType.Villager);
-
-  onKeyAdded(
-    () => villagerParties(),
-    villagerId => setAiState("villages", villagerId, {}),
-  );
+    pickBy(gameState.parties, party => untrack(() => getPartyType(gameState, party.belongTo) === PartyType.Villager));
 
   createComputed(() => {
     forEach(values(villagerParties()), villager => {
@@ -115,8 +65,8 @@ export const createAiHandler = (initialGameState: GameState) => {
     });
   });
 
-  const executeAI = (_gameState: GameState) => {
-    setAIGameState(_gameState);
+  const executeAI = (gameState: GameState) => {
+    setAIGameState(gameState);
 
     const commands = unwrap(aiState.commands);
     setAiState("commands", []);
