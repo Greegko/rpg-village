@@ -45,6 +45,7 @@ export const initialMapData: InitialMapData = {
       position: { x: 100, y: 100 },
       belongTo: "bisu-lord-1",
       garrison: [],
+      parties: [],
       stash: { gold: 0, items: [] },
     },
 
@@ -55,6 +56,7 @@ export const initialMapData: InitialMapData = {
       position: { x: 200, y: 200 },
       belongTo: "granson-lord-1",
       garrison: [],
+      parties: [],
       stash: { gold: 0, items: [] },
     },
   ],
