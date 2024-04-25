@@ -1,7 +1,5 @@
 import { forEach } from "remeda";
 
-import { getVectorDistance } from "../utils/vector";
-
 type Position = { x: number; y: number };
 type Sight = number;
 
@@ -38,7 +36,7 @@ export enum MapOpservatorEvent {
   ExitSight,
 }
 
-type OnEnterCallback = (targetEntity: EntityID, distance: number) => void;
+type OnEnterCallback = (targetEntity: EntityID) => void;
 type OnExitCallback = (targetEntity: EntityID) => void;
 type DisposeOnCallback = () => void;
 
@@ -120,9 +118,7 @@ export class MapObservator {
     forEach(newPositionObservers || [], observerId => {
       if (observerId === entityId) return;
 
-      const observerEntity = this.entities[observerId];
-      const distance = getVectorDistance(newPosition, observerEntity.position);
-      this.triggerEntryEvent(observerId, entityId, distance);
+      this.triggerEntryEvent(observerId, entityId);
     });
   }
 
@@ -136,15 +132,11 @@ export class MapObservator {
   }
 
   private triggerEntryEntitySight(originEntityId: EntityID, positions: PositionString[]) {
-    const originEntity = this.entities[originEntityId];
-
     forEach(positions, position => {
       forEach(this.observationMap[position] || [], observerId => {
         if (originEntityId === observerId) return;
 
-        const observerEntity = this.entities[observerId];
-        const distance = getVectorDistance(originEntity.position, observerEntity.position);
-        this.triggerEntryEvent(originEntityId, observerId, distance);
+        this.triggerEntryEvent(originEntityId, observerId);
       });
     });
   }
@@ -172,14 +164,14 @@ export class MapObservator {
     }
   }
 
-  private triggerEntryEvent(observerId: EntityID, entityId: EntityID, distance: number) {
+  private triggerEntryEvent(observerId: EntityID, entityId: EntityID) {
     if (this.entitiesInSight[observerId] && this.entitiesInSight[observerId].includes(entityId)) return;
 
     this.entitiesInSight[observerId] ||= [];
     this.entitiesInSight[observerId] = [...this.entitiesInSight[observerId], entityId];
 
     if (this.callbacks[observerId]) {
-      forEach(this.callbacks[observerId][MapOpservatorEvent.EnterSight] || [], fn => fn(entityId, distance));
+      forEach(this.callbacks[observerId][MapOpservatorEvent.EnterSight] || [], fn => fn(entityId));
     }
   }
 

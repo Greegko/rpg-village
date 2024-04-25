@@ -32,10 +32,10 @@ const test = (name: string, fn: () => void) => {
 
 test("emit enter event on entity add", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string, number][] = [];
+  const events: [string, string][] = [];
 
-  mapObservator.on("1", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["1", target, distance]));
-  mapObservator.on("2", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["2", target, distance]));
+  mapObservator.on("1", MapOpservatorEvent.EnterSight, target => events.push(["1", target]));
+  mapObservator.on("2", MapOpservatorEvent.EnterSight, target => events.push(["2", target]));
 
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
@@ -45,12 +45,12 @@ test("emit enter event on entity add", () => {
 
 test("should not emit enter again on move", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string, number][] = [];
+  const events: [string, string][] = [];
 
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
 
-  mapObservator.on("1", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["1", target, distance]));
+  mapObservator.on("1", MapOpservatorEvent.EnterSight, target => events.push(["1", target]));
 
   mapObservator.updateEntity("2", { x: 0, y: 0 });
 
@@ -109,18 +109,18 @@ test("should emit exit event after shrink sight", () => {
 
 test("should emit enter event after increase sight", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string, number][] = [];
+  const events: [string, string][] = [];
 
   mapObservator.addEntity("1", { x: 0, y: 0 }, 3);
   mapObservator.addEntity("2", { x: 5, y: 0 }, 0);
 
-  mapObservator.on("1", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["1", target, distance]));
+  mapObservator.on("1", MapOpservatorEvent.EnterSight, target => events.push(["1", target]));
 
   expect(events.length).toBe(0);
 
   mapObservator.updateEntity("1", { x: 0, y: 0 }, 5);
 
-  expect(events).toEqual([["1", "2", 5]]);
+  expect(events).toEqual([["1", "2"]]);
 });
 
 test("should not emit exit event when an entity is removed", () => {
