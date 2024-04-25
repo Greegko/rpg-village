@@ -34,8 +34,8 @@ const createEntitySightStringPositions = (entity: Entity) => {
 };
 
 export enum MapOpservatorEvent {
-  EnterRange,
-  ExitRange,
+  EnterSight,
+  ExitSight,
 }
 
 type OnEnterCallback = (targetEntity: EntityID, distance: number) => void;
@@ -50,12 +50,12 @@ export class MapObservator {
   private callbacks: Record<
     EntityID,
     Partial<
-      Record<MapOpservatorEvent.EnterRange, OnEnterCallback[]> & Record<MapOpservatorEvent.ExitRange, OnExitCallback[]>
+      Record<MapOpservatorEvent.EnterSight, OnEnterCallback[]> & Record<MapOpservatorEvent.ExitSight, OnExitCallback[]>
     >
   > = {};
 
-  on(entityId: EntityID, eventType: MapOpservatorEvent.EnterRange, fn: OnEnterCallback): DisposeOnCallback;
-  on(entityId: EntityID, eventType: MapOpservatorEvent.ExitRange, fn: OnExitCallback): DisposeOnCallback;
+  on(entityId: EntityID, eventType: MapOpservatorEvent.EnterSight, fn: OnEnterCallback): DisposeOnCallback;
+  on(entityId: EntityID, eventType: MapOpservatorEvent.ExitSight, fn: OnExitCallback): DisposeOnCallback;
   on(entityId: EntityID, eventType: MapOpservatorEvent, fn: OnEnterCallback | OnExitCallback): DisposeOnCallback {
     this.callbacks[entityId] ||= {};
     this.callbacks[entityId][eventType] ||= [];
@@ -79,22 +79,22 @@ export class MapObservator {
 
   removeEntity(entityId: EntityID) {
     const entity = this.entities[entityId];
+
     this.unsetObservation(entityId, createEntitySightStringPositions(entity));
+
+    delete this.entities[entityId];
+    delete this.callbacks[entityId];
+    delete this.entitiesInSight[entityId];
   }
 
-  updateEntity(entityId: EntityID, newDiffPosition: Position, newSightRange?: number) {
+  updateEntity(entityId: EntityID, newPosition: Position, newSightRange?: number) {
     const entity = this.entities[entityId];
 
-    console.log("Update", entityId, newDiffPosition);
-
-    // TODO: Shouldn't allow race condition between Add and Update entry!
     if (!entity) return;
-
-    const entityNewPosition = { x: entity.position.x + newDiffPosition.x, y: entity.position.y + newDiffPosition.y };
 
     const newEntity = {
       sight: newSightRange || entity.sight,
-      position: entityNewPosition,
+      position: newPosition,
     };
 
     this.entities[entityId] = newEntity;
@@ -111,7 +111,7 @@ export class MapObservator {
     this.triggerEntryEntitySight(entityId, addSightPositions);
     this.setObservation(entityId, addSightPositions);
 
-    this.triggerEntryForPositionSet(entityId, entityNewPosition);
+    this.triggerEntryForPositionSet(entityId, newPosition);
     this.triggerExitForPositionSet(entityId, entity.position);
   }
 
@@ -167,7 +167,7 @@ export class MapObservator {
       }
 
       if (this.callbacks[observerId]) {
-        forEach(this.callbacks[observerId][MapOpservatorEvent.ExitRange] || [], fn => fn(entityId));
+        forEach(this.callbacks[observerId][MapOpservatorEvent.ExitSight] || [], fn => fn(entityId));
       }
     }
   }
@@ -179,7 +179,7 @@ export class MapObservator {
     this.entitiesInSight[observerId] = [...this.entitiesInSight[observerId], entityId];
 
     if (this.callbacks[observerId]) {
-      forEach(this.callbacks[observerId][MapOpservatorEvent.EnterRange] || [], fn => fn(entityId, distance));
+      forEach(this.callbacks[observerId][MapOpservatorEvent.EnterSight] || [], fn => fn(entityId, distance));
     }
   }
 

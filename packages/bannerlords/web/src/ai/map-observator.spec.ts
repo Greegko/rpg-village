@@ -34,8 +34,8 @@ test("emit enter event on entity add", () => {
   const mapObservator = new MapObservator();
   const events: [string, string, number][] = [];
 
-  mapObservator.on("1", MapOpservatorEvent.EnterRange, (target, distance) => events.push(["1", target, distance]));
-  mapObservator.on("2", MapOpservatorEvent.EnterRange, (target, distance) => events.push(["2", target, distance]));
+  mapObservator.on("1", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["1", target, distance]));
+  mapObservator.on("2", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["2", target, distance]));
 
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
@@ -50,7 +50,7 @@ test("should not emit enter again on move", () => {
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
 
-  mapObservator.on("1", MapOpservatorEvent.EnterRange, (target, distance) => events.push(["1", target, distance]));
+  mapObservator.on("1", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["1", target, distance]));
 
   mapObservator.updateEntity("2", { x: 0, y: 0 });
 
@@ -64,7 +64,7 @@ test("should emit exit event on leave", () => {
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
 
-  mapObservator.on("1", MapOpservatorEvent.ExitRange, target => events.push(["1", target]));
+  mapObservator.on("1", MapOpservatorEvent.ExitSight, target => events.push(["1", target]));
 
   mapObservator.updateEntity("2", { x: 6, y: 0 });
 
@@ -78,7 +78,7 @@ test("should not emit exit event after left and move", () => {
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
 
-  mapObservator.on("1", MapOpservatorEvent.ExitRange, target => events.push(["1", target]));
+  mapObservator.on("1", MapOpservatorEvent.ExitSight, target => events.push(["1", target]));
 
   expect(events.length).toBe(0);
 
@@ -98,7 +98,7 @@ test("should emit exit event after shrink sight", () => {
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 5, y: 0 }, 0);
 
-  mapObservator.on("1", MapOpservatorEvent.ExitRange, target => events.push(["1", target]));
+  mapObservator.on("1", MapOpservatorEvent.ExitSight, target => events.push(["1", target]));
 
   expect(events.length).toBe(0);
 
@@ -114,7 +114,7 @@ test("should emit enter event after increase sight", () => {
   mapObservator.addEntity("1", { x: 0, y: 0 }, 3);
   mapObservator.addEntity("2", { x: 5, y: 0 }, 0);
 
-  mapObservator.on("1", MapOpservatorEvent.EnterRange, (target, distance) => events.push(["1", target, distance]));
+  mapObservator.on("1", MapOpservatorEvent.EnterSight, (target, distance) => events.push(["1", target, distance]));
 
   expect(events.length).toBe(0);
 
@@ -130,7 +130,7 @@ test("should not emit exit event when an entity is removed", () => {
   mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
   mapObservator.addEntity("2", { x: 5, y: 0 }, 0);
 
-  mapObservator.on("1", MapOpservatorEvent.ExitRange, target => events.push(["1", target]));
+  mapObservator.on("1", MapOpservatorEvent.ExitSight, target => events.push(["1", target]));
 
   mapObservator.removeEntity("2");
 
