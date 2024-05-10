@@ -8,6 +8,7 @@ import "@features/time";
 import "@features/town";
 import "@features/village";
 
+export { TownCommand } from "@features/town";
 export { VillageCommand } from "@features/village";
 export { Party } from "@features/party";
 export { MapCommand } from "@features/map";
