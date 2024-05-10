@@ -1,34 +1,5 @@
+import { expect, test } from "../test";
 import { MapObservator, MapOpservatorEvent } from "./map-observator";
-
-interface Expect<T> {
-  toBe(val: T, msg?: string): void;
-  toEqual(val: T, msg?: string): void;
-}
-
-function expect<T>(val: T): Expect<T> {
-  return {
-    toBe: (target: T, msg?: string) => {
-      if (val !== target) {
-        throw new Error(msg || `Expected ${val} but got ${target}`);
-      }
-    },
-    toEqual: (target: T, msg?: string) => {
-      if (val!.toString() !== target!.toString()) {
-        throw new Error(msg || `Expected ${val} but got ${target}`);
-      }
-    },
-  };
-}
-
-const test = (name: string, fn: () => void) => {
-  try {
-    fn();
-    console.log("✓ MapObservator - " + name);
-  } catch (e: any) {
-    console.log("✘ MapObservator - " + name);
-    console.error(e);
-  }
-};
 
 test("emit enter event on entity add", () => {
   const mapObservator = new MapObservator();
