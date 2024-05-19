@@ -1,5 +1,8 @@
 import { forEach } from "remeda";
 
+import { getVectorDistance } from "../utils/vector";
+import { Observable, Subject } from "./actors/observables";
+
 type Position = { x: number; y: number };
 type Sight = number;
 
@@ -32,36 +35,22 @@ const createEntitySightStringPositions = (entity: Entity) => {
 };
 
 export enum MapOpservatorEvent {
-  EnterSight,
-  ExitSight,
+  EnterSight = "enter-sight",
+  ExitSight = "exit-sight",
 }
-
-type OnEnterCallback = (targetEntity: EntityID) => void;
-type OnExitCallback = (targetEntity: EntityID) => void;
-type DisposeOnCallback = () => void;
 
 export class MapObservator {
   private entities: Record<EntityID, Entity> = {};
   private observationMap: Record<PositionString, EntityID[]> = {};
   private entitiesInSight: Record<EntityID, EntityID[]> = {};
 
-  private callbacks: Record<
-    EntityID,
-    Partial<
-      Record<MapOpservatorEvent.EnterSight, OnEnterCallback[]> & Record<MapOpservatorEvent.ExitSight, OnExitCallback[]>
-    >
-  > = {};
+  private callbacks: Record<EntityID, Record<string, Subject<EntityID>>> = {};
 
-  on(entityId: EntityID, eventType: MapOpservatorEvent.EnterSight, fn: OnEnterCallback): DisposeOnCallback;
-  on(entityId: EntityID, eventType: MapOpservatorEvent.ExitSight, fn: OnExitCallback): DisposeOnCallback;
-  on(entityId: EntityID, eventType: MapOpservatorEvent, fn: OnEnterCallback | OnExitCallback): DisposeOnCallback {
+  on(entityId: EntityID, eventType: MapOpservatorEvent): Observable<EntityID> {
     this.callbacks[entityId] ||= {};
-    this.callbacks[entityId][eventType] ||= [];
-    this.callbacks[entityId][eventType] = [...this.callbacks[entityId]![eventType]!, fn] as any;
+    this.callbacks[entityId][eventType] ||= new Subject<EntityID>();
 
-    return () => {
-      this.callbacks[entityId][eventType] = without(this.callbacks[entityId][eventType]!, [fn]) as any;
-    };
+    return this.callbacks[entityId][eventType].asObservable();
   }
 
   addEntity(entityId: EntityID, position: Position, sight: Sight) {
@@ -83,6 +72,13 @@ export class MapObservator {
     delete this.entities[entityId];
     delete this.callbacks[entityId];
     delete this.entitiesInSight[entityId];
+  }
+
+  distance(entityId: EntityID, targetEntityId: EntityID) {
+    const entity = this.entities[entityId];
+    const targetEntity = this.entities[targetEntityId];
+
+    return getVectorDistance(entity.position, targetEntity.position);
   }
 
   updateEntity(entityId: EntityID, newPosition: Position, newSightRange?: number) {
@@ -159,7 +155,7 @@ export class MapObservator {
       }
 
       if (this.callbacks[observerId]) {
-        forEach(this.callbacks[observerId][MapOpservatorEvent.ExitSight] || [], fn => fn(entityId));
+        this.callbacks[observerId][MapOpservatorEvent.ExitSight]?.next(entityId);
       }
     }
   }
@@ -171,7 +167,7 @@ export class MapObservator {
     this.entitiesInSight[observerId] = [...this.entitiesInSight[observerId], entityId];
 
     if (this.callbacks[observerId]) {
-      forEach(this.callbacks[observerId][MapOpservatorEvent.EnterSight] || [], fn => fn(entityId));
+      this.callbacks[observerId][MapOpservatorEvent.EnterSight]?.next(entityId);
     }
   }
 

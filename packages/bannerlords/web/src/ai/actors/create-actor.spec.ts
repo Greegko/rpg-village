@@ -1,7 +1,6 @@
 import { describe, expect, test } from "../../test";
 import { createActorFactory } from "./create-actor";
-import { EventSystem } from "./event-system";
-import { Observable } from "./observables";
+import { Observable, Subject } from "./observables";
 
 describe("Create Actor", () => {
   test("should execute onEnter callback on new state", () => {
@@ -172,9 +171,9 @@ describe("Create Actor", () => {
   test("should execute effect function on event", () => {
     let executedByEvent = false;
 
-    const eventSystem = new EventSystem();
+    const subject = new Subject();
 
-    const createActor = createActorFactory(({ switchTo }) => ({
+    const createActor = createActorFactory(() => ({
       initial: "TestState",
       states: {
         TestState: {
@@ -187,14 +186,14 @@ describe("Create Actor", () => {
       {},
       {},
       {
-        TestEvent: () => eventSystem.on("random-event"),
+        TestEvent: () => subject as Subject<void>,
       },
       {},
     );
 
     actor.start();
 
-    eventSystem.fire("random-event");
+    subject.next("random-event");
 
     expect(executedByEvent).toBe(true);
   });

@@ -1,11 +1,8 @@
-import { EventSystem } from "./event-system";
-import { Observable, Subscription } from "./observables";
+import { Observable, Subject, Subscription } from "./observables";
 
 type OnEventObservableFactory<Dependencies, Context> = (deps: Dependencies, context: Context) => Observable<void>;
 
-type Dependencies = {
-  [key: string]: any;
-};
+type Dependencies = { [key: string]: any };
 
 type EventCallback<Dependencies, Context> = (deps: Dependencies, context: Context) => void;
 
@@ -66,7 +63,7 @@ export const createActorFactory = <
     eventListeners: EventListeners<Events, Deps, Context>,
     context: Context,
   ) => {
-    const eventSystem = new EventSystem();
+    const eventSystem = new Subject<Events>();
     const actorRootState = stateCreator({ switchTo, setContext, emitEvent, executeAction });
 
     let activeStateKeys: string[] = [];
@@ -96,7 +93,7 @@ export const createActorFactory = <
     }
 
     function emitEvent(event: Events) {
-      eventSystem.fire(event);
+      eventSystem.next(event);
     }
 
     function diposeActiveState() {
@@ -131,7 +128,9 @@ export const createActorFactory = <
           Events,
           EventCallback<Dependencies, Context>,
         ][]) {
-          activeSubscriptions.push(eventSystem.on(eventName).subscribe(() => eventCallback(dependencies, context)));
+          activeSubscriptions.push(
+            eventSystem.filter(val => val === eventName).subscribe(() => eventCallback(dependencies, context)),
+          );
 
           if (eventListeners[eventName]) {
             activeSubscriptions.push(
