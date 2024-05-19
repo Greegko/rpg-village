@@ -1,4 +1,4 @@
-import { Observable, Subject, Subscription } from "./observables";
+import { Observable, Subject, Subscription, filter } from "rxjs";
 
 type OnEventObservableFactory<Dependencies, Context> = (deps: Dependencies, context: Context) => Observable<any>;
 
@@ -129,12 +129,14 @@ export const createActorFactory = <
           EventCallback<Dependencies, Context>,
         ][]) {
           activeSubscriptions.push(
-            eventSystem.filter(val => val === eventName).subscribe(() => eventCallback(dependencies, context)),
+            eventSystem.pipe(filter(val => val === eventName)).subscribe(() => eventCallback(dependencies, context)),
           );
 
-          if (eventListeners[eventName]) {
+          const eventFn = eventListeners[eventName];
+
+          if (eventFn) {
             activeSubscriptions.push(
-              eventListeners[eventName]!(dependencies, context).subscribe(() => eventCallback(dependencies, context)),
+              eventFn(dependencies, context).subscribe(() => eventCallback(dependencies, context)),
             );
           }
         }

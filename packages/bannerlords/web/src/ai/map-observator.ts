@@ -1,7 +1,7 @@
 import { forEach } from "remeda";
+import { Observable, Subject, filter, map } from "rxjs";
 
 import { getVectorDistance } from "../utils/vector";
-import { Observable, Subject } from "./actors/observables";
 
 type Position = { x: number; y: number };
 type Sight = number;
