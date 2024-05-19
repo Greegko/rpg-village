@@ -3,7 +3,7 @@ export class Observable<T> {
   protected listeners: ((val: T) => void)[] = [];
   protected _filter?: (val: T) => boolean;
 
-  filter(cond: (val: T) => boolean) {
+  filter(cond: (val: T) => boolean): Observable<T> {
     this._filter = cond;
 
     return this;

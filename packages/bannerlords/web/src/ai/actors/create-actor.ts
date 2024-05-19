@@ -1,6 +1,6 @@
 import { Observable, Subject, Subscription } from "./observables";
 
-type OnEventObservableFactory<Dependencies, Context> = (deps: Dependencies, context: Context) => Observable<void>;
+type OnEventObservableFactory<Dependencies, Context> = (deps: Dependencies, context: Context) => Observable<any>;
 
 type Dependencies = { [key: string]: any };
 
