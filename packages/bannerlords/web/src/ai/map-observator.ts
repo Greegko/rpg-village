@@ -46,7 +46,7 @@ export class MapObservator {
 
   private callbacks: Record<EntityID, Record<string, Subject<EntityID>>> = {};
 
-  on(entityId: EntityID, eventType: MapOpservatorEvent): Observable<EntityID> {
+  onEnterExit(entityId: EntityID, eventType: MapOpservatorEvent): Observable<EntityID> {
     this.callbacks[entityId] ||= {};
     this.callbacks[entityId][eventType] ||= new Subject<EntityID>();
 
