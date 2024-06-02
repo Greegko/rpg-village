@@ -11,8 +11,9 @@ export function expect<T>(val: T): Expect<T> {
       }
     },
     toEqual: (target: T, msg?: string) => {
-      if (val!.toString() !== target!.toString()) {
-        throw new Error(msg || `Expected ${val} but got ${target}`);
+      if (JSON.stringify(val) !== JSON.stringify(target)) {
+        console.error(msg || "The two objects are not equal", val, target);
+        throw new Error(msg || "The two objects are not equal");
       }
     },
   };
