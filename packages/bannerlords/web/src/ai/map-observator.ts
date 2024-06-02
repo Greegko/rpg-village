@@ -1,189 +1,75 @@
-import { forEach } from "remeda";
-import { Observable, Subject, filter, map } from "rxjs";
+import { entries, isNonNull, omit, set } from "remeda";
+import { Observable, Subject, concat, concatMap, filter, first, map, scan, shareReplay, tap } from "rxjs";
 
 import { getVectorDistance } from "../utils/vector";
 
 type Position = { x: number; y: number };
-type Sight = number;
 
 type EntityID = string;
 
-interface Entity {
-  position: Position;
-  sight: Sight;
+interface Movement {
+  entityId: EntityID;
+  position: Position | null;
 }
 
-type PositionString = `${number},${number}`;
-function positionToString(x: number, y: number): PositionString {
-  return `${x},${y}`;
+export enum MapObservatorEventType {
+  Enter,
+  Exit,
+  Move,
 }
 
-const without = <T>(arr: T[], removeItems: T[]) => {
-  return arr.filter(item => !removeItems.includes(item));
-};
+type LastKnownPositionMap = Record<EntityID, Position>;
 
-const createEntitySightStringPositions = (entity: Entity) => {
-  const cordinates = [] as PositionString[];
-
-  for (let dx = -entity.sight; dx < entity.sight + 1; dx++) {
-    for (let dy = -entity.sight; dy < entity.sight + 1; dy++) {
-      cordinates.push(positionToString(entity.position.x + dx, entity.position.y + dy));
-    }
-  }
-
-  return cordinates;
-};
-
-export enum MapOpservatorEvent {
-  EnterSight = "enter-sight",
-  ExitSight = "exit-sight",
-}
+export type MapObservatorEvent = { entityId: EntityID; position: Position | null; eventType: MapObservatorEventType };
 
 export class MapObservator {
-  private entities: Record<EntityID, Entity> = {};
-  private observationMap: Record<PositionString, EntityID[]> = {};
-  private entitiesInSight: Record<EntityID, EntityID[]> = {};
+  private movementSubject$ = new Subject<Movement>();
+  private lastKnownPosition$: Observable<LastKnownPositionMap> = this.movementSubject$.pipe(
+    scan(
+      (acc, curr) => (curr.position !== null ? set(acc, curr.entityId, curr.position) : omit(acc, [curr.entityId])),
+      {} as LastKnownPositionMap,
+    ),
+    shareReplay(),
+  );
 
-  private callbacks: Record<EntityID, Record<string, Subject<EntityID>>> = {};
+  private movementsInit$ = this.lastKnownPosition$.pipe(
+    first(),
+    concatMap(lastKnownPosition => entries(lastKnownPosition).map(([entityId, position]) => ({ entityId, position }))),
+  );
 
-  onEnterExit(entityId: EntityID, eventType: MapOpservatorEvent): Observable<EntityID> {
-    this.callbacks[entityId] ||= {};
-    this.callbacks[entityId][eventType] ||= new Subject<EntityID>();
-
-    return this.callbacks[entityId][eventType].asObservable();
+  constructor() {
+    this.lastKnownPosition$.subscribe().unsubscribe();
   }
 
-  addEntity(entityId: EntityID, position: Position, sight: Sight) {
-    const entity = { position, sight };
-    this.entities[entityId] = entity;
-
-    const startObservationPositions = createEntitySightStringPositions(entity);
-
-    this.triggerEntryForPositionSet(entityId, position);
-    this.triggerEntryEntitySight(entityId, startObservationPositions);
-    this.setObservation(entityId, startObservationPositions);
+  moveEntity(entityId: EntityID, position: Position | null) {
+    this.movementSubject$.next({ entityId, position });
   }
 
-  removeEntity(entityId: EntityID) {
-    const entity = this.entities[entityId];
+  onEventByPosition(position: Position, range: number): Observable<MapObservatorEvent> {
+    const inRange = (pos: Position) => getVectorDistance(pos, position) <= range;
 
-    this.unsetObservation(entityId, createEntitySightStringPositions(entity));
+    const visibleMap: Record<EntityID, boolean> = {};
 
-    delete this.entities[entityId];
-    delete this.callbacks[entityId];
-    delete this.entitiesInSight[entityId];
-  }
+    return concat(this.movementsInit$, this.movementSubject$).pipe(
+      map(({ entityId, position }) => {
+        const c = position && inRange(position);
 
-  distance(entityId: EntityID, targetEntityId: EntityID) {
-    const entity = this.entities[entityId];
-    const targetEntity = this.entities[targetEntityId];
+        if (c) {
+          if (visibleMap[entityId]) {
+            return { entityId, position, eventType: MapObservatorEventType.Move } as MapObservatorEvent;
+          } else {
+            return { entityId, position, eventType: MapObservatorEventType.Enter } as MapObservatorEvent;
+          }
+        }
 
-    return getVectorDistance(entity.position, targetEntity.position);
-  }
+        if (visibleMap[entityId]) {
+          return { entityId, position, eventType: MapObservatorEventType.Exit } as MapObservatorEvent;
+        }
 
-  updateEntity(entityId: EntityID, newPosition: Position, newSightRange?: number) {
-    const entity = this.entities[entityId];
-
-    if (!entity) return;
-
-    const newEntity = {
-      sight: newSightRange || entity.sight,
-      position: newPosition,
-    };
-
-    this.entities[entityId] = newEntity;
-
-    const originalSightPositions = createEntitySightStringPositions(entity);
-    const newSightPosition = createEntitySightStringPositions(newEntity);
-
-    const removeSightPositions = without(originalSightPositions, newSightPosition);
-    const addSightPositions = without(newSightPosition, originalSightPositions);
-
-    this.triggerExitEntitySight(entityId, removeSightPositions);
-    this.unsetObservation(entityId, removeSightPositions);
-
-    this.triggerEntryEntitySight(entityId, addSightPositions);
-    this.setObservation(entityId, addSightPositions);
-
-    this.triggerEntryForPositionSet(entityId, newPosition);
-    this.triggerExitForPositionSet(entityId, entity.position);
-  }
-
-  private triggerEntryForPositionSet(entityId: EntityID, newPosition: Position) {
-    const newPositionObservers = this.observationMap[positionToString(newPosition.x, newPosition.y)];
-    forEach(newPositionObservers || [], observerId => {
-      if (observerId === entityId) return;
-
-      this.triggerEntryEvent(observerId, entityId);
-    });
-  }
-
-  private triggerExitForPositionSet(entityId: EntityID, oldPosition: Position) {
-    const oldPositionObservers = this.observationMap[positionToString(oldPosition.x, oldPosition.y)];
-    forEach(oldPositionObservers || [], observerId => {
-      if (observerId === entityId) return;
-
-      this.triggerExitEvent(observerId, entityId);
-    });
-  }
-
-  private triggerEntryEntitySight(originEntityId: EntityID, positions: PositionString[]) {
-    forEach(positions, position => {
-      forEach(this.observationMap[position] || [], observerId => {
-        if (originEntityId === observerId) return;
-
-        this.triggerEntryEvent(originEntityId, observerId);
-      });
-    });
-  }
-
-  private triggerExitEntitySight(originEntityId: EntityID, positions: PositionString[]) {
-    forEach(positions, position => {
-      forEach(this.observationMap[position] || [], entityId => {
-        if (originEntityId === entityId) return;
-
-        this.triggerExitEvent(originEntityId, entityId);
-      });
-    });
-  }
-
-  private triggerExitEvent(observerId: EntityID, entityId: EntityID) {
-    if (this.entitiesInSight[observerId] && this.entitiesInSight[observerId].includes(entityId)) {
-      this.entitiesInSight[observerId] = without(this.entitiesInSight[observerId], [entityId]);
-      if (this.entitiesInSight[observerId].length === 0) {
-        delete this.entitiesInSight[observerId];
-      }
-
-      if (this.callbacks[observerId]) {
-        this.callbacks[observerId][MapOpservatorEvent.ExitSight]?.next(entityId);
-      }
-    }
-  }
-
-  private triggerEntryEvent(observerId: EntityID, entityId: EntityID) {
-    if (this.entitiesInSight[observerId] && this.entitiesInSight[observerId].includes(entityId)) return;
-
-    this.entitiesInSight[observerId] ||= [];
-    this.entitiesInSight[observerId] = [...this.entitiesInSight[observerId], entityId];
-
-    if (this.callbacks[observerId]) {
-      this.callbacks[observerId][MapOpservatorEvent.EnterSight]?.next(entityId);
-    }
-  }
-
-  private setObservation(entityId: EntityID, cordinates: PositionString[]) {
-    cordinates.forEach(pos => {
-      this.observationMap[pos] ||= [];
-      this.observationMap[pos].push(entityId);
-    });
-  }
-
-  private unsetObservation(entityId: EntityID, cordinates: PositionString[]) {
-    cordinates.forEach(pos => {
-      this.observationMap[pos] = without(this.observationMap[pos], [entityId]);
-      if (this.observationMap[pos].length === 0) {
-        delete this.observationMap[pos];
-      }
-    });
+        return null;
+      }),
+      filter(isNonNull),
+      tap(x => (visibleMap[x.entityId] = x.eventType !== MapObservatorEventType.Exit)),
+    );
   }
 }

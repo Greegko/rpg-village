@@ -1,109 +1,89 @@
 import { expect, test } from "../test";
-import { MapObservator, MapOpservatorEvent } from "./map-observator";
+import { MapObservator, MapObservatorEvent, MapObservatorEventType } from "./map-observator";
 
-test("emit enter event on entity add", () => {
+test("should emit enter event on entity move first time", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string][] = [];
+  const events: MapObservatorEvent[] = [];
 
-  mapObservator.onEnterExit("1", MapOpservatorEvent.EnterSight).subscribe(target => events.push(["1", target]));
-  mapObservator.onEnterExit("2", MapOpservatorEvent.EnterSight).subscribe(target => events.push(["2", target]));
+  mapObservator.onEventByPosition({ x: 0, y: 0 }, 1).subscribe(event => events.push(event));
 
-  mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
-  mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
+  mapObservator.moveEntity("1", { x: 0, y: 0 });
 
-  expect(events.length).toBe(2);
+  expect(events).toEqual([{ entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter }]);
 });
 
-test("should not emit enter again on move", () => {
+test("should emit enter event on observation start when in the range", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string][] = [];
+  const events: MapObservatorEvent[] = [];
 
-  mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
-  mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
+  mapObservator.moveEntity("1", { x: 0, y: 0 });
 
-  mapObservator.onEnterExit("1", MapOpservatorEvent.EnterSight).subscribe(target => events.push(["1", target]));
+  mapObservator.onEventByPosition({ x: 0, y: 0 }, 1).subscribe(event => events.push(event));
 
-  mapObservator.updateEntity("2", { x: 0, y: 0 });
+  expect(events).toEqual([{ entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter }]);
+});
 
-  expect(events.length).toBe(0);
+test("should emit move on visible target", () => {
+  const mapObservator = new MapObservator();
+  const events: MapObservatorEvent[] = [];
+
+  mapObservator.moveEntity("1", { x: 0, y: 0 });
+
+  mapObservator.onEventByPosition({ x: 0, y: 0 }, 2).subscribe(event => events.push(event));
+
+  mapObservator.moveEntity("1", { x: 0, y: 1 });
+
+  expect(events).toEqual([
+    { entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter },
+    { entityId: "1", position: { x: 0, y: 1 }, eventType: MapObservatorEventType.Move },
+  ]);
 });
 
 test("should emit exit event on leave", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string][] = [];
+  const events: MapObservatorEvent[] = [];
 
-  mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
-  mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
+  mapObservator.moveEntity("1", { x: 0, y: 0 });
 
-  mapObservator.onEnterExit("1", MapOpservatorEvent.ExitSight).subscribe(target => events.push(["1", target]));
+  mapObservator.onEventByPosition({ x: 0, y: 0 }, 2).subscribe(event => events.push(event));
 
-  mapObservator.updateEntity("2", { x: 6, y: 0 });
+  mapObservator.moveEntity("1", { x: 0, y: 3 });
 
-  expect(events).toEqual([["1", "2"]]);
+  expect(events).toEqual([
+    { entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter },
+    { entityId: "1", position: { x: 0, y: 3 }, eventType: MapObservatorEventType.Exit },
+  ]);
 });
 
 test("should not emit exit event after left and move", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string][] = [];
+  const events: MapObservatorEvent[] = [];
 
-  mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
-  mapObservator.addEntity("2", { x: 0, y: 0 }, 5);
+  mapObservator.moveEntity("1", { x: 0, y: 0 });
 
-  mapObservator.onEnterExit("1", MapOpservatorEvent.ExitSight).subscribe(target => events.push(["1", target]));
+  mapObservator.onEventByPosition({ x: 0, y: 0 }, 2).subscribe(event => events.push(event));
 
-  expect(events.length).toBe(0);
+  mapObservator.moveEntity("1", { x: 0, y: 3 });
+  mapObservator.moveEntity("1", { x: 0, y: 4 });
 
-  mapObservator.updateEntity("2", { x: 6, y: 0 });
-
-  expect(events.length).toBe(1);
-
-  mapObservator.updateEntity("2", { x: 7, y: 0 });
-
-  expect(events.length).toBe(1);
+  expect(events).toEqual([
+    { entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter },
+    { entityId: "1", position: { x: 0, y: 3 }, eventType: MapObservatorEventType.Exit },
+  ]);
 });
 
-test("should emit exit event after shrink sight", () => {
+test("should emit exit event when an entity is removed", () => {
   const mapObservator = new MapObservator();
-  const events: [string, string][] = [];
+  const events: MapObservatorEvent[] = [];
 
-  mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
-  mapObservator.addEntity("2", { x: 5, y: 0 }, 0);
+  mapObservator.moveEntity("1", { x: 0, y: 0 });
 
-  mapObservator.onEnterExit("1", MapOpservatorEvent.ExitSight).subscribe(target => events.push(["1", target]));
+  mapObservator.onEventByPosition({ x: 0, y: 0 }, 2).subscribe(event => events.push(event));
 
-  expect(events.length).toBe(0);
+  mapObservator.moveEntity("1", null);
 
-  mapObservator.updateEntity("1", { x: 0, y: 0 }, 3);
-
-  expect(events).toEqual([["1", "2"]]);
-});
-
-test("should emit enter event after increase sight", () => {
-  const mapObservator = new MapObservator();
-  const events: [string, string][] = [];
-
-  mapObservator.addEntity("1", { x: 0, y: 0 }, 3);
-  mapObservator.addEntity("2", { x: 5, y: 0 }, 0);
-
-  mapObservator.onEnterExit("1", MapOpservatorEvent.EnterSight).subscribe(target => events.push(["1", target]));
-
-  expect(events.length).toBe(0);
-
-  mapObservator.updateEntity("1", { x: 0, y: 0 }, 5);
-
-  expect(events).toEqual([["1", "2"]]);
-});
-
-test("should not emit exit event when an entity is removed", () => {
-  const mapObservator = new MapObservator();
-  const events: [string, string][] = [];
-
-  mapObservator.addEntity("1", { x: 0, y: 0 }, 5);
-  mapObservator.addEntity("2", { x: 5, y: 0 }, 0);
-
-  mapObservator.onEnterExit("1", MapOpservatorEvent.ExitSight).subscribe(target => events.push(["1", target]));
-
-  mapObservator.removeEntity("2");
-
-  expect(events.length).toBe(0);
+  expect(events).toEqual([
+    { entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter },
+    { entityId: "1", position: null, eventType: MapObservatorEventType.Exit },
+  ]);
 });
