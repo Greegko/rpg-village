@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { render } from "solid-js/web";
 
+import { ProgressBar } from "./components/progress-bar";
 import { fastForward, gameSpeed, gameState, run, setGameSpeed } from "./game";
 import "./main.css";
 import { Map } from "./map";
@@ -9,6 +10,7 @@ const Control = () => {
   return (
     <div>
       Turn: {gameState().general.turn}
+      <ProgressBar max={24} value={gameState().general.turn} />
       State: {run() ? "Running" : "Paused"} -{" "}
       <button class="px-3 mr-2 bg-gray-300 rounded-full" onClick={() => setGameSpeed(gameSpeed => +!gameSpeed)}>
         Switch
