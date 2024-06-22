@@ -1,6 +1,7 @@
+import { Observable, Subject } from "rxjs";
+
 import { describe, expect, test } from "../../test";
 import { createActorFactory } from "./create-actor";
-import { Observable, Subject } from "./observables";
 
 describe("Create Actor", () => {
   test("should execute onEnter callback on new state", () => {

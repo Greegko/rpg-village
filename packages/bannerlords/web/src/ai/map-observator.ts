@@ -3,9 +3,9 @@ import { Observable, Subject, concat, concatMap, filter, first, map, scan, share
 
 import { getVectorDistance } from "../utils/vector";
 
-type Position = { x: number; y: number };
+export type Position = { x: number; y: number };
 
-type EntityID = string;
+export type EntityID = string;
 
 interface Movement {
   entityId: EntityID;

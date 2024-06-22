@@ -2,18 +2,18 @@ import { Observable, Subject, Subscription, filter } from "rxjs";
 
 type OnEventObservableFactory<Dependencies, Context> = (deps: Dependencies, context: Context) => Observable<any>;
 
-type Dependencies = { [key: string]: any };
+type Dependencies = { [key: string]: Function };
 
 type EventCallback<Dependencies, Context> = (deps: Dependencies, context: Context) => void;
 
 type ActionCallback<Dependencies, Context> = (d: Dependencies, c: Context) => void;
 
-type Actions<Keys extends string, Dependency, Context> = {
-  [key in Keys]?: ActionCallback<Dependency, Context>;
+type Actions<Keys extends string, Dependencies, Context> = {
+  [key in Keys]?: ActionCallback<Dependencies, Context>;
 };
 
-type EventListeners<Keys extends string, Dependency, Context> = {
-  [key in Keys]?: OnEventObservableFactory<Dependency, Context>;
+type EventListeners<Keys extends string, Dependencies, Context> = {
+  [key in Keys]?: OnEventObservableFactory<Dependencies, Context>;
 };
 
 interface ActorState<Events extends string, Dependencies, Context> {
@@ -64,6 +64,7 @@ export const createActorFactory = <
     context: Context,
   ) => {
     const eventSystem = new Subject<Events>();
+
     const actorRootState = stateCreator({ switchTo, setContext, emitEvent, executeAction });
 
     let activeStateKeys: string[] = [];
@@ -71,6 +72,11 @@ export const createActorFactory = <
 
     function executeAction(actionName: ActionNames) {
       actions[actionName]?.(dependencies, context);
+    }
+
+    function getMainState() {
+      const [mainState] = activeStateKeys;
+      return actorRootState.states[mainState];
     }
 
     function getActiveState() {
@@ -109,10 +115,10 @@ export const createActorFactory = <
     }
 
     function setActiveState(target: string) {
-      const prevActiveState = getActiveState();
+      const activeMainState = getMainState();
 
-      if (prevActiveState && "states" in prevActiveState && prevActiveState.states[target]) {
-        activeStateKeys = [...activeStateKeys, target];
+      if (activeMainState && "states" in activeMainState && activeMainState.states[target]) {
+        activeStateKeys = [activeStateKeys[0], target];
       } else {
         activeStateKeys = [target];
       }

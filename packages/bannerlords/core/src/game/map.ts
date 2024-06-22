@@ -70,6 +70,7 @@ export const initialMapData: InitialMapData = {
       belongTo: "bisumaron",
       position: { x: 130, y: 100 },
       stash: { gold: 0, items: [] },
+      parties: [],
     },
 
     {
@@ -80,6 +81,7 @@ export const initialMapData: InitialMapData = {
       belongTo: "grandenson",
       position: { x: 230, y: 200 },
       stash: { gold: 0, items: [] },
+      parties: [],
     },
   ],
 };

@@ -1,8 +1,7 @@
-import { mapValues, pickBy, values } from "remeda";
+import { mapValues, values } from "remeda";
 import { For, createMemo } from "solid-js";
 
 import { gameState } from "./game";
-import { PartyType, getPartyType } from "./utils/party-type";
 
 const entityIdRefsMap = createMemo(() => ({
   ...gameState().lords,
@@ -11,44 +10,30 @@ const entityIdRefsMap = createMemo(() => ({
   ...gameState().towns,
 }));
 
-const map = createMemo(() =>
+const mapElements = createMemo(() =>
   mapValues(gameState().map, (position, entityId) => ({
+    entityId,
     entity: entityIdRefsMap()[entityId],
     position,
   })),
 );
 
-const villages = () => gameState().villages;
-const villagerParties = () =>
-  pickBy(gameState().parties, party => getPartyType(gameState(), party.belongTo) === PartyType.Villager);
-const lordParties = () =>
-  pickBy(gameState().parties, party => getPartyType(gameState(), party.belongTo) === PartyType.Lord);
-const towns = () => gameState().towns;
-const castles = () => gameState().castles;
+const getColor = (entityId: string): "purple" | "red" | "yellow" | "blue" => {
+  return (
+    (gameState().parties[entityId] && "blue") ||
+    (gameState().villages[entityId] && "yellow") ||
+    (gameState().castles[entityId] && "blue") ||
+    (gameState().towns[entityId] && "red")
+  );
+};
 
 export const Map = () => {
   return (
     <div class="relative">
-      <For each={values(villages())}>
-        {village => (
-          <Dot x={map()[village.id].position.x} y={map()[village.id].position.y} size={10} color={"purple"} />
+      <For each={values(mapElements())}>
+        {mapElement => (
+          <Dot x={mapElement.position.x} y={mapElement.position.y} size={10} color={getColor(mapElement.entityId)} />
         )}
-      </For>
-
-      <For each={values(lordParties())}>
-        {lord => <Dot x={map()[lord.id].position.x} y={map()[lord.id].position.y} size={10} color={"red"} />}
-      </For>
-
-      <For each={values(villagerParties())}>
-        {lord => <Dot x={map()[lord.id].position.x} y={map()[lord.id].position.y} size={10} color={"red"} />}
-      </For>
-
-      <For each={values(towns())}>
-        {town => <Dot x={map()[town.id].position.x} y={map()[town.id].position.y} size={10} color={"yellow"} />}
-      </For>
-
-      <For each={values(castles())}>
-        {castle => <Dot x={map()[castle.id].position.x} y={map()[castle.id].position.y} size={10} color={"blue"} />}
       </For>
     </div>
   );
