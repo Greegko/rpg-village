@@ -1,17 +1,17 @@
 {
   "name": "@rpg-village/bannerlords-web",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "private": true,
   "scripts": {
+    "start": "pnpm run \"/serve|type-checking/\"",
     "build": "vite build",
     "serve": "vite serve",
-    "type-checking": "tsc -w",
-    "prepare": "true"
+    "type-checking": "tsc -w --preserveWatchOutput"
   },
   "dependencies": {
-    "@rpg-village/bannerlords": "*",
-    "@rpg-village/client-features": "*",
+    "@rpg-village/bannerlords-core": "workspace: *",
+    "@rpg-village/client-features": "workspace: *",
     "remeda": "1.60.1",
     "reflect-metadata": "0.2.2",
     "solid-js": "1.8.16"

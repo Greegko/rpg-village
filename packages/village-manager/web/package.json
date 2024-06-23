@@ -1,16 +1,16 @@
 {
   "name": "@rpg-village/village-manager-web",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "private": true,
   "scripts": {
+    "start": "pnpm run \"/serve|type-checking/\"",
     "build": "vite build",
     "serve": "vite serve",
-    "type-checking": "tsc -w",
-    "prepare": "true"
+    "type-checking": "tsc -w --preserveWatchOutput"
   },
   "dependencies": {
-    "@rpg-village/village-manager": "*",
+    "@rpg-village/village-manager-core": "workspace: 0.0.0",
     "rambda": "9.2.0",
     "reflect-metadata": "0.2.2",
     "solid-js": "1.8.16"

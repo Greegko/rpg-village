@@ -1,21 +1,14 @@
 {
-  "name": "@rpg-village/village-manager",
-  "version": "0.0.1",
+  "name": "@rpg-village/village-manager-core",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "build": "tsc -b ./src/tsconfig.json",
-    "build:watch": "tsc -b ./src/tsconfig.json --watch",
-    "build:test": "tsc -b ./tests/tsconfig.json --watch",
+    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
+    "build:test": "tsc -b ./tests/tsconfig.json --watch --preserveWatchOutput",
     "test": "ava",
     "test:watch": "ava --watch",
     "prepare": "ts-patch install -s"
-  },
-  "dependencies": {
-    "@rpg-village/core": "0.0.2",
-    "@rpg-village/features": "0.0.1",
-    "inversify": "6.0.2",
-    "rambda": "9.2.0",
-    "shortid": "2.2.16"
   },
   "exports": {
     ".": "./dist/public-api.js",
@@ -24,12 +17,17 @@
     "./lib/*": "./dist/lib/*.js"
   },
   "peerDependencies": {
+    "@rpg-village/core": "workspace: 0.0.0",
+    "@rpg-village/features": "workspace: 0.0.0",
+    "inversify": "6.0.2",
+    "rambda": "9.2.0",
+    "shortid": "2.2.16",
     "reflect-metadata": "0.2.2"
   },
   "devDependencies": {
     "@types/chance": "1.1.6",
     "@types/shortid": "0.0.32",
-    "@types/node": "^18.19.31",
+    "@types/node": "20.14.8",
     "reflect-metadata": "0.2.2",
     "ava": "6.1.2",
     "ts-patch": "3.1.2",
