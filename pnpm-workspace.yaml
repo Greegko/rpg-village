@@ -1,4 +1,4 @@
 packages:
   - packages/*
-  - packages/**/core
-  - packages/**/web
+  - games/**/core
+  - games/**/web

@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig-base.json",
+  "include": ["**/*.ts"],
+  "references": [
+    { "path": "../battle" },
+    { "path": "../effect" },
+    { "path": "../item" },
+    { "path": "../party" },
+    { "path": "../unit" },
+    { "path": "../map" },
+    { "path": "../stash" },
+    { "path": "../buildings/shop" },
+    { "path": "../buildings/portal" },
+    { "path": "../buildings/portal-summoning-stone" }
+  ]
+}

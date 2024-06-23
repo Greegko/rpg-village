@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      concurrently:
-        specifier: 8.0.1
-        version: 8.0.1
     devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: 4.1.1
@@ -19,11 +15,11 @@ importers:
         specifier: 2.8.8
         version: 2.8.8
 
-  packages/bannerlords/core:
+  games/bannerlords/core:
     dependencies:
       '@rpg-village/core':
         specifier: 'workspace: 0.0.0'
-        version: link:../../core
+        version: link:../../../packages/core
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -65,14 +61,14 @@ importers:
         specifier: 3.4.7
         version: 3.4.7(typescript@5.4.5)
 
-  packages/bannerlords/web:
+  games/bannerlords/web:
     dependencies:
-      '@rpg-village/bannerlords-core':
-        specifier: 'workspace: *'
-        version: link:../core
       '@rpg-village/client-features':
         specifier: 'workspace: *'
-        version: link:../../client-features
+        version: link:../../../packages/client-features
+      bannerlords-core:
+        specifier: 'workspace: *'
+        version: link:../core
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -98,6 +94,89 @@ importers:
       vite-plugin-solid:
         specifier: 2.10.2
         version: 2.10.2(solid-js@1.8.16)(vite@5.2.8(@types/node@20.14.8)(sass@1.75.0))
+
+  games/village-manager/core:
+    dependencies:
+      '@rpg-village/core':
+        specifier: 'workspace: 0.0.0'
+        version: link:../../../packages/core
+      '@rpg-village/features':
+        specifier: 'workspace: 0.0.0'
+        version: link:../../../packages/features
+      inversify:
+        specifier: 6.0.2
+        version: 6.0.2
+      rambda:
+        specifier: 9.2.0
+        version: 9.2.0
+      shortid:
+        specifier: 2.2.16
+        version: 2.2.16
+    devDependencies:
+      '@types/chance':
+        specifier: 1.1.6
+        version: 1.1.6
+      '@types/node':
+        specifier: 20.14.8
+        version: 20.14.8
+      '@types/shortid':
+        specifier: 0.0.32
+        version: 0.0.32
+      ava:
+        specifier: 6.1.2
+        version: 6.1.2
+      chance:
+        specifier: 1.1.11
+        version: 1.1.11
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      ts-patch:
+        specifier: 3.1.2
+        version: 3.1.2
+      tsx:
+        specifier: 4.7.2
+        version: 4.7.2
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
+      typescript-transform-paths:
+        specifier: 3.4.7
+        version: 3.4.7(typescript@5.4.5)
+
+  games/village-manager/web:
+    dependencies:
+      rambda:
+        specifier: 9.2.0
+        version: 9.2.0
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      solid-js:
+        specifier: 1.8.16
+        version: 1.8.16
+      village-manager-core:
+        specifier: 'workspace: 0.0.0'
+        version: link:../core
+    devDependencies:
+      sass:
+        specifier: 1.75.0
+        version: 1.75.0
+      tailwindcss:
+        specifier: 3.4.3
+        version: 3.4.3
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
+      vite:
+        specifier: 5.2.8
+        version: 5.2.8(@types/node@20.14.8)(sass@1.75.0)
+      vite-plugin-solid:
+        specifier: 2.10.2
+        version: 2.10.2(solid-js@1.8.16)(vite@5.2.8(@types/node@20.14.8)(sass@1.75.0))
+      vite-plugin-static-copy:
+        specifier: 1.0.2
+        version: 1.0.2(vite@5.2.8(@types/node@20.14.8)(sass@1.75.0))
 
   packages/client-features:
     dependencies:
@@ -207,89 +286,6 @@ importers:
         specifier: 3.4.7
         version: 3.4.7(typescript@5.4.5)
 
-  packages/village-manager/core:
-    dependencies:
-      '@rpg-village/core':
-        specifier: 'workspace: 0.0.0'
-        version: link:../../core
-      '@rpg-village/features':
-        specifier: 'workspace: 0.0.0'
-        version: link:../../features
-      inversify:
-        specifier: 6.0.2
-        version: 6.0.2
-      rambda:
-        specifier: 9.2.0
-        version: 9.2.0
-      shortid:
-        specifier: 2.2.16
-        version: 2.2.16
-    devDependencies:
-      '@types/chance':
-        specifier: 1.1.6
-        version: 1.1.6
-      '@types/node':
-        specifier: 20.14.8
-        version: 20.14.8
-      '@types/shortid':
-        specifier: 0.0.32
-        version: 0.0.32
-      ava:
-        specifier: 6.1.2
-        version: 6.1.2
-      chance:
-        specifier: 1.1.11
-        version: 1.1.11
-      reflect-metadata:
-        specifier: 0.2.2
-        version: 0.2.2
-      ts-patch:
-        specifier: 3.1.2
-        version: 3.1.2
-      tsx:
-        specifier: 4.7.2
-        version: 4.7.2
-      typescript:
-        specifier: 5.4.5
-        version: 5.4.5
-      typescript-transform-paths:
-        specifier: 3.4.7
-        version: 3.4.7(typescript@5.4.5)
-
-  packages/village-manager/web:
-    dependencies:
-      '@rpg-village/village-manager-core':
-        specifier: 'workspace: 0.0.0'
-        version: link:../core
-      rambda:
-        specifier: 9.2.0
-        version: 9.2.0
-      reflect-metadata:
-        specifier: 0.2.2
-        version: 0.2.2
-      solid-js:
-        specifier: 1.8.16
-        version: 1.8.16
-    devDependencies:
-      sass:
-        specifier: 1.75.0
-        version: 1.75.0
-      tailwindcss:
-        specifier: 3.4.3
-        version: 3.4.3
-      typescript:
-        specifier: 5.4.5
-        version: 5.4.5
-      vite:
-        specifier: 5.2.8
-        version: 5.2.8(@types/node@20.14.8)(sass@1.75.0)
-      vite-plugin-solid:
-        specifier: 2.10.2
-        version: 2.10.2(solid-js@1.8.16)(vite@5.2.8(@types/node@20.14.8)(sass@1.75.0))
-      vite-plugin-static-copy:
-        specifier: 1.0.2
-        version: 1.0.2(vite@5.2.8(@types/node@20.14.8)(sass@1.75.0))
-
 packages:
 
   '@alloc/quick-lru@5.2.0':
@@ -392,10 +388,6 @@ packages:
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
-
-  '@babel/runtime@7.24.7':
-    resolution: {integrity: sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==}
-    engines: {node: '>=6.9.0'}
 
   '@babel/template@7.24.7':
     resolution: {integrity: sha512-jYqfPrU9JTF0PmPy1tLYHW4Mp4KlgxJD9l2nP9fD6yT/ICi554DmrWBAEYpIelzjHf1msDP3PxJIRt/nFNfBig==}
@@ -1080,11 +1072,6 @@ packages:
     resolution: {integrity: sha512-OAcsnTEYu1ARJqWVGwf4zh4JDfHZEaSNlNccFmt8YjB2l/n19/PF2viLINHc57vO4FKIAFl2FWASIGZZWZ2Kxw==}
     engines: {node: '>=10.18.0 <11 || >=12.14.0 <13 || >=14'}
 
-  concurrently@8.0.1:
-    resolution: {integrity: sha512-Sh8bGQMEL0TAmAm2meAXMjcASHZa7V0xXQVDBLknCPa9TPtkY9yYs+0cnGGgfdkW0SV1Mlg+hVGfXcoI8d3MJA==}
-    engines: {node: ^14.13.0 || >=16.0.0}
-    hasBin: true
-
   console-control-strings@1.1.0:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}
 
@@ -1110,10 +1097,6 @@ packages:
   currently-unhandled@0.4.1:
     resolution: {integrity: sha512-/fITjgjGU50vjQ4FH6eUoYu+iUoUKIXws2hL15JJpIR+BbTxaXQsMuuyjtNh2WqsSBS5nsaZHFsFecyw5CCAng==}
     engines: {node: '>=0.10.0'}
-
-  date-fns@2.30.0:
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
 
   date-time@3.1.0:
     resolution: {integrity: sha512-uqCUKXE5q1PNBXjPqvwhwJf9SwMoAHBgWJ6DcrnS5o+W2JOiIILl0JEdVD8SGujrNS02GGxgwAg2PN2zONgtjg==}
@@ -1717,9 +1700,6 @@ packages:
   reflect-metadata@0.2.2:
     resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
 
-  regenerator-runtime@0.14.1:
-    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-
   remeda@1.60.1:
     resolution: {integrity: sha512-g2h+NJbYJlaVKjT8ipLLYAhoNcZaES9UPnPSwY3uRO52KDl77y9AQucgdyiBt+bTCB80MJ1Hdr0N9rdxOFEZ4g==}
 
@@ -1804,9 +1784,6 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  shell-quote@1.8.1:
-    resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
-
   shortid@2.2.16:
     resolution: {integrity: sha512-Ugt+GIZqvGXCIItnsL+lvFJOiN7RYqlGy7QE41O3YC1xbNSeDGIRO7xg2JJXIAj1cAGnOeC1r7/T9pgrtQbv4g==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
@@ -1841,9 +1818,6 @@ packages:
   source-map@0.5.7:
     resolution: {integrity: sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==}
     engines: {node: '>=0.10.0'}
-
-  spawn-command@0.0.2-1:
-    resolution: {integrity: sha512-n98l9E2RMSJ9ON1AKisHzz7V42VDiBQGY6PB1BwRglz99wpVsSuGzQ+jOi6lFXBGVTCrRpltvjm+/XA+tpeJrg==}
 
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
@@ -1892,10 +1866,6 @@ packages:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
 
-  supports-color@8.1.1:
-    resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
-    engines: {node: '>=10'}
-
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
@@ -1934,10 +1904,6 @@ packages:
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
-
-  tree-kill@1.2.2:
-    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
-    hasBin: true
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
@@ -2234,10 +2200,6 @@ snapshots:
     dependencies:
       '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
-
-  '@babel/runtime@7.24.7':
-    dependencies:
-      regenerator-runtime: 0.14.1
 
   '@babel/template@7.24.7':
     dependencies:
@@ -2841,18 +2803,6 @@ snapshots:
       semver: 7.6.2
       well-known-symbols: 2.0.0
 
-  concurrently@8.0.1:
-    dependencies:
-      chalk: 4.1.2
-      date-fns: 2.30.0
-      lodash: 4.17.21
-      rxjs: 7.8.1
-      shell-quote: 1.8.1
-      spawn-command: 0.0.2-1
-      supports-color: 8.1.1
-      tree-kill: 1.2.2
-      yargs: 17.7.2
-
   console-control-strings@1.1.0: {}
 
   convert-source-map@2.0.0: {}
@@ -2872,10 +2822,6 @@ snapshots:
   currently-unhandled@0.4.1:
     dependencies:
       array-find-index: 1.0.2
-
-  date-fns@2.30.0:
-    dependencies:
-      '@babel/runtime': 7.24.7
 
   date-time@3.1.0:
     dependencies:
@@ -3405,8 +3351,6 @@ snapshots:
 
   reflect-metadata@0.2.2: {}
 
-  regenerator-runtime@0.14.1: {}
-
   remeda@1.60.1: {}
 
   require-directory@2.1.1: {}
@@ -3491,8 +3435,6 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shell-quote@1.8.1: {}
-
   shortid@2.2.16:
     dependencies:
       nanoid: 2.1.11
@@ -3526,8 +3468,6 @@ snapshots:
   source-map-js@1.2.0: {}
 
   source-map@0.5.7: {}
-
-  spawn-command@0.0.2-1: {}
 
   sprintf-js@1.0.3: {}
 
@@ -3590,10 +3530,6 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  supports-color@8.1.1:
-    dependencies:
-      has-flag: 4.0.0
-
   supports-preserve-symlinks-flag@1.0.0: {}
 
   tailwindcss@3.4.3:
@@ -3651,8 +3587,6 @@ snapshots:
       is-number: 7.0.0
 
   tr46@0.0.3: {}
-
-  tree-kill@1.2.2: {}
 
   ts-interface-checker@0.1.13: {}
 

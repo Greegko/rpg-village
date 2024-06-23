@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig-base.json",
+  "include": ["**/*.ts"],
+  "references": [
+    { "path": "../features/castle" },
+    { "path": "../features/clan" },
+    { "path": "../features/fraction" },
+    { "path": "../features/item" },
+    { "path": "../features/lord" },
+    { "path": "../features/map" },
+    { "path": "../features/town" },
+    { "path": "../features/unit" },
+    { "path": "../features/village" },
+    { "path": "../features/party" }
+  ]
+}

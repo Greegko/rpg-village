@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noUnusedLocals": true,
+    "strict": true,
+    "composite": true,
+    "outDir": "../dist",
+    "declaration": true,
+    "declarationMap": true,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ],
+    "paths": {
+      "@core-types": ["./types"],
+      "@features/*": ["./features/*"],
+      "@lib/*": ["./lib/*"]
+    }
+  }
+}
