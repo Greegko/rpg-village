@@ -5,5 +5,5 @@ export enum PartyType {
   Lord = "lord",
 }
 
-export const getPartyType = (gameState: GameState, entityId: string) =>
-  (gameState.villages[entityId] && PartyType.Villager) || (gameState.lords[entityId] && PartyType.Lord);
+export const getPartyType = (gameState: GameState, belongToEntityId: string) =>
+  (gameState.villages[belongToEntityId] && PartyType.Villager) || (gameState.lords[belongToEntityId] && PartyType.Lord);

@@ -1,6 +1,6 @@
 import { Observable, Subject } from "rxjs";
 
-import { describe, expect, test } from "../../test";
+import { describe, expect, test } from "../utils/test";
 import { createActorFactory } from "./create-actor";
 
 describe("Create Actor", () => {

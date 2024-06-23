@@ -1,0 +1,26 @@
+{
+  "name": "@rpg-village/client-features",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b ./src/tsconfig.json",
+    "build:watch": "tsc -b ./src/tsconfig.json --watch",
+    "prepare": "ts-patch install -s"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "peerDependencies": {
+    "rambda": "9.2.0",
+    "rxjs": "7.8.1"
+  },
+  "devDependencies": {
+    "ts-patch": "3.1.2",
+    "typescript": "5.4.5",
+    "typescript-transform-paths": "3.4.7"
+  }
+}

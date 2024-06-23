@@ -1,5 +1,4 @@
-import { EntityID, Position } from "../map-observator";
-import { createActorFactory } from "./create-actor";
+import { EntityID, Position, createActorFactory } from "@rpg-village/client-features";
 
 type Dependencies = {
   getMapPosition: (entityId: EntityID) => Position;

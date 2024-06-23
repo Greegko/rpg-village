@@ -1,4 +1,4 @@
-import { expect, test } from "../test";
+import { expect, test } from "../utils";
 import { MapObservator, MapObservatorEvent, MapObservatorEventType } from "./map-observator";
 
 test("should emit enter event on entity move first time", () => {

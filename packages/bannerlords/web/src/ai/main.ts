@@ -1,5 +1,6 @@
+import { Actor, MapObservator, getVectorAngle } from "@rpg-village/client-features";
 import { forEach, pickBy, values } from "remeda";
-import { filter, tap } from "rxjs";
+import { filter } from "rxjs";
 import { createSignal, untrack } from "solid-js";
 import { createStore } from "solid-js/store";
 
@@ -8,10 +9,7 @@ import { Command, GameState, MapCommand, TownCommand, VillageCommand } from "@rp
 import { PartyType, getPartyType } from "../utils/party-type";
 import { asObservable, onEvent, onKeyAdded, onValueChanges } from "../utils/signal";
 import { TimePhase, getTimePhase } from "../utils/time";
-import { getVectorAngle } from "../utils/vector";
-import { Actor } from "./actors/create-actor";
 import { villagerActorFactory } from "./actors/villager-actor";
-import { MapObservator } from "./map-observator";
 
 export const createAiHandler = (initialGameState: GameState) => {
   const [gameState, setAIGameState] = createStore<GameState>(initialGameState);

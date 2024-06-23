@@ -6,11 +6,13 @@
     "features:start": "npm run build:watch --prefix packages/features",
     "village-manager:start": "npm run start --prefix packages/village-manager",
     "bannerlords:start": "npm run start --prefix packages/bannerlords",
+    "client-features:start": "npm run start --prefix packages/client-features",
     "prepare": "for P in packages/*/; do (cd $P && npm run prepare); done"
   },
   "workspaces": [
     "packages/core",
     "packages/features",
+    "packages/client-features",
     "packages/village-manager/core",
     "packages/village-manager/web",
     "packages/bannerlords/core",
