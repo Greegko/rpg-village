@@ -11,7 +11,7 @@ import {
   TrainingFieldCommand,
   VillageCommand,
   calculateUnitStrength,
-} from "@rpg-village/village-manager";
+} from "@rpg-village/village-manager-core";
 
 import { PartyAction, PartyActionType, PartyState } from "@web/store/ai";
 import {

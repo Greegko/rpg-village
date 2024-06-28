@@ -1,4 +1,4 @@
-import { PartyID } from "@rpg-village/village-manager";
+import { PartyID } from "@rpg-village/village-manager-core";
 
 import { setGameStore } from "../game-store";
 import { PartyActionType } from "./state";

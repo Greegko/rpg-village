@@ -1,4 +1,4 @@
-import { GameState } from "@rpg-village/village-manager";
+import { GameState } from "@rpg-village/village-manager-core";
 
 import { GameAIState } from "./ai";
 import { GameDebugState } from "./debug";

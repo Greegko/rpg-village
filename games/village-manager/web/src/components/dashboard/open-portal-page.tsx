@@ -1,6 +1,6 @@
 import { Show, createComputed, createSignal } from "solid-js";
 
-import { DungeonKey, ItemType, VillageBuildingCommand, VillageID } from "@rpg-village/village-manager";
+import { DungeonKey, ItemType, VillageBuildingCommand, VillageID } from "@rpg-village/village-manager-core";
 
 import { useGameExecuteCommand } from "@web/engine";
 import { useGameStateSelector, villageByIdSelector } from "@web/store/game";

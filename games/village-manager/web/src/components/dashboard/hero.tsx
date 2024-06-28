@@ -1,6 +1,6 @@
 import { identity } from "rambda";
 
-import { Item, nextLevelXp } from "@rpg-village/village-manager";
+import { Item, nextLevelXp } from "@rpg-village/village-manager-core";
 
 import { unitByIdSelector, useGameStateSelector } from "@web/store/game";
 import { GamePageType, setPage } from "@web/store/ui";

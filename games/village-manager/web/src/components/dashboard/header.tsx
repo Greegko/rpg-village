@@ -1,7 +1,7 @@
 import { keys } from "rambda";
 import { For, Show, createSignal } from "solid-js";
 
-import { VillageID } from "@rpg-village/village-manager";
+import { VillageID } from "@rpg-village/village-manager-core";
 
 import { mapsSelector, useGameStateSelector, worldMapIdSelector } from "@web/store/game";
 import { mapSelector, setMap, useGameUiStateSelector } from "@web/store/ui";

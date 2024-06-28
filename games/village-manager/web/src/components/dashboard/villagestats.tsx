@@ -1,4 +1,4 @@
-import { VillageID } from "@rpg-village/village-manager";
+import { VillageID } from "@rpg-village/village-manager-core";
 
 import { turnSelector, useGameStateSelector, villageByIdSelector } from "@web/store/game";
 

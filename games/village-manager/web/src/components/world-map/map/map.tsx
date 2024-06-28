@@ -1,6 +1,6 @@
 import { For, Show } from "solid-js";
 
-import { MapID, MapLocation } from "@rpg-village/village-manager";
+import { MapID, MapLocation } from "@rpg-village/village-manager-core";
 
 import { useGameStateSelector } from "@web/store/game";
 import { mapLocationsByMapIdSelector, partiesOnLocationSelector } from "@web/store/game";

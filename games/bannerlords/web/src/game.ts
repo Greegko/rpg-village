@@ -1,7 +1,7 @@
 import { forEach, times } from "remeda";
 import { createComputed, createSignal, onCleanup } from "solid-js";
 
-import { GameState, createGameInstance } from "@rpg-village/bannerlords";
+import { GameState, createGameInstance } from "@rpg-village/bannerlords-core";
 
 import { createAiHandler } from "./ai/main";
 

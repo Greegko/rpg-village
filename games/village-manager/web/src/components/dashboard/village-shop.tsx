@@ -1,6 +1,6 @@
 import { Show, createSignal } from "solid-js";
 
-import { Item, VillageBuildingCommand, VillageID } from "@rpg-village/village-manager";
+import { Item, VillageBuildingCommand, VillageID } from "@rpg-village/village-manager-core";
 
 import { useGameExecuteCommand } from "@web/engine";
 import { useGameStateSelector, villageByIdSelector } from "@web/store/game";

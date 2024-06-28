@@ -1,7 +1,7 @@
 import { range } from "rambda";
 import { For, Match, Show, Switch, createComputed, createSignal, on } from "solid-js";
 
-import { Item, ItemType } from "@rpg-village/village-manager";
+import { Item, ItemType } from "@rpg-village/village-manager-core";
 
 import { Asset, Popup } from "../core";
 import { ItemStats } from "./item-stats";

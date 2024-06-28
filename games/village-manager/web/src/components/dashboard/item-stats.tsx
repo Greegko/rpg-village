@@ -7,7 +7,7 @@ import {
   ItemType,
   Rune,
   getItemEffects,
-} from "@rpg-village/village-manager";
+} from "@rpg-village/village-manager-core";
 
 import { translate } from "../../game";
 

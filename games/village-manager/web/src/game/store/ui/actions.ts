@@ -1,4 +1,4 @@
-import { MapID, VillageID } from "@rpg-village/village-manager";
+import { MapID, VillageID } from "@rpg-village/village-manager-core";
 
 import { setGameStore } from "../game-store";
 import { GamePageType } from "./state";

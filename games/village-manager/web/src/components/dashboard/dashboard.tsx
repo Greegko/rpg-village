@@ -9,7 +9,7 @@ import {
   VillageBuildingCommand,
   VillageCommand,
   VillageID,
-} from "@rpg-village/village-manager";
+} from "@rpg-village/village-manager-core";
 
 import { useGameExecuteCommand } from "@web/engine";
 import {

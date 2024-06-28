@@ -1,5 +1,5 @@
 {
-  "name": "village-manager-web",
+  "name": "@rpg-village/village-manager-web",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -10,7 +10,7 @@
     "type-checking": "tsc -w --preserveWatchOutput"
   },
   "dependencies": {
-    "village-manager-core": "workspace: 0.0.0",
+    "@rpg-village/village-manager-core": "workspace: 0.0.0",
     "rambda": "9.2.1",
     "reflect-metadata": "0.2.2",
     "solid-js": "1.8.17"

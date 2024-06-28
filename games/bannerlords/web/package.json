@@ -1,5 +1,5 @@
 {
-  "name": "bannerlords-web",
+  "name": "@rpg-village/bannerlords-web",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@rpg-village/client-features": "workspace: *",
-    "bannerlords-core": "workspace: *",
+    "@rpg-village/bannerlords-core": "workspace: *",
     "remeda": "2.2.0",
     "reflect-metadata": "0.2.2",
     "solid-js": "1.8.17"

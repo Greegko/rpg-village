@@ -14,7 +14,7 @@ import {
   Shield,
   VillageID,
   Weapon,
-} from "@rpg-village/village-manager";
+} from "@rpg-village/village-manager-core";
 
 import { sample } from "@lib/sample";
 import { gameInstanceWrapper, useGameExecuteCommand } from "@web/engine";

@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { batch, createComputed, onMount } from "solid-js";
 import { render } from "solid-js/web";
 
-import { Command, GameState, Party, PartyOwner } from "@rpg-village/village-manager";
+import { Command, GameState, Party, PartyOwner } from "@rpg-village/village-manager-core";
 
 import { gameInstanceWrapper } from "@web/engine";
 import { gameStore, restoreStateFromLocalStorage, setGameStore } from "@web/store";

@@ -1,6 +1,6 @@
 import { append } from "rambda";
 
-import { Command } from "@rpg-village/village-manager";
+import { Command } from "@rpg-village/village-manager-core";
 
 import { turnSelector } from "../game";
 import { gameStore, setGameStore } from "../game-store";

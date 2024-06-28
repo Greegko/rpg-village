@@ -1,6 +1,6 @@
 import { batch, createSignal } from "solid-js";
 
-import { Command } from "@rpg-village/village-manager";
+import { Command } from "@rpg-village/village-manager-core";
 
 import { addToCommandHistory } from "@web/store/debug";
 

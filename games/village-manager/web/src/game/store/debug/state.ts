@@ -1,4 +1,4 @@
-import { Command } from "@rpg-village/village-manager";
+import { Command } from "@rpg-village/village-manager-core";
 
 type CommandHistory = { turn: number; command: Command };
 

@@ -1,6 +1,6 @@
 import { forEach } from "rambda";
 
-import { Command, GameInstance, GameState, createGameInstance } from "@rpg-village/village-manager";
+import { Command, GameInstance, GameState, createGameInstance } from "@rpg-village/village-manager-core";
 
 import { StateUpdateCallback } from "../interface";
 

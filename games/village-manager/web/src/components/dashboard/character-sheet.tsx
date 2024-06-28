@@ -8,7 +8,7 @@ import {
   RuneWorkshopCommand,
   UnitCommand,
   UnitID,
-} from "@rpg-village/village-manager";
+} from "@rpg-village/village-manager-core";
 
 import { useGameExecuteCommand } from "@web/engine";
 import { unitByIdSelector, useGameStateSelector, villageByIdSelector } from "@web/store/game";

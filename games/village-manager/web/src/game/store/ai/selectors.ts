@@ -1,4 +1,4 @@
-import { PartyID } from "@rpg-village/village-manager";
+import { PartyID } from "@rpg-village/village-manager-core";
 
 import { createSelectorFactory, selectorProperty } from "../create-selector";
 import { GameStoreState } from "../game-store-state";

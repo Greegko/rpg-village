@@ -1,6 +1,6 @@
 import { For, Show } from "solid-js";
 
-import { ActivityCommand, ActivityID, PartyID } from "@rpg-village/village-manager";
+import { ActivityCommand, ActivityID, PartyID } from "@rpg-village/village-manager-core";
 
 import { useGameExecuteCommand } from "@web/engine";
 import {

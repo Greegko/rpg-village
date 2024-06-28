@@ -1,4 +1,4 @@
-import { GameState } from "@rpg-village/bannerlords";
+import { GameState } from "@rpg-village/bannerlords-core";
 
 export enum PartyType {
   Villager = "villager",

@@ -1,6 +1,6 @@
 import { path } from "rambda";
 
-import { AttackEffectType, DefenseEffectType } from "@rpg-village/village-manager";
+import { AttackEffectType, DefenseEffectType } from "@rpg-village/village-manager-core";
 
 import { Path, PathValue } from "./dot-notation";
 

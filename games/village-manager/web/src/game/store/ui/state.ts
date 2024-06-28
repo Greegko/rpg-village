@@ -1,4 +1,4 @@
-import { MapID, VillageID } from "@rpg-village/village-manager";
+import { MapID, VillageID } from "@rpg-village/village-manager-core";
 
 export enum GamePageType {
   CharacterSheet,

@@ -4,7 +4,7 @@ import { filter } from "rxjs";
 import { createSignal, untrack } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { Command, GameState, MapCommand, TownCommand, VillageCommand } from "@rpg-village/bannerlords";
+import { Command, GameState, MapCommand, TownCommand, VillageCommand } from "@rpg-village/bannerlords-core";
 
 import { PartyType, getPartyType } from "../utils/party-type";
 import { asObservable, onEvent, onKeyAdded, onValueChanges } from "../utils/signal";

@@ -1,6 +1,6 @@
 import { For, JSX, Match, Switch } from "solid-js";
 
-import { MapLocationType, Party, PartyOwner } from "@rpg-village/village-manager";
+import { MapLocationType, Party, PartyOwner } from "@rpg-village/village-manager-core";
 
 interface TileProperties {
   parties: Party[];

@@ -12,7 +12,7 @@ import {
   VillageID,
   calculateUnitStatsWithEffects,
   isHero,
-} from "@rpg-village/village-manager";
+} from "@rpg-village/village-manager-core";
 
 import { createSelectorFactory, selectorProperty } from "../create-selector";
 
