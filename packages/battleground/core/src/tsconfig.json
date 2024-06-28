@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig-base.json",
-  "compilerOptions": {
-    "noUnusedLocals": false,
-    "strict": false,
-    "composite": true,
-    "outDir": "../dist"
-  }
-}
