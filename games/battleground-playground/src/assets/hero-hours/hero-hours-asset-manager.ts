@@ -1,14 +1,14 @@
 import { Application, Assets, Sprite, Spritesheet, Texture } from "pixi.js";
 
 import { Dictionary } from "rambda";
-import { AssetManager, SpriteConfig } from "@battleground/renderer";
+import { AssetManager, SpriteConfig } from "@rpg-village/battleground";
 
 // @ts-ignore
 import sprite_json from "./assets.json";
 // @ts-ignore
 import sprite_png_url from "./assets.png";
 
-export class HHAssetManager implements AssetManager {
+export class HerosHoursAssetManager implements AssetManager {
   private spriteSheet: Spritesheet;
   private assetRenderApplication: Application = new Application();
 

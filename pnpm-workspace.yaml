@@ -1,5 +1,5 @@
 packages:
   - packages/*
-  - packages/battleground/*
+  - games/*
   - games/**/core
   - games/**/web

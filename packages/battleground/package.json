@@ -10,7 +10,6 @@
     "generate-schema": "ts-json-schema-generator --path ./src/interface/unit.ts --strict-tuples --type \"UnitConfig\" -o schemas/unit-config.schema.json"
   },
   "peerDependencies": {
-    "lz-string": "1.5.0",
     "rambda": "9.2.1"
   },
   "optionalDependencies": {
@@ -22,6 +21,7 @@
     "vitest": "1.6.0",
     "typescript": "5.5.2",
     "@types/node": "18.19.39",
+    "lz-string": "1.5.0",
     "ts-json-schema-generator": "2.3.0"
   }
 }

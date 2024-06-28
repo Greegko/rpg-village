@@ -1,11 +1,12 @@
 import { mergeAll, mergeRight } from "rambda";
 
-import { UnitConfig, UnitInit, UnitSetup } from "@battleground/core";
+import { UnitConfig, UnitInit, UnitSetup } from "@rpg-village/battleground";
 
-import units from "../castle-wars/units.json";
-import buildings from "../castle-wars/buildings.json";
+import units from "./units.json";
+import buildings from "./buildings.json";
 
-const getConfig = (id: string): UnitConfig => (units as UnitConfig[]).find(x => x.id === id) || (buildings as UnitConfig[]).find(x => x.id === id);
+const getConfig = (id: string): UnitConfig =>
+  (units as UnitConfig[]).find(x => x.id === id) || (buildings as UnitConfig[]).find(x => x.id === id)!;
 
 const unitFactory =
   (id: string) =>
@@ -14,6 +15,8 @@ const unitFactory =
 
 export const createDummyUnit = (unitConfigOverride: Pick<UnitSetup, "location" | "team">): UnitInit =>
   mergeAll<any>([getConfig("skeleton"), { hp: 1000, maxHp: 1000, actions: [] }, unitConfigOverride]);
+
+export const townhallBuilding = unitFactory("castle");
 export const skeletonUnit = unitFactory("skeleton");
 export const archerUnit = unitFactory("archer");
 export const priestUnit = unitFactory("priest");
