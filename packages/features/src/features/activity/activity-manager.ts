@@ -40,7 +40,7 @@ export class ActivityManager {
   }
 
   storeActivity<T extends AnyActivity>(activity: Omit<T, "id">): T {
-    return this.activityStore.add(activity);
+    return this.activityStore.add(activity) as T;
   }
 
   runActivites() {
