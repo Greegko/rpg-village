@@ -11,7 +11,6 @@ import {
 export class Loop {
   constructor(private config: BattlefieldConfig & BattlefieldRendererConfig, private mod: Mod) {
     this.renderer = new Pixi2DRenderer();
-    this.renderer.init(config, mod.assetManager);
     this.battleField = new Battlefield(config, mod.resourceManager);
     this.spellSelection = new SpellSelection(this.renderer, this.battleField);
   }
@@ -28,7 +27,8 @@ export class Loop {
     return this.mod.assetManager;
   }
 
-  init() {
+  async init() {
+    await this.renderer.init(this.config, this.mod.assetManager);
     this.battleField.init(this.mod.battlefieldInit(this.config));
     this.spellSelection.init();
   }

@@ -21,15 +21,15 @@ export class TesterMod implements Mod {
   assetManager: AssetManager = new HHAssetManager();
   resourceManager: ResourceManager;
 
-  init() {
+  async init() {
     const queryParams = new URLSearchParams(window.location.search);
 
     const automaticStart = queryParams.get("initState") || queryParams.get("initSource");
 
     if (automaticStart) {
-      return this.assetManager.init();
+      await this.assetManager.init();
     } else {
-      return this.assetManager.init().then(() => TesterModPromise);
+      await this.assetManager.init().then(() => TesterModPromise);
     }
   }
 

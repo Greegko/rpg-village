@@ -1,4 +1,4 @@
-import { GlowFilter } from "@pixi/filter-glow";
+import { GlowFilter } from "pixi-filters";
 
 import gsap from "gsap";
 import { Graphics, Sprite, Text } from "pixi.js";
@@ -138,7 +138,7 @@ export class UnitAnimation {
   }
 
   private createNumberTextAnimation(location: Vector, val: number, color: string) {
-    const text = new Text(val, { fontSize: 14, fill: color });
+    const text = new Text({ text: val, style: { fontSize: 14, fill: color } });
     text.x = location.x + 12;
     text.y = location.y;
 
@@ -218,9 +218,7 @@ export class UnitAnimation {
     const color = percentage > 0.6 ? 0x008000 : percentage > 0.3 ? 0xffff00 : 0xff0000;
 
     healthbarNode.clear();
-    healthbarNode.beginFill(color);
-    healthbarNode.drawRect(0, 0, unit.size * 0.8 * percentage, 5);
-    healthbarNode.endFill();
+    healthbarNode.rect(0, 0, unit.size * 0.8 * percentage, 5).fill(color);
   }
 
   private moveUnit(unit: Unit) {
@@ -291,7 +289,7 @@ export class UnitAnimation {
   private setUnitFacingDirection(unit: Unit, direction: Direction.Left | Direction.Right) {
     const node = this.unitNodes.get(unit);
 
-    node.width *= -1;
+    node.scale.x = -node.scale.x;
     node.x += direction === Direction.Left ? node.width : -node.width;
   }
 }

@@ -10,12 +10,12 @@
   },
   "devDependencies": {
     "lz-string": "1.5.0",
-    "typescript": "5.1.6"
+    "typescript": "5.5.2"
   },
   "peerDependencies": {
     "@battleground/core": "workspace: *",
     "@battleground/renderer": "workspace: *",
-    "rambda": "8.3.0",
-    "pixi.js": "7.2.4"
+    "rambda": "9.2.1",
+    "pixi.js": "8.2.1"
   }
 }

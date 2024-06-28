@@ -1,4 +1,4 @@
-import { Application, Assets, Resource, Sprite, Spritesheet, Texture } from "pixi.js";
+import { Application, Assets, Sprite, Spritesheet, Texture } from "pixi.js";
 
 import { Dictionary } from "rambda";
 import { AssetManager, SpriteConfig } from "@battleground/renderer";
@@ -12,7 +12,9 @@ export class HHAssetManager implements AssetManager {
   private spriteSheet: Spritesheet;
   private assetRenderApplication: Application = new Application();
 
-  async init(): Promise<Dictionary<Texture<Resource>>> {
+  async init(): Promise<Dictionary<Texture>> {
+    await this.assetRenderApplication.init({ autoStart: false });
+
     return Assets.load(sprite_png_url).then(spriteTexture => {
       this.spriteSheet = new Spritesheet(spriteTexture, sprite_json);
       return this.spriteSheet.parse();
@@ -45,13 +47,13 @@ export class HHAssetManager implements AssetManager {
     return spellSheetTexture;
   }
 
-  getAssetAsBase64(assetId: string): Promise<string> {
+  async getAssetAsBase64(assetId: string): Promise<string> {
     const spellSheetTexture = this.spriteSheet.textures[assetId + ".png"];
 
     if (!spellSheetTexture) throw Error(`Texture doesn't exists for ${assetId}!`);
 
     const sprite = new Sprite(spellSheetTexture);
-    const base64 = (this.assetRenderApplication.renderer as any).extract.base64(sprite);
+    const base64 = this.assetRenderApplication.renderer.extract.base64(sprite);
 
     sprite.destroy();
 

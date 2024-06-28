@@ -21,7 +21,7 @@ const tick = urlParams.get("tick");
 const mod = {
   castle_wars: new CastleWarsMod(),
   tester: new TesterMod(),
-}[selectedMod];
+}[selectedMod!];
 
 export const Game = (props: GameProperties) => {
   const [loop, setLoop] = createSignal<Loop>();
@@ -41,13 +41,13 @@ export const Game = (props: GameProperties) => {
       window.history.replaceState({}, "", `${location.pathname}?${urlParams}`);
     }
 
-    mod.init().then(() => {
+    mod!.init().then(async () => {
       const loop = new Loop(config, mod);
       const debug = new Debug(loop);
 
       debug.hookGlobalKeys();
 
-      loop.init();
+      await loop.init();
 
       if (tick) {
         loop.jumpToTick(parseInt(tick));

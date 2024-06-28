@@ -58,9 +58,7 @@ export class SpellSelection {
 
     this.clearSelectionRange();
     this.circleGraphics.alpha = 0.1;
-    this.circleGraphics.beginFill(0xffffff);
-    this.circleGraphics.drawCircle(this.position.x, this.position.y, spellRange);
-    this.circleGraphics.endFill();
+    this.circleGraphics.circle(this.position.x, this.position.y, spellRange).fill(0xffffff);
   }
 
   private clearSelectionRange() {

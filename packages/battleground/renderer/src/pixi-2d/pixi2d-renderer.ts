@@ -15,20 +15,22 @@ export class Pixi2DRenderer implements BattlefieldRenderer {
 
   private projectileAnimation: ProjectileAnimation;
   private unitAnimation: UnitAnimation;
-  private application: Application;
-  private tickerTextNode = new Text("", { fill: "white", fontSize: 12 });
+  private application: Application = new Application();
+  private tickerTextNode = new Text({ text: "", style: { fill: "white", fontSize: 12 } });
 
-  init(config: BattlefieldRendererConfig & BattlefieldConfig, assetManager: AssetManager) {
+  async init(config: BattlefieldRendererConfig & BattlefieldConfig, assetManager: AssetManager) {
     this.assetManager = assetManager;
 
-    this.application = new Application({
+    globalThis.__PIXI_APP__ = this.application;
+
+    await this.application.init({
       width: config.mapSize[0],
       height: config.mapSize[1],
     });
 
-    this.registerPixiInspector();
+    config.containerNode.appendChild(this.application.canvas);
 
-    config.containerNode.appendChild(this.application.view as unknown as HTMLElement);
+    this.registerPixiInspector();
 
     this.projectileAnimation = new ProjectileAnimation(this);
     this.unitAnimation = new UnitAnimation(this);
