@@ -16,7 +16,7 @@ const unitFactory =
 export const createDummyUnit = (unitConfigOverride: Pick<UnitSetup, "location" | "team">): UnitInit =>
   mergeAll<any>([getConfig("skeleton"), { hp: 1000, maxHp: 1000, actions: [] }, unitConfigOverride]);
 
-export const townhallBuilding = unitFactory("castle");
+export const castleBuilding = unitFactory("castle");
 export const skeletonUnit = unitFactory("skeleton");
 export const archerUnit = unitFactory("archer");
 export const priestUnit = unitFactory("priest");
