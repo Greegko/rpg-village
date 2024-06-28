@@ -1,0 +1,22 @@
+{
+  "name": "@battleground/renderer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -b ./src/tsconfig.json",
+    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput"
+  },
+  "dependencies": {
+    "pixi.js": "7.2.4"
+  },
+  "peerDependencies": {
+    "@battleground/core": "workspace: 0.0.0",
+    "@pixi/filter-glow": "5.2.1",
+    "gsap": "3.12.2",
+    "rambda": "8.3.0"
+  },
+  "devDependencies": {
+    "typescript": "5.1.6"
+  }
+}

@@ -1,0 +1,125 @@
+[
+  {
+    "id": "skeleton",
+    "spriteId": "sprites/skeleton/skeleton",
+    "moveSpeed": 2,
+    "maxHp": 100,
+    "actions": [
+      {
+        "animation": "attack",
+        "seekTargetCondition": ["alive", "enemy-team"],
+        "distance": 40,
+        "cooldown": 120,
+        "speed": 30,
+        "hitEffect": [{ "type": "dmg", "dmgType": "physical", "power": 20 }]
+      }
+    ],
+    "size": 32,
+    "effects": [{ "type": "armor", "dmgType": "physical", "power": 10 }]
+  },
+  {
+    "id": "archer",
+    "spriteId": "sprites/archer/archer",
+    "moveSpeed": 2,
+    "maxHp": 100,
+    "actions": [
+      {
+        "animation": "attack",
+        "seekTargetCondition": ["alive", "enemy-team"],
+        "projectileId": "sprites/projectiles/projectile",
+        "distance": 400,
+        "cooldown": 120,
+        "speed": 30,
+        "projectileSpeed": 5,
+        "hitEffect": [{ "type": "dmg", "dmgType": "physical", "power": 20 }]
+      }
+    ],
+    "size": 32
+  },
+  {
+    "id": "priest",
+    "spriteId": "sprites/inquisitor/inquisitor",
+    "moveSpeed": 2,
+    "maxHp": 100,
+    "actions": [
+      {
+        "animation": "attack",
+        "seekTargetCondition": ["alive", "same-team", "damaged"],
+        "distance": 100,
+        "cooldown": 150,
+        "speed": 60,
+        "hitEffect": [{ "type": "heal", "power": 20 }]
+      },
+      {
+        "animation": "attack",
+        "seekTargetCondition": ["dead", "same-team"],
+        "distance": 100,
+        "cooldown": 500,
+        "speed": 120,
+        "hitEffect": [{ "type": "revive" }]
+      }
+    ],
+    "size": 32
+  },
+  {
+    "id": "flag-bearer",
+    "spriteId": "sprites/flag_bearer/flag_bearer",
+    "size": 32,
+    "moveSpeed": 2,
+    "maxHp": 100,
+    "actions": [
+      {
+        "animation": "attack",
+        "seekTargetCondition": ["alive", "same-team", "damaged"],
+        "distance": 80,
+        "speed": 1,
+        "hitEffect": []
+      }
+    ],
+    "effects": [
+      { "type": "aura", "range": 100, "seekTargetCondition": ["same-team", "alive"], "effect": { "type": "armor", "dmgType": "physical", "power": 2, "uniqueId": "aura-armor-1" } }
+    ]
+  },
+  {
+    "id": "flag-bearer-fire-aura",
+    "spriteId": "sprites/flag_bearer/flag_bearer",
+    "size": 32,
+    "moveSpeed": 2,
+    "maxHp": 100,
+    "actions": [
+      {
+        "animation": "attack",
+        "seekTargetCondition": ["alive", "enemy-team"],
+        "distance": 80,
+        "speed": 1,
+        "hitEffect": []
+      }
+    ],
+    "effects": [
+      { "type": "aura", "range": 250, "seekTargetCondition": ["enemy-team", "alive"], "effect": { "type": "dot", "effect": { "type": "dmg", "dmgType": "fire", "power": 3 }, "period": 3, "interval": 50, "uniqueId": "dmg-aura-1" } }
+    ]
+  },
+  { "id": "goblin_knight", "spriteId": "sprites/goblin_knight/goblin_knight" },
+  { "id": "leprechaun", "spriteId": "sprites/leprechaun/leprechaun" },
+  { "id": "werewolf", "spriteId": "sprites/werewolf/werewolf" },
+  {
+    "id": "steam_dragon",
+    "spriteId": "sprites/steam_dragon/steam_dragon",
+    "moveSpeed": 2,
+    "maxHp": 100,
+    "actions": [
+      {
+        "animation": "attack",
+        "seekTargetCondition": ["alive", "enemy-team"],
+        "distance": 100,
+        "cooldown": 150,
+        "speed": 60,
+        "hitEffect": [
+          { "type": "dmg", "dmgType": "fire", "power": 7 },
+          { "type": "dot", "effect": { "type": "dmg","dmgType": "fire", "power": 5 }, "interval": 50, "period": 5 }
+        ]
+      }
+    ],
+    "size": 32
+  }
+]

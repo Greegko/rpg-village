@@ -1,0 +1,22 @@
+{
+  "name": "@battleground/core",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -b ./src/tsconfig.json",
+    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
+    "test": "vitest",
+    "generate-schema": "ts-json-schema-generator --path ./src/interface/unit.ts --strict-tuples --type \"UnitConfig\" -o schemas/unit-config.schema.json"
+  },
+  "peerDependencies": {
+    "lz-string": "1.5.0",
+    "rambda": "8.3.0"
+  },
+  "devDependencies": {
+    "vitest": "0.34.1",
+    "typescript": "5.1.6",
+    "@types/node": "20.4.9",
+    "ts-json-schema-generator": "1.2.0"
+  }
+}

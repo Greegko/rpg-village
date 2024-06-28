@@ -10,8 +10,8 @@
     "type-checking": "tsc -w --preserveWatchOutput"
   },
   "dependencies": {
-    "@rpg-village/client-features": "workspace: *",
-    "@rpg-village/bannerlords-core": "workspace: *",
+    "@rpg-village/client-features": "workspace: 0.0.0",
+    "@rpg-village/bannerlords-core": "workspace: 0.0.0",
     "remeda": "2.2.0",
     "reflect-metadata": "0.2.2",
     "solid-js": "1.8.17"

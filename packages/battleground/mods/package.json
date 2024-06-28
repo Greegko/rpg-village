@@ -1,0 +1,21 @@
+{
+  "name": "@battleground/mods",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -b ./src/tsconfig.json",
+    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
+    "copy-assets": "cd src; find . -name \"*.png\" | xargs -J % rsync -R % ../dist"
+  },
+  "devDependencies": {
+    "lz-string": "1.5.0",
+    "typescript": "5.1.6"
+  },
+  "peerDependencies": {
+    "@battleground/core": "workspace: *",
+    "@battleground/renderer": "workspace: *",
+    "rambda": "8.3.0",
+    "pixi.js": "7.2.4"
+  }
+}

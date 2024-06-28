@@ -1,0 +1,23 @@
+on: push
+name: Deploy website on push
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - run: yarn
+      - run: yarn build
+
+      - name: push to ftp
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: greegko.com
+          username: u584298536
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          local-dir: ./packages/runner/public
+          server-dir: ./subdomains/battleground
