@@ -1,7 +1,8 @@
-import { expect, test } from "../utils";
+import { expect, it } from "vitest";
+
 import { MapObservator, MapObservatorEvent, MapObservatorEventType } from "./map-observator";
 
-test("should emit enter event on entity move first time", () => {
+it("should emit enter event on entity move first time", () => {
   const mapObservator = new MapObservator();
   const events: MapObservatorEvent[] = [];
 
@@ -12,7 +13,7 @@ test("should emit enter event on entity move first time", () => {
   expect(events).toEqual([{ entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter }]);
 });
 
-test("should emit enter event on observation start when in the range", () => {
+it("should emit enter event on observation start when in the range", () => {
   const mapObservator = new MapObservator();
   const events: MapObservatorEvent[] = [];
 
@@ -23,7 +24,7 @@ test("should emit enter event on observation start when in the range", () => {
   expect(events).toEqual([{ entityId: "1", position: { x: 0, y: 0 }, eventType: MapObservatorEventType.Enter }]);
 });
 
-test("should emit move on visible target", () => {
+it("should emit move on visible target", () => {
   const mapObservator = new MapObservator();
   const events: MapObservatorEvent[] = [];
 
@@ -39,7 +40,7 @@ test("should emit move on visible target", () => {
   ]);
 });
 
-test("should emit exit event on leave", () => {
+it("should emit exit event on leave", () => {
   const mapObservator = new MapObservator();
   const events: MapObservatorEvent[] = [];
 
@@ -55,7 +56,7 @@ test("should emit exit event on leave", () => {
   ]);
 });
 
-test("should not emit exit event after left and move", () => {
+it("should not emit exit event after left and move", () => {
   const mapObservator = new MapObservator();
   const events: MapObservatorEvent[] = [];
 
@@ -72,7 +73,7 @@ test("should not emit exit event after left and move", () => {
   ]);
 });
 
-test("should emit exit event when an entity is removed", () => {
+it("should emit exit event when an entity is removed", () => {
   const mapObservator = new MapObservator();
   const events: MapObservatorEvent[] = [];
 

@@ -1,10 +1,10 @@
 import { Observable, Subject } from "rxjs";
+import { describe, expect, it } from "vitest";
 
-import { describe, expect, test } from "../utils/test";
 import { createActorFactory } from "./create-actor";
 
 describe("Create Actor", () => {
-  test("should execute onEnter callback on new state", () => {
+  it("should execute onEnter callback on new state", () => {
     let value = false;
 
     const createActor = createActorFactory(() => ({
@@ -23,7 +23,7 @@ describe("Create Actor", () => {
     expect(value).toBe(true);
   });
 
-  test("should switch to new state", () => {
+  it("should switch to new state", () => {
     let value = false;
 
     const createActor = createActorFactory(({ switchTo }) => ({
@@ -45,7 +45,7 @@ describe("Create Actor", () => {
     expect(value).toBe(true);
   });
 
-  test("should switch to new state executed from external", () => {
+  it("should switch to new state executed from external", () => {
     let value = false;
 
     const createActor = createActorFactory(() => ({
@@ -67,7 +67,7 @@ describe("Create Actor", () => {
     expect(value).toBe(true);
   });
 
-  test("should execute onExit callback on state leave", () => {
+  it("should execute onExit callback on state leave", () => {
     let value = false;
 
     const createActor = createActorFactory(({ switchTo }) => ({
@@ -88,7 +88,7 @@ describe("Create Actor", () => {
     expect(value).toBe(true);
   });
 
-  test("should listen on events", () => {
+  it("should listen on events", () => {
     let value = false;
 
     const createActor = createActorFactory(({ switchTo, emitEvent }) => ({
@@ -111,7 +111,7 @@ describe("Create Actor", () => {
     expect(value).toBe(true);
   });
 
-  test("should subscribe on eventlistener on event name match", () => {
+  it("should subscribe on eventlistener on event name match", () => {
     let subscribed = false;
 
     const createActor = createActorFactory(({ switchTo }) => ({
@@ -140,7 +140,7 @@ describe("Create Actor", () => {
     expect(subscribed).toBe(true);
   });
 
-  test("should unsubscribe from eventlistener on leave", () => {
+  it("should unsubscribe from eventlistener on leave", () => {
     let unsubscribed = false;
 
     const createActor = createActorFactory(({ switchTo }) => ({
@@ -169,7 +169,7 @@ describe("Create Actor", () => {
     expect(unsubscribed).toBe(true);
   });
 
-  test("should execute effect function on event", () => {
+  it("should execute effect function on event", () => {
     let executedByEvent = false;
 
     const subject = new Subject();
@@ -199,7 +199,7 @@ describe("Create Actor", () => {
     expect(executedByEvent).toBe(true);
   });
 
-  test("should unsubscribe events on state changes", () => {
+  it("should unsubscribe events on state changes", () => {
     let value = false;
 
     const createActor = createActorFactory(({ switchTo, emitEvent }) => ({
@@ -222,7 +222,7 @@ describe("Create Actor", () => {
     expect(value).toBe(false);
   });
 
-  test("should listen on even when on events fired external", () => {
+  it("should listen on even when on events fired external", () => {
     let value = false;
 
     const createActor = createActorFactory(({ switchTo }) => ({
@@ -246,7 +246,7 @@ describe("Create Actor", () => {
     expect(value).toBe(true);
   });
 
-  test("should set state recursively in children", () => {
+  it("should set state recursively in children", () => {
     let value = false;
 
     const createActor = createActorFactory(() => ({

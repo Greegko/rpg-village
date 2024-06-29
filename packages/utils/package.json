@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "build": "tsc -b ./src/tsconfig.json",
-    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput"
+    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
+    "test": "vitest"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,6 +16,7 @@
     "solid-js": "1.8.18"
   },
   "devDependencies": {
+    "vitest": "1.6.0",
     "typescript": "5.5.2"
   }
 }
