@@ -1,4 +1,4 @@
-import { Actor, MapObservator, getVectorAngle } from "@rpg-village/client-features";
+import { Actor, MapObservator, getVectorAngle } from "@rpg-village/utils";
 import { forEach, pickBy, values } from "remeda";
 import { filter } from "rxjs";
 import { createSignal, untrack } from "solid-js";

@@ -1,0 +1,20 @@
+{
+  "name": "@rpg-village/utils",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b ./src/tsconfig.json",
+    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "peerDependencies": {
+    "remeda": "2.2.1",
+    "rxjs": "7.8.1",
+    "solid-js": "1.8.18"
+  },
+  "devDependencies": {
+    "typescript": "5.5.2"
+  }
+}
