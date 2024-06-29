@@ -1,7 +1,8 @@
 // Original Source: https://github.com/ShukantPal/pixi-spatial-hash/blob/master/src/SpatialHash.ts
 
+import { Rectangle } from "./interface";
+
 export type BoundGetter<Node> = (node: Node) => Rectangle;
-export type Rectangle = { top: number; left: number; bottom: number; right: number };
 
 type BucketHash = `${number}|${number}`;
 
