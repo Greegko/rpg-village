@@ -1,3 +1,11 @@
+## SeededRandom
+
+Keeping seeded random in chain
+
+```ts
+const random = new SeededRandom("game-seed-id");
+```
+
 ## Actor
 
 Simple state machine decision framework for AI
