@@ -1,0 +1,23 @@
+{
+  "name": "@rpg-village/dice-hero",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "pnpm run '/serve|type-check/'",
+    "serve": "vite",
+    "type-check": "tsc --watch --preserveWatchOutput",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@rpg-village/core": "workspace: 0.0.0",
+    "remeda": "2.15.0",
+    "solid-js": "1.9.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.13",
+    "typescript": "5.6.3",
+    "vite": "5.4.8",
+    "vitest": "2.1.2",
+    "vite-plugin-solid": "2.10.2"
+  }
+}
