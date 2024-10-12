@@ -1,4 +1,4 @@
-import { Battle } from "./battle";
+import { Battle } from "./battle/battle";
 import { modalContent } from "./hooks/modal";
 
 export const App = () => (
