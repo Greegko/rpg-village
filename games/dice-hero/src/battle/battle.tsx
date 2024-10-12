@@ -3,7 +3,7 @@ import { For, batch, createComputed, createSelector, onMount } from "solid-js";
 import { createStore, unwrap } from "solid-js/store";
 
 import { RollResult, rollDie } from "../data/die";
-import { effectsStats, executeEffects } from "../data/effects";
+import { effectsStats, executeAttackEffects, executeSelfEffects } from "../data/effects";
 import { EffectType, Item, Unit } from "../data/model";
 import { heroUnit, wolf } from "./units";
 
@@ -69,9 +69,17 @@ export const Battle = () => {
       isNonNullish,
     );
 
-    const newEnemyStats = executeEffects(effectsStats(heroEffects), state.enemy, effectsStats(enemyEffects));
+    const heroEffectsStats = effectsStats(heroEffects);
+    const enemyEffectsStats = effectsStats(enemyEffects);
+
+    const newHeroPreStats = executeSelfEffects(heroEffectsStats, state.hero);
+    const newEnemyPreStats = executeSelfEffects(enemyEffectsStats, state.enemy);
+
+    const newEnemyStats = executeAttackEffects(heroEffectsStats, newEnemyPreStats, enemyEffectsStats);
+    const newHeroStats = executeAttackEffects(enemyEffectsStats, newHeroPreStats, heroEffectsStats);
 
     setState("enemy", newEnemyStats);
+    setState("hero", newHeroStats);
   };
 
   const isActiveDie = createSelector<Item[], Item>(

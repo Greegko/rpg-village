@@ -2,7 +2,13 @@ import { evolve, groupBy, mapValues } from "remeda";
 
 import { Attribute, Effect, EffectType, Unit } from "./model";
 
-export function executeEffects(
+export function executeSelfEffects(attackerEffects: Record<EffectType, number>, attacker: Unit): Unit {
+  const hpRegen = attackerEffects[EffectType.HpRegen];
+
+  return evolve(attacker, { health: ([current, max]) => [Math.min(max, current + hpRegen), max] as Attribute });
+}
+
+export function executeAttackEffects(
   attackerEffects: Record<EffectType, number>,
   defender: Unit,
   defenderEffects: Record<EffectType, number>,

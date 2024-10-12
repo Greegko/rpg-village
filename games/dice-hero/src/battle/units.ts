@@ -7,7 +7,7 @@ export const heroUnit: Unit = {
   buffs: [],
   gold: 0,
   health: [100, 100],
-  mana: [0, 0],
+  mana: [20, 20],
   stash: [],
   equipment: [
     {
@@ -17,10 +17,16 @@ export const heroUnit: Unit = {
         [5, { name: "Slice", effects: [{ type: EffectType.PhysicalDmg, value: 5 }] }],
       ],
     },
-
     {
       name: "The choosen shield",
-      die: [[6, { name: "Block", effects: [{ type: EffectType.PhysicalDmg, value: 5 }] }]],
+      die: [[6, { name: "Block", effects: [{ type: EffectType.Armor, value: 5 }] }]],
+    },
+    {
+      name: "Healing Ring",
+      die: [
+        [3, missEffect],
+        [3, { name: "Minor Healing", effects: [{ type: EffectType.HpRegen, value: 2 }] }],
+      ],
     },
   ],
 };
