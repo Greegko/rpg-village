@@ -1,3 +1,5 @@
+import { clone } from "remeda";
+
 import { EffectType, Unit } from "../data/model";
 
 const missEffect = { name: "Miss", effects: [] };
@@ -50,3 +52,10 @@ export const wolf: Unit = {
     { name: "Fur", effects: [{ type: EffectType.Armor, value: 2 }] },
   ],
 };
+
+let enemyIndex = 0;
+export function generateNewEnemy() {
+  enemyIndex++;
+
+  return clone(wolf);
+}
