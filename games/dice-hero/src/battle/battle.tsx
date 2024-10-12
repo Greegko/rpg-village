@@ -1,103 +1,14 @@
-import { filter, isNonNullish } from "remeda";
-import { For, createComputed, createSelector, onMount } from "solid-js";
-import { createStore, unwrap } from "solid-js/store";
+import { For, createSelector } from "solid-js";
+import { unwrap } from "solid-js/store";
 
-import { RollResult, rollDie } from "../data/die";
-import { effectsStats, executeAttackEffects, executeSelfEffects } from "../data/effects";
+import { effectsStats } from "../data/effects";
 import { EffectType, Item, Unit } from "../data/model";
-import { generateRewards, useReward } from "./reward";
-import { generateNewEnemy, heroUnit } from "./units";
-
-interface State {
-  hero: Unit;
-  activeDice: Item[];
-  rolledDice: [Item, RollResult][];
-  enemy: Unit;
-  enemyRolledDice: [Item, RollResult][];
-}
-
-const [state, setState] = createStore<State>({
-  hero: heroUnit,
-  activeDice: [],
-  rolledDice: [],
-  enemy: generateNewEnemy(),
-  enemyRolledDice: [],
-});
+import { useBattleState } from "./battle-state";
 
 export const Battle = () => {
-  const { showRewardScreen } = useReward();
+  const { roll, toggleActiveDie, state } = useBattleState();
 
   const heroEquipmentDice = () => state.hero.equipment.filter(x => x.die);
-
-  const toggleActiveDie = (die: Item) => {
-    setState("activeDice", dice => (dice.includes(unwrap(die)) ? dice.filter(x => x !== unwrap(die)) : [...dice, unwrap(die)]));
-  };
-
-  onMount(() => {
-    setState("activeDice", heroEquipmentDice());
-  });
-
-  createComputed(() => {
-    if (state.enemy.health[0] === 0) {
-      const onRewardSelect = (item: Item) => {
-        setState("hero", "equipment", items => [...items, item]);
-
-        if (item.die) {
-          setState("activeDice", dice => [...dice, item]);
-        }
-
-        setState("enemy", () => generateNewEnemy());
-      };
-
-      showRewardScreen(generateRewards(), onRewardSelect);
-    }
-  });
-
-  const onRoll = () => {
-    setState(
-      "rolledDice",
-      state.activeDice.map(item => [item, rollDie(item.die!)] as [Item, RollResult]),
-    );
-
-    setState(
-      "enemyRolledDice",
-      state.enemy.equipment.filter(x => x.die).map(item => [item, rollDie(item.die!)] as [Item, RollResult]),
-    );
-
-    doTurn();
-  };
-
-  const doTurn = () => {
-    const heroEffects = filter(
-      [
-        ...state.hero.buffs.flatMap(x => x.effect),
-        ...state.hero.equipment.flatMap(x => x.effects),
-        ...state.rolledDice.flatMap(x => x[1][1]),
-      ],
-      isNonNullish,
-    );
-
-    const enemyEffects = filter(
-      [
-        ...state.enemy.buffs.flatMap(x => x.effect),
-        ...state.enemy.equipment.flatMap(x => x.effects),
-        ...state.enemyRolledDice.flatMap(x => x[1][1]),
-      ],
-      isNonNullish,
-    );
-
-    const heroEffectsStats = effectsStats(heroEffects);
-    const enemyEffectsStats = effectsStats(enemyEffects);
-
-    const newHeroPreStats = executeSelfEffects(heroEffectsStats, state.hero);
-    const newEnemyPreStats = executeSelfEffects(enemyEffectsStats, state.enemy);
-
-    const newEnemyStats = executeAttackEffects(heroEffectsStats, newEnemyPreStats, enemyEffectsStats);
-    const newHeroStats = executeAttackEffects(enemyEffectsStats, newHeroPreStats, heroEffectsStats);
-
-    setState("enemy", newEnemyStats);
-    setState("hero", newHeroStats);
-  };
 
   const isActiveDie = createSelector<Item[], Item>(
     () => state.activeDice,
@@ -147,7 +58,7 @@ export const Battle = () => {
           </div>
           <div
             class="border border-white w-[150px] rounded-xl m-2 p-2 text-center text-2xl cursor-pointer hover:bg-slate-700"
-            onClick={onRoll}
+            onClick={roll}
           >
             Roll
           </div>
