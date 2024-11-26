@@ -36,7 +36,7 @@ export const useReward = () => {
   const { showModal, closeModal } = useModal();
 
   const showRewardScreen = (items: Item[], onRewardSelect: (item: Item) => void) => {
-    showModal(() => <RewardScreen items={generateRewards()} onItemSelected={item => (closeModal(), onRewardSelect(item))} />);
+    showModal(() => <RewardScreen items={items} onItemSelected={item => (closeModal(), onRewardSelect(item))} />);
   };
 
   return { showRewardScreen };

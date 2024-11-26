@@ -1,4 +1,4 @@
-import { filter, isNonNullish } from "remeda";
+import { filter, isNonNullish, sample } from "remeda";
 import { createComputed, onMount } from "solid-js";
 import { createStore, unwrap } from "solid-js/store";
 
@@ -9,6 +9,8 @@ import { generateRewards, useReward } from "./reward";
 import { generateNewEnemy, heroUnit } from "./units";
 
 interface State {
+  auto: number;
+  turn: number;
   hero: Unit;
   activeDice: Item[];
   rolledDice: [Item, RollResult][];
@@ -17,6 +19,8 @@ interface State {
 }
 
 const [state, setState] = createStore<State>({
+  auto: 0,
+  turn: 0,
   hero: heroUnit,
   activeDice: [],
   rolledDice: [],
@@ -30,6 +34,7 @@ export const useBattleState = () => {
   };
 
   const roll = () => {
+    setState("turn", turn => turn + 1);
     setState(
       "rolledDice",
       state.activeDice.map(item => [item, rollDie(item.die!)] as [Item, RollResult]),
@@ -103,9 +108,23 @@ export const useBattleState = () => {
         setState("enemy", () => generateNewEnemy());
       };
 
-      showRewardScreen(generateRewards(), onRewardSelect);
+      if (state.auto) {
+        onRewardSelect(sample(generateRewards(), 1)[0]!);
+      } else {
+        showRewardScreen(generateRewards(), onRewardSelect);
+      }
     }
   });
 
-  return { roll, heroEquipmentDice, toggleActiveDie, state, heroRolledDiceEffects, enemyRolledDiceEffects };
+  let autoHandler: number = 0;
+  createComputed(() => {
+    clearInterval(autoHandler);
+    if (state.auto) {
+      autoHandler = setInterval(roll, 1000 / state.auto);
+    }
+  });
+
+  const toggleAuto = () => setState("auto", auto => (auto + 1) % 5);
+
+  return { roll, heroEquipmentDice, toggleActiveDie, state, heroRolledDiceEffects, enemyRolledDiceEffects, toggleAuto };
 };

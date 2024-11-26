@@ -6,7 +6,7 @@ import { Effect, EffectType, Item, Unit } from "../data/model";
 import { useBattleState } from "./battle-state";
 
 export const Battle = () => {
-  const { state, roll, heroEquipmentDice, toggleActiveDie, heroRolledDiceEffects, enemyRolledDiceEffects } = useBattleState();
+  const { state, toggleAuto, roll, heroEquipmentDice, toggleActiveDie, heroRolledDiceEffects, enemyRolledDiceEffects } = useBattleState();
 
   const isActiveDie = createSelector<Item[], Item>(
     () => state.activeDice,
@@ -15,7 +15,12 @@ export const Battle = () => {
 
   return (
     <div>
-      <span onClick={() => console.log(unwrap(state))}>Log State</span>
+      <span onClick={() => console.log(unwrap(state))}>Log State</span> {" - "}
+      <span onClick={() => toggleAuto()} classList={{ "text-red-600": state.auto > 0 }}>
+        Auto {state.auto || ""}
+      </span>
+      {" - "}
+      <span>Turn: {state.turn}</span>
       <div class="flex">
         <div class="w-[250px]">
           <UnitDisplay unit={state.hero} rolledEffects={heroRolledDiceEffects()} />
