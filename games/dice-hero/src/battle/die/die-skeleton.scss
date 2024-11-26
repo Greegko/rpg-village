@@ -1,0 +1,37 @@
+.die {
+  position: relative;
+  width: var(--die-size);
+  height: var(--die-size);
+  transform-style: preserve-3d;
+  transition: transform 2s;
+}
+
+.die > * {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 5px;
+  width: var(--die-size);
+  height: var(--die-size);
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  line-height: 2em;
+}
+
+.die > :nth-child(1) {
+  transform: translateZ(calc(var(--die-size) / 2));
+}
+.die > :nth-child(2) {
+  transform: rotateY(-180deg) translateZ(calc(var(--die-size) / 2));
+}
+.die > :nth-child(3) {
+  transform: rotateY(-90deg) translateZ(calc(var(--die-size) / 2));
+}
+.die > :nth-child(4) {
+  transform: rotateX(90deg) translateZ(calc(var(--die-size) / 2));
+}
+.die > :nth-child(5) {
+  transform: rotateX(-90deg) translateZ(calc(var(--die-size) / 2));
+}
+.die > :nth-child(6) {
+  transform: rotateY(90deg) translateZ(calc(var(--die-size) / 2));
+}
