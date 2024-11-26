@@ -29,7 +29,7 @@ export const useBattleState = () => {
     setState("activeDice", dice => (dice.includes(unwrap(die)) ? dice.filter(x => x !== unwrap(die)) : [...dice, unwrap(die)]));
   };
 
-  const onRoll = () => {
+  const roll = () => {
     setState(
       "rolledDice",
       state.activeDice.map(item => [item, rollDie(item.die!)] as [Item, RollResult]),
@@ -43,24 +43,32 @@ export const useBattleState = () => {
     doTurn();
   };
 
-  const doTurn = () => {
-    const heroEffects = filter(
-      [
-        ...state.hero.buffs.flatMap(x => x.effect),
-        ...state.hero.equipment.flatMap(x => x.effects),
-        ...state.rolledDice.flatMap(x => x[1][1]),
-      ],
+  const heroRolledDiceEffects = () => {
+    return filter(
+      state.rolledDice.flatMap(x => x[1][1]),
       isNonNullish,
     );
+  };
 
-    const enemyEffects = filter(
-      [
-        ...state.enemy.buffs.flatMap(x => x.effect),
-        ...state.enemy.equipment.flatMap(x => x.effects),
-        ...state.enemyRolledDice.flatMap(x => x[1][1]),
-      ],
+  const enemyRolledDiceEffects = () => {
+    return filter(
+      state.enemyRolledDice.flatMap(x => x[1][1]),
       isNonNullish,
     );
+  };
+
+  const doTurn = () => {
+    const heroEffects = [
+      ...state.hero.buffs.flatMap(x => x.effect),
+      ...state.hero.equipment.flatMap(x => x.effects),
+      ...heroRolledDiceEffects(),
+    ];
+
+    const enemyEffects = [
+      ...state.enemy.buffs.flatMap(x => x.effect),
+      ...state.enemy.equipment.flatMap(x => x.effects),
+      ...enemyRolledDiceEffects(),
+    ];
 
     const heroEffectsStats = effectsStats(heroEffects);
     const enemyEffectsStats = effectsStats(enemyEffects);
@@ -99,5 +107,5 @@ export const useBattleState = () => {
     }
   });
 
-  return { roll: onRoll, toggleActiveDie, state };
+  return { roll, heroEquipmentDice, toggleActiveDie, state, heroRolledDiceEffects, enemyRolledDiceEffects };
 };

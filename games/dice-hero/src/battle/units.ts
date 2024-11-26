@@ -14,6 +14,7 @@ export const heroUnit: Unit = {
   equipment: [
     {
       name: "The choosen sword",
+      effects: [],
       die: [
         [1, missEffect],
         [5, { name: "Slice", effects: [{ type: EffectType.PhysicalDmg, value: 5 }] }],
@@ -21,10 +22,12 @@ export const heroUnit: Unit = {
     },
     {
       name: "The choosen shield",
+      effects: [],
       die: [[6, { name: "Block", effects: [{ type: EffectType.Armor, value: 5 }] }]],
     },
     {
       name: "Healing Ring",
+      effects: [],
       die: [
         [3, missEffect],
         [3, { name: "Minor Healing", effects: [{ type: EffectType.HpRegen, value: 2 }] }],
@@ -43,6 +46,7 @@ export const wolf: Unit = {
   equipment: [
     {
       name: "Fang",
+      effects: [],
       die: [
         [1, missEffect],
         [4, { name: "Bite", effects: [{ type: EffectType.PhysicalDmg, value: 5 }] }],

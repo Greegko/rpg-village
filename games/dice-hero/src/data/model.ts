@@ -19,7 +19,7 @@ export type Die = DieSide[];
 
 export interface Item {
   name: string;
-  effects?: Effect[];
+  effects: Effect[];
   die?: Die;
 }
 

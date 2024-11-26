@@ -2,13 +2,11 @@ import { For, createSelector } from "solid-js";
 import { unwrap } from "solid-js/store";
 
 import { effectsStats } from "../data/effects";
-import { EffectType, Item, Unit } from "../data/model";
+import { Effect, EffectType, Item, Unit } from "../data/model";
 import { useBattleState } from "./battle-state";
 
 export const Battle = () => {
-  const { roll, toggleActiveDie, state } = useBattleState();
-
-  const heroEquipmentDice = () => state.hero.equipment.filter(x => x.die);
+  const { state, roll, heroEquipmentDice, toggleActiveDie, heroRolledDiceEffects, enemyRolledDiceEffects } = useBattleState();
 
   const isActiveDie = createSelector<Item[], Item>(
     () => state.activeDice,
@@ -20,7 +18,7 @@ export const Battle = () => {
       <span onClick={() => console.log(unwrap(state))}>Log State</span>
       <div class="flex">
         <div class="w-[250px]">
-          <UnitDisplay unit={state.hero} />
+          <UnitDisplay unit={state.hero} rolledEffects={heroRolledDiceEffects()} />
         </div>
         <div class="flex-[2]">
           <div class="flex">
@@ -64,7 +62,7 @@ export const Battle = () => {
           </div>
         </div>
         <div class="flex-1">
-          <UnitDisplay unit={state.enemy} />
+          <UnitDisplay unit={state.enemy} rolledEffects={enemyRolledDiceEffects()} />
         </div>
       </div>
     </div>
@@ -73,21 +71,31 @@ export const Battle = () => {
 
 interface UnitDisplayProps {
   unit: Unit;
+  rolledEffects: Effect[];
 }
 
-const UnitDisplay = (props: UnitDisplayProps) => (
-  <div>
-    {props.unit.name}
+const UnitDisplay = (props: UnitDisplayProps) => {
+  const effects = () => {
+    return effectsStats([
+      ...props.unit.buffs.map(x => x.effect),
+      ...props.unit.equipment.flatMap(x => x.effects || []),
+      ...props.rolledEffects,
+    ]);
+  };
 
+  return (
     <div>
-      HP: {props.unit.health[0]} / {props.unit.health[1]}
-      Mana: {props.unit.mana[0]} / {props.unit.mana[1]}
+      {props.unit.name}
+
+      <div>
+        HP: {props.unit.health[0]} / {props.unit.health[1]}
+        Mana: {props.unit.mana[0]} / {props.unit.mana[1]}
+      </div>
+
+      <EffectsDisplay effects={effects()} />
     </div>
-
-    <EffectsDisplay effects={effectsStats(props.unit.buffs.map(x => x.effect))} />
-  </div>
-);
-
+  );
+};
 const EffectsDisplay = (props: { effects: Record<EffectType, number> }) => (
   <div>
     Armor: {props.effects[EffectType.Armor]}
