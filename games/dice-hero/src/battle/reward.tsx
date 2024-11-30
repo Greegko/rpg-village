@@ -1,7 +1,8 @@
 import { For } from "solid-js";
 
+import { useModal } from "@rpg-village/ui/modal";
+
 import { EffectType, Item } from "../data/model";
-import { useModal } from "../hooks/modal";
 
 export function generateRewards(): Item[] {
   return [
