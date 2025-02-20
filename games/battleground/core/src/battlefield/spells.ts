@@ -1,7 +1,7 @@
-import { DmgType, EffectType, Unit, Spell, SpellID } from "./interface";
 import { Vector } from "../utils";
 import { Context } from "./context";
-import { UnitFilter } from "./unit-filter";
+import { DmgType, EffectType, Spell, SpellID, Unit } from "./interface";
+import { filterBySeekConditions } from "./utils/unit-filter";
 
 export class SpellsContext {
   constructor(private context: Context) {}
@@ -29,7 +29,7 @@ export class SpellsContext {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 
-    return UnitFilter.filterBySeekConditions(this.context.unit.units, spell.seekConditions, {
+    return filterBySeekConditions(this.context.unit.units, spell.seekConditions, {
       targetLocation,
       ...spellContext,
     });
@@ -39,7 +39,7 @@ export class SpellsContext {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 
-    const targets = UnitFilter.filterBySeekConditions(this.context.unit.units, spell.seekConditions, {
+    const targets = filterBySeekConditions(this.context.unit.units, spell.seekConditions, {
       targetLocation,
       ...spellContext,
     });
@@ -56,9 +56,7 @@ export class SpellsContext {
   }
 
   getSpellRange(spellId: SpellID): number {
-    const distanceCondition = this.spells[spellId].seekConditions.find(
-      seekCondition => seekCondition[0] === "in-distance",
-    );
+    const distanceCondition = this.spells[spellId].seekConditions.find(seekCondition => seekCondition[0] === "in-distance");
 
     if (!distanceCondition) return 0;
 

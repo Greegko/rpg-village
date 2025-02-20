@@ -1,6 +1,6 @@
-import { Projectile } from "./interface";
 import { Context } from "./context";
-import { UnitFilter } from "./unit-filter";
+import { Projectile } from "./interface";
+import { filterBySeekConditions } from "./utils/unit-filter";
 
 export class MapContext {
   constructor(private context: Context) {}
@@ -12,7 +12,7 @@ export class MapContext {
   }
 
   landProjectile(projectile: Projectile) {
-    const hitUnits = UnitFilter.filterBySeekConditions(
+    const hitUnits = filterBySeekConditions(
       this.context.unit.units,
       ["enemy-team", "alive", ["in-distance", { distance: projectile.area }]],
       { team: projectile.source.team, targetLocation: projectile.targetLocation },

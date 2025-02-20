@@ -1,20 +1,5 @@
-import { clone, groupBy, head, mapObjIndexed, mergeRight, partition, prop, sortBy, sum, values, without } from "rambda";
+import { clone, groupBy, mapObjIndexed, mergeRight, partition, sum, values, without } from "rambda";
 
-import {
-  ArmorEffect,
-  AuraEffect,
-  DmgType,
-  DotEffect,
-  EffectType,
-  Projectile,
-  SeekCondition,
-  EffectSource,
-  Unit,
-  UnitInit,
-  UnitState,
-  Effect,
-} from "./interface";
-import { getUnitCentral } from "./utils";
 import {
   Vector,
   addVector,
@@ -25,11 +10,24 @@ import {
   isZeroVector,
   multVector,
   normVector,
-  rotateBy,
   subVector,
 } from "../utils";
 import { Context } from "./context";
-import { UnitFilter } from "./unit-filter";
+import {
+  ArmorEffect,
+  AuraEffect,
+  DmgType,
+  DotEffect,
+  Effect,
+  EffectSource,
+  EffectType,
+  Projectile,
+  Unit,
+  UnitInit,
+  UnitState,
+} from "./interface";
+import { getUnitCentral, inTouchWithOthers } from "./utils";
+import { filterBySeekConditions, isUnitActionHasValidTarget } from "./utils/unit-filter";
 
 export class UnitContext {
   constructor(private context: Context) {}
@@ -103,17 +101,6 @@ export class UnitContext {
     unit.location = addVector(unit.location, multVector(unit.moveDirection, unit.moveSpeed));
   }
 
-  wander(unit: Unit) {
-    if (!unit.moveSpeed) return;
-    if (!unit.moveDirection) {
-      unit.moveDirection = this.context.random.vector();
-      return;
-    }
-
-    const angle = this.context.random.int(-10, 10) / 40;
-    unit.moveDirection = rotateBy(unit.moveDirection, angle);
-  }
-
   flagToClearAuraEffects(unit: Unit) {
     unit.effects.filter(x => x.source === EffectSource.Aura).forEach(x => (x.toClear = true));
   }
@@ -131,11 +118,10 @@ export class UnitContext {
   }
 
   private applyAura(unit: Unit, aura: AuraEffect, units: Unit[]) {
-    const auraTargets = UnitFilter.filterBySeekConditions(
-      units,
-      [...aura.seekTargetCondition, ["in-distance", { distance: aura.range }]],
-      { targetLocation: unit.location, team: unit.team },
-    );
+    const auraTargets = filterBySeekConditions(units, [...aura.seekTargetCondition, ["in-distance", { distance: aura.range }]], {
+      targetLocation: unit.location,
+      team: unit.team,
+    });
 
     auraTargets.forEach(unit => {
       const uniqueIdEffect = aura.effect.uniqueId && unit.effects.find(x => x.uniqueId === aura.effect.uniqueId);
@@ -168,59 +154,10 @@ export class UnitContext {
     }
   }
 
-  seekAndMoveToTarget(unit: Unit, units: Unit[]) {
-    if (!unit.moveSpeed) return;
-    if (unit.activeAction) return;
-
-    const closestUnits = unit.actions
-      .map(action => (action.seekTargetCondition ? this.seekTarget(unit, units, action.seekTargetCondition) : null))
-      .filter(x => x) as Unit[];
-
-    const closestTarget = head(
-      sortBy(targetUnit => getVectorDistance(unit.location, targetUnit.location), closestUnits),
-    );
-
-    if (!closestTarget) return;
-
-    unit.moveDirection = normVector(subVector(closestTarget.location, unit.location));
-  }
-
-  lockActionWithTarget(unit: Unit, units: Unit[]) {
-    if (unit.activeAction) return;
-    if (unit.actions.length === 0) return;
-
-    const actions = unit.actions.map(
-      action =>
-        [action, action.seekTargetCondition ? this.seekTarget(unit, units, action.seekTargetCondition) : null] as const,
-    );
-
-    const [action, targetUnit] = head(
-      sortBy(
-        ([, targetUnit]) => (targetUnit ? getVectorDistance(unit.location, targetUnit.location) : Infinity),
-        actions,
-      ),
-    );
-
-    // No valid seek target
-    if (targetUnit === undefined) return;
-
-    // No seek condition for the action (target itself)
-    if (targetUnit === null) {
-      unit.activeAction = { action, speed: action.speed };
-      return;
-    }
-
-    const distance = getVectorDistance(unit.location, targetUnit.location);
-
-    if (action.distance && distance <= action.distance) {
-      unit.activeAction = { action, speed: action.speed, targetUnit };
-    }
-  }
-
   executeAction(unit: Unit) {
     if (!unit.activeAction) return;
     if (unit.activeAction.targetUnit) {
-      if (!UnitFilter.isUnitActionHasValidTarget(unit, unit.activeAction.targetUnit, unit.activeAction.action)) {
+      if (!isUnitActionHasValidTarget(unit, unit.activeAction.targetUnit, unit.activeAction.action)) {
         delete unit.activeAction;
         return;
       }
@@ -260,20 +197,16 @@ export class UnitContext {
   separation(unit: Unit, units: Unit[]) {
     if (!unit.moveSpeed) return;
 
-    const otherUnitsInDistance = this.inTouchWithOthers(unit, units);
-    let sumSubVector = otherUnitsInDistance.reduce(
-      (acc, curr) => addVector(acc, normVector(subVector(unit.location, curr.location))),
-      { x: 0, y: 0 },
-    );
+    const otherUnitsInDistance = inTouchWithOthers(unit, units);
+    let sumSubVector = otherUnitsInDistance.reduce((acc, curr) => addVector(acc, normVector(subVector(unit.location, curr.location))), {
+      x: 0,
+      y: 0,
+    });
 
     if (otherUnitsInDistance.length > 0) {
       const direction = divVector(sumSubVector, otherUnitsInDistance.length);
       unit.moveDirection = isZeroVector(direction) ? this.context.random.vector() : direction;
     }
-  }
-
-  getUnitsInRange(targetLocation: Vector, distance: number): Unit[] {
-    return UnitFilter.filterBySeekConditions(this.units, ["alive", ["in-distance", { distance }]], { targetLocation });
   }
 
   dmg(targetUnit: Unit, dmgEffects: { dmgType: DmgType; power: number | [number, number] }[]) {
@@ -285,9 +218,7 @@ export class UnitContext {
       mapObjIndexed((effects, dmgType) => {
         const dmgArmors = armors.filter(x => x.dmgType === dmgType);
         const totalArmor = sum(dmgArmors.map(x => x.power));
-        const totalDmg = sum(
-          effects.map(x => (Array.isArray(x.power) ? this.context.random.int(x.power[0], x.power[1]) : x.power)),
-        );
+        const totalDmg = sum(effects.map(x => (Array.isArray(x.power) ? this.context.random.int(x.power[0], x.power[1]) : x.power)));
 
         return Math.max(0, totalDmg - totalArmor);
       }, effectsByDmgType),
@@ -298,16 +229,6 @@ export class UnitContext {
     if (totalDmg) {
       targetUnit.hp = Math.max(0, targetUnit.hp - totalDmg);
     }
-  }
-
-  private seekTarget(unit: Unit, units: Unit[], seekConditions: SeekCondition[]): Unit {
-    let filteredUnits = UnitFilter.filterBySeekConditions(units, seekConditions, { team: unit.team });
-    let targetDistances = filteredUnits.map(
-      target => [getVectorDistance(unit.location, target.location), target] as const,
-    );
-    let sorted = sortBy(prop(0), targetDistances);
-
-    return head(sorted)?.[1];
   }
 
   private shootProjectile(unit: Unit, target: Unit) {
@@ -331,13 +252,5 @@ export class UnitContext {
     };
 
     this.context.map.addProjectile(projectile);
-  }
-
-  private inTouchWithOthers(unit: Unit, targets: Unit[]): Unit[] {
-    return targets.filter(
-      target =>
-        target !== unit &&
-        getVectorDistance(getUnitCentral(unit), getUnitCentral(target)) < target.size / 2 + unit.size / 2,
-    );
   }
 }

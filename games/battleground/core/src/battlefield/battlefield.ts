@@ -2,6 +2,7 @@ import { without } from "rambda";
 
 import { Random } from "../utils";
 import { Context } from "./context";
+import { AiController } from "./controllers/ai";
 import { EffectsContext } from "./effects";
 import { BattlefieldConfig, Projectile, ResourceManager, Unit, UnitInit } from "./interface";
 import { ManuallyControlledUnit } from "./manually-controlled-unit";
@@ -43,13 +44,14 @@ export class Battlefield {
   tick() {
     const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
 
+    const aiController = new AiController(this.context.random);
+
     for (let unit of aliveUnits) {
       unit.moveDirection = undefined;
 
-      // this.context.unit.wander(unit);
+      aiController.execute(this.context.unit.units, unit);
+
       this.context.unit.triggerActionState(unit);
-      this.context.unit.seekAndMoveToTarget(unit, this.context.unit.units);
-      this.context.unit.lockActionWithTarget(unit, this.context.unit.units);
       this.context.unit.executeAction(unit);
       this.context.unit.separation(unit, aliveUnits);
       this.context.unit.screenBoundaries(unit);
