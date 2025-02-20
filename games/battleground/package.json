@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "start": "pnpm --filter=@rpg-village/battleground-* --parallel start"
+  }
+}

@@ -15,7 +15,7 @@
     "./lib/*": "./dist/lib/*.js"
   },
   "peerDependencies": {
-    "@rpg-village/core": "workspace: 0.0.0",
+    "@rpg-village/core": "workspace: *",
     "inversify": "6.0.2",
     "rambda": "9.2.1",
     "shortid": "2.2.16",

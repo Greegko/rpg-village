@@ -1,4 +1,4 @@
-import { BattlefieldInit, DmgType, EffectType } from "@rpg-village/battleground";
+import { BattlefieldInit, DmgType, EffectType } from "@rpg-village/battleground-core";
 
 import { archerUnit, castleBuilding, createDummyUnit, flagBearerUnit, priestUnit } from "./config";
 

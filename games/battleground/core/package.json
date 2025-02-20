@@ -1,26 +1,27 @@
 {
-  "name": "@rpg-village/battleground",
+  "name": "@rpg-village/battleground-core",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
+    "start": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
     "build": "tsc -b ./src/tsconfig.json",
-    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
     "test": "vitest",
     "generate-schema": "ts-json-schema-generator --path ./src/interface/unit.ts --strict-tuples --type \"UnitConfig\" -o schemas/unit-config.schema.json"
   },
   "peerDependencies": {
-    "rambda": "9.2.1"
+    "rambda": "9.4.2"
   },
   "optionalDependencies": {
-    "pixi-filters": "6.0.4",
-    "pixi.js": "8.2.1",
-    "gsap": "3.12.5"
+    "pixi-filters": "6.1.0",
+    "pixi.js": "8.8.0",
+    "gsap": "3.12.7"
   },
   "devDependencies": {
-    "vitest": "1.6.0",
-    "typescript": "5.5.2",
-    "@types/node": "18.19.55",
+    "vitest": "3.0.6",
+    "typescript": "5.7.3",
+    "@types/node": "18.19.76",
     "lz-string": "1.5.0",
     "ts-json-schema-generator": "2.3.0"
   }

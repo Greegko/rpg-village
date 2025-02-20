@@ -8,7 +8,7 @@ import {
   BattlefieldRenderer,
   BattlefieldState,
   SpellSelection,
-} from "@rpg-village/battleground";
+} from "@rpg-village/battleground-core";
 
 import { HerosHoursAssetManager } from "./assets/hero-hours/hero-hours-asset-manager";
 import { AssetManagerContext, SpellBook } from "./components";

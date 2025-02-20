@@ -1,7 +1,8 @@
+import { Dictionary } from "rambda";
+
 import { Application, Assets, Sprite, Spritesheet, Texture } from "pixi.js";
 
-import { Dictionary } from "rambda";
-import { AssetManager, SpriteConfig } from "@rpg-village/battleground";
+import { AssetManager, SpriteConfig } from "@rpg-village/battleground-core";
 
 // @ts-ignore
 import sprite_json from "./assets.json";

@@ -1,9 +1,9 @@
 import { mergeAll, mergeRight } from "rambda";
 
-import { UnitConfig, UnitInit, UnitSetup } from "@rpg-village/battleground";
+import { UnitConfig, UnitInit, UnitSetup } from "@rpg-village/battleground-core";
 
-import units from "./units.json";
 import buildings from "./buildings.json";
+import units from "./units.json";
 
 const getConfig = (id: string): UnitConfig =>
   (units as UnitConfig[]).find(x => x.id === id) || (buildings as UnitConfig[]).find(x => x.id === id)!;

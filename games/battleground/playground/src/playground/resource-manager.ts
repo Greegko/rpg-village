@@ -1,6 +1,6 @@
 import { find, propEq } from "rambda";
 
-import { ResourceManager as IResourceManager, UnitConfig } from "@rpg-village/battleground";
+import { ResourceManager as IResourceManager, UnitConfig } from "@rpg-village/battleground-core";
 
 import buildings from "./buildings.json";
 import units from "./units.json";

@@ -1,6 +1,7 @@
 {
   "name": "@rpg-village/dice-hero",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "start": "pnpm run '/serve|type-check/'",
@@ -9,8 +10,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@rpg-village/core": "workspace: 0.0.0",
-    "@rpg-village/ui": "workspace: 0.0.0",
+    "@rpg-village/core": "workspace: *",
+    "@rpg-village/ui": "workspace: *",
     "remeda": "2.15.0",
     "solid-js": "1.9.2"
   },
