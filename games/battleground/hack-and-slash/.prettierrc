@@ -1,0 +1,10 @@
+{
+  "trailingComma": "all",
+  "printWidth": 140,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "arrowParens": "avoid",
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^(pixi.js|gsap)", "^@rpg-village/battleground", "^\\."],
+  "importOrderSeparation": true,
+  "importOrderParserPlugins": ["classProperties", "typescript", "decorators-legacy", "jsx"],
+  "importOrderSortSpecifiers": true
+}

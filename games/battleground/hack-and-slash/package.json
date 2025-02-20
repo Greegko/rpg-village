@@ -1,5 +1,5 @@
 {
-  "name": "@rpg-village/battleground-playground",
+  "name": "@rpg-village/battleground-hack-and-slash",
   "version": "0.0.0",
   "type": "module",
   "description": "",
@@ -7,13 +7,12 @@
     "start": "pnpm run \"/serve|type-checking|dependencies/\"",
     "build": "vite build",
     "serve": "vite serve",
-    "dependencies": "pnpm -filter=@rpg-village/battleground-playground^... start",
+    "dependencies": "pnpm -filter=@rpg-village/battleground-hack-and-slash^... start",
     "type-checking": "tsc -w --preserveWatchOutput -p ./src"
   },
   "dependencies": {
     "@rpg-village/battleground-core": "workspace: *",
     "pixi.js": "8.8.0",
-    "lz-string": "1.5.0",
     "rambda": "9.4.2",
     "solid-js": "1.9.4",
     "typescript": "5.7.3",
