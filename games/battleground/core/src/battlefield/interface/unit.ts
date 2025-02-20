@@ -44,6 +44,8 @@ export type DotEffect = {
   state: { intervalState: number; remainingPeriod: number };
 };
 
+export type Position = { x: number; y: number };
+
 export type Effect = EffectBase & (AuraEffect | HealEffect | DmgEffect | ArmorEffect | DotEffect);
 
 export type Animation = "attack";
@@ -52,6 +54,7 @@ export interface ActionActive {
   action: Action;
   speed: number;
   targetUnit?: Unit;
+  targetPosition?: Position;
 }
 
 export interface Action {
@@ -77,7 +80,7 @@ export interface UnitConfig {
 }
 
 export interface UnitSetup extends Partial<UnitConfig> {
-  location: Vector;
+  location: Position;
   team: number;
   hp?: number;
 }

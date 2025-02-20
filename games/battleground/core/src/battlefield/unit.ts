@@ -177,8 +177,12 @@ export class UnitContext {
     if (!unit.actionsCooldowns) return;
     if (unit.actionsCooldowns.get(unit.activeAction.action)! > 0) return;
 
-    if (unit.activeAction.action.projectileId && unit.activeAction.targetUnit) {
-      this.shootProjectile(unit, unit.activeAction.targetUnit);
+    if (unit.activeAction.action.projectileId && (unit.activeAction.targetUnit || unit.activeAction.targetPosition)) {
+      if (unit.activeAction.targetUnit) {
+        this.shootProjectile(unit, getUnitCentral(unit.activeAction.targetUnit));
+      } else if (unit.activeAction.targetPosition) {
+        this.shootProjectile(unit, unit.activeAction.targetPosition);
+      }
     } else {
       if (unit.activeAction.action.hitEffect && unit.activeAction.targetUnit) {
         this.context.effect.applyEffect(unit.activeAction.action.hitEffect, unit.activeAction.targetUnit);
