@@ -1,17 +1,14 @@
+import { Application, Container, ContainerChild } from "pixi.js";
 import { without } from "rambda";
 
-import { Application, Container, Text, ContainerChild } from "pixi.js";
-
 import { BattlefieldConfig, BattlefieldState, Unit } from "../battlefield";
-
+import { AssetManager } from "./interface";
 import { ProjectilesContainer } from "./projectiles-container";
 import { UnitsContainer } from "./units-container";
-import { AssetManager } from "./interface";
 
 export class BattlefieldRenderer {
   private application: Application;
   private rootContainer: Container;
-  private tickerTextNode: Text;
   private lastState: BattlefieldState;
   private unitsContainer: UnitsContainer;
   private projectilesContainer: ProjectilesContainer;
@@ -21,8 +18,7 @@ export class BattlefieldRenderer {
     this.rootContainer = new Container();
     this.projectilesContainer = new ProjectilesContainer(this.assetManager);
     this.unitsContainer = new UnitsContainer(this.assetManager);
-    this.tickerTextNode = new Text({ text: "", style: { fill: "white", fontSize: 12 } });
-    this.lastState = { tick: 0, units: [], projectiles: [] };
+    this.lastState = { units: [], projectiles: [] };
   }
 
   async init(config: BattlefieldConfig): Promise<HTMLCanvasElement> {
@@ -32,7 +28,6 @@ export class BattlefieldRenderer {
     });
 
     this.application.stage.addChild(this.rootContainer);
-    this.rootContainer.addChild(this.tickerTextNode);
     this.rootContainer.addChild(this.unitsContainer);
     this.rootContainer.addChild(this.projectilesContainer);
 
@@ -49,9 +44,6 @@ export class BattlefieldRenderer {
   }
 
   renderScene(data: BattlefieldState) {
-    this.updateTickerText();
-    this.application.ticker.update(0);
-
     data.units.forEach(unit => this.unitsContainer.drawUnitAnimation(unit));
     data.projectiles.forEach(projectile => this.projectilesContainer.drawProjectileAnimation(projectile));
 
@@ -59,13 +51,8 @@ export class BattlefieldRenderer {
     removedProjectiles.forEach(projectile => this.projectilesContainer.removeProjectile(projectile));
 
     this.lastState = {
-      tick: data.tick,
       units: [...data.units],
       projectiles: [...data.projectiles],
     };
-  }
-
-  updateTickerText() {
-    this.tickerTextNode.text = this.lastState.tick;
   }
 }

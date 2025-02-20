@@ -1,5 +1,5 @@
-import { Show, createSignal, onMount } from "solid-js";
 import { decompressFromBase64 } from "lz-string";
+import { Show, createSignal, onMount } from "solid-js";
 
 import {
   AssetManager,
@@ -10,16 +10,21 @@ import {
   SpellSelection,
 } from "@rpg-village/battleground";
 
+import { HerosHoursAssetManager } from "./assets/hero-hours/hero-hours-asset-manager";
+import { AssetManagerContext, SpellBook } from "./components";
 import { Debug } from "./debug";
 import { Loop } from "./loop";
 import { ResourceManager, playgroundDefaultBattlefieldInit } from "./playground";
-import { HerosHoursAssetManager } from "./assets/hero-hours/hero-hours-asset-manager";
-import { AssetManagerContext, SpellBook } from "./components";
 
 export const Game = () => {
   const [spellSelection, setSpellSelection] = createSignal<SpellSelection>();
   const [assetManager, setAssetManager] = createSignal<AssetManager>();
   const [battlegroundCanvas, setBattlegroundCanvas] = createSignal<HTMLCanvasElement>();
+
+  const [fps, setFPS] = createSignal(0);
+  const [tick, setTick] = createSignal(0);
+
+  const loop = new Loop();
 
   onMount(async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -51,7 +56,10 @@ export const Game = () => {
       }
     })();
 
-    const loop = new Loop(() => {
+    loop.setCallback((tick, fps) => {
+      setTick(tick);
+      setFPS(fps);
+
       battleField.tick();
 
       const battleFieldState = battleField.getState();
@@ -85,6 +93,9 @@ export const Game = () => {
 
   return (
     <div>
+      <div style={{ color: "white", "font-size": "12px" }}>
+        FPS: {fps()} - Tick: {tick()}
+      </div>
       {battlegroundCanvas()}
       <Show when={assetManager()}>
         <AssetManagerContext.Provider value={assetManager()}>

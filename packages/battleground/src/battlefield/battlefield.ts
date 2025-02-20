@@ -1,16 +1,15 @@
 import { without } from "rambda";
 
-import { BattlefieldConfig, Projectile, ResourceManager, Unit, UnitInit } from "./interface";
 import { Random } from "../utils";
 import { Context } from "./context";
 import { EffectsContext } from "./effects";
+import { BattlefieldConfig, Projectile, ResourceManager, Unit, UnitInit } from "./interface";
 import { ManuallyControlledUnit } from "./manually-controlled-unit";
 import { MapContext } from "./map";
 import { SpellsContext } from "./spells";
 import { UnitContext } from "./unit";
 
 export interface BattlefieldState {
-  tick: number;
   units: Unit[];
   projectiles: Projectile[];
 }
@@ -21,8 +20,6 @@ export interface BattlefieldInit {
 
 export class Battlefield {
   private context: Context;
-
-  private ticker: number = 0;
 
   constructor(config: BattlefieldConfig, resourceManager: ResourceManager) {
     this.context = {} as Context;
@@ -44,8 +41,6 @@ export class Battlefield {
   }
 
   tick() {
-    this.ticker += 1;
-
     const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
 
     for (let unit of aliveUnits) {
@@ -90,7 +85,6 @@ export class Battlefield {
 
   getState(): BattlefieldState {
     return {
-      tick: this.ticker,
       units: this.context.unit.units,
       projectiles: this.context.map.projectiles,
     };
