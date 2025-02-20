@@ -57,6 +57,8 @@ export interface ActionActive {
   targetPosition?: Position;
 }
 
+export type UnitID = string;
+
 export interface Action {
   seekTargetCondition?: SeekCondition[];
   animation?: Animation;
@@ -70,7 +72,7 @@ export interface Action {
 }
 
 export interface UnitConfig {
-  id: string;
+  id: UnitID;
   spriteId: string;
   size: number;
   maxHp: number;
@@ -87,6 +89,7 @@ export interface UnitSetup extends Partial<UnitConfig> {
 
 export interface UnitState {
   hp: number;
+  userControlled: boolean;
   effects: Effect[];
   actionsCooldowns: Map<Action, number>;
   activeAction?: ActionActive;

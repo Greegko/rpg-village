@@ -15,4 +15,4 @@ export const createDummyUnit = (unitConfigOverride: Pick<UnitSetup, "location" |
   mergeAll<any>([getConfig("skeleton"), { hp: 1000, maxHp: 1000, actions: [] }, unitConfigOverride]);
 
 export const skeletonUnit = unitFactory("skeleton");
-export const heroUnit = unitFactory("skeleton");
+export const heroUnit = unitFactory("hero");

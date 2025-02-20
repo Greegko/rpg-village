@@ -8,6 +8,8 @@ export class AiController {
   constructor(private random: Random) {}
 
   execute(units: Unit[], unit: Unit) {
+    unit.moveDirection = undefined;
+
     // this.wander(unit);
     this.seekAndMoveToTarget(units, unit);
     this.lockActionWithTarget(units, unit);

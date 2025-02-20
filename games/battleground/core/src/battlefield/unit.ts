@@ -1,17 +1,6 @@
 import { clone, groupBy, mapObjIndexed, mergeRight, partition, sum, values, without } from "rambda";
 
-import {
-  Vector,
-  addVector,
-  divVector,
-  getVectorDistance,
-  invXVector,
-  invYVector,
-  isZeroVector,
-  multVector,
-  normVector,
-  subVector,
-} from "../utils";
+import { addVector, divVector, getVectorDistance, invXVector, invYVector, isZeroVector, multVector, normVector, subVector } from "../utils";
 import { Context } from "./context";
 import {
   ArmorEffect,
@@ -21,8 +10,10 @@ import {
   Effect,
   EffectSource,
   EffectType,
+  Position,
   Projectile,
   Unit,
+  UnitID,
   UnitInit,
   UnitState,
 } from "./interface";
@@ -33,6 +24,10 @@ export class UnitContext {
   constructor(private context: Context) {}
 
   units: Unit[] = [];
+
+  getUnitById(unitId: UnitID): Unit {
+    return this.units.find(x => x.id === unitId)!;
+  }
 
   triggerActionState(unit: Unit) {
     for (let [action, cooldown] of unit.actionsCooldowns.entries()) {
@@ -86,6 +81,7 @@ export class UnitContext {
     const unitClone = clone(unit);
 
     const initUnitState: UnitState = {
+      userControlled: false,
       actionsCooldowns: new Map(unitClone.actions.map(action => [action, 0])),
       effects: unitClone.effects || [],
       hp: unitClone.hp ?? unitClone.maxHp,
@@ -235,11 +231,10 @@ export class UnitContext {
     }
   }
 
-  private shootProjectile(unit: Unit, target: Unit) {
+  private shootProjectile(unit: Unit, targetLocation: Position) {
     if (!unit.activeAction) return;
 
     const action = unit.activeAction.action;
-    const targetLocation = getUnitCentral(target);
     const sourceLocation = getUnitCentral(unit);
     const time = Math.ceil(getVectorDistance(sourceLocation, targetLocation) / action.projectileSpeed!);
 

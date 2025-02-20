@@ -77,7 +77,12 @@
       }
     ],
     "effects": [
-      { "type": "aura", "range": 100, "seekTargetCondition": ["same-team", "alive"], "effect": { "type": "armor", "dmgType": "physical", "power": 2, "uniqueId": "aura-armor-1" } }
+      {
+        "type": "aura",
+        "range": 100,
+        "seekTargetCondition": ["same-team", "alive"],
+        "effect": { "type": "armor", "dmgType": "physical", "power": 2, "uniqueId": "aura-armor-1" }
+      }
     ]
   },
   {
@@ -96,7 +101,18 @@
       }
     ],
     "effects": [
-      { "type": "aura", "range": 250, "seekTargetCondition": ["enemy-team", "alive"], "effect": { "type": "dot", "effect": { "type": "dmg", "dmgType": "fire", "power": 3 }, "period": 3, "interval": 50, "uniqueId": "dmg-aura-1" } }
+      {
+        "type": "aura",
+        "range": 250,
+        "seekTargetCondition": ["enemy-team", "alive"],
+        "effect": {
+          "type": "dot",
+          "effect": { "type": "dmg", "dmgType": "fire", "power": 3 },
+          "period": 3,
+          "interval": 50,
+          "uniqueId": "dmg-aura-1"
+        }
+      }
     ]
   },
   { "id": "goblin_knight", "spriteId": "sprites/goblin_knight/goblin_knight" },
@@ -116,7 +132,7 @@
         "speed": 60,
         "hitEffect": [
           { "type": "dmg", "dmgType": "fire", "power": 7 },
-          { "type": "dot", "effect": { "type": "dmg","dmgType": "fire", "power": 5 }, "interval": 50, "period": 5 }
+          { "type": "dot", "effect": { "type": "dmg", "dmgType": "fire", "power": 5 }, "interval": 50, "period": 5 }
         ]
       }
     ],

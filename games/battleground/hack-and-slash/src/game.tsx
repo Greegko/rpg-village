@@ -5,11 +5,13 @@ import { Ticker } from "pixi.js";
 import { Battlefield, BattlefieldConfig, BattlefieldRenderer } from "@rpg-village/battleground-core";
 
 import { HerosHoursAssetManager } from "./assets/hero-hours/hero-hours-asset-manager";
+import { UserControl } from "./plugins/user-control";
 import { ResourceManager, playgroundDefaultBattlefieldInit } from "./resource";
 
 export const Game = () => {
   const [battlegroundCanvas, setBattlegroundCanvas] = createSignal<HTMLCanvasElement>();
 
+  const userControl = new UserControl();
   const ticker = new Ticker();
   ticker.maxFPS = 60;
 
@@ -54,12 +56,19 @@ export const Game = () => {
     await assetManager.init();
 
     battleField.init(playgroundDefaultBattlefieldInit);
+
+    const heroUnitId = "hero";
+    battleField.setUserControlledUnit(heroUnitId);
     setBattlegroundCanvas(await renderer.init(config));
 
     ticker.add(({ FPS }) => {
       setFPS(Math.floor(FPS));
       doTick();
     });
+
+    userControl.hookEvenets();
+    userControl.addEventListener("direction", direction => battleField.setUnitDirection(heroUnitId, direction));
+    userControl.addEventListener("click", position => battleField.setUnitShootAction(heroUnitId, position));
   });
 
   return (
