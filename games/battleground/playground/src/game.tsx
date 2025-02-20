@@ -15,7 +15,6 @@ import {
 import { HerosHoursAssetManager } from "./assets/hero-hours/hero-hours-asset-manager";
 import { AssetManagerContext, SpellBook } from "./components";
 import { Debug } from "./debug";
-import { Loop } from "./loop";
 import { ResourceManager, playgroundDefaultBattlefieldInit } from "./playground";
 
 export const Game = () => {
@@ -28,8 +27,6 @@ export const Game = () => {
 
   const [fps, setFPS] = createSignal(0);
   const [tick, setTick] = createSignal(0);
-
-  const loop = new Loop();
 
   onMount(async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -62,7 +59,7 @@ export const Game = () => {
     })();
 
     const doTick = () => {
-      setTick(tick => tick + 2);
+      setTick(tick => tick + 1);
 
       battleField.tick();
 
@@ -71,14 +68,9 @@ export const Game = () => {
       renderer.renderScene(battleFieldState);
 
       if (battleField.isFinished) {
-        loop.stop();
+        ticker.stop();
       }
     };
-
-    ticker.add(({ FPS }) => {
-      setFPS(Math.floor(FPS));
-      doTick();
-    });
 
     ticker.start();
 
@@ -99,11 +91,18 @@ export const Game = () => {
     setSpellSelection(spellSelection);
     setAssetManager(assetManager);
 
-    if (tick) {
-      loop.jumpToTick(parseInt(tick));
-    }
+    ticker.add(({ FPS }) => {
+      setFPS(Math.floor(FPS));
+      doTick();
+    });
 
-    loop.start();
+    if (tick) {
+      const ticks = parseInt(tick);
+
+      for (let i = 0; i < ticks; i++) {
+        doTick();
+      }
+    }
   });
 
   return (
