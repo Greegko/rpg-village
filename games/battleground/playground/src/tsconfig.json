@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig-base.json",
-  "include": ["**/*.json"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
   "compilerOptions": {
     "noEmit": true,
     "jsx": "preserve",
