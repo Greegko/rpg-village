@@ -57,13 +57,11 @@ export class Battlefield {
   }
 
   tick() {
-    this.context.aiController.tickAction();
-
     this.context.unit.tickUnitsMove();
 
-    this.context.aiController.tickAction();
-
     this.context.effect.tickEffects();
+
+    this.context.aiController.tickAction();
 
     this.context.map.tickProjectiles();
   }

@@ -1,4 +1,5 @@
 {
+  "include": ["./src/**/*"],
   "compilerOptions": {
     "rootDir": "./",
     "target": "ESNext",
@@ -7,7 +8,8 @@
     "noUnusedLocals": true,
     "strict": true,
     "composite": true,
-    "outDir": "../dist",
+    "outDir": "./dist",
+    "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
     "removeComments": false,

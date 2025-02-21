@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "rootDir": "./",
+    "noEmit": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": ["vite/client"],
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -8,7 +12,6 @@
     "strict": true,
     "composite": true,
     "outDir": "../dist",
-    "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
     "removeComments": false,

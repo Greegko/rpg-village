@@ -22,15 +22,15 @@ export class TestLogger {
     }
   }
 
-  log() {
+  log(tick: number) {
     const state = this.battlefield.getState();
 
-    if (this.config?.logTurnIterations && state.tick % this.config?.logTurnIterations === 0) {
-      this.loggerFn("Turn", state.tick);
+    if (this.config?.logTurnIterations && tick % this.config?.logTurnIterations === 0) {
+      this.loggerFn("Turn", tick);
     }
 
-    if (this.config?.logState?.turns?.includes(state.tick)) {
-      this.loggerFn("Turn", state.tick);
+    if (this.config?.logState?.turns?.includes(tick)) {
+      this.loggerFn("Turn", tick);
       this.loggerFn(state);
     }
 
@@ -40,10 +40,10 @@ export class TestLogger {
     }
   }
 
-  testEnd() {
+  testEnd(tick: number) {
     const state = this.battlefield.getState();
     if (this.config?.logState?.testEnd) {
-      this.loggerFn("Test End - Turn", state.tick);
+      this.loggerFn("Test End - Turn", tick);
       this.loggerFn(state);
     }
   }

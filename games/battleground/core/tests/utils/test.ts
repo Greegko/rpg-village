@@ -1,4 +1,4 @@
-import { expect, test as vitestTest } from "vitest";
+import { expect, it } from "vitest";
 
 import { Battlefield, BattlefieldConfig, BattlefieldInit, BattlefieldState } from "../../src";
 import { createPlayableUrl } from "./create-playable-url";
@@ -6,54 +6,62 @@ import { getMapSize } from "./get-map-size";
 import { PartialDeep } from "./partial-deep";
 import { LoggerOptions, TestLogger } from "./test-logger";
 
-type TestState = PartialDeep<BattlefieldState & { turn: number }>;
+type TestState = PartialDeep<BattlefieldState>;
 type ExpectedState = TestState | ((state: TestState) => void);
 
 interface TestConfig {
+  only?: boolean;
   seed?: string;
   initialState: BattlefieldInit;
   turn?: number | boolean;
   runUntilFinish?: boolean;
-  expectedState: ExpectedState | ExpectedState[];
+  expectedState?: ExpectedState | ExpectedState[];
+  expectedTurn?: number;
   loggerConfig?: LoggerOptions;
   createPlayableLink?: boolean;
 }
 
 export function test(
   testName: string,
-  { initialState, turn, runUntilFinish, expectedState, loggerConfig, createPlayableLink, seed }: TestConfig,
+  { initialState, turn, runUntilFinish, expectedState, expectedTurn, loggerConfig, createPlayableLink, seed, only }: TestConfig,
 ) {
-  vitestTest(testName, t => {
+  (only ? it.only : it)(testName, () => {
     const config = {
       mapSize: getMapSize(initialState),
       speed: 1,
       seed: seed || Math.random().toString(),
     } as BattlefieldConfig;
-    const battlefield = new Battlefield(config, null);
+
+    const battlefield = new Battlefield(config, null!);
     battlefield.init(initialState);
 
     if (createPlayableLink) {
       console.log("Playable url");
-      console.log(createPlayableUrl(initialState, seed));
+      console.log(createPlayableUrl(initialState, config.seed));
     }
 
-    const logger = new TestLogger(battlefield, loggerConfig, console.log);
+    const logger = new TestLogger(battlefield, loggerConfig || {}, console.log);
 
-    for (let i = 0; i < +turn; i++) {
+    let finalTurn = 0;
+    for (let i = 0; i < new Number(turn).valueOf(); i++) {
       battlefield.tick();
-      logger.log();
+      logger.log(i);
+
+      finalTurn = i;
 
       if (battlefield.isFinished) break;
     }
 
     if (runUntilFinish) {
+      finalTurn = 0;
       while (!battlefield.isFinished) {
+        finalTurn++;
         battlefield.tick();
-        logger.log();
+        logger.log(finalTurn);
       }
     }
 
-    logger.testEnd();
+    logger.testEnd(finalTurn);
 
     const gameState = battlefield.getState();
     const testExpectedState = (expectedState: ExpectedState) => {
@@ -64,10 +72,16 @@ export function test(
       }
     };
 
-    if (Array.isArray(expectedState)) {
-      expectedState.forEach(testExpectedState);
-    } else {
-      testExpectedState(expectedState);
+    if (expectedState) {
+      if (Array.isArray(expectedState)) {
+        expectedState.forEach(testExpectedState);
+      } else {
+        testExpectedState(expectedState);
+      }
+    }
+
+    if (expectedTurn) {
+      expect(expectedTurn).toBe(finalTurn);
     }
   });
 }

@@ -22,7 +22,7 @@ test("move", {
       skeletonUnit({ location: { x: 80, y: 0 }, team: 2, moveSpeed: 5 }),
     ],
   },
-  turn: 1,
+  turn: 2,
   expectedState: { units: [{ location: { x: 5, y: 0 } }, { location: { x: 75, y: 0 } }] },
 });
 
@@ -119,10 +119,7 @@ test("different dmg type with armors", {
         location: { x: 0, y: 0 },
         hp: 100,
         team: 1,
-        effects: [
-          armorEffect({ power: 5, dmgType: DmgType.Fire }),
-          armorEffect({ power: 2, dmgType: DmgType.Physical }),
-        ],
+        effects: [armorEffect({ power: 5, dmgType: DmgType.Fire }), armorEffect({ power: 2, dmgType: DmgType.Physical })],
       }),
       skeletonUnit({
         location: { x: 20, y: 0 },
@@ -197,7 +194,14 @@ test("aura apply effect", {
         location: { x: 0, y: 0 },
         hp: 10,
         team: 1,
-        effects: [{ type: EffectType.Aura, range: 100, seekTargetCondition: ['same-team', 'alive'], effect: { type: EffectType.Armor, power: 2, dmgType: DmgType.Physical } }],
+        effects: [
+          {
+            type: EffectType.Aura,
+            range: 100,
+            seekTargetCondition: ["same-team", "alive"],
+            effect: { type: EffectType.Armor, power: 2, dmgType: DmgType.Physical },
+          },
+        ],
         actions: [],
       }),
       skeletonUnit({
@@ -218,7 +222,6 @@ test("aura apply effect", {
   expectedState: state => expect(state.units[1].hp).toBe(2),
 });
 
-
 test("aura dot refresh period", {
   initialState: {
     units: [
@@ -230,9 +233,15 @@ test("aura dot refresh period", {
           {
             type: EffectType.Aura,
             range: 100,
-            seekTargetCondition: ['enemy-team', 'alive'],
-            effect: { type: EffectType.Dot, effect: { type: EffectType.Dmg, power: 2, dmgType: DmgType.Fire, }, interval: 2, period: 2, uniqueId: 'aura-dot-dmg' },
-          }
+            seekTargetCondition: ["enemy-team", "alive"],
+            effect: {
+              type: EffectType.Dot,
+              effect: { type: EffectType.Dmg, power: 2, dmgType: DmgType.Fire },
+              interval: 2,
+              period: 2,
+              uniqueId: "aura-dot-dmg",
+            },
+          },
         ],
         actions: [],
       }),
@@ -245,7 +254,10 @@ test("aura dot refresh period", {
     ],
   },
   turn: 4,
-  expectedState: state => [expect(state.units[1].hp).toBe(8), expect((state.units[1].effects[0] as DotEffect).state?.remainingPeriod).toBe(2)],
+  expectedState: state => [
+    expect(state.units[1].hp).toBe(8),
+    expect((state.units[1].effects[0] as DotEffect).state?.remainingPeriod).toBe(2),
+  ],
 });
 
 test("aura apply effect only once based on unique id", {
@@ -255,14 +267,28 @@ test("aura apply effect only once based on unique id", {
         location: { x: 0, y: 0 },
         hp: 10,
         team: 1,
-        effects: [{ type: EffectType.Aura, range: 100, seekTargetCondition: ['same-team', 'alive'], effect: { type: EffectType.Armor, power: 2, dmgType: DmgType.Physical, uniqueId: 'aura-def-1' } }],
+        effects: [
+          {
+            type: EffectType.Aura,
+            range: 100,
+            seekTargetCondition: ["same-team", "alive"],
+            effect: { type: EffectType.Armor, power: 2, dmgType: DmgType.Physical, uniqueId: "aura-def-1" },
+          },
+        ],
         actions: [],
       }),
       skeletonUnit({
         location: { x: 0, y: 0 },
         hp: 10,
         team: 1,
-        effects: [{ type: EffectType.Aura, range: 100, seekTargetCondition: ['same-team', 'alive'], effect: { type: EffectType.Armor, power: 2, dmgType: DmgType.Physical, uniqueId: 'aura-def-1' } }],
+        effects: [
+          {
+            type: EffectType.Aura,
+            range: 100,
+            seekTargetCondition: ["same-team", "alive"],
+            effect: { type: EffectType.Armor, power: 2, dmgType: DmgType.Physical, uniqueId: "aura-def-1" },
+          },
+        ],
         actions: [],
       }),
       skeletonUnit({
@@ -279,7 +305,7 @@ test("aura apply effect only once based on unique id", {
       }),
     ],
   },
-  turn: 2,
+  turn: 1,
   expectedState: state => expect(state.units[2].hp).toBe(2),
 });
 
@@ -295,7 +321,7 @@ test("shoot projectile", {
     ],
   },
   turn: 2,
-  expectedState: { projectiles: [{ projectileId: "test-projectile" }] },
+  expectedState: { projectiles: [{ id: "test-projectile" }] },
 });
 
 test("choose target unit with action which is closer #1 part", {
@@ -313,7 +339,7 @@ test("choose target unit with action which is closer #1 part", {
       }),
     ],
   },
-  turn: 2,
+  turn: 1,
   expectedState: state => {
     expect(state.units[1].hp).toBe(10);
     expect(state.units[2].hp).toBe(state.units[2].maxHp);
