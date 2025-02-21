@@ -1,5 +1,4 @@
 // Original Source: https://github.com/ShukantPal/pixi-spatial-hash/blob/master/src/SpatialHash.ts
-
 import { Rectangle } from "./interface";
 
 export type BoundGetter<Node> = (node: Node) => Rectangle;
@@ -9,11 +8,14 @@ type BucketHash = `${number}|${number}`;
 export class SpatialHash<Node> {
   private buckets: Map<BucketHash, Set<Node>> = new Map();
 
-  constructor(private cellSize: number, private boundGetter: BoundGetter<Node>) {
+  constructor(
+    private cellSize: number,
+    private boundGetter: BoundGetter<Node>,
+  ) {
     this.reset();
   }
 
-  set(node: Node): void {
+  add(node: Node): void {
     this.remove(node);
 
     this.hashBounds(this.boundGetter(node), hash => {

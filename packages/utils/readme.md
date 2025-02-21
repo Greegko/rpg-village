@@ -86,7 +86,7 @@ const hash = new SpatialHash<Node>(50, x =>
   toRectangleFromPoints(x.position, { x: x.position.x + x.size, y: x.position.y + x.size }),
 );
 
-hash.set({ id: 5, position: { x: 10, y: 10 }, size: 2 });
+hash.add({ id: 5, position: { x: 10, y: 10 }, size: 2 });
 
 hash.search(toRectangleFromPoint({ x: 12, y: 12 })); // Set<[{ id: 5, ... }]>
 hash.search(toRectangleFromPoints({ x: 8, y: 8 }, { x: 15, y: 15 })); // Set<[{ id: 5, ... }]>

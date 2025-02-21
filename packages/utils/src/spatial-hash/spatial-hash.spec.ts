@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 
-import { SpatialHash } from "./spatial-hash";
 import { Rectangle } from "./interface";
+import { SpatialHash } from "./spatial-hash";
 import { toRectangleFromPoints } from "./utils";
 
 type Node = { id: string; rect: Rectangle };
@@ -11,7 +11,7 @@ it("should lookup hash", () => {
 
   const node: Node = { id: "1", rect: toRectangleFromPoints({ x: 0, y: 0 }, { x: 50, y: 50 }) };
 
-  hash.set(node);
+  hash.add(node);
 
   const set = hash.search(toRectangleFromPoints({ x: 50, y: 50 }, { x: 50, y: 50 }));
 
@@ -23,7 +23,7 @@ it("should unset removed nodes", () => {
 
   const node: Node = { id: "1", rect: toRectangleFromPoints({ x: 0, y: 0 }, { x: 50, y: 50 }) };
 
-  hash.set(node);
+  hash.add(node);
   hash.remove(node);
 
   const set = hash.search(toRectangleFromPoints({ x: 50, y: 50 }, { x: 50, y: 50 }));
