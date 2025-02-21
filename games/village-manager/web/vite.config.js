@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
@@ -15,8 +16,17 @@ export default defineConfig({
   },
   plugins: [
     solid(),
-    viteStaticCopy({
-      targets: [{ src: "src/assets/**/*", dest: "assets" }],
-    }),
+    viteStaticCopy({ targets: [{ src: "src/assets/**/*", dest: "assets" }] }),
+    tailwindcss(),
+    {
+      hotUpdate({ modules, timestamp }) {
+        const invalidatedModules = new Set();
+        for (const mod of modules) {
+          this.environment.moduleGraph.invalidateModule(mod, invalidatedModules, timestamp, true);
+        }
+        this.environment.hot.send({ type: "full-reload" });
+        return [];
+      },
+    },
   ],
 });

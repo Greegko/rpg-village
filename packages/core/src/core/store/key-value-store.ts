@@ -35,6 +35,6 @@ export abstract class KeyValueStore<Key extends string, Value> {
   }
 
   remove(key: Key): void {
-    this.state = dissoc(key, this.state) as Record<Key, Value>;
+    this.state = dissoc(key as any, this.state) as Record<Key, Value>;
   }
 }

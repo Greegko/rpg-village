@@ -7,7 +7,7 @@
   "scripts": {
     "start": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
     "build": "tsc -b ./src/tsconfig.json",
-    "test": "vitest",
+    "test": "vitest run",
     "generate-schema": "ts-json-schema-generator --path ./src/interface/unit.ts --strict-tuples --type \"UnitConfig\" -o schemas/unit-config.schema.json"
   },
   "peerDependencies": {

@@ -25,7 +25,7 @@ export class AiController {
   assignNewAction(units: Unit[], unit: Unit) {
     unit.moveDirection = undefined;
 
-    // this.wander(unit);
+    this.wander;
     this.seekAndMoveToTarget(units, unit);
     this.lockActionWithTarget(units, unit);
   }

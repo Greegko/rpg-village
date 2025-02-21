@@ -1,10 +1,10 @@
-import test from "ava";
+import { expect, it } from "vitest";
 
 import { activityModule } from "@rpg-village/features/activity";
 
 import { gameFactory } from "../../utils/game-factory";
 
-test("activities should be executed", t => {
+it("activities should be executed", () => {
   const game = gameFactory({
     config: { modules: [activityModule] },
     state: { general: { turn: 1 }, activities: {} },
@@ -12,5 +12,5 @@ test("activities should be executed", t => {
 
   const state = game.getState();
 
-  t.is(state.general.turn, 1);
+  expect(state.general.turn).toBe(1);
 });

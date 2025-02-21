@@ -4,7 +4,7 @@
   "private": "true",
   "scripts": {
     "build": "tsc -b ./src/tsconfig.json",
-    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput"
+    "start": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput"
   },
   "exports": {
     "./*": {
@@ -13,8 +13,8 @@
     }
   },
   "peerDependencies": {
-    "solid-js": "1.9.2",
-    "typescript": "5.6.3",
-    "tailwindcss": "3.4.15"
+    "solid-js": "1.9.4",
+    "typescript": "5.7.3",
+    "tailwindcss": "4.0.7"
   }
 }

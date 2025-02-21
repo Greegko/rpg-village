@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { assoc, dissoc, merge, mergeAll, omit, prop } from "rambda";
+import { assoc, dissoc, merge, omit, prop } from "rambda";
 
 import { generateId } from "@lib/generate-id";
 
@@ -10,9 +10,7 @@ export type EntityStoreState<EntityID extends string, Entity extends { id: Entit
   [key: string]: Entity;
 };
 
-export function isEntityUpdaterCallback<T>(
-  entityOrUpdater: EntityUpdater<T>,
-): entityOrUpdater is EntityUpdaterCallback<T> {
+export function isEntityUpdaterCallback<T>(entityOrUpdater: EntityUpdater<T>): entityOrUpdater is EntityUpdaterCallback<T> {
   return typeof entityOrUpdater === "function";
 }
 
@@ -34,7 +32,7 @@ export abstract class EntityStore<EntityID extends string, Entity extends { id: 
 
   add(entity: Omit<Entity, "id">): Entity {
     const id = generateId<EntityID>();
-    const newObject = assoc("id", id, entity);
+    const newObject = merge(entity, { id }) as Entity;
     this.state = assoc(id, newObject, this.state);
     return newObject as Entity;
   }
@@ -51,7 +49,7 @@ export abstract class EntityStore<EntityID extends string, Entity extends { id: 
     }
 
     const oldObject = prop(entityId, this.state);
-    const newObject = mergeAll([oldObject, omit(["id"], entity)]);
+    const newObject = merge(oldObject, omit(["id"], entity));
     this.state = assoc(entityId, newObject, this.state);
   }
 

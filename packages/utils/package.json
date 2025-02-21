@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "build": "tsc -b ./src/tsconfig.json",
-    "build:watch": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
-    "test": "vitest"
+    "start": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
+    "test": "vitest run"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

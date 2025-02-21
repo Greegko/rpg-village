@@ -1,23 +1,23 @@
-import test from "ava";
+import { expect, it } from "vitest";
 
 import { GameState } from "@rpg-village/core";
 
 import { gameFactory } from "./utils/game-factory";
 
-test("loadGame should load the state", t => {
+it("loadGame should load the state", () => {
   const game = gameFactory();
 
   game.loadGame({ general: { turn: 1 } } as GameState);
 
   const newState = game.gameTurn();
 
-  t.is(newState.general.turn, 2);
+  expect(newState.general.turn).toBe(2);
 });
 
-test("gameState should return the current state of the game", t => {
+it("gameState should return the current state of the game", () => {
   const game = gameFactory({ state: { general: { turn: 1 } } });
 
   const state = game.getState();
 
-  t.is(state.general.turn, 1);
+  expect(state.general.turn).toBe(1);
 });
