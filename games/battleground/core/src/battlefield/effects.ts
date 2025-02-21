@@ -1,11 +1,31 @@
 import { find, propEq } from "rambda";
 
-import { DmgEffect, DotEffect, Effect, EffectType, HealEffect, Unit, UnitSetup } from "./interface";
 import { merge } from "../utils";
 import { Context } from "./context";
+import { DmgEffect, DotEffect, Effect, EffectType, HealEffect, Unit, UnitSetup } from "./interface";
 
 export class EffectsContext {
   constructor(private context: Context) {}
+
+  tickEffects(): void {
+    const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
+
+    for (let unit of aliveUnits) {
+      this.context.unit.triggerDotEffects(unit);
+    }
+
+    for (let unit of aliveUnits) {
+      this.context.unit.flagToClearAuraEffects(unit);
+    }
+
+    for (let unit of aliveUnits) {
+      this.context.unit.triggerAura(unit, this.context.unit.units);
+    }
+
+    for (let unit of aliveUnits) {
+      this.context.unit.clearAuraEffects(unit);
+    }
+  }
 
   applyEffect(effects: Effect[], targetUnit: Unit) {
     const dmgEffects = effects.filter(x => x.type === EffectType.Dmg) as DmgEffect[];
@@ -23,7 +43,7 @@ export class EffectsContext {
 
     const dotEffects = effects.filter(x => x.type === EffectType.Dot) as DotEffect[];
     targetUnit.effects.push(
-      ...dotEffects.map(x => ({ ...x, state: { intervalState: x.interval, remainingPeriod: x.period } } as DotEffect)),
+      ...dotEffects.map(x => ({ ...x, state: { intervalState: x.interval, remainingPeriod: x.period } }) as DotEffect),
     );
 
     const healEffect = find(propEq(EffectType.Heal, "type"), effects) as HealEffect;
@@ -33,14 +53,7 @@ export class EffectsContext {
   }
 
   private spawnUnit(source: Unit) {
-    const unitId = this.context.random.sample([
-      "priest",
-      "steam_dragon",
-      "archer",
-      "skeleton",
-      "flag-bearer",
-      "flag-bearer-fire-aura",
-    ]);
+    const unitId = this.context.random.sample(["priest", "steam_dragon", "archer", "skeleton", "flag-bearer", "flag-bearer-fire-aura"]);
 
     const spawnedUnit = this.context.resourceManager.getUnitConfig(unitId);
     const skeletonState: UnitSetup = {

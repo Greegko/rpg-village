@@ -1,8 +1,6 @@
 import { Container, Sprite } from "pixi.js";
 
-import { Projectile } from "../battlefield";
-import { multVector, normVector, subVector } from "../utils";
-
+import { ProjectileNode } from "../battlefield";
 import { AnimatedSpriteUnit } from "./animated-sprite-unit";
 import { AssetManager } from "./interface";
 
@@ -11,9 +9,9 @@ export class ProjectilesContainer extends Container {
     super();
   }
 
-  private projectileNodes = new Map<Projectile, Sprite>();
+  private projectileNodes = new Map<ProjectileNode, Sprite>();
 
-  removeProjectile(projectile: Projectile) {
+  removeProjectile(projectile: ProjectileNode) {
     let node = this.projectileNodes.get(projectile);
 
     if (!node) return;
@@ -23,21 +21,19 @@ export class ProjectilesContainer extends Container {
     this.projectileNodes.delete(projectile);
   }
 
-  drawProjectileAnimation(projectile: Projectile) {
+  drawProjectileAnimation(projectile: ProjectileNode) {
     let node = this.projectileNodes.get(projectile);
 
     if (!node) {
       node = this.createProjectileNode(projectile);
     }
 
-    const d = multVector(normVector(subVector(projectile.targetLocation, projectile.sourceLocation)), projectile.speed);
-
-    node.x += d.x;
-    node.y += d.y;
+    node.x = projectile.location.x;
+    node.y = projectile.location.y;
   }
 
-  private createProjectileNode(projectile: Projectile): Sprite {
-    const projectileConfig = this.assetManager.getSprite(projectile.projectileId);
+  private createProjectileNode(projectile: ProjectileNode): Sprite {
+    const projectileConfig = this.assetManager.getSprite(projectile.id);
     const projectileNode = new AnimatedSpriteUnit(projectileConfig.texture, projectileConfig.animations, "idle");
 
     projectileNode.position.copyFrom(projectile.sourceLocation);

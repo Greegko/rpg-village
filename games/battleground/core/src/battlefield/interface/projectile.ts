@@ -1,14 +1,18 @@
 import { Effect, Position, ProjectileID, ProjectileType, Unit } from "./unit";
 
 export interface Projectile {
-  projectileId: ProjectileID;
+  id: ProjectileID;
   projectileType: ProjectileType;
   source: Unit;
   sourceLocation: Position;
   targetLocation: Position;
   speed: number;
   time: number;
-  timeState: number;
   area: number;
   effect: Effect[];
+}
+
+export interface ProjectileNode extends Projectile {
+  location: Position;
+  timeState: number;
 }

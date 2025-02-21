@@ -21,7 +21,7 @@ import {
   EffectSource,
   EffectType,
   Position,
-  Projectile,
+  ProjectileNode,
   ProjectileType,
   Unit,
   UnitID,
@@ -249,12 +249,13 @@ export class UnitContext {
     const sourceLocation = getUnitCentral(unit);
     const time = Math.ceil(getPositionDistance(sourceLocation, targetLocation) / action.projectileSpeed!);
 
-    const projectile: Projectile = {
+    const projectile: ProjectileNode = {
+      id: action.projectileId!,
       area: 1,
       projectileType: ProjectileType.Linear,
       effect: action.hitEffect!,
-      projectileId: action.projectileId!,
       source: unit,
+      location: sourceLocation,
       sourceLocation,
       speed: action.projectileSpeed!,
       targetLocation,

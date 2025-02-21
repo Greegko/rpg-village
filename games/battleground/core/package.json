@@ -19,6 +19,7 @@
     "gsap": "3.12.7"
   },
   "devDependencies": {
+    "@rpg-village/utils": "workspace: *",
     "vitest": "3.0.6",
     "typescript": "5.7.3",
     "@types/node": "18.19.76",

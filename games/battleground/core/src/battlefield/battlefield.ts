@@ -1,17 +1,15 @@
-import { without } from "rambda";
-
 import { Random, Vector, normVector } from "../utils";
 import { Context } from "./context";
 import { AiController } from "./controllers/ai";
 import { EffectsContext } from "./effects";
-import { BattlefieldConfig, Position, Projectile, ResourceManager, Unit, UnitID, UnitInit } from "./interface";
+import { BattlefieldConfig, Position, ProjectileNode, ResourceManager, Unit, UnitID, UnitInit } from "./interface";
 import { MapContext } from "./map";
 import { SpellsContext } from "./spells";
 import { UnitContext } from "./unit";
 
 export interface BattlefieldState {
   units: Unit[];
-  projectiles: Projectile[];
+  projectiles: ProjectileNode[];
 }
 
 export interface BattlefieldInit {
@@ -26,6 +24,7 @@ export class Battlefield {
 
     Object.assign(this.context, {
       config,
+      aiController: new AiController(this.context),
       unit: new UnitContext(this.context),
       map: new MapContext(this.context),
       effect: new EffectsContext(this.context),
@@ -58,46 +57,15 @@ export class Battlefield {
   }
 
   tick() {
-    const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
+    this.context.aiController.tickAction();
 
-    const aiController = new AiController(this.context.random);
+    this.context.map.tickUnitsMove();
 
-    for (let unit of aliveUnits.filter(x => !x.userControlled)) {
-      aiController.execute(this.context.unit.units, unit);
-    }
+    this.context.aiController.tickAction();
 
-    for (let unit of aliveUnits.filter(x => x.moveDirection)) {
-      this.context.unit.separation(unit, aliveUnits);
-      this.context.unit.screenBoundaries(unit);
-      this.context.unit.moveUnit(unit);
-    }
+    this.context.effect.tickEffects();
 
-    for (let unit of aliveUnits) {
-      this.context.unit.triggerActionState(unit);
-      this.context.unit.executeAction(unit);
-      this.context.unit.triggerDotEffects(unit);
-    }
-
-    for (let unit of aliveUnits) {
-      this.context.unit.flagToClearAuraEffects(unit);
-    }
-
-    for (let unit of aliveUnits) {
-      this.context.unit.triggerAura(unit, this.context.unit.units);
-    }
-
-    for (let unit of aliveUnits) {
-      this.context.unit.clearAuraEffects(unit);
-    }
-
-    for (let projectile of this.context.map.projectiles) {
-      projectile.timeState -= 1;
-
-      if (projectile.timeState < 0) {
-        this.context.map.landProjectile(projectile);
-        this.context.map.projectiles = without([projectile], this.context.map.projectiles);
-      }
-    }
+    this.context.map.tickProjectiles();
   }
 
   get spellsContext(): SpellsContext {

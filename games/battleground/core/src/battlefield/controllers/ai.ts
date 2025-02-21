@@ -1,13 +1,27 @@
 import { head, sortBy } from "rambda";
 
-import { Random, getPositionDistance, normVector, rotateVectorBy, subVector } from "../../utils";
+import { getPositionDistance, normVector, rotateVectorBy, subVector } from "../../utils";
+import { Context } from "../context";
 import { Unit } from "../interface";
 import { seekTarget } from "../utils/unit-filter";
 
 export class AiController {
-  constructor(private random: Random) {}
+  constructor(private context: Context) {}
 
-  execute(units: Unit[], unit: Unit) {
+  tickAction() {
+    const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
+
+    for (let unit of aliveUnits.filter(x => !x.userControlled)) {
+      this.assignNewAction(this.context.unit.units, unit);
+    }
+
+    for (let unit of aliveUnits) {
+      this.context.unit.triggerActionState(unit);
+      this.context.unit.executeAction(unit);
+    }
+  }
+
+  assignNewAction(units: Unit[], unit: Unit) {
     unit.moveDirection = undefined;
 
     // this.wander(unit);
@@ -18,11 +32,11 @@ export class AiController {
   private wander(unit: Unit) {
     if (!unit.moveSpeed) return;
     if (!unit.moveDirection) {
-      unit.moveDirection = this.random.vector();
+      unit.moveDirection = this.context.random.vector();
       return;
     }
 
-    const angle = this.random.int(-10, 10) / 40;
+    const angle = this.context.random.int(-10, 10) / 40;
     unit.moveDirection = rotateVectorBy(unit.moveDirection, angle);
   }
 
