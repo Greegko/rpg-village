@@ -1,6 +1,16 @@
 import { clone, groupBy, mapObjIndexed, mergeRight, partition, sum, values, without } from "rambda";
 
-import { addVector, divVector, getVectorDistance, invXVector, invYVector, isZeroVector, multVector, normVector, subVector } from "../utils";
+import {
+  addVector,
+  divVector,
+  getPositionDistance,
+  invXVector,
+  invYVector,
+  isZeroVector,
+  multVector,
+  normVector,
+  subVector,
+} from "../utils";
 import { Context } from "./context";
 import {
   ArmorEffect,
@@ -12,6 +22,7 @@ import {
   EffectType,
   Position,
   Projectile,
+  ProjectileType,
   Unit,
   UnitID,
   UnitInit,
@@ -158,7 +169,7 @@ export class UnitContext {
         return;
       }
 
-      const targetDistance = getVectorDistance(unit.location, unit.activeAction.targetUnit.location);
+      const targetDistance = getPositionDistance(unit.location, unit.activeAction.targetUnit.location);
 
       if (unit.activeAction.action.distance && targetDistance > unit.activeAction.action.distance) {
         delete unit.activeAction;
@@ -236,10 +247,11 @@ export class UnitContext {
 
     const action = unit.activeAction.action;
     const sourceLocation = getUnitCentral(unit);
-    const time = Math.ceil(getVectorDistance(sourceLocation, targetLocation) / action.projectileSpeed!);
+    const time = Math.ceil(getPositionDistance(sourceLocation, targetLocation) / action.projectileSpeed!);
 
     const projectile: Projectile = {
       area: 1,
+      projectileType: ProjectileType.Linear,
       effect: action.hitEffect!,
       projectileId: action.projectileId!,
       source: unit,

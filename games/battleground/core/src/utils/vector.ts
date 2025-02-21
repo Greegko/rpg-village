@@ -28,7 +28,7 @@ export const normVector = (a: Vector) => {
 export const radToDegree = (rad: number) => rad * (180 / Math.PI);
 export const degreeToRad = (deg: number) => deg * (Math.PI / 180);
 
-export const rotateBy = (a: Vector, angle: number) => rotateTo(a, getVectorAngle(a) + angle);
+export const rotateVectorBy = (a: Vector, angle: number) => rotateTo(a, getVectorAngle(a) + angle);
 
 export const addVector = (a: Vector, b: Vector) => ({ x: a.x + b.x, y: a.y + b.y });
 export const subVector = (a: Vector, b: Vector) => ({ x: a.x - b.x, y: a.y - b.y });

@@ -1,11 +1,11 @@
-import { Vector } from "../../utils";
-import { Effect, Unit } from "./unit";
+import { Effect, Position, ProjectileID, ProjectileType, Unit } from "./unit";
 
 export interface Projectile {
-  projectileId: string;
+  projectileId: ProjectileID;
+  projectileType: ProjectileType;
   source: Unit;
-  sourceLocation: Vector;
-  targetLocation: Vector;
+  sourceLocation: Position;
+  targetLocation: Position;
   speed: number;
   time: number;
   timeState: number;

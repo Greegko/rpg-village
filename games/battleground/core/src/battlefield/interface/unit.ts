@@ -67,9 +67,16 @@ export interface Action {
   effect?: Effect[];
   distance?: number;
   hitEffect?: Effect[];
-  projectileId?: string;
+  projectileId?: ProjectileID;
   projectileSpeed?: number;
+  projectileType?: ProjectileType;
 }
+
+export enum ProjectileType {
+  Linear = 1,
+  Arc,
+}
+export type ProjectileID = string;
 
 export interface UnitConfig {
   id: UnitID;

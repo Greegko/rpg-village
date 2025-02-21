@@ -1,11 +1,9 @@
-import { GlowFilter } from "pixi-filters";
-
 import gsap from "gsap";
+import { GlowFilter } from "pixi-filters";
 import { Container, Graphics, Sprite, Text } from "pixi.js";
 
-import { EffectType, Unit } from "../battlefield";
-import { Vector, subVector, merge } from "../utils";
-
+import { EffectType, Position, Unit } from "../battlefield";
+import { merge, subVector } from "../utils";
 import { AnimatedSpriteUnit } from "./animated-sprite-unit";
 import { AnimationStateID, AssetManager } from "./interface";
 
@@ -22,7 +20,7 @@ const SHIELD_BREAK_ICON = "icons/spells/shield_break";
 
 interface UnitTransformedState {
   hp: number;
-  location: Vector;
+  location: Position;
   facing: Direction.Left | Direction.Right | undefined;
   animation: AnimationStateID;
   statuses: UnitStatus[];
@@ -147,7 +145,7 @@ export class UnitsContainer extends Container {
     this.unitState.set(unit, merge(oldState, { selected: false }));
   }
 
-  private createNumberTextAnimation(location: Vector, val: number, color: string) {
+  private createNumberTextAnimation(location: Position, val: number, color: string) {
     const text = new Text({ text: val, style: { fontSize: 14, fill: color } });
     text.x = location.x + 12;
     text.y = location.y;

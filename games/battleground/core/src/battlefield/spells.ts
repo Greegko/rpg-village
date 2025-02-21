@@ -1,6 +1,5 @@
-import { Vector } from "../utils";
 import { Context } from "./context";
-import { DmgType, EffectType, Spell, SpellID, Unit } from "./interface";
+import { DmgType, EffectType, Position, Spell, SpellID, Unit } from "./interface";
 import { filterBySeekConditions } from "./utils/unit-filter";
 
 export class SpellsContext {
@@ -25,7 +24,7 @@ export class SpellsContext {
     },
   };
 
-  getTargetUnits(spellId: SpellID, targetLocation: Vector): Unit[] {
+  getTargetUnits(spellId: SpellID, targetLocation: Position): Unit[] {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 
@@ -35,7 +34,7 @@ export class SpellsContext {
     });
   }
 
-  castSpell(spellId: SpellID, targetLocation: Vector): void {
+  castSpell(spellId: SpellID, targetLocation: Position): void {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 

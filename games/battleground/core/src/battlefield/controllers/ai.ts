@@ -1,6 +1,6 @@
 import { head, sortBy } from "rambda";
 
-import { Random, getVectorDistance, normVector, rotateBy, subVector } from "../../utils";
+import { Random, getPositionDistance, normVector, rotateVectorBy, subVector } from "../../utils";
 import { Unit } from "../interface";
 import { seekTarget } from "../utils/unit-filter";
 
@@ -23,7 +23,7 @@ export class AiController {
     }
 
     const angle = this.random.int(-10, 10) / 40;
-    unit.moveDirection = rotateBy(unit.moveDirection, angle);
+    unit.moveDirection = rotateVectorBy(unit.moveDirection, angle);
   }
 
   private seekAndMoveToTarget(units: Unit[], unit: Unit) {
@@ -34,7 +34,7 @@ export class AiController {
       .map(action => (action.seekTargetCondition ? seekTarget(unit, units, action.seekTargetCondition) : null))
       .filter(x => x) as Unit[];
 
-    const closestTarget = head(sortBy(targetUnit => getVectorDistance(unit.location, targetUnit.location), closestUnits));
+    const closestTarget = head(sortBy(targetUnit => getPositionDistance(unit.location, targetUnit.location), closestUnits));
 
     if (!closestTarget) return;
 
@@ -50,7 +50,7 @@ export class AiController {
     );
 
     const [action, targetUnit] = head(
-      sortBy(([, targetUnit]) => (targetUnit ? getVectorDistance(unit.location, targetUnit.location) : Infinity), actions),
+      sortBy(([, targetUnit]) => (targetUnit ? getPositionDistance(unit.location, targetUnit.location) : Infinity), actions),
     );
 
     // No valid seek target
@@ -62,7 +62,7 @@ export class AiController {
       return;
     }
 
-    const distance = getVectorDistance(unit.location, targetUnit.location);
+    const distance = getPositionDistance(unit.location, targetUnit.location);
 
     if (action.distance && distance <= action.distance) {
       unit.activeAction = { action, speed: action.speed, targetUnit };

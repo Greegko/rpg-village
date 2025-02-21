@@ -1,19 +1,19 @@
 import { head, prop, sortBy } from "rambda";
 
-import { Vector, getVectorDistance } from "../../utils";
-import { Action, SeekCondition, Unit } from "../interface";
+import { getPositionDistance } from "../../utils";
+import { Action, Position, SeekCondition, Unit } from "../interface";
 import { getUnitCentral } from "./unit";
 
 interface SingleUnitSeekConditionContext {
   unit?: Unit;
   team?: number;
-  targetLocation?: Vector;
+  targetLocation?: Position;
 }
 
 interface FilterUnitSeekConditionContext {
   units?: Unit[];
   team?: number;
-  targetLocation?: Vector;
+  targetLocation?: Position;
 }
 
 type SeekConditionContext = SingleUnitSeekConditionContext | FilterUnitSeekConditionContext;
@@ -34,7 +34,7 @@ const unitConditions: ConditionMap<SeekCondition> = {
   "enemy-team": ({ unit, team }) => (unit ? unit.team !== team : false),
   "same-team": ({ unit, team }) => (unit ? unit.team === team : false),
   "in-distance": ({ unit, targetLocation }, { distance }) =>
-    unit ? getVectorDistance(getUnitCentral(unit), targetLocation!) <= unit.size / 2 + distance : false,
+    unit ? getPositionDistance(getUnitCentral(unit), targetLocation!) <= unit.size / 2 + distance : false,
   alive: ({ unit }) => (unit ? unit.hp > 0 : false),
   dead: ({ unit }) => (unit ? unit.hp === 0 : false),
   damaged: ({ unit }) => (unit ? unit.hp < unit.maxHp : false),
@@ -42,7 +42,7 @@ const unitConditions: ConditionMap<SeekCondition> = {
 
 const allUnitsConditions: FilterConditionMap<SeekCondition> = {
   "closest-unit": ({ units, targetLocation }) => {
-    const sortedUnits = sortBy(unit => getVectorDistance(getUnitCentral(unit), targetLocation!), units!);
+    const sortedUnits = sortBy(unit => getPositionDistance(getUnitCentral(unit), targetLocation!), units!);
 
     return [sortedUnits[0]];
   },
@@ -89,12 +89,12 @@ export function isUnitActionHasValidTarget(unit: Unit, targetUnit: Unit, action:
 
 export function seekTarget(unit: Unit, units: Unit[], seekConditions: SeekCondition[]): Unit {
   let filteredUnits = filterBySeekConditions(units, seekConditions, { team: unit.team });
-  let targetDistances = filteredUnits.map(target => [getVectorDistance(unit.location, target.location), target] as const);
+  let targetDistances = filteredUnits.map(target => [getPositionDistance(unit.location, target.location), target] as const);
   let sorted = sortBy(prop(0), targetDistances);
 
   return head(sorted)?.[1];
 }
 
-export function getUnitsInRange(units: Unit[], targetLocation: Vector, distance: number): Unit[] {
+export function getUnitsInRange(units: Unit[], targetLocation: Position, distance: number): Unit[] {
   return filterBySeekConditions(units, ["alive", ["in-distance", { distance }]], { targetLocation });
 }

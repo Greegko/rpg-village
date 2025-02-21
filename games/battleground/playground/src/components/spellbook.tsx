@@ -1,13 +1,13 @@
 import { Show, createSignal } from "solid-js";
 
-import { Vector } from "@rpg-village/battleground-core";
+import { Position } from "@rpg-village/battleground-core";
 
 import { Asset } from "./core";
 import "./spellbook.scss";
 
 interface SpellbookProps {
-  onSpellSelectionStart(spellId: string, position: Vector): void;
-  onSpellSelectionPositionChange(position: Vector): void;
+  onSpellSelectionStart(spellId: string, position: Position): void;
+  onSpellSelectionPositionChange(position: Position): void;
   onSpellFinish(): void;
   onSpellSelectionCancel(): void;
 }

@@ -1,8 +1,8 @@
-import { Vector } from "../src";
+import { Position } from "../src";
 import { dmgEffect, meleeAttackAction, skeletonUnit } from "./config";
 import { test } from "./utils";
 
-const randomTestUnit = ({ location, team }: { location: Vector; team: number }) =>
+const randomTestUnit = ({ location, team }: { location: Position; team: number }) =>
   skeletonUnit({
     location,
     hp: 200,
