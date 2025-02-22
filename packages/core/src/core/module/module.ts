@@ -20,8 +20,10 @@ export interface ModulStore {
   initialState?: object;
 }
 
-export interface Module {
-  stores?: ModulStore[];
-  provides?: (ProvideClass | ProvideValue)[];
-  defaultConfig?: ModuleConfig;
+declare module "@rpg-village/core/extend" {
+  interface Module {
+    stores?: ModulStore[];
+    provides?: (ProvideClass | ProvideValue)[];
+    defaultConfig?: ModuleConfig;
+  }
 }

@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { append, evolve } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { AttackEffectType, Effect, EffectType } from "@features/effect";
@@ -9,19 +9,13 @@ import { PartyService } from "@features/party";
 import { EquipmentItem, UnitID, UnitService } from "@features/unit";
 
 import { VillageService } from "../../village-service";
-import {
-  BlacksmithCommand,
-  BlacksmithCommandCreateItemArgs,
-  BlacksmithCommandUpgradeItemArgs,
-} from "./blacksmith-command";
+import { BlacksmithCommand, BlacksmithCommandCreateItemArgs, BlacksmithCommandUpgradeItemArgs } from "./blacksmith-command";
 
 @injectable()
 export class BlacksmithCommandHandler {
-  constructor(
-    private unitService: UnitService,
-    private partyService: PartyService,
-    private villageService: VillageService,
-  ) {}
+  private unitService = inject(UnitService);
+  private partyService = inject(PartyService);
+  private villageService = inject(VillageService);
 
   @commandHandler(BlacksmithCommand.UpgradeItem)
   upgradeItem(args: BlacksmithCommandUpgradeItemArgs) {
@@ -52,9 +46,7 @@ export class BlacksmithCommandHandler {
   }
 
   private upgradeUnitStashItem(unitId: UnitID, itemId: ItemID) {
-    this.unitService.updateStashItem(unitId, itemId, (item: Item) =>
-      this.adjustEquipmentWithEffect(unitId, item as EquipmentItem),
-    );
+    this.unitService.updateStashItem(unitId, itemId, (item: Item) => this.adjustEquipmentWithEffect(unitId, item as EquipmentItem));
   }
 
   private upgradeEquipmentItem(unitId: UnitID, itemId: ItemID) {

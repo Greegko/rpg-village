@@ -1,5 +1,4 @@
-import { injectable } from "inversify";
-
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { VillageService } from "@features/village";
@@ -9,7 +8,8 @@ import { OptionStore } from "./options-store";
 
 @injectable()
 export class OptionCommandHandler {
-  constructor(private villageService: VillageService, private optionStore: OptionStore) {}
+  private villageService = inject(VillageService);
+  private optionStore = inject(OptionStore);
 
   @commandHandler(OptionCommand.ChooseOption)
   chooseOption(args: ChooseOptionCommandArgs) {

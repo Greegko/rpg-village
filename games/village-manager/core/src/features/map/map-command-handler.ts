@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { evolve, intersection, without } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { ActivityManager } from "@rpg-village/features/activity";
@@ -21,12 +21,10 @@ import { PartyMapService } from "./party-map-service";
 
 @injectable()
 export class MapCommandHandler {
-  constructor(
-    private partyStore: PartyStore,
-    private partyService: PartyService,
-    private activityManager: ActivityManager,
-    private partyMapService: PartyMapService,
-  ) {}
+  private partyStore = inject(PartyStore);
+  private partyService = inject(PartyService);
+  private activityManager = inject(ActivityManager);
+  private partyMapService = inject(PartyMapService);
 
   @commandHandler(MapCommand.Travel)
   travelCommand(travelArgs: MapCommandTravelArgs) {

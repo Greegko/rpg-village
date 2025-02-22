@@ -1,8 +1,7 @@
+import { MapActivity, MapLocationType } from "@/features/map";
+import { createState, test } from "@test/utils";
 import { values } from "rambda";
-
-import { MapActivity, MapLocationType } from "@rpg-village/village-manager/features/map";
-
-import { createState, test } from "../../../tests/utils";
+import { expect } from "vitest";
 
 test("should change explore status on tile", {
   initState: createState(({ location, party, activity, map }) => [
@@ -27,7 +26,7 @@ test("should add new locations around explored tile", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.length(state.mapLocations, 7),
+  expectedState: state => expect(state.mapLocations).objectHaveKeys(7),
 });
 
 test("should add enemy units on new map tile", {
@@ -40,7 +39,7 @@ test("should add enemy units on new map tile", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.length(state.units, 6),
+  expectedState: state => expect(state.units).objectHaveKeys(6),
 });
 
 test("should spawn empty tiles after boss tiles", {
@@ -56,17 +55,9 @@ test("should spawn empty tiles after boss tiles", {
   ]),
   turn: true,
   expectedState: [
-    (state, t) => t.length(state.mapLocations, 7),
-    (state, t) =>
-      t.length(
-        values(state.mapLocations).filter(x => x.type === MapLocationType.Boss),
-        1,
-      ),
-    (state, t) =>
-      t.length(
-        values(state.mapLocations).filter(x => x.type === MapLocationType.Empty),
-        6,
-      ),
+    state => expect(state.mapLocations).objectHaveKeys(7),
+    state => expect(values(state.mapLocations).filter(x => x.type === MapLocationType.Boss)).objectHaveKeys(1),
+    state => expect(values(state.mapLocations).filter(x => x.type === MapLocationType.Empty)).objectHaveKeys(6),
   ],
 });
 
@@ -82,5 +73,5 @@ test("should not add enemies on empty tiles", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.length(state.units, 0),
+  expectedState: state => expect(state.units).objectHaveKeys(0),
 });

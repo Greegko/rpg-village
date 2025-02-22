@@ -1,6 +1,6 @@
 import { all, clone, complement, forEach } from "rambda";
 
-import { sample } from "@rpg-village/core/lib/sample";
+import { sample } from "@rpg-village/core";
 
 import { Unit, calculateUnitStatsWithEffects, isAlive } from "@features/unit";
 

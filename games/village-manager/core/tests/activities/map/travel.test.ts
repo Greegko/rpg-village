@@ -1,6 +1,5 @@
-import { MapActivity } from "@rpg-village/village-manager/features/map";
-
-import { createState, stashFactory, test } from "../../../tests/utils";
+import { MapActivity } from "@/features/map";
+import { createState, stashFactory, test } from "@test/utils";
 
 test("should move party to the new location on finish", {
   initState: createState(({ party, activity, location }) => [

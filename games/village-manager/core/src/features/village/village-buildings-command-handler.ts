@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
 import { dec, evolve, find, values, whereEq } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
-import { updateValueInList } from "@rpg-village/core/lib/update-value-in-list";
+import { updateValueInList } from "@rpg-village/core";
 
 import { ActivityManager, ActivityStore } from "@rpg-village/features/activity";
 
@@ -27,13 +27,11 @@ import {
 
 @injectable()
 export class VillageBuildingsCommandHandler {
-  constructor(
-    private villageService: VillageService,
-    private activityManager: ActivityManager,
-    private activityStore: ActivityStore,
-    private villageStore: VillageStore,
-    private mapService: MapService,
-  ) {}
+  private villageService = inject(VillageService);
+  private activityManager = inject(ActivityManager);
+  private activityStore = inject(ActivityStore);
+  private villageStore = inject(VillageStore);
+  private mapService = inject(MapService);
 
   @commandHandler(VillageBuildingCommand.BuildBlacksmith)
   buildBlacksmith(args: VillageBuildingCommandBuildBlacksmithArgs): void {
@@ -106,8 +104,7 @@ export class VillageBuildingsCommandHandler {
       villageStash.removeResource(item.price);
       shopStash.addResource(item.price);
 
-      const updateItem = (items: ShopItem[]) =>
-        updateValueInList(items, item, x => (x.quantity > 1 ? evolve({ quantity: dec }, x) : null));
+      const updateItem = (items: ShopItem[]) => updateValueInList(items, item, x => (x.quantity > 1 ? evolve({ quantity: dec }, x) : null));
 
       shop.update(evolve({ items: updateItem }));
 
@@ -124,11 +121,7 @@ export class VillageBuildingsCommandHandler {
     const dungeonKey = villageStash.takeItem(args.dungeonKeyId);
 
     if (dungeonKey) {
-      const map = this.mapService.createMap(
-        MapLocationType.Portal,
-        MapSize.Small,
-        dungeonKey.effects as EffectStatic[],
-      );
+      const map = this.mapService.createMap(MapLocationType.Portal, MapSize.Small, dungeonKey.effects as EffectStatic[]);
       portalSummoningStone.addPortal(map.mapLocationIds[0]);
     }
   }

@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { EventSystem } from "@rpg-village/core";
 
 import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
@@ -23,15 +23,11 @@ export type MapActivityTravelStartArgs = {
 };
 
 @injectable()
-export class MapTravelActivity
-  implements ActivityHandlerCancelable<Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>>
-{
-  constructor(
-    private mapService: MapService,
-    private partyMapService: PartyMapService,
-    private eventSystem: EventSystem,
-    private mapLocationStore: MapLocationStore,
-  ) {}
+export class MapTravelActivity implements ActivityHandlerCancelable<Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>> {
+  private mapService = inject(MapService);
+  private partyMapService = inject(PartyMapService);
+  private eventSystem = inject(EventSystem);
+  private mapLocationStore = inject(MapLocationStore);
 
   start({ targetId, targetLocationId }: MapActivityTravelStartArgs): TravelState {
     const partyLocation = this.partyMapService.getPartyLocation(targetId)!;

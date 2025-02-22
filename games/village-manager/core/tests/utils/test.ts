@@ -1,22 +1,16 @@
-import * as ava from "ava";
 import * as util from "node:util";
 import { argv } from "process";
+import { expect, it } from "vitest";
 
 import { Command, Event, GameConfig, GameState } from "@rpg-village/core";
 
-import {
-  ExecutionTestContext,
-  lengthAssertionFactory,
-  undefinedAssertionFactory,
-  withRandomIDAssertionFactory,
-} from "./custom-assertions";
 import { gameFactory } from "./game-factory";
 import { PartialDeep } from "./partial-deep";
 
 util.inspect.defaultOptions.depth = 5;
 
 export type TestGameState = PartialDeep<GameState>;
-type ExpectedStateMatcher = (state: GameState, t: ExecutionTestContext<unknown>) => void;
+type ExpectedStateMatcher = (state: GameState) => void;
 type ExpectedState = TestGameState | ExpectedStateMatcher;
 
 type Test = {
@@ -31,13 +25,9 @@ type Test = {
 const project_dir = argv[1].replace(/node_modules.*/, "");
 
 export function test(testName: string, { gameConfig, initState, commands, event, expectedState, turn = 0 }: Test) {
-  const testFilePath = new Error()
-    .stack!.split("\n")[2]
-    .replace("at <anonymous> (", "")
-    .slice(0, -1)
-    .replace(project_dir, "");
+  const testFilePath = new Error().stack!.split("\n")[2].replace("at <anonymous> (", "").slice(0, -1).replace(project_dir, "");
 
-  ava.default(testName + " - " + testFilePath, t => {
+  it(testName + " - " + testFilePath, () => {
     const game = gameFactory({ state: initState, config: gameConfig } as any);
 
     if (commands) {
@@ -62,14 +52,9 @@ export function test(testName: string, { gameConfig, initState, commands, event,
 
     const testExpectedState = (expectedState: ExpectedState) => {
       if (typeof expectedState === "object") {
-        t.like(gameState, expectedState);
+        expect(gameState).toMatchObject(expectedState);
       } else {
-        expectedState(gameState, {
-          ...t,
-          withRandomId: withRandomIDAssertionFactory(t),
-          length: lengthAssertionFactory(t),
-          undefined: undefinedAssertionFactory(t),
-        });
+        expectedState(gameState);
       }
     };
 

@@ -1,5 +1,4 @@
-import { injectable } from "inversify";
-
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { VillageService } from "@features/village/village-service";
@@ -8,7 +7,7 @@ import { AddItemArgs, AddSoulArgs, DebugCommand, GenerateGoldArgs } from "./inte
 
 @injectable()
 export class DebugCommandHandler {
-  constructor(private villageService: VillageService) {}
+  private villageService = inject(VillageService);
 
   @commandHandler(DebugCommand.GenerateGold)
   generateGold(args: GenerateGoldArgs) {

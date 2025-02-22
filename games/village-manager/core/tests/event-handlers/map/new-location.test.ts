@@ -1,7 +1,6 @@
-import { EffectType, MiscEffectType } from "@rpg-village/village-manager/features/effect";
-import { MapEvent } from "@rpg-village/village-manager/features/map";
-
-import { createState, test } from "../../../tests/utils";
+import { EffectType, MiscEffectType } from "@/features/effect";
+import { MapEvent } from "@/features/map";
+import { createState, test } from "@test/utils";
 
 test("should apply map difficulty to new enemies", {
   event: { event: MapEvent.NewLocation, args: { locationId: "location-id", mapId: "map-id" } },
@@ -12,7 +11,7 @@ test("should apply map difficulty to new enemies", {
       mapLocationIds: [location({ id: "location-id" })],
     }),
   ]),
-  expectedState: (state, t) => t.withRandomId(state.units, { hp: 30 }),
+  expectedState: state => expect(state.units).withRandomId({ hp: 30 }),
 });
 
 test("should apply misc map modifiers to new units", {
@@ -25,5 +24,5 @@ test("should apply misc map modifiers to new units", {
       modifiers: [{ effectType: MiscEffectType.Hp, type: EffectType.Static, value: 100 }],
     }),
   ]),
-  expectedState: (state, t) => t.withRandomId(state.units, { hp: 112 }),
+  expectedState: state => expect(state.units).withRandomId({ hp: 112 }),
 });

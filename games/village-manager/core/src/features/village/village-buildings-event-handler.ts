@@ -1,19 +1,14 @@
-import { injectable } from "inversify";
 import { evolve } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { eventHandler } from "@rpg-village/core";
 
-import {
-  VillageBuilding,
-  VillageEvent,
-  VillageEventBuildingBuiltArgs,
-  VillageService,
-  VillageStore,
-} from "@features/village";
+import { VillageBuilding, VillageEvent, VillageEventBuildingBuiltArgs, VillageService, VillageStore } from "@features/village";
 
 @injectable()
 export class VillageBuildingsEventHandler {
-  constructor(private villageService: VillageService, private villageStore: VillageStore) {}
+  private villageService = inject(VillageService);
+  private villageStore = inject(VillageStore);
 
   @eventHandler(VillageEvent.BuildingBuilt)
   buildingBuilt(args: VillageEventBuildingBuiltArgs) {

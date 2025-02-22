@@ -1,6 +1,8 @@
-import { VillageCommand } from "@rpg-village/village-manager/features/village";
+import { expect } from "vitest";
 
-import { createState, test } from "../../../tests/utils";
+import { VillageCommand } from "@/features/village";
+
+import { createState, test } from "@test/utils";
 
 test("should reduce village gold capacity by cost amount", {
   initState: createState(({ village }) => [
@@ -27,7 +29,7 @@ test("should add to village heroes list", {
     }),
   ]),
   commands: [{ command: VillageCommand.HireHero, args: { villageId: "villageId" } }],
-  expectedState: (state, t) => t.notDeepEqual(state.villages.villageId.heroes, []),
+  expectedState: state => expect(state.villages.villageId.heroes).not.toEqual([]),
 });
 
 test("should store in units list", {
@@ -41,7 +43,7 @@ test("should store in units list", {
     }),
   ]),
   commands: [{ command: VillageCommand.HireHero, args: { villageId: "villageId" } }],
-  expectedState: (state, t) => t.notDeepEqual(state.units, {}),
+  expectedState: state => expect(state.units).not.toEqual({}),
 });
 
 test("should assign to a new party", {
@@ -55,5 +57,5 @@ test("should assign to a new party", {
     }),
   ]),
   commands: [{ command: VillageCommand.HireHero, args: { villageId: "villageId" } }],
-  expectedState: (state, t) => t.notDeepEqual(state.parties, {}),
+  expectedState: state => expect(state.parties).not.toEqual({}),
 });

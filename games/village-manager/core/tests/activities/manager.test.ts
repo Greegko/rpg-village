@@ -1,7 +1,9 @@
-import { MapActivity } from "@rpg-village/village-manager/features/map";
-import { VillageActivity } from "@rpg-village/village-manager/features/village";
+import { expect } from "vitest";
 
-import { createState, test } from "../../tests/utils";
+import { MapActivity } from "@/features/map";
+import { VillageActivity } from "@/features/village";
+
+import { createState, test } from "@test/utils";
 
 test("should resolve activity result", {
   initState: createState(({ activity, village }) => [
@@ -51,5 +53,5 @@ test("should remove old activity on finish", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.falsy(state.activities.testActivityId),
+  expectedState: state => expect(state.activities.testActivityId).toBeFalsy(),
 });

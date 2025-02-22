@@ -1,7 +1,6 @@
-import { ItemType } from "@rpg-village/village-manager/features/item";
-import { RuneWorkshopCommand } from "@rpg-village/village-manager/features/village";
-
-import { createState, test } from "../../../../../tests/utils";
+import { ItemType } from "@/features/item";
+import { RuneWorkshopCommand } from "@/features/village";
+import { createState, test } from "@test/utils";
 
 test("should empower rune with soul", {
   initState: createState(({ village }) => [

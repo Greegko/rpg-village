@@ -6,7 +6,7 @@ import {
   RuneWorkshopCommand,
 } from "../rune-workshop-command";
 
-declare module "@rpg-village/core" {
+declare module "@rpg-village/core/extend" {
   interface CommandType {
     [RuneWorkshopCommand.CreateRune]: CreateRuneCommandArgs;
     [RuneWorkshopCommand.ForgeDungeonKey]: ForgeDungeonKeyCommandArgs;

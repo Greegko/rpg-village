@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { EventSystem } from "@rpg-village/core";
 
 import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
@@ -20,7 +20,7 @@ type VillageBuildActivityType = Activity<BuildState, VillageID, null, VillageAct
 
 @injectable()
 export class VillageBuildActivity implements ActivityHandlerCancelable<VillageBuildActivityType> {
-  constructor(private eventSystem: EventSystem) {}
+  private eventSystem = inject(EventSystem);
 
   start(): BuildState {
     return {

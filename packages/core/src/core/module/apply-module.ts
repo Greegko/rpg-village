@@ -2,7 +2,9 @@ import { forEach, juxt, pipe, propOr } from "rambda";
 
 import { inject, makeInjectable } from "@lib/dependency-injection";
 
-import { ModulStore, Module, ProvideClass, ProvideValue } from "./module";
+import { Module } from "@rpg-village/core/extend";
+
+import { ModulStore, ProvideClass, ProvideValue } from "./module";
 import { ActivityHandlersToken, ModuleDefaultConfigToken, StoresToken } from "./tokens";
 
 export type ApplyModule = () => (module: Module) => void;

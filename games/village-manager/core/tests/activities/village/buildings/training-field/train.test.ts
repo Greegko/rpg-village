@@ -1,6 +1,5 @@
-import { TrainingFieldActivity } from "@rpg-village/village-manager/features/village";
-
-import { createState, test } from "../../../../../tests/utils";
+import { TrainingFieldActivity } from "@/features/village";
+import { createState, test } from "@test/utils";
 
 test("should get 25 xp for each turn", {
   initState: createState(({ party, activity, unit, village }) => [

@@ -1,7 +1,6 @@
-import { PortalCommand } from "@rpg-village/village-manager/features/buildings/portal";
-import { MapLocationType } from "@rpg-village/village-manager/features/map";
-
-import { createState, test } from "../../../../tests/utils";
+import { PortalCommand } from "@/features/buildings/portal";
+import { MapLocationType } from "@/features/map";
+import { createState, test } from "@test/utils";
 
 test("should party jump to location", {
   initState: createState(({ village, party, location }) => [

@@ -20,7 +20,7 @@ export type PartyEventArrivedToLocationArgs = {
   locationId: MapLocationID;
 };
 
-declare module "@rpg-village/core" {
+declare module "@rpg-village/core/extend" {
   interface CommandType {
     [MapCommand.Explore]: MapCommandExploreArgs;
     [MapCommand.Travel]: MapCommandTravelArgs;

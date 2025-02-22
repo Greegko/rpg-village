@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
 import { filter, forEach, map } from "rambda";
+
+import { inject, injectable } from "@rpg-village/core";
 
 import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
 
@@ -21,7 +22,9 @@ type VillageHealActivityType = Activity<{}, VillageID, PartyID, VillageActivityH
 
 @injectable()
 export class VillageActivityHeal implements ActivityHandlerCancelable<VillageHealActivityType> {
-  constructor(private unitStore: UnitStore, private unitService: UnitService, private partyStore: PartyStore) {}
+  private unitStore = inject(UnitStore);
+  private unitService = inject(UnitService);
+  private partyStore = inject(PartyStore);
 
   start(args: VillageActivityHealStartArgs): VillageHealState {
     return {};

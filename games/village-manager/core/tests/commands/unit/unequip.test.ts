@@ -1,6 +1,5 @@
-import { EquipmentSlot, UnitCommand } from "@rpg-village/village-manager/features/unit";
-
-import { test } from "../../../tests/utils";
+import { EquipmentSlot, UnitCommand } from "@/features/unit";
+import { test } from "@test/utils";
 
 test("should be able to un-equip item", {
   initState: {

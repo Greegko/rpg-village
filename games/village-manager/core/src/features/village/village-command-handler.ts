@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { append, evolve, find, head, values } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { GameCommand, GeneralGameStore, commandHandler } from "@rpg-village/core";
 
 import { ActivityManager } from "@rpg-village/features/activity";
@@ -17,16 +17,14 @@ import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageCommandHandler {
-  constructor(
-    private villageStore: VillageStore,
-    private villageService: VillageService,
-    private partyService: PartyService,
-    private unitStore: UnitStore,
-    private mapService: MapService,
-    private generalGameStore: GeneralGameStore,
-    private partyMapService: PartyMapService,
-    private activityManager: ActivityManager,
-  ) {}
+  private villageStore = inject(VillageStore);
+  private villageService = inject(VillageService);
+  private partyService = inject(PartyService);
+  private unitStore = inject(UnitStore);
+  private mapService = inject(MapService);
+  private generalGameStore = inject(GeneralGameStore);
+  private partyMapService = inject(PartyMapService);
+  private activityManager = inject(ActivityManager);
 
   @commandHandler(VillageCommand.HireHero)
   hireHero(args: VillageCommandHeroHireArgs): void {

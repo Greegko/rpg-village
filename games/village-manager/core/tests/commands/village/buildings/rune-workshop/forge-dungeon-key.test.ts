@@ -1,8 +1,10 @@
-import { ItemType } from "@rpg-village/village-manager/features/item";
-import { RuneWorkshopCommand } from "@rpg-village/village-manager/features/village";
+import { expect } from "vitest";
 
-import { createState } from "../../../../../tests/utils/create-state";
-import { test } from "../../../../../tests/utils/test";
+import { ItemType } from "@/features/item";
+import { RuneWorkshopCommand } from "@/features/village";
+
+import { createState } from "@test/utils/create-state";
+import { test } from "@test/utils/test";
 
 test("should create dungeon key item", {
   initState: createState(({ village }) => [village({ id: "villageId", stash: { resource: { gold: 50 }, items: [] } })]),
@@ -12,7 +14,7 @@ test("should create dungeon key item", {
       args: { villageId: "villageId" },
     },
   ],
-  expectedState: (state, t) => t.is(state.villages.villageId.stash.items[0].itemType, ItemType.DungeonKey),
+  expectedState: state => expect(state.villages.villageId.stash.items[0].itemType).toBe(ItemType.DungeonKey),
 });
 
 test("should cost 50 gold", {

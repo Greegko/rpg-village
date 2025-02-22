@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
 import { forEach } from "rambda";
+
+import { inject, injectable } from "@rpg-village/core";
 
 import { PartyID, PartyService } from "@features/party";
 import { UnitStore } from "@features/unit";
@@ -12,7 +13,9 @@ import { BattleID, BattleStoreState } from "./interfaces";
 export class BattleService {
   private battleInstances: Record<BattleID, Battle> = {};
 
-  constructor(private battleStore: BattleStore, private partyService: PartyService, private unitStore: UnitStore) {}
+  private battleStore = inject(BattleStore);
+  private partyService = inject(PartyService);
+  private unitStore = inject(UnitStore);
 
   getBattle(battleId: BattleID): BattleStoreState {
     return this.battleStore.get(battleId);

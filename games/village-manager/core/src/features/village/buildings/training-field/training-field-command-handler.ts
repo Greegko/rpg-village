@@ -1,5 +1,4 @@
-import { injectable } from "inversify";
-
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { ActivityManager } from "@rpg-village/features/activity";
@@ -9,7 +8,7 @@ import { TrainingFieldCommand, TrainingFieldCommandArgs } from "./training-field
 
 @injectable()
 export class TrainingFieldCommandHandler {
-  constructor(private activityManager: ActivityManager) {}
+  private activityManager = inject(ActivityManager);
 
   @commandHandler(TrainingFieldCommand.Train)
   upgradeItem(args: TrainingFieldCommandArgs) {

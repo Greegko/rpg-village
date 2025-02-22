@@ -1,6 +1,8 @@
-import { MapActivity, MapCommand } from "@rpg-village/village-manager/features/map";
+import { expect } from "vitest";
 
-import { createState, test } from "../../../tests/utils";
+import { MapActivity, MapCommand } from "@/features/map";
+
+import { createState, test } from "@test/utils";
 
 test("should start Travel activity", {
   initState: createState(({ location, party }) => [
@@ -8,8 +10,8 @@ test("should start Travel activity", {
     location({ id: "next-tile", x: 0, y: 1 }),
   ]),
   commands: [{ command: MapCommand.Travel, args: { targetLocationId: "next-tile", partyId: "party" } }],
-  expectedState: (state, t) =>
-    t.withRandomId(state.activities, {
+  expectedState: state =>
+    expect(state.activities).withRandomId({
       name: MapActivity.Travel,
       targetId: "party",
       state: { targetLocationId: "next-tile" },
@@ -17,9 +19,7 @@ test("should start Travel activity", {
 });
 
 test("should not start Travel activity to same location", {
-  initState: createState(({ location, party }) => [
-    location({ id: "random-location", partyIds: [party({ id: "party" })] }),
-  ]),
+  initState: createState(({ location, party }) => [location({ id: "random-location", partyIds: [party({ id: "party" })] })]),
   commands: [{ command: MapCommand.Travel, args: { targetLocationId: "random-location", partyId: "party" } }],
-  expectedState: (state, t) => t.deepEqual(state.activities, {}),
+  expectedState: state => expect(state.activities).toEqual({}),
 });

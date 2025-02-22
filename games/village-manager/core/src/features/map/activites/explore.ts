@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
 import { dec, evolve } from "rambda";
+
+import { inject, injectable } from "@rpg-village/core";
 
 import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
 
@@ -20,7 +21,8 @@ type MapExploreActivityType = Activity<ExploreState, PartyID, null, MapActivityE
 
 @injectable()
 export class MapExploreActivity implements ActivityHandlerCancelable<MapExploreActivityType> {
-  constructor(private mapService: MapService, private partyMapService: PartyMapService) {}
+  private mapService = inject(MapService);
+  private partyMapService = inject(PartyMapService);
 
   start(args: MapActivityExploreStartArgs): ExploreState {
     return {

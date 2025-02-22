@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { complement, prop, values } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { eventHandler } from "@rpg-village/core";
 
 import { BattleEvent, BattleFinishedActivityArgs } from "@features/battle";
@@ -14,11 +14,9 @@ import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageEventHandler {
-  constructor(
-    private partyService: PartyService,
-    private villageService: VillageService,
-    private villageStore: VillageStore,
-  ) {}
+  private partyService = inject(PartyService);
+  private villageService = inject(VillageService);
+  private villageStore = inject(VillageStore);
 
   @eventHandler(MapEvent.PartyArrivedToLocation)
   partyArrivedToLocation(args: PartyEventArrivedToLocationArgs) {

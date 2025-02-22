@@ -1,5 +1,4 @@
 import { filter, forEach, map, values } from "rambda";
-import "reflect-metadata";
 import { batch, createComputed, onMount } from "solid-js";
 import { render } from "solid-js/web";
 
@@ -7,14 +6,7 @@ import { Command, GameState, Party, PartyOwner } from "@rpg-village/village-mana
 
 import { gameInstanceWrapper } from "@web/engine";
 import { gameStore, restoreStateFromLocalStorage, setGameStore } from "@web/store";
-import {
-  PartyAction,
-  PartyState,
-  clearPartyAction,
-  partiesStatesSelector,
-  setPartyAction,
-  useGameAiStateSelector,
-} from "@web/store/ai";
+import { PartyAction, PartyState, clearPartyAction, partiesStatesSelector, setPartyAction, useGameAiStateSelector } from "@web/store/ai";
 import { noActiveActivityPartiesSelector } from "@web/store/game";
 import { useGameUiStateSelector } from "@web/store/ui";
 
@@ -47,10 +39,10 @@ const GameInstanceLogic = () => {
     const parties = noActiveActivityPartiesSelector(gameState);
     const playerParties = filter(party => party.owner === PartyOwner.Player, parties);
 
-    return map(
-      party => [party, partyAI.execute(gameState, party, partyStates[party.id] || {})],
-      values(playerParties),
-    ) as [Party, [PartyAction | null, Command | null]][];
+    return map(party => [party, partyAI.execute(gameState, party, partyStates[party.id] || {})], values(playerParties)) as [
+      Party,
+      [PartyAction | null, Command | null],
+    ][];
   };
 
   gameInstanceWrapper().setAICommandsGenerator(gameState => {

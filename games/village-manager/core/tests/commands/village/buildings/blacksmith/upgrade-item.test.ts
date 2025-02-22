@@ -1,8 +1,7 @@
-import { AttackEffectType, EffectType } from "@rpg-village/village-manager/features/effect";
-import { EquipmentSlot } from "@rpg-village/village-manager/features/unit";
-import { BlacksmithCommand } from "@rpg-village/village-manager/features/village";
-
-import { createState, test } from "../../../../../tests/utils";
+import { AttackEffectType, EffectType } from "@/features/effect";
+import { EquipmentSlot } from "@/features/unit";
+import { BlacksmithCommand } from "@/features/village";
+import { createState, test } from "@test/utils";
 
 test("should give new dmg effect", {
   initState: createState(({ unit, party }) => [
@@ -26,9 +25,7 @@ test("should give new dmg effect", {
     units: {
       "target-unit": {
         stash: {
-          items: [
-            { id: "test-item", effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 2 }] },
-          ],
+          items: [{ id: "test-item", effects: [{ type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 2 }] }],
         },
       },
     },

@@ -1,6 +1,5 @@
-import { MapCommand } from "@rpg-village/village-manager/features/map";
-
-import { createState, test } from "../../../tests/utils";
+import { MapCommand } from "@/features/map";
+import { createState, test } from "@test/utils";
 
 test("should merge two parties", {
   initState: createState(({ party, location }) => [

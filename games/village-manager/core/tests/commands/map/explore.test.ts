@@ -1,14 +1,16 @@
-import { MapActivity, MapCommand } from "@rpg-village/village-manager/features/map";
+import { expect } from "vitest";
 
-import { createState, test } from "../../../tests/utils";
+import { MapActivity, MapCommand } from "@/features/map";
+
+import { createState, test } from "@test/utils";
 
 test("should start Explore activity", {
   initState: createState(({ location, party }) => [
     location({ id: "unexplored-tile", explored: false, partyIds: [party({ id: "party" })] }),
   ]),
   commands: [{ command: MapCommand.Explore, args: { partyId: "party" } }],
-  expectedState: (state, t) =>
-    t.withRandomId(state.activities, {
+  expectedState: state =>
+    expect(state.activities).withRandomId({
       name: MapActivity.Explore,
       targetId: "party",
       state: { progress: 50 },
@@ -16,11 +18,9 @@ test("should start Explore activity", {
 });
 
 test("should not start Explore activity on explored location", {
-  initState: createState(({ location, party }) => [
-    location({ id: "tile", explored: true, partyIds: [party({ id: "party" })] }),
-  ]),
+  initState: createState(({ location, party }) => [location({ id: "tile", explored: true, partyIds: [party({ id: "party" })] })]),
   commands: [{ command: MapCommand.Explore, args: { partyId: "party" } }],
-  expectedState: (state, t) => t.deepEqual(state.activities, {}),
+  expectedState: state => expect(state.activities).toEqual({}),
 });
 
 test("should explore the target tile", {
@@ -48,7 +48,7 @@ test("should explore neighbour tiles", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.length(state.mapLocations, 7),
+  expectedState: state => expect(state.mapLocations).objectHaveKeys(7),
 });
 
 test("should only explore tiles in the same map", {
@@ -68,8 +68,8 @@ test("should only explore tiles in the same map", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => {
-    t.length(state.maps["map-world"].mapLocationIds, 7);
-    t.length(state.maps["map-not-world"].mapLocationIds, 1);
+  expectedState: state => {
+    expect(state.maps["map-world"].mapLocationIds).objectHaveKeys(7);
+    expect(state.maps["map-not-world"].mapLocationIds).objectHaveKeys(1);
   },
 });

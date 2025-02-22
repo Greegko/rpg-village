@@ -10,6 +10,8 @@
     "@rpg-village/features",
     "@rpg-village/village-manager",
     "^@features/?",
+    "^@/",
+    "^@test/",
     "public-api$",
     "^[./]"
   ],

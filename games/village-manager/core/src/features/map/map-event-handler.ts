@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { append, evolve, find, values, without } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { eventHandler } from "@rpg-village/core";
 
 import { ActivityStore } from "@rpg-village/features/activity";
@@ -16,13 +16,11 @@ import { MapStore } from "./map-store";
 
 @injectable()
 export class MapEventHandler {
-  constructor(
-    private partyService: PartyService,
-    private unitStore: UnitStore,
-    private mapStore: MapStore,
-    private mapLocationStore: MapLocationStore,
-    private activityStore: ActivityStore,
-  ) {}
+  private partyService = inject(PartyService);
+  private unitStore = inject(UnitStore);
+  private mapStore = inject(MapStore);
+  private mapLocationStore = inject(MapLocationStore);
+  private activityStore = inject(ActivityStore);
 
   @eventHandler(MapEvent.NewLocation)
   newLocation(args: MapEventNewLocationArgs) {
@@ -62,10 +60,7 @@ export class MapEventHandler {
 
   @eventHandler(PartyEvent.Disband)
   onDisbandPartyRemovePartyActiveActivity(args: PartyEventDisbandArgs) {
-    const partyActivity = find(
-      x => (x.startArgs as { partyId?: string })?.partyId === args.partyId,
-      values(this.activityStore.getState()),
-    );
+    const partyActivity = find(x => (x.startArgs as { partyId?: string })?.partyId === args.partyId, values(this.activityStore.getState()));
 
     if (partyActivity === undefined) return;
 

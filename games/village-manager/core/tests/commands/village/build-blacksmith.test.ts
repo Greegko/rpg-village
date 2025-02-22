@@ -1,20 +1,15 @@
-import { VillageActivity, VillageBuildingCommand } from "@rpg-village/village-manager/features/village";
-
-import { createState, test } from "../../../tests/utils";
+import { VillageActivity, VillageBuildingCommand } from "@/features/village";
+import { createState, test } from "@test/utils";
 
 test("should start building activity with blacksmith", {
-  initState: createState(({ village }) => [
-    village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: { blacksmith: 0 } }),
-  ]),
+  initState: createState(({ village }) => [village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: { blacksmith: 0 } })]),
   commands: [{ command: VillageBuildingCommand.BuildBlacksmith, args: { villageId: "villageId" } }],
-  expectedState: (state, t) =>
-    t.withRandomId(state.activities, { name: VillageActivity.Build, startArgs: { targetBuilding: "blacksmith" } }),
+  expectedState: state =>
+    expect(state.activities).withRandomId({ name: VillageActivity.Build, startArgs: { targetBuilding: "blacksmith" } }),
 });
 
 test("should reduce the village resouce by the blacksmith cost", {
-  initState: createState(({ village }) => [
-    village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: { blacksmith: 0 } }),
-  ]),
+  initState: createState(({ village }) => [village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: { blacksmith: 0 } })]),
   commands: [{ command: VillageBuildingCommand.BuildBlacksmith, args: { villageId: "villageId" } }],
   expectedState: { villages: { villageId: { stash: { resource: { gold: 0 } } } } },
 });

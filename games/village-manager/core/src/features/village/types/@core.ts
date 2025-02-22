@@ -18,7 +18,7 @@ import {
   VillageState,
 } from "../interfaces";
 
-declare module "@rpg-village/core" {
+declare module "@rpg-village/core/extend" {
   interface EventType {
     [VillageEvent.BuildingBuilt]: VillageEventBuildingBuiltArgs;
   }

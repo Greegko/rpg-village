@@ -1,4 +1,4 @@
-import { generateId } from "@rpg-village/core/lib/generate-id";
+import { generateId } from "@rpg-village/core";
 
 import { AttackEffectType, DefenseEffectType, EffectType } from "@features/effect";
 

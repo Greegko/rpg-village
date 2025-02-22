@@ -1,5 +1,4 @@
-import { injectable } from "inversify";
-
+import { inject, injectable } from "@rpg-village/core";
 import { EventSystem } from "@rpg-village/core";
 
 import { Activity, ActivityHandler } from "@rpg-village/features/activity";
@@ -17,11 +16,9 @@ type BattleActivityType = Activity<BattleState, PartyID, PartyID, BattleActivity
 
 @injectable()
 export class BattleActivity implements ActivityHandler<BattleActivityType> {
-  constructor(
-    private partyService: PartyService,
-    private battleService: BattleService,
-    private eventSystem: EventSystem,
-  ) {}
+  private partyService = inject(PartyService);
+  private battleService = inject(BattleService);
+  private eventSystem = inject(EventSystem);
 
   start({ targetId, involvedTargetId }: BattleActivityStartArgs): BattleState {
     return {

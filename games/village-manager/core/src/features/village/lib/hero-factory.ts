@@ -1,4 +1,4 @@
-import { sample } from "@rpg-village/core/lib/sample";
+import { sample } from "@rpg-village/core";
 
 import { armorFactory, shieldFactory, weaponFactory } from "@features/item";
 import { Unit, UnitType } from "@features/unit";
@@ -24,18 +24,7 @@ const lastname = [
   "Reeve",
 ];
 const male = ["Bernar", "Bruiant", "Reginald", "Wilcock", "Oggery", "Louve", "Jeremimum", "Helie", "Tibald", "Otebon"];
-const female = [
-  "Maalot",
-  "Tillote",
-  "Sarey",
-  "Jossy",
-  "Susanna",
-  "Missa",
-  "Aleneite",
-  "Iseldis",
-  "Sapphira",
-  "Crystina",
-];
+const female = ["Maalot", "Tillote", "Sarey", "Jossy", "Susanna", "Missa", "Aleneite", "Iseldis", "Sapphira", "Crystina"];
 
 export function heroFactory(): Omit<Unit, "id"> {
   const firstNames = Math.random() > 0.5 ? male : female;

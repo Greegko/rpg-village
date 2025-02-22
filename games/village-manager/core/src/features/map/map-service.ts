@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { append, evolve, find, values } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { EventSystem, Turn } from "@rpg-village/core";
 
 import { EffectStatic } from "@features/effect";
@@ -16,17 +16,11 @@ const MAP_TILE_SIZE: Record<MapSize, number> = {
 
 @injectable()
 export class MapService {
-  constructor(
-    private mapLocationStore: MapLocationStore,
-    private mapStore: MapStore,
-    private eventSystem: EventSystem,
-  ) {}
+  private mapLocationStore = inject(MapLocationStore);
+  private mapStore = inject(MapStore);
+  private eventSystem = inject(EventSystem);
 
-  createMap(
-    mapLocationType: MapLocationType.Portal | MapLocationType.Village,
-    mapSize: MapSize,
-    modifiers: EffectStatic[],
-  ): Map {
+  createMap(mapLocationType: MapLocationType.Portal | MapLocationType.Village, mapSize: MapSize, modifiers: EffectStatic[]): Map {
     const mapLocationId = this.createLocation(0, 0, true, mapLocationType).id;
 
     const map = this.mapStore.add({
@@ -131,12 +125,7 @@ function mapLocationFactory(type: MapLocationType, x: number, y: number): Omit<M
   return { type, explored: false, x, y, partyIds: [] };
 }
 
-const generateTile = (
-  mapLocation: MapLocation,
-  position: readonly [number, number],
-  hasBoss: boolean,
-  bossIsTriggerable: boolean,
-) => {
+const generateTile = (mapLocation: MapLocation, position: readonly [number, number], hasBoss: boolean, bossIsTriggerable: boolean) => {
   const type = hasBoss ? MapLocationType.Empty : bossIsTriggerable ? MapLocationType.Boss : MapLocationType.Field;
   return mapLocationFactory(type, position[0] + mapLocation.x, position[1] + mapLocation.y);
 };

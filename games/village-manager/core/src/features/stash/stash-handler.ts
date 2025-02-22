@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
 import { always, evolve, map, propEq, when } from "rambda";
+
+import { injectable } from "@rpg-village/core";
 
 import { Item, ItemID } from "@features/item";
 

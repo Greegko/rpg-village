@@ -1,6 +1,6 @@
 import { always, evolve, inc, times } from "rambda";
 
-import { generateId } from "@rpg-village/core/lib/generate-id";
+import { generateId } from "@rpg-village/core";
 
 import { AttackEffectType, EffectType } from "@features/effect";
 import { ItemType, Weapon } from "@features/item";

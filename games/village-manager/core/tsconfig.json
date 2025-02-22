@@ -7,21 +7,20 @@
     "noUnusedLocals": true,
     "strict": true,
     "composite": true,
-    "outDir": "../dist",
+    "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
     "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "inlineSourceMap": true,
-    "plugins": [
-      { "transform": "typescript-transform-paths" },
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ],
+    "types": ["./tests/utils/vitest-expect-extensions"],
     "paths": {
-      "@core-types": ["./types"],
-      "@features/*": ["./features/*"],
-      "@lib/*": ["./lib/*"]
+      "@/*": ["./src/*"],
+      "@test/*": ["./tests/*"],
+      "@core-types": ["./src/types"],
+      "@features/*": ["./src/features/*"],
+      "@lib/*": ["./src/lib/*"]
     }
   }
 }

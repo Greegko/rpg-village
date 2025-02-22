@@ -1,4 +1,6 @@
-import { CommandSystem, EventSystem, Module } from "@core";
+import { CommandSystem, EventSystem } from "@core";
+
+import { Module } from "@rpg-village/core/extend";
 
 import { GameCommandHandler } from "./game-command-handler";
 import { GameService } from "./game-service";

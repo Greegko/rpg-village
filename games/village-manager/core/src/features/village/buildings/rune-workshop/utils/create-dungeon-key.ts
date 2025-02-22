@@ -1,4 +1,4 @@
-import { generateId } from "@rpg-village/core/lib/generate-id";
+import { generateId } from "@rpg-village/core";
 
 import { DungeonKey, ItemType } from "@features/item";
 

@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
 import { add, always, assoc, dissoc, evolve, find, inc, map, propEq, toPairs, when } from "rambda";
+
+import { inject, injectable } from "@rpg-village/core";
 
 import { Item, ItemID } from "@features/item";
 import { StashHandler } from "@features/stash";
@@ -11,7 +12,7 @@ import { UnitStore } from "./unit-store";
 
 @injectable()
 export class UnitService {
-  constructor(private unitStore: UnitStore) {}
+  private unitStore = inject(UnitStore);
 
   getStash(unitId: UnitID) {
     return new StashHandler({

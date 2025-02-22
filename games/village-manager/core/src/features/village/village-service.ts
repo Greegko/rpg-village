@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
 import { evolve, lensPath, set } from "rambda";
+
+import { inject, injectable } from "@rpg-village/core";
 
 import { PortalSummoningStoneHandler } from "@features/buildings/portal-summoning-stone";
 import { ShopHandler } from "@features/buildings/shop";
@@ -10,7 +11,7 @@ import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageService {
-  constructor(private villageStore: VillageStore) {}
+  private villageStore = inject(VillageStore);
 
   getStash(villageId: VillageID) {
     return new StashHandler({
@@ -31,10 +32,7 @@ export class VillageService {
     return new PortalSummoningStoneHandler({
       get: () => this.villageStore.get(villageId).buildings.portalSummoningStone!,
       update: portalSummoningStoneUpdater =>
-        this.villageStore.update(
-          villageId,
-          evolve({ buildings: { portalSummoningStone: portalSummoningStoneUpdater } }),
-        ),
+        this.villageStore.update(villageId, evolve({ buildings: { portalSummoningStone: portalSummoningStoneUpdater } })),
       create: state => this.villageStore.update(villageId, set(lensPath("buildings.portalSummoningStone"), state)),
     });
   }

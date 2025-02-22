@@ -1,10 +1,12 @@
-import { BattleActivityType } from "@rpg-village/village-manager/features/battle";
-import { AttackEffectType, RuneAttackEffectType } from "@rpg-village/village-manager/features/effect";
-import { ItemType } from "@rpg-village/village-manager/features/item";
-import { UnitType } from "@rpg-village/village-manager/features/unit";
+import { expect } from "vitest";
 
-import { createState, test } from "../../tests/utils";
-import { dynamicEffectFactory, equipmentFactory, runeFactory, staticEffectFactory } from "../../tests/utils/factories";
+import { BattleActivityType } from "@/features/battle";
+import { AttackEffectType, RuneAttackEffectType } from "@/features/effect";
+import { ItemType } from "@/features/item";
+import { UnitType } from "@/features/unit";
+
+import { createState, test } from "@test/utils";
+import { dynamicEffectFactory, equipmentFactory, runeFactory, staticEffectFactory } from "@test/utils/factories";
 
 test("should finish correctly", {
   initState: createState(({ activity, party, unit, battle }) => [
@@ -28,7 +30,7 @@ test("should finish correctly", {
     }),
   ]),
   turn: true,
-  expectedState: (state, t) => t.falsy(state.activities.battleActivity),
+  expectedState: state => expect(state.activities.battleActivity).toBeFalsy(),
 });
 
 test("should gain xp for winner heroes", {
@@ -122,9 +124,7 @@ test("should apply item dmg effect", {
                 equipment: {
                   rightHand: equipmentFactory({
                     itemType: ItemType.Weapon,
-                    effects: [
-                      staticEffectFactory({ value: 10, effectType: AttackEffectType.Dmg, isPercentage: false }),
-                    ],
+                    effects: [staticEffectFactory({ value: 10, effectType: AttackEffectType.Dmg, isPercentage: false })],
                   }),
                 },
               }),

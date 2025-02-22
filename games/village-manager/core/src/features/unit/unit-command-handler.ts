@@ -1,5 +1,4 @@
-import { injectable } from "inversify";
-
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { UnitCommand, UnitCommandEquipItemArgs, UnitCommandUnequipItemArgs } from "./interfaces";
@@ -7,7 +6,7 @@ import { UnitService } from "./unit-service";
 
 @injectable()
 export class UnitCommandHandler {
-  constructor(private unitService: UnitService) {}
+  private unitService = inject(UnitService);
 
   @commandHandler(UnitCommand.EquipItem)
   equipItem({ unitId, itemId }: UnitCommandEquipItemArgs) {

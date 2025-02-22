@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { any, evolve, mergeLeft, values, without } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { EventSystem } from "@rpg-village/core";
 
 import { Resource, Stash, StashHandler } from "@features/stash";
@@ -11,12 +11,10 @@ import { PartyStore } from "./party-store";
 
 @injectable()
 export class PartyService {
-  constructor(
-    private partyStore: PartyStore,
-    private unitStore: UnitStore,
-    private unitService: UnitService,
-    private eventSystem: EventSystem,
-  ) {}
+  private partyStore = inject(PartyStore);
+  private unitStore = inject(UnitStore);
+  private unitService = inject(UnitService);
+  private eventSystem = inject(EventSystem);
 
   getStash(partyId: PartyID) {
     return new StashHandler({

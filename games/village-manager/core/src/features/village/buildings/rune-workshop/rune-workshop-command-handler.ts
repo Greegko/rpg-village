@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { add, evolve } from "rambda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { Rune } from "@features/item";
@@ -17,7 +17,7 @@ import { createDungeonKey, createRune } from "./utils";
 
 @injectable()
 export class RuneWorkshopCommandHandler {
-  constructor(private villageService: VillageService) {}
+  private villageService = inject(VillageService);
 
   @commandHandler(RuneWorkshopCommand.ForgeDungeonKey)
   forgeDungeonKey(args: ForgeDungeonKeyCommandArgs) {

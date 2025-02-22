@@ -1,5 +1,6 @@
-import { injectable } from "inversify";
 import { append, evolve, find, values, without } from "rambda";
+
+import { inject, injectable } from "@rpg-village/core";
 
 import { Party, PartyID, PartyStore } from "@features/party";
 
@@ -8,7 +9,8 @@ import { MapLocationStore } from "./map-location-store";
 
 @injectable()
 export class PartyMapService {
-  constructor(private mapLocationStore: MapLocationStore, private partyStore: PartyStore) {}
+  private mapLocationStore = inject(MapLocationStore);
+  private partyStore = inject(PartyStore);
 
   setLocation(partyId: PartyID, locationId: MapLocationID) {
     const oldLocation = this.getPartyLocation(partyId);

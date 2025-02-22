@@ -1,7 +1,6 @@
-import { ItemType } from "@rpg-village/village-manager/features/item";
-import { EquipmentSlot, UnitCommand } from "@rpg-village/village-manager/features/unit";
-
-import { test } from "../../../tests/utils";
+import { ItemType } from "@/features/item";
+import { EquipmentSlot, UnitCommand } from "@/features/unit";
+import { test } from "@test/utils";
 
 test("should be able to equip item", {
   initState: {

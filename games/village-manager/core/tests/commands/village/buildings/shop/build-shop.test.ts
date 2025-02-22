@@ -1,25 +1,17 @@
-import {
-  VillageActivity,
-  VillageBuilding,
-  VillageBuildingCommand,
-  VillageEvent,
-} from "@rpg-village/village-manager/features/village";
+import { expect } from "vitest";
 
-import { createState, test } from "../../../../../tests/utils";
+import { VillageActivity, VillageBuilding, VillageBuildingCommand, VillageEvent } from "@/features/village";
+
+import { createState, test } from "@test/utils";
 
 test("should start a building acitivity for houses", {
-  initState: createState(({ village }) => [
-    village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: {} }),
-  ]),
+  initState: createState(({ village }) => [village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: {} })]),
   commands: [{ command: VillageBuildingCommand.BuildShop, args: { villageId: "villageId" } }],
-  expectedState: (state, t) =>
-    t.withRandomId(state.activities, { name: VillageActivity.Build, startArgs: { targetBuilding: "shop" } }),
+  expectedState: state => expect(state.activities).withRandomId({ name: VillageActivity.Build, startArgs: { targetBuilding: "shop" } }),
 });
 
 test("should reduce the village resouce by the house cost", {
-  initState: createState(({ village }) => [
-    village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: {} }),
-  ]),
+  initState: createState(({ village }) => [village({ id: "villageId", stash: { resource: { gold: 100 } }, buildings: {} })]),
   commands: [{ command: VillageBuildingCommand.BuildShop, args: { villageId: "villageId" } }],
   expectedState: { villages: { villageId: { stash: { resource: { gold: 0 } } } } },
 });
@@ -39,5 +31,5 @@ test("should create shop when it was undefined", {
 test("should generate new items on built event", {
   initState: createState(({ village }) => [village({ id: "villageId", buildings: {} })]),
   event: { event: VillageEvent.BuildingBuilt, args: { villageId: "villageId", buildingType: VillageBuilding.Shop } },
-  expectedState: (state, t) => t.not(state.villages.villageId.buildings.shop!.items.length, 0),
+  expectedState: state => expect(state.villages.villageId.buildings.shop!.items).not.toHaveLength(0),
 });

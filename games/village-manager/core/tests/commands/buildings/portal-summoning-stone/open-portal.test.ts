@@ -1,10 +1,11 @@
 import { values } from "rambda";
+import { expect } from "vitest";
 
-import { AttackEffectType, EffectType } from "@rpg-village/village-manager/features/effect";
-import { ItemType } from "@rpg-village/village-manager/features/item";
-import { VillageBuildingCommand } from "@rpg-village/village-manager/features/village";
+import { AttackEffectType, EffectType } from "@/features/effect";
+import { ItemType } from "@/features/item";
+import { VillageBuildingCommand } from "@/features/village";
 
-import { createState, staticEffectFactory, test } from "../../../../tests/utils";
+import { createState, staticEffectFactory, test } from "@test/utils";
 
 test("should create portal", {
   initState: createState(({ village, map }) => [
@@ -21,7 +22,7 @@ test("should create portal", {
       args: { villageId: "villageId", dungeonKeyId: "dungeon-key" },
     },
   ],
-  expectedState: (state, t) => t.length(state.maps, 2),
+  expectedState: state => expect(state.maps).objectHaveKeys(2),
 });
 
 test("should apply effects to the portal", {
@@ -47,8 +48,8 @@ test("should apply effects to the portal", {
       args: { villageId: "villageId", dungeonKeyId: "dungeon-key" },
     },
   ],
-  expectedState: (state, t) =>
-    t.deepEqual(values(state.maps).find(x => x.id !== "global-map")!.modifiers, [
+  expectedState: state =>
+    expect(values(state.maps).find(x => x.id !== "global-map")!.modifiers).toEqual([
       { type: EffectType.Static, effectType: AttackEffectType.Dmg, value: 10, isPercentage: false },
     ]),
 });

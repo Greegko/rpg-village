@@ -1,8 +1,8 @@
-import { BattleActivityType } from "@rpg-village/village-manager/features/battle";
-import { MapCommand } from "@rpg-village/village-manager/features/map";
-import { PartyOwner } from "@rpg-village/village-manager/features/party";
-
-import { createState, test } from "../../../tests/utils";
+import { BattleActivityType } from "@/features/battle";
+import { MapCommand } from "@/features/map";
+import { PartyOwner } from "@/features/party";
+import { createState, test } from "@test/utils";
+import { expect } from "vitest";
 
 test("should start Battle activity", {
   initState: createState(({ party, unit, location, map }) => [
@@ -11,9 +11,9 @@ test("should start Battle activity", {
     party({ id: "party-y", unitIds: [unit({ hp: 50 })], owner: PartyOwner.Enemy }),
   ]),
   commands: [{ command: MapCommand.Battle, args: { locationId: "battle-location" } }],
-  expectedState: (state, t) => {
-    t.withRandomId(state.activities, { name: BattleActivityType.Battle });
-    t.withRandomId(state.battle, {
+  expectedState: state => {
+    expect(state.activities).withRandomId({ name: BattleActivityType.Battle });
+    expect(state.battle).withRandomId({
       partyId: "party-x",
       defenderPartyId: "party-y",
     });

@@ -1,6 +1,6 @@
-import { VillageBuildingCommand } from "@rpg-village/village-manager/features/village";
-
-import { createState, test } from "../../../tests/utils";
+import { VillageBuildingCommand } from "@/features/village";
+import { createState, test } from "@test/utils";
+import { expect } from "vitest";
 
 test("should remove resoure when village has enough resource", {
   initState: createState(({ village }) => [
@@ -12,9 +12,7 @@ test("should remove resoure when village has enough resource", {
       },
     }),
   ]),
-  commands: [
-    { command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } },
-  ],
+  commands: [{ command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } }],
   expectedState: { villages: { villageId: { stash: { resource: { gold: 50 } } } } },
 });
 
@@ -28,11 +26,8 @@ test("should decrease quantity", {
       },
     }),
   ]),
-  commands: [
-    { command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } },
-  ],
-  expectedState: (state, t) =>
-    t.is(state.villages.villageId.buildings.shop!.items.find(x => x.id === "shop-item-id")!.quantity, 1),
+  commands: [{ command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } }],
+  expectedState: state => expect(state.villages.villageId.buildings.shop!.items.find(x => x.id === "shop-item-id")!.quantity).toBe(1),
 });
 
 test("should remove item when runs out", {
@@ -43,14 +38,8 @@ test("should remove item when runs out", {
       buildings: { shop: { items: [{ id: "shop-item-id", price: { gold: 50 }, quantity: 1, item: {} }] } },
     }),
   ]),
-  commands: [
-    { command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } },
-  ],
-  expectedState: (state, t) =>
-    t.is(
-      state.villages.villageId.buildings.shop!.items.find(x => x.id === "shop-item-id"),
-      undefined,
-    ),
+  commands: [{ command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } }],
+  expectedState: state => expect(state.villages.villageId.buildings.shop!.items.find(x => x.id === "shop-item-id")).toBeUndefined(),
 });
 
 test("should put into village items", {
@@ -63,9 +52,7 @@ test("should put into village items", {
       },
     }),
   ]),
-  commands: [
-    { command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } },
-  ],
+  commands: [{ command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } }],
   expectedState: { villages: { villageId: { stash: { items: [{ name: "shop-buy-item" }] } } } },
 });
 
@@ -82,8 +69,6 @@ test("should add price value into shop resource", {
       },
     }),
   ]),
-  commands: [
-    { command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } },
-  ],
+  commands: [{ command: VillageBuildingCommand.ShopBuyItem, args: { villageId: "villageId", shopItemId: "shop-item-id" } }],
   expectedState: { villages: { villageId: { buildings: { shop: { stash: { resource: { gold: 50 } } } } } } },
 });

@@ -1,6 +1,6 @@
-import { OptionCommand } from "@rpg-village/village-manager/features/options";
-
-import { createState, test } from "../../../tests/utils";
+import { OptionCommand } from "@/features/options";
+import { createState, test } from "@test/utils";
+import { expect } from "vitest";
 
 test("should remove option object", {
   initState: createState(({ option, village }) => [
@@ -16,7 +16,7 @@ test("should remove option object", {
       args: { villageId: "villageId", optionId: "option-id", optionItemId: "option-item-id" },
     },
   ],
-  expectedState: (state, t) => t.undefined(state.options["option-id"]),
+  expectedState: state => expect(state.options["option-id"]).toBeUndefined(),
 });
 
 test("should put into village items the choosed option", {
