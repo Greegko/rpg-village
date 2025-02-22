@@ -1,6 +1,5 @@
-import { inject, injectable } from "inversify";
+import { inject, injectable } from "@lib/dependency-injection";
 
-import { GetInjectionToken } from "../module";
 import { CommandType } from "./command-type";
 
 interface CommandHandlerDecoratorSubscription {
@@ -15,11 +14,9 @@ export class CommandSystem {
 
   private subscribers: { [key: string]: Function } = {};
 
-  constructor(@inject(GetInjectionToken) private getInjector: (functor: any) => any) {}
-
   hookCommandHandlers() {
     CommandSystem.commandHandlerDecorators!.forEach(handler => {
-      const instance = this.getInjector(handler.targetClass.constructor) as any;
+      const instance = inject(handler.targetClass.constructor) as any;
 
       // @ts-ignore
       this.on(handler.command, (args: any) => instance[handler.handlerFunctionName](args));

@@ -1,7 +1,6 @@
 import { expect, it } from "vitest";
 
-import { GameState } from "@rpg-village/core";
-
+import { GameState } from "../src";
 import { gameFactory } from "./utils/game-factory";
 
 it("loadGame should load the state", () => {

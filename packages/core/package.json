@@ -3,34 +3,29 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc -b ./src/tsconfig.json",
-    "start": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
-    "build:test": "tsc -b ./tests/tsconfig.json --watch --preserveWatchOutput",
-    "test": "vitest run",
-    "prepare": "ts-patch install -s"
-  },
-  "dependencies": {
-    "shortid": "2.2.16"
+    "build": "vite build",
+    "start": "vite build -w",
+    "build:types": "tsc --emitDeclarationOnly --outDir ./dist/types",
+    "test": "vitest run"
   },
   "exports": {
-    ".": "./dist/public-api.js",
-    "./lib/*": "./dist/lib/*.js"
+    ".": "./dist/index.js",
+    "./lib/*": "./dist/lib.js"
   },
   "peerDependencies": {
-    "reflect-metadata": "0.2.2",
-    "inversify": "6.2.2",
+    "remeda": "2.20.2",
     "rambda": "9.4.2",
-    "vitest": "3.0.6"
+    "shortid": "2.2.16"
   },
   "devDependencies": {
     "@types/chance": "1.1.6",
-    "@types/shortid": "2.2.0",
     "@types/node": "18.19.76",
-    "reflect-metadata": "0.2.2",
-    "ts-patch": "3.3.0",
+    "@types/shortid": "2.2.0",
+    "chance": "1.1.12",
     "typescript": "5.7.3",
-    "typescript-transform-paths": "3.5.3",
-    "tsx": "4.19.3",
-    "chance": "1.1.12"
+    "vite": "6.1.1",
+    "vite-plugin-dts": "4.5.0",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.6"
   }
 }

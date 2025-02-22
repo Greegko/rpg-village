@@ -1,15 +1,18 @@
-import { injectable } from "inversify";
-
 import { Command, CommandSystem, Event, EventSystem, GameState } from "@core";
+import { inject, injectable } from "@lib/dependency-injection";
 
 import { GameStore } from "./game-store";
 import { GameCommand } from "./interfaces";
 
 @injectable()
 export class GameController {
-  constructor(private gameStore: GameStore, private commandSystem: CommandSystem, private eventSystem: EventSystem) {
-    commandSystem.hookCommandHandlers();
-    eventSystem.hookEventHandlers();
+  private gameStore = inject(GameStore);
+  private commandSystem = inject(CommandSystem);
+  private eventSystem = inject(EventSystem);
+
+  constructor() {
+    this.commandSystem.hookCommandHandlers();
+    this.eventSystem.hookEventHandlers();
   }
 
   gameTurn() {

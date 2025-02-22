@@ -1,6 +1,5 @@
-import { injectable } from "inversify";
-
 import { ObjectStore } from "@core";
+import { injectable } from "@lib/dependency-injection";
 
 import { GeneralGameStoreState } from "./interfaces";
 

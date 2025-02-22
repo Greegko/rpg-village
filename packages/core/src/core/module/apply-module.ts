@@ -1,56 +1,51 @@
-import { Container, interfaces } from "inversify";
 import { forEach, juxt, pipe, propOr } from "rambda";
+
+import { inject, makeInjectable } from "@lib/dependency-injection";
 
 import { ModulStore, Module, ProvideClass, ProvideValue } from "./module";
 import { ActivityHandlersToken, ModuleDefaultConfigToken, StoresToken } from "./tokens";
 
-export type ApplyModule = (container: Container) => (module: Module) => void;
+export type ApplyModule = () => (module: Module) => void;
 
-export const applyModule: ApplyModule = (container: Container) =>
-  juxt([
-    applyStores(container),
-    applyProviders(container),
-    applyActivities(container),
-    applyModuleConfig(container),
-  ] as any);
+export const applyModule: ApplyModule = () => juxt([applyStores(), applyProviders(), applyActivities(), applyModuleConfig()] as any);
 
-const applyProviders = (container: Container) =>
+const applyProviders = () =>
   pipe(
     propOr([], "provides"),
     forEach<ProvideClass | ProvideValue>(provide => {
       if ("value" in provide) {
-        container.bind(provide.provide).toConstantValue(provide.value);
+        makeInjectable(provide.provide, provide.value);
       } else {
-        container.bind(provide).toSelf();
+        makeInjectable(provide);
       }
     }),
   );
 
-const applyStores = (container: Container) =>
+const applyStores = () =>
   pipe(
     propOr([], "stores"),
     forEach((storeModule: ModulStore) => {
-      if (!container.isBound(storeModule.store)) {
-        container.bind(storeModule.store).toSelf();
-      }
+      makeInjectable(storeModule.store);
 
-      container.bind(StoresToken).toDynamicValue((context: interfaces.Context) => ({
-        scope: storeModule.scope,
-        store: context.container.get(storeModule.store),
-        initialState: storeModule.initialState,
-      }));
+      makeInjectable(
+        StoresToken,
+        () => ({
+          scope: storeModule.scope as any,
+          store: inject(storeModule.store),
+          initialState: storeModule.initialState,
+        }),
+        { multi: true },
+      );
     }),
   );
 
-const applyActivities = (container: Container) =>
+const applyActivities = () =>
   pipe(
     propOr([], "activities"),
-    forEach((activityModule: any) => {
-      container.bind(ActivityHandlersToken).to(activityModule.activity).whenTargetTagged("name", activityModule.name);
-    }),
+    forEach((activityModule: any) => makeInjectable(ActivityHandlersToken, activityModule.activity, { name: activityModule.name })),
   );
 
-const applyModuleConfig = (container: Container) =>
+const applyModuleConfig = () =>
   pipe(propOr(null, "defaultConfig"), config => {
-    if (config) container.bind(ModuleDefaultConfigToken).toConstantValue(config);
+    if (config) makeInjectable(ModuleDefaultConfigToken, config);
   });

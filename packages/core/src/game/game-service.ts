@@ -1,11 +1,12 @@
-import { injectable } from "inversify";
 import { inc } from "rambda";
+
+import { inject, injectable } from "@lib/dependency-injection";
 
 import { GeneralGameStore } from "./general-store";
 
 @injectable()
 export class GameService {
-  constructor(private generalGameStore: GeneralGameStore) {}
+  private generalGameStore = inject(GeneralGameStore);
 
   increaseTurn() {
     this.generalGameStore.update("turn", inc);

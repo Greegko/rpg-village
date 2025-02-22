@@ -1,4 +1,3 @@
-import { injectable } from "inversify";
 import { assoc, dissoc } from "rambda";
 
 type ValueUpdaterCallback<T> = (value: T | undefined) => T;
@@ -8,7 +7,6 @@ function isValueUpdaterCallback<T>(valueOrUpdater: ValueUpdater<T>): valueOrUpda
   return typeof valueOrUpdater === "function";
 }
 
-@injectable()
 export abstract class KeyValueStore<Key extends string, Value> {
   private state = {} as Record<Key, Value>;
 

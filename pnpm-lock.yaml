@@ -315,18 +315,15 @@ importers:
 
   packages/core:
     dependencies:
-      inversify:
-        specifier: 6.2.2
-        version: 6.2.2(reflect-metadata@0.2.2)
       rambda:
         specifier: 9.4.2
         version: 9.4.2
+      remeda:
+        specifier: 2.20.2
+        version: 2.20.2
       shortid:
         specifier: 2.2.16
         version: 2.2.16
-      vitest:
-        specifier: 3.0.6
-        version: 3.0.6(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5)
     devDependencies:
       '@types/chance':
         specifier: 1.1.6
@@ -340,21 +337,21 @@ importers:
       chance:
         specifier: 1.1.12
         version: 1.1.12
-      reflect-metadata:
-        specifier: 0.2.2
-        version: 0.2.2
-      ts-patch:
-        specifier: 3.3.0
-        version: 3.3.0
-      tsx:
-        specifier: 4.19.3
-        version: 4.19.3
       typescript:
         specifier: 5.7.3
         version: 5.7.3
-      typescript-transform-paths:
-        specifier: 3.5.3
-        version: 3.5.3(typescript@5.7.3)
+      vite:
+        specifier: 6.1.1
+        version: 6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5)
+      vite-plugin-dts:
+        specifier: 4.5.0
+        version: 4.5.0(@types/node@18.19.76)(rollup@4.34.8)(typescript@5.7.3)(vite@6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
+      vite-tsconfig-paths:
+        specifier: 5.1.4
+        version: 5.1.4(typescript@5.7.3)(vite@6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
+      vitest:
+        specifier: 3.0.6
+        version: 3.0.6(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5)
 
   packages/features:
     dependencies:
@@ -1584,6 +1581,9 @@ packages:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
 
+  globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -2116,6 +2116,16 @@ packages:
     resolution: {integrity: sha512-zAOzDnd5qsfEnjd9IGy1IRuvA7ygyyxxdxesbhMdutt8AHFjD8Vw8hU2rMF89HX1BKRWFYqKHrO8Q6lw0NeUZg==}
     hasBin: true
 
+  tsconfck@3.1.5:
+    resolution: {integrity: sha512-CLDfGgUp7XPswWnezWwsCRxNmgQjhYq3VXHM0/XIRxhVrKw0M1if9agzryh1QS3nxjCROvV+xWxoJO1YctzzWg==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
@@ -2197,6 +2207,14 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0
+
+  vite-tsconfig-paths@5.1.4:
+    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
 
   vite@6.1.1:
     resolution: {integrity: sha512-4GgM54XrwRfrOp297aIYspIti66k56v16ZnqHvrIM7mG+HjDlAwS7p+Srr7J6fGvEdOJ5JcQ/D9T7HhtdXDTzA==}
@@ -3379,6 +3397,8 @@ snapshots:
 
   globals@11.12.0: {}
 
+  globrex@0.1.2: {}
+
   graceful-fs@4.2.11: {}
 
   gsap@3.12.7:
@@ -3846,6 +3866,10 @@ snapshots:
       semver: 7.7.1
       strip-ansi: 6.0.1
 
+  tsconfck@3.1.5(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
+
   tslib@2.6.3: {}
 
   tsx@4.19.3:
@@ -3968,6 +3992,17 @@ snapshots:
       fs-extra: 11.2.0
       picocolors: 1.1.1
       vite: 6.1.1(@types/node@22.13.4)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5)
+
+  vite-tsconfig-paths@5.1.4(typescript@5.7.3)(vite@6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5)):
+    dependencies:
+      debug: 4.4.0
+      globrex: 0.1.2
+      tsconfck: 3.1.5(typescript@5.7.3)
+    optionalDependencies:
+      vite: 6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   vite@6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5):
     dependencies:

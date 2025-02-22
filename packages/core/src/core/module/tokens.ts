@@ -1,7 +1,16 @@
-export const ModuleDefaultConfigToken = Symbol("ModuleDefaultConfigToken");
-export const StoresToken = Symbol("StoresToken");
-export const ActivityHandlersToken = Symbol("ActivityHandlersToken");
+import { GameState } from "@core";
+import { createInjectableToken } from "@lib/dependency-injection";
 
-export const GetInjectionToken = Symbol("GetInjectionToken");
-export const GetActivityHandlerToken = Symbol("GetActivityHandlerToken");
-export const ModuleConfigToken = Symbol("ConfigToken");
+import { Store } from "../store";
+
+export interface ProvidedStore<State> {
+  store: Store;
+  scope: keyof State;
+  initialState?: object;
+}
+
+export const ModuleDefaultConfigToken = createInjectableToken<object>("ModuleDefaultConfigToken");
+export const StoresToken = createInjectableToken<ProvidedStore<GameState>>("StoresToken");
+export const ActivityHandlersToken = createInjectableToken("ActivityHandlersToken");
+
+export const ModuleConfigToken = createInjectableToken<object>("ConfigToken");

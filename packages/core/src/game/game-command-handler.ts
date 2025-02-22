@@ -1,13 +1,13 @@
-import { injectable } from "inversify";
-
 import { EventSystem, commandHandler } from "@core";
+import { inject, injectable } from "@lib/dependency-injection";
 
 import { GameService } from "./game-service";
 import { GameCommand, GameEvent } from "./interfaces";
 
 @injectable()
 export class GameCommandHandler {
-  constructor(private gameService: GameService, private eventSystem: EventSystem) {}
+  private gameService = inject(GameService);
+  private eventSystem = inject(EventSystem);
 
   @commandHandler(GameCommand.TurnCommand)
   turn() {
