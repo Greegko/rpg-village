@@ -1,4 +1,6 @@
-import { Command, Event, GameState } from "@core";
+import { Command, Event } from "@core";
+
+import { GameState } from "@rpg-village/core/extend";
 
 export interface GameInstance {
   gameTurn(): GameState;

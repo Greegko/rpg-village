@@ -1,4 +1,4 @@
-import { EventType } from "./event-type";
+import { EventType } from "@rpg-village/core/extend";
 
 type EventBase<T extends keyof EventType> = T extends string
   ? EventType[T] extends undefined

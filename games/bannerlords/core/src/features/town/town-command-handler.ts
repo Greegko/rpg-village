@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
 import { evolve } from "remeda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
-import { withoutBy } from "@rpg-village/core/lib/without-by";
+import { withoutBy } from "@rpg-village/core";
 
 import { MapStore, Point } from "@features/map";
 import { MapMoveDirectionStore } from "@features/map/map-move-direction-store";
@@ -14,11 +14,9 @@ export const getPointDistance = (a: Point, b: Point) => Math.sqrt(Math.pow(b.x -
 
 @injectable()
 export class TownCommandHandler {
-  constructor(
-    private townStore: TownStore,
-    private mapMoveDirectionStore: MapMoveDirectionStore,
-    private mapStore: MapStore,
-  ) {}
+  private townStore = inject(TownStore);
+  private mapMoveDirectionStore = inject(MapMoveDirectionStore);
+  private mapStore = inject(MapStore);
 
   @commandHandler(TownCommand.EnterTown)
   enterTown(args: TownCommandEnterTownArgs) {
@@ -38,10 +36,7 @@ export class TownCommandHandler {
 
     if (!this.townStore.get(args.townId).parties.includes(args.partyId)) return;
 
-    this.townStore.update(
-      args.townId,
-      evolve({ parties: parties => withoutBy<string>(parties, [args.partyId], x => x) }),
-    );
+    this.townStore.update(args.townId, evolve({ parties: parties => withoutBy<string>(parties, [args.partyId], x => x) }));
 
     this.mapStore.set(args.partyId, townPosition);
   }

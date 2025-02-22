@@ -19,7 +19,7 @@ export const createGameInstance: CreateGameInstance = (config: GameConfig) => {
 
   forEach(applyModule(), [gameModule, ...(config.modules || [])]);
 
-  makeInjectable(GameController, GameController);
+  makeInjectable(GameController);
 
   return inject(GameController);
 };

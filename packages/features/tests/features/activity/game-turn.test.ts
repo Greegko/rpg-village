@@ -1,7 +1,6 @@
 import { expect, it } from "vitest";
 
-import { activityModule } from "@rpg-village/features/activity";
-
+import { activityModule } from "../../../src";
 import { gameFactory } from "../../utils/game-factory";
 
 it("activities should be executed", () => {
@@ -11,6 +10,8 @@ it("activities should be executed", () => {
   });
 
   const state = game.getState();
+
+  console.log(state);
 
   expect(state.general.turn).toBe(1);
 });

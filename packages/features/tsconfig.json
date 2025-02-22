@@ -7,12 +7,16 @@
     "noUnusedLocals": true,
     "strict": true,
     "composite": true,
-    "outDir": "../dist",
+    "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
     "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "inlineSourceMap": true
+    "inlineSourceMap": true,
+    "paths": {
+      "@features/*": ["./features/*"],
+      "@lib/*": ["./lib/*"]
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { inject, injectable } from "@lib/dependency-injection";
 
-import { CommandType } from "./command-type";
+import { CommandType } from "@rpg-village/core/extend";
 
 interface CommandHandlerDecoratorSubscription {
   command: any;

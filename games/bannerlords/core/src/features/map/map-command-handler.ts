@@ -1,5 +1,4 @@
-import { injectable } from "inversify";
-
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
 
 import { MapCommand, MapCommandSetEntityDirectionArgs } from "./interface";
@@ -7,7 +6,7 @@ import { MapMoveDirectionStore } from "./map-move-direction-store";
 
 @injectable()
 export class MapCommandHandler {
-  constructor(private mapMoveDirectionStore: MapMoveDirectionStore) {}
+  private mapMoveDirectionStore = inject(MapMoveDirectionStore);
 
   @commandHandler(MapCommand.SetEntityDirection)
   setEntityDirection(args: MapCommandSetEntityDirectionArgs) {

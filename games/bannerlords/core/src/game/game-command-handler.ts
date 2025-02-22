@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { forEach } from "remeda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { GameCommand, commandHandler } from "@rpg-village/core";
 
 import { CastleStore } from "@features/castle";
@@ -16,16 +16,14 @@ import { initialMapData } from "./map";
 
 @injectable()
 export class GameCommandHandler {
-  constructor(
-    private mapStore: MapStore,
-    private fractionStore: FractionStore,
-    private lordStore: LordStore,
-    private clanStore: ClanStore,
-    private castleStore: CastleStore,
-    private villageStore: VillageStore,
-    private townStore: TownStore,
-    private partyStore: PartyStore,
-  ) {}
+  private mapStore = inject(MapStore);
+  private fractionStore = inject(FractionStore);
+  private lordStore = inject(LordStore);
+  private clanStore = inject(ClanStore);
+  private castleStore = inject(CastleStore);
+  private villageStore = inject(VillageStore);
+  private townStore = inject(TownStore);
+  private partyStore = inject(PartyStore);
 
   @commandHandler(GameCommand.NewGame)
   initGame() {

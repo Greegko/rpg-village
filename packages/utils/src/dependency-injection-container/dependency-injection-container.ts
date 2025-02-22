@@ -14,7 +14,7 @@ function tryCreateInstance(reg: any) {
   }
 }
 
-export const createContainer = () => {
+export const createDependencyInjectionContainer = () => {
   const registry = new Map();
   const namedRegistry = new Map();
   const instances = new Map();
@@ -84,24 +84,20 @@ export const createContainer = () => {
         if (!namedRegistry.has(target)) namedRegistry.set(target, new Map());
 
         namedRegistry.get(target).set(options.name, value);
+      } else if (options?.multi) {
+        registry.set(target, [...(registry.get(target) || []), value]);
       } else {
-        if (options?.multi) {
-          registry.set(target, [...(instances.get(target) || []), value]);
-        } else {
-          registry.set(target, value);
-        }
+        registry.set(target, value);
       }
     } else {
       if (options?.multi) {
         instances.set(target, [...(instances.get(target) || []), value]);
-      } else {
-        if (options?.name) {
-          if (!namedInstances.has(target)) namedInstances.set(target, new Map());
+      } else if (options?.name) {
+        if (!namedInstances.has(target)) namedInstances.set(target, new Map());
 
-          namedInstances.get(target).set(options.name, value);
-        } else {
-          instances.set(target, value);
-        }
+        namedInstances.get(target).set(options.name, value);
+      } else {
+        instances.set(target, value);
       }
     }
   }

@@ -2,7 +2,7 @@ import { forEach } from "rambda";
 
 import { inject, injectable } from "@lib/dependency-injection";
 
-import { EventType } from "./event-type";
+import { EventType } from "@rpg-village/core/extend";
 
 interface EventHandlerDecoratorSubscription {
   event: any;

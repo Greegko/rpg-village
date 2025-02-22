@@ -1,6 +1,6 @@
 import { evolve } from "remeda";
 
-import { updateValueInList } from "@rpg-village/core/lib/update-value-in-list";
+import { updateValueInList } from "@rpg-village/core";
 
 import { Item, Stash } from "../interface";
 

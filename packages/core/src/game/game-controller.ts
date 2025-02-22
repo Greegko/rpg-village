@@ -1,5 +1,7 @@
-import { Command, CommandSystem, Event, EventSystem, GameState } from "@core";
+import { Command, CommandSystem, Event, EventSystem } from "@core";
 import { inject, injectable } from "@lib/dependency-injection";
+
+import { GameState } from "@rpg-village/core/extend";
 
 import { GameStore } from "./game-store";
 import { GameCommand } from "./interfaces";

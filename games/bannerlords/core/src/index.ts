@@ -10,9 +10,9 @@ import "@features/village";
 
 export { TownCommand } from "@features/town";
 export { VillageCommand } from "@features/village";
-export { Party } from "@features/party";
+export { type Party } from "@features/party";
 export { MapCommand } from "@features/map";
 
-export { GameState, Command } from "@rpg-village/core";
+export type { GameState, Command } from "@rpg-village/core";
 
 export * from "./game";

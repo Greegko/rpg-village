@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { render } from "solid-js/web";
 
 import { ProgressBar } from "./components/progress-bar";

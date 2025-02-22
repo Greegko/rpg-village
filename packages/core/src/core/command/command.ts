@@ -1,4 +1,4 @@
-import { CommandType } from "./command-type";
+import { CommandType } from "@rpg-village/core/extend";
 
 type CommandBase<T extends keyof CommandType> = T extends string
   ? CommandType[T] extends undefined

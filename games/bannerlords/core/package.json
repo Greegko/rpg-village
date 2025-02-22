@@ -2,29 +2,29 @@
   "name": "@rpg-village/bannerlords-core",
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/bannerlords-core.js",
+      "types": "./dist/src/index.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsc -b ./src/tsconfig.json",
-    "start": "tsc -b ./src/tsconfig.json --watch --preserveWatchOutput",
-    "prepare": "ts-patch install -s"
+    "build": "vite build",
+    "start": "vite build -w"
   },
   "peerDependencies": {
     "@rpg-village/core": "workspace: *",
-    "inversify": "6.2.2",
     "remeda": "2.20.2",
-    "shortid": "2.2.17",
-    "reflect-metadata": "0.2.2"
+    "shortid": "2.2.17"
   },
   "devDependencies": {
+    "vite": "6.1.1",
+    "vite-plugin-dts": "4.5.0",
+    "vite-tsconfig-paths": "5.1.4",
     "@types/chance": "1.1.6",
     "@types/shortid": "2.2.0",
     "@types/node": "18.19.76",
-    "reflect-metadata": "0.2.2",
-    "ts-patch": "3.3.0",
     "typescript": "5.7.3",
-    "typescript-transform-paths": "3.5.3",
-    "tsx": "4.19.3",
     "chance": "1.1.12"
-  },
-  "types": "dist/public-api.d.ts",
-  "main": "dist/public-api.js"
+  }
 }

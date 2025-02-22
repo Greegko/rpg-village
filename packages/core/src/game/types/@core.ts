@@ -1,6 +1,6 @@
 import { GameCommand, GameEvent, GeneralGameStoreState } from "../interfaces";
 
-declare module "@core" {
+declare module "@rpg-village/core/extend" {
   interface CommandType {
     [GameCommand.NewGame]: undefined;
     [GameCommand.TurnCommand]: undefined;

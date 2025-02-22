@@ -1,6 +1,6 @@
 import { GameConfig, GameState, Module, createGameInstance } from "@rpg-village/core";
 
-import { activityModule } from "@rpg-village/features/activity";
+import { activityModule } from "../../src";
 
 interface GameFactory {
   state?: Partial<GameState>;

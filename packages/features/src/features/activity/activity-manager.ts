@@ -1,31 +1,20 @@
-import { inject, injectable } from "inversify";
 import { assoc, forEach, values } from "rambda";
 
-import { EventSystem, GetActivityHandlerToken, commandHandler } from "@rpg-village/core";
+import { EventSystem, commandHandler, inject, injectable } from "@rpg-village/core";
 
 import { ActivityStore } from "./activity-store";
-import {
-  ActivityCancelCommandArgs,
-  ActivityCommand,
-  ActivityEvent,
-  ActivityType,
-  AnyActivity,
-  GetActivityHandlerByName,
-} from "./interfaces";
+import { ActivityCancelCommandArgs, ActivityCommand, ActivityEvent, ActivityHandlersToken, ActivityType, AnyActivity } from "./interfaces";
 
 @injectable()
 export class ActivityManager {
-  constructor(
-    @inject(GetActivityHandlerToken) public getActivityHandler: GetActivityHandlerByName,
-    private activityStore: ActivityStore,
-    private eventSystem: EventSystem,
-  ) {}
+  private activityStore = inject(ActivityStore);
+  private eventSystem = inject(EventSystem);
 
   startActivity<Activity extends keyof ActivityType>(
     activityName: Activity,
     startingArgs: ActivityType[Activity] & { targetId?: string; involvedTargetId?: string },
   ) {
-    const activityHandler = this.getActivityHandler(activityName);
+    const activityHandler = inject(ActivityHandlersToken, { name: activityName });
     if (activityHandler.isRunnable(startingArgs)) {
       const activityState = activityHandler.start(startingArgs);
 
@@ -51,7 +40,7 @@ export class ActivityManager {
   cancelActivity(args: ActivityCancelCommandArgs) {
     const activity = this.activityStore.get(args.activityId);
 
-    const activityHandler = this.getActivityHandler(activity.name);
+    const activityHandler = inject(ActivityHandlersToken, { name: activity.name });
 
     if ("isCancelable" in activityHandler && activityHandler.isCancelable(activity)) {
       activityHandler.onCancel(activity);
@@ -61,7 +50,7 @@ export class ActivityManager {
   }
 
   private executeActivity(activity: AnyActivity) {
-    const activityHandler = this.getActivityHandler(activity.name);
+    const activityHandler = inject(ActivityHandlersToken, { name: activity.name });
     const activityNewState = activityHandler.execute(activity);
     const updatedActivity = assoc("state", activityNewState, activity);
     const isDone = activityHandler.isDone(updatedActivity);

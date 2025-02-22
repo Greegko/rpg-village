@@ -13,7 +13,6 @@
     "@rpg-village/utils": "workspace: *",
     "@rpg-village/bannerlords-core": "workspace: *",
     "remeda": "2.20.2",
-    "reflect-metadata": "0.2.2",
     "solid-js": "1.9.4"
   },
   "devDependencies": {

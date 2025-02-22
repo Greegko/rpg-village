@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { createContainer } from "./dependency-injection-container";
+import { createDependencyInjectionContainer } from "./dependency-injection-container";
 
 describe("Dependency Injection", () => {
   it("should make classes injectable", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     class A {
       val = 5;
@@ -16,7 +16,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should only create class when injected", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     let invoked = 0;
 
@@ -38,7 +38,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should override the original target", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     class A {
       val = 5;
@@ -54,7 +54,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should have strong typings for non class tokens", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     type Config = { id: string };
 
@@ -66,7 +66,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should regiter injectable classes", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     @container.injectable()
     class A {
@@ -77,7 +77,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should allow injections in class properties", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     @container.injectable()
     class A {
@@ -93,7 +93,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should return the old instance", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     let called = 5;
 
@@ -107,7 +107,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should handle multiple injections", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     const token = container.createInjectableToken<number>("numbers");
 
@@ -118,7 +118,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should allow callback type", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     const token = container.createInjectableToken<number>("numbers");
 
@@ -128,7 +128,7 @@ describe("Dependency Injection", () => {
   });
 
   it("should allow to name instances", () => {
-    const container = createContainer();
+    const container = createDependencyInjectionContainer();
 
     const token = container.createInjectableToken<number>("numbers");
 

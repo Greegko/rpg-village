@@ -7,7 +7,7 @@
     "noUnusedLocals": true,
     "strict": true,
     "composite": true,
-    "outDir": "../dist",
+    "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
     "removeComments": false,
@@ -15,6 +15,7 @@
     "experimentalDecorators": true,
     "inlineSourceMap": true,
     "paths": {
+      "@rpg-village/core/extend": ["./src/extend-types"],
       "@core": ["./src/core"],
       "@lib/*": ["./src/lib/*"]
     }

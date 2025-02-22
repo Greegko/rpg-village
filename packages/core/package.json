@@ -2,17 +2,23 @@
   "name": "@rpg-village/core",
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/core.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./extend": {
+      "types": "./dist/src/extend-types/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "vite build",
     "start": "vite build -w",
     "build:types": "tsc --emitDeclarationOnly --outDir ./dist/types",
     "test": "vitest run"
   },
-  "exports": {
-    ".": "./dist/index.js",
-    "./lib/*": "./dist/lib.js"
-  },
   "peerDependencies": {
+    "@rpg-village/utils": "workspace: *",
     "remeda": "2.20.2",
     "rambda": "9.4.2",
     "shortid": "2.2.16"

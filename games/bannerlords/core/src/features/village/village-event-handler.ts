@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { evolve, forEach, values } from "remeda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { eventHandler } from "@rpg-village/core";
 
 import { ItemType, addItem } from "@features/item";
@@ -10,7 +10,7 @@ import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageEventHandler {
-  constructor(private villageStore: VillageStore) {}
+  private villageStore = inject(VillageStore);
 
   @eventHandler(TimeEvent.NewDay)
   changeProsperity() {
@@ -24,10 +24,7 @@ export class VillageEventHandler {
     const villages = this.villageStore.getState();
 
     forEach(values(villages), village =>
-      this.villageStore.update(
-        village.id,
-        evolve({ stash: stash => addItem(stash, { itemType: ItemType.Grain, amount: 5 }) }),
-      ),
+      this.villageStore.update(village.id, evolve({ stash: stash => addItem(stash, { itemType: ItemType.Grain, amount: 5 }) })),
     );
   }
 }

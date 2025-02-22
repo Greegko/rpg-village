@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
 import { evolve, values } from "remeda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { commandHandler } from "@rpg-village/core";
-import { withoutBy } from "@rpg-village/core/lib/without-by";
+import { withoutBy } from "@rpg-village/core";
 
 import { MapMoveDirectionStore, MapStore } from "@features/map";
 import { PartyStore } from "@features/party";
@@ -20,12 +20,10 @@ import { VillageStore } from "./village-store";
 
 @injectable()
 export class VillageCommandHandler {
-  constructor(
-    private villageStore: VillageStore,
-    private mapMoveDirectionStore: MapMoveDirectionStore,
-    private mapStore: MapStore,
-    private partyStore: PartyStore,
-  ) {}
+  private villageStore = inject(VillageStore);
+  private mapMoveDirectionStore = inject(MapMoveDirectionStore);
+  private mapStore = inject(MapStore);
+  private partyStore = inject(PartyStore);
 
   @commandHandler(VillageCommand.SpawnVillager)
   spawnVillager(args: VillageCommandSpawnVillagerArgs) {
@@ -50,10 +48,7 @@ export class VillageCommandHandler {
     if (!villagerParty) return;
 
     this.villageStore.update(village.id, evolve({ stash: stash => ({ ...stash, items: [] }) }));
-    this.partyStore.update(
-      villagerParty.id,
-      evolve({ stash: stash => ({ ...stash, items: [...stash.items, ...village.stash.items] }) }),
-    );
+    this.partyStore.update(villagerParty.id, evolve({ stash: stash => ({ ...stash, items: [...stash.items, ...village.stash.items] }) }));
   }
 
   @commandHandler(VillageCommand.DisbandVillager)
@@ -66,10 +61,7 @@ export class VillageCommandHandler {
     if (!villagerParty) return;
 
     this.partyStore.remove(villagerParty.id);
-    this.villageStore.update(
-      args.villageId,
-      evolve({ stash: stash => ({ ...stash, gold: stash.gold + villagerParty.stash.gold }) }),
-    );
+    this.villageStore.update(args.villageId, evolve({ stash: stash => ({ ...stash, gold: stash.gold + villagerParty.stash.gold }) }));
   }
 
   @commandHandler(VillageCommand.EnterVillage)
@@ -90,10 +82,7 @@ export class VillageCommandHandler {
 
     if (!this.villageStore.get(args.villageId).parties.includes(args.partyId)) return;
 
-    this.villageStore.update(
-      args.villageId,
-      evolve({ parties: parties => withoutBy<string>(parties, [args.partyId], x => x) }),
-    );
+    this.villageStore.update(args.villageId, evolve({ parties: parties => withoutBy<string>(parties, [args.partyId], x => x) }));
 
     this.mapStore.set(args.partyId, villagePosition);
   }

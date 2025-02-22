@@ -1,12 +1,10 @@
-import { injectable } from "inversify";
-
-import { GameEvent, eventHandler } from "@rpg-village/core";
+import { GameEvent, eventHandler, inject, injectable } from "@rpg-village/core";
 
 import { ActivityManager } from "./activity-manager";
 
 @injectable()
 export class ActivityCommandHandler {
-  constructor(private activityManager: ActivityManager) {}
+  private activityManager = inject(ActivityManager);
 
   @eventHandler(GameEvent.Turn)
   runActivities() {

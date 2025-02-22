@@ -1,5 +1,4 @@
-import { injectable } from "inversify";
-
+import { injectable } from "@rpg-village/core";
 import { EntityStore } from "@rpg-village/core";
 
 import { Clan, ClanID } from "./interface";

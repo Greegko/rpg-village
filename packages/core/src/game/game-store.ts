@@ -1,7 +1,9 @@
 import { forEach, map, mergeAll, prop } from "rambda";
 
-import { GameState, StoresToken } from "@core";
+import { StoresToken } from "@core";
 import { inject, injectable } from "@lib/dependency-injection";
+
+import { GameState } from "@rpg-village/core/extend";
 
 @injectable()
 export class GameStore {

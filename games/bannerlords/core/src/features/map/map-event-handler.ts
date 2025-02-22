@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { forEach } from "remeda";
 
+import { inject, injectable } from "@rpg-village/core";
 import { GameEvent, eventHandler } from "@rpg-village/core";
 
 import { Point } from "./interface";
@@ -9,15 +9,14 @@ import { MapStore } from "./map-store";
 
 @injectable()
 export class MapEventHandler {
-  constructor(private mapMoveDirectionStore: MapMoveDirectionStore, private mapStore: MapStore) {}
+  private mapMoveDirectionStore = inject(MapMoveDirectionStore);
+  private mapStore = inject(MapStore);
 
   @eventHandler(GameEvent.Turn)
   moveEntities() {
     const entities = Object.entries(this.mapMoveDirectionStore.getState());
 
-    forEach(entities, ([entityId, direction]) =>
-      this.mapStore.set(entityId, point => movePointByAngle(point!, direction, 1)),
-    );
+    forEach(entities, ([entityId, direction]) => this.mapStore.set(entityId, point => movePointByAngle(point!, direction, 1)));
   }
 }
 

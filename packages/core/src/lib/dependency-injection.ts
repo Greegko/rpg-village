@@ -1,8 +1,8 @@
-import { createContainer } from "./dependency-injection-container";
+import { createDependencyInjectionContainer } from "@rpg-village/utils";
 
-export type { InjectableToken, Type } from "./dependency-injection-container";
+export type { InjectableToken, Type } from "@rpg-village/utils";
 
-const globalContainer = createContainer();
+const globalContainer = createDependencyInjectionContainer();
 
 export const inject = globalContainer.inject;
 export const createInjectableToken = globalContainer.createInjectableToken;

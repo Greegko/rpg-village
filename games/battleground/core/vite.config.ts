@@ -11,14 +11,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ["pixi-filters", "pixi.js", "gsap", /^@rpg-village/],
-      output: {
-        globals: {
-          "pixi-filters": "pixi-filters",
-          "pixi.js": "pixi.js",
-          gsap: "gsap",
-          "@rpg-village/utils": "@rpg-village/utils",
-        },
-      },
     },
+    minify: false,
   },
 });

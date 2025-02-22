@@ -9,7 +9,7 @@ import {
   VillageID,
 } from "../interface";
 
-declare module "@rpg-village/core" {
+declare module "@rpg-village/core/extend" {
   interface CommandType {
     [VillageCommand.SpawnVillager]: VillageCommandSpawnVillagerArgs;
     [VillageCommand.DisbandVillager]: VillageCommandDisbandVillagerArgs;

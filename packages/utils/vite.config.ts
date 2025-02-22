@@ -10,9 +10,6 @@ export default defineConfig({
       entry: resolve(__dirname, "src/index.ts"),
       name: "core",
     },
-    rollupOptions: {
-      external: /@rpg-village/,
-    },
     minify: false,
   },
 });

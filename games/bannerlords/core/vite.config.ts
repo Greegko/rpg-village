@@ -11,7 +11,7 @@ export default defineConfig({
       name: "core",
     },
     rollupOptions: {
-      external: /@rpg-village/,
+      external: /^@rpg-village/,
     },
     minify: false,
   },
