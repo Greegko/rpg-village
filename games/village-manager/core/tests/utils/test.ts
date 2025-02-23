@@ -2,7 +2,7 @@ import * as util from "node:util";
 import { argv } from "process";
 import { expect, it } from "vitest";
 
-import { Command, Event, GameConfig, GameState } from "@rpg-village/core";
+import { Command, Event, GameState } from "@rpg-village/core";
 
 import { gameFactory } from "./game-factory";
 import { PartialDeep } from "./partial-deep";
@@ -15,7 +15,6 @@ type ExpectedState = TestGameState | ExpectedStateMatcher;
 
 type Test = {
   initState: TestGameState;
-  gameConfig?: GameConfig["config"];
   commands?: Command | Command[];
   event?: Event;
   turn?: boolean | number;
@@ -24,11 +23,11 @@ type Test = {
 
 const project_dir = argv[1].replace(/node_modules.*/, "");
 
-export function test(testName: string, { gameConfig, initState, commands, event, expectedState, turn = 0 }: Test) {
+export function test(testName: string, { initState, commands, event, expectedState, turn = 0 }: Test) {
   const testFilePath = new Error().stack!.split("\n")[2].replace("at <anonymous> (", "").slice(0, -1).replace(project_dir, "");
 
   it(testName + " - " + testFilePath, () => {
-    const game = gameFactory({ state: initState, config: gameConfig } as any);
+    const game = gameFactory({ state: initState } as any);
 
     if (commands) {
       if (Array.isArray(commands)) {

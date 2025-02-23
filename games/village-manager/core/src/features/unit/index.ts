@@ -3,4 +3,4 @@ export * from "./lib";
 export * from "./interfaces";
 export * from "./unit-service";
 export * from "./types";
-export * from "./unit-module";
+export * from "./unit-command-handler";

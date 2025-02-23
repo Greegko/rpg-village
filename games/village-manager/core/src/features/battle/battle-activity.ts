@@ -1,12 +1,12 @@
-import { inject, injectable } from "@rpg-village/core";
+import { inject } from "@rpg-village/core";
 import { EventSystem } from "@rpg-village/core";
 
-import { Activity, ActivityHandler } from "@rpg-village/features/activity";
+import { Activity, ActivityHandler, injectableActivity } from "@rpg-village/features/activity";
 
 import { PartyID, PartyService } from "@features/party";
 
 import { BattleService } from "./battle-service";
-import { BattleEvent, BattleID } from "./interfaces";
+import { BattleActivityType as BattleActivityTypeName, BattleEvent, BattleID } from "./interfaces";
 
 type BattleState = { battleId: BattleID };
 
@@ -14,7 +14,7 @@ export type BattleActivityStartArgs = { targetId: PartyID; involvedTargetId: Par
 
 type BattleActivityType = Activity<BattleState, PartyID, PartyID, BattleActivityStartArgs>;
 
-@injectable()
+@injectableActivity(BattleActivityTypeName.Battle)
 export class BattleActivity implements ActivityHandler<BattleActivityType> {
   private partyService = inject(PartyService);
   private battleService = inject(BattleService);

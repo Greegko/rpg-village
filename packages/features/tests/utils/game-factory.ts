@@ -1,16 +1,11 @@
-import { GameConfig, GameState, Module, createGameInstance } from "@rpg-village/core";
-
-import { activityModule } from "../../src";
+import { GameState, createGameInstance } from "@rpg-village/core";
 
 interface GameFactory {
   state?: Partial<GameState>;
-  config: Partial<GameConfig>;
 }
 
-export const GameModules: Module[] = [activityModule];
-
-export function gameFactory({ state, config }: GameFactory) {
-  const game = createGameInstance({ config: config?.config, modules: config.modules });
+export function gameFactory({ state }: GameFactory) {
+  const game = createGameInstance();
 
   if (state) {
     game.loadGame(state as GameState);

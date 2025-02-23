@@ -1,1 +1,1 @@
-export * from "./create-game-instance";
+export * from "./game-command-handler";

@@ -1,3 +1,5 @@
+import { Type } from "@rpg-village/core";
+
 import { AnyActivity } from "./activity";
 
 export interface ActivityHandler<T extends AnyActivity> {
@@ -12,3 +14,5 @@ export interface ActivityHandlerCancelable<T extends AnyActivity> extends Activi
   isCancelable(activity: T): boolean;
   onCancel(activity: T): void;
 }
+
+export type ActivityHandlerClass = Type<ActivityHandler<AnyActivity> | ActivityHandlerCancelable<AnyActivity>>;

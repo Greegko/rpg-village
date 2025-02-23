@@ -1,7 +1,6 @@
-import { ObjectStore } from "@core";
-import { injectable } from "@lib/dependency-injection";
+import { ObjectStore, injectableStore } from "@core";
 
 import { GeneralGameStoreState } from "./interfaces";
 
-@injectable()
+@injectableStore("general", { turn: 0 })
 export class GeneralGameStore extends ObjectStore<GeneralGameStoreState> {}

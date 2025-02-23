@@ -1,9 +1,11 @@
 import { isArray } from "remeda";
 
-export type Type = abstract new (...args: any) => any;
+export type Type<T = any> = abstract new (...args: any) => T;
 export type InjectableToken<T> = string & { __type: T };
 
-export type InjectableTokenValue<T> = T extends InjectableToken<infer R> ? R : never;
+export type Resolve<T> = T extends Type ? InstanceType<T> : T;
+export type ResolveInjectableToken<T extends InjectableToken<any>> = Resolve<T["__type"]>;
+
 export type InjectableTokenValueSetter<T> = T extends InjectableToken<infer R> ? R | (() => R) : never;
 
 function tryCreateInstance(reg: any) {
@@ -22,9 +24,9 @@ export const createDependencyInjectionContainer = () => {
 
   function inject<T extends Type>(target: T, options: { multi: true }): InstanceType<T>[];
   function inject<T extends Type>(target: T, options?: { name?: string }): InstanceType<T>;
-  function inject<T extends InjectableToken<any>>(target: T, options: { multi: true }): InjectableTokenValue<T>[];
-  function inject<T extends InjectableToken<any>>(target: T, options?: { name?: string }): InjectableTokenValue<T>;
-  function inject<T extends Type>(target: T, options?: { multi?: boolean; name?: string }): InstanceType<T> {
+  function inject<T extends InjectableToken<any>>(target: T, options: { multi: true }): ResolveInjectableToken<T>[];
+  function inject<T extends InjectableToken<any>>(target: T, options?: { name?: string }): ResolveInjectableToken<T>;
+  function inject<T extends Type>(target: T, options?: { multi?: boolean; name?: string }): Resolve<T> {
     if (options?.name) {
       let instances = namedInstances.get(target);
       if (!instances) {
@@ -43,12 +45,12 @@ export const createDependencyInjectionContainer = () => {
         namedRegistry.set(target, registry);
       }
 
-      const reg = registry.get(target);
+      const reg = registry.get(options.name);
 
       if (reg) {
         const val = isArray(reg) ? reg.map(tryCreateInstance) : tryCreateInstance(reg);
 
-        instances.set(options?.name, val);
+        instances.set(options.name, val);
         return val;
       }
 
@@ -83,10 +85,18 @@ export const createDependencyInjectionContainer = () => {
       if (options?.name) {
         if (!namedRegistry.has(target)) namedRegistry.set(target, new Map());
 
+        if (namedRegistry.get(target).has(options.name)) {
+          throw Error(`'${target}' token has been already registered with '${options.name}' name`);
+        }
+
         namedRegistry.get(target).set(options.name, value);
       } else if (options?.multi) {
         registry.set(target, [...(registry.get(target) || []), value]);
       } else {
+        if (registry.has(target)) {
+          throw Error(`'${target}' token has been already registered`);
+        }
+
         registry.set(target, value);
       }
     } else {
@@ -95,8 +105,16 @@ export const createDependencyInjectionContainer = () => {
       } else if (options?.name) {
         if (!namedInstances.has(target)) namedInstances.set(target, new Map());
 
+        if (namedInstances.get(target).has(options.name)) {
+          throw Error(`'${target}' token has been already registered with '${options.name}' name`);
+        }
+
         namedInstances.get(target).set(options.name, value);
       } else {
+        if (instances.has(target)) {
+          throw Error(`'${target}' token has been already registered`);
+        }
+
         instances.set(target, value);
       }
     }

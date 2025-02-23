@@ -1,6 +1,4 @@
-import { createGameInstance } from "@/game";
-
-import { GameState } from "@rpg-village/core";
+import { GameState, createGameInstance } from "../../src";
 
 interface GameFactory {
   state: Partial<GameState>;

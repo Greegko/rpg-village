@@ -6,7 +6,6 @@ import {
   ActivityFinishedActivityArgs,
   ActivityID,
   AnyActivity,
-  ModulActivity,
 } from "../interfaces";
 
 declare module "@rpg-village/core/extend" {
@@ -17,10 +16,6 @@ declare module "@rpg-village/core/extend" {
   interface EventType {
     [ActivityEvent.ActivityFinished]: ActivityFinishedActivityArgs;
     [ActivityEvent.ActivityCancelled]: ActivityCancelledActivityArgs;
-  }
-
-  interface Module {
-    activities?: ModulActivity[];
   }
 
   interface GameState {

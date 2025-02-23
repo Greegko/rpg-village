@@ -1,11 +1,11 @@
 import { dec, evolve } from "rambda";
 
-import { inject, injectable } from "@rpg-village/core";
+import { inject } from "@rpg-village/core";
 import { EventSystem } from "@rpg-village/core";
 
-import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
+import { Activity, ActivityHandlerCancelable, injectableActivity } from "@rpg-village/features/activity";
 
-import { Building, BuildingActivityTargetID, BuildingEvent } from "../interface";
+import { Building, BuildingActivityTargetID, BuildingActivityType, BuildingEvent } from "../interface";
 
 interface BuildState {
   progress: number;
@@ -19,7 +19,7 @@ export interface BuildStartArgs {
 
 type BuildingActivityBuildType = Activity<BuildState, BuildingActivityTargetID, null, BuildStartArgs>;
 
-@injectable()
+@injectableActivity(BuildingActivityType.Build)
 export class BuildingActivityBuild implements ActivityHandlerCancelable<BuildingActivityBuildType> {
   private eventSystem = inject(EventSystem);
 

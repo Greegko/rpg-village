@@ -15,8 +15,7 @@
     "experimentalDecorators": true,
     "inlineSourceMap": true,
     "paths": {
-      "@features/*": ["./features/*"],
-      "@lib/*": ["./lib/*"]
+      "@features/*": ["./src/features/*"]
     }
   }
 }

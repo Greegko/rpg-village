@@ -14,5 +14,5 @@ export { type Party } from "@features/party";
 export { MapCommand } from "@features/map";
 
 export type { GameState, Command } from "@rpg-village/core";
-
+export { createGameInstance } from "@rpg-village/core";
 export * from "./game";

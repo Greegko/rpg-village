@@ -13,7 +13,6 @@ export class GameController {
   private eventSystem = inject(EventSystem);
 
   constructor() {
-    this.commandSystem.hookCommandHandlers();
     this.eventSystem.hookEventHandlers();
   }
 

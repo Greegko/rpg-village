@@ -1,13 +1,13 @@
 import { filter, forEach, map } from "rambda";
 
-import { inject, injectable } from "@rpg-village/core";
+import { inject } from "@rpg-village/core";
 
-import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
+import { Activity, ActivityHandlerCancelable, injectableActivity } from "@rpg-village/features/activity";
 
 import { PartyID, PartyStore } from "@features/party";
 import { UnitID, UnitService, UnitStore } from "@features/unit";
 
-import { VillageID } from "../interfaces";
+import { VillageActivity, VillageID } from "../interfaces";
 
 type VillageHealState = {};
 
@@ -20,7 +20,7 @@ type RecoverableUnit = { id: UnitID; hp: number; maxhp: number };
 
 type VillageHealActivityType = Activity<{}, VillageID, PartyID, VillageActivityHealStartArgs>;
 
-@injectable()
+@injectableActivity(VillageActivity.Heal)
 export class VillageActivityHeal implements ActivityHandlerCancelable<VillageHealActivityType> {
   private unitStore = inject(UnitStore);
   private unitService = inject(UnitService);

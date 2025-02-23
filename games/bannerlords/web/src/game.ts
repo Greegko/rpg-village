@@ -20,8 +20,6 @@ const turnHandler = () => {
 };
 const run = () => gameSpeed() > 0;
 
-console.log(gameState());
-
 const fastForward = (turns: number) => times(turns, turnHandler);
 
 createComputed(() => {

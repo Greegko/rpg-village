@@ -1,6 +1,9 @@
-import { MapCommand } from "@/features/map";
-import { createState, test } from "@test/utils";
 import { head, without } from "rambda";
+import { expect } from "vitest";
+
+import { MapCommand } from "@/features/map";
+
+import { createState, test } from "@test/utils";
 
 test("should split a party into two group", {
   initState: createState(({ party, location }) => [
@@ -10,8 +13,8 @@ test("should split a party into two group", {
   commands: [{ command: MapCommand.SplitParty, args: { partyId: "party-id", unitIds: ["b"] } }],
   expectedState: state => {
     const partyIds = state.mapLocations["location-id"].partyIds;
-    x.true(partyIds.includes("party-id"));
-    x.length(partyIds, 2);
+    expect(partyIds.includes("party-id")).toBeTruthy();
+    expect(partyIds).objectHaveKeys(2);
   },
 });
 
@@ -24,7 +27,7 @@ test("should move the selected unit ids to a new group", {
   expectedState: state => {
     const newPartyId = head(without(["party-id"], state.mapLocations["location-id"].partyIds));
 
-    x.false(state.parties["party-id"].unitIds.includes("b"));
-    x.true(state.parties[newPartyId].unitIds.includes("b"));
+    expect(state.parties["party-id"].unitIds.includes("b")).toBeFalsy();
+    expect(state.parties[newPartyId].unitIds.includes("b")).toBeTruthy();
   },
 });

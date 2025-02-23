@@ -20,4 +20,4 @@ export { PortalCommand } from "@features/buildings/portal";
 export { type Party, PartyOwner, type PartyID } from "@features/party";
 export { UnitCommand, type UnitID, isHero, nextLevelXp, getItemEffects, calculateUnitStatsWithEffects } from "@features/unit";
 
-export * from "./game";
+export { createGameInstance } from "@rpg-village/core";

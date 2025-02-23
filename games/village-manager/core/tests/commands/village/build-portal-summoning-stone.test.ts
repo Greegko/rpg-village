@@ -1,4 +1,7 @@
+import { expect } from "vitest";
+
 import { VillageActivity, VillageBuildingCommand } from "@/features/village";
+
 import { createState, test } from "@test/utils";
 
 test("should start a building activity with portals", {

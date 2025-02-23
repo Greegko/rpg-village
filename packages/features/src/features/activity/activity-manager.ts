@@ -3,7 +3,8 @@ import { assoc, forEach, values } from "rambda";
 import { EventSystem, commandHandler, inject, injectable } from "@rpg-village/core";
 
 import { ActivityStore } from "./activity-store";
-import { ActivityCancelCommandArgs, ActivityCommand, ActivityEvent, ActivityHandlersToken, ActivityType, AnyActivity } from "./interfaces";
+import { ActivityHandlersToken } from "./injectable-activity";
+import { ActivityCancelCommandArgs, ActivityCommand, ActivityEvent, ActivityType, AnyActivity } from "./interfaces";
 
 @injectable()
 export class ActivityManager {

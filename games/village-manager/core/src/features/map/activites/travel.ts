@@ -1,13 +1,13 @@
 import { dec, evolve } from "rambda";
 
-import { inject, injectable } from "@rpg-village/core";
+import { inject } from "@rpg-village/core";
 import { EventSystem } from "@rpg-village/core";
 
-import { Activity, ActivityHandlerCancelable } from "@rpg-village/features/activity";
+import { Activity, ActivityHandlerCancelable, injectableActivity } from "@rpg-village/features/activity";
 
 import { PartyID } from "@features/party";
 
-import { MapEvent, MapLocationID, MapLocationType } from "../interfaces";
+import { MapActivity, MapEvent, MapLocationID, MapLocationType } from "../interfaces";
 import { MapLocationStore } from "../map-location-store";
 import { MapService } from "../map-service";
 import { PartyMapService } from "../party-map-service";
@@ -22,7 +22,7 @@ export type MapActivityTravelStartArgs = {
   targetLocationId: MapLocationID;
 };
 
-@injectable()
+@injectableActivity(MapActivity.Travel)
 export class MapTravelActivity implements ActivityHandlerCancelable<Activity<TravelState, PartyID, null, MapActivityTravelStartArgs>> {
   private mapService = inject(MapService);
   private partyMapService = inject(PartyMapService);

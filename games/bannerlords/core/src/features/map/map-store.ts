@@ -1,7 +1,7 @@
-import { injectable } from "@rpg-village/core";
+import { injectableStore } from "@rpg-village/core";
 import { KeyValueStore } from "@rpg-village/core";
 
 import { EntityID, Point } from "./interface";
 
-@injectable()
+@injectableStore("map", {})
 export class MapStore extends KeyValueStore<EntityID, Point> {}

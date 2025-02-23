@@ -1,7 +1,7 @@
-import { injectable } from "@rpg-village/core";
+import { injectableStore } from "@rpg-village/core";
 import { EntityStore } from "@rpg-village/core";
 
 import { OptionID, OptionState } from "./interfaces";
 
-@injectable()
+@injectableStore("options", {})
 export class OptionStore extends EntityStore<OptionID, OptionState> {}

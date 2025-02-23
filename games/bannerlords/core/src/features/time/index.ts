@@ -1,3 +1,3 @@
 export * from "./interface";
+export * from "./time-event-handler";
 export type * from "./types";
-export * from "./time-module";

@@ -1,5 +1,8 @@
+import { expect } from "vitest";
+
 import { EffectType, MiscEffectType } from "@/features/effect";
 import { MapEvent } from "@/features/map";
+
 import { createState, test } from "@test/utils";
 
 test("should apply map difficulty to new enemies", {

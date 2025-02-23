@@ -1,25 +1,20 @@
-import { inject, injectable } from "@lib/dependency-injection";
+import { Type, inject, injectable } from "@lib/dependency-injection";
 
 import { CommandType } from "@rpg-village/core/extend";
 
-interface CommandHandlerDecoratorSubscription {
-  command: any;
-  targetClass: any;
+export interface CommandHandler {
+  commandType: keyof CommandType;
+  targetInstance: InstanceType<Type>;
   handlerFunctionName: string;
 }
 
 @injectable()
 export class CommandSystem {
-  static commandHandlerDecorators: CommandHandlerDecoratorSubscription[] | null = [];
-
   private subscribers: { [key: string]: Function } = {};
 
-  hookCommandHandlers() {
-    CommandSystem.commandHandlerDecorators!.forEach(handler => {
-      const instance = inject(handler.targetClass.constructor) as any;
-
-      // @ts-ignore
-      this.on(handler.command, (args: any) => instance[handler.handlerFunctionName](args));
+  registerCommand(commandHandler: CommandHandler): void {
+    this.on(commandHandler.commandType, (args: any) => {
+      inject(commandHandler.targetInstance.constructor)[commandHandler.handlerFunctionName](args);
     });
   }
 

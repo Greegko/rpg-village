@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createDependencyInjectionContainer } from "./dependency-injection-container";
+import { Type, createDependencyInjectionContainer } from "./dependency-injection-container";
 
 describe("Dependency Injection", () => {
   it("should make classes injectable", () => {
@@ -137,5 +137,44 @@ describe("Dependency Injection", () => {
     container.makeInjectable(token, 3, { name: "third" });
 
     expect(container.inject(token, { name: "second" })).toEqual(2);
+  });
+
+  it("should allow to name instances", () => {
+    const container = createDependencyInjectionContainer();
+
+    const token = container.createInjectableToken<Type<{ val: number }>>("classes");
+
+    class A {
+      val = 1;
+    }
+    class B {
+      val = 2;
+    }
+    class C {
+      val = 3;
+    }
+
+    container.makeInjectable(token, A, { name: "first" });
+    container.makeInjectable(token, B, { name: "second" });
+    container.makeInjectable(token, C, { name: "third" });
+
+    expect(container.inject(token, { name: "second" }).val).toEqual(2);
+  });
+
+  it("should class be resolved to instance", () => {
+    const container = createDependencyInjectionContainer();
+
+    class A {
+      val = 5;
+    }
+    interface AA {
+      val: number;
+    }
+
+    const token = container.createInjectableToken<Type<AA>>("A Token");
+
+    container.makeInjectable(token, A);
+
+    expect(container.inject(token).val).toEqual(5);
   });
 });

@@ -1,13 +1,14 @@
 import { dec, evolve, forEach } from "rambda";
 
-import { inject, injectable } from "@rpg-village/core";
+import { inject } from "@rpg-village/core";
 
-import { Activity, ActivityHandler } from "@rpg-village/features/activity";
+import { Activity, ActivityHandler, injectableActivity } from "@rpg-village/features/activity";
 
 import { PartyID, PartyStore } from "@features/party";
 import { UnitService } from "@features/unit";
 
 import { VillageID } from "../../../interfaces";
+import { TrainingFieldActivity } from "../interface";
 
 type TrainingFieldState = {
   progress: number;
@@ -17,7 +18,7 @@ export type TrainingFieldActivityStartArgs = { targetId: VillageID; involvedTarg
 
 type TrainingActivityType = Activity<TrainingFieldState, VillageID, PartyID, TrainingFieldActivityStartArgs>;
 
-@injectable()
+@injectableActivity(TrainingFieldActivity.Train)
 export class TrainingFieldTrainActivity implements ActivityHandler<TrainingActivityType> {
   private unitService = inject(UnitService);
   private partyStore = inject(PartyStore);
