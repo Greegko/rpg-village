@@ -1,6 +1,6 @@
-import { createDependencyInjectionContainer } from "@rpg-village/utils";
+import { createDependencyInjectionContainer } from "@greegko/tiny-di";
 
-export type { InjectableToken, Type } from "@rpg-village/utils";
+export type { InjectableToken, Type } from "@greegko/tiny-di";
 
 const globalContainer = createDependencyInjectionContainer();
 

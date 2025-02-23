@@ -17,6 +17,9 @@
     "build:types": "tsc --emitDeclarationOnly --outDir ./dist/types",
     "test": "vitest run"
   },
+  "dependencies": {
+    "@greegko/tiny-di": "0.0.1"
+  },
   "peerDependencies": {
     "@rpg-village/utils": "workspace: *",
     "remeda": "2.20.2",

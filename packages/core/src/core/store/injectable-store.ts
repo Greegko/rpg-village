@@ -1,4 +1,4 @@
-import { Type } from "@rpg-village/utils";
+import { Type } from "@greegko/tiny-di";
 
 import { createInjectableToken, inject, makeInjectable } from "@lib/dependency-injection";
 

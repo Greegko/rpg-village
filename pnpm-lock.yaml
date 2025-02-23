@@ -294,6 +294,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@greegko/tiny-di':
+        specifier: 0.0.1
+        version: 0.0.1
       '@rpg-village/utils':
         specifier: 'workspace: *'
         version: link:../utils
@@ -813,6 +816,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@greegko/tiny-di@0.0.1':
+    resolution: {integrity: sha512-iUZp5ktSPXsJX5nyKgYdxeaXVuUJNq+K+vELWC+a+/Y3F8KxOepWbTB0YZu55kC0xI/ao45qnfiL1/+I/79spg==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2530,6 +2536,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.0':
     optional: true
+
+  '@greegko/tiny-di@0.0.1': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
