@@ -20,7 +20,7 @@ test("should finish correctly", {
         battleId: battle({
           partyId: party({
             id: "random-id",
-            unitIds: [unit({ dmg: 100, hp: 100 })],
+            unitIds: [unit({ dmg: 100, hp: 100, armor: 0 })],
           }),
           defenderPartyId: party({
             unitIds: [unit({ dmg: 1, hp: 1, armor: 0 })],
@@ -47,6 +47,7 @@ test("should gain xp for winner heroes", {
                 xp: 0,
                 dmg: 100,
                 hp: 100,
+                armor: 0,
                 level: 1,
                 type: UnitType.Hero,
               }),
@@ -71,7 +72,7 @@ test("should gain gold", {
         battleId: battle({
           partyId: party({
             id: "party-id",
-            unitIds: [unit({ dmg: 100, hp: 100 })],
+            unitIds: [unit({ dmg: 100, hp: 100, armor: 0 })],
             stash: { resource: { gold: 0 } },
           }),
           defenderPartyId: party({
@@ -93,7 +94,7 @@ test("should gain soul", {
         battleId: battle({
           partyId: party({
             id: "party-id",
-            unitIds: [unit({ dmg: 100, hp: 100 })],
+            unitIds: [unit({ dmg: 100, hp: 100, armor: 0 })],
             stash: { resource: { soul: 5 } },
           }),
           defenderPartyId: party({
@@ -121,6 +122,7 @@ test("should apply item dmg effect", {
               unit({
                 dmg: 10,
                 hp: 100,
+                armor: 0,
                 equipment: {
                   rightHand: equipmentFactory({
                     itemType: ItemType.Weapon,
@@ -156,6 +158,7 @@ test("should apply percentage item dmg effect", {
               unit({
                 dmg: 10,
                 hp: 100,
+                armor: 0,
                 equipment: {
                   rightHand: equipmentFactory({
                     itemType: ItemType.Weapon,
@@ -188,6 +191,8 @@ test("should apply dynamic item effects", {
               unit({
                 dmg: 10,
                 hp: 100,
+                armor: 0,
+                maxhp: 100,
                 equipment: {
                   rune: runeFactory({
                     power: 100,
@@ -199,7 +204,7 @@ test("should apply dynamic item effects", {
             ],
           }),
           defenderPartyId: party({
-            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 200, armor: 0, maxhp: 200 })],
+            unitIds: [unit({ id: "defender-unit", dmg: 1, hp: 200, maxhp: 200, armor: 0 })],
           }),
         }),
       },
