@@ -1,3 +1,5 @@
+import { clearInstances } from "@rpg-village/core";
+
 import { GameState, createGameInstance } from "../../src";
 
 interface GameFactory {
@@ -5,6 +7,7 @@ interface GameFactory {
 }
 
 export function gameFactory({ state }: GameFactory) {
+  clearInstances();
   const game = createGameInstance();
 
   if (state) {

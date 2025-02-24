@@ -1,7 +1,7 @@
 import "vitest";
 
 interface CustomMatchers<R = unknown> {
-  objectHaveKeys: (length: number) => R;
+  objectHaveElements: (length: number) => R;
   withRandomId: (partialState: object) => R;
 }
 

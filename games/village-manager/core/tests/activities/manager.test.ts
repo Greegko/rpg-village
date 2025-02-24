@@ -53,5 +53,5 @@ test("should remove old activity on finish", {
     }),
   ]),
   turn: true,
-  expectedState: state => expect(state.activities.testActivityId).toBeFalsy(),
+  expectedState: state => expect(state.activities.testActivityId).toBeUndefined(),
 });

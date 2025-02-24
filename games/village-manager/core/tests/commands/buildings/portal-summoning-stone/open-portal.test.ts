@@ -22,7 +22,7 @@ test("should create portal", {
       args: { villageId: "villageId", dungeonKeyId: "dungeon-key" },
     },
   ],
-  expectedState: state => expect(state.maps).objectHaveKeys(2),
+  expectedState: state => expect(state.maps).objectHaveElements(2),
 });
 
 test("should apply effects to the portal", {

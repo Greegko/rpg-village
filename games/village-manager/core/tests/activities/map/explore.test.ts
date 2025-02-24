@@ -1,7 +1,9 @@
-import { MapActivity, MapLocationType } from "@/features/map";
-import { createState, test } from "@test/utils";
 import { values } from "rambda";
 import { expect } from "vitest";
+
+import { MapActivity, MapLocationType } from "@/features/map";
+
+import { createState, test } from "@test/utils";
 
 test("should change explore status on tile", {
   initState: createState(({ location, party, activity, map }) => [
@@ -26,7 +28,7 @@ test("should add new locations around explored tile", {
     }),
   ]),
   turn: true,
-  expectedState: state => expect(state.mapLocations).objectHaveKeys(7),
+  expectedState: state => expect(state.mapLocations).objectHaveElements(7),
 });
 
 test("should add enemy units on new map tile", {
@@ -39,7 +41,7 @@ test("should add enemy units on new map tile", {
     }),
   ]),
   turn: true,
-  expectedState: state => expect(state.units).objectHaveKeys(6),
+  expectedState: state => expect(state.units).objectHaveElements(6),
 });
 
 test("should spawn empty tiles after boss tiles", {
@@ -55,9 +57,9 @@ test("should spawn empty tiles after boss tiles", {
   ]),
   turn: true,
   expectedState: [
-    state => expect(state.mapLocations).objectHaveKeys(7),
-    state => expect(values(state.mapLocations).filter(x => x.type === MapLocationType.Boss)).objectHaveKeys(1),
-    state => expect(values(state.mapLocations).filter(x => x.type === MapLocationType.Empty)).objectHaveKeys(6),
+    state => expect(state.mapLocations).objectHaveElements(7),
+    state => expect(values(state.mapLocations).filter(x => x.type === MapLocationType.Boss)).toHaveLength(1),
+    state => expect(values(state.mapLocations).filter(x => x.type === MapLocationType.Empty)).toHaveLength(6),
   ],
 });
 
@@ -73,5 +75,5 @@ test("should not add enemies on empty tiles", {
     }),
   ]),
   turn: true,
-  expectedState: state => expect(state.units).objectHaveKeys(0),
+  expectedState: state => expect(state.units).objectHaveElements(0),
 });

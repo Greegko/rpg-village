@@ -14,7 +14,7 @@ test("should split a party into two group", {
   expectedState: state => {
     const partyIds = state.mapLocations["location-id"].partyIds;
     expect(partyIds.includes("party-id")).toBeTruthy();
-    expect(partyIds).objectHaveKeys(2);
+    expect(partyIds).objectHaveElements(2);
   },
 });
 

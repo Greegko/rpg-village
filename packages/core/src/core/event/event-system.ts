@@ -4,36 +4,33 @@ import { inject, injectable } from "@lib/dependency-injection";
 
 import { EventType } from "@rpg-village/core/extend";
 
-interface EventHandlerDecoratorSubscription {
-  event: any;
-  targetClass: any;
-  handlerFunctionName: string;
-}
+import { eventHandlersToken } from "./event-handlers-token";
 
 @injectable()
 export class EventSystem {
-  static eventHandlerDecorators: EventHandlerDecoratorSubscription[] | null = [];
-
   private subscribers: Partial<Record<keyof EventType, Function[]>> = {};
 
-  hookEventHandlers() {
-    EventSystem.eventHandlerDecorators!.forEach(handler => {
-      const instance = inject(handler.targetClass.constructor) as any;
+  constructor() {
+    const eventHandlers = (() => {
+      try {
+        return inject(eventHandlersToken, { multi: true });
+      } catch {
+        return [];
+      }
+    })();
 
-      // @ts-ignore
-      this.on(handler.event, (args: any) => instance[handler.handlerFunctionName](args));
-    });
+    eventHandlers.forEach(handler =>
+      this.on(handler.eventType, (args: any) => inject(handler.targetInstance.constructor)[handler.handlerFunctionName](args)),
+    );
   }
 
   on<T extends keyof EventType>(eventType: T, eventHandlerFunction: (args?: EventType[T]) => void): void {
-    // @ts-ignore
     if (!this.subscribers[eventType]) this.subscribers[eventType] = [];
 
     this.subscribers[eventType]!.push(eventHandlerFunction);
   }
 
   fire<T extends keyof EventType>(eventType: T, args?: EventType[T]): void {
-    // @ts-ignore
     forEach(callback => callback(args), this.subscribers[eventType] || []);
   }
 }

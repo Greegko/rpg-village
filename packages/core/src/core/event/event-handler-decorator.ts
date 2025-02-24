@@ -1,13 +1,19 @@
+import { Type, makeInjectable } from "@lib/dependency-injection";
+
 import { EventType } from "@rpg-village/core/extend";
 
-import { EventSystem } from "./event-system";
+import { eventHandlersToken } from "./event-handlers-token";
 
 export function eventHandler(eventType: keyof EventType) {
-  return (targetClass: any, handlerFunctionName: string) => {
-    EventSystem.eventHandlerDecorators!.push({
-      event: eventType,
-      targetClass,
-      handlerFunctionName,
-    });
+  return (targetInstance: InstanceType<Type>, handlerFunctionName: string) => {
+    makeInjectable(
+      eventHandlersToken,
+      {
+        eventType,
+        targetInstance,
+        handlerFunctionName,
+      },
+      { multi: true },
+    );
   };
 }

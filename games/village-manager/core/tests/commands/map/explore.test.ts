@@ -48,7 +48,7 @@ test("should explore neighbour tiles", {
     }),
   ]),
   turn: true,
-  expectedState: state => expect(state.mapLocations).objectHaveKeys(7),
+  expectedState: state => expect(state.mapLocations).objectHaveElements(7),
 });
 
 test("should only explore tiles in the same map", {
@@ -69,7 +69,7 @@ test("should only explore tiles in the same map", {
   ]),
   turn: true,
   expectedState: state => {
-    expect(state.maps["map-world"].mapLocationIds).objectHaveKeys(7);
-    expect(state.maps["map-not-world"].mapLocationIds).objectHaveKeys(1);
+    expect(state.maps["map-world"].mapLocationIds).toHaveLength(7);
+    expect(state.maps["map-not-world"].mapLocationIds).toHaveLength(1);
   },
 });

@@ -12,10 +12,6 @@ export class GameController {
   private commandSystem = inject(CommandSystem);
   private eventSystem = inject(EventSystem);
 
-  constructor() {
-    this.eventSystem.hookEventHandlers();
-  }
-
   gameTurn() {
     this.commandSystem.execute(GameCommand.TurnCommand);
     return this.gameStore.getState();

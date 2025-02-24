@@ -1,12 +1,14 @@
 import { expect } from "vitest";
 
 expect.extend({
-  objectHaveKeys(received: object, expected: number) {
+  objectHaveElements(received: object, expected: number) {
     const { isNot } = this;
 
+    const objectElements = Object.keys(received).length;
+
     return {
-      pass: Object.keys(received).length === expected,
-      message: () => `${received} does${isNot ? " not" : ""} have ${expected} keys`,
+      pass: objectElements === expected,
+      message: () => `Object has${isNot ? " not" : ""} ${objectElements} elements instead of ${expected}`,
     };
   },
   withRandomId(received, expected) {
@@ -14,7 +16,7 @@ expect.extend({
 
     const keys = Object.keys(received);
 
-    expect(received).objectHaveKeys(1);
+    expect(received).objectHaveElements(1);
 
     const randomID = keys[0];
     expect(received[randomID]).toMatchObject(expected);

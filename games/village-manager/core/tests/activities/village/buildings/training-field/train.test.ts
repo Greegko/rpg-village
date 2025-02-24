@@ -1,4 +1,5 @@
 import { TrainingFieldActivity } from "@/features/village";
+
 import { createState, test } from "@test/utils";
 
 test("should get 25 xp for each turn", {

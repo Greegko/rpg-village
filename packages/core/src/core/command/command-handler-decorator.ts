@@ -1,17 +1,19 @@
-import { Type, inject } from "@lib/dependency-injection";
+import { Type, makeInjectable } from "@lib/dependency-injection";
 
 import { CommandType } from "@rpg-village/core/extend";
 
-import { CommandSystem } from "./command-system";
+import { commandHandlersToken } from "./command-handlers-token";
 
 export function commandHandler(commandType: keyof CommandType) {
   return (targetInstance: InstanceType<Type>, handlerFunctionName: string) => {
-    const commandSystem = inject(CommandSystem);
-
-    commandSystem.registerCommand({
-      commandType,
-      targetInstance,
-      handlerFunctionName,
-    });
+    makeInjectable(
+      commandHandlersToken,
+      {
+        commandType,
+        targetInstance,
+        handlerFunctionName,
+      },
+      { multi: true },
+    );
   };
 }

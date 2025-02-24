@@ -6,6 +6,7 @@ export * from "./activities";
 export * from "./village-store";
 export * from "./village-service";
 export * from "./village-command-handler";
+export * from "./village-event-handler";
 export * from "./interfaces";
 export * from "./types";
 export * from "./lib";
