@@ -1,4 +1,4 @@
-import { Action, EffectType } from "../../src";
+import { Action, EffectType } from "../../interface";
 import { dmgEffect } from "./effects";
 
 export const meleeAttackAction = ({
@@ -14,7 +14,7 @@ export const meleeAttackAction = ({
     distance,
     seekTargetCondition,
     hitEffect,
-  } as Action);
+  }) as Action;
 
 export const rangeAttackAction = ({
   cooldown = 10,
@@ -33,7 +33,7 @@ export const rangeAttackAction = ({
     hitEffect,
     projectileId,
     projectileSpeed,
-  } as Action);
+  }) as Action;
 
 export const healAction = ({
   seekTargetCondition = ["alive", "same-team", "damaged"],
@@ -48,7 +48,7 @@ export const healAction = ({
     distance,
     seekTargetCondition,
     hitEffect,
-  } as Action);
+  }) as Action;
 
 export const reviveAction = ({
   seekTargetCondition = ["dead", "same-team"],
@@ -63,4 +63,4 @@ export const reviveAction = ({
     distance,
     seekTargetCondition,
     hitEffect,
-  } as Action);
+  }) as Action;

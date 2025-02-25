@@ -1,11 +1,12 @@
 import { expect, it } from "vitest";
 
-import { BattlefieldConfig, BattlefieldInit, BattlefieldState, createBattlefieldInstance } from "../../src";
-import { clearInstances as clearBattlefieldInstances } from "../../src/battlefield/injection-container";
-import { clearInstances as clearRendererInstances } from "../../src/renderer/injection-container";
+import { BattlefieldInit, BattlefieldState } from "../../battlefield";
+import { createBattlefieldInstance } from "../../create-battlefield-instance";
+import { clearInstances as clearBattlefieldInstances } from "../../injection-container";
+import { BattlefieldConfig } from "../../interface";
+import { PartialDeep } from "../interfaces/partial-deep";
 import { createPlayableUrl } from "./create-playable-url";
 import { getMapSize } from "./get-map-size";
-import { PartialDeep } from "./partial-deep";
 import { LoggerOptions, TestLogger } from "./test-logger";
 
 type TestState = PartialDeep<BattlefieldState>;
@@ -35,7 +36,6 @@ export function test(
     } as BattlefieldConfig;
 
     clearBattlefieldInstances();
-    clearRendererInstances();
 
     const battlefield = createBattlefieldInstance(config, null!);
     battlefield.init(initialState);

@@ -1,6 +1,6 @@
 import { expect } from "vitest";
 
-import { DmgType, DotEffect, EffectType } from "../src";
+import { DmgType, DotEffect, EffectType } from "../interface";
 import {
   armorEffect,
   createDummyUnit,

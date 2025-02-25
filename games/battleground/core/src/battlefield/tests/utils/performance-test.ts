@@ -2,9 +2,10 @@ import { performance } from "node:perf_hooks";
 import { sum } from "rambda";
 import { expect, test } from "vitest";
 
-import { BattlefieldConfig, BattlefieldInit, createBattlefieldInstance } from "../../src";
-import { clearInstances as clearBattlefieldInstances } from "../../src/battlefield/injection-container";
-import { clearInstances as clearRendererInstances } from "../../src/renderer/injection-container";
+import { BattlefieldInit } from "../../battlefield";
+import { createBattlefieldInstance } from "../../create-battlefield-instance";
+import { clearInstances as clearBattlefieldInstances } from "../../injection-container";
+import { BattlefieldConfig } from "../../interface";
 import { createPlayableUrl } from "./create-playable-url";
 import { getMapSize } from "./get-map-size";
 
@@ -26,7 +27,6 @@ export function performanceTest(testName: string, { initialState, createPlayable
 
     performance.mark("create-start");
     clearBattlefieldInstances();
-    clearRendererInstances();
 
     const battlefield = createBattlefieldInstance(config, null!);
     performance.measure("create", "create-start");

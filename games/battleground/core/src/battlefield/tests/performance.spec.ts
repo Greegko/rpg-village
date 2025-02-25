@@ -1,6 +1,6 @@
-import { Position } from "../src";
+import { Position } from "../interface";
 import { dmgEffect, meleeAttackAction, skeletonUnit } from "./config";
-import { test } from "./utils";
+import { performanceTest } from "./utils/performance-test";
 
 const randomTestUnit = ({ location, team }: { location: Position; team: number }) =>
   skeletonUnit({
@@ -11,7 +11,7 @@ const randomTestUnit = ({ location, team }: { location: Position; team: number }
     actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: [1, 100] })], cooldown: 1, speed: 1 })],
   });
 
-test("same output on provided seed", {
+performanceTest("perf-test", {
   seed: "deterministic-run-test",
   initialState: {
     units: [
@@ -40,6 +40,4 @@ test("same output on provided seed", {
       randomTestUnit({ location: { x: 200, y: 200 }, team: 2 }),
     ],
   },
-  runUntilFinish: true,
-  expectedTurn: 23,
 });

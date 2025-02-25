@@ -1,4 +1,4 @@
-import { UnitInit } from "../../src";
+import { UnitInit } from "../../interface";
 import { healAction, meleeAttackAction, rangeAttackAction, reviveAction } from "./action";
 
 export const createDummyUnit = (dummyUnitArgs: Partial<UnitInit> = {}) =>
@@ -27,7 +27,7 @@ export const skeletonUnit = ({
     moveSpeed,
     effects,
     actions,
-  } as UnitInit);
+  }) as UnitInit;
 
 export const archerUnit = ({
   id = "skeleton",
@@ -52,7 +52,7 @@ export const archerUnit = ({
     moveSpeed,
     effects,
     actions,
-  } as UnitInit);
+  }) as UnitInit;
 
 export const priestUnit = ({
   location = null,
@@ -77,4 +77,4 @@ export const priestUnit = ({
     moveSpeed,
     effects,
     actions,
-  } as UnitInit);
+  }) as UnitInit;

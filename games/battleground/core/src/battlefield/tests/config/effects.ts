@@ -1,12 +1,12 @@
-import { DmgEffect, DmgType, DotEffect, EffectType } from "../../src";
+import { ArmorEffect, DmgEffect, DmgType, DotEffect, EffectType } from "../../interface";
 
-export const dmgEffect = ({ dmgType = DmgType.Physical, power = 10 }: Partial<DmgEffect> = {}) => ({
+export const dmgEffect = ({ dmgType = DmgType.Physical, power = 10 }: Partial<DmgEffect> = {}): DmgEffect => ({
   type: EffectType.Dmg,
   dmgType,
   power,
 });
 
-export const armorEffect = ({ dmgType = DmgType.Physical, power = 10 }: Partial<DmgEffect> = {}) => ({
+export const armorEffect = ({ dmgType = DmgType.Physical, power = 10 }: Partial<ArmorEffect> = {}): ArmorEffect => ({
   type: EffectType.Armor,
   dmgType,
   power,

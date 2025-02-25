@@ -22,6 +22,9 @@
     "test:watch": "vitest",
     "generate-schema": "ts-json-schema-generator --path ./src/interface/unit.ts --strict-tuples --type \"UnitConfig\" -o schemas/unit-config.schema.json"
   },
+  "dependencies": {
+    "@greegko/tiny-di": "0.0.5"
+  },
   "peerDependencies": {
     "@rpg-village/utils": "workspace: *",
     "rambda": "9.4.2"
@@ -39,8 +42,5 @@
     "vite": "6.1.1",
     "vite-plugin-dts": "4.5.0",
     "vitest": "3.0.6"
-  },
-  "dependencies": {
-    "@greegko/tiny-di": "0.0.5"
   }
 }

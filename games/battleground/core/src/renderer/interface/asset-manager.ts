@@ -1,4 +1,3 @@
-import { Type } from "@greegko/tiny-di";
 import { Texture } from "pixi.js";
 
 import { createInjectableToken } from "../injection-container";
