@@ -88,7 +88,7 @@ export class EffectsContext {
       this.dmg(targetUnit, dmgEffects);
     }
 
-    if (find(propEq(EffectType.Review, "type"), effects)) {
+    if (find(propEq(EffectType.Revive, "type"), effects)) {
       targetUnit.hp = targetUnit.maxHp;
     }
 

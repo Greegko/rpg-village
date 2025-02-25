@@ -55,7 +55,7 @@ export const reviveAction = ({
   distance = 100,
   cooldown = 500,
   speed = 50,
-  hitEffect = [{ type: EffectType.Review }],
+  hitEffect = [{ type: EffectType.Revive }],
 }: Partial<Action> = {}) =>
   ({
     cooldown,

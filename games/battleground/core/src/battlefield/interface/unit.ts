@@ -18,7 +18,7 @@ export enum DmgType {
 
 export enum EffectType {
   Aura = "aura",
-  Review = "revive",
+  Revive = "revive",
   Heal = "heal",
   Dmg = "dmg",
   SpawnUnit = "spawn-unit",
