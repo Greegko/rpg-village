@@ -1,8 +1,8 @@
-import { Random, Vector, normVector } from "../utils";
-import { Context } from "./context";
+import { Vector, normVector } from "../utils";
 import { AiController } from "./controllers/ai";
 import { EffectsContext } from "./effects";
-import { BattlefieldConfig, Position, ProjectileNode, ResourceManager, Unit, UnitID, UnitInit } from "./interface";
+import { inject, injectable } from "./injection-container";
+import { Position, ProjectileNode, Unit, UnitID, UnitInit } from "./interface";
 import { MapContext } from "./map";
 import { SpellsContext } from "./spells";
 import { UnitContext } from "./unit";
@@ -16,40 +16,31 @@ export interface BattlefieldInit {
   units: UnitInit[];
 }
 
+@injectable()
 export class Battlefield {
-  private context: Context;
+  private unitsContext = inject(UnitContext);
+  private mapContext = inject(MapContext);
+  private effectsContext = inject(EffectsContext);
+  private aiController = inject(AiController);
 
-  constructor(config: BattlefieldConfig, resourceManager: ResourceManager) {
-    this.context = {} as Context;
-
-    Object.assign(this.context, {
-      config,
-      aiController: new AiController(this.context),
-      unit: new UnitContext(this.context),
-      map: new MapContext(this.context),
-      effect: new EffectsContext(this.context),
-      spells: new SpellsContext(this.context),
-      resourceManager,
-      random: new Random(config.seed),
-    } as Context);
-  }
+  readonly spellsContext = inject(SpellsContext);
 
   init(init: BattlefieldInit) {
-    init.units.forEach(unit => this.context.unit.addUnit(unit));
+    init.units.forEach(unit => this.unitsContext.addUnit(unit));
   }
 
   setUserControlledUnit(unitId: UnitID) {
-    const unit = this.context.unit.getUnitById(unitId);
+    const unit = this.unitsContext.getUnitById(unitId);
     unit.userControlled = true;
   }
 
   setUnitDirection(unitId: UnitID, direction: Vector) {
-    const unit = this.context.unit.getUnitById(unitId);
+    const unit = this.unitsContext.getUnitById(unitId);
     unit.moveDirection = normVector(direction);
   }
 
   setUnitShootAction(unitId: UnitID, targetPosition: Position) {
-    const unit = this.context.unit.getUnitById(unitId);
+    const unit = this.unitsContext.getUnitById(unitId);
 
     const action = unit.actions[0];
 
@@ -57,28 +48,24 @@ export class Battlefield {
   }
 
   tick() {
-    this.context.unit.tickUnitsMove();
+    this.unitsContext.tickUnitsMove();
 
-    this.context.effect.tickEffects();
+    this.effectsContext.tickEffects();
 
-    this.context.aiController.tickAction();
+    this.aiController.tickAction();
 
-    this.context.map.tickProjectiles();
-  }
-
-  get spellsContext(): SpellsContext {
-    return this.context.spells;
+    this.mapContext.tickProjectiles();
   }
 
   getState(): BattlefieldState {
     return {
-      units: this.context.unit.units,
-      projectiles: this.context.map.projectiles,
+      units: this.unitsContext.units,
+      projectiles: this.mapContext.projectiles,
     };
   }
 
   get isFinished(): boolean {
-    const actionableUnits = this.context.unit.units.filter(x => x.hp > 0);
+    const actionableUnits = this.unitsContext.units.filter(x => x.hp > 0);
 
     return actionableUnits.every((x, _index, array) => x.team === array[0].team);
   }

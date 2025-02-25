@@ -1,63 +1,30 @@
-import { clone, mergeRight, partition, without } from "rambda";
+import { clone, mergeRight } from "rambda";
 
 import { addVector, divVector, invXVector, invYVector, isZeroVector, multVector, normVector, subVector } from "../utils";
-import { Context } from "./context";
-import { DotEffect, Effect, EffectType, Unit, UnitID, UnitInit, UnitState } from "./interface";
+import { inject, injectable } from "./injection-container";
+import { BattlefieldConfigToken, Unit, UnitID, UnitInit, UnitState } from "./interface";
+import { RandomContextToken } from "./interface/random-token";
 import { inTouchWithOthers } from "./utils";
 
+@injectable()
 export class UnitContext {
-  constructor(private context: Context) {}
+  private randomContext = inject(RandomContextToken);
+  private battlefieldConfig = inject(BattlefieldConfigToken);
 
   units: Unit[] = [];
 
   tickUnitsMove(): void {
-    const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
+    const aliveUnits = this.units.filter(x => x.hp > 0);
 
     for (let unit of aliveUnits.filter(x => x.moveDirection)) {
-      this.context.unit.separation(unit, aliveUnits);
-      this.context.unit.screenBoundaries(unit);
-      this.context.unit.moveUnit(unit);
+      this.separation(unit, aliveUnits);
+      this.screenBoundaries(unit);
+      this.moveUnit(unit);
     }
   }
 
   getUnitById(unitId: UnitID): Unit {
     return this.units.find(x => x.id === unitId)!;
-  }
-
-  triggerDotEffects(unit: Unit) {
-    const effects = unit.effects.filter(x => x.type === EffectType.Dot) as DotEffect[];
-
-    const [oldEffects, newEffects] = partition(x => !!x.state, effects);
-
-    oldEffects.forEach(effect => effect.state.intervalState--);
-
-    const triggerEffects = oldEffects.filter(x => x.state.intervalState === 0);
-
-    if (triggerEffects.length > 0) {
-      this.context.effect.applyEffect(
-        triggerEffects.map(x => x.effect),
-        unit,
-      );
-    }
-
-    const clearEffects: Effect[] = [];
-
-    for (let effect of triggerEffects) {
-      if (effect.state.remainingPeriod === 1) {
-        clearEffects.push(effect);
-      } else {
-        effect.state.remainingPeriod--;
-        effect.state.intervalState = effect.interval;
-      }
-    }
-
-    for (let effect of newEffects) {
-      effect.state = { remainingPeriod: effect.period, intervalState: effect.interval };
-    }
-
-    if (clearEffects.length > 0) {
-      unit.effects = without(clearEffects, unit.effects);
-    }
   }
 
   addUnit(unit: UnitInit) {
@@ -88,11 +55,11 @@ export class UnitContext {
 
     const futurePoint = addVector(multVector(unit.moveDirection, unit.moveSpeed), unit.location);
 
-    if (futurePoint.x > this.context.config.mapSize[0] - unitWidth || futurePoint.x < 0) {
+    if (futurePoint.x > this.battlefieldConfig.mapSize[0] - unitWidth || futurePoint.x < 0) {
       unit.moveDirection = invXVector(unit.moveDirection);
     }
 
-    if (futurePoint.y > this.context.config.mapSize[1] - unitWidth || futurePoint.y < 0) {
+    if (futurePoint.y > this.battlefieldConfig.mapSize[1] - unitWidth || futurePoint.y < 0) {
       unit.moveDirection = invYVector(unit.moveDirection);
     }
   }
@@ -108,7 +75,7 @@ export class UnitContext {
 
     if (otherUnitsInDistance.length > 0) {
       const direction = divVector(sumSubVector, otherUnitsInDistance.length);
-      unit.moveDirection = isZeroVector(direction) ? this.context.random.vector() : direction;
+      unit.moveDirection = isZeroVector(direction) ? this.randomContext.vector() : direction;
     }
   }
 }

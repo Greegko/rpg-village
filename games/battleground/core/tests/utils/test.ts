@@ -1,6 +1,8 @@
 import { expect, it } from "vitest";
 
-import { Battlefield, BattlefieldConfig, BattlefieldInit, BattlefieldState } from "../../src";
+import { BattlefieldConfig, BattlefieldInit, BattlefieldState, createBattlefieldInstance } from "../../src";
+import { clearInstances as clearBattlefieldInstances } from "../../src/battlefield/injection-container";
+import { clearInstances as clearRendererInstances } from "../../src/renderer/injection-container";
 import { createPlayableUrl } from "./create-playable-url";
 import { getMapSize } from "./get-map-size";
 import { PartialDeep } from "./partial-deep";
@@ -32,7 +34,10 @@ export function test(
       seed: seed || Math.random().toString(),
     } as BattlefieldConfig;
 
-    const battlefield = new Battlefield(config, null!);
+    clearBattlefieldInstances();
+    clearRendererInstances();
+
+    const battlefield = createBattlefieldInstance(config, null!);
     battlefield.init(initialState);
 
     if (createPlayableLink) {

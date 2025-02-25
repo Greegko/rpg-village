@@ -1,25 +1,18 @@
 import { Application, Container, ContainerChild } from "pixi.js";
 import { without } from "rambda";
 
-import { BattlefieldConfig, BattlefieldState, Unit } from "../battlefield";
-import { AssetManager } from "./interface";
+import { BattlefieldConfig, BattlefieldState, ProjectileNode, Unit } from "../battlefield";
+import { inject, injectable } from "./injection-container";
 import { ProjectilesContainer } from "./projectiles-container";
 import { UnitsContainer } from "./units-container";
 
+@injectable()
 export class BattlefieldRenderer {
-  private application: Application;
-  private rootContainer: Container;
-  private lastState: BattlefieldState;
-  private unitsContainer: UnitsContainer;
-  private projectilesContainer: ProjectilesContainer;
-
-  constructor(private assetManager: AssetManager) {
-    this.application = new Application();
-    this.rootContainer = new Container();
-    this.projectilesContainer = new ProjectilesContainer(this.assetManager);
-    this.unitsContainer = new UnitsContainer(this.assetManager);
-    this.lastState = { units: [], projectiles: [] };
-  }
+  private application = new Application();
+  private rootContainer = new Container();
+  private projectilesContainer = inject(ProjectilesContainer);
+  private unitsContainer = inject(UnitsContainer);
+  private lastState: { units: Unit[]; projectiles: ProjectileNode[] } = { units: [], projectiles: [] };
 
   async init(config: BattlefieldConfig): Promise<HTMLCanvasElement> {
     await this.application.init({

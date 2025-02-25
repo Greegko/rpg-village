@@ -2,7 +2,7 @@ import { createSignal, onMount } from "solid-js";
 
 import { Ticker } from "pixi.js";
 
-import { Battlefield, BattlefieldConfig, BattlefieldRenderer } from "@rpg-village/battleground-core";
+import { BattlefieldConfig, createBattlefieldInstance, createRendererInstance } from "@rpg-village/battleground-core";
 
 import { HerosHoursAssetManager } from "./assets/hero-hours/hero-hours-asset-manager";
 import { UserControl } from "./plugins/user-control";
@@ -29,8 +29,8 @@ export const Game = () => {
 
     const assetManager = new HerosHoursAssetManager();
     const resourceManager = new ResourceManager();
-    const renderer = new BattlefieldRenderer(assetManager);
-    const battleField = new Battlefield(config, resourceManager);
+    const renderer = createRendererInstance(assetManager);
+    const battleField = createBattlefieldInstance(config, resourceManager);
 
     if (!seedParam) {
       urlParams.set("seed", config.seed);

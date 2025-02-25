@@ -1,4 +1,7 @@
+import { Type } from "@greegko/tiny-di";
 import { Texture } from "pixi.js";
+
+import { createInjectableToken } from "../injection-container";
 
 export type AnimationStateID = string;
 export type AnimationFrame = number | [number, number];
@@ -14,3 +17,5 @@ export interface AssetManager {
   getAsset(assetId: string): Texture;
   getAssetAsBase64(assetId: string): Promise<string>;
 }
+
+export const AssetManagerToken = createInjectableToken<AssetManager>("AssetManagerToken");

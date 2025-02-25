@@ -1,7 +1,7 @@
-import { find, groupBy, mapObjIndexed, propEq, sum, values } from "rambda";
+import { find, groupBy, mapObjIndexed, partition, propEq, sum, values, without } from "rambda";
 
 import { merge } from "../utils";
-import { Context } from "./context";
+import { inject, injectable } from "./injection-container";
 import {
   ArmorEffect,
   AuraEffect,
@@ -12,19 +12,25 @@ import {
   EffectSource,
   EffectType,
   HealEffect,
+  ResourceManagerToken,
   Unit,
   UnitSetup,
 } from "./interface";
+import { RandomContextToken } from "./interface/random-token";
+import { UnitContext } from "./unit";
 import { filterBySeekConditions } from "./utils/unit-filter";
 
+@injectable()
 export class EffectsContext {
-  constructor(private context: Context) {}
+  private unitsContext = inject(UnitContext);
+  private randomContext = inject(RandomContextToken);
+  private resourceManager = inject(ResourceManagerToken);
 
   tickEffects(): void {
-    const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
+    const aliveUnits = this.unitsContext.units.filter(x => x.hp > 0);
 
     for (let unit of aliveUnits) {
-      this.context.unit.triggerDotEffects(unit);
+      this.triggerDotEffects(unit);
     }
 
     for (let unit of aliveUnits) {
@@ -32,11 +38,47 @@ export class EffectsContext {
     }
 
     for (let unit of aliveUnits) {
-      this.triggerAura(unit, this.context.unit.units);
+      this.triggerAura(unit, this.unitsContext.units);
     }
 
     for (let unit of aliveUnits) {
       this.clearAuraEffects(unit);
+    }
+  }
+
+  triggerDotEffects(unit: Unit) {
+    const effects = unit.effects.filter(x => x.type === EffectType.Dot) as DotEffect[];
+
+    const [oldEffects, newEffects] = partition(x => !!x.state, effects);
+
+    oldEffects.forEach(effect => effect.state.intervalState--);
+
+    const triggerEffects = oldEffects.filter(x => x.state.intervalState === 0);
+
+    if (triggerEffects.length > 0) {
+      this.applyEffect(
+        triggerEffects.map(x => x.effect),
+        unit,
+      );
+    }
+
+    const clearEffects: Effect[] = [];
+
+    for (let effect of triggerEffects) {
+      if (effect.state.remainingPeriod === 1) {
+        clearEffects.push(effect);
+      } else {
+        effect.state.remainingPeriod--;
+        effect.state.intervalState = effect.interval;
+      }
+    }
+
+    for (let effect of newEffects) {
+      effect.state = { remainingPeriod: effect.period, intervalState: effect.interval };
+    }
+
+    if (clearEffects.length > 0) {
+      unit.effects = without(clearEffects, unit.effects);
     }
   }
 
@@ -74,7 +116,7 @@ export class EffectsContext {
       mapObjIndexed((effects, dmgType) => {
         const dmgArmors = armors.filter(x => x.dmgType === dmgType);
         const totalArmor = sum(dmgArmors.map(x => x.power));
-        const totalDmg = sum(effects.map(x => (Array.isArray(x.power) ? this.context.random.int(x.power[0], x.power[1]) : x.power)));
+        const totalDmg = sum(effects.map(x => (Array.isArray(x.power) ? this.randomContext.int(x.power[0], x.power[1]) : x.power)));
 
         return Math.max(0, totalDmg - totalArmor);
       }, effectsByDmgType),
@@ -88,9 +130,9 @@ export class EffectsContext {
   }
 
   private spawnUnit(source: Unit) {
-    const unitId = this.context.random.sample(["priest", "steam_dragon", "archer", "skeleton", "flag-bearer", "flag-bearer-fire-aura"]);
+    const unitId = this.randomContext.sample(["priest", "steam_dragon", "archer", "skeleton", "flag-bearer", "flag-bearer-fire-aura"]);
 
-    const spawnedUnit = this.context.resourceManager.getUnitConfig(unitId);
+    const spawnedUnit = this.resourceManager.getUnitConfig(unitId);
     const skeletonState: UnitSetup = {
       location: { x: source.location.x + source.size / 2, y: source.location.y + source.size + 20 },
       team: source.team,
@@ -98,7 +140,7 @@ export class EffectsContext {
 
     const unit = merge(spawnedUnit, skeletonState);
 
-    this.context.unit.addUnit(unit);
+    this.unitsContext.addUnit(unit);
   }
 
   private flagToClearAuraEffects(unit: Unit) {

@@ -3,8 +3,10 @@ import { without } from "rambda";
 import { Rectangle, SpatialHash } from "@rpg-village/utils";
 
 import { multVector, normVector, subVector } from "../utils";
-import { Context } from "./context";
+import { EffectsContext } from "./effects";
+import { inject, injectable } from "./injection-container";
 import { Position, ProjectileNode, ProjectileType } from "./interface";
+import { UnitContext } from "./unit";
 import { filterBySeekConditions } from "./utils/unit-filter";
 
 type MapNode = { id: string; location: Position; size: number };
@@ -23,14 +25,15 @@ const projectileToRectangle = (node: ProjectileNode): Rectangle => ({
   bottom: node.location.y + 8,
 });
 
+@injectable()
 export class MapContext {
-  constructor(private context: Context) {}
-
+  private unitContext = inject(UnitContext);
+  private effectsContext = inject(EffectsContext);
   projectiles: ProjectileNode[] = [];
 
   tickProjectiles(): void {
     const hash = new SpatialHash<MapNode>(48, nodeToRectangle);
-    this.context.unit.units.forEach(unit => hash.add(unit));
+    this.unitContext.units.forEach(unit => hash.add(unit));
 
     for (let projectile of this.projectiles) {
       projectile.timeState -= 1;
@@ -63,11 +66,11 @@ export class MapContext {
 
   private landProjectile(projectile: ProjectileNode): void {
     const hitUnits = filterBySeekConditions(
-      this.context.unit.units,
+      this.unitContext.units,
       ["enemy-team", "alive", ["in-distance", { distance: projectile.area }]],
       { team: projectile.source.team, targetLocation: projectile.location },
     );
 
-    hitUnits.forEach(unit => this.context.effect.applyEffect(projectile.effect, unit));
+    hitUnits.forEach(unit => this.effectsContext.applyEffect(projectile.effect, unit));
   }
 }

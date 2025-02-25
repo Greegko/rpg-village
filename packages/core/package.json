@@ -18,7 +18,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@greegko/tiny-di": "0.0.4"
+    "@greegko/tiny-di": "0.0.5"
   },
   "peerDependencies": {
     "@rpg-village/utils": "workspace: *",

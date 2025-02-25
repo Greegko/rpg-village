@@ -2,12 +2,12 @@ import { Container, Sprite } from "pixi.js";
 
 import { ProjectileNode } from "../battlefield";
 import { AnimatedSpriteUnit } from "./animated-sprite-unit";
-import { AssetManager } from "./interface";
+import { AssetManagerToken } from "./interface";
+import { inject, injectable } from "./injection-container";
 
+@injectable()
 export class ProjectilesContainer extends Container {
-  constructor(private assetManager: AssetManager) {
-    super();
-  }
+  private assetManager = inject(AssetManagerToken);
 
   private projectileNodes = new Map<ProjectileNode, Sprite>();
 

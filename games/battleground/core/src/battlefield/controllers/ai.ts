@@ -1,19 +1,27 @@
 import { head, sortBy } from "rambda";
 
 import { getPositionDistance, normVector, rotateVectorBy, subVector } from "../../utils";
-import { Context } from "../context";
+import { EffectsContext } from "../effects";
+import { inject, injectable } from "../injection-container";
 import { Position, ProjectileNode, Unit } from "../interface";
+import { RandomContextToken } from "../interface/random-token";
+import { MapContext } from "../map";
+import { UnitContext } from "../unit";
 import { getUnitCentral } from "../utils";
 import { isUnitActionHasValidTarget, seekTarget } from "../utils/unit-filter";
 
+@injectable()
 export class AiController {
-  constructor(private context: Context) {}
+  private unitContext = inject(UnitContext);
+  private mapContext = inject(MapContext);
+  private randomContext = inject(RandomContextToken);
+  private effectsContext = inject(EffectsContext);
 
   tickAction() {
-    const aliveUnits = this.context.unit.units.filter(x => x.hp > 0);
+    const aliveUnits = this.unitContext.units.filter(x => x.hp > 0);
 
     for (let unit of aliveUnits.filter(x => !x.userControlled)) {
-      this.assignNewAction(this.context.unit.units, unit);
+      this.assignNewAction(this.unitContext.units, unit);
     }
 
     for (let unit of aliveUnits) {
@@ -45,11 +53,11 @@ export class AiController {
   private wander(unit: Unit) {
     if (!unit.moveSpeed) return;
     if (!unit.moveDirection) {
-      unit.moveDirection = this.context.random.vector();
+      unit.moveDirection = this.randomContext.vector();
       return;
     }
 
-    const angle = this.context.random.int(-10, 10) / 40;
+    const angle = this.randomContext.int(-10, 10) / 40;
     unit.moveDirection = rotateVectorBy(unit.moveDirection, angle);
   }
 
@@ -127,11 +135,11 @@ export class AiController {
       }
     } else {
       if (unit.activeAction.action.hitEffect && unit.activeAction.targetUnit) {
-        this.context.effect.applyEffect(unit.activeAction.action.hitEffect, unit.activeAction.targetUnit);
+        this.effectsContext.applyEffect(unit.activeAction.action.hitEffect, unit.activeAction.targetUnit);
       }
 
       if (unit.activeAction.action.effect) {
-        this.context.effect.applyEffect(unit.activeAction.action.effect, unit);
+        this.effectsContext.applyEffect(unit.activeAction.action.effect, unit);
       }
     }
 
@@ -161,6 +169,6 @@ export class AiController {
       timeState: time,
     };
 
-    this.context.map.addProjectile(projectile);
+    this.mapContext.addProjectile(projectile);
   }
 }

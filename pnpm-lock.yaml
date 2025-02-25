@@ -88,6 +88,9 @@ importers:
 
   games/battleground/core:
     dependencies:
+      '@greegko/tiny-di':
+        specifier: 0.0.5
+        version: 0.0.5
       '@rpg-village/utils':
         specifier: 'workspace: *'
         version: link:../../../packages/utils
@@ -295,8 +298,8 @@ importers:
   packages/core:
     dependencies:
       '@greegko/tiny-di':
-        specifier: 0.0.4
-        version: 0.0.4
+        specifier: 0.0.5
+        version: 0.0.5
       '@rpg-village/utils':
         specifier: 'workspace: *'
         version: link:../utils
@@ -817,8 +820,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@greegko/tiny-di@0.0.4':
-    resolution: {integrity: sha512-jIOB0COEsg9vvJeTyj5CK91a10Ed4eNKgn1GwCV4heENleOiMUGAr4wVtofzVeRgs9kLOze+0jRmVh0EZ/nIZQ==}
+  '@greegko/tiny-di@0.0.5':
+    resolution: {integrity: sha512-C9Uthwe2H4llx2MBmrsSnfy+sHAMu3Pt1H7MTfxzeA71ac+9yeTkcO1lvogPrmdA6QMJhMgaIKGq6IvhPQKJmQ==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2537,7 +2540,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.0':
     optional: true
 
-  '@greegko/tiny-di@0.0.4': {}
+  '@greegko/tiny-di@0.0.5': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:

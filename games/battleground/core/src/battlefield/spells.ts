@@ -1,9 +1,13 @@
-import { Context } from "./context";
+import { EffectsContext } from "./effects";
+import { inject, injectable } from "./injection-container";
 import { DmgType, EffectType, Position, Spell, SpellID, Unit } from "./interface";
+import { UnitContext } from "./unit";
 import { filterBySeekConditions } from "./utils/unit-filter";
 
+@injectable()
 export class SpellsContext {
-  constructor(private context: Context) {}
+  private unitContext = inject(UnitContext);
+  private effectsContext = inject(EffectsContext);
 
   private spells: Record<SpellID, Spell> = {
     heal: {
@@ -28,7 +32,7 @@ export class SpellsContext {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 
-    return filterBySeekConditions(this.context.unit.units, spell.seekConditions, {
+    return filterBySeekConditions(this.unitContext.units, spell.seekConditions, {
       targetLocation,
       ...spellContext,
     });
@@ -38,14 +42,14 @@ export class SpellsContext {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 
-    const targets = filterBySeekConditions(this.context.unit.units, spell.seekConditions, {
+    const targets = filterBySeekConditions(this.unitContext.units, spell.seekConditions, {
       targetLocation,
       ...spellContext,
     });
 
     if (spell.effects) {
       const effect = spell.effects;
-      targets.forEach(targetUnit => this.context.effect.applyEffect(effect, targetUnit));
+      targets.forEach(targetUnit => this.effectsContext.applyEffect(effect, targetUnit));
     }
 
     if (spell.addEffects) {

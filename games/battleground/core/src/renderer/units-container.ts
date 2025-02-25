@@ -5,7 +5,8 @@ import { Container, Graphics, Sprite, Text } from "pixi.js";
 import { EffectType, Position, Unit } from "../battlefield";
 import { merge, subVector } from "../utils";
 import { AnimatedSpriteUnit } from "./animated-sprite-unit";
-import { AnimationStateID, AssetManager } from "./interface";
+import { inject, injectable } from "./injection-container";
+import { AnimationStateID, AssetManagerToken } from "./interface";
 
 enum Direction {
   Up,
@@ -32,10 +33,9 @@ interface UnitRenderState {
 
 type UnitState = UnitTransformedState & UnitRenderState;
 
+@injectable()
 export class UnitsContainer extends Container {
-  constructor(private assetManager: AssetManager) {
-    super();
-  }
+  private assetManager = inject(AssetManagerToken);
 
   private unitState = new Map<Unit, UnitState>();
   private unitNodes = new Map<Unit, AnimatedSpriteUnit>();

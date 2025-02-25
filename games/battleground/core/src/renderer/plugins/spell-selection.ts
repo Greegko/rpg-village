@@ -2,16 +2,16 @@ import { Graphics } from "pixi.js";
 
 import { Battlefield, Position, SpellID, Unit } from "../../battlefield";
 import { BattlefieldRenderer } from "../battlefield-renderer";
+import { inject, injectable } from "../injection-container";
 
+@injectable()
 export class SpellSelection {
-  constructor(
-    private renderer: BattlefieldRenderer,
-    private battlefield: Battlefield,
-  ) {}
-
   private circleGraphics = new Graphics();
   private spellId: SpellID | null = null;
   private position: Position | null = null;
+
+  private renderer = inject(BattlefieldRenderer);
+  private battlefield = inject(Battlefield);
 
   init() {
     this.renderer.addChild(this.circleGraphics);
