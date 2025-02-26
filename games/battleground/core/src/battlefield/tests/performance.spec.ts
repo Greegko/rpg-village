@@ -41,3 +41,22 @@ performanceTest("perf-test", {
     ],
   },
 });
+
+// Ticks    118
+// Created  0.5469 ms
+// Init     0.3437 ms
+// Avg      7.2747 ms
+// Total    1033.0022 ms between [960, 1100]
+performanceTest("perf-test", {
+  seed: "deterministic-run-test",
+  initialState: {
+    units: [
+      ...Array.from({ length: 100 }).map((_, i) =>
+        randomTestUnit({ location: { x: (i * 20) % 800, y: Math.floor(i / 800) + 100 }, team: 1 }),
+      ),
+      ...Array.from({ length: 100 }).map((_, i) =>
+        randomTestUnit({ location: { x: (i * 20) % 800, y: Math.floor(i / 800) + 500 }, team: 2 }),
+      ),
+    ],
+  },
+});
