@@ -1,8 +1,7 @@
 import { Random } from "../utils";
 import { Battlefield } from "./context";
 import { inject, makeInjectable } from "./injection-container";
-import { BattlefieldConfig, BattlefieldConfigToken, ResourceManager, ResourceManagerToken } from "./interface";
-import { RandomContextToken } from "./interface/random-token";
+import { BattlefieldConfig, BattlefieldConfigToken, RandomContextToken, ResourceManager, ResourceManagerToken } from "./interface";
 
 export const createBattlefieldInstance = (config: BattlefieldConfig, resourceManager: ResourceManager): Battlefield => {
   makeInjectable(BattlefieldConfigToken, config);

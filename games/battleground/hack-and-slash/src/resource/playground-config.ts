@@ -3,9 +3,5 @@ import { BattlefieldInit } from "@rpg-village/battleground-core";
 import { createDummyUnit, heroUnit } from "./config";
 
 export const playgroundDefaultBattlefieldInit: BattlefieldInit = {
-  units: [
-    createDummyUnit({ location: { x: window.innerWidth / 2, y: 100 }, team: 2 }),
-
-    heroUnit({ location: { x: window.innerWidth / 2, y: window.innerHeight - 100 }, team: 1 }),
-  ],
+  units: [createDummyUnit({ location: { x: 400, y: 100 }, team: 2 }), heroUnit({ location: { x: 400, y: 700 }, team: 1 })],
 };

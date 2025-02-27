@@ -23,7 +23,7 @@ export const Game = () => {
     const seedParam = urlParams.get("seed");
 
     const config: BattlefieldConfig = {
-      mapSize: [window.innerWidth, window.innerHeight],
+      mapSize: [1200, 800],
       seed: seedParam || Math.floor(Math.random() * 1_000_000_000).toString(),
     };
 
@@ -76,7 +76,7 @@ export const Game = () => {
       <div style={{ position: "absolute", color: "white", "font-size": "12px" }}>
         FPS: {fps()} - Tick: {tick()}
       </div>
-      {battlegroundCanvas()}
+      <div class="w-fit border border-red-500">{battlegroundCanvas()}</div>
     </div>
   );
 };

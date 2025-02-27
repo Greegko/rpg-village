@@ -2,1542 +2,3438 @@
 
 "buildings/inn.png":
 {
-	"frame": {"x":0,"y":0,"w":124,"h":115},
+	"frame": {"x":1,"y":1,"w":156,"h":144},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":115},
-	"sourceSize": {"w":124,"h":115},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":144},
+	"sourceSize": {"w":156,"h":144}
 },
-"icons/spell_book.png":
+"chests/chests-0.png":
 {
-	"frame": {"x":188,"y":0,"w":31,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":32},
-	"sourceSize": {"w":31,"h":32},
-	"anchor": {"x":0,"y":0}
-},
-"icons/spells/archer.png":
-{
-	"frame": {"x":124,"y":0,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32},
-	"anchor": {"x":0,"y":0}
-},
-"icons/spells/fireball.png":
-{
-	"frame": {"x":124,"y":32,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32},
-	"anchor": {"x":0,"y":0}
-},
-"icons/spells/hearth.png":
-{
-	"frame": {"x":156,"y":0,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32},
-	"anchor": {"x":0,"y":0}
-},
-"icons/spells/ice_berg.png":
-{
-	"frame": {"x":124,"y":64,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32},
-	"anchor": {"x":0,"y":0}
-},
-"icons/spells/lightning.png":
-{
-	"frame": {"x":124,"y":96,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32},
-	"anchor": {"x":0,"y":0}
-},
-"icons/spells/shield_break.png":
-{
-	"frame": {"x":156,"y":32,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-0.png":
-{
-	"frame": {"x":207,"y":46,"w":12,"h":13},
+	"frame": {"x":301,"y":236,"w":14,"h":13},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":1,"y":3,"w":14,"h":13},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/archer/archer-1.png":
+"chests/chests-1.png":
 {
-	"frame": {"x":252,"y":93,"w":12,"h":13},
+	"frame": {"x":159,"y":131,"w":16,"h":14},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/archer/archer-2.png":
+"chests/chests-2.png":
 {
-	"frame": {"x":309,"y":78,"w":12,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-3.png":
-{
-	"frame": {"x":304,"y":104,"w":12,"h":12},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":4,"w":12,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-4.png":
-{
-	"frame": {"x":207,"y":46,"w":12,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-5.png":
-{
-	"frame": {"x":278,"y":101,"w":12,"h":13},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":2,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-6.png":
-{
-	"frame": {"x":207,"y":46,"w":12,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-7.png":
-{
-	"frame": {"x":291,"y":101,"w":12,"h":13},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":2,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-8.png":
-{
-	"frame": {"x":304,"y":91,"w":12,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-9.png":
-{
-	"frame": {"x":316,"y":105,"w":11,"h":12},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":4,"w":11,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-10.png":
-{
-	"frame": {"x":326,"y":90,"w":12,"h":12},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":4,"w":12,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-11.png":
-{
-	"frame": {"x":261,"y":116,"w":12,"h":13},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-12.png":
-{
-	"frame": {"x":252,"y":93,"w":12,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-13.png":
-{
-	"frame": {"x":338,"y":90,"w":11,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":11,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-14.png":
-{
-	"frame": {"x":361,"y":91,"w":11,"h":12},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":4,"w":11,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-15.png":
-{
-	"frame": {"x":252,"y":93,"w":12,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-16.png":
-{
-	"frame": {"x":274,"y":116,"w":12,"h":13},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":4,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-17.png":
-{
-	"frame": {"x":349,"y":89,"w":12,"h":12},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":4,"y":4,"w":12,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-18.png":
-{
-	"frame": {"x":206,"y":59,"w":13,"h":9},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":7,"w":13,"h":9},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/archer/archer-19.png":
-{
-	"frame": {"x":339,"y":115,"w":13,"h":7},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":9,"w":13,"h":7},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/flag_bearer/flag_bearer-0.png":
-{
-	"frame": {"x":219,"y":18,"w":16,"h":16},
+	"frame": {"x":154,"y":147,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-1.png":
+"chests/chests-3.png":
 {
-	"frame": {"x":219,"y":18,"w":16,"h":16},
+	"frame": {"x":317,"y":236,"w":14,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":3,"w":14,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-4.png":
+{
+	"frame": {"x":392,"y":1,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-5.png":
+{
+	"frame": {"x":410,"y":1,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-2.png":
+"chests/chests-6.png":
 {
-	"frame": {"x":235,"y":18,"w":16,"h":16},
+	"frame": {"x":55,"y":181,"w":16,"h":12},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":4,"w":16,"h":12},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-7.png":
+{
+	"frame": {"x":35,"y":202,"w":16,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-8.png":
+{
+	"frame": {"x":91,"y":167,"w":16,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-9.png":
+{
+	"frame": {"x":245,"y":40,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-10.png":
+{
+	"frame": {"x":428,"y":1,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-3.png":
+"chests/chests-11.png":
 {
-	"frame": {"x":235,"y":18,"w":16,"h":16},
+	"frame": {"x":109,"y":167,"w":16,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-12.png":
+{
+	"frame": {"x":263,"y":40,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-13.png":
+{
+	"frame": {"x":446,"y":1,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-4.png":
+"chests/chests-14.png":
 {
-	"frame": {"x":219,"y":18,"w":16,"h":16},
+	"frame": {"x":172,"y":147,"w":16,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-15.png":
+{
+	"frame": {"x":87,"y":182,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-16.png":
+{
+	"frame": {"x":87,"y":198,"w":16,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-17.png":
+{
+	"frame": {"x":105,"y":182,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-18.png":
+{
+	"frame": {"x":464,"y":1,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-5.png":
+"chests/chests-19.png":
 {
-	"frame": {"x":239,"y":34,"w":16,"h":15},
+	"frame": {"x":187,"y":147,"w":16,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-20.png":
+{
+	"frame": {"x":69,"y":196,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-21.png":
+{
+	"frame": {"x":482,"y":1,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-22.png":
+{
+	"frame": {"x":296,"y":21,"w":16,"h":12},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":4,"w":16,"h":12},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-23.png":
+{
+	"frame": {"x":123,"y":182,"w":16,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-24.png":
+{
+	"frame": {"x":127,"y":167,"w":16,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-25.png":
+{
+	"frame": {"x":105,"y":198,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-26.png":
+{
+	"frame": {"x":500,"y":1,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-27.png":
+{
+	"frame": {"x":177,"y":200,"w":16,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-28.png":
+{
+	"frame": {"x":123,"y":200,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-29.png":
+{
+	"frame": {"x":145,"y":165,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-6.png":
+"chests/chests-30.png":
 {
-	"frame": {"x":219,"y":18,"w":16,"h":16},
+	"frame": {"x":192,"y":182,"w":16,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-31.png":
+{
+	"frame": {"x":141,"y":200,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-32.png":
+{
+	"frame": {"x":363,"y":18,"w":16,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-33.png":
+{
+	"frame": {"x":159,"y":200,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-34.png":
+{
+	"frame": {"x":518,"y":1,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-7.png":
+"chests/chests-35.png":
 {
-	"frame": {"x":335,"y":34,"w":15,"h":15},
-	"rotated": false,
+	"frame": {"x":363,"y":36,"w":16,"h":13},
+	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-8.png":
+"chests/chests-36.png":
 {
-	"frame": {"x":193,"y":84,"w":15,"h":16},
-	"rotated": false,
+	"frame": {"x":192,"y":200,"w":16,"h":14},
+	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-9.png":
+"chests/chests-37.png":
 {
-	"frame": {"x":251,"y":18,"w":16,"h":16},
+	"frame": {"x":536,"y":1,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-10.png":
+"chests/chests-38.png":
 {
-	"frame": {"x":267,"y":18,"w":16,"h":16},
+	"frame": {"x":163,"y":165,"w":16,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-39.png":
+{
+	"frame": {"x":554,"y":1,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-11.png":
+"chests/chests-40.png":
 {
-	"frame": {"x":283,"y":18,"w":16,"h":16},
+	"frame": {"x":281,"y":56,"w":16,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-41.png":
+{
+	"frame": {"x":410,"y":19,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-42.png":
+{
+	"frame": {"x":69,"y":178,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-12.png":
+"chests/chests-43.png":
 {
-	"frame": {"x":267,"y":18,"w":16,"h":16},
+	"frame": {"x":283,"y":236,"w":16,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":16,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-44.png":
+{
+	"frame": {"x":428,"y":19,"w":16,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"chests/chests-45.png":
+{
+	"frame": {"x":245,"y":22,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-13.png":
+"chests/chests-46.png":
 {
-	"frame": {"x":193,"y":100,"w":15,"h":16},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/flag_bearer/flag_bearer-14.png":
-{
-	"frame": {"x":358,"y":16,"w":15,"h":16},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/flag_bearer/flag_bearer-15.png":
-{
-	"frame": {"x":299,"y":18,"w":16,"h":16},
+	"frame": {"x":263,"y":22,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/flag_bearer/flag_bearer-16.png":
+"chests/chests-47.png":
 {
-	"frame": {"x":358,"y":32,"w":15,"h":16},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/flag_bearer/flag_bearer-17.png":
-{
-	"frame": {"x":358,"y":48,"w":15,"h":16},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/flag_bearer/flag_bearer-18.png":
-{
-	"frame": {"x":224,"y":84,"w":15,"h":16},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/flag_bearer/flag_bearer-19.png":
-{
-	"frame": {"x":315,"y":18,"w":16,"h":16},
+	"frame": {"x":31,"y":217,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/goblin_knight/goblin_knight-0.png":
+"hero_hours_sprites/archer/archer-0.png":
 {
-	"frame": {"x":32,"y":115,"w":13,"h":15},
+	"frame": {"x":55,"y":199,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-1.png":
+{
+	"frame": {"x":231,"y":53,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-2.png":
+{
+	"frame": {"x":231,"y":100,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-3.png":
+{
+	"frame": {"x":478,"y":236,"w":12,"h":12},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":12,"h":12},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-4.png":
+{
+	"frame": {"x":55,"y":199,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-5.png":
+{
+	"frame": {"x":462,"y":136,"w":12,"h":13},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":3,"y":2,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/goblin_knight/goblin_knight-1.png":
+"hero_hours_sprites/archer/archer-6.png":
 {
-	"frame": {"x":338,"y":49,"w":14,"h":14},
+	"frame": {"x":55,"y":199,"w":12,"h":13},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":2,"w":14,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/goblin_knight/goblin_knight-2.png":
+"hero_hours_sprites/archer/archer-7.png":
 {
-	"frame": {"x":32,"y":115,"w":13,"h":15},
+	"frame": {"x":462,"y":150,"w":12,"h":13},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":3,"y":2,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/goblin_knight/goblin_knight-3.png":
+"hero_hours_sprites/archer/archer-8.png":
 {
-	"frame": {"x":237,"y":64,"w":14,"h":14},
+	"frame": {"x":349,"y":236,"w":12,"h":13},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":14,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/goblin_knight/goblin_knight-4.png":
+"hero_hours_sprites/archer/archer-9.png":
 {
-	"frame": {"x":47,"y":115,"w":13,"h":15},
+	"frame": {"x":522,"y":240,"w":11,"h":12},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":3,"y":4,"w":11,"h":12},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/goblin_knight/goblin_knight-5.png":
+"hero_hours_sprites/archer/archer-10.png":
 {
-	"frame": {"x":251,"y":49,"w":15,"h":15},
+	"frame": {"x":536,"y":226,"w":12,"h":12},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":2,"y":4,"w":12,"h":12},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/goblin_knight/goblin_knight-6.png":
+"hero_hours_sprites/archer/archer-11.png":
 {
-	"frame": {"x":47,"y":115,"w":13,"h":15},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-7.png":
-{
-	"frame": {"x":266,"y":49,"w":14,"h":15},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-8.png":
-{
-	"frame": {"x":280,"y":49,"w":14,"h":15},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-9.png":
-{
-	"frame": {"x":295,"y":64,"w":13,"h":14},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-10.png":
-{
-	"frame": {"x":62,"y":115,"w":13,"h":15},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":0,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-11.png":
-{
-	"frame": {"x":294,"y":49,"w":14,"h":15},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":14,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-12.png":
-{
-	"frame": {"x":77,"y":115,"w":13,"h":15},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-13.png":
-{
-	"frame": {"x":323,"y":49,"w":14,"h":15},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-14.png":
-{
-	"frame": {"x":338,"y":49,"w":14,"h":14},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":2,"w":14,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-15.png":
-{
-	"frame": {"x":32,"y":115,"w":13,"h":15},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-16.png":
-{
-	"frame": {"x":32,"y":115,"w":13,"h":15},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-17.png":
-{
-	"frame": {"x":338,"y":49,"w":14,"h":14},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":2,"w":14,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-18.png":
-{
-	"frame": {"x":252,"y":78,"w":15,"h":11},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":5,"w":15,"h":11},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/goblin_knight/goblin_knight-19.png":
-{
-	"frame": {"x":350,"y":34,"w":15,"h":8},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":8,"w":15,"h":8},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-0.png":
-{
-	"frame": {"x":321,"y":63,"w":13,"h":14},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":13,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-1.png":
-{
-	"frame": {"x":358,"y":64,"w":13,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":3,"w":13,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-2.png":
-{
-	"frame": {"x":321,"y":63,"w":13,"h":14},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":13,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-3.png":
-{
-	"frame": {"x":251,"y":64,"w":14,"h":14},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":14,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-4.png":
-{
-	"frame": {"x":189,"y":116,"w":12,"h":14},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-5.png":
-{
-	"frame": {"x":321,"y":77,"w":13,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":3,"w":13,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-6.png":
-{
-	"frame": {"x":189,"y":116,"w":12,"h":14},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-7.png":
-{
-	"frame": {"x":321,"y":77,"w":13,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":3,"w":13,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-8.png":
-{
-	"frame": {"x":203,"y":116,"w":12,"h":14},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/inquisitor/inquisitor-9.png":
-{
-	"frame": {"x":287,"y":116,"w":12,"h":13},
+	"frame": {"x":509,"y":212,"w":12,"h":13},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-10.png":
+"hero_hours_sprites/archer/archer-12.png":
 {
-	"frame": {"x":334,"y":63,"w":13,"h":14},
+	"frame": {"x":231,"y":53,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-13.png":
+{
+	"frame": {"x":492,"y":240,"w":11,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":11,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-14.png":
+{
+	"frame": {"x":536,"y":240,"w":11,"h":12},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":11,"h":12},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-15.png":
+{
+	"frame": {"x":231,"y":53,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-16.png":
+{
+	"frame": {"x":524,"y":212,"w":12,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-17.png":
+{
+	"frame": {"x":554,"y":213,"w":12,"h":12},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":4,"w":12,"h":12},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-18.png":
+{
+	"frame": {"x":85,"y":225,"w":13,"h":9},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":7,"w":13,"h":9},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/archer/archer-19.png":
+{
+	"frame": {"x":179,"y":89,"w":13,"h":7},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":9,"w":13,"h":7},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-0.png":
+{
+	"frame": {"x":31,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-1.png":
+{
+	"frame": {"x":31,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-2.png":
+{
+	"frame": {"x":310,"y":20,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-3.png":
+{
+	"frame": {"x":310,"y":20,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-4.png":
+{
+	"frame": {"x":31,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-5.png":
+{
+	"frame": {"x":181,"y":165,"w":16,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-6.png":
+{
+	"frame": {"x":31,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-7.png":
+{
+	"frame": {"x":199,"y":165,"w":15,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-8.png":
+{
+	"frame": {"x":228,"y":35,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-9.png":
+{
+	"frame": {"x":328,"y":19,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-10.png":
+{
+	"frame": {"x":328,"y":37,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-11.png":
+{
+	"frame": {"x":49,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-12.png":
+{
+	"frame": {"x":328,"y":37,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-13.png":
+{
+	"frame": {"x":311,"y":38,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-14.png":
+{
+	"frame": {"x":207,"y":182,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-15.png":
+{
+	"frame": {"x":138,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-16.png":
+{
+	"frame": {"x":208,"y":200,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-17.png":
+{
+	"frame": {"x":346,"y":19,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-18.png":
+{
+	"frame": {"x":346,"y":37,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-19.png":
+{
+	"frame": {"x":156,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-0.png":
+{
+	"frame": {"x":296,"y":57,"w":13,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-1.png":
+{
+	"frame": {"x":229,"y":68,"w":14,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":14,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-2.png":
+{
+	"frame": {"x":296,"y":57,"w":13,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-3.png":
+{
+	"frame": {"x":229,"y":84,"w":14,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":14,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-4.png":
+{
+	"frame": {"x":179,"y":98,"w":13,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-5.png":
+{
+	"frame": {"x":121,"y":236,"w":15,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":15,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-6.png":
+{
+	"frame": {"x":179,"y":98,"w":13,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-7.png":
+{
+	"frame": {"x":174,"y":236,"w":14,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-8.png":
+{
+	"frame": {"x":190,"y":236,"w":14,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-9.png":
+{
+	"frame": {"x":281,"y":40,"w":13,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-10.png":
+{
+	"frame": {"x":462,"y":106,"w":13,"h":15},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-11.png":
+{
+	"frame": {"x":206,"y":236,"w":14,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":14,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-12.png":
+{
+	"frame": {"x":216,"y":165,"w":13,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-13.png":
+{
+	"frame": {"x":222,"y":236,"w":14,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-14.png":
+{
+	"frame": {"x":229,"y":68,"w":14,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":14,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-15.png":
+{
+	"frame": {"x":296,"y":57,"w":13,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-16.png":
+{
+	"frame": {"x":296,"y":57,"w":13,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-17.png":
+{
+	"frame": {"x":229,"y":68,"w":14,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":14,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-18.png":
+{
+	"frame": {"x":65,"y":222,"w":15,"h":11},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":5,"w":15,"h":11},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-19.png":
+{
+	"frame": {"x":194,"y":121,"w":15,"h":8},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":8,"w":15,"h":8},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-0.png":
+{
+	"frame": {"x":177,"y":131,"w":13,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":13,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-11.png":
+"hero_hours_sprites/inquisitor/inquisitor-1.png":
 {
-	"frame": {"x":334,"y":77,"w":13,"h":13},
+	"frame": {"x":462,"y":121,"w":13,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":3,"w":13,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-12.png":
+"hero_hours_sprites/inquisitor/inquisitor-2.png":
 {
-	"frame": {"x":207,"y":32,"w":12,"h":14},
+	"frame": {"x":177,"y":131,"w":13,"h":14},
 	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":13,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-3.png":
+{
+	"frame": {"x":207,"y":131,"w":14,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":14,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-4.png":
+{
+	"frame": {"x":223,"y":133,"w":12,"h":14},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-13.png":
+"hero_hours_sprites/inquisitor/inquisitor-5.png":
 {
-	"frame": {"x":328,"y":103,"w":11,"h":13},
+	"frame": {"x":559,"y":198,"w":13,"h":13},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":3,"w":11,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":1,"y":3,"w":13,"h":13},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-14.png":
+"hero_hours_sprites/inquisitor/inquisitor-6.png":
 {
-	"frame": {"x":339,"y":103,"w":10,"h":12},
+	"frame": {"x":223,"y":133,"w":12,"h":14},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-7.png":
+{
+	"frame": {"x":559,"y":198,"w":13,"h":13},
 	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":3,"w":13,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-8.png":
+{
+	"frame": {"x":239,"y":133,"w":12,"h":14},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-9.png":
+{
+	"frame": {"x":539,"y":212,"w":12,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":3,"w":12,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-10.png":
+{
+	"frame": {"x":179,"y":115,"w":13,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":13,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-11.png":
+{
+	"frame": {"x":478,"y":205,"w":13,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":3,"w":13,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-12.png":
+{
+	"frame": {"x":461,"y":164,"w":12,"h":14},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-13.png":
+{
+	"frame": {"x":507,"y":240,"w":11,"h":13},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":3,"w":11,"h":13},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/inquisitor/inquisitor-14.png":
+{
+	"frame": {"x":387,"y":169,"w":10,"h":12},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":4,"w":10,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-15.png":
+"hero_hours_sprites/inquisitor/inquisitor-15.png":
 {
-	"frame": {"x":328,"y":103,"w":11,"h":13},
-	"rotated": false,
+	"frame": {"x":507,"y":240,"w":11,"h":13},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":3,"w":11,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-16.png":
+"hero_hours_sprites/inquisitor/inquisitor-16.png":
 {
-	"frame": {"x":328,"y":103,"w":11,"h":13},
-	"rotated": false,
+	"frame": {"x":507,"y":240,"w":11,"h":13},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":3,"w":11,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-17.png":
+"hero_hours_sprites/inquisitor/inquisitor-17.png":
 {
-	"frame": {"x":339,"y":103,"w":10,"h":12},
-	"rotated": false,
+	"frame": {"x":387,"y":169,"w":10,"h":12},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":4,"w":10,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-18.png":
+"hero_hours_sprites/inquisitor/inquisitor-18.png":
 {
-	"frame": {"x":349,"y":101,"w":10,"h":10},
+	"frame": {"x":419,"y":169,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":6,"w":10,"h":10},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/inquisitor/inquisitor-19.png":
+"hero_hours_sprites/inquisitor/inquisitor-19.png":
 {
-	"frame": {"x":359,"y":102,"w":12,"h":7},
-	"rotated": false,
+	"frame": {"x":452,"y":180,"w":12,"h":7},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":9,"w":12,"h":7},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-0.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-0.png":
 {
-	"frame": {"x":249,"y":114,"w":12,"h":14},
+	"frame": {"x":461,"y":178,"w":12,"h":14},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-1.png":
+{
+	"frame": {"x":492,"y":225,"w":12,"h":13},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/leprechaun/leprechaun-1.png":
-{
-	"frame": {"x":300,"y":116,"w":12,"h":13},
-	"rotated": true,
-	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-2.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-2.png":
 {
-	"frame": {"x":281,"y":77,"w":12,"h":14},
+	"frame": {"x":461,"y":192,"w":12,"h":14},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-3.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-3.png":
 {
-	"frame": {"x":313,"y":116,"w":12,"h":13},
+	"frame": {"x":506,"y":226,"w":12,"h":13},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-4.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-4.png":
 {
-	"frame": {"x":295,"y":78,"w":12,"h":14},
+	"frame": {"x":495,"y":198,"w":12,"h":14},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-5.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-5.png":
 {
-	"frame": {"x":347,"y":63,"w":11,"h":14},
+	"frame": {"x":465,"y":215,"w":11,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":11,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-6.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-6.png":
 {
-	"frame": {"x":295,"y":78,"w":12,"h":14},
+	"frame": {"x":495,"y":198,"w":12,"h":14},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-7.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-7.png":
 {
-	"frame": {"x":290,"y":90,"w":11,"h":14},
-	"rotated": true,
+	"frame": {"x":465,"y":231,"w":11,"h":14},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":11,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-8.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-8.png":
 {
-	"frame": {"x":347,"y":77,"w":12,"h":14},
+	"frame": {"x":511,"y":198,"w":12,"h":14},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-9.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-9.png":
 {
-	"frame": {"x":361,"y":77,"w":12,"h":14},
-	"rotated": false,
+	"frame": {"x":527,"y":198,"w":12,"h":14},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-10.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-10.png":
 {
-	"frame": {"x":239,"y":78,"w":13,"h":14},
+	"frame": {"x":192,"y":131,"w":13,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":13,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-11.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-11.png":
 {
-	"frame": {"x":264,"y":87,"w":12,"h":14},
-	"rotated": false,
+	"frame": {"x":543,"y":198,"w":12,"h":14},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-12.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-12.png":
 {
-	"frame": {"x":264,"y":101,"w":11,"h":14},
+	"frame": {"x":493,"y":212,"w":11,"h":14},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":2,"w":11,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-13.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-13.png":
 {
-	"frame": {"x":316,"y":91,"w":10,"h":14},
+	"frame": {"x":363,"y":236,"w":10,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":10,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-14.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-14.png":
 {
-	"frame": {"x":326,"y":116,"w":12,"h":13},
+	"frame": {"x":521,"y":226,"w":12,"h":13},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":3,"w":12,"h":13},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-15.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-15.png":
 {
-	"frame": {"x":281,"y":77,"w":12,"h":14},
+	"frame": {"x":461,"y":192,"w":12,"h":14},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-16.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-16.png":
 {
-	"frame": {"x":276,"y":89,"w":12,"h":14},
-	"rotated": true,
+	"frame": {"x":478,"y":220,"w":12,"h":14},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-17.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-17.png":
 {
-	"frame": {"x":349,"y":111,"w":10,"h":10},
+	"frame": {"x":431,"y":169,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":4,"w":10,"h":10},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/leprechaun/leprechaun-18.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-18.png":
 {
-	"frame": {"x":347,"y":18,"w":11,"h":16},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":0,"w":11,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/leprechaun/leprechaun-19.png":
-{
-	"frame": {"x":0,"y":115,"w":13,"h":16},
+	"frame": {"x":193,"y":56,"w":11,"h":16},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":0,"w":13,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"spriteSourceSize": {"x":2,"y":0,"w":11,"h":16},
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/projectiles/projectile.png":
+"hero_hours_sprites/leprechaun/Leprechaun spritesheet-19.png":
 {
-	"frame": {"x":359,"y":109,"w":10,"h":10},
+	"frame": {"x":213,"y":35,"w":13,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":13,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"hero_hours_sprites/projectiles/projectile.png":
+{
+	"frame": {"x":550,"y":241,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":3,"w":10,"h":10},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-0.png":
+"hero_hours_sprites/skeleton/skeleton-0.png":
 {
-	"frame": {"x":16,"y":115,"w":13,"h":16},
-	"rotated": true,
+	"frame": {"x":196,"y":69,"w":13,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-1.png":
+"hero_hours_sprites/skeleton/skeleton-1.png":
 {
-	"frame": {"x":92,"y":115,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":238,"y":236,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-2.png":
+"hero_hours_sprites/skeleton/skeleton-2.png":
 {
-	"frame": {"x":107,"y":115,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":231,"y":165,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-3.png":
+"hero_hours_sprites/skeleton/skeleton-3.png":
 {
-	"frame": {"x":92,"y":115,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":238,"y":236,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-4.png":
+"hero_hours_sprites/skeleton/skeleton-4.png":
 {
-	"frame": {"x":16,"y":115,"w":13,"h":16},
-	"rotated": true,
+	"frame": {"x":196,"y":69,"w":13,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-5.png":
+"hero_hours_sprites/skeleton/skeleton-5.png":
 {
-	"frame": {"x":207,"y":68,"w":14,"h":16},
+	"frame": {"x":180,"y":69,"w":14,"h":16},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-6.png":
+"hero_hours_sprites/skeleton/skeleton-6.png":
 {
-	"frame": {"x":16,"y":115,"w":13,"h":16},
-	"rotated": true,
+	"frame": {"x":196,"y":69,"w":13,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-7.png":
+"hero_hours_sprites/skeleton/skeleton-7.png":
 {
-	"frame": {"x":233,"y":114,"w":14,"h":16},
-	"rotated": true,
+	"frame": {"x":49,"y":217,"w":14,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":14,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-8.png":
+"hero_hours_sprites/skeleton/skeleton-8.png":
 {
-	"frame": {"x":16,"y":115,"w":13,"h":16},
-	"rotated": true,
+	"frame": {"x":196,"y":69,"w":13,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-9.png":
+"hero_hours_sprites/skeleton/skeleton-9.png":
 {
-	"frame": {"x":265,"y":64,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":246,"y":165,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-10.png":
+"hero_hours_sprites/skeleton/skeleton-10.png":
 {
-	"frame": {"x":239,"y":92,"w":13,"h":14},
-	"rotated": false,
+	"frame": {"x":333,"y":236,"w":13,"h":14},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":2,"w":13,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-11.png":
+"hero_hours_sprites/skeleton/skeleton-11.png":
 {
-	"frame": {"x":280,"y":64,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":253,"y":236,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-12.png":
+"hero_hours_sprites/skeleton/skeleton-12.png":
 {
-	"frame": {"x":16,"y":115,"w":13,"h":16},
-	"rotated": true,
+	"frame": {"x":196,"y":69,"w":13,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-13.png":
+"hero_hours_sprites/skeleton/skeleton-13.png":
 {
-	"frame": {"x":280,"y":64,"w":13,"h":15},
-	"rotated": true,
+	"frame": {"x":253,"y":236,"w":13,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-14.png":
+"hero_hours_sprites/skeleton/skeleton-14.png":
 {
-	"frame": {"x":224,"y":100,"w":15,"h":14},
+	"frame": {"x":194,"y":87,"w":15,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":15,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-15.png":
+"hero_hours_sprites/skeleton/skeleton-15.png":
 {
-	"frame": {"x":308,"y":63,"w":13,"h":15},
+	"frame": {"x":268,"y":236,"w":13,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":13,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-16.png":
+"hero_hours_sprites/skeleton/skeleton-16.png":
 {
-	"frame": {"x":16,"y":115,"w":13,"h":16},
-	"rotated": true,
+	"frame": {"x":196,"y":69,"w":13,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":13,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-17.png":
+"hero_hours_sprites/skeleton/skeleton-17.png":
 {
-	"frame": {"x":224,"y":100,"w":15,"h":14},
+	"frame": {"x":194,"y":87,"w":15,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":15,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-18.png":
+"hero_hours_sprites/skeleton/skeleton-18.png":
 {
-	"frame": {"x":219,"y":57,"w":16,"h":11},
+	"frame": {"x":227,"y":22,"w":16,"h":11},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":16,"h":11},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/skeleton/skeleton-19.png":
+"hero_hours_sprites/skeleton/skeleton-19.png":
 {
-	"frame": {"x":239,"y":106,"w":16,"h":8},
+	"frame": {"x":69,"y":212,"w":16,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":16,"h":8},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/steam_dragon/steam_dragon-0.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-0.png":
 {
-	"frame": {"x":156,"y":64,"w":18,"h":19},
+	"frame": {"x":35,"y":181,"w":18,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-1.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-1.png":
 {
-	"frame": {"x":188,"y":32,"w":19,"h":18},
+	"frame": {"x":69,"y":147,"w":19,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":19,"h":18},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-2.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-2.png":
 {
-	"frame": {"x":219,"y":0,"w":19,"h":18},
+	"frame": {"x":159,"y":69,"w":19,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":19,"h":18},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-3.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-3.png":
 {
-	"frame": {"x":156,"y":83,"w":18,"h":19},
+	"frame": {"x":193,"y":35,"w":18,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-4.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-4.png":
 {
-	"frame": {"x":156,"y":64,"w":18,"h":19},
+	"frame": {"x":35,"y":181,"w":18,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-5.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-5.png":
 {
-	"frame": {"x":156,"y":102,"w":18,"h":19},
+	"frame": {"x":227,"y":1,"w":18,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-6.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-6.png":
 {
-	"frame": {"x":257,"y":0,"w":18,"h":19},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/steam_dragon/steam_dragon-7.png":
-{
-	"frame": {"x":276,"y":0,"w":18,"h":19},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
-},
-"sprites/steam_dragon/steam_dragon-8.png":
-{
-	"frame": {"x":156,"y":64,"w":18,"h":19},
+	"frame": {"x":159,"y":89,"w":18,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-9.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-7.png":
 {
-	"frame": {"x":352,"y":0,"w":20,"h":16},
+	"frame": {"x":247,"y":1,"w":18,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":19},
+	"sourceSize": {"w":20,"h":20}
+},
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-8.png":
+{
+	"frame": {"x":35,"y":181,"w":18,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
+	"sourceSize": {"w":20,"h":20}
+},
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-9.png":
+{
+	"frame": {"x":132,"y":147,"w":20,"h":16},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":4,"w":20,"h":16},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-10.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-10.png":
 {
-	"frame": {"x":174,"y":101,"w":19,"h":15},
+	"frame": {"x":349,"y":1,"w":19,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":19,"h":15},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-11.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-11.png":
 {
-	"frame": {"x":188,"y":68,"w":19,"h":16},
+	"frame": {"x":328,"y":1,"w":19,"h":16},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":4,"w":19,"h":16},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-12.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-12.png":
 {
-	"frame": {"x":295,"y":0,"w":18,"h":19},
+	"frame": {"x":111,"y":147,"w":18,"h":19},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-13.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-13.png":
 {
-	"frame": {"x":188,"y":50,"w":18,"h":18},
+	"frame": {"x":287,"y":1,"w":18,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":18,"h":18},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-14.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-14.png":
 {
-	"frame": {"x":314,"y":0,"w":18,"h":19},
-	"rotated": true,
+	"frame": {"x":159,"y":110,"w":18,"h":19},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-15.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-15.png":
 {
-	"frame": {"x":238,"y":0,"w":19,"h":18},
+	"frame": {"x":90,"y":147,"w":19,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":19,"h":18},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-16.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-16.png":
 {
-	"frame": {"x":333,"y":0,"w":18,"h":19},
-	"rotated": true,
+	"frame": {"x":267,"y":1,"w":18,"h":19},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":18,"h":19},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-17.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-17.png":
 {
-	"frame": {"x":174,"y":84,"w":19,"h":17},
+	"frame": {"x":307,"y":1,"w":19,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":3,"w":19,"h":17},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-18.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-18.png":
 {
-	"frame": {"x":174,"y":64,"w":20,"h":14},
-	"rotated": true,
+	"frame": {"x":370,"y":1,"w":20,"h":14},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":6,"w":20,"h":14},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/steam_dragon/steam_dragon-19.png":
+"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-19.png":
 {
-	"frame": {"x":219,"y":34,"w":20,"h":9},
+	"frame": {"x":69,"y":167,"w":20,"h":9},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":11,"w":20,"h":9},
-	"sourceSize": {"w":20,"h":20},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":20,"h":20}
 },
-"sprites/werewolf/werewolf-0.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-0.png":
 {
-	"frame": {"x":255,"y":34,"w":16,"h":15},
+	"frame": {"x":446,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-1.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-1.png":
 {
-	"frame": {"x":331,"y":18,"w":16,"h":16},
+	"frame": {"x":174,"y":182,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-2.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-2.png":
 {
-	"frame": {"x":271,"y":34,"w":16,"h":15},
+	"frame": {"x":464,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-3.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-3.png":
 {
-	"frame": {"x":221,"y":68,"w":16,"h":16},
+	"frame": {"x":378,"y":17,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-4.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-4.png":
 {
-	"frame": {"x":287,"y":34,"w":16,"h":15},
+	"frame": {"x":482,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-5.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-5.png":
 {
-	"frame": {"x":331,"y":18,"w":16,"h":16},
+	"frame": {"x":174,"y":182,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-6.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-6.png":
 {
-	"frame": {"x":303,"y":34,"w":16,"h":15},
+	"frame": {"x":500,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-7.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-7.png":
 {
-	"frame": {"x":221,"y":68,"w":16,"h":16},
+	"frame": {"x":378,"y":17,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-8.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-8.png":
 {
-	"frame": {"x":319,"y":34,"w":16,"h":15},
+	"frame": {"x":518,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-9.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-9.png":
 {
-	"frame": {"x":208,"y":84,"w":16,"h":15},
+	"frame": {"x":536,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-10.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-10.png":
 {
-	"frame": {"x":219,"y":43,"w":16,"h":14},
+	"frame": {"x":446,"y":36,"w":16,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-11.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-11.png":
 {
-	"frame": {"x":208,"y":99,"w":16,"h":15},
+	"frame": {"x":554,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-12.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-12.png":
 {
-	"frame": {"x":255,"y":34,"w":16,"h":15},
+	"frame": {"x":446,"y":19,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-13.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-13.png":
 {
-	"frame": {"x":217,"y":114,"w":16,"h":14},
+	"frame": {"x":464,"y":36,"w":16,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-14.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-14.png":
 {
-	"frame": {"x":308,"y":49,"w":15,"h":14},
+	"frame": {"x":212,"y":98,"w":15,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":15,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-15.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-15.png":
 {
-	"frame": {"x":235,"y":49,"w":16,"h":15},
+	"frame": {"x":482,"y":36,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-16.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-16.png":
 {
-	"frame": {"x":217,"y":114,"w":16,"h":14},
+	"frame": {"x":464,"y":36,"w":16,"h":14},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":16,"h":14},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-17.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-17.png":
 {
-	"frame": {"x":174,"y":116,"w":15,"h":12},
-	"rotated": false,
+	"frame": {"x":432,"y":35,"w":15,"h":12},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":4,"w":15,"h":12},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-18.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-18.png":
 {
-	"frame": {"x":265,"y":77,"w":16,"h":10},
+	"frame": {"x":87,"y":213,"w":16,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":6,"w":16,"h":10},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
 },
-"sprites/werewolf/werewolf-19.png":
+"hero_hours_sprites/werewolf/Werewolf spritesheet-19.png":
 {
-	"frame": {"x":156,"y":121,"w":16,"h":7},
+	"frame": {"x":213,"y":53,"w":16,"h":7},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":9,"w":16,"h":7},
-	"sourceSize": {"w":16,"h":16},
-	"anchor": {"x":0,"y":0}
+	"sourceSize": {"w":16,"h":16}
+},
+"icons/spell_book.png":
+{
+	"frame": {"x":1,"y":215,"w":28,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":29},
+	"sourceSize": {"w":28,"h":29}
+},
+"icons/spells/archer.png":
+{
+	"frame": {"x":1,"y":147,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"icons/spells/fireball.png":
+{
+	"frame": {"x":159,"y":1,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"icons/spells/hearth.png":
+{
+	"frame": {"x":1,"y":181,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"icons/spells/ice_berg.png":
+{
+	"frame": {"x":35,"y":147,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"icons/spells/lightning.png":
+{
+	"frame": {"x":159,"y":35,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"icons/spells/shield_break.png":
+{
+	"frame": {"x":193,"y":1,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"overworld_tileset_grass/overworld_tileset_grass-0.png":
+{
+	"frame": {"x":378,"y":35,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-1.png":
+{
+	"frame": {"x":396,"y":35,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-2.png":
+{
+	"frame": {"x":414,"y":35,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-3.png":
+{
+	"frame": {"x":500,"y":36,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-4.png":
+{
+	"frame": {"x":518,"y":36,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-5.png":
+{
+	"frame": {"x":536,"y":36,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-6.png":
+{
+	"frame": {"x":554,"y":36,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-7.png":
+{
+	"frame": {"x":67,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-8.png":
+{
+	"frame": {"x":105,"y":214,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-9.png":
+{
+	"frame": {"x":123,"y":216,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-10.png":
+{
+	"frame": {"x":141,"y":216,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-11.png":
+{
+	"frame": {"x":159,"y":216,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-12.png":
+{
+	"frame": {"x":177,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-13.png":
+{
+	"frame": {"x":195,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-14.png":
+{
+	"frame": {"x":138,"y":234,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-15.png":
+{
+	"frame": {"x":156,"y":234,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-16.png":
+{
+	"frame": {"x":213,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-17.png":
+{
+	"frame": {"x":211,"y":62,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-18.png":
+{
+	"frame": {"x":245,"y":56,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-19.png":
+{
+	"frame": {"x":263,"y":56,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-20.png":
+{
+	"frame": {"x":311,"y":56,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-21.png":
+{
+	"frame": {"x":329,"y":55,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-22.png":
+{
+	"frame": {"x":347,"y":55,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-23.png":
+{
+	"frame": {"x":365,"y":54,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-24.png":
+{
+	"frame": {"x":383,"y":53,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-25.png":
+{
+	"frame": {"x":401,"y":53,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-26.png":
+{
+	"frame": {"x":419,"y":53,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-27.png":
+{
+	"frame": {"x":437,"y":52,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-28.png":
+{
+	"frame": {"x":455,"y":52,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-29.png":
+{
+	"frame": {"x":211,"y":80,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-30.png":
+{
+	"frame": {"x":245,"y":74,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-31.png":
+{
+	"frame": {"x":263,"y":74,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-32.png":
+{
+	"frame": {"x":281,"y":74,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-33.png":
+{
+	"frame": {"x":299,"y":74,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-34.png":
+{
+	"frame": {"x":317,"y":74,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-35.png":
+{
+	"frame": {"x":335,"y":73,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-36.png":
+{
+	"frame": {"x":353,"y":73,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-37.png":
+{
+	"frame": {"x":371,"y":72,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-38.png":
+{
+	"frame": {"x":389,"y":71,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-39.png":
+{
+	"frame": {"x":407,"y":71,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-40.png":
+{
+	"frame": {"x":425,"y":71,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-41.png":
+{
+	"frame": {"x":443,"y":70,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-42.png":
+{
+	"frame": {"x":461,"y":70,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-43.png":
+{
+	"frame": {"x":482,"y":53,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-44.png":
+{
+	"frame": {"x":500,"y":54,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-45.png":
+{
+	"frame": {"x":518,"y":54,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-46.png":
+{
+	"frame": {"x":536,"y":54,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-47.png":
+{
+	"frame": {"x":554,"y":54,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-48.png":
+{
+	"frame": {"x":479,"y":71,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-49.png":
+{
+	"frame": {"x":497,"y":72,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-50.png":
+{
+	"frame": {"x":515,"y":72,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-51.png":
+{
+	"frame": {"x":533,"y":72,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-52.png":
+{
+	"frame": {"x":551,"y":72,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-53.png":
+{
+	"frame": {"x":245,"y":92,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-54.png":
+{
+	"frame": {"x":263,"y":92,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-55.png":
+{
+	"frame": {"x":281,"y":92,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-56.png":
+{
+	"frame": {"x":299,"y":92,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-57.png":
+{
+	"frame": {"x":317,"y":92,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-58.png":
+{
+	"frame": {"x":335,"y":91,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-59.png":
+{
+	"frame": {"x":353,"y":91,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-60.png":
+{
+	"frame": {"x":371,"y":90,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-61.png":
+{
+	"frame": {"x":389,"y":89,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-62.png":
+{
+	"frame": {"x":407,"y":89,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-63.png":
+{
+	"frame": {"x":425,"y":89,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-64.png":
+{
+	"frame": {"x":443,"y":88,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-65.png":
+{
+	"frame": {"x":461,"y":88,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-66.png":
+{
+	"frame": {"x":479,"y":89,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-67.png":
+{
+	"frame": {"x":497,"y":90,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-68.png":
+{
+	"frame": {"x":515,"y":90,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-69.png":
+{
+	"frame": {"x":533,"y":90,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-70.png":
+{
+	"frame": {"x":551,"y":90,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-71.png":
+{
+	"frame": {"x":194,"y":103,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-72.png":
+{
+	"frame": {"x":202,"y":147,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-73.png":
+{
+	"frame": {"x":228,"y":115,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-74.png":
+{
+	"frame": {"x":246,"y":110,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-75.png":
+{
+	"frame": {"x":264,"y":110,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-76.png":
+{
+	"frame": {"x":282,"y":110,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-77.png":
+{
+	"frame": {"x":300,"y":110,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-78.png":
+{
+	"frame": {"x":318,"y":110,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-79.png":
+{
+	"frame": {"x":336,"y":109,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-80.png":
+{
+	"frame": {"x":354,"y":109,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-81.png":
+{
+	"frame": {"x":372,"y":108,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-82.png":
+{
+	"frame": {"x":390,"y":107,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-83.png":
+{
+	"frame": {"x":408,"y":107,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-84.png":
+{
+	"frame": {"x":426,"y":107,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-85.png":
+{
+	"frame": {"x":444,"y":106,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-86.png":
+{
+	"frame": {"x":479,"y":107,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-87.png":
+{
+	"frame": {"x":497,"y":108,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-88.png":
+{
+	"frame": {"x":515,"y":108,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-89.png":
+{
+	"frame": {"x":533,"y":108,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-90.png":
+{
+	"frame": {"x":551,"y":108,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-91.png":
+{
+	"frame": {"x":220,"y":147,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-92.png":
+{
+	"frame": {"x":224,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-93.png":
+{
+	"frame": {"x":225,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-94.png":
+{
+	"frame": {"x":231,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-95.png":
+{
+	"frame": {"x":238,"y":147,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-96.png":
+{
+	"frame": {"x":255,"y":128,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-97.png":
+{
+	"frame": {"x":273,"y":128,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-98.png":
+{
+	"frame": {"x":291,"y":128,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-99.png":
+{
+	"frame": {"x":309,"y":128,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-100.png":
+{
+	"frame": {"x":256,"y":146,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-101.png":
+{
+	"frame": {"x":274,"y":146,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-102.png":
+{
+	"frame": {"x":292,"y":146,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-103.png":
+{
+	"frame": {"x":310,"y":146,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-104.png":
+{
+	"frame": {"x":327,"y":128,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-105.png":
+{
+	"frame": {"x":345,"y":127,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-106.png":
+{
+	"frame": {"x":328,"y":146,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-107.png":
+{
+	"frame": {"x":346,"y":145,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-108.png":
+{
+	"frame": {"x":363,"y":127,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-109.png":
+{
+	"frame": {"x":364,"y":145,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-110.png":
+{
+	"frame": {"x":242,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-111.png":
+{
+	"frame": {"x":243,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-112.png":
+{
+	"frame": {"x":261,"y":164,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-113.png":
+{
+	"frame": {"x":260,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-114.png":
+{
+	"frame": {"x":279,"y":164,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-115.png":
+{
+	"frame": {"x":278,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-116.png":
+{
+	"frame": {"x":261,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-117.png":
+{
+	"frame": {"x":249,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-118.png":
+{
+	"frame": {"x":297,"y":164,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-119.png":
+{
+	"frame": {"x":296,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-120.png":
+{
+	"frame": {"x":279,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-121.png":
+{
+	"frame": {"x":267,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-122.png":
+{
+	"frame": {"x":315,"y":164,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-123.png":
+{
+	"frame": {"x":314,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-124.png":
+{
+	"frame": {"x":444,"y":142,"w":16,"h":6},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":10,"w":16,"h":6},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-125.png":
+{
+	"frame": {"x":477,"y":143,"w":16,"h":6},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":10,"w":16,"h":6},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-126.png":
+{
+	"frame": {"x":382,"y":144,"w":16,"h":6},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":10,"w":16,"h":6},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-127.png":
+{
+	"frame": {"x":297,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-128.png":
+{
+	"frame": {"x":285,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-129.png":
+{
+	"frame": {"x":315,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-130.png":
+{
+	"frame": {"x":303,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-131.png":
+{
+	"frame": {"x":333,"y":164,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-132.png":
+{
+	"frame": {"x":332,"y":182,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-133.png":
+{
+	"frame": {"x":351,"y":163,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-134.png":
+{
+	"frame": {"x":333,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-135.png":
+{
+	"frame": {"x":321,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-136.png":
+{
+	"frame": {"x":426,"y":161,"w":9,"h":6},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":10,"w":9,"h":6},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-137.png":
+{
+	"frame": {"x":473,"y":52,"w":16,"h":7},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":9,"w":16,"h":7},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-138.png":
+{
+	"frame": {"x":381,"y":126,"w":16,"h":7},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":9,"w":16,"h":7},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-139.png":
+{
+	"frame": {"x":459,"y":206,"w":12,"h":7},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":9,"w":12,"h":7},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-140.png":
+{
+	"frame": {"x":212,"y":114,"w":15,"h":14},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":15,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-141.png":
+{
+	"frame": {"x":1,"y":246,"w":5,"h":14},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":5,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-142.png":
+{
+	"frame": {"x":246,"y":128,"w":5,"h":3},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":13,"w":5,"h":3},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-143.png":
+{
+	"frame": {"x":100,"y":225,"w":8,"h":3},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":13,"w":8,"h":3},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-144.png":
+{
+	"frame": {"x":369,"y":163,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-145.png":
+{
+	"frame": {"x":339,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-146.png":
+{
+	"frame": {"x":390,"y":125,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-147.png":
+{
+	"frame": {"x":408,"y":125,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-148.png":
+{
+	"frame": {"x":426,"y":125,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-149.png":
+{
+	"frame": {"x":444,"y":124,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-150.png":
+{
+	"frame": {"x":477,"y":125,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-151.png":
+{
+	"frame": {"x":495,"y":126,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-152.png":
+{
+	"frame": {"x":513,"y":126,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-153.png":
+{
+	"frame": {"x":531,"y":126,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-154.png":
+{
+	"frame": {"x":350,"y":182,"w":10,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":0,"w":10,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-155.png":
+{
+	"frame": {"x":281,"y":22,"w":13,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-156.png":
+{
+	"frame": {"x":549,"y":126,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-157.png":
+{
+	"frame": {"x":390,"y":143,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-158.png":
+{
+	"frame": {"x":408,"y":143,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-159.png":
+{
+	"frame": {"x":426,"y":143,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-160.png":
+{
+	"frame": {"x":477,"y":151,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-161.png":
+{
+	"frame": {"x":495,"y":144,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-162.png":
+{
+	"frame": {"x":513,"y":144,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-163.png":
+{
+	"frame": {"x":531,"y":144,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-164.png":
+{
+	"frame": {"x":549,"y":144,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-165.png":
+{
+	"frame": {"x":495,"y":162,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-166.png":
+{
+	"frame": {"x":401,"y":169,"w":10,"h":16},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":0,"w":10,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-167.png":
+{
+	"frame": {"x":296,"y":39,"w":13,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-168.png":
+{
+	"frame": {"x":513,"y":162,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-169.png":
+{
+	"frame": {"x":531,"y":162,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-170.png":
+{
+	"frame": {"x":549,"y":162,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-171.png":
+{
+	"frame": {"x":351,"y":200,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-172.png":
+{
+	"frame": {"x":357,"y":218,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-173.png":
+{
+	"frame": {"x":362,"y":181,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-174.png":
+{
+	"frame": {"x":369,"y":199,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-175.png":
+{
+	"frame": {"x":380,"y":181,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-176.png":
+{
+	"frame": {"x":375,"y":217,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-177.png":
+{
+	"frame": {"x":375,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-178.png":
+{
+	"frame": {"x":387,"y":199,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-179.png":
+{
+	"frame": {"x":393,"y":217,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-180.png":
+{
+	"frame": {"x":396,"y":17,"w":16,"h":12},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":4,"w":16,"h":12},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-181.png":
+{
+	"frame": {"x":393,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-182.png":
+{
+	"frame": {"x":398,"y":181,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-183.png":
+{
+	"frame": {"x":405,"y":199,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-184.png":
+{
+	"frame": {"x":85,"y":236,"w":16,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-185.png":
+{
+	"frame": {"x":411,"y":217,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-186.png":
+{
+	"frame": {"x":569,"y":72,"w":3,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":3,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-187.png":
+{
+	"frame": {"x":550,"y":227,"w":12,"h":12},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":12,"h":12},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-188.png":
+{
+	"frame": {"x":411,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-189.png":
+{
+	"frame": {"x":416,"y":181,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-190.png":
+{
+	"frame": {"x":423,"y":199,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-191.png":
+{
+	"frame": {"x":429,"y":217,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-192.png":
+{
+	"frame": {"x":429,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-193.png":
+{
+	"frame": {"x":434,"y":181,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-194.png":
+{
+	"frame": {"x":441,"y":199,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-195.png":
+{
+	"frame": {"x":103,"y":236,"w":16,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":16,"h":15},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-196.png":
+{
+	"frame": {"x":447,"y":217,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-197.png":
+{
+	"frame": {"x":569,"y":88,"w":3,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":3,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-198.png":
+{
+	"frame": {"x":447,"y":235,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-199.png":
+{
+	"frame": {"x":443,"y":162,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-200.png":
+{
+	"frame": {"x":477,"y":169,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-201.png":
+{
+	"frame": {"x":495,"y":180,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-202.png":
+{
+	"frame": {"x":513,"y":180,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-203.png":
+{
+	"frame": {"x":569,"y":104,"w":3,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":3,"h":14},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-204.png":
+{
+	"frame": {"x":390,"y":161,"w":16,"h":6},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":10,"w":16,"h":6},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-205.png":
+{
+	"frame": {"x":408,"y":161,"w":16,"h":6},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":10,"w":16,"h":6},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-206.png":
+{
+	"frame": {"x":444,"y":150,"w":16,"h":10},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":16,"h":10},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-207.png":
+{
+	"frame": {"x":531,"y":180,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-208.png":
+{
+	"frame": {"x":549,"y":180,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"overworld_tileset_grass/overworld_tileset_grass-209.png":
+{
+	"frame": {"x":477,"y":187,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
 }},
 "animations": {
-	"sprites/archer/archer": ["sprites/archer/archer-0.png","sprites/archer/archer-1.png","sprites/archer/archer-2.png","sprites/archer/archer-3.png","sprites/archer/archer-4.png","sprites/archer/archer-5.png","sprites/archer/archer-6.png","sprites/archer/archer-7.png","sprites/archer/archer-8.png","sprites/archer/archer-9.png","sprites/archer/archer-10.png","sprites/archer/archer-11.png","sprites/archer/archer-12.png","sprites/archer/archer-13.png","sprites/archer/archer-14.png","sprites/archer/archer-15.png","sprites/archer/archer-16.png","sprites/archer/archer-17.png","sprites/archer/archer-18.png","sprites/archer/archer-19.png"],
-	"sprites/flag_bearer/flag_bearer": ["sprites/flag_bearer/flag_bearer-0.png","sprites/flag_bearer/flag_bearer-1.png","sprites/flag_bearer/flag_bearer-2.png","sprites/flag_bearer/flag_bearer-3.png","sprites/flag_bearer/flag_bearer-4.png","sprites/flag_bearer/flag_bearer-5.png","sprites/flag_bearer/flag_bearer-6.png","sprites/flag_bearer/flag_bearer-7.png","sprites/flag_bearer/flag_bearer-8.png","sprites/flag_bearer/flag_bearer-9.png","sprites/flag_bearer/flag_bearer-10.png","sprites/flag_bearer/flag_bearer-11.png","sprites/flag_bearer/flag_bearer-12.png","sprites/flag_bearer/flag_bearer-13.png","sprites/flag_bearer/flag_bearer-14.png","sprites/flag_bearer/flag_bearer-15.png","sprites/flag_bearer/flag_bearer-16.png","sprites/flag_bearer/flag_bearer-17.png","sprites/flag_bearer/flag_bearer-18.png","sprites/flag_bearer/flag_bearer-19.png"],
-	"sprites/goblin_knight/goblin_knight": ["sprites/goblin_knight/goblin_knight-0.png","sprites/goblin_knight/goblin_knight-1.png","sprites/goblin_knight/goblin_knight-2.png","sprites/goblin_knight/goblin_knight-3.png","sprites/goblin_knight/goblin_knight-4.png","sprites/goblin_knight/goblin_knight-5.png","sprites/goblin_knight/goblin_knight-6.png","sprites/goblin_knight/goblin_knight-7.png","sprites/goblin_knight/goblin_knight-8.png","sprites/goblin_knight/goblin_knight-9.png","sprites/goblin_knight/goblin_knight-10.png","sprites/goblin_knight/goblin_knight-11.png","sprites/goblin_knight/goblin_knight-12.png","sprites/goblin_knight/goblin_knight-13.png","sprites/goblin_knight/goblin_knight-14.png","sprites/goblin_knight/goblin_knight-15.png","sprites/goblin_knight/goblin_knight-16.png","sprites/goblin_knight/goblin_knight-17.png","sprites/goblin_knight/goblin_knight-18.png","sprites/goblin_knight/goblin_knight-19.png"],
-	"sprites/inquisitor/inquisitor": ["sprites/inquisitor/inquisitor-0.png","sprites/inquisitor/inquisitor-1.png","sprites/inquisitor/inquisitor-2.png","sprites/inquisitor/inquisitor-3.png","sprites/inquisitor/inquisitor-4.png","sprites/inquisitor/inquisitor-5.png","sprites/inquisitor/inquisitor-6.png","sprites/inquisitor/inquisitor-7.png","sprites/inquisitor/inquisitor-8.png","sprites/inquisitor/inquisitor-9.png","sprites/inquisitor/inquisitor-10.png","sprites/inquisitor/inquisitor-11.png","sprites/inquisitor/inquisitor-12.png","sprites/inquisitor/inquisitor-13.png","sprites/inquisitor/inquisitor-14.png","sprites/inquisitor/inquisitor-15.png","sprites/inquisitor/inquisitor-16.png","sprites/inquisitor/inquisitor-17.png","sprites/inquisitor/inquisitor-18.png","sprites/inquisitor/inquisitor-19.png"],
-	"sprites/leprechaun/leprechaun": ["sprites/leprechaun/leprechaun-0.png","sprites/leprechaun/leprechaun-1.png","sprites/leprechaun/leprechaun-2.png","sprites/leprechaun/leprechaun-3.png","sprites/leprechaun/leprechaun-4.png","sprites/leprechaun/leprechaun-5.png","sprites/leprechaun/leprechaun-6.png","sprites/leprechaun/leprechaun-7.png","sprites/leprechaun/leprechaun-8.png","sprites/leprechaun/leprechaun-9.png","sprites/leprechaun/leprechaun-10.png","sprites/leprechaun/leprechaun-11.png","sprites/leprechaun/leprechaun-12.png","sprites/leprechaun/leprechaun-13.png","sprites/leprechaun/leprechaun-14.png","sprites/leprechaun/leprechaun-15.png","sprites/leprechaun/leprechaun-16.png","sprites/leprechaun/leprechaun-17.png","sprites/leprechaun/leprechaun-18.png","sprites/leprechaun/leprechaun-19.png"],
-	"sprites/skeleton/skeleton": ["sprites/skeleton/skeleton-0.png","sprites/skeleton/skeleton-1.png","sprites/skeleton/skeleton-2.png","sprites/skeleton/skeleton-3.png","sprites/skeleton/skeleton-4.png","sprites/skeleton/skeleton-5.png","sprites/skeleton/skeleton-6.png","sprites/skeleton/skeleton-7.png","sprites/skeleton/skeleton-8.png","sprites/skeleton/skeleton-9.png","sprites/skeleton/skeleton-10.png","sprites/skeleton/skeleton-11.png","sprites/skeleton/skeleton-12.png","sprites/skeleton/skeleton-13.png","sprites/skeleton/skeleton-14.png","sprites/skeleton/skeleton-15.png","sprites/skeleton/skeleton-16.png","sprites/skeleton/skeleton-17.png","sprites/skeleton/skeleton-18.png","sprites/skeleton/skeleton-19.png"],
-	"sprites/steam_dragon/steam_dragon": ["sprites/steam_dragon/steam_dragon-0.png","sprites/steam_dragon/steam_dragon-1.png","sprites/steam_dragon/steam_dragon-2.png","sprites/steam_dragon/steam_dragon-3.png","sprites/steam_dragon/steam_dragon-4.png","sprites/steam_dragon/steam_dragon-5.png","sprites/steam_dragon/steam_dragon-6.png","sprites/steam_dragon/steam_dragon-7.png","sprites/steam_dragon/steam_dragon-8.png","sprites/steam_dragon/steam_dragon-9.png","sprites/steam_dragon/steam_dragon-10.png","sprites/steam_dragon/steam_dragon-11.png","sprites/steam_dragon/steam_dragon-12.png","sprites/steam_dragon/steam_dragon-13.png","sprites/steam_dragon/steam_dragon-14.png","sprites/steam_dragon/steam_dragon-15.png","sprites/steam_dragon/steam_dragon-16.png","sprites/steam_dragon/steam_dragon-17.png","sprites/steam_dragon/steam_dragon-18.png","sprites/steam_dragon/steam_dragon-19.png"],
-	"sprites/werewolf/werewolf": ["sprites/werewolf/werewolf-0.png","sprites/werewolf/werewolf-1.png","sprites/werewolf/werewolf-2.png","sprites/werewolf/werewolf-3.png","sprites/werewolf/werewolf-4.png","sprites/werewolf/werewolf-5.png","sprites/werewolf/werewolf-6.png","sprites/werewolf/werewolf-7.png","sprites/werewolf/werewolf-8.png","sprites/werewolf/werewolf-9.png","sprites/werewolf/werewolf-10.png","sprites/werewolf/werewolf-11.png","sprites/werewolf/werewolf-12.png","sprites/werewolf/werewolf-13.png","sprites/werewolf/werewolf-14.png","sprites/werewolf/werewolf-15.png","sprites/werewolf/werewolf-16.png","sprites/werewolf/werewolf-17.png","sprites/werewolf/werewolf-18.png","sprites/werewolf/werewolf-19.png"]
+	"hero_hours_sprites/archer/archer": ["hero_hours_sprites/archer/archer-0.png","hero_hours_sprites/archer/archer-1.png","hero_hours_sprites/archer/archer-2.png","hero_hours_sprites/archer/archer-3.png","hero_hours_sprites/archer/archer-4.png","hero_hours_sprites/archer/archer-5.png","hero_hours_sprites/archer/archer-6.png","hero_hours_sprites/archer/archer-7.png","hero_hours_sprites/archer/archer-8.png","hero_hours_sprites/archer/archer-9.png","hero_hours_sprites/archer/archer-10.png","hero_hours_sprites/archer/archer-11.png","hero_hours_sprites/archer/archer-12.png","hero_hours_sprites/archer/archer-13.png","hero_hours_sprites/archer/archer-14.png","hero_hours_sprites/archer/archer-15.png","hero_hours_sprites/archer/archer-16.png","hero_hours_sprites/archer/archer-17.png","hero_hours_sprites/archer/archer-18.png","hero_hours_sprites/archer/archer-19.png"],
+	"hero_hours_sprites/flag_bearer/Flag Bearer spritesheet": ["hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-0.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-1.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-2.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-3.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-4.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-5.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-6.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-7.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-8.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-9.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-10.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-11.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-12.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-13.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-14.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-15.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-16.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-17.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-18.png","hero_hours_sprites/flag_bearer/Flag Bearer spritesheet-19.png"],
+	"hero_hours_sprites/goblin_knight/Goblin Knight spritesheet": ["hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-0.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-1.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-2.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-3.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-4.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-5.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-6.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-7.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-8.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-9.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-10.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-11.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-12.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-13.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-14.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-15.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-16.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-17.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-18.png","hero_hours_sprites/goblin_knight/Goblin Knight spritesheet-19.png"],
+	"hero_hours_sprites/inquisitor/inquisitor": ["hero_hours_sprites/inquisitor/inquisitor-0.png","hero_hours_sprites/inquisitor/inquisitor-1.png","hero_hours_sprites/inquisitor/inquisitor-2.png","hero_hours_sprites/inquisitor/inquisitor-3.png","hero_hours_sprites/inquisitor/inquisitor-4.png","hero_hours_sprites/inquisitor/inquisitor-5.png","hero_hours_sprites/inquisitor/inquisitor-6.png","hero_hours_sprites/inquisitor/inquisitor-7.png","hero_hours_sprites/inquisitor/inquisitor-8.png","hero_hours_sprites/inquisitor/inquisitor-9.png","hero_hours_sprites/inquisitor/inquisitor-10.png","hero_hours_sprites/inquisitor/inquisitor-11.png","hero_hours_sprites/inquisitor/inquisitor-12.png","hero_hours_sprites/inquisitor/inquisitor-13.png","hero_hours_sprites/inquisitor/inquisitor-14.png","hero_hours_sprites/inquisitor/inquisitor-15.png","hero_hours_sprites/inquisitor/inquisitor-16.png","hero_hours_sprites/inquisitor/inquisitor-17.png","hero_hours_sprites/inquisitor/inquisitor-18.png","hero_hours_sprites/inquisitor/inquisitor-19.png"],
+	"hero_hours_sprites/leprechaun/Leprechaun spritesheet": ["hero_hours_sprites/leprechaun/Leprechaun spritesheet-0.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-1.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-2.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-3.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-4.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-5.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-6.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-7.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-8.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-9.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-10.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-11.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-12.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-13.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-14.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-15.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-16.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-17.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-18.png","hero_hours_sprites/leprechaun/Leprechaun spritesheet-19.png"],
+	"hero_hours_sprites/skeleton/skeleton": ["hero_hours_sprites/skeleton/skeleton-0.png","hero_hours_sprites/skeleton/skeleton-1.png","hero_hours_sprites/skeleton/skeleton-2.png","hero_hours_sprites/skeleton/skeleton-3.png","hero_hours_sprites/skeleton/skeleton-4.png","hero_hours_sprites/skeleton/skeleton-5.png","hero_hours_sprites/skeleton/skeleton-6.png","hero_hours_sprites/skeleton/skeleton-7.png","hero_hours_sprites/skeleton/skeleton-8.png","hero_hours_sprites/skeleton/skeleton-9.png","hero_hours_sprites/skeleton/skeleton-10.png","hero_hours_sprites/skeleton/skeleton-11.png","hero_hours_sprites/skeleton/skeleton-12.png","hero_hours_sprites/skeleton/skeleton-13.png","hero_hours_sprites/skeleton/skeleton-14.png","hero_hours_sprites/skeleton/skeleton-15.png","hero_hours_sprites/skeleton/skeleton-16.png","hero_hours_sprites/skeleton/skeleton-17.png","hero_hours_sprites/skeleton/skeleton-18.png","hero_hours_sprites/skeleton/skeleton-19.png"],
+	"hero_hours_sprites/steam_dragon/Steam Dragon spritesheet": ["hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-0.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-1.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-2.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-3.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-4.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-5.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-6.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-7.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-8.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-9.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-10.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-11.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-12.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-13.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-14.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-15.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-16.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-17.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-18.png","hero_hours_sprites/steam_dragon/Steam Dragon spritesheet-19.png"],
+	"hero_hours_sprites/werewolf/Werewolf spritesheet": ["hero_hours_sprites/werewolf/Werewolf spritesheet-0.png","hero_hours_sprites/werewolf/Werewolf spritesheet-1.png","hero_hours_sprites/werewolf/Werewolf spritesheet-2.png","hero_hours_sprites/werewolf/Werewolf spritesheet-3.png","hero_hours_sprites/werewolf/Werewolf spritesheet-4.png","hero_hours_sprites/werewolf/Werewolf spritesheet-5.png","hero_hours_sprites/werewolf/Werewolf spritesheet-6.png","hero_hours_sprites/werewolf/Werewolf spritesheet-7.png","hero_hours_sprites/werewolf/Werewolf spritesheet-8.png","hero_hours_sprites/werewolf/Werewolf spritesheet-9.png","hero_hours_sprites/werewolf/Werewolf spritesheet-10.png","hero_hours_sprites/werewolf/Werewolf spritesheet-11.png","hero_hours_sprites/werewolf/Werewolf spritesheet-12.png","hero_hours_sprites/werewolf/Werewolf spritesheet-13.png","hero_hours_sprites/werewolf/Werewolf spritesheet-14.png","hero_hours_sprites/werewolf/Werewolf spritesheet-15.png","hero_hours_sprites/werewolf/Werewolf spritesheet-16.png","hero_hours_sprites/werewolf/Werewolf spritesheet-17.png","hero_hours_sprites/werewolf/Werewolf spritesheet-18.png","hero_hours_sprites/werewolf/Werewolf spritesheet-19.png"],
+	"overworld_tileset_grass/overworld_tileset_grass": ["overworld_tileset_grass/overworld_tileset_grass-0.png","overworld_tileset_grass/overworld_tileset_grass-1.png","overworld_tileset_grass/overworld_tileset_grass-2.png","overworld_tileset_grass/overworld_tileset_grass-3.png","overworld_tileset_grass/overworld_tileset_grass-4.png","overworld_tileset_grass/overworld_tileset_grass-5.png","overworld_tileset_grass/overworld_tileset_grass-6.png","overworld_tileset_grass/overworld_tileset_grass-7.png","overworld_tileset_grass/overworld_tileset_grass-8.png","overworld_tileset_grass/overworld_tileset_grass-9.png","overworld_tileset_grass/overworld_tileset_grass-10.png","overworld_tileset_grass/overworld_tileset_grass-11.png","overworld_tileset_grass/overworld_tileset_grass-12.png","overworld_tileset_grass/overworld_tileset_grass-13.png","overworld_tileset_grass/overworld_tileset_grass-14.png","overworld_tileset_grass/overworld_tileset_grass-15.png","overworld_tileset_grass/overworld_tileset_grass-16.png","overworld_tileset_grass/overworld_tileset_grass-17.png","overworld_tileset_grass/overworld_tileset_grass-18.png","overworld_tileset_grass/overworld_tileset_grass-19.png","overworld_tileset_grass/overworld_tileset_grass-20.png","overworld_tileset_grass/overworld_tileset_grass-21.png","overworld_tileset_grass/overworld_tileset_grass-22.png","overworld_tileset_grass/overworld_tileset_grass-23.png","overworld_tileset_grass/overworld_tileset_grass-24.png","overworld_tileset_grass/overworld_tileset_grass-25.png","overworld_tileset_grass/overworld_tileset_grass-26.png","overworld_tileset_grass/overworld_tileset_grass-27.png","overworld_tileset_grass/overworld_tileset_grass-28.png","overworld_tileset_grass/overworld_tileset_grass-29.png","overworld_tileset_grass/overworld_tileset_grass-30.png","overworld_tileset_grass/overworld_tileset_grass-31.png","overworld_tileset_grass/overworld_tileset_grass-32.png","overworld_tileset_grass/overworld_tileset_grass-33.png","overworld_tileset_grass/overworld_tileset_grass-34.png","overworld_tileset_grass/overworld_tileset_grass-35.png","overworld_tileset_grass/overworld_tileset_grass-36.png","overworld_tileset_grass/overworld_tileset_grass-37.png","overworld_tileset_grass/overworld_tileset_grass-38.png","overworld_tileset_grass/overworld_tileset_grass-39.png","overworld_tileset_grass/overworld_tileset_grass-40.png","overworld_tileset_grass/overworld_tileset_grass-41.png","overworld_tileset_grass/overworld_tileset_grass-42.png","overworld_tileset_grass/overworld_tileset_grass-43.png","overworld_tileset_grass/overworld_tileset_grass-44.png","overworld_tileset_grass/overworld_tileset_grass-45.png","overworld_tileset_grass/overworld_tileset_grass-46.png","overworld_tileset_grass/overworld_tileset_grass-47.png","overworld_tileset_grass/overworld_tileset_grass-48.png","overworld_tileset_grass/overworld_tileset_grass-49.png","overworld_tileset_grass/overworld_tileset_grass-50.png","overworld_tileset_grass/overworld_tileset_grass-51.png","overworld_tileset_grass/overworld_tileset_grass-52.png","overworld_tileset_grass/overworld_tileset_grass-53.png","overworld_tileset_grass/overworld_tileset_grass-54.png","overworld_tileset_grass/overworld_tileset_grass-55.png","overworld_tileset_grass/overworld_tileset_grass-56.png","overworld_tileset_grass/overworld_tileset_grass-57.png","overworld_tileset_grass/overworld_tileset_grass-58.png","overworld_tileset_grass/overworld_tileset_grass-59.png","overworld_tileset_grass/overworld_tileset_grass-60.png","overworld_tileset_grass/overworld_tileset_grass-61.png","overworld_tileset_grass/overworld_tileset_grass-62.png","overworld_tileset_grass/overworld_tileset_grass-63.png","overworld_tileset_grass/overworld_tileset_grass-64.png","overworld_tileset_grass/overworld_tileset_grass-65.png","overworld_tileset_grass/overworld_tileset_grass-66.png","overworld_tileset_grass/overworld_tileset_grass-67.png","overworld_tileset_grass/overworld_tileset_grass-68.png","overworld_tileset_grass/overworld_tileset_grass-69.png","overworld_tileset_grass/overworld_tileset_grass-70.png","overworld_tileset_grass/overworld_tileset_grass-71.png","overworld_tileset_grass/overworld_tileset_grass-72.png","overworld_tileset_grass/overworld_tileset_grass-73.png","overworld_tileset_grass/overworld_tileset_grass-74.png","overworld_tileset_grass/overworld_tileset_grass-75.png","overworld_tileset_grass/overworld_tileset_grass-76.png","overworld_tileset_grass/overworld_tileset_grass-77.png","overworld_tileset_grass/overworld_tileset_grass-78.png","overworld_tileset_grass/overworld_tileset_grass-79.png","overworld_tileset_grass/overworld_tileset_grass-80.png","overworld_tileset_grass/overworld_tileset_grass-81.png","overworld_tileset_grass/overworld_tileset_grass-82.png","overworld_tileset_grass/overworld_tileset_grass-83.png","overworld_tileset_grass/overworld_tileset_grass-84.png","overworld_tileset_grass/overworld_tileset_grass-85.png","overworld_tileset_grass/overworld_tileset_grass-86.png","overworld_tileset_grass/overworld_tileset_grass-87.png","overworld_tileset_grass/overworld_tileset_grass-88.png","overworld_tileset_grass/overworld_tileset_grass-89.png","overworld_tileset_grass/overworld_tileset_grass-90.png","overworld_tileset_grass/overworld_tileset_grass-91.png","overworld_tileset_grass/overworld_tileset_grass-92.png","overworld_tileset_grass/overworld_tileset_grass-93.png","overworld_tileset_grass/overworld_tileset_grass-94.png","overworld_tileset_grass/overworld_tileset_grass-95.png","overworld_tileset_grass/overworld_tileset_grass-96.png","overworld_tileset_grass/overworld_tileset_grass-97.png","overworld_tileset_grass/overworld_tileset_grass-98.png","overworld_tileset_grass/overworld_tileset_grass-99.png","overworld_tileset_grass/overworld_tileset_grass-100.png","overworld_tileset_grass/overworld_tileset_grass-101.png","overworld_tileset_grass/overworld_tileset_grass-102.png","overworld_tileset_grass/overworld_tileset_grass-103.png","overworld_tileset_grass/overworld_tileset_grass-104.png","overworld_tileset_grass/overworld_tileset_grass-105.png","overworld_tileset_grass/overworld_tileset_grass-106.png","overworld_tileset_grass/overworld_tileset_grass-107.png","overworld_tileset_grass/overworld_tileset_grass-108.png","overworld_tileset_grass/overworld_tileset_grass-109.png","overworld_tileset_grass/overworld_tileset_grass-110.png","overworld_tileset_grass/overworld_tileset_grass-111.png","overworld_tileset_grass/overworld_tileset_grass-112.png","overworld_tileset_grass/overworld_tileset_grass-113.png","overworld_tileset_grass/overworld_tileset_grass-114.png","overworld_tileset_grass/overworld_tileset_grass-115.png","overworld_tileset_grass/overworld_tileset_grass-116.png","overworld_tileset_grass/overworld_tileset_grass-117.png","overworld_tileset_grass/overworld_tileset_grass-118.png","overworld_tileset_grass/overworld_tileset_grass-119.png","overworld_tileset_grass/overworld_tileset_grass-120.png","overworld_tileset_grass/overworld_tileset_grass-121.png","overworld_tileset_grass/overworld_tileset_grass-122.png","overworld_tileset_grass/overworld_tileset_grass-123.png","overworld_tileset_grass/overworld_tileset_grass-124.png","overworld_tileset_grass/overworld_tileset_grass-125.png","overworld_tileset_grass/overworld_tileset_grass-126.png","overworld_tileset_grass/overworld_tileset_grass-127.png","overworld_tileset_grass/overworld_tileset_grass-128.png","overworld_tileset_grass/overworld_tileset_grass-129.png","overworld_tileset_grass/overworld_tileset_grass-130.png","overworld_tileset_grass/overworld_tileset_grass-131.png","overworld_tileset_grass/overworld_tileset_grass-132.png","overworld_tileset_grass/overworld_tileset_grass-133.png","overworld_tileset_grass/overworld_tileset_grass-134.png","overworld_tileset_grass/overworld_tileset_grass-135.png","overworld_tileset_grass/overworld_tileset_grass-136.png","overworld_tileset_grass/overworld_tileset_grass-137.png","overworld_tileset_grass/overworld_tileset_grass-138.png","overworld_tileset_grass/overworld_tileset_grass-139.png","overworld_tileset_grass/overworld_tileset_grass-140.png","overworld_tileset_grass/overworld_tileset_grass-141.png","overworld_tileset_grass/overworld_tileset_grass-142.png","overworld_tileset_grass/overworld_tileset_grass-143.png","overworld_tileset_grass/overworld_tileset_grass-144.png","overworld_tileset_grass/overworld_tileset_grass-145.png","overworld_tileset_grass/overworld_tileset_grass-146.png","overworld_tileset_grass/overworld_tileset_grass-147.png","overworld_tileset_grass/overworld_tileset_grass-148.png","overworld_tileset_grass/overworld_tileset_grass-149.png","overworld_tileset_grass/overworld_tileset_grass-150.png","overworld_tileset_grass/overworld_tileset_grass-151.png","overworld_tileset_grass/overworld_tileset_grass-152.png","overworld_tileset_grass/overworld_tileset_grass-153.png","overworld_tileset_grass/overworld_tileset_grass-154.png","overworld_tileset_grass/overworld_tileset_grass-155.png","overworld_tileset_grass/overworld_tileset_grass-156.png","overworld_tileset_grass/overworld_tileset_grass-157.png","overworld_tileset_grass/overworld_tileset_grass-158.png","overworld_tileset_grass/overworld_tileset_grass-159.png","overworld_tileset_grass/overworld_tileset_grass-160.png","overworld_tileset_grass/overworld_tileset_grass-161.png","overworld_tileset_grass/overworld_tileset_grass-162.png","overworld_tileset_grass/overworld_tileset_grass-163.png","overworld_tileset_grass/overworld_tileset_grass-164.png","overworld_tileset_grass/overworld_tileset_grass-165.png","overworld_tileset_grass/overworld_tileset_grass-166.png","overworld_tileset_grass/overworld_tileset_grass-167.png","overworld_tileset_grass/overworld_tileset_grass-168.png","overworld_tileset_grass/overworld_tileset_grass-169.png","overworld_tileset_grass/overworld_tileset_grass-170.png","overworld_tileset_grass/overworld_tileset_grass-171.png","overworld_tileset_grass/overworld_tileset_grass-172.png","overworld_tileset_grass/overworld_tileset_grass-173.png","overworld_tileset_grass/overworld_tileset_grass-174.png","overworld_tileset_grass/overworld_tileset_grass-175.png","overworld_tileset_grass/overworld_tileset_grass-176.png","overworld_tileset_grass/overworld_tileset_grass-177.png","overworld_tileset_grass/overworld_tileset_grass-178.png","overworld_tileset_grass/overworld_tileset_grass-179.png","overworld_tileset_grass/overworld_tileset_grass-180.png","overworld_tileset_grass/overworld_tileset_grass-181.png","overworld_tileset_grass/overworld_tileset_grass-182.png","overworld_tileset_grass/overworld_tileset_grass-183.png","overworld_tileset_grass/overworld_tileset_grass-184.png","overworld_tileset_grass/overworld_tileset_grass-185.png","overworld_tileset_grass/overworld_tileset_grass-186.png","overworld_tileset_grass/overworld_tileset_grass-187.png","overworld_tileset_grass/overworld_tileset_grass-188.png","overworld_tileset_grass/overworld_tileset_grass-189.png","overworld_tileset_grass/overworld_tileset_grass-190.png","overworld_tileset_grass/overworld_tileset_grass-191.png","overworld_tileset_grass/overworld_tileset_grass-192.png","overworld_tileset_grass/overworld_tileset_grass-193.png","overworld_tileset_grass/overworld_tileset_grass-194.png","overworld_tileset_grass/overworld_tileset_grass-195.png","overworld_tileset_grass/overworld_tileset_grass-196.png","overworld_tileset_grass/overworld_tileset_grass-197.png","overworld_tileset_grass/overworld_tileset_grass-198.png","overworld_tileset_grass/overworld_tileset_grass-199.png","overworld_tileset_grass/overworld_tileset_grass-200.png","overworld_tileset_grass/overworld_tileset_grass-201.png","overworld_tileset_grass/overworld_tileset_grass-202.png","overworld_tileset_grass/overworld_tileset_grass-203.png","overworld_tileset_grass/overworld_tileset_grass-204.png","overworld_tileset_grass/overworld_tileset_grass-205.png","overworld_tileset_grass/overworld_tileset_grass-206.png","overworld_tileset_grass/overworld_tileset_grass-207.png","overworld_tileset_grass/overworld_tileset_grass-208.png","overworld_tileset_grass/overworld_tileset_grass-209.png"]
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.0",
-	"image": "asset.png",
+	"version": "1.1",
+	"image": "assets.png",
 	"format": "RGBA8888",
-	"size": {"w":373,"h":128},
+	"size": {"w":573,"h":252},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:01dd2d134c31297d549fcb61eb16e597:e108aa36dbeef441bcbb287a1842e938:3c3f8eb9b5c2a5ede0dc2dd13739817f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5678f8a16703f6c5c93d9d99ff75bf36:3e5b9d1c700cd450d6e22987dd952596:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
