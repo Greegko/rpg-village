@@ -135,6 +135,9 @@ importers:
       '@rpg-village/battleground-core':
         specifier: 'workspace: *'
         version: link:../core
+      '@tailwindcss/vite':
+        specifier: 4.0.7
+        version: 4.0.7(vite@6.1.1(@types/node@22.13.4)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
       pixi.js:
         specifier: 8.8.0
         version: 8.8.0
@@ -144,6 +147,9 @@ importers:
       solid-js:
         specifier: 1.9.4
         version: 1.9.4
+      tailwindcss:
+        specifier: 4.0.7
+        version: 4.0.7
       typescript:
         specifier: 5.7.3
         version: 5.7.3

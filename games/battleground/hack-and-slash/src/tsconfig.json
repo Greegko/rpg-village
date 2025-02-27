@@ -1,8 +1,19 @@
 {
-  "extends": "./tsconfig-base.json",
-  "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
   "compilerOptions": {
-    "noEmit": true,
+    "rootDir": "./",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noUnusedLocals": true,
+    "strict": true,
+    "composite": true,
+    "outDir": "../dist",
+    "declaration": true,
+    "declarationMap": true,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client"]
