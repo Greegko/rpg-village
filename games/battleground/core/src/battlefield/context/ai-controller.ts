@@ -1,14 +1,14 @@
 import { head, sortBy } from "rambda";
 
 import { getPositionDistance, normVector, rotateVectorBy, subVector } from "../../utils";
-import { EffectsContext } from "../effects";
 import { inject, injectable } from "../injection-container";
 import { Position, ProjectileNode, Unit } from "../interface";
 import { RandomContextToken } from "../interface/random-token";
-import { MapContext } from "../map";
-import { UnitContext } from "../unit";
 import { getUnitCentral } from "../utils";
 import { isUnitActionHasValidTarget, seekTarget } from "../utils/unit-filter";
+import { EffectsContext } from "./effects";
+import { MapContext } from "./map";
+import { UnitContext } from "./unit";
 
 @injectable()
 export class AiController {

@@ -1,10 +1,10 @@
 import { clone, mergeRight } from "rambda";
 
-import { addVector, divVector, invXVector, invYVector, isZeroVector, multVector, normVector, subVector } from "../utils";
-import { inject, injectable } from "./injection-container";
-import { BattlefieldConfigToken, Unit, UnitID, UnitInit, UnitState } from "./interface";
-import { RandomContextToken } from "./interface/random-token";
-import { inTouchWithOthers } from "./utils";
+import { addVector, divVector, invXVector, invYVector, isZeroVector, multVector, normVector, subVector } from "../../utils";
+import { inject, injectable } from "../injection-container";
+import { BattlefieldConfigToken, Unit, UnitID, UnitInit, UnitState } from "../interface";
+import { RandomContextToken } from "../interface/random-token";
+import { inTouchWithOthers } from "../utils";
 
 @injectable()
 export class UnitContext {

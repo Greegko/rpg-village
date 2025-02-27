@@ -2,12 +2,12 @@ import { without } from "rambda";
 
 import { Rectangle, SpatialHash } from "@rpg-village/utils";
 
-import { multVector, normVector, subVector } from "../utils";
+import { multVector, normVector, subVector } from "../../utils";
+import { inject, injectable } from "../injection-container";
+import { Position, ProjectileNode, ProjectileType } from "../interface";
+import { filterBySeekConditions } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
-import { inject, injectable } from "./injection-container";
-import { Position, ProjectileNode, ProjectileType } from "./interface";
 import { UnitContext } from "./unit";
-import { filterBySeekConditions } from "./utils/unit-filter";
 
 type MapNode = { id: string; location: Position; size: number };
 

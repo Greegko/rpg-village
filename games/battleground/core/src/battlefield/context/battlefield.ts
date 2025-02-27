@@ -1,8 +1,8 @@
-import { Vector, normVector } from "../utils";
-import { AiController } from "./controllers/ai";
+import { Vector, normVector } from "../../utils";
+import { inject, injectable } from "../injection-container";
+import { Position, ProjectileNode, Unit, UnitID, UnitInit } from "../interface";
+import { AiController } from "./ai-controller";
 import { EffectsContext } from "./effects";
-import { inject, injectable } from "./injection-container";
-import { Position, ProjectileNode, Unit, UnitID, UnitInit } from "./interface";
 import { MapContext } from "./map";
 import { SpellsContext } from "./spells";
 import { UnitContext } from "./unit";

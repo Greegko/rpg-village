@@ -1,7 +1,7 @@
 import { find, groupBy, mapObjIndexed, partition, propEq, sum, values, without } from "rambda";
 
-import { merge } from "../utils";
-import { inject, injectable } from "./injection-container";
+import { merge } from "../../utils";
+import { inject, injectable } from "../injection-container";
 import {
   ArmorEffect,
   AuraEffect,
@@ -15,10 +15,10 @@ import {
   ResourceManagerToken,
   Unit,
   UnitSetup,
-} from "./interface";
-import { RandomContextToken } from "./interface/random-token";
+} from "../interface";
+import { RandomContextToken } from "../interface/random-token";
+import { filterBySeekConditions } from "../utils/unit-filter";
 import { UnitContext } from "./unit";
-import { filterBySeekConditions } from "./utils/unit-filter";
 
 @injectable()
 export class EffectsContext {

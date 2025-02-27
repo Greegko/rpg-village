@@ -1,5 +1,5 @@
 import { Random } from "../utils";
-import { Battlefield } from "./battlefield";
+import { Battlefield } from "./context";
 import { inject, makeInjectable } from "./injection-container";
 import { BattlefieldConfig, BattlefieldConfigToken, ResourceManager, ResourceManagerToken } from "./interface";
 import { RandomContextToken } from "./interface/random-token";

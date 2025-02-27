@@ -1,6 +1,6 @@
 import lzString from "lz-string";
 
-import { BattlefieldInit } from "../../battlefield";
+import { BattlefieldInit } from "../../context/battlefield";
 
 export function createPlayableUrl(initialState: BattlefieldInit, seed: string): string {
   const baseUrl = "http://localhost:8080?mod=tester";

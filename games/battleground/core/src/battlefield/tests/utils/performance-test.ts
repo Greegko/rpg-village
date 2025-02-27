@@ -2,7 +2,7 @@ import { performance } from "node:perf_hooks";
 import { sum } from "rambda";
 import { expect, test } from "vitest";
 
-import { BattlefieldInit } from "../../battlefield";
+import { BattlefieldInit } from "../../context/battlefield";
 import { createBattlefieldInstance } from "../../create-battlefield-instance";
 import { clearInstances as clearBattlefieldInstances } from "../../injection-container";
 import { BattlefieldConfig } from "../../interface";

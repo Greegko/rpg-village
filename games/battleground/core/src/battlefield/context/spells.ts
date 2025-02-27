@@ -1,8 +1,8 @@
+import { inject, injectable } from "../injection-container";
+import { DmgType, EffectType, Position, Spell, SpellID, Unit } from "../interface";
+import { filterBySeekConditions } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
-import { inject, injectable } from "./injection-container";
-import { DmgType, EffectType, Position, Spell, SpellID, Unit } from "./interface";
 import { UnitContext } from "./unit";
-import { filterBySeekConditions } from "./utils/unit-filter";
 
 @injectable()
 export class SpellsContext {

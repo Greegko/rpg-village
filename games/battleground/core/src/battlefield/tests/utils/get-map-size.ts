@@ -1,6 +1,6 @@
 import { max } from "rambda";
 
-import { BattlefieldInit } from "../../battlefield";
+import { BattlefieldInit } from "../../context/battlefield";
 
 export function getMapSize(initialState: BattlefieldInit): [number, number] {
   const xs = initialState.units.map(x => x.location.x + x.size + 5);
