@@ -1,7 +1,8 @@
 import { head, prop, sortBy } from "rambda";
 
-import { getPositionDistance } from "../../utils";
-import { Action, Position, SeekCondition, Unit } from "../interface";
+import { Position, getPositionDistance } from "@rpg-village/utils/node";
+
+import { Action, SeekCondition, Unit } from "../interface";
 import { getUnitCentral } from "./unit";
 
 interface SingleUnitSeekConditionContext {

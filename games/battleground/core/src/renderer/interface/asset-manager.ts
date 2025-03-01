@@ -1,6 +1,5 @@
+import { createInjectableToken } from "@greegko/tiny-di";
 import { Texture } from "pixi.js";
-
-import { createInjectableToken } from "../injection-container";
 
 export type AnimationStateID = string;
 export type AnimationFrame = number | [number, number];

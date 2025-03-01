@@ -1,4 +1,5 @@
-import { Position } from "../interface";
+import { Position } from "@rpg-village/utils/node";
+
 import { dmgEffect, meleeAttackAction, skeletonUnit } from "./config";
 import { test } from "./utils";
 

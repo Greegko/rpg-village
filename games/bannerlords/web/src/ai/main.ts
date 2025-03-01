@@ -1,10 +1,12 @@
-import { Actor, MapObservator, getVectorAngle } from "@rpg-village/utils";
 import { forEach, pickBy, values } from "remeda";
 import { filter } from "rxjs";
 import { createSignal, untrack } from "solid-js";
 import { createStore } from "solid-js/store";
 
 import { Command, GameState, MapCommand, TownCommand, VillageCommand } from "@rpg-village/bannerlords-core";
+import { Actor } from "@rpg-village/utils/actor";
+import { MapObservator } from "@rpg-village/utils/map-observator";
+import { getVectorAngle } from "@rpg-village/utils/node";
 
 import { PartyType, getPartyType } from "../utils/party-type";
 import { asObservable, onEvent, onKeyAdded, onValueChanges } from "../utils/signal";
@@ -92,8 +94,7 @@ export const createAiHandler = (initialGameState: GameState) => {
           villageInEntryDistance: ({ getMapPosition }, { villagerId, villageId }) =>
             mapObservator.onEventByPosition(getMapPosition(villageId), 2).pipe(filter(x => x.entityId === villagerId)),
 
-          resourcePickedFromVillage: ({}, { villagerId }) =>
-            asObservable(() => gameState.parties[villagerId].stash.items.length > 0),
+          resourcePickedFromVillage: ({}, { villagerId }) => asObservable(() => gameState.parties[villagerId].stash.items.length > 0),
           enteredInTown: ({}, { villagerId, townId }) =>
             asObservable(() => gameState.towns[townId].parties.includes(villagerId)).pipe(filter(x => x)),
           enteredInVillage: ({}, { villagerId, villageId }) =>

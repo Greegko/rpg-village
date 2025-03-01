@@ -89,8 +89,8 @@ importers:
   games/battleground/core:
     dependencies:
       '@greegko/tiny-di':
-        specifier: 0.0.5
-        version: 0.0.5
+        specifier: 0.0.6
+        version: 0.0.6
       '@rpg-village/utils':
         specifier: 'workspace: *'
         version: link:../../../packages/utils
@@ -126,6 +126,9 @@ importers:
       vite-plugin-dts:
         specifier: 4.5.0
         version: 4.5.0(@types/node@18.19.76)(rollup@4.34.8)(typescript@5.7.3)(vite@6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
+      vite-tsconfig-paths:
+        specifier: 5.1.4
+        version: 5.1.4(typescript@5.7.3)(vite@6.1.1(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
       vitest:
         specifier: 3.0.6
         version: 3.0.6(@types/node@18.19.76)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5)
@@ -135,6 +138,9 @@ importers:
       '@rpg-village/battleground-core':
         specifier: 'workspace: *'
         version: link:../core
+      '@rpg-village/utils':
+        specifier: 'workspace: *'
+        version: link:../../../packages/utils
       '@tailwindcss/vite':
         specifier: 4.0.7
         version: 4.0.7(vite@6.1.1(@types/node@22.13.4)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
@@ -304,8 +310,8 @@ importers:
   packages/core:
     dependencies:
       '@greegko/tiny-di':
-        specifier: 0.0.5
-        version: 0.0.5
+        specifier: 0.0.6
+        version: 0.0.6
       '@rpg-village/utils':
         specifier: 'workspace: *'
         version: link:../utils
@@ -826,8 +832,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@greegko/tiny-di@0.0.5':
-    resolution: {integrity: sha512-C9Uthwe2H4llx2MBmrsSnfy+sHAMu3Pt1H7MTfxzeA71ac+9yeTkcO1lvogPrmdA6QMJhMgaIKGq6IvhPQKJmQ==}
+  '@greegko/tiny-di@0.0.6':
+    resolution: {integrity: sha512-je4/RLaqiTCK22nyktB4PhMNKkeVKvin8pqm1PcStyWgeJ+HDmWN9KnqkYLYfI/qYtlZ0VouVRZVZx1pq2jK/Q==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2546,7 +2552,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.0':
     optional: true
 
-  '@greegko/tiny-di@0.0.5': {}
+  '@greegko/tiny-di@0.0.6': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:

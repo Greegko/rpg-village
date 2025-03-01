@@ -2,8 +2,10 @@ import gsap from "gsap";
 import { GlowFilter } from "pixi-filters";
 import { Container, Graphics, Sprite, Text } from "pixi.js";
 
-import { EffectType, Position, Unit } from "../battlefield";
-import { merge, subVector } from "../utils";
+import { Position, subVector } from "@rpg-village/utils/node";
+
+import { EffectType, Unit } from "../battlefield";
+import { merge } from "../utils";
 import { AnimatedSpriteUnit } from "./animated-sprite-unit";
 import { inject, injectable } from "./injection-container";
 import { AnimationStateID, AssetManagerToken } from "./interface";

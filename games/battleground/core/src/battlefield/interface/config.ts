@@ -1,7 +1,8 @@
-import { createInjectableToken } from "../injection-container";
+import { createInjectableToken } from "@greegko/tiny-di";
 
 export type BattlefieldConfig = {
   mapSize: [number, number];
+  objects: Object[];
   seed: string;
 };
 

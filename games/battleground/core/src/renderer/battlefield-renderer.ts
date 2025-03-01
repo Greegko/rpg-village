@@ -1,8 +1,9 @@
-import { Application, Container, ContainerChild } from "pixi.js";
+import { Application, Container, ContainerChild, TilingSprite } from "pixi.js";
 import { without } from "rambda";
 
 import { BattlefieldConfig, BattlefieldState, ProjectileNode, Unit } from "../battlefield";
 import { inject, injectable } from "./injection-container";
+import { AssetManagerToken } from "./interface";
 import { ProjectilesContainer } from "./projectiles-container";
 import { UnitsContainer } from "./units-container";
 
@@ -12,6 +13,7 @@ export class BattlefieldRenderer {
   private rootContainer = new Container();
   private projectilesContainer = inject(ProjectilesContainer);
   private unitsContainer = inject(UnitsContainer);
+  private assetManager = inject(AssetManagerToken);
   private lastState: { units: Unit[]; projectiles: ProjectileNode[] } = { units: [], projectiles: [] };
 
   async init(config: BattlefieldConfig): Promise<HTMLCanvasElement> {
@@ -21,6 +23,16 @@ export class BattlefieldRenderer {
     });
 
     this.application.stage.addChild(this.rootContainer);
+
+    const backgroundTitleTexture = this.assetManager.getAsset("overworld_tileset_grass/overworld_tileset_grass-0");
+    const backgroundTitle = new TilingSprite({
+      texture: backgroundTitleTexture,
+      width: config.mapSize[0],
+      height: config.mapSize[1],
+    });
+
+    this.rootContainer.addChild(backgroundTitle);
+
     this.rootContainer.addChild(this.unitsContainer);
     this.rootContainer.addChild(this.projectilesContainer);
 

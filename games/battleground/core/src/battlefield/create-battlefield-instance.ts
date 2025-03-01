@@ -1,12 +1,15 @@
-import { Random } from "../utils";
+import { SeededRandom } from "@rpg-village/utils/random";
+
+import { RandomContextToken } from "@/features/random";
+
 import { Battlefield } from "./context";
 import { inject, makeInjectable } from "./injection-container";
-import { BattlefieldConfig, BattlefieldConfigToken, RandomContextToken, ResourceManager, ResourceManagerToken } from "./interface";
+import { BattlefieldConfig, BattlefieldConfigToken, ResourceManager, ResourceManagerToken } from "./interface";
 
 export const createBattlefieldInstance = (config: BattlefieldConfig, resourceManager: ResourceManager): Battlefield => {
   makeInjectable(BattlefieldConfigToken, config);
   makeInjectable(ResourceManagerToken, resourceManager);
-  makeInjectable(RandomContextToken, new Random(config.seed));
+  makeInjectable(RandomContextToken, SeededRandom.createFromText(config.seed));
 
   return inject(Battlefield);
 };

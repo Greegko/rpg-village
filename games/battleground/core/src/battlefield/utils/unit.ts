@@ -1,5 +1,6 @@
-import { addVector, getPositionDistance } from "../../utils";
-import { Position, Unit } from "../interface";
+import { Position, addVector, getPositionDistance } from "@rpg-village/utils/node";
+
+import { Unit } from "../interface";
 
 export function getUnitCentral(unit: Unit): Position {
   return addVector(unit.location, { x: unit.size / 2, y: unit.size / 2 });

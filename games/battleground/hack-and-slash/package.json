@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@rpg-village/battleground-core": "workspace: *",
+    "@rpg-village/utils": "workspace: *",
     "@tailwindcss/vite": "4.0.7",
     "pixi.js": "8.8.0",
     "rambda": "9.4.2",

@@ -23,7 +23,7 @@
     "generate-schema": "ts-json-schema-generator --path ./src/interface/unit.ts --strict-tuples --type \"UnitConfig\" -o schemas/unit-config.schema.json"
   },
   "dependencies": {
-    "@greegko/tiny-di": "0.0.5"
+    "@greegko/tiny-di": "0.0.6"
   },
   "peerDependencies": {
     "@rpg-village/utils": "workspace: *",
@@ -41,6 +41,7 @@
     "typescript": "5.7.3",
     "vite": "6.1.1",
     "vite-plugin-dts": "4.5.0",
+    "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.0.6"
   }
 }

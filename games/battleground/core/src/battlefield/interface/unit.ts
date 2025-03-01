@@ -1,4 +1,4 @@
-import { Vector } from "../../utils";
+import { Position, Vector } from "@rpg-village/utils/node";
 
 export type SeekCondition =
   | "enemy-team"
@@ -43,8 +43,6 @@ export type DotEffect = {
   period: number;
   state: { intervalState: number; remainingPeriod: number };
 };
-
-export type Position = { x: number; y: number };
 
 export type Effect = EffectBase & (AuraEffect | HealEffect | DmgEffect | ArmorEffect | DotEffect);
 

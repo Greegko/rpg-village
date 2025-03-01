@@ -1,4 +1,5 @@
-import { createInjectableToken } from "../injection-container";
+import { createInjectableToken } from "@greegko/tiny-di";
+
 import { UnitConfig } from "./unit";
 
 export interface ResourceManager {

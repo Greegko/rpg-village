@@ -15,6 +15,9 @@
     "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "inlineSourceMap": true
+    "inlineSourceMap": true,
+    "paths": {
+      "@/features/*": ["./src/features/*"]
+    }
   }
 }

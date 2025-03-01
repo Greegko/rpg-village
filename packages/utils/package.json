@@ -3,8 +3,13 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
-  "main": "./dist/utils.js",
-  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": "./dist/utils.js",
+    "./*": {
+      "import": "./dist/utils.js",
+      "types": "./dist/src/*/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "vite build",
     "start": "vite build -w",

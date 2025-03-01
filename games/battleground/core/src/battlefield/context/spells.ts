@@ -1,5 +1,7 @@
+import { Position } from "@rpg-village/utils/node";
+
 import { inject, injectable } from "../injection-container";
-import { DmgType, EffectType, Position, Spell, SpellID, Unit } from "../interface";
+import { DmgType, EffectType, Spell, SpellID, Unit } from "../interface";
 import { filterBySeekConditions } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
 import { UnitContext } from "./unit";

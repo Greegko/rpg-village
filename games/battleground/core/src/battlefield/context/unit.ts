@@ -1,9 +1,21 @@
 import { clone, mergeRight } from "rambda";
 
-import { addVector, divVector, invXVector, invYVector, isZeroVector, multVector, normVector, subVector } from "../../utils";
+import {
+  addVector,
+  createVectorFromAngle,
+  divVector,
+  invXVector,
+  invYVector,
+  isZeroVector,
+  multVector,
+  normVector,
+  subVector,
+} from "@rpg-village/utils/node";
+
+import { RandomContextToken } from "@/features/random";
+
 import { inject, injectable } from "../injection-container";
 import { BattlefieldConfigToken, Unit, UnitID, UnitInit, UnitState } from "../interface";
-import { RandomContextToken } from "../interface/random-token";
 import { inTouchWithOthers } from "../utils";
 
 @injectable()
@@ -75,7 +87,7 @@ export class UnitContext {
 
     if (otherUnitsInDistance.length > 0) {
       const direction = divVector(sumSubVector, otherUnitsInDistance.length);
-      unit.moveDirection = isZeroVector(direction) ? this.randomContext.vector() : direction;
+      unit.moveDirection = isZeroVector(direction) ? createVectorFromAngle(this.randomContext.next() * Math.PI * 2) : direction;
     }
   }
 }

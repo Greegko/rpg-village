@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+
 import { SeededRandom } from "./seeded-random";
 
 it("should resume the previous state", () => {

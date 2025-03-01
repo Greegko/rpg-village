@@ -1,7 +1,7 @@
 import { createDependencyInjectionContainer } from "@greegko/tiny-di";
 
-export type { InjectableToken, Type } from "@greegko/tiny-di";
+export { type InjectableToken, type Type, createInjectableToken } from "@greegko/tiny-di";
 
 const globalContainer = createDependencyInjectionContainer();
 
-export const { inject, createInjectableToken, makeInjectable, injectable, clearInstances } = globalContainer;
+export const { inject, makeInjectable, injectable, clearInstances } = globalContainer;

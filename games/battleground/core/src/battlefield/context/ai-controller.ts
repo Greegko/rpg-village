@@ -1,9 +1,11 @@
 import { head, sortBy } from "rambda";
 
-import { getPositionDistance, normVector, rotateVectorBy, subVector } from "../../utils";
+import { Position, createVectorFromAngle, getPositionDistance, normVector, rotateVectorBy, subVector } from "@rpg-village/utils/node";
+
+import { RandomContextToken } from "@/features/random";
+
 import { inject, injectable } from "../injection-container";
-import { Position, ProjectileNode, Unit } from "../interface";
-import { RandomContextToken } from "../interface/random-token";
+import { ProjectileNode, Unit } from "../interface";
 import { getUnitCentral } from "../utils";
 import { isUnitActionHasValidTarget, seekTarget } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
@@ -53,7 +55,7 @@ export class AiController {
   private wander(unit: Unit) {
     if (!unit.moveSpeed) return;
     if (!unit.moveDirection) {
-      unit.moveDirection = this.randomContext.vector();
+      unit.moveDirection = createVectorFromAngle(this.randomContext.next() * Math.PI * 2);
       return;
     }
 

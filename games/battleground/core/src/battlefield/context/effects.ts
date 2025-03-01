@@ -1,5 +1,7 @@
 import { find, groupBy, mapObjIndexed, partition, propEq, sum, values, without } from "rambda";
 
+import { RandomContextToken } from "@/features/random";
+
 import { merge } from "../../utils";
 import { inject, injectable } from "../injection-container";
 import {
@@ -16,7 +18,6 @@ import {
   Unit,
   UnitSetup,
 } from "../interface";
-import { RandomContextToken } from "../interface/random-token";
 import { filterBySeekConditions } from "../utils/unit-filter";
 import { UnitContext } from "./unit";
 

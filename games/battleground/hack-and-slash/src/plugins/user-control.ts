@@ -1,4 +1,4 @@
-import { Position, Vector, nullVector } from "@rpg-village/battleground-core";
+import { Position, Vector, nullVector } from "@rpg-village/utils/node";
 
 export type ClickEventArgs = Position;
 export type ClickCallback = (args: ClickEventArgs) => void;

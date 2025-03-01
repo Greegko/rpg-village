@@ -1,9 +1,7 @@
 import { entries, isNonNull, omit, set } from "remeda";
 import { Observable, Subject, concat, concatMap, filter, first, map, scan, shareReplay, tap } from "rxjs";
 
-import { getVectorDistance } from "../utils";
-
-export type Position = { x: number; y: number };
+import { Position, getVectorDistance } from "../node";
 
 export type EntityID = string;
 

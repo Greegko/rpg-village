@@ -1,6 +1,4 @@
 // Source: https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
-
-import { Vector, createVectorFromAngle } from "../utils";
 import { RandomNextFn, cyrb128, sfc32 } from "./utils";
 
 type SeededStateEncoded = string;
@@ -42,9 +40,5 @@ export class SeededRandom {
   sample<T>(array: T[]): T {
     var length = array.length;
     return array[this.int(0, length - 1)];
-  }
-
-  vector(): Vector {
-    return createVectorFromAngle(this.next() * Math.PI * 2);
   }
 }
