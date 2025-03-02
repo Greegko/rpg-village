@@ -3,11 +3,11 @@ import { describe, expect, it } from "vitest";
 import { pairwiseDeepDiff } from "./pairwise-deep-diff";
 
 describe("pairwiseDeepDiff", () => {
-  it("should return null on the first call", () => {
+  it("should return the initial object on the first call", () => {
     const diffTracker = pairwiseDeepDiff<{ name: string; age: number }>();
     const result = diffTracker({ name: "Alice", age: 25 });
 
-    expect(result).toBeNull();
+    expect(result).toEqual({ name: "Alice", age: 25 });
   });
 
   it("should return full diff on second call", () => {

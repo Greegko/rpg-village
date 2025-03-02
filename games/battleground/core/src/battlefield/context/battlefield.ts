@@ -1,4 +1,4 @@
-import { Position } from "@rpg-village/utils/node";
+import { Position, isNullVector } from "@rpg-village/utils/node";
 import { Vector, normVector } from "@rpg-village/utils/node";
 
 import { inject, injectable } from "../injection-container";
@@ -38,7 +38,11 @@ export class Battlefield {
 
   setUnitDirection(unitId: UnitID, direction: Vector) {
     const unit = this.unitsContext.getUnitById(unitId);
-    unit.moveDirection = normVector(direction);
+    if (isNullVector(direction)) {
+      delete unit.moveDirection;
+    } else {
+      unit.moveDirection = normVector(direction);
+    }
   }
 
   setUnitShootAction(unitId: UnitID, targetPosition: Position) {

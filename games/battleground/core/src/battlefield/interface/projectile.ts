@@ -7,6 +7,7 @@ export interface Projectile {
   spriteId: SpriteID;
   projectileType: ProjectileType;
   source: Unit;
+  size: number;
   sourcePosition: Position;
   targetPosition: Position;
   speed: number;

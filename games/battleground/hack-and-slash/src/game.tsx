@@ -1,3 +1,4 @@
+import { last } from "rambda";
 import { createSignal, onMount } from "solid-js";
 
 import { Ticker } from "pixi.js";
@@ -56,8 +57,7 @@ export const Game = () => {
     await assetManager.init();
 
     battleField.init(playgroundDefaultBattlefieldInit);
-
-    const heroUnitId = "hero";
+    const heroUnitId = last(battleField.getState().units).id;
     battleField.setUserControlledUnit(heroUnitId);
     setBattlegroundCanvas(await renderer.init(config));
 

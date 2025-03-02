@@ -1,18 +1,19 @@
 import { Application, Container, ContainerChild, TilingSprite } from "pixi.js";
-import { without } from "rambda";
+import { values, without } from "rambda";
 
 import { BattlefieldConfig, BattlefieldState, ProjectileNode, Unit } from "../battlefield";
 import { inject, injectable } from "./injection-container";
 import { AssetManagerToken } from "./interface";
-import { ProjectilesContainer } from "./projectiles-container";
-import { UnitsContainer } from "./units-container";
+import { createProjectileNode, createUnitNode } from "./node/unit-node";
 
 @injectable()
 export class BattlefieldRenderer {
   private application = new Application();
   private rootContainer = new Container();
-  private projectilesContainer = inject(ProjectilesContainer);
-  private unitsContainer = inject(UnitsContainer);
+  private projectilesContainer = new Container();
+  private unitsContainer = new Container();
+  private unitNodes: Record<string, ReturnType<typeof createUnitNode>> = {};
+  private projectileNodes: Record<string, ReturnType<typeof createProjectileNode>> = {};
   private assetManager = inject(AssetManagerToken);
   private lastState: { units: Unit[]; projectiles: ProjectileNode[] } = { units: [], projectiles: [] };
 
@@ -48,16 +49,36 @@ export class BattlefieldRenderer {
   }
 
   selectUnits(units: Unit[]): void {
-    this.unitsContainer.clearAllUnitsSelection();
-    units.forEach(unit => this.unitsContainer.selectUnit(unit));
+    values(this.unitNodes).forEach(unitNode => unitNode.unselect());
+
+    units.forEach(unit => this.unitNodes[unit.id].select());
   }
 
   renderScene(data: BattlefieldState) {
-    data.units.forEach(unit => this.unitsContainer.drawUnitAnimation(unit));
-    data.projectiles.forEach(projectile => this.projectilesContainer.drawProjectileAnimation(projectile));
+    data.units.forEach(unit => {
+      if (this.unitNodes[unit.id] === undefined) {
+        this.unitNodes[unit.id] = createUnitNode();
+        this.unitsContainer.addChild(this.unitNodes[unit.id].getNode());
+      }
+
+      this.unitNodes[unit.id].setState(unit);
+    });
+
+    data.projectiles.forEach(projectile => {
+      if (this.projectileNodes[projectile.id] === undefined) {
+        this.projectileNodes[projectile.id] = createProjectileNode();
+        this.projectilesContainer.addChild(this.projectileNodes[projectile.id].getNode());
+      }
+
+      this.projectileNodes[projectile.id].setState(projectile);
+    });
 
     const removedProjectiles = without(data.projectiles, this.lastState.projectiles);
-    removedProjectiles.forEach(projectile => this.projectilesContainer.removeProjectile(projectile));
+    removedProjectiles.forEach(projectile => {
+      this.projectilesContainer.removeChild(this.projectileNodes[projectile.id].getNode());
+
+      this.projectileNodes[projectile.id].getNode().destroy();
+    });
 
     this.lastState = {
       units: [...data.units],

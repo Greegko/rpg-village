@@ -158,11 +158,13 @@ export class AiController {
     const time = Math.ceil(getPositionDistance(sourcePosition, targetPosition) / action.projectileSpeed!);
 
     const projectile: ProjectileNode = {
+      id: this.randomContext.next().toString(),
       spriteId: action.spriteId!,
       area: 1,
       projectileType: action.projectileType!,
       effect: action.hitEffect!,
       source: unit,
+      size: action.projectileSize!,
       position: sourcePosition,
       sourcePosition,
       speed: action.projectileSpeed!,

@@ -66,6 +66,7 @@ export interface Action {
   distance?: number;
   hitEffect?: Effect[];
   spriteId?: SpriteID;
+  projectileSize?: number;
   projectileSpeed?: number;
   projectileType?: ProjectileType;
 }
@@ -96,6 +97,7 @@ export interface UnitSetup extends Partial<UnitConfig> {
 }
 
 export interface UnitState {
+  id: UnitID;
   hp: number;
   userControlled: boolean;
   effects: Effect[];

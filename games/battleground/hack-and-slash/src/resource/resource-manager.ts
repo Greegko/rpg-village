@@ -1,11 +1,11 @@
 import { find, propEq } from "rambda";
 
-import { ResourceManager as IResourceManager, UnitConfig, UnitID } from "@rpg-village/battleground-core";
+import { ConfigID, ResourceManager as IResourceManager, UnitConfig } from "@rpg-village/battleground-core";
 
 import units from "./units.json";
 
 export class ResourceManager implements IResourceManager {
-  getUnitConfig(unitId: UnitID): UnitConfig {
-    return find(propEq(unitId, "id"), units as UnitConfig[]) as UnitConfig;
+  getUnitConfig(configId: ConfigID): UnitConfig {
+    return find(propEq(configId, "configId"), units as UnitConfig[]) as UnitConfig;
   }
 }

@@ -42,5 +42,5 @@ test("same output on provided seed", {
     ],
   },
   runUntilFinish: true,
-  expectedTurn: 23,
+  expectedTurn: 33,
 });

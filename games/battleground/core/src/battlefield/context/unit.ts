@@ -43,6 +43,7 @@ export class UnitContext {
     const unitClone = clone(unit);
 
     const initUnitState: UnitState = {
+      id: this.randomContext.uniqueId(),
       userControlled: false,
       actionsCooldowns: new Map(unitClone.actions.map(action => [action, 0])),
       effects: unitClone.effects || [],

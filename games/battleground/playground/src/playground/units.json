@@ -27,6 +27,7 @@
         "animation": "attack",
         "seekTargetCondition": ["alive", "enemy-team"],
         "spriteId": "sprites/projectiles/projectile",
+        "projectileSize": 16,
         "projectileType": 1,
         "distance": 400,
         "cooldown": 120,

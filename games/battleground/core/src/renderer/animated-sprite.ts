@@ -1,10 +1,10 @@
-import { AnimatedSprite, FrameObject, Texture } from "pixi.js";
+import { FrameObject, AnimatedSprite as PixiJSAniamtedSprite, Texture } from "pixi.js";
 
 import { AnimationFrame, AnimationStateID } from "./interface";
 
-type States = Record<AnimationStateID, AnimationFrame>;
+export type States = Record<AnimationStateID, AnimationFrame>;
 
-export class AnimatedSpriteUnit extends AnimatedSprite {
+export class AnimatedSprite extends PixiJSAniamtedSprite {
   private states: States;
   private animationState: AnimationStateID;
 
@@ -40,7 +40,7 @@ export class AnimatedSpriteUnit extends AnimatedSprite {
     const state = this.states[animationState];
 
     if (typeof state === "number") {
-      this.gotoAndStop(state);
+      this.gotoAndPlay(state);
     } else {
       this.gotoAndPlay(state[0]);
     }
