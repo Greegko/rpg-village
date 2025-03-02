@@ -19,7 +19,7 @@ export const meleeAttackAction = ({
 export const rangeAttackAction = ({
   cooldown = 10,
   speed = 5,
-  projectileId = "sprites/projectiles/projectile",
+  spriteId = "sprites/projectiles/projectile",
   projectileSpeed = 2,
   distance = 100,
   seekTargetCondition = ["enemy-team", "alive"],
@@ -31,7 +31,7 @@ export const rangeAttackAction = ({
     distance,
     seekTargetCondition,
     hitEffect,
-    projectileId,
+    spriteId,
     projectileSpeed,
   }) as Action;
 

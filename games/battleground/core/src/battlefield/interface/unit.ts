@@ -65,7 +65,7 @@ export interface Action {
   effect?: Effect[];
   distance?: number;
   hitEffect?: Effect[];
-  projectileId?: ProjectileID;
+  spriteId?: SpriteID;
   projectileSpeed?: number;
   projectileType?: ProjectileType;
 }
@@ -74,11 +74,14 @@ export enum ProjectileType {
   Linear = 1,
   Arc,
 }
+
+export type ConfigID = string;
+export type SpriteID = string;
 export type ProjectileID = string;
 
 export interface UnitConfig {
-  id: UnitID;
-  spriteId: string;
+  configId: ConfigID;
+  spriteId: SpriteID;
   size: number;
   maxHp: number;
   actions: Action[];

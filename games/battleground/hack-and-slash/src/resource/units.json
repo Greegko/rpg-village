@@ -1,6 +1,6 @@
 [
   {
-    "id": "hero",
+    "configId": "hero",
     "spriteId": "hero_hours_sprites/archer/archer",
     "moveSpeed": 2,
     "maxHp": 100,
@@ -8,7 +8,7 @@
       {
         "animation": "attack",
         "seekTargetCondition": ["alive", "enemy-team"],
-        "projectileId": "hero_hours_sprites/projectiles/projectile",
+        "spriteId": "hero_hours_sprites/projectiles/projectile",
         "projectileType": 1,
         "distance": 400,
         "cooldown": 120,
@@ -20,7 +20,7 @@
     "size": 32
   },
   {
-    "id": "skeleton",
+    "configId": "skeleton",
     "spriteId": "hero_hours_sprites/skeleton/skeleton",
     "moveSpeed": 2,
     "maxHp": 100,
@@ -38,7 +38,7 @@
     "effects": [{ "type": "armor", "dmgType": "physical", "power": 10 }]
   },
   {
-    "id": "archer",
+    "configId": "archer",
     "spriteId": "hero_hours_sprites/archer/archer",
     "moveSpeed": 2,
     "maxHp": 100,
@@ -46,7 +46,7 @@
       {
         "animation": "attack",
         "seekTargetCondition": ["alive", "enemy-team"],
-        "projectileId": "hero_hours_sprites/projectiles/projectile",
+        "spriteId": "hero_hours_sprites/projectiles/projectile",
         "projectileType": 1,
         "distance": 400,
         "cooldown": 120,
@@ -58,7 +58,7 @@
     "size": 32
   },
   {
-    "id": "priest",
+    "configId": "priest",
     "spriteId": "hero_hours_sprites/inquisitor/inquisitor",
     "moveSpeed": 2,
     "maxHp": 100,
@@ -83,7 +83,7 @@
     "size": 32
   },
   {
-    "id": "flag-bearer",
+    "configId": "flag-bearer",
     "spriteId": "hero_hours_sprites/flag_bearer/flag_bearer",
     "size": 32,
     "moveSpeed": 2,
@@ -107,7 +107,7 @@
     ]
   },
   {
-    "id": "flag-bearer-fire-aura",
+    "configId": "flag-bearer-fire-aura",
     "spriteId": "hero_hours_sprites/flag_bearer/flag_bearer",
     "size": 32,
     "moveSpeed": 2,
@@ -136,11 +136,11 @@
       }
     ]
   },
-  { "id": "goblin_knight", "spriteId": "hero_hours_sprites/goblin_knight/goblin_knight" },
-  { "id": "leprechaun", "spriteId": "hero_hours_sprites/leprechaun/leprechaun" },
-  { "id": "werewolf", "spriteId": "hero_hours_sprites/werewolf/werewolf" },
+  { "configId": "goblin_knight", "spriteId": "hero_hours_sprites/goblin_knight/goblin_knight" },
+  { "configId": "leprechaun", "spriteId": "hero_hours_sprites/leprechaun/leprechaun" },
+  { "configId": "werewolf", "spriteId": "hero_hours_sprites/werewolf/werewolf" },
   {
-    "id": "steam_dragon",
+    "configId": "steam_dragon",
     "spriteId": "hero_hours_sprites/steam_dragon/steam_dragon",
     "moveSpeed": 2,
     "maxHp": 100,

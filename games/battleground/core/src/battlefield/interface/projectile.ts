@@ -1,9 +1,10 @@
 import { Position } from "@rpg-village/utils/node";
 
-import { Effect, ProjectileID, ProjectileType, Unit } from "./unit";
+import { Effect, ProjectileID, ProjectileType, SpriteID, Unit } from "./unit";
 
 export interface Projectile {
   id: ProjectileID;
+  spriteId: SpriteID;
   projectileType: ProjectileType;
   source: Unit;
   sourcePosition: Position;

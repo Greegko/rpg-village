@@ -1,6 +1,6 @@
 [
   {
-    "id": "castle",
+    "configId": "castle",
     "spriteId": "buildings/inn",
     "maxHp": 1000,
     "actions": [
