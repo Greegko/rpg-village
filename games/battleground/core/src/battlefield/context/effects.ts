@@ -1,24 +1,13 @@
 import { find, groupBy, mapObjIndexed, partition, propEq, sum, values, without } from "rambda";
 
+import { ArmorEffect, AuraEffect, DmgEffect, DotEffect, Effect, EffectSource, EffectType, HealEffect } from "@/features/effect";
+import { DestructibleNode } from "@/features/map";
 import { RandomContextToken } from "@/features/random";
+import { Unit, UnitSetup, filterBySeekConditions } from "@/features/unit";
 
 import { merge } from "../../utils";
 import { inject, injectable } from "../injection-container";
-import {
-  ArmorEffect,
-  AuraEffect,
-  DmgEffect,
-  DmgType,
-  DotEffect,
-  Effect,
-  EffectSource,
-  EffectType,
-  HealEffect,
-  ResourceManagerToken,
-  Unit,
-  UnitSetup,
-} from "../interface";
-import { filterBySeekConditions } from "../utils/unit-filter";
+import { ResourceManagerToken } from "../interface";
 import { UnitContext } from "./unit";
 
 @injectable()
@@ -84,10 +73,7 @@ export class EffectsContext {
   }
 
   applyEffect(effects: Effect[], targetUnit: Unit) {
-    const dmgEffects = effects.filter(x => x.type === EffectType.Dmg) as DmgEffect[];
-    if (dmgEffects.length) {
-      this.dmg(targetUnit, dmgEffects);
-    }
+    this.applyDmgEffect(effects, targetUnit);
 
     if (find(propEq(EffectType.Revive, "type"), effects)) {
       targetUnit.hp = targetUnit.maxHp;
@@ -108,8 +94,15 @@ export class EffectsContext {
     }
   }
 
-  private dmg(targetUnit: Unit, dmgEffects: { dmgType: DmgType; power: number | [number, number] }[]) {
-    const armors = targetUnit.effects.filter(x => x.type === EffectType.Armor) as ArmorEffect[];
+  applyDmgEffect(effects: Effect[], destructibleNode: DestructibleNode) {
+    const dmgEffects = effects.filter(x => x.type === EffectType.Dmg) as DmgEffect[];
+    if (dmgEffects.length) {
+      this.dmg(destructibleNode, dmgEffects);
+    }
+  }
+
+  private dmg(node: DestructibleNode, dmgEffects: DmgEffect[]) {
+    const armors = node.effects.filter(x => x.type === EffectType.Armor) as ArmorEffect[];
 
     const effectsByDmgType = groupBy(x => x.dmgType, dmgEffects);
 
@@ -126,7 +119,7 @@ export class EffectsContext {
     const totalDmg = sum(totalDmgs);
 
     if (totalDmg) {
-      targetUnit.hp = Math.max(0, targetUnit.hp - totalDmg);
+      node.hp = Math.max(0, node.hp - totalDmg);
     }
   }
 

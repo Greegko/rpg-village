@@ -1,4 +1,4 @@
-import { Effect, SeekCondition } from "./unit";
+import { Effect, SeekCondition } from "@/features/effect";
 
 export interface Spell {
   seekConditions: SeekCondition[];

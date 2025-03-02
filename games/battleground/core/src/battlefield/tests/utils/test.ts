@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 
-import { BattlefieldInit, BattlefieldState } from "../../battlefield";
+import { BattlefieldInit, BattlefieldState } from "../../context/battlefield";
 import { createBattlefieldInstance } from "../../create-battlefield-instance";
 import { clearInstances as clearBattlefieldInstances } from "../../injection-container";
 import { BattlefieldConfig } from "../../interface";

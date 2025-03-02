@@ -2,7 +2,10 @@ import { Graphics } from "pixi.js";
 
 import { Position } from "@rpg-village/utils/node";
 
-import { Battlefield, SpellID, Unit } from "../../battlefield";
+import { SpellID } from "@/features/spell";
+import { Unit } from "@/features/unit";
+
+import { Battlefield } from "../../battlefield";
 import { BattlefieldRenderer } from "../battlefield-renderer";
 import { inject, injectable } from "../injection-container";
 

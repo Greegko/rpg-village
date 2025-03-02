@@ -1,8 +1,9 @@
 import { Position, isNullVector } from "@rpg-village/utils/node";
 import { Vector, normVector } from "@rpg-village/utils/node";
+import { Projectile } from "@/features/projectile";
+import { Unit, UnitID, UnitInit } from "@/features/unit";
 
 import { inject, injectable } from "../injection-container";
-import { Projectile, Unit, UnitID, UnitInit } from "../interface";
 import { AiController } from "./ai-controller";
 import { EffectsContext } from "./effects";
 import { MapContext } from "./map";

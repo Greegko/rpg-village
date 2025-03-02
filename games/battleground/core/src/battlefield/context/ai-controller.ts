@@ -2,12 +2,11 @@ import { head, sortBy } from "rambda";
 
 import { Position, createVectorFromAngle, getPositionDistance, normVector, rotateVectorBy, subVector } from "@rpg-village/utils/node";
 
+import { Projectile } from "@/features/projectile";
 import { RandomContextToken } from "@/features/random";
+import { Unit, getUnitCentral, isUnitActionHasValidTarget, seekTarget } from "@/features/unit";
 
 import { inject, injectable } from "../injection-container";
-import { Projectile, Unit } from "../interface";
-import { getUnitCentral } from "../utils";
-import { isUnitActionHasValidTarget, seekTarget } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
 import { MapContext } from "./map";
 import { UnitContext } from "./unit";

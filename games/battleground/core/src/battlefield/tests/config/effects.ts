@@ -1,4 +1,4 @@
-import { ArmorEffect, DmgEffect, DmgType, DotEffect, EffectType } from "../../interface";
+import { ArmorEffect, DmgEffect, DmgType, DotEffect, EffectType } from "@/features/effect";
 
 export const dmgEffect = ({ dmgType = DmgType.Physical, power = 10 }: Partial<DmgEffect> = {}): DmgEffect => ({
   type: EffectType.Dmg,

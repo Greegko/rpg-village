@@ -1,6 +1,7 @@
 import { nullVector } from "@rpg-village/utils/node";
 
-import { UnitInit } from "../../interface";
+import { UnitInit } from "@/features/unit";
+
 import { healAction, meleeAttackAction, rangeAttackAction, reviveAction } from "./action";
 
 export const createDummyUnit = (dummyUnitArgs: Partial<UnitInit> = {}) =>

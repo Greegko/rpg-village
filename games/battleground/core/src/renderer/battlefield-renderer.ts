@@ -1,7 +1,10 @@
 import { Application, Container, ContainerChild, TilingSprite } from "pixi.js";
 import { values, without } from "rambda";
 
-import { BattlefieldConfig, BattlefieldState, Projectile, Unit } from "../battlefield";
+import { Projectile } from "@/features/projectile";
+import { Unit } from "@/features/unit";
+
+import { BattlefieldConfig, BattlefieldState } from "../battlefield";
 import { inject, injectable } from "./injection-container";
 import { AssetManagerToken } from "./interface";
 import { createProjectileNode, createUnitNode } from "./node/unit-node";

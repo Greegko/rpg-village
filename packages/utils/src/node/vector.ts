@@ -2,8 +2,6 @@ export type Vector = { x: number; y: number };
 
 export const createVectorFromAngle = (angle: number) => ({ x: Math.cos(angle), y: Math.sin(angle) });
 
-export const isZeroVector = (a: Vector) => a.x === 0 && a.y === 0;
-
 export const getVectorAngle = (a: Vector, b?: Vector) => (b ? Math.atan2(b.y - a.y, b.x - a.x) : Math.atan2(a.y, a.x));
 
 export const getVectorDistance = (a: Vector, b: Vector) => Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));

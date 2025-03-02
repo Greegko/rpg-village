@@ -1,8 +1,10 @@
 import { Position } from "@rpg-village/utils/node";
 
+import { DmgType, EffectType } from "@/features/effect";
+import { Spell, SpellID } from "@/features/spell";
+import { Unit, filterBySeekConditions } from "@/features/unit";
+
 import { inject, injectable } from "../injection-container";
-import { DmgType, EffectType, Spell, SpellID, Unit } from "../interface";
-import { filterBySeekConditions } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
 import { UnitContext } from "./unit";
 

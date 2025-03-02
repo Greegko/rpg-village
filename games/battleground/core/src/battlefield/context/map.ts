@@ -2,10 +2,11 @@ import { without } from "rambda";
 
 import { Position, multVector, normVector, subVector } from "@rpg-village/utils/node";
 import { Rectangle, SpatialHash } from "@rpg-village/utils/spatial-hash";
+import { Projectile, ProjectileType } from "@/features/projectile";
+import { RandomContextToken } from "@/features/random";
+import { filterBySeekConditions } from "@/features/unit";
 
 import { inject, injectable } from "../injection-container";
-import { Projectile, ProjectileType, Unit } from "../interface";
-import { filterBySeekConditions } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
 import { UnitContext } from "./unit";
 

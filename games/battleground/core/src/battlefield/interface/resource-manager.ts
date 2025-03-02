@@ -1,6 +1,6 @@
 import { createInjectableToken } from "@greegko/tiny-di";
 
-import { UnitConfig } from "./unit";
+import { UnitConfig } from "@/features/unit";
 
 export interface ResourceManager {
   getUnitConfig(unitId: string): UnitConfig;

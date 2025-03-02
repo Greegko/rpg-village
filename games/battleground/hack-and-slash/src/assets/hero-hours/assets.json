@@ -1680,62 +1680,6 @@
 	"spriteSourceSize": {"x":0,"y":9,"w":16,"h":7},
 	"sourceSize": {"w":16,"h":16}
 },
-"icons/spell_book.png":
-{
-	"frame": {"x":1,"y":215,"w":28,"h":29},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":29},
-	"sourceSize": {"w":28,"h":29}
-},
-"icons/spells/archer.png":
-{
-	"frame": {"x":1,"y":147,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32}
-},
-"icons/spells/fireball.png":
-{
-	"frame": {"x":159,"y":1,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32}
-},
-"icons/spells/hearth.png":
-{
-	"frame": {"x":1,"y":181,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32}
-},
-"icons/spells/ice_berg.png":
-{
-	"frame": {"x":35,"y":147,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32}
-},
-"icons/spells/lightning.png":
-{
-	"frame": {"x":159,"y":35,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32}
-},
-"icons/spells/shield_break.png":
-{
-	"frame": {"x":193,"y":1,"w":32,"h":32},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
-	"sourceSize": {"w":32,"h":32}
-},
 "overworld_tileset_grass/overworld_tileset_grass-0.png":
 {
 	"frame": {"x":378,"y":35,"w":16,"h":16},

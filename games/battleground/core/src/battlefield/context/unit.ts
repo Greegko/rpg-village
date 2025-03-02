@@ -6,17 +6,17 @@ import {
   divVector,
   invXVector,
   invYVector,
-  isZeroVector,
+  isNullVector,
   multVector,
   normVector,
   subVector,
 } from "@rpg-village/utils/node";
 
 import { RandomContextToken } from "@/features/random";
+import { Unit, UnitID, UnitInit, UnitState, inTouchWithOthers } from "@/features/unit";
 
 import { inject, injectable } from "../injection-container";
-import { BattlefieldConfigToken, Unit, UnitID, UnitInit, UnitState } from "../interface";
-import { inTouchWithOthers } from "../utils";
+import { BattlefieldConfigToken } from "../interface";
 
 @injectable()
 export class UnitContext {
@@ -88,7 +88,7 @@ export class UnitContext {
 
     if (otherUnitsInDistance.length > 0) {
       const direction = divVector(sumSubVector, otherUnitsInDistance.length);
-      unit.moveDirection = isZeroVector(direction) ? createVectorFromAngle(this.randomContext.next() * Math.PI * 2) : direction;
+      unit.moveDirection = isNullVector(direction) ? createVectorFromAngle(this.randomContext.next() * Math.PI * 2) : direction;
     }
   }
 }

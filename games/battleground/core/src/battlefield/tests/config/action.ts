@@ -1,4 +1,6 @@
-import { Action, EffectType } from "../../interface";
+import { EffectType } from "@/features/effect";
+import { Action } from "@/features/unit";
+
 import { dmgEffect } from "./effects";
 
 export const meleeAttackAction = ({
