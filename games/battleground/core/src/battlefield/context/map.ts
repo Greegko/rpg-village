@@ -33,7 +33,7 @@ export class MapContext {
 
   tickProjectiles(): void {
     const hash = new SpatialHash<MapNode>(48, nodeToRectangle);
-    this.unitContext.units.forEach(unit => hash.add(unit));
+    this.unitContext.units.filter(x => x.hp > 0).forEach(unit => hash.add(unit));
 
     for (let projectile of this.projectiles) {
       projectile.timeState -= 1;
