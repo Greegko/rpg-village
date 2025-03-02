@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "start": "vite build -w",
+    "start": "NODE_ENV=development vite build -w --mode development",
     "build": "vite build",
     "test": "vitest run",
     "test:watch": "vitest",

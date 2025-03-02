@@ -16,6 +16,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "inlineSourceMap": true,
+    "types": ["vite/client"],
     "paths": {
       "@/features/*": ["./src/features/*"]
     }

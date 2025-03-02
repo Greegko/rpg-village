@@ -24,6 +24,10 @@ export class BattlefieldRenderer {
 
     this.application.stage.addChild(this.rootContainer);
 
+    if (import.meta.env.DEV) {
+      (globalThis as any).__PIXI_APP__ = this.application;
+    }
+
     const backgroundTitleTexture = this.assetManager.getAsset("overworld_tileset_grass/overworld_tileset_grass-0");
     const backgroundTitle = new TilingSprite({
       texture: backgroundTitleTexture,
