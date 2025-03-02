@@ -87,7 +87,7 @@ export interface UnitConfig {
 }
 
 export interface UnitSetup extends Partial<UnitConfig> {
-  location: Position;
+  position: Position;
   team: number;
   hp?: number;
 }

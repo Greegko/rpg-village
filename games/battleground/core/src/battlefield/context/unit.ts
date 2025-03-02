@@ -56,7 +56,7 @@ export class UnitContext {
     if (!unit.moveSpeed) return;
     if (!unit.moveDirection) return;
 
-    unit.location = addVector(unit.location, multVector(unit.moveDirection, unit.moveSpeed));
+    unit.position = addVector(unit.position, multVector(unit.moveDirection, unit.moveSpeed));
   }
 
   screenBoundaries(unit: Unit) {
@@ -65,7 +65,7 @@ export class UnitContext {
 
     const unitWidth = unit.size;
 
-    const futurePoint = addVector(multVector(unit.moveDirection, unit.moveSpeed), unit.location);
+    const futurePoint = addVector(multVector(unit.moveDirection, unit.moveSpeed), unit.position);
 
     if (futurePoint.x > this.battlefieldConfig.mapSize[0] - unitWidth || futurePoint.x < 0) {
       unit.moveDirection = invXVector(unit.moveDirection);
@@ -80,7 +80,7 @@ export class UnitContext {
     if (!unit.moveSpeed) return;
 
     const otherUnitsInDistance = inTouchWithOthers(unit, units);
-    let sumSubVector = otherUnitsInDistance.reduce((acc, curr) => addVector(acc, normVector(subVector(unit.location, curr.location))), {
+    let sumSubVector = otherUnitsInDistance.reduce((acc, curr) => addVector(acc, normVector(subVector(unit.position, curr.position))), {
       x: 0,
       y: 0,
     });

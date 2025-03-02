@@ -5,11 +5,11 @@ import { archerUnit, castleBuilding, createDummyUnit, flagBearerUnit, priestUnit
 // prettier-ignore
 export const playgroundDefaultBattlefieldInit: BattlefieldInit = {
   units: [
-    // castleBuilding({ location: { x: 100, y: 360 }, team: 1 }),
+    // castleBuilding({ position: { x: 100, y: 360 }, team: 1 }),
 
-    createDummyUnit({ location: { x: 300, y: 300 }, team: 1 }),
-    flagBearerUnit({ location: { x: 280, y: 310 }, team: 1 }),
-    flagBearerUnit({ location: { x: 280, y: 290 }, team: 1, effects: [{
+    createDummyUnit({ position: { x: 300, y: 300 }, team: 1 }),
+    flagBearerUnit({ position: { x: 280, y: 310 }, team: 1 }),
+    flagBearerUnit({ position: { x: 280, y: 290 }, team: 1, effects: [{
         type: EffectType.Aura,
         range: 100,
         seekTargetCondition: ['enemy-team', 'alive'],
@@ -17,9 +17,9 @@ export const playgroundDefaultBattlefieldInit: BattlefieldInit = {
       }]
     }),
 
-    // castleBuilding({ location: { x: 1500, y: 360 }, team: 2 })
-    archerUnit({ location: { x: 500, y: 220 }, team: 2, moveSpeed: 0, hp: 10, maxHp: 100 }),
-    archerUnit({ location: { x: 500, y: 260 }, team: 2, moveSpeed: 0, hp: 0, maxHp: 100 }),
-    priestUnit({ location: { x: 500, y: 360 }, team: 2 }),
+    // castleBuilding({ position: { x: 1500, y: 360 }, team: 2 })
+    archerUnit({ position: { x: 500, y: 220 }, team: 2, moveSpeed: 0, hp: 10, maxHp: 100 }),
+    archerUnit({ position: { x: 500, y: 260 }, team: 2, moveSpeed: 0, hp: 0, maxHp: 100 }),
+    priestUnit({ position: { x: 500, y: 360 }, team: 2 }),
   ],
 };

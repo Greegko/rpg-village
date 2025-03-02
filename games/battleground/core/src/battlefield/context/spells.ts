@@ -30,22 +30,22 @@ export class SpellsContext {
     },
   };
 
-  getTargetUnits(spellId: SpellID, targetLocation: Position): Unit[] {
+  getTargetUnits(spellId: SpellID, targetPosition: Position): Unit[] {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 
     return filterBySeekConditions(this.unitContext.units, spell.seekConditions, {
-      targetLocation,
+      targetPosition,
       ...spellContext,
     });
   }
 
-  castSpell(spellId: SpellID, targetLocation: Position): void {
+  castSpell(spellId: SpellID, targetPosition: Position): void {
     const spell = this.spells[spellId];
     const spellContext = this.getSpellContext();
 
     const targets = filterBySeekConditions(this.unitContext.units, spell.seekConditions, {
-      targetLocation,
+      targetPosition,
       ...spellContext,
     });
 

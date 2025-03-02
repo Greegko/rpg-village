@@ -3,7 +3,7 @@ import { Position, addVector, getPositionDistance } from "@rpg-village/utils/nod
 import { Unit } from "../interface";
 
 export function getUnitCentral(unit: Unit): Position {
-  return addVector(unit.location, { x: unit.size / 2, y: unit.size / 2 });
+  return addVector(unit.position, { x: unit.size / 2, y: unit.size / 2 });
 }
 
 export function inTouchWithOthers(unit: Unit, targets: Unit[]): Unit[] {

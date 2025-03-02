@@ -9,20 +9,20 @@ import { filterBySeekConditions } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
 import { UnitContext } from "./unit";
 
-type MapNode = { id: string; location: Position; size: number };
+type MapNode = { id: string; position: Position; size: number };
 
 const nodeToRectangle = (node: MapNode) => ({
-  left: node.location.x,
-  right: node.location.x + node.size,
-  top: node.location.y,
-  bottom: node.location.y + node.size,
+  left: node.position.x,
+  right: node.position.x + node.size,
+  top: node.position.y,
+  bottom: node.position.y + node.size,
 });
 
 const projectileToRectangle = (node: ProjectileNode): Rectangle => ({
-  left: node.location.x,
-  right: node.location.x + 8,
-  top: node.location.y,
-  bottom: node.location.y + 8,
+  left: node.position.x,
+  right: node.position.x + 8,
+  top: node.position.y,
+  bottom: node.position.y + 8,
 });
 
 @injectable()
@@ -38,9 +38,9 @@ export class MapContext {
     for (let projectile of this.projectiles) {
       projectile.timeState -= 1;
 
-      const d = multVector(normVector(subVector(projectile.targetLocation, projectile.sourceLocation)), projectile.speed);
-      projectile.location.x += d.x;
-      projectile.location.y += d.y;
+      const d = multVector(normVector(subVector(projectile.targetPosition, projectile.sourcePosition)), projectile.speed);
+      projectile.position.x += d.x;
+      projectile.position.y += d.y;
 
       if (projectile.projectileType === ProjectileType.Linear) {
         const set = hash.search(projectileToRectangle(projectile));
@@ -68,7 +68,7 @@ export class MapContext {
     const hitUnits = filterBySeekConditions(
       this.unitContext.units,
       ["enemy-team", "alive", ["in-distance", { distance: projectile.area }]],
-      { team: projectile.source.team, targetLocation: projectile.location },
+      { team: projectile.source.team, targetPosition: projectile.position },
     );
 
     hitUnits.forEach(unit => this.effectsContext.applyEffect(projectile.effect, unit));

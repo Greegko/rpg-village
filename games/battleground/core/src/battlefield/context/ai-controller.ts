@@ -71,11 +71,11 @@ export class AiController {
       .map(action => (action.seekTargetCondition ? seekTarget(unit, units, action.seekTargetCondition) : null))
       .filter(x => x) as Unit[];
 
-    const closestTarget = head(sortBy(targetUnit => getPositionDistance(unit.location, targetUnit.location), closestUnits));
+    const closestTarget = head(sortBy(targetUnit => getPositionDistance(unit.position, targetUnit.position), closestUnits));
 
     if (!closestTarget) return;
 
-    unit.moveDirection = normVector(subVector(closestTarget.location, unit.location));
+    unit.moveDirection = normVector(subVector(closestTarget.position, unit.position));
   }
 
   private lockActionWithTarget(units: Unit[], unit: Unit) {
@@ -87,7 +87,7 @@ export class AiController {
     );
 
     const [action, targetUnit] = head(
-      sortBy(([, targetUnit]) => (targetUnit ? getPositionDistance(unit.location, targetUnit.location) : Infinity), actions),
+      sortBy(([, targetUnit]) => (targetUnit ? getPositionDistance(unit.position, targetUnit.position) : Infinity), actions),
     );
 
     // No valid seek target
@@ -99,7 +99,7 @@ export class AiController {
       return;
     }
 
-    const distance = getPositionDistance(unit.location, targetUnit.location);
+    const distance = getPositionDistance(unit.position, targetUnit.position);
 
     if (action.distance && distance <= action.distance) {
       unit.activeAction = { action, speed: action.speed, targetUnit };
@@ -114,7 +114,7 @@ export class AiController {
         return;
       }
 
-      const targetDistance = getPositionDistance(unit.location, unit.activeAction.targetUnit.location);
+      const targetDistance = getPositionDistance(unit.position, unit.activeAction.targetUnit.position);
 
       if (unit.activeAction.action.distance && targetDistance > unit.activeAction.action.distance) {
         delete unit.activeAction;
@@ -129,7 +129,7 @@ export class AiController {
     if (!unit.actionsCooldowns) return;
     if (unit.actionsCooldowns.get(unit.activeAction.action)! > 0) return;
 
-    if (unit.activeAction.action.projectileId && (unit.activeAction.targetUnit || unit.activeAction.targetPosition)) {
+    if (unit.activeAction.action.spriteId && (unit.activeAction.targetUnit || unit.activeAction.targetPosition)) {
       if (unit.activeAction.targetUnit) {
         this.shootProjectile(unit, getUnitCentral(unit.activeAction.targetUnit));
       } else if (unit.activeAction.targetPosition) {
@@ -150,12 +150,12 @@ export class AiController {
     delete unit.activeAction;
   }
 
-  private shootProjectile(unit: Unit, targetLocation: Position) {
+  private shootProjectile(unit: Unit, targetPosition: Position) {
     if (!unit.activeAction) return;
 
     const action = unit.activeAction.action;
-    const sourceLocation = getUnitCentral(unit);
-    const time = Math.ceil(getPositionDistance(sourceLocation, targetLocation) / action.projectileSpeed!);
+    const sourcePosition = getUnitCentral(unit);
+    const time = Math.ceil(getPositionDistance(sourcePosition, targetPosition) / action.projectileSpeed!);
 
     const projectile: ProjectileNode = {
       id: action.projectileId!,
@@ -163,10 +163,10 @@ export class AiController {
       projectileType: action.projectileType!,
       effect: action.hitEffect!,
       source: unit,
-      location: sourceLocation,
-      sourceLocation,
+      position: sourcePosition,
+      sourcePosition,
       speed: action.projectileSpeed!,
-      targetLocation,
+      targetPosition,
       time,
       timeState: time,
     };

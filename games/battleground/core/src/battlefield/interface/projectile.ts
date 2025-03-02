@@ -6,8 +6,8 @@ export interface Projectile {
   id: ProjectileID;
   projectileType: ProjectileType;
   source: Unit;
-  sourceLocation: Position;
-  targetLocation: Position;
+  sourcePosition: Position;
+  targetPosition: Position;
   speed: number;
   time: number;
   area: number;
@@ -15,6 +15,6 @@ export interface Projectile {
 }
 
 export interface ProjectileNode extends Projectile {
-  location: Position;
+  position: Position;
   timeState: number;
 }

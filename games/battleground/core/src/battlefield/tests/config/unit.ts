@@ -1,3 +1,4 @@
+import { nullVector } from "@rpg-village/utils/node";
 import { UnitInit } from "../../interface";
 import { healAction, meleeAttackAction, rangeAttackAction, reviveAction } from "./action";
 
@@ -7,7 +8,7 @@ export const createDummyUnit = (dummyUnitArgs: Partial<UnitInit> = {}) =>
 export const skeletonUnit = ({
   id = "skeleton",
   spriteId = "sprites/skeleton/skeleton",
-  location = null,
+  position = nullVector,
   size = 20,
   team = 1,
   maxHp = 10,
@@ -19,7 +20,7 @@ export const skeletonUnit = ({
   ({
     id,
     spriteId,
-    location,
+    position,
     size,
     team,
     maxHp,
@@ -32,7 +33,7 @@ export const skeletonUnit = ({
 export const archerUnit = ({
   id = "skeleton",
   spriteId = "sprites/archer/archer",
-  location = null,
+  position = nullVector,
   size = 20,
   team = 1,
   maxHp = 10,
@@ -44,7 +45,7 @@ export const archerUnit = ({
   ({
     id,
     spriteId,
-    location,
+    position,
     size,
     team,
     maxHp,
@@ -55,7 +56,7 @@ export const archerUnit = ({
   }) as UnitInit;
 
 export const priestUnit = ({
-  location = null,
+  position = nullVector,
   size = 20,
   team = 1,
   maxHp = 10,
@@ -69,7 +70,7 @@ export const priestUnit = ({
   ({
     id,
     spriteId,
-    location,
+    position,
     size,
     team,
     maxHp,

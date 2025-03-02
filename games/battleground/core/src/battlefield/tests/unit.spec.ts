@@ -18,20 +18,20 @@ import { test } from "./utils";
 test("move", {
   initialState: {
     units: [
-      skeletonUnit({ location: { x: 0, y: 0 }, team: 1, moveSpeed: 5 }),
-      skeletonUnit({ location: { x: 80, y: 0 }, team: 2, moveSpeed: 5 }),
+      skeletonUnit({ position: { x: 0, y: 0 }, team: 1, moveSpeed: 5 }),
+      skeletonUnit({ position: { x: 80, y: 0 }, team: 2, moveSpeed: 5 }),
     ],
   },
   turn: 2,
-  expectedState: { units: [{ location: { x: 5, y: 0 } }, { location: { x: 75, y: 0 } }] },
+  expectedState: { units: [{ position: { x: 5, y: 0 } }, { position: { x: 75, y: 0 } }] },
 });
 
 test("dmg", {
   initialState: {
     units: [
-      skeletonUnit({ location: { x: 0, y: 0 }, hp: 10, team: 1 }),
+      skeletonUnit({ position: { x: 0, y: 0 }, hp: 10, team: 1 }),
       skeletonUnit({
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: 10 })], speed: 1, distance: 20 })],
         team: 2,
       }),
@@ -44,9 +44,9 @@ test("dmg", {
 test("dmg stack attributes", {
   initialState: {
     units: [
-      skeletonUnit({ location: { x: 0, y: 0 }, hp: 100, team: 1 }),
+      skeletonUnit({ position: { x: 0, y: 0 }, hp: 100, team: 1 }),
       skeletonUnit({
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [
           meleeAttackAction({
             hitEffect: [dmgEffect({ power: 10 }), dmgEffect({ power: 10 })],
@@ -66,9 +66,9 @@ test("dmg stack attributes", {
 test("armor", {
   initialState: {
     units: [
-      skeletonUnit({ location: { x: 0, y: 0 }, hp: 100, team: 1, effects: [armorEffect({ power: 5 })] }),
+      skeletonUnit({ position: { x: 0, y: 0 }, hp: 100, team: 1, effects: [armorEffect({ power: 5 })] }),
       skeletonUnit({
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [
           meleeAttackAction({
             hitEffect: [dmgEffect({ power: 10 })],
@@ -89,13 +89,13 @@ test("armor stack attributes", {
   initialState: {
     units: [
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 100,
         team: 1,
         effects: [armorEffect({ power: 5 }), armorEffect({ power: 2 })],
       }),
       skeletonUnit({
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [
           meleeAttackAction({
             hitEffect: [dmgEffect({ power: 10 })],
@@ -116,13 +116,13 @@ test("different dmg type with armors", {
   initialState: {
     units: [
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 100,
         team: 1,
         effects: [armorEffect({ power: 5, dmgType: DmgType.Fire }), armorEffect({ power: 2, dmgType: DmgType.Physical })],
       }),
       skeletonUnit({
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [
           meleeAttackAction({
             hitEffect: [dmgEffect({ power: 10, dmgType: DmgType.Fire })],
@@ -143,13 +143,13 @@ test("dot dmg apply", {
   initialState: {
     units: [
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 50,
         team: 1,
         actions: [meleeAttackAction({ hitEffect: [], speed: 1, distance: 20 })],
       }),
       skeletonUnit({
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [
           meleeAttackAction({
             hitEffect: [dotEffect({ interval: 1, period: 3, power: 10 })],
@@ -170,14 +170,14 @@ test("dmg range", {
   initialState: {
     units: [
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 10,
         team: 1,
         actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: 10 })] })],
       }),
       skeletonUnit({
         hp: 10,
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: [4, 6] })], speed: 1, distance: 20 })],
         team: 2,
       }),
@@ -191,7 +191,7 @@ test("aura apply effect", {
   initialState: {
     units: [
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 10,
         team: 1,
         effects: [
@@ -205,14 +205,14 @@ test("aura apply effect", {
         actions: [],
       }),
       skeletonUnit({
-        location: { x: 10, y: 0 },
+        position: { x: 10, y: 0 },
         hp: 10,
         team: 1,
         actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: 0 })] })],
       }),
       skeletonUnit({
         hp: 10,
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: 10 })], speed: 1, distance: 20 })],
         team: 2,
       }),
@@ -226,7 +226,7 @@ test("aura dot refresh period", {
   initialState: {
     units: [
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 10,
         team: 1,
         effects: [
@@ -247,7 +247,7 @@ test("aura dot refresh period", {
       }),
       skeletonUnit({
         hp: 10,
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [],
         team: 2,
       }),
@@ -264,7 +264,7 @@ test("aura apply effect only once based on unique id", {
   initialState: {
     units: [
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 10,
         team: 1,
         effects: [
@@ -278,7 +278,7 @@ test("aura apply effect only once based on unique id", {
         actions: [],
       }),
       skeletonUnit({
-        location: { x: 0, y: 0 },
+        position: { x: 0, y: 0 },
         hp: 10,
         team: 1,
         effects: [
@@ -292,14 +292,14 @@ test("aura apply effect only once based on unique id", {
         actions: [],
       }),
       skeletonUnit({
-        location: { x: 10, y: 0 },
+        position: { x: 10, y: 0 },
         hp: 10,
         team: 1,
         actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: 0 })] })],
       }),
       skeletonUnit({
         hp: 10,
-        location: { x: 20, y: 0 },
+        position: { x: 20, y: 0 },
         actions: [meleeAttackAction({ hitEffect: [dmgEffect({ power: 10 })], speed: 1, distance: 20 })],
         team: 2,
       }),
@@ -312,28 +312,28 @@ test("aura apply effect only once based on unique id", {
 test("shoot projectile", {
   initialState: {
     units: [
-      skeletonUnit({ location: { x: 0, y: 0 }, hp: 10, team: 1 }),
+      skeletonUnit({ position: { x: 0, y: 0 }, hp: 10, team: 1 }),
       skeletonUnit({
-        location: { x: 80, y: 0 },
-        actions: [rangeAttackAction({ speed: 1, distance: 80, projectileId: "test-projectile" })],
+        position: { x: 80, y: 0 },
+        actions: [rangeAttackAction({ speed: 1, distance: 80, spriteId: "test-projectile" })],
         team: 2,
       }),
     ],
   },
   turn: 2,
-  expectedState: { projectiles: [{ id: "test-projectile" }] },
+  expectedState: { projectiles: [{ spriteId: "test-projectile" }] },
 });
 
 test("choose target unit with action which is closer #1 part", {
   initialState: {
     units: [
-      createDummyUnit({ location: { x: 0, y: 0 }, team: 1 }),
+      createDummyUnit({ position: { x: 0, y: 0 }, team: 1 }),
 
-      createDummyUnit({ location: { x: 20, y: 20 }, team: 2, hp: 10, maxHp: 100 }),
-      createDummyUnit({ location: { x: 20, y: 60 }, team: 2, hp: 0, maxHp: 100 }),
+      createDummyUnit({ position: { x: 20, y: 20 }, team: 2, hp: 10, maxHp: 100 }),
+      createDummyUnit({ position: { x: 20, y: 60 }, team: 2, hp: 0, maxHp: 100 }),
 
       priestUnit({
-        location: { x: 20, y: 100 },
+        position: { x: 20, y: 100 },
         team: 2,
         actions: [healAction({ cooldown: 1, speed: 1 }), reviveAction({ speed: 1 })],
       }),
@@ -349,13 +349,13 @@ test("choose target unit with action which is closer #1 part", {
 test("choose target unit with action which is closer #2 part", {
   initialState: {
     units: [
-      createDummyUnit({ location: { x: 0, y: 0 }, team: 1 }),
+      createDummyUnit({ position: { x: 0, y: 0 }, team: 1 }),
 
-      createDummyUnit({ location: { x: 20, y: 20 }, team: 2, hp: 10, maxHp: 100 }),
-      createDummyUnit({ location: { x: 20, y: 60 }, team: 2, hp: 0, maxHp: 100 }),
+      createDummyUnit({ position: { x: 20, y: 20 }, team: 2, hp: 10, maxHp: 100 }),
+      createDummyUnit({ position: { x: 20, y: 60 }, team: 2, hp: 0, maxHp: 100 }),
 
       priestUnit({
-        location: { x: 20, y: 100 },
+        position: { x: 20, y: 100 },
         team: 2,
         actions: [healAction({ cooldown: 1, speed: 1 }), reviveAction({ speed: 1 })],
       }),

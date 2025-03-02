@@ -13,7 +13,7 @@ const unitFactory =
   (unitConfigOverride: UnitSetup & Partial<UnitConfig>): UnitInit =>
     mergeRight(getConfig(id), unitConfigOverride);
 
-export const createDummyUnit = (unitConfigOverride: Pick<UnitSetup, "location" | "team">): UnitInit =>
+export const createDummyUnit = (unitConfigOverride: Pick<UnitSetup, "position" | "team">): UnitInit =>
   mergeAll<any>([getConfig("skeleton"), { hp: 1000, maxHp: 1000, actions: [] }, unitConfigOverride]);
 
 export const castleBuilding = unitFactory("castle");

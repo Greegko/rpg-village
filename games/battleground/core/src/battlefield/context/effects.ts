@@ -135,7 +135,7 @@ export class EffectsContext {
 
     const spawnedUnit = this.resourceManager.getUnitConfig(unitId);
     const skeletonState: UnitSetup = {
-      location: { x: source.location.x + source.size / 2, y: source.location.y + source.size + 20 },
+      position: { x: source.position.x + source.size / 2, y: source.position.y + source.size + 20 },
       team: source.team,
     };
 
@@ -162,7 +162,7 @@ export class EffectsContext {
 
   private applyAura(unit: Unit, aura: AuraEffect, units: Unit[]) {
     const auraTargets = filterBySeekConditions(units, [...aura.seekTargetCondition, ["in-distance", { distance: aura.range }]], {
-      targetLocation: unit.location,
+      targetPosition: unit.position,
       team: unit.team,
     });
 
