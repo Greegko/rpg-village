@@ -9,6 +9,7 @@ export const getVectorAngle = (a: Vector, b?: Vector) => (b ? Math.atan2(b.y - a
 export const getVectorDistance = (a: Vector, b: Vector) => Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
 
 export const nullVector: Vector = { x: 0, y: 0 };
+export const isNullVector = (vector: Vector) => vector.x === 0 && vector.y === 0;
 
 const magSq = (a: Vector) => a.x ** 2 + a.y ** 2;
 const mag = (a: Vector) => Math.sqrt(magSq(a));
