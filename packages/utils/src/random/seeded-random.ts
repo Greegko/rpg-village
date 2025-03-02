@@ -41,4 +41,8 @@ export class SeededRandom {
     var length = array.length;
     return array[this.int(0, length - 1)];
   }
+
+  uniqueId(): string {
+    return this.int(10000000000, 99999999999).toString(36);
+  }
 }
