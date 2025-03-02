@@ -5,7 +5,7 @@ import { Position, createVectorFromAngle, getPositionDistance, normVector, rotat
 import { RandomContextToken } from "@/features/random";
 
 import { inject, injectable } from "../injection-container";
-import { ProjectileNode, Unit } from "../interface";
+import { Projectile, Unit } from "../interface";
 import { getUnitCentral } from "../utils";
 import { isUnitActionHasValidTarget, seekTarget } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
@@ -157,10 +157,9 @@ export class AiController {
     const sourcePosition = getUnitCentral(unit);
     const time = Math.ceil(getPositionDistance(sourcePosition, targetPosition) / action.projectileSpeed!);
 
-    const projectile: ProjectileNode = {
+    const projectile: Projectile = {
       id: this.randomContext.next().toString(),
       spriteId: action.spriteId!,
-      area: 1,
       projectileType: action.projectileType!,
       effect: action.hitEffect!,
       source: unit,

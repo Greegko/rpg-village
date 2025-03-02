@@ -1,7 +1,7 @@
 [
   {
     "configId": "hero",
-    "spriteId": "hero_hours_sprites/archer/archer",
+    "spriteId": "hero_hours_sprites/werewolf/werewolf",
     "moveSpeed": 2,
     "maxHp": 100,
     "actions": [

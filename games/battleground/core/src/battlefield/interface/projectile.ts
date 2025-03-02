@@ -12,11 +12,7 @@ export interface Projectile {
   targetPosition: Position;
   speed: number;
   time: number;
-  area: number;
   effect: Effect[];
-}
-
-export interface ProjectileNode extends Projectile {
   position: Position;
   timeState: number;
 }

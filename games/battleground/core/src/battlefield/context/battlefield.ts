@@ -2,7 +2,7 @@ import { Position, isNullVector } from "@rpg-village/utils/node";
 import { Vector, normVector } from "@rpg-village/utils/node";
 
 import { inject, injectable } from "../injection-container";
-import { ProjectileNode, Unit, UnitID, UnitInit } from "../interface";
+import { Projectile, Unit, UnitID, UnitInit } from "../interface";
 import { AiController } from "./ai-controller";
 import { EffectsContext } from "./effects";
 import { MapContext } from "./map";
@@ -11,7 +11,7 @@ import { UnitContext } from "./unit";
 
 export interface BattlefieldState {
   units: Unit[];
-  projectiles: ProjectileNode[];
+  projectiles: Projectile[];
 }
 
 export interface BattlefieldInit {

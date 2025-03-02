@@ -1,7 +1,7 @@
 import { Application, Container, ContainerChild, TilingSprite } from "pixi.js";
 import { values, without } from "rambda";
 
-import { BattlefieldConfig, BattlefieldState, ProjectileNode, Unit } from "../battlefield";
+import { BattlefieldConfig, BattlefieldState, Projectile, Unit } from "../battlefield";
 import { inject, injectable } from "./injection-container";
 import { AssetManagerToken } from "./interface";
 import { createProjectileNode, createUnitNode } from "./node/unit-node";
@@ -15,7 +15,7 @@ export class BattlefieldRenderer {
   private unitNodes: Record<string, ReturnType<typeof createUnitNode>> = {};
   private projectileNodes: Record<string, ReturnType<typeof createProjectileNode>> = {};
   private assetManager = inject(AssetManagerToken);
-  private lastState: { units: Unit[]; projectiles: ProjectileNode[] } = { units: [], projectiles: [] };
+  private lastState: { units: Unit[]; projectiles: Projectile[] } = { units: [], projectiles: [] };
 
   async init(config: BattlefieldConfig): Promise<HTMLCanvasElement> {
     await this.application.init({
@@ -78,6 +78,7 @@ export class BattlefieldRenderer {
       this.projectilesContainer.removeChild(this.projectileNodes[projectile.id].getNode());
 
       this.projectileNodes[projectile.id].getNode().destroy();
+      delete this.projectileNodes[projectile.id];
     });
 
     this.lastState = {

@@ -4,35 +4,28 @@ import { Position, multVector, normVector, subVector } from "@rpg-village/utils/
 import { Rectangle, SpatialHash } from "@rpg-village/utils/spatial-hash";
 
 import { inject, injectable } from "../injection-container";
-import { ProjectileNode, ProjectileType } from "../interface";
+import { Projectile, ProjectileType, Unit } from "../interface";
 import { filterBySeekConditions } from "../utils/unit-filter";
 import { EffectsContext } from "./effects";
 import { UnitContext } from "./unit";
 
 type MapNode = { id: string; position: Position; size: number };
 
-const nodeToRectangle = (node: MapNode) => ({
+const nodeToRectangle = (node: MapNode): Rectangle => ({
   left: node.position.x,
   right: node.position.x + node.size,
   top: node.position.y,
   bottom: node.position.y + node.size,
 });
 
-const projectileToRectangle = (node: ProjectileNode): Rectangle => ({
-  left: node.position.x,
-  right: node.position.x + 8,
-  top: node.position.y,
-  bottom: node.position.y + 8,
-});
-
 @injectable()
 export class MapContext {
   private unitContext = inject(UnitContext);
   private effectsContext = inject(EffectsContext);
-  projectiles: ProjectileNode[] = [];
+  projectiles: Projectile[] = [];
 
   tickProjectiles(): void {
-    const hash = new SpatialHash<MapNode>(48, nodeToRectangle);
+    const hash = new SpatialHash<Unit>(48, nodeToRectangle);
     this.unitContext.units.filter(x => x.hp > 0).forEach(unit => hash.add(unit));
 
     for (let projectile of this.projectiles) {
@@ -43,11 +36,12 @@ export class MapContext {
       projectile.position.y += d.y;
 
       if (projectile.projectileType === ProjectileType.Linear) {
-        const set = hash.search(projectileToRectangle(projectile));
+        const set = hash.search(nodeToRectangle(projectile));
         set.delete(projectile.source);
 
         if (set.size > 0) {
-          this.landProjectile(projectile);
+          set.values().forEach(node => this.projectileHit(projectile, node));
+
           this.projectiles = without([projectile], this.projectiles);
           continue;
         }
@@ -60,14 +54,18 @@ export class MapContext {
     }
   }
 
-  addProjectile(projectile: ProjectileNode): void {
+  addProjectile(projectile: Projectile): void {
     this.projectiles.push(projectile);
   }
 
-  private landProjectile(projectile: ProjectileNode): void {
+  private projectileHit(projectile: Projectile, unit: Unit): void {
+    this.effectsContext.applyEffect(projectile.effect, unit);
+  }
+
+  private landProjectile(projectile: Projectile): void {
     const hitUnits = filterBySeekConditions(
       this.unitContext.units,
-      ["enemy-team", "alive", ["in-distance", { distance: projectile.area }]],
+      ["enemy-team", "alive", ["in-distance", { distance: projectile.size }]],
       { team: projectile.source.team, targetPosition: projectile.position },
     );
 
