@@ -73,7 +73,7 @@ export const Game = () => {
 
   return (
     <div>
-      <div style={{ position: "absolute", color: "white", "font-size": "12px" }}>
+      <div class="absolute text-white text-xs font-mono">
         FPS: {fps()} - Tick: {tick()}
       </div>
       <div class="w-fit border border-red-500">{battlegroundCanvas()}</div>
