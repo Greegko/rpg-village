@@ -7,8 +7,8 @@
     "start": "pnpm run \"/serve|type-checking|dependencies/\"",
     "build": "vite build",
     "serve": "vite serve",
-    "dependencies": "pnpm --filter=@rpg-village/battleground-hack-and-slash^... start",
-    "type-checking": "tsc -w --preserveWatchOutput -p ./src"
+    "dependencies": "pnpm --parallel --filter=@rpg-village/battleground-hack-and-slash^... start",
+    "type-checking": "tsc -w --preserveWatchOutput"
   },
   "dependencies": {
     "@rpg-village/battleground-core": "workspace: *",
