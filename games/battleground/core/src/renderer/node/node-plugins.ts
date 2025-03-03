@@ -15,7 +15,7 @@ import { AssetManagerToken } from "../interface";
 import { CreateNodeInterface, createNodePlugin } from "./create-node";
 
 export const healthbarNodePlugin = createNodePlugin(() => {
-  return ({ getNode }: CreateNodeInterface) => {
+  return ({ getRoot }: CreateNodeInterface) => {
     const healthbarNode = new Graphics();
 
     const onStateUpdate = (state: { hp: number; maxHp: number; size: number }) => {
@@ -29,7 +29,7 @@ export const healthbarNodePlugin = createNodePlugin(() => {
       healthbarNode.rect(0, 0, state.size * 0.8 * percentage, 5).fill(color);
     };
 
-    getNode().addChild(healthbarNode);
+    getRoot().addChild(healthbarNode);
     return { onStateUpdate };
   };
 });
@@ -42,19 +42,19 @@ declare module "./create-node" {
 }
 
 export const selectableNodePlugin = createNodePlugin(() => {
-  return ({ getNode }: CreateNodeInterface) => {
+  return ({ getRoot }: CreateNodeInterface) => {
     const onStateUpdate = () => {};
-    const select = () => (getNode().filters = [new GlowFilter()]);
-    const unselect = () => (getNode().filters = []);
+    const select = () => (getRoot().filters = [new GlowFilter()]);
+    const unselect = () => (getRoot().filters = []);
     return { onStateUpdate, select, unselect };
   };
 });
 
 export const moveableNodePlugin = createNodePlugin(() => {
-  return ({ getNode }: CreateNodeInterface) => {
+  return ({ getRoot }: CreateNodeInterface) => {
     const onStateUpdate = (state: { position: Position }) => {
-      getNode().x = state.position.x;
-      getNode().y = state.position.y;
+      getRoot().x = state.position.x;
+      getRoot().y = state.position.y;
     };
     return { onStateUpdate };
   };
@@ -63,7 +63,7 @@ export const moveableNodePlugin = createNodePlugin(() => {
 type UnitStatus = "shield-break";
 const SHIELD_BREAK_ICON = "icons/spells/shield_break";
 export const statusesNodePlugin = createNodePlugin(() => {
-  return ({ getNode }: CreateNodeInterface) => {
+  return ({ getRoot }: CreateNodeInterface) => {
     const assetManager = inject(AssetManagerToken);
     const statusesContainer = new Container();
     const onStateUpdate = (state: { effects: Effect[] }) => {
@@ -80,7 +80,7 @@ export const statusesNodePlugin = createNodePlugin(() => {
       });
     };
 
-    getNode().addChild(statusesContainer);
+    getRoot().addChild(statusesContainer);
 
     return { onStateUpdate };
   };
@@ -88,14 +88,14 @@ export const statusesNodePlugin = createNodePlugin(() => {
 
 declare module "./create-node" {
   interface CreateNodeInterface {
-    getNode(): Container;
+    getRoot(): Container;
   }
 }
 
 export const rootNodePlugin = createNodePlugin(() => {
   return () => {
     const node = new Container();
-    return { getNode: () => node };
+    return { getRoot: () => node };
   };
 });
 
@@ -110,7 +110,7 @@ enum Direction {
   Right,
 }
 export const renderAnimatedSpriteNodePlugin = createNodePlugin(() => {
-  return ({ getNode }: CreateNodeInterface) => {
+  return ({ getRoot }: CreateNodeInterface) => {
     const assetManager = inject(AssetManagerToken);
     let sprite: AnimatedSprite;
 
@@ -124,8 +124,8 @@ export const renderAnimatedSpriteNodePlugin = createNodePlugin(() => {
       sprite.scale.x = baseRatio;
       sprite.scale.y = baseRatio;
 
-      getNode().position.copyFrom(state.position);
-      getNode().addChild(sprite);
+      getRoot().position.copyFrom(state.position);
+      getRoot().addChild(sprite);
     });
 
     return { onStateUpdate, getSprite: () => sprite };
@@ -133,7 +133,7 @@ export const renderAnimatedSpriteNodePlugin = createNodePlugin(() => {
 });
 
 export const hpChangeNumberDisplayNodePlugin = createNodePlugin(() => {
-  return ({ getNode }: CreateNodeInterface) => {
+  return ({ getRoot }: CreateNodeInterface) => {
     function createNumberTextAnimation(node: Container, val: number, color: string) {
       const text = new Text({ text: val, style: { fontSize: 14, fill: color } });
       text.x = 12;
@@ -157,7 +157,7 @@ export const hpChangeNumberDisplayNodePlugin = createNodePlugin(() => {
     const hpChangesText = pairwise((prevHp: number | null, nextHp: number) => {
       if (prevHp === null) return;
 
-      createNumberTextAnimation(getNode(), Math.abs(prevHp - nextHp), prevHp < nextHp ? "green" : "red");
+      createNumberTextAnimation(getRoot(), Math.abs(prevHp - nextHp), prevHp < nextHp ? "green" : "red");
     });
 
     const onStateUpdate = (state: Unit) => {

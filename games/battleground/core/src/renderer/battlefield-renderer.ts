@@ -7,7 +7,8 @@ import { Unit } from "@/features/unit";
 import { BattlefieldConfig, BattlefieldState } from "../battlefield";
 import { inject, injectable } from "./injection-container";
 import { AssetManagerToken } from "./interface";
-import { createProjectileNode, createUnitNode } from "./node/unit-node";
+import { Node } from "./node/create-node";
+import { createMapObjectNode, createProjectileNode, createUnitNode } from "./node/unit-node";
 
 @injectable()
 export class BattlefieldRenderer {
@@ -15,8 +16,8 @@ export class BattlefieldRenderer {
   private rootContainer = new Container();
   private projectilesContainer = new Container();
   private unitsContainer = new Container();
-  private unitNodes: Record<string, ReturnType<typeof createUnitNode>> = {};
-  private projectileNodes: Record<string, ReturnType<typeof createProjectileNode>> = {};
+  private unitNodes: Record<string, Node> = {};
+  private projectileNodes: Record<string, Node> = {};
   private assetManager = inject(AssetManagerToken);
   private lastState: { units: Unit[]; projectiles: Projectile[] } = { units: [], projectiles: [] };
 
@@ -41,6 +42,7 @@ export class BattlefieldRenderer {
 
     this.rootContainer.addChild(backgroundTitle);
 
+    this.rootContainer.addChild(this.backgroundContainer);
     this.rootContainer.addChild(this.unitsContainer);
     this.rootContainer.addChild(this.projectilesContainer);
 
@@ -61,7 +63,7 @@ export class BattlefieldRenderer {
     data.units.forEach(unit => {
       if (this.unitNodes[unit.id] === undefined) {
         this.unitNodes[unit.id] = createUnitNode();
-        this.unitsContainer.addChild(this.unitNodes[unit.id].getNode());
+        this.unitsContainer.addChild(this.unitNodes[unit.id].getRoot());
       }
 
       this.unitNodes[unit.id].setState(unit);
@@ -70,7 +72,7 @@ export class BattlefieldRenderer {
     data.projectiles.forEach(projectile => {
       if (this.projectileNodes[projectile.id] === undefined) {
         this.projectileNodes[projectile.id] = createProjectileNode();
-        this.projectilesContainer.addChild(this.projectileNodes[projectile.id].getNode());
+        this.projectilesContainer.addChild(this.projectileNodes[projectile.id].getRoot());
       }
 
       this.projectileNodes[projectile.id].setState(projectile);
@@ -78,9 +80,9 @@ export class BattlefieldRenderer {
 
     const removedProjectiles = without(data.projectiles, this.lastState.projectiles);
     removedProjectiles.forEach(projectile => {
-      this.projectilesContainer.removeChild(this.projectileNodes[projectile.id].getNode());
+      this.projectilesContainer.removeChild(this.projectileNodes[projectile.id].getRoot());
 
-      this.projectileNodes[projectile.id].getNode().destroy();
+      this.projectileNodes[projectile.id].getRoot().destroy();
       delete this.projectileNodes[projectile.id];
     });
 
