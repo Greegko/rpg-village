@@ -1,7 +1,13 @@
 import { createInjectableToken } from "@greegko/tiny-di";
 
+import { Position } from "@rpg-village/utils/node";
+
+type Size = [number, number];
+
 export type BattlefieldConfig = {
-  mapSize: [number, number];
+  mapSize: Size;
+  cameraPosition: Position;
+  viewport: Size;
   seed: string;
 };
 

@@ -25,6 +25,8 @@ export const Game = () => {
 
     const config: BattlefieldConfig = {
       mapSize: [1200, 800],
+      cameraPosition: { x: 0, y: 0 },
+      viewport: [window.innerWidth, window.innerHeight],
       seed: seedParam || Math.floor(Math.random() * 1_000_000_000).toString(),
     };
 
@@ -58,6 +60,7 @@ export const Game = () => {
 
     battleField.init(playgroundDefaultBattlefieldInit);
     const heroUnitId = last(battleField.getState().units).id;
+    renderer.setFocusOnUnit(heroUnitId);
     battleField.setUserControlledUnit(heroUnitId);
     setBattlegroundCanvas(await renderer.init(config));
 
