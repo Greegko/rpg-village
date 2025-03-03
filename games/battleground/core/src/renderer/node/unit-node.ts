@@ -22,3 +22,4 @@ export const createUnitNode = createNodeFactory([
 ]);
 
 export const createProjectileNode = createNodeFactory([rootNodePlugin(), renderAnimatedSpriteNodePlugin(), moveableNodePlugin()]);
+export const createMapObjectNode = createNodeFactory([rootNodePlugin(), renderAnimatedSpriteNodePlugin()]);

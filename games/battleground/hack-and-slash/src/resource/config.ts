@@ -4,7 +4,7 @@ import { ConfigID, UnitConfig, UnitInit, UnitSetup } from "@rpg-village/battlegr
 
 import units from "./units.json";
 
-const getConfig = (id: ConfigID): UnitConfig => (units as UnitConfig[]).find(x => x.configId === id)!;
+export const getConfig = (id: ConfigID): UnitConfig => (units as UnitConfig[]).find(x => x.configId === id)!;
 
 const unitFactory =
   (id: ConfigID) =>

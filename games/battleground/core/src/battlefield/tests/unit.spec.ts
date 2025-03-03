@@ -18,6 +18,7 @@ import { test } from "./utils";
 
 test("move", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({ position: { x: 0, y: 0 }, team: 1, moveSpeed: 5 }),
       skeletonUnit({ position: { x: 80, y: 0 }, team: 2, moveSpeed: 5 }),
@@ -29,6 +30,7 @@ test("move", {
 
 test("dmg", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({ position: { x: 0, y: 0 }, hp: 10, team: 1 }),
       skeletonUnit({
@@ -44,6 +46,7 @@ test("dmg", {
 
 test("dmg stack attributes", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({ position: { x: 0, y: 0 }, hp: 100, team: 1 }),
       skeletonUnit({
@@ -66,6 +69,7 @@ test("dmg stack attributes", {
 
 test("armor", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({ position: { x: 0, y: 0 }, hp: 100, team: 1, effects: [armorEffect({ power: 5 })] }),
       skeletonUnit({
@@ -88,6 +92,7 @@ test("armor", {
 
 test("armor stack attributes", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({
         position: { x: 0, y: 0 },
@@ -115,6 +120,7 @@ test("armor stack attributes", {
 
 test("different dmg type with armors", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({
         position: { x: 0, y: 0 },
@@ -142,6 +148,7 @@ test("different dmg type with armors", {
 
 test("dot dmg apply", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({
         position: { x: 0, y: 0 },
@@ -169,6 +176,7 @@ test("dot dmg apply", {
 
 test("dmg range", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({
         position: { x: 0, y: 0 },
@@ -190,6 +198,7 @@ test("dmg range", {
 
 test("aura apply effect", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({
         position: { x: 0, y: 0 },
@@ -225,6 +234,7 @@ test("aura apply effect", {
 
 test("aura dot refresh period", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({
         position: { x: 0, y: 0 },
@@ -263,6 +273,7 @@ test("aura dot refresh period", {
 
 test("aura apply effect only once based on unique id", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({
         position: { x: 0, y: 0 },
@@ -312,6 +323,7 @@ test("aura apply effect only once based on unique id", {
 
 test("shoot projectile", {
   initialState: {
+    mapObjects: [],
     units: [
       skeletonUnit({ position: { x: 0, y: 0 }, hp: 10, team: 1 }),
       skeletonUnit({
@@ -327,6 +339,7 @@ test("shoot projectile", {
 
 test("choose target unit with action which is closer #1 part", {
   initialState: {
+    mapObjects: [],
     units: [
       createDummyUnit({ position: { x: 0, y: 0 }, team: 1 }),
 
@@ -349,6 +362,7 @@ test("choose target unit with action which is closer #1 part", {
 
 test("choose target unit with action which is closer #2 part", {
   initialState: {
+    mapObjects: [],
     units: [
       createDummyUnit({ position: { x: 0, y: 0 }, team: 1 }),
 

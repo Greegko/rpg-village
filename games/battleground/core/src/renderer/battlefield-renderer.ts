@@ -15,9 +15,11 @@ export class BattlefieldRenderer {
   private application = new Application();
   private rootContainer = new Container();
   private projectilesContainer = new Container();
+  private backgroundContainer = new Container();
   private unitsContainer = new Container();
   private unitNodes: Record<string, Node> = {};
   private projectileNodes: Record<string, Node> = {};
+  private mapObjectNodes: Record<string, Node> = {};
   private assetManager = inject(AssetManagerToken);
   private lastState: { units: Unit[]; projectiles: Projectile[] } = { units: [], projectiles: [] };
 
@@ -76,6 +78,15 @@ export class BattlefieldRenderer {
       }
 
       this.projectileNodes[projectile.id].setState(projectile);
+    });
+
+    data.mapObjects.forEach(mapObject => {
+      if (this.projectileNodes[mapObject.id] === undefined) {
+        this.mapObjectNodes[mapObject.id] = createMapObjectNode();
+        this.backgroundContainer.addChild(this.mapObjectNodes[mapObject.id].getRoot());
+      }
+
+      this.mapObjectNodes[mapObject.id].setState(mapObject);
     });
 
     const removedProjectiles = without(data.projectiles, this.lastState.projectiles);

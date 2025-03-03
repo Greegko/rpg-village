@@ -141,6 +141,7 @@
   { "configId": "goblin_knight", "spriteId": "hero_hours_sprites/goblin_knight/goblin_knight" },
   { "configId": "leprechaun", "spriteId": "hero_hours_sprites/leprechaun/leprechaun" },
   { "configId": "werewolf", "spriteId": "hero_hours_sprites/werewolf/werewolf" },
+  { "configId": "golden-chest", "spriteId": "chests/chests-0", "size": 32 },
   {
     "configId": "steam_dragon",
     "spriteId": "hero_hours_sprites/steam_dragon/steam_dragon",

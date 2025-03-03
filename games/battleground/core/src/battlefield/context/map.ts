@@ -2,6 +2,8 @@ import { without } from "rambda";
 
 import { Position, multVector, normVector, subVector } from "@rpg-village/utils/node";
 import { Rectangle, SpatialHash } from "@rpg-village/utils/spatial-hash";
+
+import { MapNode, MapObject, isDestructibleNode } from "@/features/map";
 import { Projectile, ProjectileType } from "@/features/projectile";
 import { RandomContextToken } from "@/features/random";
 import { filterBySeekConditions } from "@/features/unit";
@@ -10,9 +12,9 @@ import { inject, injectable } from "../injection-container";
 import { EffectsContext } from "./effects";
 import { UnitContext } from "./unit";
 
-type MapNode = { id: string; position: Position; size: number };
+type HashNode = { position: Position; size: number };
 
-const nodeToRectangle = (node: MapNode): Rectangle => ({
+const nodeToRectangle = (node: HashNode): Rectangle => ({
   left: node.position.x,
   right: node.position.x + node.size,
   top: node.position.y,
@@ -23,11 +25,15 @@ const nodeToRectangle = (node: MapNode): Rectangle => ({
 export class MapContext {
   private unitContext = inject(UnitContext);
   private effectsContext = inject(EffectsContext);
+  private randomContext = inject(RandomContextToken);
+
   projectiles: Projectile[] = [];
+  mapObjects: MapObject[] = [];
 
   tickProjectiles(): void {
-    const hash = new SpatialHash<Unit>(48, nodeToRectangle);
+    const hash = new SpatialHash<MapNode>(48, nodeToRectangle);
     this.unitContext.units.filter(x => x.hp > 0).forEach(unit => hash.add(unit));
+    this.mapObjects.forEach(mapObject => hash.add(mapObject));
 
     for (let projectile of this.projectiles) {
       projectile.timeState -= 1;
@@ -59,8 +65,17 @@ export class MapContext {
     this.projectiles.push(projectile);
   }
 
-  private projectileHit(projectile: Projectile, unit: Unit): void {
-    this.effectsContext.applyEffect(projectile.effect, unit);
+  addMapObject(mapObject: Omit<MapObject, "id">): void {
+    this.mapObjects.push({
+      ...mapObject,
+      id: this.randomContext.uniqueId(),
+    });
+  }
+
+  private projectileHit(projectile: Projectile, mapNode: MapNode): void {
+    if (isDestructibleNode(mapNode)) {
+      this.effectsContext.applyDmgEffect(projectile.effect, mapNode);
+    }
   }
 
   private landProjectile(projectile: Projectile): void {

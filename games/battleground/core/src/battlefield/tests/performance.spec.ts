@@ -15,6 +15,7 @@ const randomTestUnit = ({ position, team }: { position: Position; team: number }
 performanceTest("perf-test", {
   seed: "deterministic-run-test",
   initialState: {
+    mapObjects: [],
     units: [
       randomTestUnit({ position: { x: 0, y: 0 }, team: 1 }),
       randomTestUnit({ position: { x: 20, y: 0 }, team: 1 }),
@@ -51,6 +52,7 @@ performanceTest("perf-test", {
 performanceTest("perf-test", {
   seed: "deterministic-run-test",
   initialState: {
+    mapObjects: [],
     units: [
       ...Array.from({ length: 100 }).map((_, i) =>
         randomTestUnit({ position: { x: (i * 20) % 800, y: Math.floor(i / 800) + 100 }, team: 1 }),

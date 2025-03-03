@@ -1,5 +1,7 @@
 import { Position, isNullVector } from "@rpg-village/utils/node";
 import { Vector, normVector } from "@rpg-village/utils/node";
+
+import { MapObject, MapObjectInit } from "@/features/map";
 import { Projectile } from "@/features/projectile";
 import { Unit, UnitID, UnitInit } from "@/features/unit";
 
@@ -12,11 +14,13 @@ import { UnitContext } from "./unit";
 
 export interface BattlefieldState {
   units: Unit[];
+  mapObjects: MapObject[];
   projectiles: Projectile[];
 }
 
 export interface BattlefieldInit {
   units: UnitInit[];
+  mapObjects: MapObjectInit[];
 }
 
 @injectable()
@@ -30,6 +34,7 @@ export class Battlefield {
 
   init(init: BattlefieldInit) {
     init.units.forEach(unit => this.unitsContext.addUnit(unit));
+    init.mapObjects.forEach(mapObject => this.mapContext.addMapObject(mapObject));
   }
 
   setUserControlledUnit(unitId: UnitID) {
@@ -67,6 +72,7 @@ export class Battlefield {
   getState(): BattlefieldState {
     return {
       units: this.unitsContext.units,
+      mapObjects: this.mapContext.mapObjects,
       projectiles: this.mapContext.projectiles,
     };
   }

@@ -15,6 +15,7 @@ const randomTestUnit = ({ position, team }: { position: Position; team: number }
 test("same output on provided seed", {
   seed: "deterministic-run-test",
   initialState: {
+    mapObjects: [],
     units: [
       randomTestUnit({ position: { x: 0, y: 0 }, team: 1 }),
       randomTestUnit({ position: { x: 20, y: 0 }, team: 1 }),
