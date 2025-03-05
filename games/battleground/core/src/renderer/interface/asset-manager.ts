@@ -13,7 +13,6 @@ export interface AssetManager {
   init(): Promise<any>;
   getSprite(assetId: string): SpriteConfig;
   getAsset(assetId: string): Texture;
-  getAssetAsBase64(assetId: string): Promise<string>;
 }
 
 export const AssetManagerToken = createInjectableToken<AssetManager>("AssetManagerToken");

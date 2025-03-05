@@ -1,9 +1,9 @@
 import { createInjectableToken } from "@greegko/tiny-di";
 
-import { UnitConfig } from "@/features/unit";
+import { UnitConfig, UnitConfigID } from "@/features/unit";
 
 export interface ResourceManager {
-  getUnitConfig(unitId: string): UnitConfig;
+  getUnitConfig(unitId: UnitConfigID): UnitConfig;
 }
 
 export const ResourceManagerToken = createInjectableToken<ResourceManager>("ResourceManagerToken");
