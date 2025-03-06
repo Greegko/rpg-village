@@ -10,7 +10,7 @@ export interface SpriteConfig {
 }
 
 export interface AssetManager {
-  init(): Promise<any>;
+  init(): Promise<void>;
   getSprite(assetId: string): SpriteConfig;
   getAsset(assetId: string): Texture;
 }

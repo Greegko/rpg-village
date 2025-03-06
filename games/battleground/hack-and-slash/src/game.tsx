@@ -5,7 +5,7 @@ import { Ticker } from "pixi.js";
 
 import { BattlefieldConfig, createBattlefieldInstance, createRendererInstance } from "@rpg-village/battleground-core";
 
-import { HerosHoursAssetManager } from "./assets/hero-hours/hero-hours-asset-manager";
+import { AssetManager } from "./assets";
 import { UserControl } from "./plugins/user-control";
 import { ResourceManager, playgroundDefaultBattlefieldInit } from "./resource";
 
@@ -30,7 +30,7 @@ export const Game = () => {
       seed: seedParam || Math.floor(Math.random() * 1_000_000_000).toString(),
     };
 
-    const assetManager = new HerosHoursAssetManager();
+    const assetManager = new AssetManager();
     const resourceManager = new ResourceManager();
     const renderer = createRendererInstance(assetManager);
     const battleField = createBattlefieldInstance(config, resourceManager);
