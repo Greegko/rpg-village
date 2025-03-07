@@ -3,13 +3,17 @@ import { JSX, createSignal, onCleanup } from "solid-js";
 interface FloatWindowProps {
   children: JSX.Element;
   title: string;
+  width: number;
+  height: number;
+  top: number;
+  left: number;
 }
 
 export const FloatWindow = (props: FloatWindowProps) => {
   const [isDragging, setIsDragging] = createSignal(false);
   const [isResizing, setIsResizing] = createSignal(false);
-  const [position, setPosition] = createSignal({ x: 100, y: 100 });
-  const [size, setSize] = createSignal({ width: 300, height: 200 });
+  const [position, setPosition] = createSignal({ x: props.left, y: props.top });
+  const [size, setSize] = createSignal({ width: props.width, height: props.height });
   const [offset, setOffset] = createSignal({ x: 0, y: 0 });
 
   const handleMouseDown = (event: MouseEvent) => {

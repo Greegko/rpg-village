@@ -139,7 +139,7 @@ const MapConfigWindow = () => {
   };
 
   return (
-    <FloatWindow title="Map config">
+    <FloatWindow title="Map config" top={20} left={window.innerWidth - 100 - 300} height={250} width={300}>
       <div>
         <div>
           Tile Size:
@@ -215,7 +215,7 @@ const SpriteSheetWindow = () => {
   const handleDropOver = (e: DragEvent) => e.preventDefault();
 
   return (
-    <FloatWindow title="Sprite Sheet">
+    <FloatWindow title="Sprite Sheet" top={300} left={window.innerWidth - 100 - 450} height={500} width={450}>
       <div class="h-full" onDrop={handleDrop} onDragOver={handleDropOver}>
         <Show when={spritesheet()}>
           <div class="flex">
