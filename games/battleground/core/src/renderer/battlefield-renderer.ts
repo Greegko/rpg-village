@@ -1,19 +1,24 @@
-import { Application, Container, ContainerChild, TilingSprite } from "pixi.js";
+import { Application, Container, ContainerChild, Graphics } from "pixi.js";
 import { values, without } from "rambda";
 
 import { Position } from "@rpg-village/utils/node";
 
-import { MapObject } from "@/features/map";
-import { Projectile } from "@/features/projectile";
+import { Map } from "@/features/map";
 import { Unit, UnitID } from "@/features/unit";
 
-import { BattlefieldConfig, BattlefieldState } from "../battlefield";
-import { inject, injectable } from "./injection-container";
+import { BattlefieldState } from "../battlefield";
+import { inject } from "./injection-container";
 import { AssetManagerToken } from "./interface";
 import { Node } from "./node/create-node";
 import { createMapObjectNode, createProjectileNode, createUnitNode } from "./node/unit-node";
 
-@injectable()
+export type Size = [number, number];
+
+export interface BattlefieldRendererConfig {
+  cameraPosition: Position;
+  viewport: Size;
+}
+
 export class BattlefieldRenderer {
   private assetManager = inject(AssetManagerToken);
 
@@ -27,20 +32,18 @@ export class BattlefieldRenderer {
   private projectileNodes: Record<string, Node> = {};
   private mapObjectNodes: Record<string, Node> = {};
 
-  private lastState: { units: Unit[]; mapObjects: MapObject[]; projectiles: Projectile[] } = { units: [], projectiles: [], mapObjects: [] };
+  private lastState: BattlefieldState = { units: [], projectiles: [], mapObjects: [] };
   private focusOnUnit: UnitID | null = null;
-  private config!: BattlefieldConfig;
+  private config: BattlefieldRendererConfig;
 
-  setFocusOnUnit(unitId: UnitID) {
-    this.focusOnUnit = unitId;
-  }
+  readonly onReady: Promise<void>;
 
-  async init(config: BattlefieldConfig): Promise<HTMLCanvasElement> {
+  constructor(config: BattlefieldRendererConfig) {
     this.config = config;
 
-    await this.application.init({
-      width: config.mapSize[0],
-      height: config.mapSize[1],
+    this.onReady = this.application.init({
+      width: config.viewport[0],
+      height: config.viewport[1],
     });
 
     this.application.stage.addChild(this.rootContainer);
@@ -49,19 +52,32 @@ export class BattlefieldRenderer {
       (globalThis as any).__PIXI_APP__ = this.application;
     }
 
-    const backgroundTitleTexture = this.assetManager.getAsset("overworld_tileset_grass/overworld_tileset_grass-0");
-    const backgroundTitle = new TilingSprite({
-      texture: backgroundTitleTexture,
-      width: config.mapSize[0],
-      height: config.mapSize[1],
-    });
-
-    this.backgroundContainer.addChild(backgroundTitle);
-
     this.rootContainer.addChild(this.backgroundContainer);
     this.rootContainer.addChild(this.unitsContainer);
     this.rootContainer.addChild(this.projectilesContainer);
+  }
 
+  setFocusOnUnit(unitId: UnitID) {
+    this.focusOnUnit = unitId;
+  }
+
+  setMap(map: Map) {
+    const toPosition = (i: number) => ({
+      x: (i * map.tileSize) % map.size[0],
+      y: Math.floor((i * map.tileSize) / map.size[0]) * map.tileSize,
+    });
+
+    map.tiles.forEach((tile, i) => {
+      const texture = this.assetManager.getAsset(tile);
+      const node = new Graphics();
+      node.texture(texture);
+      node.position.copyFrom(toPosition(i));
+
+      this.backgroundContainer.addChild(node);
+    });
+  }
+
+  getCanvas(): HTMLCanvasElement {
     return this.application.canvas;
   }
 

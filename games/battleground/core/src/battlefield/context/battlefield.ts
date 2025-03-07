@@ -1,11 +1,12 @@
 import { Position, isNullVector } from "@rpg-village/utils/node";
 import { Vector, normVector } from "@rpg-village/utils/node";
 
-import { MapObject, MapObjectInit } from "@/features/map";
+import { MapObject } from "@/features/map";
 import { Projectile } from "@/features/projectile";
-import { Unit, UnitID, UnitInit } from "@/features/unit";
+import { Unit, UnitID } from "@/features/unit";
 
-import { inject, injectable } from "../injection-container";
+import { inject } from "../injection-container";
+import { BattlefieldConfigToken } from "../interface";
 import { AiController } from "./ai-controller";
 import { EffectsContext } from "./effects";
 import { MapContext } from "./map";
@@ -18,23 +19,18 @@ export interface BattlefieldState {
   projectiles: Projectile[];
 }
 
-export interface BattlefieldInit {
-  units: UnitInit[];
-  mapObjects: MapObjectInit[];
-}
-
-@injectable()
 export class Battlefield {
   private unitsContext = inject(UnitContext);
   private mapContext = inject(MapContext);
   private effectsContext = inject(EffectsContext);
   private aiController = inject(AiController);
+  private config = inject(BattlefieldConfigToken);
 
   readonly spellsContext = inject(SpellsContext);
 
-  init(init: BattlefieldInit) {
-    init.units.forEach(unit => this.unitsContext.addUnit(unit));
-    init.mapObjects.forEach(mapObject => this.mapContext.addMapObject(mapObject));
+  constructor() {
+    this.config.map.units.forEach(unit => this.unitsContext.addUnit(unit));
+    this.config.map.mapObjects.forEach(mapObject => this.mapContext.addMapObject(mapObject));
   }
 
   setUserControlledUnit(unitId: UnitID) {

@@ -68,11 +68,11 @@ export class UnitContext {
 
     const futurePoint = addVector(multVector(unit.moveDirection, unit.moveSpeed), unit.position);
 
-    if (futurePoint.x > this.battlefieldConfig.mapSize[0] - unitWidth || futurePoint.x < 0) {
+    if (futurePoint.x > this.battlefieldConfig.map.size[0] - unitWidth || futurePoint.x < 0) {
       unit.moveDirection = invXVector(unit.moveDirection);
     }
 
-    if (futurePoint.y > this.battlefieldConfig.mapSize[1] - unitWidth || futurePoint.y < 0) {
+    if (futurePoint.y > this.battlefieldConfig.map.size[1] - unitWidth || futurePoint.y < 0) {
       unit.moveDirection = invYVector(unit.moveDirection);
     }
   }

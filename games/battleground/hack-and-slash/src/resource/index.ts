@@ -1,2 +1,3 @@
 export * from "./resource-manager";
-export * from "./playground-config";
+export * from "./config";
+export * from "./map-generator";

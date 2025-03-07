@@ -1,14 +1,10 @@
 import { createInjectableToken } from "@greegko/tiny-di";
 
-import { Position } from "@rpg-village/utils/node";
-
-type Size = [number, number];
+import { Map } from "@/features/map";
 
 export type BattlefieldConfig = {
-  mapSize: Size;
-  cameraPosition: Position;
-  viewport: Size;
   seed: string;
+  map: Map;
 };
 
 export const BattlefieldConfigToken = createInjectableToken<BattlefieldConfig>("BattlefieldConfig");

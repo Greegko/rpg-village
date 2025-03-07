@@ -3,11 +3,17 @@ import { createSignal, onMount } from "solid-js";
 
 import { Ticker } from "pixi.js";
 
-import { BattlefieldConfig, createBattlefieldInstance, createRendererInstance } from "@rpg-village/battleground-core";
+import {
+  BattlefieldConfig,
+  BattlefieldRendererConfig,
+  createBattlefieldInstance,
+  createRendererInstance,
+} from "@rpg-village/battleground-core";
 
 import { AssetManager } from "./assets";
 import { UserControl } from "./plugins/user-control";
-import { ResourceManager, playgroundDefaultBattlefieldInit } from "./resource";
+import { ResourceManager } from "./resource";
+import { generateMap } from "./resource/map-generator";
 
 export const Game = () => {
   const [battlegroundCanvas, setBattlegroundCanvas] = createSignal<HTMLCanvasElement>();
@@ -23,16 +29,21 @@ export const Game = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const seedParam = urlParams.get("seed");
 
+    const map = generateMap();
+
     const config: BattlefieldConfig = {
-      mapSize: [1200, 800],
+      map,
+      seed: seedParam || Math.floor(Math.random() * 1_000_000_000).toString(),
+    };
+
+    const rendererConfig: BattlefieldRendererConfig = {
       cameraPosition: { x: 0, y: 0 },
       viewport: [window.innerWidth, window.innerHeight],
-      seed: seedParam || Math.floor(Math.random() * 1_000_000_000).toString(),
     };
 
     const assetManager = new AssetManager();
     const resourceManager = new ResourceManager();
-    const renderer = createRendererInstance(assetManager);
+    const renderer = createRendererInstance(rendererConfig, assetManager);
     const battleField = createBattlefieldInstance(config, resourceManager);
 
     if (!seedParam) {
@@ -58,11 +69,14 @@ export const Game = () => {
 
     await assetManager.init();
 
-    battleField.init(playgroundDefaultBattlefieldInit);
+    renderer.setMap(map);
+    await renderer.onReady;
+    setBattlegroundCanvas(renderer.getCanvas());
+
     const heroUnitId = last(battleField.getState().units).id;
     renderer.setFocusOnUnit(heroUnitId);
+
     battleField.setUserControlledUnit(heroUnitId);
-    setBattlegroundCanvas(await renderer.init(config));
 
     ticker.add(({ FPS }) => {
       setFPS(Math.floor(FPS));

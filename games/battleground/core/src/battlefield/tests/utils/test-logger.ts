@@ -1,4 +1,4 @@
-import { Battlefield } from "../../battlefield";
+import { Battlefield } from "../../../battlefield";
 
 export interface LoggerOptions {
   logTurnIterations?: number;

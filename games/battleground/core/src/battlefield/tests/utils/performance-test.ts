@@ -1,8 +1,9 @@
 import { performance } from "node:perf_hooks";
-import { sum } from "rambda";
+import { merge, sum } from "rambda";
 import { expect, test } from "vitest";
 
-import { BattlefieldInit } from "../../context/battlefield";
+import { Map } from "@/features/map";
+
 import { createBattlefieldInstance } from "../../create-battlefield-instance";
 import { clearInstances as clearBattlefieldInstances } from "../../injection-container";
 import { BattlefieldConfig } from "../../interface";
@@ -11,17 +12,18 @@ import { getMapSize } from "./get-map-size";
 
 interface PerformanceTestConfig {
   seed?: string;
-  initialState: BattlefieldInit;
+  map: Partial<Map>;
   createPlayableLink?: boolean;
 }
 
 const round = (v: number, prec: number) => Math.round(v * 10 ** prec) / 10 ** prec;
 
-export function performanceTest(testName: string, { initialState, createPlayableLink, seed }: PerformanceTestConfig) {
+export function performanceTest(testName: string, { map, createPlayableLink, seed }: PerformanceTestConfig) {
   test(testName, () => {
+    const mapWithDefault = merge({ tiles: [], tileSize: 0, size: getMapSize(map?.units || []), units: [], mapObjects: [] }, map);
+
     const config = {
-      mapSize: getMapSize(initialState),
-      speed: null,
+      map: mapWithDefault,
       seed: seed || Math.random().toString(),
     } as BattlefieldConfig;
 
@@ -31,13 +33,9 @@ export function performanceTest(testName: string, { initialState, createPlayable
     const battlefield = createBattlefieldInstance(config, null!);
     performance.measure("create", "create-start");
 
-    performance.mark("init-start");
-    battlefield.init(initialState);
-    performance.measure("init", "init-start");
-
     if (createPlayableLink) {
       console.log("Playable url");
-      console.log(createPlayableUrl(initialState, seed));
+      console.log(createPlayableUrl(mapWithDefault, config.seed));
     }
 
     let tickCounter = 1;
