@@ -1,7 +1,9 @@
-import { JSX, createSignal, onCleanup } from "solid-js";
+import { For, JSXElement, Show, createComputed, createSignal, onCleanup } from "solid-js";
+import { createStore, produce } from "solid-js/store";
+import { render } from "solid-js/web";
 
 interface FloatWindowProps {
-  children: JSX.Element;
+  contentId: string;
   title: string;
   width: number;
   height: number;
@@ -9,7 +11,56 @@ interface FloatWindowProps {
   left: number;
 }
 
-export const FloatWindow = (props: FloatWindowProps) => {
+const [windows, setWindows] = createStore<FloatWindowProps[]>([]);
+const [contents, setContents] = createStore<Record<string, () => JSXElement>>({});
+
+export const useWindowRoot = () => {
+  const windowsContainer = document.createElement("div");
+  document.body.appendChild(windowsContainer);
+
+  createComputed(() => {
+    render(
+      () => (
+        <For each={windows}>
+          {window => (
+            <Show when={contents[window.contentId]}>
+              <WindowHost title={window.title} width={window.width} height={window.height} top={window.top} left={window.left}>
+                {contents[window.contentId]()}
+              </WindowHost>
+            </Show>
+          )}
+        </For>
+      ),
+      windowsContainer,
+    );
+
+    onCleanup(() => document.body.removeChild(windowsContainer));
+  });
+};
+
+export const useWindow = () => {
+  const addWindow = (contentId: string, title: string, options?: Omit<FloatWindowProps, "contentId" | "title">) => {
+    const windowProps = { contentId, title, width: 300, height: 300, top: 100, left: 100, ...(options || {}) } as FloatWindowProps;
+    setWindows(produce(x => x.push(windowProps)));
+  };
+
+  const setContent = (id: string, content: () => JSXElement) => {
+    setContents(contents => ({ ...contents, [id]: content }));
+  };
+
+  return { addWindow, setContent };
+};
+
+interface WindowHostProps {
+  children: JSXElement;
+  title: string;
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+}
+
+const WindowHost = (props: WindowHostProps) => {
   const [isCollapsed, setIsCollapsed] = createSignal(false);
   const [isDragging, setIsDragging] = createSignal(false);
   const [isResizing, setIsResizing] = createSignal(false);

@@ -1,12 +1,10 @@
-import { trackStore } from "@solid-primitives/deep";
-import { get, set } from "idb-keyval";
 import { flatten, without } from "rambda";
-import { For, Show, createComputed, createResource, createSignal } from "solid-js";
-import { createStore, produce, unwrap } from "solid-js/store";
+import { For, Show, createResource, createSignal } from "solid-js";
+import { createStore, produce } from "solid-js/store";
 
-import { Application, Assets, Spritesheet } from "pixi.js";
+import { Application, Assets, Spritesheet, Texture } from "pixi.js";
 
-import { FloatWindow } from "../components/float-window";
+import { useWindow, useWindowRoot } from "../components/float-window";
 
 const app = new Application();
 app.init();
@@ -23,47 +21,9 @@ type Map = {
   mapObjects: MapObject[];
 };
 
-type SpritesheetFiles = { json: File; image: File };
-
-const [spritesheetFiles, setSpritesheetFiles] = createSignal<SpritesheetFiles | null>(null);
+const [spritesheet, setSpritesheet] = createSignal<Spritesheet | null>(null);
 const [selectedSprite, setSelectedSprite] = createSignal<string | null>(null);
 const [map, setMap] = createStore<Map>({ tileSize: 48, size: [1200, 1152], tiles: [], mapObjects: [] });
-
-const [spritesheet] = createResource(
-  () => spritesheetFiles(),
-  async () => {
-    const { image, json } = spritesheetFiles()!;
-
-    const fileJSON = JSON.parse(await json.text());
-
-    return new Promise<Spritesheet>(resolve => {
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onloadend = function () {
-        Assets.load(this.result as string).then(texture => {
-          const spriteSheet = new Spritesheet(texture, fileJSON);
-          return spriteSheet.parse().then(() => resolve(spriteSheet));
-        });
-      };
-    });
-  },
-);
-
-interface StorageState {
-  map: Map;
-  spreadsheetFiles: { json: File; image: File };
-}
-
-const STORAGE_KEY = "rpg-village-map-editor-state";
-
-get(STORAGE_KEY).then(savedState => {
-  if (savedState) {
-    const { map, spreadsheetFiles } = savedState as StorageState;
-
-    setMap(map);
-    setSpritesheetFiles(spreadsheetFiles);
-  }
-});
 
 const mapColumns = map.size[0] / map.tileSize;
 const mapRows = map.size[1] / map.tileSize;
@@ -72,17 +32,22 @@ setMap(produce(map => (map.tiles = Array.from({ length: mapRows }, () => Array.f
 
 const getGroup = (spriteName: string) => spriteName.split("/")[0];
 
-createComputed(() => set(STORAGE_KEY, { map: unwrap(trackStore(map)), spreadsheetFiles: spritesheetFiles() }));
-
 export const AppPage = () => {
+  useWindowRoot();
+
+  const { addWindow, setContent } = useWindow();
+
+  addWindow("SpriteSheetWindow", "Spritesheet");
+  addWindow("MapConfigWindow", "Map config");
+
+  setContent("SpriteSheetWindow", SpriteSheetWindow);
+  setContent("MapConfigWindow", MapConfigWindow);
+
   return (
-    <div class="flex select-none">
+    <div class="select-none">
       <div class="border w-fit">
         <RenderMap />
       </div>
-
-      <MapConfigWindow />
-      <SpriteSheetWindow />
     </div>
   );
 };
@@ -126,7 +91,7 @@ const RenderMap = () => {
                     onClick={[placeSpriteOnTile, [rowIndex(), columIndex()]]}
                   >
                     <Show when={map.tiles[rowIndex()][columIndex()]} keyed>
-                      {tile => <TextureDisplay textureId={tile} />}
+                      {tile => <TextureDisplay texture={spritesheet()!.textures[tile]} />}
                     </Show>
                   </span>
                 )}
@@ -138,7 +103,7 @@ const RenderMap = () => {
       <For each={map.mapObjects}>
         {mapObject => (
           <span class="absolute" style={{ top: mapObject.position.y + "px", left: mapObject.position.x + "px" }}>
-            <TextureDisplay textureId={mapObject.spriteId} />
+            <TextureDisplay texture={spritesheet()!.textures[mapObject.spriteId]} />
           </span>
         )}
       </For>
@@ -146,19 +111,9 @@ const RenderMap = () => {
   );
 };
 
-const TextureDisplay = (props: { textureId: string }) => {
-  const texture = () => spritesheet() && spritesheet()!.textures[props.textureId];
-
-  const [resource] = createResource(
-    () => texture(),
-    () => app.renderer.extract.base64(texture()!),
-  );
-
-  return (
-    <Show when={texture()} keyed>
-      {texture => <img src={resource()} width={texture.width} height={texture.height} />}
-    </Show>
-  );
+const TextureDisplay = (props: { texture: Texture }) => {
+  const [resource] = createResource(() => app.renderer.extract.base64(props.texture));
+  return <img src={resource()} width={props.texture.width} height={props.texture.height} />;
 };
 
 const MapConfigWindow = () => {
@@ -185,50 +140,40 @@ const MapConfigWindow = () => {
 
   const copyMapToClipboard = () => {
     const mapJSON = JSON.stringify(map);
-    navigator.clipboard.writeText(mapJSON).then(() => alert("Map JSON copied to clipboard!"));
-  };
-
-  const loadMap = async () => {
-    const [file] = await window.showOpenFilePicker();
-
-    const content = await (await file.getFile()).text();
-    setMap(JSON.parse(content));
+    navigator.clipboard.writeText(mapJSON).then(() => {
+      alert("Map JSON copied to clipboard!");
+    });
   };
 
   return (
-    <FloatWindow title="Map config" top={20} left={window.innerWidth - 100 - 300} height={250} width={300}>
+    <div>
       <div>
-        <div>
-          Tile Size:
-          <input type="number" value={map.tileSize} onInput={e => setMap("tileSize", parseInt(e.currentTarget.value))} />
-        </div>
-        <div>
-          Map Size (in tiles):
-          <input
-            type="number"
-            class="w-10 border"
-            value={map.size[0] / map.tileSize}
-            onInput={e => handleSizeChange(0, parseInt(e.currentTarget.value))}
-          />
-          x
-          <input
-            type="number"
-            class="w-10 border"
-            value={map.size[1] / map.tileSize}
-            onInput={e => handleSizeChange(1, parseInt(e.currentTarget.value))}
-          />
-        </div>
-        <div>
-          Map Size (in px): {map.size[0]} x {map.size[1]} px
-        </div>
-        <button class="border p-2 cursor-pointer" onClick={copyMapToClipboard}>
-          Copy Map to Clipboard
-        </button>
-        <button class="border p-2 cursor-pointer" onClick={loadMap}>
-          Load Map
-        </button>
+        Tile Size:
+        <input type="number" value={map.tileSize} onInput={e => setMap("tileSize", parseInt(e.currentTarget.value))} />
       </div>
-    </FloatWindow>
+      <div>
+        Map Size (in tiles):
+        <input
+          type="number"
+          class="w-10 border"
+          value={map.size[0] / map.tileSize}
+          onInput={e => handleSizeChange(0, parseInt(e.currentTarget.value))}
+        />
+        x
+        <input
+          type="number"
+          class="w-10 border"
+          value={map.size[1] / map.tileSize}
+          onInput={e => handleSizeChange(1, parseInt(e.currentTarget.value))}
+        />
+      </div>
+      <div>
+        Map Size (in px): {map.size[0]} x {map.size[1]} px
+      </div>
+      <button class="border p-2 cursor-pointer" onClick={copyMapToClipboard}>
+        Copy Map JSON
+      </button>
+    </div>
   );
 };
 
@@ -256,59 +201,69 @@ const SpriteSheetWindow = () => {
     event.preventDefault();
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      setSpritesheetFiles({ json: files[0], image: files[1] });
+      const fileImage = files[1];
+
+      const reader = new FileReader();
+      reader.readAsDataURL(fileImage);
+
+      const fileJSON = JSON.parse(await files[0].text());
+
+      reader.onloadend = function () {
+        Assets.load(this.result as string).then(texture => {
+          const spriteSheet = new Spritesheet(texture, fileJSON);
+          return spriteSheet.parse().then(() => setSpritesheet(spriteSheet));
+        });
+      };
     }
   };
 
   const handleDropOver = (e: DragEvent) => e.preventDefault();
 
   return (
-    <FloatWindow title="Sprite Sheet" top={300} left={window.innerWidth - 100 - 450} height={500} width={450}>
-      <div class="h-full" onDrop={handleDrop} onDragOver={handleDropOver}>
-        <Show when={spritesheet()}>
-          <div class="flex">
-            <For
-              each={Object.keys(
-                Object.keys(spritesheet()!.textures).reduce(
-                  (acc, name) => {
-                    const group = getGroup(name);
-                    if (!acc[group]) acc[group] = [];
-                    acc[group].push(name);
-                    return acc;
-                  },
-                  {} as Record<string, string[]>,
-                ),
-              )}
-            >
-              {groupName => (
-                <div class="tab" onClick={() => setActiveTab(groupName)}>
-                  {groupName}
-                </div>
-              )}
-            </For>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <div
-              title="Clear"
-              class="cursor-pointer"
-              style={{ width: map.tileSize + "px", height: map.tileSize + "px" }}
-              onClick={[setSelectedSprite, null]}
-            ></div>
-            <For each={getTextures().filter(name => getGroup(name) === activeTab())}>
-              {name => (
-                <div
-                  title={name}
-                  style={{ width: map.tileSize + "px", height: map.tileSize + "px" }}
-                  class="cursor-pointer"
-                  onClick={[setSelectedSprite, name]}
-                >
-                  <TextureDisplay textureId={name} />
-                </div>
-              )}
-            </For>
-          </div>
-        </Show>
-      </div>
-    </FloatWindow>
+    <div class="h-full" onDrop={handleDrop} onDragOver={handleDropOver}>
+      <Show when={spritesheet()}>
+        <div class="flex">
+          <For
+            each={Object.keys(
+              Object.keys(spritesheet()!.textures).reduce(
+                (acc, name) => {
+                  const group = getGroup(name);
+                  if (!acc[group]) acc[group] = [];
+                  acc[group].push(name);
+                  return acc;
+                },
+                {} as Record<string, string[]>,
+              ),
+            )}
+          >
+            {groupName => (
+              <div class="tab" onClick={() => setActiveTab(groupName)}>
+                {groupName}
+              </div>
+            )}
+          </For>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <div
+            title={"Clear"}
+            style={{ width: map.tileSize + "px", height: map.tileSize + "px" }}
+            class="cursor-pointer"
+            onClick={[setSelectedSprite, null]}
+          ></div>
+          <For each={getTextures().filter(name => getGroup(name) === activeTab())}>
+            {name => (
+              <div
+                title={name}
+                style={{ width: map.tileSize + "px", height: map.tileSize + "px" }}
+                class="cursor-pointer"
+                onClick={[setSelectedSprite, name]}
+              >
+                <TextureDisplay texture={spritesheet()!.textures[name]} />
+              </div>
+            )}
+          </For>
+        </div>
+      </Show>
+    </div>
   );
 };
