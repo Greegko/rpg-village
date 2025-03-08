@@ -368,9 +368,6 @@ importers:
 
   packages/tile-map-editor:
     dependencies:
-      '@tailwindcss/vite':
-        specifier: 4.0.7
-        version: 4.0.7(vite@6.1.1(@types/node@22.13.4)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
       pixi.js:
         specifier: 8.8.0
         version: 8.8.0
@@ -380,6 +377,13 @@ importers:
       solid-js:
         specifier: 1.9.4
         version: 1.9.4
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: 4.0.7
+        version: 4.0.7(vite@6.1.1(@types/node@22.13.4)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.85.0)(tsx@4.19.3)(yaml@2.4.5))
+      '@types/wicg-file-system-access':
+        specifier: 2023.10.5
+        version: 2023.10.5
       tailwindcss:
         specifier: 4.0.7
         version: 4.0.7
@@ -1229,6 +1233,9 @@ packages:
 
   '@types/shortid@2.2.0':
     resolution: {integrity: sha512-jBG2FgBxcaSf0h662YloTGA32M8UtNbnTPekUr/eCmWXq0JWQXgNEQ/P5Gf05Cv66QZtE1Ttr83I1AJBPdzCBg==}
+
+  '@types/wicg-file-system-access@2023.10.5':
+    resolution: {integrity: sha512-e9kZO9kCdLqT2h9Tw38oGv9UNzBBWaR1MzuAavxPcsV/7FJ3tWbU6RI3uB+yKIDPGLkGVbplS52ub0AcRLvrhA==}
 
   '@vitest/expect@3.0.6':
     resolution: {integrity: sha512-zBduHf/ja7/QRX4HdP1DSq5XrPgdN+jzLOwaTq/0qZjYfgETNFCKf9nOAp2j3hmom3oTbczuUzrzg9Hafh7hNg==}
@@ -2971,6 +2978,8 @@ snapshots:
     optional: true
 
   '@types/shortid@2.2.0': {}
+
+  '@types/wicg-file-system-access@2023.10.5': {}
 
   '@vitest/expect@3.0.6':
     dependencies:

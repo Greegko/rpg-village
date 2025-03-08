@@ -138,6 +138,13 @@ const MapConfigWindow = () => {
     });
   };
 
+  const loadMap = async () => {
+    const [file] = await window.showOpenFilePicker();
+
+    const content = await (await file.getFile()).text();
+    setMap(JSON.parse(content));
+  };
+
   return (
     <FloatWindow title="Map config" top={20} left={window.innerWidth - 100 - 300} height={250} width={300}>
       <div>
@@ -165,7 +172,10 @@ const MapConfigWindow = () => {
           Map Size (in px): {map.size[0]} x {map.size[1]} px
         </div>
         <button class="border p-2 cursor-pointer" onClick={copyMapToClipboard}>
-          Copy Map JSON
+          Copy Map to Clipboard
+        </button>
+        <button class="border p-2 cursor-pointer" onClick={loadMap}>
+          Load Map
         </button>
       </div>
     </FloatWindow>
