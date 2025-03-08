@@ -69,8 +69,9 @@ createComputed(
 get<StorageState>(STORAGE_KEY).then(state => {
   if (!state) {
     const { addWindow } = useWindow();
-    addWindow("SpriteSheetWindow", "Spritesheet");
+
     addWindow("MapConfigWindow", "Map config");
+    addWindow("AppWindow", "App");
 
     return;
   }
@@ -91,8 +92,9 @@ export const AppPage = () => {
 
   const { setContent } = useWindow();
 
-  setContent("SpriteSheetWindow", SpriteSheetWindow);
+  setContent("SpritesheetWindow", SpritesheetWindow);
   setContent("MapConfigWindow", MapConfigWindow);
+  setContent("AppWindow", AppWindow);
 
   return (
     <div class="select-none">
@@ -175,6 +177,33 @@ const TextureDisplay = (props: { textureId: string }) => {
   );
 };
 
+const AppWindow = () => {
+  const copyMapToClipboard = () => {
+    const mapJSON = JSON.stringify(map);
+    navigator.clipboard.writeText(mapJSON).then(() => {
+      alert("Map JSON copied to clipboard!");
+    });
+  };
+
+  const addSpreadsheet = () => {
+    const { addWindow } = useWindow();
+
+    addWindow("SpritesheetWindow", "Spritesheet");
+  };
+
+  return (
+    <div>
+      <button class="border p-2 cursor-pointer" onClick={addSpreadsheet}>
+        Add Spreadsheet
+      </button>
+
+      <button class="border p-2 cursor-pointer" onClick={copyMapToClipboard}>
+        Export Map
+      </button>
+    </div>
+  );
+};
+
 const MapConfigWindow = () => {
   const handleSizeChange = (index: number, value: number) => {
     const newSize = [...map.size];
@@ -195,13 +224,6 @@ const MapConfigWindow = () => {
         }
       }),
     );
-  };
-
-  const copyMapToClipboard = () => {
-    const mapJSON = JSON.stringify(map);
-    navigator.clipboard.writeText(mapJSON).then(() => {
-      alert("Map JSON copied to clipboard!");
-    });
   };
 
   return (
@@ -229,14 +251,11 @@ const MapConfigWindow = () => {
       <div>
         Map Size (in px): {map.size[0]} x {map.size[1]} px
       </div>
-      <button class="border p-2 cursor-pointer" onClick={copyMapToClipboard}>
-        Copy Map JSON
-      </button>
     </div>
   );
 };
 
-const SpriteSheetWindow = () => {
+const SpritesheetWindow = () => {
   const [activeTab, setActiveTab] = createSignal<string | null>(null);
 
   const getTextures = () => {
