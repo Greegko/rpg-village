@@ -10,6 +10,7 @@ interface FloatWindowProps {
 }
 
 export const FloatWindow = (props: FloatWindowProps) => {
+  const [isCollapsed, setIsCollapsed] = createSignal(false);
   const [isDragging, setIsDragging] = createSignal(false);
   const [isResizing, setIsResizing] = createSignal(false);
   const [position, setPosition] = createSignal({ x: props.left, y: props.top });
@@ -58,16 +59,23 @@ export const FloatWindow = (props: FloatWindowProps) => {
         left: `${position().x}px`,
         top: `${position().y}px`,
         width: `${size().width}px`,
-        height: `${size().height}px`,
+        height: isCollapsed() ? `40px` : `${size().height}px`,
       }}
     >
       <div class="bg-gray-800 text-white p-2 cursor-move flex justify-between" onMouseDown={handleMouseDown}>
         <span>{props.title}</span>
+        <span class="font-bold cursor-pointer" onClick={() => setIsCollapsed(val => !val)}>
+          {isCollapsed() ? "+" : "-"}
+        </span>
       </div>
-      <div class="p-4 overflow-auto" style={{ height: `${size().height - 40}px` }}>
+      <div class="p-4 overflow-auto" classList={{ hidden: isCollapsed() }} style={{ height: `${size().height - 40}px` }}>
         {props.children}
       </div>
-      <div class="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize" onMouseDown={() => setIsResizing(true)} />
+      <div
+        class="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize"
+        classList={{ hidden: isCollapsed() }}
+        onMouseDown={() => setIsResizing(true)}
+      />
     </div>
   );
 };
