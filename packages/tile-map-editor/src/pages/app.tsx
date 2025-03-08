@@ -1,10 +1,12 @@
+import { trackStore } from "@solid-primitives/deep";
+import { get, set } from "idb-keyval";
 import { flatten, without } from "rambda";
-import { For, Show, createResource, createSignal } from "solid-js";
-import { createStore, produce } from "solid-js/store";
+import { For, Show, createComputed, createResource, createSignal, on } from "solid-js";
+import { createStore, produce, unwrap } from "solid-js/store";
 
-import { Application, Assets, Spritesheet, Texture } from "pixi.js";
+import { Application, Assets, Spritesheet } from "pixi.js";
 
-import { useWindow, useWindowRoot } from "../components/float-window";
+import { FloatWindow, setWindows, useWindow, useWindowRoot, windows } from "../components/float-window";
 
 const app = new Application();
 app.init();
@@ -21,12 +23,64 @@ type Map = {
   mapObjects: MapObject[];
 };
 
-const [spritesheet, setSpritesheet] = createSignal<Spritesheet | null>(null);
+const STORAGE_KEY = "tile-map-editor-state";
+
+interface StorageState {
+  map: Map;
+  windows: FloatWindow[];
+  spritesheetFiles: SpriteSheetFiles;
+}
+
+type SpriteSheetFiles = { json: File; image: File };
+const [spritesheetFiles, setSpritesheetFiles] = createSignal<SpriteSheetFiles | null>(null);
 const [selectedSprite, setSelectedSprite] = createSignal<string | null>(null);
 const [map, setMap] = createStore<Map>({ tileSize: 48, size: [1200, 1152], tiles: [], mapObjects: [] });
 
 const mapColumns = map.size[0] / map.tileSize;
 const mapRows = map.size[1] / map.tileSize;
+
+const [spritesheet] = createResource(
+  () => spritesheetFiles(),
+  async () => {
+    const { json, image } = spritesheetFiles()!;
+
+    const fileJSON = JSON.parse(await json.text());
+    return new Promise<Spritesheet>(resove => {
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onloadend = function () {
+        Assets.load(this.result as string).then(texture => {
+          const spriteSheet = new Spritesheet(texture, fileJSON);
+          return spriteSheet.parse().then(() => resove(spriteSheet));
+        });
+      };
+    });
+  },
+);
+
+createComputed(
+  on(
+    () => [trackStore(map), spritesheetFiles(), trackStore(windows)],
+    () => set(STORAGE_KEY, { map: unwrap(map), spritesheetFiles: spritesheetFiles(), windows: unwrap(windows) } as StorageState),
+    { defer: true },
+  ),
+);
+
+get<StorageState>(STORAGE_KEY).then(state => {
+  if (!state) {
+    const { addWindow } = useWindow();
+    addWindow("SpriteSheetWindow", "Spritesheet");
+    addWindow("MapConfigWindow", "Map config");
+
+    return;
+  }
+
+  const { map, spritesheetFiles, windows } = state;
+
+  setMap(map);
+  setSpritesheetFiles(spritesheetFiles);
+  setWindows(windows);
+});
 
 setMap(produce(map => (map.tiles = Array.from({ length: mapRows }, () => Array.from({ length: mapColumns }, () => null)))));
 
@@ -35,10 +89,7 @@ const getGroup = (spriteName: string) => spriteName.split("/")[0];
 export const AppPage = () => {
   useWindowRoot();
 
-  const { addWindow, setContent } = useWindow();
-
-  addWindow("SpriteSheetWindow", "Spritesheet");
-  addWindow("MapConfigWindow", "Map config");
+  const { setContent } = useWindow();
 
   setContent("SpriteSheetWindow", SpriteSheetWindow);
   setContent("MapConfigWindow", MapConfigWindow);
@@ -91,7 +142,7 @@ const RenderMap = () => {
                     onClick={[placeSpriteOnTile, [rowIndex(), columIndex()]]}
                   >
                     <Show when={map.tiles[rowIndex()][columIndex()]} keyed>
-                      {tile => <TextureDisplay texture={spritesheet()!.textures[tile]} />}
+                      {tile => <TextureDisplay textureId={tile} />}
                     </Show>
                   </span>
                 )}
@@ -103,7 +154,7 @@ const RenderMap = () => {
       <For each={map.mapObjects}>
         {mapObject => (
           <span class="absolute" style={{ top: mapObject.position.y + "px", left: mapObject.position.x + "px" }}>
-            <TextureDisplay texture={spritesheet()!.textures[mapObject.spriteId]} />
+            <TextureDisplay textureId={mapObject.spriteId} />
           </span>
         )}
       </For>
@@ -111,9 +162,17 @@ const RenderMap = () => {
   );
 };
 
-const TextureDisplay = (props: { texture: Texture }) => {
-  const [resource] = createResource(() => app.renderer.extract.base64(props.texture));
-  return <img src={resource()} width={props.texture.width} height={props.texture.height} />;
+const TextureDisplay = (props: { textureId: string }) => {
+  const texture = () => spritesheet() && spritesheet()!.textures[props.textureId];
+  const [resource] = createResource(
+    () => texture(),
+    () => app.renderer.extract.base64(texture()!),
+  );
+  return (
+    <Show when={texture()} keyed>
+      {texture => <img src={resource()} width={texture.width} height={texture.height} />}
+    </Show>
+  );
 };
 
 const MapConfigWindow = () => {
@@ -201,19 +260,7 @@ const SpriteSheetWindow = () => {
     event.preventDefault();
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      const fileImage = files[1];
-
-      const reader = new FileReader();
-      reader.readAsDataURL(fileImage);
-
-      const fileJSON = JSON.parse(await files[0].text());
-
-      reader.onloadend = function () {
-        Assets.load(this.result as string).then(texture => {
-          const spriteSheet = new Spritesheet(texture, fileJSON);
-          return spriteSheet.parse().then(() => setSpritesheet(spriteSheet));
-        });
-      };
+      setSpritesheetFiles({ json: files[0], image: files[1] });
     }
   };
 
@@ -258,7 +305,7 @@ const SpriteSheetWindow = () => {
                 class="cursor-pointer"
                 onClick={[setSelectedSprite, name]}
               >
-                <TextureDisplay texture={spritesheet()!.textures[name]} />
+                <TextureDisplay textureId={name} />
               </div>
             )}
           </For>
